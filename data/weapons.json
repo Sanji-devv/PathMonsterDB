@@ -1,0 +1,371 @@
+[
+  {
+    "name": "Dagger",
+    "category": "Simple",
+    "type": "Light",
+    "damage": "1d4",
+    "crit": "19-20/x2",
+    "range": "10 ft.",
+    "weight": 1
+  },
+  {
+    "name": "Punching Dagger",
+    "category": "Simple",
+    "type": "Light",
+    "damage": "1d4",
+    "crit": "x3",
+    "range": "-",
+    "weight": 1
+  },
+  {
+    "name": "Sickle",
+    "category": "Simple",
+    "type": "Light",
+    "damage": "1d6",
+    "crit": "x2",
+    "range": "-",
+    "weight": 2
+  },
+  {
+    "name": "Club",
+    "category": "Simple",
+    "type": "One-Handed",
+    "damage": "1d6",
+    "crit": "x2",
+    "range": "10 ft.",
+    "weight": 3
+  },
+  {
+    "name": "Heavy Mace",
+    "category": "Simple",
+    "type": "One-Handed",
+    "damage": "1d8",
+    "crit": "x2",
+    "range": "-",
+    "weight": 8
+  },
+  {
+    "name": "Morningstar",
+    "category": "Simple",
+    "type": "One-Handed",
+    "damage": "1d8",
+    "crit": "x2",
+    "range": "-",
+    "weight": 6
+  },
+  {
+    "name": "Short Spear",
+    "category": "Simple",
+    "type": "One-Handed",
+    "damage": "1d6",
+    "crit": "x2",
+    "range": "20 ft.",
+    "weight": 3
+  },
+  {
+    "name": "Quarterstaff",
+    "category": "Simple",
+    "type": "Two-Handed",
+    "damage": "1d6/1d6",
+    "crit": "x2",
+    "range": "-",
+    "weight": 4
+  },
+  {
+    "name": "Spear",
+    "category": "Simple",
+    "type": "Two-Handed",
+    "damage": "1d8",
+    "crit": "x3",
+    "range": "20 ft.",
+    "weight": 6
+  },
+  {
+    "name": "Handaxe",
+    "category": "Martial",
+    "type": "Light",
+    "damage": "1d6",
+    "crit": "x3",
+    "range": "-",
+    "weight": 3
+  },
+  {
+    "name": "Light Hammer",
+    "category": "Martial",
+    "type": "Light",
+    "damage": "1d4",
+    "crit": "x2",
+    "range": "20 ft.",
+    "weight": 2
+  },
+  {
+    "name": "Light Pick",
+    "category": "Martial",
+    "type": "Light",
+    "damage": "1d4",
+    "crit": "x4",
+    "range": "-",
+    "weight": 3
+  },
+  {
+    "name": "Sap",
+    "category": "Martial",
+    "type": "Light",
+    "damage": "1d6",
+    "crit": "x2",
+    "range": "-",
+    "weight": 2
+  },
+  {
+    "name": "Short Sword",
+    "category": "Martial",
+    "type": "Light",
+    "damage": "1d6",
+    "crit": "19-20/x2",
+    "range": "-",
+    "weight": 2
+  },
+  {
+    "name": "Starknife",
+    "category": "Martial",
+    "type": "Light",
+    "damage": "1d4",
+    "crit": "x3",
+    "range": "20 ft.",
+    "weight": 3
+  },
+  {
+    "name": "Battleaxe",
+    "category": "Martial",
+    "type": "One-Handed",
+    "damage": "1d8",
+    "crit": "x3",
+    "range": "-",
+    "weight": 6
+  },
+  {
+    "name": "Flail",
+    "category": "Martial",
+    "type": "One-Handed",
+    "damage": "1d8",
+    "crit": "x2",
+    "range": "-",
+    "weight": 5
+  },
+  {
+    "name": "Heavy Pick",
+    "category": "Martial",
+    "type": "One-Handed",
+    "damage": "1d6",
+    "crit": "x4",
+    "range": "-",
+    "weight": 6
+  },
+  {
+    "name": "Longsword",
+    "category": "Martial",
+    "type": "One-Handed",
+    "damage": "1d8",
+    "crit": "19-20/x2",
+    "range": "-",
+    "weight": 4
+  },
+  {
+    "name": "Rapier",
+    "category": "Martial",
+    "type": "One-Handed",
+    "damage": "1d6",
+    "crit": "18-20/x2",
+    "range": "-",
+    "weight": 2
+  },
+  {
+    "name": "Scimitar",
+    "category": "Martial",
+    "type": "One-Handed",
+    "damage": "1d6",
+    "crit": "18-20/x2",
+    "range": "-",
+    "weight": 4
+  },
+  {
+    "name": "Warhammer",
+    "category": "Martial",
+    "type": "One-Handed",
+    "damage": "1d8",
+    "crit": "x3",
+    "range": "-",
+    "weight": 5
+  },
+  {
+    "name": "Trident",
+    "category": "Martial",
+    "type": "One-Handed",
+    "damage": "1d8",
+    "crit": "x2",
+    "range": "10 ft.",
+    "weight": 4
+  },
+  {
+    "name": "Falchion",
+    "category": "Martial",
+    "type": "Two-Handed",
+    "damage": "2d4",
+    "crit": "18-20/x2",
+    "range": "-",
+    "weight": 8
+  },
+  {
+    "name": "Glaive",
+    "category": "Martial",
+    "type": "Two-Handed",
+    "damage": "1d10",
+    "crit": "x3",
+    "range": "-",
+    "weight": 10
+  },
+  {
+    "name": "Greataxe",
+    "category": "Martial",
+    "type": "Two-Handed",
+    "damage": "1d12",
+    "crit": "x3",
+    "range": "-",
+    "weight": 12
+  },
+  {
+    "name": "Greatclub",
+    "category": "Martial",
+    "type": "Two-Handed",
+    "damage": "1d10",
+    "crit": "x2",
+    "range": "-",
+    "weight": 8
+  },
+  {
+    "name": "Greatsword",
+    "category": "Martial",
+    "type": "Two-Handed",
+    "damage": "2d6",
+    "crit": "19-20/x2",
+    "range": "-",
+    "weight": 8
+  },
+  {
+    "name": "Guisarme",
+    "category": "Martial",
+    "type": "Two-Handed",
+    "damage": "2d4",
+    "crit": "x3",
+    "range": "-",
+    "weight": 12
+  },
+  {
+    "name": "Halberd",
+    "category": "Martial",
+    "type": "Two-Handed",
+    "damage": "1d10",
+    "crit": "x3",
+    "range": "-",
+    "weight": 12
+  },
+  {
+    "name": "Lance",
+    "category": "Martial",
+    "type": "Two-Handed",
+    "damage": "1d8",
+    "crit": "x3",
+    "range": "-",
+    "weight": 10
+  },
+  {
+    "name": "Ranseur",
+    "category": "Martial",
+    "type": "Two-Handed",
+    "damage": "2d4",
+    "crit": "x3",
+    "range": "-",
+    "weight": 12
+  },
+  {
+    "name": "Scythe",
+    "category": "Martial",
+    "type": "Two-Handed",
+    "damage": "2d4",
+    "crit": "x4",
+    "range": "-",
+    "weight": 10
+  },
+  {
+    "name": "Light Crossbow",
+    "category": "Simple",
+    "type": "Ranged",
+    "damage": "1d8",
+    "crit": "19-20/x2",
+    "range": "80 ft.",
+    "weight": 4
+  },
+  {
+    "name": "Heavy Crossbow",
+    "category": "Simple",
+    "type": "Ranged",
+    "damage": "1d10",
+    "crit": "19-20/x2",
+    "range": "120 ft.",
+    "weight": 8
+  },
+  {
+    "name": "Shortbow",
+    "category": "Martial",
+    "type": "Ranged",
+    "damage": "1d6",
+    "crit": "x3",
+    "range": "60 ft.",
+    "weight": 2
+  },
+  {
+    "name": "Longbow",
+    "category": "Martial",
+    "type": "Ranged",
+    "damage": "1d8",
+    "crit": "x3",
+    "range": "100 ft.",
+    "weight": 3
+  },
+  {
+    "name": "Composite Longbow",
+    "category": "Martial",
+    "type": "Ranged",
+    "damage": "1d8",
+    "crit": "x3",
+    "range": "110 ft.",
+    "weight": 3
+  },
+  {
+    "name": "Composite Shortbow",
+    "category": "Martial",
+    "type": "Ranged",
+    "damage": "1d6",
+    "crit": "x3",
+    "range": "70 ft.",
+    "weight": 2
+  },
+  {
+    "name": "Throwing Axe",
+    "category": "Martial",
+    "type": "Ranged",
+    "damage": "1d6",
+    "crit": "x2",
+    "range": "10 ft.",
+    "weight": 2
+  },
+  {
+    "name": "Javelin",
+    "category": "Simple",
+    "type": "Ranged",
+    "damage": "1d6",
+    "crit": "x2",
+    "range": "30 ft.",
+    "weight": 2
+  }
+]

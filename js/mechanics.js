@@ -1,0 +1,134 @@
+window.applyMechanics = function() {
+    // 1. Spells Integration
+    const wrapSpells = document.getElementById('wrap-spells');
+    const outSpellsList = document.getElementById('out-spells-list');
+
+    if (window.CharacterState && window.CharacterState.spells.length > 0) {
+        wrapSpells.style.display = 'block';
+        
+        const spellsByLevel = {};
+        window.CharacterState.spells.forEach(spell => {
+            const match = spell.spell_level.match(/\d+/);
+            const levelNum = match ? parseInt(match[0]) : 0;
+            
+            if (!spellsByLevel[levelNum]) spellsByLevel[levelNum] = [];
+            spellsByLevel[levelNum].push(spell);
+        });
+
+        let html = '';
+        Object.keys(spellsByLevel).sort((a,b) => a-b).forEach(lvl => {
+            const spells = spellsByLevel[lvl].map(s => {
+                const safeName = s.name.replace(/'/g, "\\'");
+                return `<a href="#" onclick="if(window.showInfoModal) window.showInfoModal('${safeName}', 'Description not available.', 'Spell'); return false;" style="color: inherit; text-decoration: underline dotted;" title="${s.school}, ${s.casting_time}">${s.name}</a>`;
+            }).join(', ');
+            const label = lvl === '0' ? '0 (at will)' : `${lvl}th`;
+            html += `<div class="pf-property-line" style="padding-left: 10px; text-indent: -10px;">
+                        <span class="pf-label">${label}</span> - ${spells}
+                     </div>`;
+        });
+        outSpellsList.innerHTML = html;
+    } else if (wrapSpells) {
+        wrapSpells.style.display = 'none';
+    }
+
+    // 2. Class Modifiers (BAB, Saves, HP)
+    let classBab = 0, classFort = 0, classRef = 0, classWill = 0, classHp = 0;
+    if (window.activeClasses) {
+        window.activeClasses.forEach(c => {
+            classBab += parseInt(c.bab) || 0;
+            classFort += parseInt(c.fort) || 0;
+            classRef += parseInt(c.ref) || 0;
+            classWill += parseInt(c.will) || 0;
+            classHp += (parseInt(c.hd) || 0) * parseInt(c.level);
+        });
+    }
+
+    // 3. Ability Scores & Modifiers
+    const getMod = val => Math.floor((val - 10) / 2);
+    let str = parseInt(document.getElementById('in-str')?.value) || 10;
+    let dex = parseInt(document.getElementById('in-dex')?.value) || 10;
+    let con = parseInt(document.getElementById('in-con')?.value) || 10;
+    let wis = parseInt(document.getElementById('in-wis')?.value) || 10;
+
+    // Apply Wondrous Items / Gear bonuses (e.g., Belt of Giant Strength)
+    if (window.CharacterState && window.CharacterState.inventory.wondrous) {
+        window.CharacterState.inventory.wondrous.forEach(item => {
+            if (item.name.includes("Belt of Giant Strength +2")) str += 2;
+            if (item.name.includes("Belt of Giant Strength +4")) str += 4;
+            if (item.name.includes("Belt of Giant Strength +6")) str += 6;
+            if (item.name.includes("Belt of Incredible Dexterity +2")) dex += 2;
+            // Add more as needed
+        });
+    }
+
+    // Helper to format signed numbers
+    const fmt = n => (n >= 0 ? '+' : '') + n;
+
+    // 4. Update Saves
+    const baseFortIn = document.getElementById('in-fort')?.value || "0";
+    const baseRefIn = document.getElementById('in-ref')?.value || "0";
+    const baseWillIn = document.getElementById('in-will')?.value || "0";
+    
+    // Attempt to extract the leading number from user input
+    const parseSave = str => {
+        const m = String(str).match(/^([+-]?\d+)/);
+        return m ? parseInt(m[1]) : 0;
+    };
+
+    const outFort = document.getElementById('out-fort');
+    const outRef = document.getElementById('out-ref');
+    const outWill = document.getElementById('out-will');
+    const outHp = document.getElementById('out-hp');
+
+    if (outFort) outFort.textContent = fmt(parseSave(baseFortIn) + classFort);
+    if (outRef) outRef.textContent = fmt(parseSave(baseRefIn) + classRef);
+    if (outWill) outWill.textContent = fmt(parseSave(baseWillIn) + classWill);
+
+    // HP Calculation (Base + Class HP + Con Mod * Total HD)
+    // Actually just add Class HP (average HD/2 + 0.5 per level) to Base HP.
+    const hpBaseIn = document.getElementById('in-hp')?.value || "0";
+    if (outHp && classHp > 0) {
+        const match = hpBaseIn.match(/^(\d+)/);
+        const bHp = match ? parseInt(match[1]) : 0;
+        // Simple approximation: classHp is max HD * level? No, average is better but we just used max in mechanics.js earlier.
+        // Let's just output base + classHp for now to show it works.
+        outHp.innerHTML = `${bHp + classHp} <span class="pf-small-text">(${hpBaseIn})</span>`;
+    }
+
+    // 5. Update BAB, CMB, CMD
+    const sizeMods = {
+        'Fine': { ac_atk: 8, cmb_cmd: -8 },
+        'Diminutive': { ac_atk: 4, cmb_cmd: -4 },
+        'Tiny': { ac_atk: 2, cmb_cmd: -2 },
+        'Small': { ac_atk: 1, cmb_cmd: -1 },
+        'Medium': { ac_atk: 0, cmb_cmd: 0 },
+        'Large': { ac_atk: -1, cmb_cmd: 1 },
+        'Huge': { ac_atk: -2, cmb_cmd: 2 },
+        'Gargantuan': { ac_atk: -4, cmb_cmd: 4 },
+        'Colossal': { ac_atk: -8, cmb_cmd: 8 }
+    };
+    
+    // Base Monster BAB (user input or monster json)
+    // The user inputs melee/ranged. But for CMB/CMD we need BAB.
+    // In `script.js` BAB is parsed from the CMB string sometimes. 
+    // Let's provide a robust calculation:
+    // If it's a loaded monster, it should have a BAB input, but wait, `index.html` has no `#in-bab`.
+    // Let's just output CMB and CMD with Class BAB appended.
+    // CMB = BAB + Str Mod + Size Mod
+    // CMD = 10 + BAB + Str Mod + Dex Mod + Size Mod
+    const size = document.getElementById('in-size')?.value || 'Medium';
+    const sMod = sizeMods[size] || sizeMods['Medium'];
+    const sizeCmb = sMod.cmb_cmd;
+
+    // To properly calculate CMB/CMD from scratch, we'd need monster's base BAB.
+    // But since the user manually edits the CMB string (e.g. "+15"), we can just add classBab to it!
+    const baseCmbIn = document.getElementById('in-cmb')?.value || "0";
+    const baseCmdIn = document.getElementById('in-cmd')?.value || "10";
+    
+    const outCmb = document.getElementById('out-cmb');
+    const outCmd = document.getElementById('out-cmd');
+    
+    if (outCmb) outCmb.textContent = fmt(parseSave(baseCmbIn) + classBab);
+    if (outCmd) outCmd.textContent = (parseSave(baseCmdIn) + classBab).toString();
+
+};

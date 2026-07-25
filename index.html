@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathfinder 1e Monster Creator</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="themes.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Floating toggle button -->
+        <button id="btn-toggle-panel" class="btn primary"
+            style="position: absolute; top: 15px; left: 15px; z-index: 20; padding: 8px; border-radius: 8px; width: 44px; height: 44px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; transition: all 0.3s;"
+            title="Toggle Sidebar">
+            <svg fill="white" viewBox="0 0 24 24" width="24" height="24">
+                <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+            </svg>
+        </button>
+
+        <aside class="controls-panel" id="controls-panel">
+            <div class="panel-header">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <div style="margin-left: 55px;">
+                        <h1 style="font-size: 1.3rem;">Monster Creator</h1>
+                        <p style="margin-bottom: 5px;">Pathfinder 1e Original Appearance</p>
+                    </div>
+                    <div class="theme-selector-container">
+                        <select id="theme-selector" class="theme-select">
+                            <option value="theme-default">Default</option>
+                            <option value="theme-abyssal">Abyssal</option>
+                            <option value="theme-necromancer">Necro</option>
+                            <option value="theme-celestial">Celestial</option>
+                            <option value="theme-ink">Ink</option>
+                            <option value="theme-obsidian">Obsidian</option>
+                            <option value="theme-astral">Astral</option>
+                            <option value="theme-feywild">Feywild</option>
+                            <option value="theme-amethyst">Amethyst</option>
+                            <option value="theme-clockwork">Clockwork</option>
+                            <option value="theme-ancient">Ancient</option>
+                            <option value="theme-fey-mirage">Mirage</option>
+                            <option value="theme-crimson">Crimson</option>
+                            <option value="theme-vampiric">Vampire</option>
+                            <option value="theme-abyssal-depths">Depths</option>
+                            <option value="theme-golden-hour">Golden</option>
+                            <option value="theme-toxic">Toxic</option>
+                            <option value="theme-frozen">Frozen</option>
+                            <option value="theme-volcanic">Volcanic</option>
+                            <option value="theme-eldritch">Eldritch</option>
+                            <option value="theme-desert">Desert</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="action-buttons"
+                    style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 100%; margin-top: 12px;">
+                    <button id="btn-new-sheet" class="btn btn-emerald" style="padding: 8px 4px; font-size: 0.85rem;"
+                        title="Clear everything and start fresh">✨ New</button>
+                    <button id="btn-save-database" class="btn btn-blue" style="padding: 8px 4px; font-size: 0.85rem;"
+                        title="Save to Database">💾 Save DB</button>
+                    <a href="database.html" class="btn btn-purple btn-link"
+                        style="padding: 8px 4px; font-size: 0.85rem; text-align: center; display: flex; align-items: center; justify-content: center; text-decoration: none;"
+                        title="Open Monster Database">📚 Database</a>
+
+                    <button id="btn-export-png" class="btn secondary"
+                        style="margin-top: 0; padding: 8px 4px; font-size: 0.85rem;" title="Export as PNG">🖼️
+                        PNG</button>
+                    <button id="btn-export-pdf" class="btn secondary"
+                        style="margin-top: 0; padding: 8px 4px; font-size: 0.85rem;" title="Export as PDF">📄
+                        PDF</button>
+
+                    <div style="display: flex; gap: 4px; width: 100%; flex-wrap: wrap;">
+                        <button id="btn-save-json" class="btn secondary"
+                            style="margin-top: 0; padding: 8px 4px; flex: 1; font-size: 0.85rem;"
+                            title="Save JSON">⬇️</button>
+                        <input type="file" id="file-load-json" accept=".json" style="display:none;">
+                        <button id="btn-load-json" class="btn secondary"
+                            style="margin-top: 0; padding: 8px 4px; flex: 1; font-size: 0.85rem;"
+                            title="Load JSON">⬆️</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-content">
+                <div class="tabs-nav" style="display: flex; gap: 5px; margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; overflow-x: auto;">
+                    <button class="tab-btn active btn secondary" data-tab="tab-core" style="margin:0; flex: 1; white-space: nowrap;">Core</button>
+                    <button class="tab-btn btn secondary" data-tab="tab-defense" style="margin:0; flex: 1; white-space: nowrap;">Defense</button>
+                    <button class="tab-btn btn secondary" data-tab="tab-offense" style="margin:0; flex: 1; white-space: nowrap;">Offense</button>
+                    <button class="tab-btn btn secondary" data-tab="tab-magic" style="margin:0; flex: 1; white-space: nowrap;">Magic</button>
+                    <button class="tab-btn btn secondary" data-tab="tab-other" style="margin:0; flex: 1; white-space: nowrap;">Other</button>
+                </div>
+
+                <div id="tab-core" class="tab-pane active">
+                <section class="form-section">
+                    <h2>Basic Information</h2>
+
+                    <div class="form-group">
+                        <label>Statblock Type</label>
+                        <div class="segmented-control">
+                            <input type="radio" id="type-monster" name="stat_type" value="monster" checked>
+                            <label for="type-monster">🐲 Monster</label>
+
+                            <input type="radio" id="type-npc" name="stat_type" value="npc">
+                            <label for="type-npc">👤 NPC</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="in-name" value="Create Monster">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>CR (Challenge Rating)</label>
+                            <input type="text" id="in-cr" value="1">
+                        </div>
+                        <div class="form-group">
+                            <label>XP</label>
+                            <input type="text" id="in-xp" value="400">
+                        </div>
+                    </div>
+
+                    <div id="monster-inputs">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Alignment</label>
+                                <input type="text" id="in-alignment" value="TN">
+                            </div>
+                            <div class="form-group">
+                                <label>Size</label>
+                                <select id="in-size">
+                                    <option value="Fine">Fine</option>
+                                    <option value="Diminutive">Diminutive</option>
+                                    <option value="Tiny">Tiny</option>
+                                    <option value="Small">Small</option>
+                                    <option value="Medium" selected>Medium</option>
+                                    <option value="Large">Large</option>
+                                    <option value="Huge">Huge</option>
+                                    <option value="Gargantuan">Gargantuan</option>
+                                    <option value="Colossal">Colossal</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label style="display: flex; justify-content: space-between; align-items: center;">Type
+                                    <button id="btn-auto-calc" class="btn secondary"
+                                        style="margin:0; padding: 2px 6px; font-size: 0.7rem;">⚙️ Auto-Calc
+                                        Stats</button>
+                                </label>
+                                <select id="in-type">
+                                    <option value="Aberration">Aberration</option>
+                                    <option value="Animal">Animal</option>
+                                    <option value="Construct">Construct</option>
+                                    <option value="Dragon">Dragon</option>
+                                    <option value="Fey">Fey</option>
+                                    <option value="Humanoid" selected>Humanoid</option>
+                                    <option value="Magical Beast">Magical Beast</option>
+                                    <option value="Monstrous Humanoid">Monstrous Humanoid</option>
+                                    <option value="Ooze">Ooze</option>
+                                    <option value="Outsider">Outsider</option>
+                                    <option value="Plant">Plant</option>
+                                    <option value="Undead">Undead</option>
+                                    <option value="Vermin">Vermin</option>
+                                </select>
+                            </div>
+                            <div class="form-group" style="flex: 2;">
+                                <label>Subtypes</label>
+                                <div id="subtypes-container"></div>
+                                <button id="btn-add-subtype" class="btn-dashed-add">+ Add Subtype</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="npc-inputs" style="display: none;">
+                        <div class="form-group">
+                            <label>Subtitle / Class (e.g.: NPC Fighter 14)</label>
+                            <input type="text" id="in-type-full" value="NPC Fighter 1">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Extra Initiative Modifier</label>
+                            <input type="number" id="in-init-extra" value="0">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Senses</label>
+                        <div id="senses-container"></div>
+                        <button id="btn-add-sense" class="btn-dashed-add">+ Add Sense</button>
+                    </div>
+                    <div class="form-group" style="position: relative;">
+                        <label>Aura</label>
+                        <input type="hidden" id="in-aura" value="">
+                        <div id="selected-aura-container" class="selected-tags-container" style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:5px;"></div>
+                        <input type="text" id="in-aura-search" placeholder="Select or search auras..." autocomplete="off" style="width:100%; cursor: pointer; background: #333; border: 1px solid #555; padding: 6px;">
+                        <ul id="aura-autocomplete-list" class="autocomplete-list" style="display: none; position:absolute; z-index:1000; width:100%; max-height:200px; overflow-y:auto; background:#222; border:1px solid #444; list-style:none; padding:0; margin:0;"></ul>
+                    </div>
+                </section>
+
+                <section class="form-section">
+                    <h2>Class Levels</h2>
+                    <div class="form-group">
+                        <label>Classes</label>
+                        <div id="classes-container" style="display:flex; flex-direction:column; gap:5px; margin-bottom:5px;"></div>
+                        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                            <select id="sel-add-class" class="form-control" style="flex: 1 1 auto; min-width: 0;">
+                                <option value="Alchemist">Alchemist</option>
+                                <option value="Antipaladin">Antipaladin</option>
+                                <option value="Arcanist">Arcanist</option>
+                                <option value="Barbarian">Barbarian</option>
+                                <option value="Bard">Bard</option>
+                                <option value="Bloodrager">Bloodrager</option>
+                                <option value="Brawler">Brawler</option>
+                                <option value="Cavalier">Cavalier</option>
+                                <option value="Cleric">Cleric</option>
+                                <option value="Druid">Druid</option>
+                                <option value="Fighter">Fighter</option>
+                                <option value="Gunslinger">Gunslinger</option>
+                                <option value="Hunter">Hunter</option>
+                                <option value="Inquisitor">Inquisitor</option>
+                                <option value="Investigator">Investigator</option>
+                                <option value="Magus">Magus</option>
+                                <option value="Monk">Monk</option>
+                                <option value="Oracle">Oracle</option>
+                                <option value="Paladin">Paladin</option>
+                                <option value="Ranger">Ranger</option>
+                                <option value="Rogue">Rogue</option>
+                                <option value="Shaman">Shaman</option>
+                                <option value="Skald">Skald</option>
+                                <option value="Slayer">Slayer</option>
+                                <option value="Sorcerer">Sorcerer</option>
+                                <option value="Summoner">Summoner</option>
+                                <option value="Swashbuckler">Swashbuckler</option>
+                                <option value="Warpriest">Warpriest</option>
+                                <option value="Witch">Witch</option>
+                                <option value="Wizard">Wizard</option>
+                            </select>
+                            <input type="number" id="in-add-class-level" value="1" min="1" max="20" placeholder="Lvl" style="width: 60px; flex: 0 0 60px;">
+                            <button id="btn-add-class" class="btn secondary" style="margin:0; flex: 0 0 auto; white-space: nowrap;">+ Add</button>
+                        </div>
+                        <small style="color: #aaa; margin-top:5px; display:block;">Class levels automatically add BAB, base saves, and hit dice to the base stats.</small>
+                    </div>
+                </section>
+
+                </div>
+                <div id="tab-defense" class="tab-pane" style="display:none;">
+                    <section class="form-section">
+                    <h2>Defense</h2>
+                                        <div class="form-row">
+                        <div class="form-group" style="flex:1.5;">
+                            <label>Equipped Armor</label>
+                            <input type="text" id="in-armor-name" list="armor-list" list="armor-list" placeholder="e.g. Chainmail" autocomplete="off">
+                        </div>
+                        <div class="form-group"><label>Armor AC</label><input type="number" id="in-ac-armor" value="0"></div>
+                        
+                        <div class="form-group" style="flex:1.5;">
+                            <label>Equipped Shield</label>
+                            <input type="text" id="in-shield-name" list="shield-list" list="shield-list" placeholder="e.g. Heavy Steel Shield" autocomplete="off">
+                        </div>
+                        <div class="form-group"><label>Shield AC</label><input type="number" id="in-ac-shield" value="0"></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group"><label>Nat. Armor</label><input type="number" id="in-ac-natural" value="0"></div>
+                        <div class="form-group"><label>Deflection</label><input type="number" id="in-ac-deflection" value="0"></div>
+                        <div class="form-group"><label>Dodge</label><input type="number" id="in-ac-dodge" value="0"></div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group"><label>Hit Dice (HD)</label><input type="number" id="in-hd-amount"
+                                value="1"></div>
+                        <div class="form-group">
+                            <label>HD Size</label>
+                            <select id="in-hd-size">
+                                <option value="4">d4</option>
+                                <option value="6">d6</option>
+                                <option value="8" selected>d8</option>
+                                <option value="10">d10</option>
+                                <option value="12">d12</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group"><label>Fortitude</label><input type="text" id="in-fort" value="+0">
+                        </div>
+                        <div class="form-group"><label>Reflex</label><input type="text" id="in-ref" value="+0"></div>
+                        <div class="form-group"><label>Will</label><input type="text" id="in-will" value="+0"></div>
+                    </div>
+
+                    <div class="form-group" style="position: relative;">
+                        <label>Defensive Abilities</label>
+                        <input type="hidden" id="in-def-abilities" value="">
+                        <div id="selected-def-container" class="selected-tags-container" style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:5px;"></div>
+                        <input type="text" id="in-def-search" placeholder="Select or search def. abilities..." autocomplete="off" style="width:100%; cursor: pointer; background: #333; border: 1px solid #555; padding: 6px;">
+                        <ul id="def-autocomplete-list" class="autocomplete-list" style="display: none; position:absolute; z-index:1000; width:100%; max-height:200px; overflow-y:auto; background:#222; border:1px solid #444; list-style:none; padding:0; margin:0;"></ul>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group"><label>DR</label><input type="text" id="in-dr" value=""></div>
+                        <div class="form-group" style="position: relative;">
+                        <label>Immune</label>
+                        <input type="hidden" id="in-immune" value="">
+                        <div id="selected-immune-container" class="selected-tags-container" style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:5px;"></div>
+                        <input type="text" id="in-immune-search" placeholder="Select or search immunities..." autocomplete="off" style="width:100%; cursor: pointer; background: #333; border: 1px solid #555; padding: 6px;">
+                        <ul id="immune-autocomplete-list" class="autocomplete-list" style="display: none; position:absolute; z-index:1000; width:100%; max-height:200px; overflow-y:auto; background:#222; border:1px solid #444; list-style:none; padding:0; margin:0;"></ul>
+                    </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group" style="position: relative;">
+                        <label>Resist</label>
+                        <input type="hidden" id="in-resist" value="">
+                        <div id="selected-resist-container" class="selected-tags-container" style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:5px;"></div>
+                        <input type="text" id="in-resist-search" placeholder="Select or search resistances..." autocomplete="off" style="width:100%; cursor: pointer; background: #333; border: 1px solid #555; padding: 6px;">
+                        <ul id="resist-autocomplete-list" class="autocomplete-list" style="display: none; position:absolute; z-index:1000; width:100%; max-height:200px; overflow-y:auto; background:#222; border:1px solid #444; list-style:none; padding:0; margin:0;"></ul>
+                    </div>
+                        <div class="form-group" style="position: relative;">
+                        <label>Weaknesses</label>
+                        <input type="hidden" id="in-weaknesses" value="">
+                        <div id="selected-weakness-container" class="selected-tags-container" style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:5px;"></div>
+                        <input type="text" id="in-weakness-search" placeholder="Select or search weaknesses..." autocomplete="off" style="width:100%; cursor: pointer; background: #333; border: 1px solid #555; padding: 6px;">
+                        <ul id="weakness-autocomplete-list" class="autocomplete-list" style="display: none; position:absolute; z-index:1000; width:100%; max-height:200px; overflow-y:auto; background:#222; border:1px solid #444; list-style:none; padding:0; margin:0;"></ul>
+                    </div>
+                        <div class="form-group"><label>SR</label><input type="number" id="in-sr" value=""></div>
+                    </div>
+                </section>
+
+                </div>
+                <div id="tab-offense" class="tab-pane" style="display:none;">
+                    <section class="form-section">
+                    <h2>Offense</h2>
+                    <div class="form-row">
+                        <div class="form-group"><label>Speed</label><input type="text" id="in-speed" value="30 ft.">
+                        </div>
+                        <div class="form-group"><label>Space</label><input type="text" id="in-space" value="5 ft.">
+                        </div>
+                        <div class="form-group"><label>Reach</label><input type="text" id="in-reach" value="5 ft.">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Melee Attacks</label>
+                        <div id="melee-container"></div>
+                        <button id="btn-add-melee" class="btn-dashed-add">+ Add Melee Attack</button>
+                    </div>
+                    <div class="form-group">
+                        <label>Ranged Attacks</label>
+                        <div id="ranged-container"></div>
+                        <button id="btn-add-ranged" class="btn-dashed-add">+ Add Ranged Attack</button>
+                    </div>
+                    <div class="form-group" style="position: relative;">
+                        <label>Special Attacks</label>
+                        <input type="hidden" id="in-special-attacks" value="">
+                        <div id="selected-sa-container" class="selected-tags-container"
+                            style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:5px;"></div>
+                        <input type="text" id="in-sa-search" placeholder="Select or search special attacks... ⚔️"
+                            autocomplete="off"
+                            style="width:100%; cursor: pointer; background: #333; border: 1px solid #555; padding: 6px;">
+                        <ul id="sa-autocomplete-list" class="autocomplete-list"
+                            style="display: none; position:absolute; z-index:1000; width:100%; max-height:200px; overflow-y:auto; background:#222; border:1px solid #444; list-style:none; padding:0; margin:0;">
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <label>Spell-Like Abilities (SLAs)</label>
+                        <input type="text" id="in-sla-cl" placeholder="Caster Level (e.g. CL 8th)"
+                            style="margin-bottom: 5px;">
+                        <div id="slas-container"></div>
+                        <button id="btn-add-sla" class="btn-dashed-add">+ Add SLA</button>
+                    </div>
+                </section>
+
+                <section class="form-section">
+                    <h2>Statistics</h2>
+                    <div class="form-row stats-row">
+                        <div class="form-group"><label>Str</label><input type="number" id="in-str" value="10"></div>
+                        <div class="form-group"><label>Dex</label><input type="number" id="in-dex" value="10"></div>
+                        <div class="form-group"><label>Con</label><input type="number" id="in-con" value="10"></div>
+                        <div class="form-group"><label>Int</label><input type="number" id="in-int" value="10"></div>
+                        <div class="form-group"><label>Wis</label><input type="number" id="in-wis" value="10"></div>
+                        <div class="form-group"><label>Cha</label><input type="number" id="in-cha" value="10"></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group"><label>Base Atk</label><input type="number" id="in-bab" value="0"></div>
+                        <div class="form-group"><label>CMB</label><input type="text" id="in-cmb" disabled
+                                style="opacity:0.5;"></div>
+                        <div class="form-group"><label>CMD</label><input type="text" id="in-cmd" disabled
+                                style="opacity:0.5;"></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group" style="position: relative;">
+                            <label>Feats</label>
+                            <input type="hidden" id="in-feats" value="">
+                            <div id="selected-feats-container" class="selected-tags-container"
+                                style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:5px;"></div>
+                            <input type="text" id="in-feat-search" placeholder="Select or search feats... ▼"
+                                autocomplete="off"
+                                style="width:100%; cursor: pointer; background: #333; border: 1px solid #555; padding: 6px;">
+                            <ul id="feat-autocomplete-list" class="autocomplete-list"
+                                style="display: none; position:absolute; z-index:1000; width:100%; max-height:200px; overflow-y:auto; background:#222; border:1px solid #444; list-style:none; padding:0; margin:0;">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Skills</label>
+                        <div id="skills-container"></div>
+                        <button id="btn-add-skill" class="btn-dashed-add">+ Add Skill</button>
+                    </div>
+                    <div class="form-group">
+                        <label>Languages</label>
+                        <input type="text" id="in-languages" value="Common">
+                    </div>
+                    <div class="form-group" style="position: relative;">
+                        <label>Special Qualities (SQ)</label>
+                        <input type="hidden" id="in-sq" value="">
+                        <div id="selected-sq-container" class="selected-tags-container"
+                            style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:5px;"></div>
+                        <input type="text" id="in-sq-search" placeholder="Select or search special qualities... 🛡️"
+                            autocomplete="off"
+                            style="width:100%; cursor: pointer; background: #333; border: 1px solid #555; padding: 6px;">
+                        <ul id="sq-autocomplete-list" class="autocomplete-list"
+                            style="display: none; position:absolute; z-index:1000; width:100%; max-height:200px; overflow-y:auto; background:#222; border:1px solid #444; list-style:none; padding:0; margin:0;">
+                        </ul>
+                    </div>
+                </section>
+
+                </div>
+                <div id="tab-other" class="tab-pane" style="display:none;">
+                    <section class="form-section">
+                    <h2>Ecology</h2>
+                    <div class="form-group">
+                        <label>Environment</label>
+                        <input type="text" id="in-environment" value="any">
+                    </div>
+                    <div class="form-group">
+                        <label>Organization</label>
+                        <input type="text" id="in-organization" value="solitary">
+                    </div>
+                    <div class="form-group">
+                        <label>Treasure</label>
+                        <input type="text" id="in-treasure" value="standard">
+                    </div>
+                </section>
+
+                </div>
+                <div id="tab-magic" class="tab-pane" style="display:none;">
+                    <section class="form-section">
+                    <h2>Spells Known / Prepared</h2>
+                    <div class="form-group" style="position: relative;">
+                        <label>Search & Add Spells <small>(Click a spell for details)</small></label>
+                        <input type="text" id="in-spell-search" placeholder="Search spells (e.g., Fireball)..." autocomplete="off" style="width:100%; padding: 8px;">
+                        <ul id="spell-autocomplete" class="autocomplete-list" style="display: none; position:absolute; z-index:1000; width:100%; max-height:200px; overflow-y:auto; background:#222; border:1px solid #444; list-style:none; padding:0; margin:0;"></ul>
+                    </div>
+                    <div id="active-spells-container" style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px;"></div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Casting Class</label>
+                            <input type="text" id="in-spell-class" placeholder="e.g. Sorcerer Spells Known">
+                        </div>
+                        <div class="form-group" style="width: 60px;">
+                            <label>CL</label>
+                            <input type="number" id="in-spell-cl" value="1">
+                        </div>
+                        <div class="form-group">
+                            <label>Casting Stat</label>
+                            <select id="in-spell-stat">
+                                <option value="cha" selected>Charisma</option>
+                                <option value="int">Intelligence</option>
+                                <option value="wis">Wisdom</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="width: 80px;">
+                            <label>Conc.</label>
+                            <input type="text" id="in-spell-conc" value="0" placeholder="Auto">
+                        </div>
+                    </div>
+                    <input type="hidden" id="in-spells-data" value="">
+                    <div id="spell-levels-container"></div>
+                    <button id="btn-add-spell-level" class="btn secondary" style="margin-top: 10px; width: 100%;">+ Add
+                        Spell Level</button>
+                </section>
+
+                <section class="form-section">
+                    <h2>Special Abilities</h2>
+                    <div class="rt-toolbar">
+                        <button class="btn-rt" data-command="bold"><b>B</b></button>
+                        <button class="btn-rt" data-command="italic"><i>I</i></button>
+                    </div>
+                    <div id="special-abilities-container">
+                    </div>
+                    <button id="btn-add-ability" class="btn secondary">+ Add Ability</button>
+                </section>
+                </div>
+            </div>
+        </aside>
+
+        <main class="preview-panel">
+            <div id="statblock-paper" class="statblock-paper">
+                <div class="paper-content">
+
+                    <div class="pf-header-row">
+                        <h1 id="out-name">Create NPC</h1>
+                        <div class="pf-cr-box">
+                            <div class="pf-cr-label">CR</div>
+                            <div id="out-cr" class="pf-cr-value">9</div>
+                        </div>
+                    </div>
+
+                    <div class="pf-property-line pf-xp-row" id="wrap-xp">
+                        <span class="pf-label">XP</span> <span id="out-xp">—</span>
+                    </div>
+
+                    <div class="pf-property-line pf-type-row" id="wrap-monster-type">
+                        <span id="out-alignment">TN</span>
+                        <span id="out-size">Medium</span>
+                        <span id="out-type">magical beast (air)</span>
+                    </div>
+
+                    <div class="pf-property-line pf-type-row" id="wrap-npc-type" style="display: none;">
+                        <i id="out-type-full">NPC Fighter 14</i>
+                    </div>
+
+                    <div class="pf-property-line mt-3">
+                        <span class="pf-label">Init</span> <span id="out-init">+4</span>;
+                        <span class="pf-label">Senses</span> <span id="out-senses">Perception +0</span>
+                    </div>
+                    <div class="pf-property-line" id="wrap-aura">
+                        <span class="pf-label">Aura</span> <span id="out-aura"></span>
+                    </div>
+
+                    <h2 class="pf-section-title">DEFENSE</h2>
+                    <div class="pf-property-line">
+                        <span class="pf-label">AC</span> <span id="out-ac"></span>
+                    </div>
+                    <div class="pf-property-line">
+                        <span class="pf-label">hp</span> <span id="out-hp"></span>
+                    </div>
+                    <div class="pf-property-line">
+                        <span class="pf-label">Fort</span> <span id="out-fort">+0</span>,
+                        <span class="pf-label">Ref</span> <span id="out-ref">+0</span>,
+                        <span class="pf-label">Will</span> <span id="out-will">+0</span>
+                    </div>
+                    <div class="pf-property-line" id="wrap-def-extras" style="display: none;">
+                        <span id="out-def-extras"></span>
+                    </div>
+
+                    <h2 class="pf-section-title">OFFENSE</h2>
+                    <div class="pf-property-line">
+                        <span class="pf-label">Speed</span> <span id="out-speed">30 ft.</span>
+                    </div>
+                    <div class="pf-property-line" id="wrap-melee">
+                        <span class="pf-label">Melee</span> <span id="out-melee"></span>
+                    </div>
+                    <div class="pf-property-line" id="wrap-ranged">
+                        <span class="pf-label">Ranged</span> <span id="out-ranged"></span>
+                    </div>
+                    <div class="pf-property-line" id="wrap-space-reach">
+                        <span id="out-space-reach"></span>
+                    </div>
+                    <div class="pf-property-line" id="wrap-special-attacks">
+                        <span class="pf-label">Special Attacks</span> <span id="out-special-attacks"></span>
+                    </div>
+
+                    <div id="wrap-slas">
+                        <div class="pf-property-line" style="margin-bottom: 2px;">
+                            <span class="pf-label">Spell-Like Abilities</span> <span id="out-sla-cl"></span>
+                        </div>
+                        <div id="out-slas-list"></div>
+                    </div>
+
+                    <div id="wrap-spells" style="display: none;">
+                        <h2 class="pf-section-title">SPELLS</h2>
+                        <div class="pf-property-line" style="margin-bottom: 2px;">
+                            <i id="out-spell-class"></i> (CL <span id="out-spell-cl"></span>; concentration <span
+                                id="out-spell-conc"></span>)
+                        </div>
+                        <div id="out-spells-list"></div>
+                    </div>
+
+                    <h2 class="pf-section-title">STATISTICS</h2>
+
+                    <div class="pf-stats-table">
+                        <div class="pf-stat-col">
+                            <div class="pf-label">STR</div>
+                            <div class="pf-stat-val"><span id="out-str">24</span><br><span id="out-str-mod">(+7)</span>
+                            </div>
+                        </div>
+                        <div class="pf-stat-col">
+                            <div class="pf-label">DEX</div>
+                            <div class="pf-stat-val"><span id="out-dex">18</span><br><span id="out-dex-mod">(+4)</span>
+                            </div>
+                        </div>
+                        <div class="pf-stat-col">
+                            <div class="pf-label">CON</div>
+                            <div class="pf-stat-val"><span id="out-con">16</span><br><span id="out-con-mod">(+3)</span>
+                            </div>
+                        </div>
+                        <div class="pf-stat-col">
+                            <div class="pf-label">INT</div>
+                            <div class="pf-stat-val"><span id="out-int">8</span><br><span id="out-int-mod">(-1)</span>
+                            </div>
+                        </div>
+                        <div class="pf-stat-col">
+                            <div class="pf-label">WIS</div>
+                            <div class="pf-stat-val"><span id="out-wis">10</span><br><span id="out-wis-mod">(+0)</span>
+                            </div>
+                        </div>
+                        <div class="pf-stat-col">
+                            <div class="pf-label">CHA</div>
+                            <div class="pf-stat-val"><span id="out-cha">10</span><br><span id="out-cha-mod">(+0)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pf-property-line mt-3">
+                        <span class="pf-label">Base Atk</span> <span id="out-bab">+14</span>;
+                        <span class="pf-label">CMB</span> <span id="out-cmb">+21</span>;
+                        <span class="pf-label">CMD</span> <span id="out-cmd">35</span>
+                    </div>
+                    <div class="pf-property-line" id="wrap-feats">
+                        <span class="pf-label">Feats</span> <span id="out-feats"></span>
+                    </div>
+                    <div class="pf-property-line" id="wrap-skills">
+                        <span class="pf-label">Skills</span> <span id="out-skills"></span>
+                    </div>
+                    <div class="pf-property-line" id="wrap-languages">
+                        <span class="pf-label">Languages</span> <span id="out-languages"></span>
+                    </div>
+                    <div class="pf-property-line" id="wrap-sq">
+                        <span class="pf-label">SQ</span> <span id="out-sq"></span>
+                    </div>
+                    <div class="pf-property-line" id="wrap-gear" style="display: none;">
+                        <span class="pf-label">Gear</span> <span id="out-gear"></span>
+                    </div>
+                    <div id="wrap-special-abilities">
+                        <h2 class="pf-section-title">SPECIAL ABILITIES</h2>
+                        <div id="out-special-abilities-list"></div>
+                    </div>
+
+                    <div id="wrap-ecology">
+                        <h2 class="pf-section-title">ECOLOGY</h2>
+                        <div class="pf-property-line" id="wrap-environment">
+                            <span class="pf-label">Environment</span> <span id="out-environment">temperate or warm
+                                plains</span>
+                        </div>
+                        <div class="pf-property-line" id="wrap-organization">
+                            <span class="pf-label">Organization</span> <span id="out-organization">solitary, pair, or
+                                herd (3-12)</span>
+                        </div>
+                        <div class="pf-property-line" id="wrap-treasure">
+                            <span class="pf-label">Treasure</span> <span id="out-treasure">none</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/state.js?v=3"></script>
+    <script src="js/ui.js?v=3"></script>
+    <script src="js/mechanics.js?v=3"></script>
+    <script src="js/spells.js"></script>
+    <script src="js/inventory.js"></script>
+    <script src="script.js?v=3"></script>
+</body>
+
+</html>

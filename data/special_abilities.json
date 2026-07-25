@@ -1,0 +1,558 @@
+[
+    {
+        "name": "Advanced Talents",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Amorphous",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Amphibious",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Arcane Bond",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Arcane School",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Armor Training",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Attach",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Aura of Courage",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Bane",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Bardic Performance",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Bleed",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Blind",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Blindsense",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Blindsight",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Blood Drain",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Bloodline",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Bombs",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Bravery",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Breath Weapon",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Burn",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Camouflage",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Capsize",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Cavalier Order",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Challenge",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Change Shape",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Channel Energy",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Channel Resistance",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Charmed Life",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Compression",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Constrict",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Construct Traits",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Curse",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Damage Reduction",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Darkvision",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Deaf",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Death Attacks",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Deeds",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Dirge of Doom",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Discoveries",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Disease",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Distraction",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Divine Grace",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Earth Glide",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Energy Drain",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Entangle",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Evasion",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Fascinate",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Fast Healing",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Fast Swallow",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Favored Enemy",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Favored Terrain",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Fear",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Ferocity",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Flight",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Flurry of Blows",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Frightful Presence",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Gaze",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Grab",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Grand Hex",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Grit",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Hex",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Hide in Plain Sight",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Hold Breath",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Hunter's Bond",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Improved Evasion",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Improved Uncanny Dodge",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Incorporeal",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Inquisitions",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Inspire Competence",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Inspire Courage",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Investigators Inspiration",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Jet",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Judgement",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Keen Scent",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Ki Pool",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Lay on Hands",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Light Blindness",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Light Sensitivity",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Lore Master",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Low-Light Vision",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Lycanthropy",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Major Hex",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Mount",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Mutagen",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Nature Sense",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Noxious Breath",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Ooze Traits",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Panache",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Paralysis",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Plant Traits",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Poison",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Pounce",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Powerful Charge",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Pull",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Push",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Quarry",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Rage",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Rage Powers",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Rake",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Regeneration",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Rend",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Roar",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Rock Catching",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Rock Throwing",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Rogue Talents",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Scent",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "See in Darkness",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Smite Evil",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Smite Good",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Sneak Attack",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Sound Mimicry",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Spell Resistance",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Split",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Stench",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Strangle",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Studied Combat",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Studied Strike",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Sunlight Powerlessness",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Swallow Whole",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Swarm Traits",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Swashbuckler Finesse",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Tactician",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Telepathy",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Track",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Trample",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Trap Sense",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Trapfinding",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Tremorsense",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Trip",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Uncanny Dodge",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Undead Traits",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Versatile Performance",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Water Breathing",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Weapon Mastery",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Weapon Training",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Web",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Well-Versed",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Whirlwind",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    },
+    {
+        "name": "Wild Shape",
+        "description": "Description not available. Please edit the JSON file to add a description."
+    }
+]

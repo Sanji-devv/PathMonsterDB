@@ -1,0 +1,147 @@
+/* Theme Classes */
+.theme-default {
+    --sb-bg: #F4E3C5;
+    --sb-text: #2c1a1d;
+    --sb-red: #8B201D;
+    --sb-border: #2C1A1D;
+}
+
+.theme-abyssal {
+    --sb-bg: #100808;
+    --sb-text: #f5d0d0;
+    --sb-red: #d91818;
+    --sb-border: #990a0a;
+}
+
+.theme-necromancer {
+    --sb-bg: #051408;
+    --sb-text: #4ade80;
+    --sb-red: #22c55e;
+    --sb-border: #166534;
+}
+
+.theme-celestial {
+    --sb-bg: #f0f9ff;
+    --sb-text: #0f172a;
+    --sb-red: #0284c7;
+    --sb-border: #0369a1;
+}
+
+.theme-ink {
+    --sb-bg: #ffffff;
+    --sb-text: #000000;
+    --sb-red: #333333;
+    --sb-border: #000000;
+}
+
+.theme-obsidian {
+    --sb-bg: #1c1c1c;
+    --sb-text: #e0e0e0;
+    --sb-red: #ffb300;
+    --sb-border: #ffb300;
+}
+
+.theme-astral {
+    --sb-bg: #0f172a;
+    --sb-text: #bae6fd;
+    --sb-red: #38bdf8;
+    --sb-border: #0284c7;
+}
+
+.theme-feywild {
+    --sb-bg: #14532d;
+    --sb-text: #ecfdf5;
+    --sb-red: #34d399;
+    --sb-border: #10b981;
+}
+
+.theme-amethyst {
+    --sb-bg: #2e1065;
+    --sb-text: #f3e8ff;
+    --sb-red: #d8b4fe;
+    --sb-border: #a855f7;
+}
+
+.theme-clockwork {
+    --sb-bg: #292524;
+    --sb-text: #fdba74;
+    --sb-red: #f97316;
+    --sb-border: #c2410c;
+}
+
+.theme-ancient {
+    --sb-bg: #fef3c7;
+    --sb-text: #451a03;
+    --sb-red: #9a3412;
+    --sb-border: #78350f;
+}
+
+.theme-fey-mirage {
+    --sb-bg: #170229;
+    --sb-text: #fdf4ff;
+    --sb-red: #f472b6;
+    --sb-border: #d946ef;
+}
+
+.theme-crimson {
+    --sb-bg: #1c0611;
+    --sb-text: #ffe4e6;
+    --sb-red: #fb7185;
+    --sb-border: #e11d48;
+}
+
+.theme-vampiric {
+    --sb-bg: #2a0909;
+    --sb-text: #fecdd3;
+    --sb-red: #f43f5e;
+    --sb-border: #be123c;
+}
+
+.theme-abyssal-depths {
+    --sb-bg: #042f2e;
+    --sb-text: #ccfbf1;
+    --sb-red: #2dd4bf;
+    --sb-border: #0f766e;
+}
+
+.theme-golden-hour {
+    --sb-bg: #181411;
+    --sb-text: #fef08a;
+    --sb-red: #f59e0b;
+    --sb-border: #b45309;
+}
+
+.theme-toxic {
+    --sb-bg: #1f290d;
+    --sb-text: #d9f99d;
+    --sb-red: #84cc16;
+    --sb-border: #4d7c0f;
+}
+
+.theme-frozen {
+    --sb-bg: #082f49;
+    --sb-text: #e0f2fe;
+    --sb-red: #7dd3fc;
+    --sb-border: #38bdf8;
+}
+
+.theme-volcanic {
+    --sb-bg: #27272a;
+    --sb-text: #fef08a;
+    --sb-red: #ef4444;
+    --sb-border: #ea580c;
+}
+
+.theme-eldritch {
+    --sb-bg: #0a0a0a;
+    --sb-text: #e879f9;
+    --sb-red: #c026d3;
+    --sb-border: #86198f;
+}
+
+.theme-desert {
+    --sb-bg: #fffbeb;
+    --sb-text: #78350f;
+    --sb-red: #d97706;
+    --sb-border: #b45309;
+}

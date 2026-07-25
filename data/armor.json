@@ -1,0 +1,170 @@
+[
+  {
+    "name": "Padded",
+    "type": "Light",
+    "ac_bonus": 1,
+    "max_dex": 8,
+    "acp": 0,
+    "weight": 10
+  },
+  {
+    "name": "Leather",
+    "type": "Light",
+    "ac_bonus": 2,
+    "max_dex": 6,
+    "acp": 0,
+    "weight": 15
+  },
+  {
+    "name": "Studded Leather",
+    "type": "Light",
+    "ac_bonus": 3,
+    "max_dex": 5,
+    "acp": -1,
+    "weight": 20
+  },
+  {
+    "name": "Chain Shirt",
+    "type": "Light",
+    "ac_bonus": 4,
+    "max_dex": 4,
+    "acp": -2,
+    "weight": 25
+  },
+  {
+    "name": "Mithral Chain Shirt",
+    "type": "Light",
+    "ac_bonus": 4,
+    "max_dex": 6,
+    "acp": 0,
+    "weight": 10
+  },
+  {
+    "name": "Hide",
+    "type": "Medium",
+    "ac_bonus": 4,
+    "max_dex": 4,
+    "acp": -3,
+    "weight": 25
+  },
+  {
+    "name": "Scale Mail",
+    "type": "Medium",
+    "ac_bonus": 5,
+    "max_dex": 3,
+    "acp": -4,
+    "weight": 30
+  },
+  {
+    "name": "Chainmail",
+    "type": "Medium",
+    "ac_bonus": 6,
+    "max_dex": 2,
+    "acp": -5,
+    "weight": 40
+  },
+  {
+    "name": "Breastplate",
+    "type": "Medium",
+    "ac_bonus": 6,
+    "max_dex": 3,
+    "acp": -4,
+    "weight": 30
+  },
+  {
+    "name": "Mithral Breastplate",
+    "type": "Medium",
+    "ac_bonus": 6,
+    "max_dex": 5,
+    "acp": -1,
+    "weight": 15
+  },
+  {
+    "name": "Splint Mail",
+    "type": "Heavy",
+    "ac_bonus": 7,
+    "max_dex": 0,
+    "acp": -7,
+    "weight": 45
+  },
+  {
+    "name": "Banded Mail",
+    "type": "Heavy",
+    "ac_bonus": 7,
+    "max_dex": 1,
+    "acp": -6,
+    "weight": 35
+  },
+  {
+    "name": "Half-Plate",
+    "type": "Heavy",
+    "ac_bonus": 8,
+    "max_dex": 0,
+    "acp": -7,
+    "weight": 50
+  },
+  {
+    "name": "Full Plate",
+    "type": "Heavy",
+    "ac_bonus": 9,
+    "max_dex": 1,
+    "acp": -6,
+    "weight": 50
+  },
+  {
+    "name": "Mithral Full Plate",
+    "type": "Heavy",
+    "ac_bonus": 9,
+    "max_dex": 3,
+    "acp": -3,
+    "weight": 25
+  },
+  {
+    "name": "Buckler",
+    "type": "Shield",
+    "ac_bonus": 1,
+    "max_dex": 99,
+    "acp": -1,
+    "weight": 5
+  },
+  {
+    "name": "Light Wooden Shield",
+    "type": "Shield",
+    "ac_bonus": 1,
+    "max_dex": 99,
+    "acp": -1,
+    "weight": 5
+  },
+  {
+    "name": "Light Steel Shield",
+    "type": "Shield",
+    "ac_bonus": 1,
+    "max_dex": 99,
+    "acp": -1,
+    "weight": 6
+  },
+  {
+    "name": "Heavy Wooden Shield",
+    "type": "Shield",
+    "ac_bonus": 2,
+    "max_dex": 99,
+    "acp": -2,
+    "weight": 10
+  },
+  {
+    "name": "Heavy Steel Shield",
+    "type": "Shield",
+    "ac_bonus": 2,
+    "max_dex": 99,
+    "acp": -2,
+    "weight": 15
+  },
+  {
+    "name": "Tower Shield",
+    "type": "Shield",
+    "ac_bonus": 4,
+    "max_dex": 2,
+    "acp": -10,
+    "weight": 45
+  }
+]
