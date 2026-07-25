@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Filters
     function applyFilters() {
+        saveFiltersToStorage();
         currentPage = 1;
         loadData();
     }
@@ -67,6 +68,54 @@ document.addEventListener('DOMContentLoaded', () => {
     filterEnvironment.addEventListener('change', applyFilters);
     filterCategory.addEventListener('change', applyFilters);
     filterSort.addEventListener('change', applyFilters);
+
+    // Save & Restore Filters in LocalStorage
+    function saveFiltersToStorage() {
+        const filters = {
+            name: filterName.value,
+            cr: filterCr.value,
+            type: filterType.value,
+            alignment: filterAlignment.value,
+            environment: filterEnvironment.value,
+            category: filterCategory.value,
+            sort: filterSort.value
+        };
+        localStorage.setItem('pf_db_filters', JSON.stringify(filters));
+    }
+
+    function restoreFiltersFromStorage() {
+        try {
+            const saved = localStorage.getItem('pf_db_filters');
+            if (saved) {
+                const f = JSON.parse(saved);
+                if (f.name !== undefined) filterName.value = f.name;
+                if (f.cr !== undefined) filterCr.value = f.cr;
+                if (f.type !== undefined) filterType.value = f.type;
+                if (f.alignment !== undefined) filterAlignment.value = f.alignment;
+                if (f.environment !== undefined) filterEnvironment.value = f.environment;
+                if (f.category !== undefined) filterCategory.value = f.category;
+                if (f.sort !== undefined) filterSort.value = f.sort;
+            }
+        } catch (e) {
+            console.error('Failed restoring filters from storage:', e);
+        }
+    }
+
+    const btnResetFilters = document.getElementById('btn-reset-filters');
+    if (btnResetFilters) {
+        btnResetFilters.addEventListener('click', () => {
+            filterName.value = '';
+            filterCr.value = '';
+            filterType.value = '';
+            filterAlignment.value = '';
+            filterEnvironment.value = '';
+            filterCategory.value = '';
+            filterSort.value = 'default';
+            localStorage.removeItem('pf_db_filters');
+            applyFilters();
+        });
+    }
+
 
     // Pagination
     btnPrev.addEventListener('click', () => {
@@ -177,6 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    restoreFiltersFromStorage();
     loadData();
 
     // Mapping Function (Database Row -> Our Form State)

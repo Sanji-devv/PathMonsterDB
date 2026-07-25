@@ -1,66 +1,72 @@
-# 🐉 Pathfinder 1e Monster Creator
+# 🐉 Pathfinder 1e Master Sheet & Monster Creator
 
-Welcome to the **Pathfinder 1e Monster Creator**! This is a powerful, offline-first, browser-based tool designed specifically for Game Masters of the Pathfinder 1st Edition Roleplaying Game. 
+Welcome to the **Pathfinder 1e Master Sheet & Monster Creator**! This is a powerful, offline-first, browser-based application designed specifically for Game Masters and Players of the Pathfinder 1st Edition Roleplaying Game.
 
-It allows you to instantly search a massive database of nearly every monster in the game, customize their stats with built-in math automation, and export gorgeous, print-ready A4 statblocks that look identical to the official rulebooks.
+It allows you to search a massive database of monsters, NPCs, spells, feats, weapons, and armors, customize their stats with built-in math automation, edit attacks in free-text (RAW) or calculation (CALC) modes, and export print-ready A4 statblocks and high-quality PNGs directly to your desktop.
 
 ---
 
-## ✨ Features
+## ✨ Key Features
 
-- **Massive Built-in Library:** Includes over 280,000 lines of data containing standard Bestiary monsters, NPCs, Unique Monsters, and 3rd Party (3PP) creatures.
-- **Smart Feat System:** Autocomplete search for over 1400 feats. Automatically calculates and applies math bonuses (like *Toughness* or *Improved Initiative*) directly to your monster's stats.
-- **Spells Integration:** Build caster statblocks with smart autocomplete linked to `spells.json`, featuring an automated DC calculator based on caster stats.
-- **Ultra-Fast Performance:** Features an optimized in-memory database engine for both spells and monsters, and a debounced frontend editor ensuring zero lag while creating complex monsters.
-- **Live Preview:** See your monster statblock update in real-time as you type, designed with a beautiful dual-pane layout.
-- **Print & Export:** Easily save your custom monsters as high-quality PNGs or PDFs, perfectly sized for A4 paper.
-- **Smart Attack Calculation:** Swap between "Raw Text" and "Calc Mode" for weapons. In Calc Mode, the app automatically scales damage, calculates *Power Attack/Deadly Aim/Furious Focus*, and applies strength modifiers.
-- **Custom Library:** Save your homebrew monsters to your local database and access them anytime. They are stored securely alongside the official data.
-- **Extensive Theme Support:** Switch between 20+ aesthetic themes (Abyssal, Necro, Celestial, etc.) to suit your campaign's mood, while always enforcing a clean "Classic" look by default upon load.
+- **Massive Built-in Library:**
+  - **6,520+ Monsters & NPCs** (`data/monsters.json`) covering Bestiary 1–6, NPC Codex, Unique Monsters, and 3rd Party (3PP) creatures.
+  - **2,905 Spells** (`data/spells.json`) with search, caster level filtering, and Archives of Nethys modal integration.
+  - **3,188 Feats** (`data/feats.json`) with search, tag autocompletion, tooltip previews, and rule descriptions.
+  - **21 Armors & Shields** (`data/armor.json`) with automatic AC, Max DEX, and Armor Check Penalty (ACP) calculation.
+  - **41 Weapons** (`data/weapons.json`) with autocomplete and range/damage stats.
+
+- **Dual-Mode Attack System (RAW & CALC):**
+  - **RAW Mode (Free Text):** Edit melee and ranged attacks freely in gold-framed textareas (e.g., `mwk rapier +13 (1d6+11/18-20)`).
+  - **CALC Mode:** Select weapons from the dropdown library, apply Masterwork toggles, and let the app auto-calculate attack bonuses, strength multipliers, and precision damage.
+  - **Seamless Switching:** Toggle between RAW and CALC modes at any time without losing text.
+
+- **Default Alphabetical Sorting (A-Z):**
+  - The Monster Database sorts entries alphabetically A-Z by default across all filters (Favorites ⭐, Custom Homebrew, Official Monsters, etc.).
+  - Variant creatures (such as `Roc Storm`, `Roc Frostfeather`, `Roc Pyre`, `Roc Terra`, `Roc Voidstorm`) cluster neatly together.
+
+- **Custom NPC & Creature Suite:**
+  - Includes custom pre-built NPCs like the **Rovesta NPC Fleet** (Rovesta Guard, Rovesta Alchemist [Alchemist 5/Rogue 2], Rovesta Duelist, Rovesta Shadowblade, Rovesta Battlepriest, Rovesta Spellblade, Rovesta Warden, Rovesta Templar, Rovesta Sniper [Bolt Ace], Rovesta Dreadnought, Rovesta Inquisitor), **Aasimar Paladin**, **Elemental Roc Variants**, and **Negative Energy Corrupted Beasts** (Gravebound Dire Boar, Void-touched Owlbear, Grave Spider).
+
+- **Real-Time Stat Calculation:**
+  - real-time calculation for HP, Inits, Saves (Fort/Ref/Will), AC, Touch AC, Flat-Footed AC, BAB, CMB, and CMD based on stats and class levels.
+
+- **Print & PNG Exporting:**
+  - One-click native PNG export (`#btn-export-png`) renders high-resolution gold-framed statblocks directly to your Desktop.
 
 ---
 
 ## 🚀 Getting Started
 
-This application is designed to be run locally on your machine. You do not need an active internet connection to use the core features or the monster library.
+This application is designed to be run locally on your machine with zero external internet dependencies required for core features.
 
 ### Prerequisites
-- You need to have **Python 3.x** installed on your computer.
+- **Python 3.x** installed on your computer.
 
 ### Installation & Running
 
-1. **Download the project** and extract it to a folder on your computer.
-2. **Open your terminal** (or Command Prompt / PowerShell).
-3. **Navigate to the project folder:**
+1. **Navigate to the project folder:**
    ```bash
-   cd path/to/your/folder
+   cd path/to/PATHGM
    ```
-4. **Start the local server:**
+2. **Start the local server:**
    ```bash
    python main.py
    ```
-5. **Open your web browser!**
-   The application will automatically open in your default browser. If it doesn't, manually go to:
+3. **Open your web browser:**
+   The application will automatically open in your default browser at:
    [http://localhost:8000](http://localhost:8000)
 
 ---
 
 ## 🛠️ How to Use
 
-- **Creating a Monster:** Go to the home page (`index.html`) and start filling out the form on the left. The live preview on the right will update instantly.
-- **Adding Feats:** Type in the feats box to see autocomplete suggestions. Hover over a selected feat to read its rules, or click it to visit the Archives of Nethys page for full details.
-- **Searching the Database:** Click the "Monster Library" button to access the massive database. You can filter by name, Challenge Rating (CR), or Category (NPCs, 3PP, Unique, etc.). Click the ✏️ Edit icon next to any monster to load it into the creator and modify it!
-- **Saving:** Click the **Save Monster** button in the creator. Your monster will be permanently saved to the database and will appear in your Custom Monsters library.
-
----
-
-
+- **Creator / Editor (`index.html`):** Fill out stats on the left pane and watch the real-time A4 gold-bordered statblock update on the right.
+- **Database Browser (`database.html`):** Search by name, CR, alignment, environment, or category (Favorites, Customs, NPCs). Click **Load Custom (📝)** to import any monster directly into the editor.
+- **Magic & Feat Tabs:** Add spells and feats via tag search. Click any spell or feat tag to open detailed rule popups.
+- **Exporting:** Click **Export PNG** in the top bar to save a PNG image of your statblock.
 
 ---
 
 ## 📜 License & Credits
 
-This project was built for the Pathfinder community to make GM prep faster and more enjoyable. 
-Pathfinder is a registered trademark of Paizo Inc., and the Pathfinder Roleplaying Game and Pathfinder Roleplaying Game Compatibility Logo are trademarks of Paizo Inc. 
-
-Data is sourced from the Open Gaming Network (d20pfsrd) and Archives of Nethys under the Open Game License (OGL).
+Built for the Pathfinder 1E community. Pathfinder is a registered trademark of Paizo Inc. Data sourced under the Open Game License (OGL).
