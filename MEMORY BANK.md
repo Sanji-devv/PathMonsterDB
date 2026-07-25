@@ -21,21 +21,24 @@ The application is designed to work entirely **offline** with minimal external d
 
 | Category | Technology / Method |
 | :--- | :--- |
-| **Structure** | Pure HTML5 (`index.html`, `library.html`) |
-| **Styling** | Vanilla CSS3 (`style.css`), CSS Variables, Multi-Theme Support |
-| **Logic** | Vanilla JavaScript (`script.js`, `library.js`) |
-| **Database** | Massive JSON-based static files (`data/monsters.json`, `data/armor.json`) |
+| **Structure** | Pure HTML5 (`index.html`, `library.html`, `database.html`) |
+| **Styling** | Vanilla CSS3 (`style.css`, `themes.css`), CSS Variables, Multi-Theme Support |
+| **Logic** | Vanilla JavaScript (`script.js`, `database.js`) |
+| **Database** | Massive JSON-based static files (`data/monsters.json`, `data/armor.json`, `data/feats.json`, `data/spells.json`) |
 | **Server** | Python (`main.py`) running a local HTTP server and REST API |
+| **Repository Hygiene** | Git configuration (`.gitignore`) ignoring local scratch space, cache, and Memory Bank |
 
 ---
 
 ## 📂 What's Inside the Project (Architecture)
 
-- **`data/` Directory**: The core hub for all reference databases. `monsters.json` currently holds the entire d20pfsrd bestiary (NPCs, 3PP, CR 1-30). `armor.json` holds verified AC/Max-Dex/ACP data.
+- **`data/` Directory**: The core hub for all reference databases. `monsters.json` currently holds the entire d20pfsrd bestiary (NPCs, 3PP, CR 1-30). `armor.json` holds verified AC/Max-Dex/ACP data. `feats.json` holds 1400+ feats. `spells.json` holds Pathfinder spells.
 - **`index.html`**: The main creator interface. The left side is the input form, and the right side is the live A4 preview (optimized in a 40/60 split).
 - **`library.html`**: A searchable library interface containing original Pathfinder monsters and custom user creations. It includes category filters.
-- **`main.py`**: A lightweight Python server that serves the web app and handles REST API requests (searching, loading, saving JSON).
+- **`database.html`**: Interactive database browser interface.
+- **`main.py`**: A lightweight Python server that serves the web app and handles REST API requests (`/api/search`, `/api/spells`, `/api/proxy`, saving/deleting JSON).
 - **`script.js`**: The brains of the operation. Handles iterative attack math, damage calculations, Two-Weapon Fighting logic, and real-time DOM updates.
+- **`.gitignore`**: Configured repository ignore rules covering `MEMORY BANK.md`, `scratch/`, `__pycache__`, environment files, and IDE configs.
 
 ---
 
@@ -63,6 +66,9 @@ The application is designed to work entirely **offline** with minimal external d
 ### 5. Performance & Optimization
 - **In-Memory Caching:** All heavy databases (`monsters.json`, `spells.json`) are loaded into RAM upon server startup with pre-computed search keys, allowing for instantaneous autocomplete and zero-lag searching.
 - **Debounced Editor:** DOM updates are aggressively debounced (300ms) to ensure smooth typing and editing even for highly complex statblocks.
+
+### 6. Repository Hygiene & Git Integration
+- Configured `.gitignore` rules to keep the project clean. Automatically excludes `MEMORY BANK.md`, `scratch/`, Python bytecode (`__pycache__`), local environment files, and IDE workspace configs (`.vscode/`, `.idea/`, `.gemini/`).
 
 ---
 
