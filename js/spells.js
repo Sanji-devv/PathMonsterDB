@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Pop up the Info Modal
             nameSpan.addEventListener('click', () => {
                 if (window.showInfoModal) {
-                    window.showInfoModal(spell.name, "Description not available.", "Spell");
+                    window.showInfoModal(spell.name, spell.description || "Description not available.", "Spell");
                 }
             });
 

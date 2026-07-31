@@ -66,8 +66,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const match = allArmor.find(a => a.name.toLowerCase() === val.toLowerCase());
             if (match) {
                 inAcShield.value = match.bonus;
-                window.CharacterState.inventory.armor.push(match); // Shield counts as armor entry
-                window.CharacterState.notifyUpdate();
+                if (window.CharacterState && typeof window.CharacterState.addGear === 'function') {
+                    window.CharacterState.addGear(match, 'armor');
+                }
             }
         });
     }

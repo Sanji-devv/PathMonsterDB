@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         mainList.innerHTML = `<div style="text-align: center; color: #aaa; padding: 20px;">Loading database...</div>`;
 
-        fetch(`/api/search?name=${nameVal}&cr=${crVal}&type=${typeVal}&alignment=${alignVal}&environment=${envVal}&category=${catVal}&sort=${sortVal}&page=${currentPage}&per_page=${itemsPerPage}`)
+        fetch(`/api/search?name=${nameVal}&cr=${crVal}&type=${typeVal}&alignment=${alignVal}&environment=${envVal}&category=${catVal}&sort=${sortVal}&page=${currentPage}&per_page=${itemsPerPage}&_t=${Date.now()}`, { cache: 'no-store' })
             .then(r => r.json())
             .then(res => {
                 renderList(res.data, res.total_count, res.page, res.per_page);
@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.innerHTML = `
                 <div class="monster-info">
                     <h3>${m.Name} ${badges}</h3>
-                    <p>CR: ${m.CR} | Type: ${m.Type} | Alignment: ${m.Alignment} | Size: ${m.Size}</p>
+                    <p>CR: ${m.CR || '-'} | HP: ${m.HP || '-'} | AC: ${m.AC || '-'} | Type: ${m.Type || '-'} | Alignment: ${m.Alignment || '-'} | Size: ${m.Size || '-'}</p>
                 </div>
                 <div class="monster-actions">
                     ${actionsHtml}
@@ -191,7 +191,9 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 card.querySelector('.btn-load-custom').addEventListener('click', () => {
                     if (m.OriginalState) {
-                        localStorage.setItem('pf_monster_creator_save', JSON.stringify(m.OriginalState));
+                        const stateToSave = JSON.parse(JSON.stringify(m.OriginalState));
+                        stateToSave._global_index = m._global_index;
+                        localStorage.setItem('pf_monster_creator_save', JSON.stringify(stateToSave));
                         window.location.href = 'index.html';
                     } else {
                         loadToEditor(m);
@@ -264,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Senses
         if (m.Senses) {
-            let parts = m.Senses.split(/,(?![^\(]*\))/);
+            let parts = String(m.Senses).split(/,(?![^\(]*\))/);
             parts.forEach(part => {
                 part = part.trim();
                 if (!part) return;
@@ -358,13 +360,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         state.basic['in-special-attacks'] = m.SpecialAttacks || '';
 
-
-        // Stats
-        // Special Attacks label (for statblock "Special Attacks" line)
-        state.basic['in-special-attacks'] = m.SpecialAttacks || '';
-
-        // Special Abilities (Perfectly scraped from txt_to_json.py)
-        if (m['Special Abilities']) {
+        // Special Abilities (Local data from dynamic.abilities, Special Abilities text, or SpecialAttacks)
+        if (m.dynamic && m.dynamic.abilities && m.dynamic.abilities.length > 0) {
+            m.dynamic.abilities.forEach(ab => {
+                state.dynamic.abilities.push({ name: ab.name || 'Special Ability', desc: ab.desc || ab.name || '' });
+            });
+        } else if (m['Special Abilities']) {
             let lines = m['Special Abilities'].split('\n');
             let currentName = '';
             let currentDesc = [];
@@ -412,7 +413,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 sa = sa.trim();
                 if (!sa) return;
                 const saName = sa.charAt(0).toUpperCase() + sa.slice(1);
-                state.dynamic.abilities.push({ name: saName, desc: '<em>(Click ability name to fetch rules)</em>' });
+                state.dynamic.abilities.push({ name: saName, desc: saName });
             });
         }
 
@@ -431,15 +432,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     line = line.replace(clMatch[0], '').trim();
                 }
 
-                // If line contains an em-dash, en-dash, or hyphen
-                const dashIndex = line.indexOf('—') !== -1 ? line.indexOf('—') : (line.indexOf('-') !== -1 ? line.indexOf('-') : -1);
-                if (dashIndex !== -1) {
-                    const freq = line.substring(0, dashIndex).trim();
-                    const spells = line.substring(dashIndex + 1).trim();
-                    state.dynamic.slas.push({ freq: freq, spells: spells });
-                } else if (line.length > 0) {
-                    // Fallback for lines without dashes
-                    state.dynamic.slas.push({ freq: '', spells: line });
+                // Extract frequency and spells (supports —, –, -, \ufffd, :)
+                const match = line.match(/^([0-9]+\/day|at\s+will|constant)\s*[\—\–\-\ufffd\:\s]\s*(.*)$/i);
+                if (match) {
+                    state.dynamic.slas.push({ freq: match[1].trim(), spells: match[2].trim() });
+                } else {
+                    const dashMatch = line.match(/[\—\–\-\ufffd\:]/);
+                    if (dashMatch) {
+                        const freq = line.substring(0, dashMatch.index).trim();
+                        const spells = line.substring(dashMatch.index + 1).trim();
+                        state.dynamic.slas.push({ freq: freq, spells: spells });
+                    } else if (line.length > 0) {
+                        state.dynamic.slas.push({ freq: '', spells: line });
+                    }
                 }
             });
         }
@@ -548,6 +553,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Save to LocalStorage and redirect
+        state._global_index = m._global_index;
         localStorage.setItem('pf_monster_creator_save', JSON.stringify(state));
         window.location.href = 'index.html';
     }

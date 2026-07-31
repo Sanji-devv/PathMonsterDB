@@ -508,9 +508,9 @@ document.addEventListener('DOMContentLoaded', () => {
         let defAbs = document.getElementById('in-def-abilities')?.value.trim() || '';
         const dr = document.getElementById('in-dr')?.value.trim();
         let immune = document.getElementById('in-immune')?.value.trim() || '';
-        const resist = document.getElementById('in-resist')?.value.trim();
+        let resist = document.getElementById('in-resist')?.value.trim() || '';
         const weaknesses = document.getElementById('in-weaknesses')?.value.trim();
-        const sr = document.getElementById('in-sr')?.value.trim();
+        let sr = document.getElementById('in-sr')?.value.trim() || '';
 
         let immunitiesToAdd = [];
         const lowerType = creatureType;
@@ -631,10 +631,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const makeInteractive = (arr, outId, category) => {
         const el = document.getElementById(outId);
         if (el && window[arr] && window[arr].length > 0) {
-            el.innerHTML = window[arr].map(item => {
-                const name = typeof item === 'object' ? item.name : item;
-                const desc = typeof item === 'object' && item.description ? item.description.replace(/"/g, '&quot;').replace(/'/g, "\\'") : "Description not available.";
-                const safeName = name.replace(/'/g, "\\'");
+            el.innerHTML = window[arr].filter(Boolean).map(item => {
+                const name = (item && typeof item === 'object' ? item.name : item) || '';
+                const desc = (item && typeof item === 'object' && item.description)
+                    ? item.description.replace(/"/g, '&quot;').replace(/'/g, "\\'").replace(/\n/g, '<br>')
+                    : "Description not available.";
+                const safeName = String(name).replace(/'/g, "\\'");
                 return `<a href="#" onclick="if(window.showInfoModal) window.showInfoModal('${safeName}', '${desc}', '${category}'); return false;" style="color: inherit; text-decoration: underline dotted;">${name}</a>`;
             }).join(', ');
         }
@@ -786,8 +788,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (!freqInput && !spellsInput) return;
 
-                const freq = freqInput ? (freqInput.value || '').trim() : '';
-                const spells = spellsInput ? (spellsInput.value || '').trim() : '';
+                let freq = freqInput ? (freqInput.value || '').trim() : '';
+                let spells = spellsInput ? (spellsInput.value || '').trim() : '';
+
+                if (!freq && !spells) return;
+
+                // Auto-split if freq contains a dash/colon and spells is empty
+                if (!spells && freq) {
+                    const dashMatch = freq.match(/[\—\–\-\ufffd\:]/);
+                    if (dashMatch) {
+                        const actualFreq = freq.substring(0, dashMatch.index).trim();
+                        const actualSpells = freq.substring(dashMatch.index + 1).trim();
+                        freq = actualFreq;
+                        spells = actualSpells;
+                    }
+                }
+
+                // Clean any replacement characters
+                freq = freq.replace(/\ufffd/g, '').replace(/\[object Object\]/g, '').trim();
+                spells = spells.replace(/\ufffd/g, '').replace(/\[object Object\]/g, '').replace(/^,\s*|,\s*$/g, '').trim();
 
                 if (!freq && !spells) return;
 
@@ -882,22 +901,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // ATTACK SYSTEM — Clean rebuild
     // Two modes per attack row:
     //   RAW MODE  : one text field, rendered verbatim (for DB imports)
-    //   CALC MODE : count/type/dice/mult/extra → formula calculates bonus
+    //   CALC MODE : count/type/dice/mult/extra → formula calculation
     // =========================================================
 
-                function buildMeleeRowHtml(mode) {
+    function buildMeleeRowHtml(mode) {
         if (mode === 'raw') {
             return `
                 <input type="hidden" class="atk-mode" value="raw">
                 <textarea class="atk-raw" rows="1"
-                    placeholder="Örn: mwk rapier +12 (1d6+5/18-20 plus 5 precision) veya 2 claws +9 (1d4+4), bite +9 (1d6+4)"
+                    placeholder="e.g. mwk rapier +12 (1d6+5/18-20 plus 5 precision) or 2 claws +9 (1d4+4), bite +9 (1d6+4)"
                     style="flex:1; padding:8px 10px; border-radius:6px; background:rgba(0,0,0,0.35);
                            color:#f0e6d0; border:1px solid rgba(255,200,100,0.25); resize:none; overflow:hidden;
                            font-family:inherit; font-size:0.9rem; min-height:38px; line-height:1.4;
                            box-shadow:inset 0 2px 6px rgba(0,0,0,0.3); transition:border-color 0.2s;"
                     onfocus="this.style.borderColor='rgba(255,200,100,0.6)'"
                     onblur="this.style.borderColor='rgba(255,200,100,0.25)'"></textarea>
-                <button class="btn-mode-toggle" title="Hesaplamalı moda geç"
+                <button class="btn-mode-toggle" title="Switch to Formula Mode"
                     style="padding:6px 10px; font-size:0.75rem; background:linear-gradient(135deg,#4f46e5,#3b82f6);
                            color:white; border:none; border-radius:6px; cursor:pointer;
                            height:38px; white-space:nowrap; font-weight:600;
@@ -908,22 +927,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 <input type="hidden" class="atk-mode" value="calc">
                 <div style="display:flex; flex-direction:column; gap:4px; flex:1;">
                     <div style="display:flex; gap:4px; align-items:center; flex-wrap:wrap;">
-                        <input type="number" class="atk-count" placeholder="Adet" min="1" value="1"
+                        <input type="number" class="atk-count" placeholder="Qty" min="1" value="1"
                             style="width:55px; padding:6px; border-radius:6px; background:rgba(0,0,0,0.3);
                                    color:white; border:1px solid rgba(255,255,255,0.15); text-align:center;">
-                        <input type="text" list="melee-weapons-list" class="atk-type" placeholder="Silah (örn: Rapier, Longsword)"
+                        <input type="text" list="melee-weapons-list" class="atk-type" placeholder="Weapon (e.g. Rapier, Longsword)"
                             style="flex:1; min-width:120px; padding:6px; border-radius:6px; background:rgba(0,0,0,0.3);
                                    color:white; border:1px solid rgba(255,255,255,0.15);">
                         <label style="display:flex; align-items:center; gap:4px; font-size:0.8rem; cursor:pointer;
                                padding:6px 8px; background:rgba(0,0,0,0.3); border-radius:6px; border:1px solid rgba(255,255,255,0.15); white-space:nowrap;">
                             <input type="checkbox" class="atk-mw"> MW
                         </label>
-                        <input type="text" class="atk-extra-dmg" placeholder="+bonus hasar (örn: 2)"
+                        <input type="text" class="atk-extra-dmg" placeholder="+bonus dmg (e.g. 2)"
                             style="width:90px; padding:6px; border-radius:6px; background:rgba(0,0,0,0.3);
                                    color:white; border:1px solid rgba(255,255,255,0.15);">
                     </div>
                 </div>
-                <button class="btn-mode-toggle" title="Metin moduna geç"
+                <button class="btn-mode-toggle" title="Switch to Text Mode"
                     style="padding:6px 10px; font-size:0.75rem; background:rgba(255,200,0,0.1);
                            color:#ffd700; border:1px solid rgba(255,200,0,0.4); border-radius:6px; cursor:pointer;
                            height:38px; white-space:nowrap; transition:all 0.2s;">✏ Raw</button>
@@ -936,14 +955,14 @@ document.addEventListener('DOMContentLoaded', () => {
             return `
                 <input type="hidden" class="atk-mode" value="raw">
                 <textarea class="atk-raw" rows="1"
-                    placeholder="Örn: mwk composite longbow +11 (1d8+3/x3) veya 4 javelins +8 (1d6+2)"
+                    placeholder="e.g. mwk composite longbow +11 (1d8+3/x3) or 4 javelins +8 (1d6+2)"
                     style="flex:1; padding:8px 10px; border-radius:6px; background:rgba(0,0,0,0.35);
                            color:#f0e6d0; border:1px solid rgba(100,200,255,0.25); resize:none; overflow:hidden;
                            font-family:inherit; font-size:0.9rem; min-height:38px; line-height:1.4;
                            box-shadow:inset 0 2px 6px rgba(0,0,0,0.3); transition:border-color 0.2s;"
                     onfocus="this.style.borderColor='rgba(100,200,255,0.6)'"
                     onblur="this.style.borderColor='rgba(100,200,255,0.25)'"></textarea>
-                <button class="btn-mode-toggle" title="Hesaplamalı moda geç"
+                <button class="btn-mode-toggle" title="Switch to Formula Mode"
                     style="padding:6px 10px; font-size:0.75rem; background:linear-gradient(135deg,#0891b2,#06b6d4);
                            color:white; border:none; border-radius:6px; cursor:pointer;
                            height:38px; white-space:nowrap; font-weight:600;
@@ -954,22 +973,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 <input type="hidden" class="atk-mode" value="calc">
                 <div style="display:flex; flex-direction:column; gap:4px; flex:1;">
                     <div style="display:flex; gap:4px; align-items:center; flex-wrap:wrap;">
-                        <input type="number" class="atk-count" placeholder="Adet" min="1" value="1"
+                        <input type="number" class="atk-count" placeholder="Qty" min="1" value="1"
                             style="width:55px; padding:6px; border-radius:6px; background:rgba(0,0,0,0.3);
                                    color:white; border:1px solid rgba(255,255,255,0.15); text-align:center;">
-                        <input type="text" list="ranged-weapons-list" class="atk-type" placeholder="Silah (örn: Longbow, Crossbow)"
+                        <input type="text" list="ranged-weapons-list" class="atk-type" placeholder="Weapon (e.g. Longbow, Crossbow)"
                             style="flex:1; min-width:120px; padding:6px; border-radius:6px; background:rgba(0,0,0,0.3);
                                    color:white; border:1px solid rgba(255,255,255,0.15);">
                         <label style="display:flex; align-items:center; gap:4px; font-size:0.8rem; cursor:pointer;
                                padding:6px 8px; background:rgba(0,0,0,0.3); border-radius:6px; border:1px solid rgba(255,255,255,0.15); white-space:nowrap;">
                             <input type="checkbox" class="atk-mw"> MW
                         </label>
-                        <input type="text" class="atk-range" placeholder="Menzil (örn: 60 ft.)"
+                        <input type="text" class="atk-range" placeholder="Range (e.g. 60 ft.)"
                             style="width:90px; padding:6px; border-radius:6px; background:rgba(0,0,0,0.3);
                                    color:white; border:1px solid rgba(255,255,255,0.15);">
                     </div>
                 </div>
-                <button class="btn-mode-toggle" title="Metin moduna geç"
+                <button class="btn-mode-toggle" title="Switch to Text Mode"
                     style="padding:6px 10px; font-size:0.75rem; background:rgba(0,200,255,0.1);
                            color:#67e8f9; border:1px solid rgba(0,200,255,0.3); border-radius:6px; cursor:pointer;
                            height:38px; white-space:nowrap; transition:all 0.2s;">✏ Raw</button>
@@ -1321,7 +1340,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const outMelee = document.getElementById('out-melee');
         const wrapMelee = document.getElementById('wrap-melee');
         if (outMelee && wrapMelee) {
-            outMelee.innerHTML = meleeArr.map(w => `<a href="#" onclick="if(window.showInfoModal) window.showInfoModal('${w.replace(/'/g, "\\'").replace(/"/g, '&quot;')}', 'Description not available.', 'Weapon'); return false;" style="color: inherit; text-decoration: underline dotted;">${w}</a>`).join(', ');
+            outMelee.innerHTML = meleeArr.join(', ');
             wrapMelee.style.display = meleeArr.length > 0 ? 'block' : 'none';
         }
 
@@ -1334,7 +1353,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const outRanged = document.getElementById('out-ranged');
         const wrapRanged = document.getElementById('wrap-ranged');
         if (outRanged && wrapRanged) {
-            outRanged.innerHTML = rangedArr.map(w => `<a href="#" onclick="if(window.showInfoModal) window.showInfoModal('${w.replace(/'/g, "\\'").replace(/"/g, '&quot;')}', 'Description not available.', 'Weapon'); return false;" style="color: inherit; text-decoration: underline dotted;">${w}</a>`).join(', ');
+            outRanged.innerHTML = rangedArr.join(', ');
             wrapRanged.style.display = rangedArr.length > 0 ? 'block' : 'none';
         }
     }
@@ -1363,8 +1382,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (name || desc) {
                 const div = document.createElement('div');
                 div.className = 'special-ability pf-property-line';
-                const cleanName = name.replace(/'/g, "\\'");
-                div.innerHTML = `<a href="#" onclick="if(window.showInfoModal) window.showInfoModal('${cleanName}', '', 'UMR'); return false;" class="pf-label" style="color: inherit; text-decoration: underline dotted; cursor: pointer;">${name}</a> ${desc}`;
+                div.innerHTML = `<span class="pf-label">${name}</span> ${desc}`;
                 outAbilitiesList.appendChild(div);
                 hasAbilities = true;
             }
@@ -1392,8 +1410,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // -------------------------
     // 5. SAVE / LOAD / EXPORT
     // -------------------------
+    let currentEditingIndex = null;
+
     function serializeState() {
         let state = { basic: {}, html: {}, dynamic: {} };
+        if (currentEditingIndex !== null && currentEditingIndex !== undefined) {
+            state._global_index = currentEditingIndex;
+        }
         // Basic inputs
         document.querySelectorAll('input[id^="in-"], select[id^="in-"], textarea[id^="in-"]').forEach(el => {
             if (el.type === 'radio') {
@@ -1406,6 +1429,12 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.rich-text-editor[id^="in-"]').forEach(el => {
             state.html[el.id] = el.innerHTML;
         });
+
+        // Capture calculated values for top-level database exports
+        const outHpEl = document.getElementById('out-hp');
+        if (outHpEl) state.basic['in-hp'] = outHpEl.textContent.trim();
+        const outInitEl = document.getElementById('out-init');
+        if (outInitEl) state.basic['in-init'] = outInitEl.textContent.trim();
         // Dynamic lists
         state.dynamic.subtypes = Array.from(document.querySelectorAll('.subtype-select')).map(el => el.value);
         state.dynamic.senses = Array.from(document.querySelectorAll('.sense-item')).map(el => ({
@@ -1459,8 +1488,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function deserializeState(jsonStr) {
         try {
-            const state = JSON.parse(jsonStr);
+            const state = typeof jsonStr === 'string' ? JSON.parse(jsonStr) : jsonStr;
             if (!state) return;
+            if (state._global_index !== undefined) {
+                currentEditingIndex = state._global_index;
+            }
 
             // Basic
             for (let id in state.basic) {
@@ -1518,8 +1550,36 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.getElementById('btn-add-sla').click();
                     const items = document.querySelectorAll('.sla-item');
                     const last = items[items.length - 1];
-                    last.querySelector('.sla-freq') && (last.querySelector('.sla-freq').value = val.freq);
-                    last.querySelector('.sla-spells') && (last.querySelector('.sla-spells').value = val.spells);
+                    let freqStr = typeof val === 'string' ? val : (val.freq || '');
+                    let spellsStr = typeof val === 'object' && val !== null ? val.spells : '';
+
+                    if (typeof spellsStr !== 'string') {
+                        if (Array.isArray(spellsStr)) {
+                            spellsStr = spellsStr.map(s => (typeof s === 'object' && s !== null ? (s.name || s.spell || s.rawText || Object.values(s).join(' ')) : String(s))).filter(Boolean).join(', ');
+                        } else if (spellsStr && typeof spellsStr === 'object') {
+                            spellsStr = spellsStr.name || spellsStr.spell || Object.values(spellsStr).join(' ');
+                        } else {
+                            spellsStr = '';
+                        }
+                    }
+
+                    // If spellsStr is empty but freqStr contains a dash, split them!
+                    if (!spellsStr && freqStr) {
+                        const dashMatch = freqStr.match(/[\—\–\-\ufffd\:]/);
+                        if (dashMatch) {
+                            const actualFreq = freqStr.substring(0, dashMatch.index).trim();
+                            const actualSpells = freqStr.substring(dashMatch.index + 1).trim();
+                            freqStr = actualFreq;
+                            spellsStr = actualSpells;
+                        }
+                    }
+
+                    // Clean any replacement characters or lingering object strings
+                    freqStr = freqStr.replace(/\ufffd/g, '').replace(/\[object Object\]/g, '').trim();
+                    spellsStr = spellsStr.replace(/\ufffd/g, '').replace(/\[object Object\]/g, '').replace(/^,\s*|,\s*$/g, '').trim();
+
+                    last.querySelector('.sla-freq') && (last.querySelector('.sla-freq').value = freqStr);
+                    last.querySelector('.sla-spells') && (last.querySelector('.sla-spells').value = spellsStr);
                 });
             }
             if (state.dynamic.melee) {
@@ -1586,30 +1646,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const items = document.querySelectorAll('.sa-item');
                     const last = items[items.length - 1];
                     last.querySelector('.sa-name').value = val.name;
-
-                    const isPlaceholder = val.desc && (val.desc.includes('(Add description here)') || val.desc.trim() === '');
-                    if (isPlaceholder) {
-                        last.querySelector('.sa-desc').innerHTML = '<em>Fetching description...</em>';
-                        const monsterName = state.basic['in-name'] || '';
-                        fetch(`/api/ability?name=${encodeURIComponent(val.name)}&monster=${encodeURIComponent(monsterName)}`)
-                            .then(r => r.json())
-                            .then(data => {
-                                if (data && data.description) {
-                                    const formattedDesc = data.description.replace(/\n/g, '<br>');
-                                    last.querySelector('.sa-desc').innerHTML = formattedDesc;
-                                    renderAbilities();
-                                } else {
-                                    last.querySelector('.sa-desc').innerHTML = val.desc;
-                                    renderAbilities();
-                                }
-                            })
-                            .catch(() => {
-                                last.querySelector('.sa-desc').innerHTML = val.desc;
-                                renderAbilities();
-                            });
-                    } else {
-                        last.querySelector('.sa-desc').innerHTML = val.desc;
-                    }
+                    last.querySelector('.sa-desc').innerHTML = val.desc || '';
                 });
             }
 
@@ -1676,16 +1713,31 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    let autoSaveTimeout = null;
     function autoSave() {
-        // Disabled per user request
+        clearTimeout(autoSaveTimeout);
+        autoSaveTimeout = setTimeout(() => {
+            try {
+                const dataStr = serializeState();
+                localStorage.setItem('pf_monster_creator_current_draft', dataStr);
+            } catch (e) {}
+        }, 400);
     }
 
-    // Load on start (used for receiving monsters from Database page)
+    // Attach autoSave draft to form inputs
+    const editorFormContainer = document.getElementById('form-container') || document.body;
+    editorFormContainer.addEventListener('input', autoSave);
+    editorFormContainer.addEventListener('change', autoSave);
+
+    // Load on start (used for receiving monsters from Database page or restoring active draft)
     const saved = localStorage.getItem('pf_monster_creator_save');
+    const activeDraft = localStorage.getItem('pf_monster_creator_current_draft');
     if (saved) {
         deserializeState(saved);
-        // Clean it up immediately so it acts only as a handoff, avoiding annoying popups on refresh
         localStorage.removeItem('pf_monster_creator_save');
+        localStorage.setItem('pf_monster_creator_current_draft', saved);
+    } else if (activeDraft) {
+        deserializeState(activeDraft);
     } else {
         handleToggle();
         updatePreview();
@@ -1696,7 +1748,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnNewSheet) {
         btnNewSheet.addEventListener('click', () => {
             if (confirm("Are you sure you want to clear all data and start a new sheet? Unsaved changes will be lost.")) {
+                currentEditingIndex = null;
                 localStorage.removeItem('pf_monster_creator_save');
+                localStorage.removeItem('pf_monster_creator_current_draft');
                 location.reload();
             }
         });
@@ -1742,12 +1796,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 reader.onload = (e) => deserializeState(e.target.result);
                 reader.readAsText(file);
             } else {
-                alert("Lütfen sadece JSON formatında bir canavar dosyası yükleyin.");
+                alert("Please upload a valid JSON monster file.");
             }
         }
     });
 
-    // Save to Database (monsters_user.json via API)
+    // Save to Database (monsters.json via API)
     const btnSaveDatabase = document.getElementById('btn-save-database');
     if (btnSaveDatabase) {
         btnSaveDatabase.addEventListener('click', () => {
@@ -1763,6 +1817,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(r => r.json())
                 .then(res => {
                     if (res.status === 'ok') {
+                        if (res.global_index !== undefined) {
+                            currentEditingIndex = res.global_index;
+                        }
+                        const freshState = serializeState();
+                        localStorage.setItem('pf_monster_creator_current_draft', freshState);
                         alert(`✅ "${monsterName}" saved to Monster Database!`);
                     } else {
                         alert('Failed to save: unexpected response');
@@ -1913,7 +1972,7 @@ document.addEventListener('DOMContentLoaded', () => {
         function render() {
             if (!containerEl) return;
             containerEl.innerHTML = '';
-            (window[config.activeArray] || []).forEach((item, index) => {
+            (window[config.activeArray] || []).filter(Boolean).forEach((item, index) => {
                 const tag = document.createElement('div');
                 tag.className = 'tag-item';
                 tag.style.display = 'inline-flex';
@@ -1925,7 +1984,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 tag.style.fontSize = '0.85rem';
                 tag.style.border = '1px solid #555';
 
-                const itemName = typeof item === 'object' ? item.name : item;
+                const itemName = (item && typeof item === 'object' ? item.name : item) || '';
 
                 tag.innerHTML = `<span class="editable-tag-text" style="outline:none; min-width:20px; cursor:pointer;" title="Click to view details">${itemName}</span><span class="remove-tag" style="margin-left:6px; cursor:pointer; font-weight:bold; color:#ff6666;">&times;</span>`;
 
@@ -1933,10 +1992,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 span.addEventListener('click', function(e) {
                     if (e.target !== this) return;
                     let desc = "Description not available. Please edit the JSON file to add a description.";
-                    if (typeof item === 'object' && item.description) {
+                    if (item && typeof item === 'object' && item.description) {
                         desc = item.description;
                     } else {
-                        const found = db.find(d => (typeof d === 'object' ? d.name === itemName : d === itemName));
+                        const found = db.find(d => (d && typeof d === 'object' ? d.name === itemName : d === itemName));
                         if (found && typeof found === 'object' && found.description) desc = found.description;
                     }
                     if (window.showInfoModal) window.showInfoModal(itemName, desc);
@@ -1954,7 +2013,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function sync() {
             if (!hiddenInput) return;
-            hiddenInput.value = window[config.activeArray].map(i => typeof i === 'object' ? i.name : i).join(', ');
+            hiddenInput.value = (window[config.activeArray] || []).filter(Boolean).map(i => (i && typeof i === 'object' ? i.name : i) || '').join(', ');
             updatePreview();
         }
 
@@ -1965,8 +2024,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 listEl.innerHTML = '';
                 focusIdx = -1;
                 const matches = db.filter(f => {
-                    const name = typeof f === 'object' ? f.name : f;
-                    return name.toLowerCase().includes(filter.toLowerCase());
+                    const name = (f && typeof f === 'object' ? f.name : f) || '';
+                    return String(name).toLowerCase().includes(filter.toLowerCase());
                 }).slice(0, 50);
                 
                 if (matches.length > 0) {
@@ -2314,7 +2373,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const controlsPanel = document.getElementById('controls-panel');
     if (toggleBtn && controlsPanel) {
         toggleBtn.addEventListener('click', () => {
-            controlsPanel.classList.toggle('collapsed');
+            const isCollapsed = controlsPanel.classList.toggle('collapsed');
+            toggleBtn.setAttribute('title', isCollapsed ? 'Open Sidebar (Show Editor)' : 'Close Sidebar (Hide Editor)');
         });
     }
     // -------------------------------------------------------------------

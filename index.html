@@ -21,10 +21,8 @@
 <body>
     <div class="app-container">
         <!-- Floating toggle button -->
-        <button id="btn-toggle-panel" class="btn primary"
-            style="position: absolute; top: 15px; left: 15px; z-index: 20; padding: 8px; border-radius: 8px; width: 44px; height: 44px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; transition: all 0.3s;"
-            title="Toggle Sidebar">
-            <svg fill="white" viewBox="0 0 24 24" width="24" height="24">
+        <button id="btn-toggle-panel" class="btn-toggle-panel" title="Toggle Editor Sidebar">
+            <svg id="toggle-icon" fill="white" viewBox="0 0 24 24" width="22" height="22">
                 <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
             </svg>
         </button>
@@ -200,12 +198,9 @@
                         <div id="senses-container"></div>
                         <button id="btn-add-sense" class="btn-dashed-add">+ Add Sense</button>
                     </div>
-                    <div class="form-group" style="position: relative;">
+                    <div class="form-group">
                         <label>Aura</label>
-                        <input type="hidden" id="in-aura" value="">
-                        <div id="selected-aura-container" class="selected-tags-container" style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:5px;"></div>
-                        <input type="text" id="in-aura-search" placeholder="Select or search auras..." autocomplete="off" style="width:100%; cursor: pointer; background: #333; border: 1px solid #555; padding: 6px;">
-                        <ul id="aura-autocomplete-list" class="autocomplete-list" style="display: none; position:absolute; z-index:1000; width:100%; max-height:200px; overflow-y:auto; background:#222; border:1px solid #444; list-style:none; padding:0; margin:0;"></ul>
+                        <input type="text" id="in-aura" placeholder="e.g. fear (30 ft., DC 18)" value="">
                     </div>
                 </section>
 
@@ -261,13 +256,13 @@
                                         <div class="form-row">
                         <div class="form-group" style="flex:1.5;">
                             <label>Equipped Armor</label>
-                            <input type="text" id="in-armor-name" list="armor-list" list="armor-list" placeholder="e.g. Chainmail" autocomplete="off">
+                            <input type="text" id="in-armor-name" list="armor-list" placeholder="e.g. Chainmail" autocomplete="off">
                         </div>
                         <div class="form-group"><label>Armor AC</label><input type="number" id="in-ac-armor" value="0"></div>
                         
                         <div class="form-group" style="flex:1.5;">
                             <label>Equipped Shield</label>
-                            <input type="text" id="in-shield-name" list="shield-list" list="shield-list" placeholder="e.g. Heavy Steel Shield" autocomplete="off">
+                            <input type="text" id="in-shield-name" list="shield-list" placeholder="e.g. Heavy Steel Shield" autocomplete="off">
                         </div>
                         <div class="form-group"><label>Shield AC</label><input type="number" id="in-ac-shield" value="0"></div>
                     </div>
@@ -299,39 +294,18 @@
                         <div class="form-group"><label>Will</label><input type="text" id="in-will" value="+0"></div>
                     </div>
 
-                    <div class="form-group" style="position: relative;">
+                    <div class="form-group">
                         <label>Defensive Abilities</label>
-                        <input type="hidden" id="in-def-abilities" value="">
-                        <div id="selected-def-container" class="selected-tags-container" style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:5px;"></div>
-                        <input type="text" id="in-def-search" placeholder="Select or search def. abilities..." autocomplete="off" style="width:100%; cursor: pointer; background: #333; border: 1px solid #555; padding: 6px;">
-                        <ul id="def-autocomplete-list" class="autocomplete-list" style="display: none; position:absolute; z-index:1000; width:100%; max-height:200px; overflow-y:auto; background:#222; border:1px solid #444; list-style:none; padding:0; margin:0;"></ul>
+                        <input type="text" id="in-def-abilities" placeholder="e.g. evasion, rock catching" value="">
                     </div>
                     <div class="form-row">
-                        <div class="form-group"><label>DR</label><input type="text" id="in-dr" value=""></div>
-                        <div class="form-group" style="position: relative;">
-                        <label>Immune</label>
-                        <input type="hidden" id="in-immune" value="">
-                        <div id="selected-immune-container" class="selected-tags-container" style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:5px;"></div>
-                        <input type="text" id="in-immune-search" placeholder="Select or search immunities..." autocomplete="off" style="width:100%; cursor: pointer; background: #333; border: 1px solid #555; padding: 6px;">
-                        <ul id="immune-autocomplete-list" class="autocomplete-list" style="display: none; position:absolute; z-index:1000; width:100%; max-height:200px; overflow-y:auto; background:#222; border:1px solid #444; list-style:none; padding:0; margin:0;"></ul>
-                    </div>
+                        <div class="form-group"><label>DR</label><input type="text" id="in-dr" placeholder="e.g. 5/slashing" value=""></div>
+                        <div class="form-group"><label>Immune</label><input type="text" id="in-immune" placeholder="e.g. poison, disease" value=""></div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group" style="position: relative;">
-                        <label>Resist</label>
-                        <input type="hidden" id="in-resist" value="">
-                        <div id="selected-resist-container" class="selected-tags-container" style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:5px;"></div>
-                        <input type="text" id="in-resist-search" placeholder="Select or search resistances..." autocomplete="off" style="width:100%; cursor: pointer; background: #333; border: 1px solid #555; padding: 6px;">
-                        <ul id="resist-autocomplete-list" class="autocomplete-list" style="display: none; position:absolute; z-index:1000; width:100%; max-height:200px; overflow-y:auto; background:#222; border:1px solid #444; list-style:none; padding:0; margin:0;"></ul>
-                    </div>
-                        <div class="form-group" style="position: relative;">
-                        <label>Weaknesses</label>
-                        <input type="hidden" id="in-weaknesses" value="">
-                        <div id="selected-weakness-container" class="selected-tags-container" style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:5px;"></div>
-                        <input type="text" id="in-weakness-search" placeholder="Select or search weaknesses..." autocomplete="off" style="width:100%; cursor: pointer; background: #333; border: 1px solid #555; padding: 6px;">
-                        <ul id="weakness-autocomplete-list" class="autocomplete-list" style="display: none; position:absolute; z-index:1000; width:100%; max-height:200px; overflow-y:auto; background:#222; border:1px solid #444; list-style:none; padding:0; margin:0;"></ul>
-                    </div>
-                        <div class="form-group"><label>SR</label><input type="number" id="in-sr" value=""></div>
+                        <div class="form-group"><label>Resist</label><input type="text" id="in-resist" placeholder="e.g. acid 10, fire 10" value=""></div>
+                        <div class="form-group"><label>Weaknesses</label><input type="text" id="in-weaknesses" placeholder="e.g. vulnerable to fire" value=""></div>
+                        <div class="form-group"><label>SR</label><input type="text" id="in-sr" placeholder="e.g. 19" value=""></div>
                     </div>
                 </section>
 

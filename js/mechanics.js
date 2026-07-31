@@ -18,8 +18,10 @@ window.applyMechanics = function() {
         let html = '';
         Object.keys(spellsByLevel).sort((a,b) => a-b).forEach(lvl => {
             const spells = spellsByLevel[lvl].map(s => {
-                const safeName = s.name.replace(/'/g, "\\'");
-                return `<a href="#" onclick="if(window.showInfoModal) window.showInfoModal('${safeName}', 'Description not available.', 'Spell'); return false;" style="color: inherit; text-decoration: underline dotted;" title="${s.school}, ${s.casting_time}">${s.name}</a>`;
+                const safeName = (s.name || '').replace(/'/g, "\\'");
+                const safeDesc = (s.description || 'Description not available.').replace(/"/g, '&quot;').replace(/'/g, "\\'").replace(/\n/g, '<br>');
+                const titleStr = [s.school, s.casting_time].filter(Boolean).join(', ');
+                return `<a href="#" onclick="if(window.showInfoModal) window.showInfoModal('${safeName}', '${safeDesc}', 'Spell'); return false;" style="color: inherit; text-decoration: underline dotted;" title="${titleStr}">${s.name}</a>`;
             }).join(', ');
             const label = lvl === '0' ? '0 (at will)' : `${lvl}th`;
             html += `<div class="pf-property-line" style="padding-left: 10px; text-indent: -10px;">
@@ -51,12 +53,13 @@ window.applyMechanics = function() {
     let wis = parseInt(document.getElementById('in-wis')?.value) || 10;
 
     // Apply Wondrous Items / Gear bonuses (e.g., Belt of Giant Strength)
-    if (window.CharacterState && window.CharacterState.inventory.wondrous) {
+    if (window.CharacterState && window.CharacterState.inventory && window.CharacterState.inventory.wondrous) {
         window.CharacterState.inventory.wondrous.forEach(item => {
-            if (item.name.includes("Belt of Giant Strength +2")) str += 2;
-            if (item.name.includes("Belt of Giant Strength +4")) str += 4;
-            if (item.name.includes("Belt of Giant Strength +6")) str += 6;
-            if (item.name.includes("Belt of Incredible Dexterity +2")) dex += 2;
+            const itemName = typeof item === 'object' && item !== null ? (item.name || '') : String(item || '');
+            if (itemName.includes("Belt of Giant Strength +2")) str += 2;
+            if (itemName.includes("Belt of Giant Strength +4")) str += 4;
+            if (itemName.includes("Belt of Giant Strength +6")) str += 6;
+            if (itemName.includes("Belt of Incredible Dexterity +2")) dex += 2;
             // Add more as needed
         });
     }
@@ -84,51 +87,25 @@ window.applyMechanics = function() {
     if (outRef) outRef.textContent = fmt(parseSave(baseRefIn) + classRef);
     if (outWill) outWill.textContent = fmt(parseSave(baseWillIn) + classWill);
 
-    // HP Calculation (Base + Class HP + Con Mod * Total HD)
-    // Actually just add Class HP (average HD/2 + 0.5 per level) to Base HP.
-    const hpBaseIn = document.getElementById('in-hp')?.value || "0";
+    // HP Calculation (Base + Class HP)
     if (outHp && classHp > 0) {
-        const match = hpBaseIn.match(/^(\d+)/);
-        const bHp = match ? parseInt(match[1]) : 0;
-        // Simple approximation: classHp is max HD * level? No, average is better but we just used max in mechanics.js earlier.
-        // Let's just output base + classHp for now to show it works.
-        outHp.innerHTML = `${bHp + classHp} <span class="pf-small-text">(${hpBaseIn})</span>`;
+        if (!outHp.dataset.baseHp) {
+            const rawText = outHp.textContent || "0";
+            const match = rawText.match(/^(\d+)/);
+            outHp.dataset.baseHp = match ? match[1] : "0";
+        }
+        const bHp = parseInt(outHp.dataset.baseHp) || 0;
+        outHp.innerHTML = `${bHp + classHp} <span class="pf-small-text">(${bHp} + ${classHp} class HP)</span>`;
     }
 
     // 5. Update BAB, CMB, CMD
-    const sizeMods = {
-        'Fine': { ac_atk: 8, cmb_cmd: -8 },
-        'Diminutive': { ac_atk: 4, cmb_cmd: -4 },
-        'Tiny': { ac_atk: 2, cmb_cmd: -2 },
-        'Small': { ac_atk: 1, cmb_cmd: -1 },
-        'Medium': { ac_atk: 0, cmb_cmd: 0 },
-        'Large': { ac_atk: -1, cmb_cmd: 1 },
-        'Huge': { ac_atk: -2, cmb_cmd: 2 },
-        'Gargantuan': { ac_atk: -4, cmb_cmd: 4 },
-        'Colossal': { ac_atk: -8, cmb_cmd: 8 }
-    };
-    
-    // Base Monster BAB (user input or monster json)
-    // The user inputs melee/ranged. But for CMB/CMD we need BAB.
-    // In `script.js` BAB is parsed from the CMB string sometimes. 
-    // Let's provide a robust calculation:
-    // If it's a loaded monster, it should have a BAB input, but wait, `index.html` has no `#in-bab`.
-    // Let's just output CMB and CMD with Class BAB appended.
-    // CMB = BAB + Str Mod + Size Mod
-    // CMD = 10 + BAB + Str Mod + Dex Mod + Size Mod
-    const size = document.getElementById('in-size')?.value || 'Medium';
-    const sMod = sizeMods[size] || sizeMods['Medium'];
-    const sizeCmb = sMod.cmb_cmd;
-
-    // To properly calculate CMB/CMD from scratch, we'd need monster's base BAB.
-    // But since the user manually edits the CMB string (e.g. "+15"), we can just add classBab to it!
     const baseCmbIn = document.getElementById('in-cmb')?.value || "0";
     const baseCmdIn = document.getElementById('in-cmd')?.value || "10";
     
     const outCmb = document.getElementById('out-cmb');
     const outCmd = document.getElementById('out-cmd');
     
-    if (outCmb) outCmb.textContent = fmt(parseSave(baseCmbIn) + classBab);
-    if (outCmd) outCmd.textContent = (parseSave(baseCmdIn) + classBab).toString();
+    if (outCmb && baseCmbIn) outCmb.textContent = fmt(parseSave(baseCmbIn));
+    if (outCmd && baseCmdIn) outCmd.textContent = parseSave(baseCmdIn).toString();
 
 };
