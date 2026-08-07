@@ -795,7 +795,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Auto-split if freq contains a dash/colon and spells is empty
                 if (!spells && freq) {
-                    const dashMatch = freq.match(/[\—\–\-\ufffd\:]/);
+                    const dashMatch = freq.match(/[\—\–\-\ufffd]/);
                     if (dashMatch) {
                         const actualFreq = freq.substring(0, dashMatch.index).trim();
                         const actualSpells = freq.substring(dashMatch.index + 1).trim();
@@ -811,14 +811,42 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!freq && !spells) return;
 
                 const div = document.createElement('div');
-                div.className = 'pf-property-line special-ability';
 
-                let html = '';
-                if (freq) html += `<span class="pf-label">${freq}</span>`;
-                if (freq && spells) html += `—`; // em dash
-                if (spells) html += `<i>${spells}</i>`;
+                // Check if this row is a Header (e.g. Kitsune Spell-Like Abilities (CL 1st; concentration +4))
+                const isHeader = !freq && (/(?:Spell-Like|Spells Known|Spells Prepared|Bloodline|Domains|Prohibited)/i.test(spells) || /^\(?CL\s+/i.test(spells));
 
-                div.innerHTML = html;
+                if (isHeader) {
+                    div.className = 'pf-property-line';
+                    div.style.marginTop = '6px';
+                    div.style.marginBottom = '2px';
+
+                    const mCl = spells.match(/^(.*?)\s*(\(CL\s+[^)]+\))$/i);
+                    if (mCl) {
+                        div.innerHTML = `<span class="pf-label" style="font-size: 1.02rem;">${mCl[1]}</span> <span style="font-style: normal; font-weight: normal; color: var(--sb-text);">${mCl[2]}</span>`;
+                    } else {
+                        div.innerHTML = `<span class="pf-label" style="font-size: 1.02rem;">${spells}</span>`;
+                    }
+                } else {
+                    div.className = 'pf-property-line special-ability';
+                    let html = '';
+                    if (freq) html += `<span class="pf-label">${freq}</span>—`;
+
+                    if (spells) {
+                        const spellTokens = spells.split(',').map(s => s.trim()).filter(Boolean);
+                        const formattedSpells = spellTokens.map(tok => {
+                            const mNote = tok.match(/^(.*?)\s*(\([^)]+\)|\[[^\]]+\])$/);
+                            if (mNote && mNote[1]) {
+                                const sName = mNote[1].trim();
+                                const note = mNote[2].trim();
+                                return `<i>${sName}</i> ${note}`;
+                            }
+                            return `<i>${tok}</i>`;
+                        });
+                        html += formattedSpells.join(', ');
+                    }
+                    div.innerHTML = html;
+                }
+
                 list.appendChild(div);
             });
 
@@ -1486,6 +1514,165 @@ document.addEventListener('DOMContentLoaded', () => {
         return JSON.stringify(state);
     }
 
+    function cleanStatblockSpellsText(raw) {
+        if (!raw || typeof raw !== 'string' || !raw.trim()) return '';
+
+        let text = raw.replace(/(\d+)[\u2014\ufffd—–\-](st|nd|rd|th)/gi, '$1$2');
+        text = text.replace(/\ufffd/g, '—').replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+        let copyrightIdx = text.indexOf('Section 15: Copyright Notice');
+        if (copyrightIdx !== -1) text = text.substring(0, copyrightIdx);
+        let copyrightIdx2 = text.indexOf('spell-like abilities .');
+        if (copyrightIdx2 !== -1) text = text.substring(0, copyrightIdx2);
+
+        let rawLines = text.split('\n').map(l => l.trim()).filter(Boolean);
+
+        const NO_COMMA_WORDS = new Set(['maximized', 'quickened', 'empowered', 'extended', 'silent', 'still', 'heightened', 'enlarged', 'widened', 'grave', 'touch', 'ranged', 'bloodline', 'domains', 'prohibited', 'schools', 'domain', 'spell']);
+
+        let resultLines = [];
+        let currLine = '';
+        let currType = null;
+
+        const reHeader = /(?:Spell-Like Abilities|Spell-like Abilities|Spell-Like Ability|Spells Prepared|Spells Known|Spell-Like)/i;
+        const reFreq = /^(?:\d+\/(?:day|week|month|year)|at\s*will|constant|\d+(?:st|nd|rd|th)?\s*\([^)]*\)|\d+(?:st|nd|rd|th)?$|\d+\s*\(at\s*will\))/i;
+        const reFooter = /^(?:Bloodline|Domains|Prohibited Schools|Opposition Schools|\*|\D+power$)/i;
+
+        for (let token of rawLines) {
+            if ([',', '—', '-', '–', ':'].includes(token)) {
+                if (currLine) {
+                    if (['—', '-', '–'].includes(token) && !currLine.endsWith('—')) currLine += '—';
+                    else if (token === ',' && !currLine.endsWith(',')) currLine += ',';
+                }
+                continue;
+            }
+
+            if (currType === 'header' || (currLine && (currLine.includes('(CL') || currLine.startsWith('CL')) && !currLine.endsWith(')'))) {
+                if (token.startsWith('concentration') || /^\+?\d+\)?$/.test(token) || token.startsWith('(') || token.endsWith(';')) {
+                    currLine += ' ' + token;
+                    continue;
+                }
+            }
+
+            if (reHeader.test(token) || /^\(?CL\s+/i.test(token)) {
+                if (currLine) {
+                    if ((currLine.split('(').length - 1) > (currLine.split(')').length - 1)) currLine += ')';
+                    resultLines.push(currLine);
+                }
+                currLine = token;
+                currType = 'header';
+                continue;
+            }
+
+            if (reFreq.test(token)) {
+                if (currLine) {
+                    if ((currLine.split('(').length - 1) > (currLine.split(')').length - 1)) currLine += ')';
+                    resultLines.push(currLine);
+                }
+                currLine = token;
+                currType = 'freq';
+                continue;
+            }
+
+            if (reFooter.test(token)) {
+                if (currLine) {
+                    if ((currLine.split('(').length - 1) > (currLine.split(')').length - 1)) currLine += ')';
+                    resultLines.push(currLine);
+                }
+                currLine = token;
+                currType = 'footer';
+                continue;
+            }
+
+            if (currLine) {
+                let words = currLine.split(/\s+/);
+                let lastWord = (words[words.length - 1] || '').toLowerCase().replace(/[(),]/g, '');
+                if (currLine.endsWith('—') || currLine.endsWith('-')) {
+                    currLine += token;
+                } else if (token.startsWith('—') || token.startsWith('-')) {
+                    currLine += '—' + token.replace(/^[—\s\-]+/, '');
+                } else if (currLine.endsWith(',') || currLine.endsWith('(')) {
+                    currLine += ' ' + token;
+                } else if (token.startsWith(',') || token.startsWith('(')) {
+                    currLine += (token.startsWith(',') ? '' : ' ') + token;
+                } else {
+                    if (currType === 'freq' && !currLine.includes('—')) {
+                        currLine += '—' + token;
+                    } else if (NO_COMMA_WORDS.has(lastWord) || currType === 'footer' || currType === 'header') {
+                        currLine += ' ' + token;
+                    } else {
+                        currLine += ', ' + token;
+                    }
+                }
+            } else {
+                currLine = token;
+            }
+        }
+
+        if (currLine) {
+            if ((currLine.split('(').length - 1) > (currLine.split(')').length - 1)) currLine += ')';
+            resultLines.push(currLine);
+        }
+
+        let cleaned = [];
+        for (let line of resultLines) {
+            let l = line.replace(/\s+/g, ' ').trim();
+            l = l.replace(/\s*,\s*/g, ', ');
+            l = l.replace(/—\s*/g, '—');
+            l = l.replace(/—\s*,/g, '—');
+            l = l.replace(/\(\s+/g, '(');
+            l = l.replace(/\s+\)/g, ')');
+
+            let mDash = l.match(/^((?:\d+\/(?:day|week|month|year)|at\s*will|constant|\d+(?:st|nd|rd|th)\s*\([^)]*\)|\d+(?:st|nd|rd|th)|\d+\s*\(at\s*will\)))\s*—?\s*(.*)$/i);
+            if (mDash) {
+                let freqPart = mDash[1].trim();
+                let restPart = mDash[2].trim();
+                if (restPart) l = `${freqPart}—${restPart}`;
+                else l = freqPart;
+            }
+            cleaned.push(l);
+        }
+        return cleaned.join('\n');
+    }
+
+    function consolidateSlaItems(rawItems) {
+        if (!Array.isArray(rawItems) || rawItems.length === 0) return [];
+        
+        let rawTextParts = [];
+        rawItems.forEach(item => {
+            let f = typeof item === 'string' ? item : (item.freq || '');
+            let s = typeof item === 'object' && item !== null ? (item.spells || '') : '';
+            if (typeof s !== 'string') {
+                if (Array.isArray(s)) s = s.map(x => typeof x === 'object' ? (x.name || x.spell || Object.values(x).join(' ')) : String(x)).join(', ');
+                else s = String(s || '');
+            }
+            if (f && s) rawTextParts.push(`${f}—${s}`);
+            else if (f) rawTextParts.push(f);
+            else if (s) rawTextParts.push(s);
+        });
+
+        let rawText = rawTextParts.join('\n');
+        if (!rawText.trim()) return [];
+
+        let cleanedText = cleanStatblockSpellsText(rawText);
+
+        let consolidated = [];
+        cleanedText.split('\n').forEach(line => {
+            line = line.trim();
+            if (!line) return;
+
+            let dashIdx = line.indexOf('—');
+            if (dashIdx !== -1) {
+                let freq = line.substring(0, dashIdx).trim();
+                let spells = line.substring(dashIdx + 1).trim();
+                consolidated.push({ freq: freq, spells: spells });
+            } else {
+                consolidated.push({ freq: '', spells: line });
+            }
+        });
+
+        return consolidated;
+    }
+
     function deserializeState(jsonStr) {
         try {
             const state = typeof jsonStr === 'string' ? JSON.parse(jsonStr) : jsonStr;
@@ -1546,6 +1733,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
             if (state.dynamic.slas) {
+                state.dynamic.slas = consolidateSlaItems(state.dynamic.slas);
                 state.dynamic.slas.forEach(val => {
                     document.getElementById('btn-add-sla').click();
                     const items = document.querySelectorAll('.sla-item');

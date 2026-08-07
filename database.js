@@ -424,27 +424,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 line = line.trim();
                 if (!line) return;
 
-                // Extract CL if present
+                // Extract CL if present and main CL is not set
                 const clMatch = line.match(/\((CL\s+[^\)]+)\)/i);
-                if (clMatch) {
+                if (clMatch && !state.basic['in-sla-cl']) {
                     state.basic['in-sla-cl'] = clMatch[1];
-                    // Remove the CL part from the line
-                    line = line.replace(clMatch[0], '').trim();
                 }
 
                 // Extract frequency and spells (supports —, –, -, \ufffd, :)
-                const match = line.match(/^([0-9]+\/day|at\s+will|constant)\s*[\—\–\-\ufffd\:\s]\s*(.*)$/i);
-                if (match) {
-                    state.dynamic.slas.push({ freq: match[1].trim(), spells: match[2].trim() });
-                } else {
-                    const dashMatch = line.match(/[\—\–\-\ufffd\:]/);
-                    if (dashMatch) {
-                        const freq = line.substring(0, dashMatch.index).trim();
-                        const spells = line.substring(dashMatch.index + 1).trim();
-                        state.dynamic.slas.push({ freq: freq, spells: spells });
-                    } else if (line.length > 0) {
-                        state.dynamic.slas.push({ freq: '', spells: line });
-                    }
+                const dashMatch = line.match(/[\—\–\-\ufffd]/);
+                if (dashMatch) {
+                    const freq = line.substring(0, dashMatch.index).trim();
+                    const spells = line.substring(dashMatch.index + 1).trim();
+                    state.dynamic.slas.push({ freq: freq, spells: spells });
+                } else if (line.length > 0) {
+                    state.dynamic.slas.push({ freq: '', spells: line });
                 }
             });
         }
