@@ -120744,7 +120744,14 @@
     "Source": "PFRPG Bestiary 4 / d20pfsrd",
     "Special Attacks": "",
     "SpellLikeAbilities": "Kitsune Spell-Like Abilities (CL 1st; concentration +4)\n3/day—dancing lights\nBloodline Spell-Like Abilities (CL 1st; concentration +4)\n6/day—laughing touch\nSorcerer Spells Known (CL 1st; concentration +4)\n1st (4/day)—charm person (DC 15), sleep (DC 17)\n0 (at will)—daze, detect magic, prestidigitation, read magic\nBloodline fey",
-    "Special Abilities": "Change Shape (Su) A kitsune can assume the appearance of a specific single human form of the same sex. The kitsune always takes this specific form when she uses this ability. A kitsune in human form cannot use her bite attack, but gains a +10 racial bonus on Disguise checks made to appear human . This ability otherwise functions as alter self , except that the kitsune does not adjust her ability scores. Kitsune Magic (Ex/Sp) Kitsune add 1 to the DC of any saving throws of enchantment spells they cast. Kitsune with a Charisma score of 11 or higher gain the following spell-like ability : 3/day— dancing lights ."
+    "Special Abilities": "Change Shape (Su) A kitsune can assume the appearance of a specific single human form of the same sex. The kitsune always takes this specific form when she uses this ability. A kitsune in human form cannot use her bite attack, but gains a +10 racial bonus on Disguise checks made to appear human . This ability otherwise functions as alter self , except that the kitsune does not adjust her ability scores. Kitsune Magic (Ex/Sp) Kitsune add 1 to the DC of any saving throws of enchantment spells they cast. Kitsune with a Charisma score of 11 or higher gain the following spell-like ability : 3/day— dancing lights .",
+    "_global_index": 1426,
+    "_m_name": "kitsune",
+    "_m_cr": "1/2",
+    "_m_type": "humanoid",
+    "_m_align": "n",
+    "_m_env": "any land",
+    "_m_source": "pfrpg bestiary 4 / d20pfsrd"
   },
   {
     "Name": "Knight Gaunt",
@@ -389013,7 +389020,7 @@
     "_m_type": "magical beast",
     "_m_align": "ne",
     "_m_env": "alchemical laboratories, subterranean dungeons, ruined fortresses",
-    "_m_source": "custom",
+    "_m_source": "",
     "_global_index": 6542
   },
   {
@@ -389958,7 +389965,7 @@
     "_m_type": "magical beast",
     "_m_align": "n",
     "_m_env": "warm deserts, plains, or hills",
-    "_m_source": "custom",
+    "_m_source": "",
     "_global_index": 6548
   },
   {
@@ -390137,7 +390144,466 @@
     "_m_type": "undead",
     "_m_align": "ne",
     "_m_env": "warm swamps, ancient ruins, desecrated graveyards",
-    "_m_source": "custom",
+    "_m_source": "",
     "_global_index": 6549
+  },
+  {
+    "Name": "Kaelit, The Red Dragon",
+    "CR": "14",
+    "XP": "38,400",
+    "Race": "",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Class2": "",
+    "Class2_Lvl": "",
+    "Alignment": "CE",
+    "Size": "Huge",
+    "Type": "dragon",
+    "subtype1": "fire",
+    "subtype2": "",
+    "subtype3": "",
+    "subtype4": "",
+    "subtype5": "",
+    "subtype6": "",
+    "AC": "29",
+    "AC_Touch": "8",
+    "AC_Flat-footed": "29",
+    "HP": "194",
+    "HD": "16d12+90",
+    "Fort": "15",
+    "Ref": "10",
+    "Will": "14",
+    "Melee": "bite +24 (2d8+13/19-20), 2 claws +24 (2d6+9/19-20), 2 wings +22 (1d8+4), tail slap +22 (2d6+13)",
+    "Ranged": "",
+    "Space": "15",
+    "Reach": "10 (15 with bite)",
+    "Str": "29",
+    "Dex": "10",
+    "Con": "21",
+    "Int": "16",
+    "Wis": "17",
+    "Cha": "16",
+    "Feats": "Cleave, Flyby Attack, Greater Vital Strike, Improved Critical (bite, claw), Improved Initiative, Iron Will, Multiattack, Power Attack, Vital Strike",
+    "Skills": "Appraise +22, Bluff +22, Fly +11, Intimidate +22, Knowl. (arcana) +22, Perception +22, Sense Motive +22, Spellcraft +22, Stealth +11",
+    "RacialMods": "",
+    "Languages": "Common, Draconic, Dwarven, Orc",
+    "SQ": "smoke vision, flame-welded vitality",
+    "Environment": "warm mountains",
+    "Organization": "solitary",
+    "Treasure": "triple",
+    "Group": "Chromatic Dragon (Variant)",
+    "Gear": "",
+    "OtherGear": "",
+    "CharacterFlag": "0",
+    "CompanionFlag": "0",
+    "Speed": "40 ft., fly 200 ft. (poor)",
+    "Base_Speed": "40",
+    "Fly_Speed": "200",
+    "Maneuverability": "poor",
+    "Climb_Speed": "",
+    "Swim_Speed": "",
+    "Burrow_Speed": "",
+    "Speed_Special": "",
+    "Speed_Land": "1",
+    "Fly": "1",
+    "Climb": "0",
+    "Burrow": "0",
+    "Swim": "0",
+    "VariantParent": "Adult Red Dragon",
+    "ClassArchetypes": "",
+    "CompanionFamiliarLink": "NULL",
+    "AlternateNameForm": "",
+    "DR": "10/magic",
+    "Immune": "fire, paralysis, sleep, dragon traits",
+    "Resist": "",
+    "SR": "25",
+    "Weaknesses": "",
+    "IsFavorite": true,
+    "IsUserCustom": true,
+    "Special Attacks": "breath weapon (50-ft. cone, DC 23, 12d10 fire), crush (Small Creatures, DC 23, 2d8+13)",
+    "Special Abilities": "Flame-Welded Vitality (Ex)\nUnlike standard red dragons, Kaelit's heart burns with pure primordial flame that rapidly purges ambient frost. He does not suffer from vulnerability to cold.\n\nFire Aura (Su)\nKaelit is surrounded by an aura of intense heat. All creatures within 5 feet take 1d6 points of fire damage at the beginning of Kaelit's turn.\n\nSmoke Vision (Ex)\nKaelit can see perfectly in smoky conditions (such as those created by pyrotechnics).",
+    "Ecology": "Environment warm mountains\nOrganization solitary\nTreasure triple\n\nKaelit is a terrifying, mutated red dragon variant whose scales glow with an intense inner light. Having conquered the traditional elemental weakness of his kind through ancient draconic ritual, Kaelit stands supreme over cold-based spellcasters.",
+    "Source": "Custom Variant",
+    "_global_index": 6550,
+    "_m_name": "kaelit, the red dragon",
+    "_m_cr": "14",
+    "_m_type": "dragon",
+    "_m_align": "ce",
+    "_m_env": "warm mountains",
+    "_m_source": "custom variant"
+  },
+  {
+    "Name": "Rovesta Evil Druid",
+    "CR": "6",
+    "XP": "2400",
+    "Alignment": "NE",
+    "Size": "Medium",
+    "Type": "Humanoid",
+    "subtype1": "human",
+    "subtype2": "",
+    "Init": "+2",
+    "Senses": "Perception +14",
+    "Aura": "Miasma of Decay (10 ft., DC 17 Fort)",
+    "AC": "19",
+    "AC_Touch": "13",
+    "AC_Flat-footed": "17",
+    "HP": "59 (7d8+21+7)",
+    "HD": "7d8",
+    "Fort": "+7",
+    "Ref": "+4",
+    "Will": "+9",
+    "Speed": "30 ft.",
+    "Melee": "+1 scythe +7 (2d4+2/x4 plus 1d6 negative energy) or Blight Touch +6 touch (1d6+3 negative energy)",
+    "Ranged": "sling +7 (1d4+1)",
+    "Space": "5 ft.",
+    "Reach": "5 ft.",
+    "SpecialAttacks": "wild shape 2/day (Medium animal or Small elemental), miasma of decay (DC 17), blight touch 4/day",
+    "Str": "12",
+    "Dex": "14",
+    "Con": "14",
+    "Int": "10",
+    "Wis": "18",
+    "Cha": "10",
+    "BaseAtk": "5",
+    "CMB": "+6",
+    "CMD": "19",
+    "Feats": "Spell Focus (Necromancy), Greater Spell Focus (Necromancy), Natural Spell, Toughness, Combat Casting",
+    "Skills": "Heal +14, Knowledge (nature) +12, Perception +14, Spellcraft +10, Stealth +8, Survival +14",
+    "Languages": "Common, Druidic, Sylvan",
+    "SQ": "nature bond (Blight/Death domain), nature sense, trackless step, resist nature's lure, wild empathy +7",
+    "DR": "",
+    "Immune": "poison (via Miasma/blight traits)",
+    "Resist": "negative energy 5",
+    "SR": "",
+    "Environment": "corrupted forests, blighted swamps, ruined sanctuaries",
+    "Treasure": "standard (+1 hide armor, +1 darkwood heavy shield, +1 scythe, ring of protection +1, spell component pouch, blighted herbal pouch)",
+    "IsFavorite": true,
+    "IsUserCustom": true,
+    "CharacterFlag": "1",
+    "Class1": "Druid 7",
+    "Class1_Lvl": "Druid 7",
+    "SpellLikeAbilities": "4/day—Blight Touch (1d6+3 negative energy, DC 17 Fort or sickened 1 min)",
+    "Special Abilities": "Miasma of Decay (Su) The Rovesta Evil Druid radiates an aura of sickening rot. Living creatures starting their turn within 10 ft. must succeed on a DC 17 Fortitude save or suffer 1d4 points of negative energy damage and become sickened for 1 round.\n\nBlight Touch (Su) 4/day, touch attack dealing 1d6+3 negative energy damage (DC 17 Fort save or 1d2 Con damage and sickened 1 minute).\n\nWild Shape (Su) 2/day into Medium animal or Small elemental. With Natural Spell, can cast spells in wild shape form.",
+    "OriginalState": {
+      "basic": {
+        "in-name": "Rovesta Evil Druid",
+        "in-cr": "6",
+        "in-xp": "2,400",
+        "in-alignment": "NE",
+        "in-size": "Medium",
+        "in-type": "Humanoid",
+        "in-type-full": "Druid 7",
+        "stat_type": "npc",
+        "in-init-extra": "0",
+        "in-aura": "Miasma of Decay (10 ft., DC 17 Fort)",
+        "in-ac-armor": "4",
+        "in-armor-name": "+1 Hide Armor",
+        "in-ac-shield": "2",
+        "in-shield-name": "+1 Darkwood Heavy Shield",
+        "in-ac-natural": "0",
+        "in-ac-deflection": "1",
+        "in-ac-dodge": "0",
+        "in-hd-amount": "7",
+        "in-hd-size": "8",
+        "in-hp": "59 (7d8+21+7)",
+        "in-fort": "+7",
+        "in-ref": "+4",
+        "in-will": "+9",
+        "in-def-abilities": "resist nature's lure",
+        "in-dr": "",
+        "in-immune": "poison (via Miasma/blight traits)",
+        "in-resist": "negative energy 5",
+        "in-weaknesses": "",
+        "in-sr": "",
+        "in-speed": "30 ft.",
+        "in-space": "5 ft.",
+        "in-reach": "5 ft.",
+        "in-special-attacks": "wild shape 2/day (Medium animal or Small elemental), miasma of decay (DC 17), blight touch 4/day (1d6+3 neg energy)",
+        "in-str": "12",
+        "in-dex": "14",
+        "in-con": "14",
+        "in-int": "10",
+        "in-wis": "18",
+        "in-cha": "10",
+        "in-bab": "5",
+        "in-cmb": "+6",
+        "in-cmd": "19",
+        "in-feats": "Spell Focus (Necromancy), Greater Spell Focus (Necromancy), Natural Spell, Toughness, Combat Casting",
+        "in-languages": "Common, Druidic, Sylvan",
+        "in-sq": "nature bond (Blight/Death domain), nature sense, trackless step, resist nature's lure, wild empathy +7",
+        "in-environment": "corrupted forests, blighted swamps, ruined sanctuaries",
+        "in-organization": "solitary or cabal (2-4)",
+        "in-treasure": "standard (+1 hide armor, +1 darkwood heavy shield, +1 scythe, ring of protection +1, spell component pouch, blighted herbal pouch)",
+        "in-sla-cl": "CL 7th",
+        "in-spell-class": "Druid",
+        "in-spell-cl": "7",
+        "in-spell-stat": "wis",
+        "in-spell-conc": "11",
+        "in-spells-data": "Spells Prepared (CL 7th; concentration +11)\n4th—blight (DC 20), flame strike (DC 18)\n3rd—poison (DC 19), contagion (DC 19), call lightning (DC 17)\n2nd—barkskin, bull's strength, summon nature's ally II, sickening strike (DC 18)\n1st—entangle (DC 15), produce flame, cure light wounds (x2), faerie fire\n0 (at will)—bleed (DC 16), detect magic, guidance, virtue"
+      },
+      "dynamic": {
+        "subtypes": [
+          "human"
+        ],
+        "senses": [
+          {
+            "name": "Perception",
+            "dist": "+14"
+          }
+        ],
+        "skills": [
+          {
+            "name": "Heal",
+            "mod": "14"
+          },
+          {
+            "name": "Knowledge (nature)",
+            "mod": "12"
+          },
+          {
+            "name": "Perception",
+            "mod": "14"
+          },
+          {
+            "name": "Spellcraft",
+            "mod": "10"
+          },
+          {
+            "name": "Stealth",
+            "mod": "8"
+          },
+          {
+            "name": "Survival",
+            "mod": "14"
+          }
+        ],
+        "slas": [
+          {
+            "freq": "4/day",
+            "spells": "Blight Touch (1d6+3 negative energy, DC 17 Fort or sickened 1 min)"
+          }
+        ],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "+1 scythe +7 (2d4+2/x4 plus 1d6 negative energy)"
+          },
+          {
+            "mode": "raw",
+            "rawText": "Blight Touch +6 touch (1d6+3 negative energy)"
+          }
+        ],
+        "ranged": [
+          {
+            "mode": "raw",
+            "rawText": "sling +7 (1d4+1)"
+          }
+        ],
+        "abilities": [
+          {
+            "name": "Miasma of Decay (Su)",
+            "desc": "The Rovesta Evil Druid radiates an aura of sickening rot. Living creatures starting their turn within 10 ft. must succeed on a DC 17 Fortitude save or suffer 1d4 points of negative energy damage and become sickened for 1 round. Save DC is Wisdom-based."
+          },
+          {
+            "name": "Blight Touch (Su)",
+            "desc": "4/day, the druid can channel necrotic energy through a melee touch attack dealing 1d6+3 negative energy damage. Target must succeed on a DC 17 Fortitude save or take 1d2 Constitution damage and become sickened for 1 minute."
+          },
+          {
+            "name": "Wild Shape (Su)",
+            "desc": "Can assume the form of a Small or Medium animal or Small elemental 2 times per day (duration 7 hours/use). Possesses Natural Spell, allowing spellcasting while wild shaped."
+          }
+        ]
+      },
+      "_global_index": 6551
+    },
+    "_m_name": "rovesta evil druid",
+    "_m_cr": "6",
+    "_m_type": "humanoid",
+    "_m_align": "ne",
+    "_m_env": "corrupted forests, blighted swamps, ruined sanctuaries",
+    "_m_source": "",
+    "_global_index": 6551
+  },
+  {
+    "Name": "Rovesta Evil Archer",
+    "CR": "6",
+    "XP": "2400",
+    "Alignment": "LE",
+    "Size": "Medium",
+    "Type": "Humanoid",
+    "subtype1": "human",
+    "subtype2": "",
+    "Init": "+5",
+    "Senses": "Darkvision 60 ft. (goggles), Perception +11",
+    "Aura": "",
+    "AC": "21",
+    "AC_Touch": "16",
+    "AC_Flat-footed": "15",
+    "HP": "67 (7d10+21+7)",
+    "HD": "7d10",
+    "Fort": "+7",
+    "Ref": "+7",
+    "Will": "+4",
+    "Speed": "30 ft.",
+    "Melee": "mwk shortsword +10/+5 (1d6+2/19-20)",
+    "Ranged": "+1 composite longbow +14/+9 (1d8+5/x3) or Rapid Shot +12/+12/+7 (1d8+5/x3) or Deadly Aim +12/+7 (1d8+9/x3)",
+    "Space": "5 ft.",
+    "Reach": "5 ft.",
+    "SpecialAttacks": "weapon training (bows +1), volley of darkness (20-ft. sphere, 2d8+5, DC 18 Ref), shadow-coated arrows (3/day), trick shot",
+    "Str": "14",
+    "Dex": "20",
+    "Con": "14",
+    "Int": "10",
+    "Wis": "12",
+    "Cha": "8",
+    "BaseAtk": "7",
+    "CMB": "+9",
+    "CMD": "25",
+    "Feats": "Point-Blank Shot, Precise Shot, Rapid Shot, Deadly Aim, Weapon Focus (composite longbow), Weapon Specialization (composite longbow), Manyshot, Dodge, Toughness",
+    "Skills": "Acrobatics +13, Perception +11, Stealth +15, Survival +8",
+    "Languages": "Common",
+    "SQ": "armor training 2, bow master, hawkeye (+2 Perception)",
+    "DR": "",
+    "Immune": "",
+    "Resist": "",
+    "SR": "",
+    "Environment": "ruined watchtowers, corrupted forests, Rovesta military outposts",
+    "Treasure": "standard (+1 mithral chain shirt, +1 composite longbow [+2 Str], 40 barbed shadow arrows, mwk shortsword, ring of protection +1, shadow goggles)",
+    "IsFavorite": true,
+    "IsUserCustom": true,
+    "CharacterFlag": "1",
+    "Class1": "Fighter (Archer) 7",
+    "Class1_Lvl": "Fighter 7",
+    "SpellLikeAbilities": "",
+    "Special Abilities": "Volley of Darkness (Ex) Full-round action, fires arrow barrage in 20-ft. radius within 100 ft. All targets take 2d8+5 damage (half piercing, half negative energy; DC 18 Ref half).\n\nShadow-Coated Arrows (Su) 3/day swift action, next 3 arrows force DC 16 Fort save or target blinded 1 round + 1d3 Dex damage.\n\nTrick Shot (Ex) Perform disarm, sunder, or trip maneuvers at range with a bow.",
+    "OriginalState": {
+      "basic": {
+        "in-name": "Rovesta Evil Archer",
+        "in-cr": "6",
+        "in-xp": "2,400",
+        "in-alignment": "LE",
+        "in-size": "Medium",
+        "in-type": "Humanoid",
+        "in-type-full": "Fighter (Archer) 7",
+        "stat_type": "npc",
+        "in-init-extra": "0",
+        "in-aura": "",
+        "in-ac-armor": "5",
+        "in-armor-name": "+1 Mithral Chain Shirt",
+        "in-ac-shield": "0",
+        "in-ac-natural": "0",
+        "in-ac-deflection": "1",
+        "in-ac-dodge": "1",
+        "in-hd-amount": "7",
+        "in-hd-size": "10",
+        "in-hp": "67 (7d10+21+7)",
+        "in-fort": "+7",
+        "in-ref": "+7",
+        "in-will": "+4",
+        "in-def-abilities": "armor training 2",
+        "in-dr": "",
+        "in-immune": "",
+        "in-resist": "",
+        "in-weaknesses": "",
+        "in-sr": "",
+        "in-speed": "30 ft.",
+        "in-space": "5 ft.",
+        "in-reach": "5 ft.",
+        "in-special-attacks": "weapon training (bows +1), volley of darkness (20-ft. sphere, 2d8+5, DC 18 Ref), shadow-coated arrows (3/day), trick shot (disarm/sunder/trip at range)",
+        "in-str": "14",
+        "in-dex": "20",
+        "in-con": "14",
+        "in-int": "10",
+        "in-wis": "12",
+        "in-cha": "8",
+        "in-bab": "7",
+        "in-cmb": "+9",
+        "in-cmd": "25",
+        "in-feats": "Point-Blank Shot, Precise Shot, Rapid Shot, Deadly Aim, Weapon Focus (composite longbow), Weapon Specialization (composite longbow), Manyshot, Dodge, Toughness",
+        "in-languages": "Common",
+        "in-sq": "armor training 2, bow master, hawkeye (+2 Perception)",
+        "in-environment": "ruined watchtowers, corrupted forests, Rovesta military outposts",
+        "in-organization": "solitary, pair, or squad (3-8)",
+        "in-treasure": "standard (+1 mithral chain shirt, +1 composite longbow [+2 Str], 40 barbed shadow arrows, mwk shortsword, ring of protection +1, shadow goggles)",
+        "in-sla-cl": "",
+        "in-spells-data": ""
+      },
+      "dynamic": {
+        "subtypes": [
+          "human"
+        ],
+        "senses": [
+          {
+            "name": "Darkvision",
+            "dist": "60 ft. (goggles)"
+          },
+          {
+            "name": "Perception",
+            "dist": "+11"
+          }
+        ],
+        "skills": [
+          {
+            "name": "Acrobatics",
+            "mod": "13"
+          },
+          {
+            "name": "Perception",
+            "mod": "11"
+          },
+          {
+            "name": "Stealth",
+            "mod": "15"
+          },
+          {
+            "name": "Survival",
+            "mod": "8"
+          }
+        ],
+        "slas": [],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "mwk shortsword +10/+5 (1d6+2/19-20)"
+          }
+        ],
+        "ranged": [
+          {
+            "mode": "raw",
+            "rawText": "+1 composite longbow +14/+9 (1d8+5/x3)"
+          },
+          {
+            "mode": "raw",
+            "rawText": "+1 composite longbow (Rapid Shot) +12/+12/+7 (1d8+5/x3)"
+          },
+          {
+            "mode": "raw",
+            "rawText": "+1 composite longbow (Deadly Aim) +12/+7 (1d8+9/x3)"
+          }
+        ],
+        "abilities": [
+          {
+            "name": "Volley of Darkness (Ex)",
+            "desc": "As a full-round action, the Rovesta Evil Archer can fire a rapid barrage of dark-tipped arrows into a 20-foot-radius area within 100 feet. All creatures in the area take 2d8+5 damage (half piercing, half negative energy; Reflex DC 18 half). Save DC is Dexterity-based."
+          },
+          {
+            "name": "Shadow-Coated Arrows (Su)",
+            "desc": "3/day as a swift action, the archer can coat next 3 arrows in shadow poison. Targets hit must succeed on a DC 16 Fortitude save or be blinded for 1 round and suffer 1d3 Dexterity damage."
+          },
+          {
+            "name": "Trick Shot (Ex)",
+            "desc": "The archer can perform combat maneuvers (disarm, sunder, or trip) with a bow against targets within 30 feet."
+          }
+        ]
+      },
+      "_global_index": 6552
+    },
+    "_m_name": "rovesta evil archer",
+    "_m_cr": "6",
+    "_m_type": "humanoid",
+    "_m_align": "le",
+    "_m_env": "ruined watchtowers, corrupted forests, rovesta military outposts",
+    "_m_source": "",
+    "_global_index": 6552
   }
 ]
