@@ -8,7 +8,9 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css?v=4">
     <link rel="stylesheet" href="themes.css?v=4">
 
@@ -66,17 +68,23 @@
                 <!-- Structured Action Buttons -->
                 <div class="action-buttons">
                     <button id="btn-new-sheet" class="btn btn-emerald" title="Clear and start fresh">✨ New</button>
-                    <button id="btn-save-database" class="btn btn-blue" title="Save creature to local database">💾 Save DB</button>
-                    <a href="database.html" class="btn btn-purple" title="Open Creature Database Browser">📚 Database</a>
+                    <button id="btn-save-database" class="btn btn-blue" title="Save creature to local database">💾 Save
+                        DB</button>
+                    <a href="database.html" class="btn btn-purple" title="Open Creature Database Browser">📚
+                        Database</a>
                 </div>
 
                 <div class="action-buttons" style="margin-top: 2px;">
-                    <button id="btn-export-png" class="btn secondary" title="Export statblock as high-res PNG image">🖼️ PNG</button>
-                    <button id="btn-export-pdf" class="btn secondary" title="Export statblock as PDF document">📄 PDF</button>
+                    <button id="btn-export-png" class="btn secondary" title="Export statblock as high-res PNG image">🖼️
+                        PNG</button>
+                    <button id="btn-export-pdf" class="btn secondary" title="Export statblock as PDF document">📄
+                        PDF</button>
                     <div style="display: flex; gap: 4px; width: 100%;">
-                        <button id="btn-save-json" class="btn secondary" style="flex: 1; margin: 0;" title="Save Creature JSON File">⬇️ JSON</button>
+                        <button id="btn-save-json" class="btn secondary" style="flex: 1; margin: 0;"
+                            title="Save Creature JSON File">⬇️ JSON</button>
                         <input type="file" id="file-load-json" accept=".json" style="display:none;">
-                        <button id="btn-load-json" class="btn secondary" style="flex: 1; margin: 0;" title="Load Creature JSON File">⬆️ Load</button>
+                        <button id="btn-load-json" class="btn secondary" style="flex: 1; margin: 0;"
+                            title="Load Creature JSON File">⬆️ Load</button>
                     </div>
                 </div>
             </div>
@@ -109,7 +117,8 @@
 
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" id="in-name" value="Create Monster" placeholder="Creature or Character Name">
+                            <input type="text" id="in-name" value="Create Monster"
+                                placeholder="Creature or Character Name">
                         </div>
                         <div class="form-row">
                             <div class="form-group">
@@ -200,7 +209,8 @@
                         <h2>Class Levels</h2>
                         <div class="form-group">
                             <label>Classes</label>
-                            <div id="classes-container" style="display:flex; flex-direction:column; gap:5px; margin-bottom:8px;"></div>
+                            <div id="classes-container"
+                                style="display:flex; flex-direction:column; gap:5px; margin-bottom:8px;"></div>
                             <div style="display: flex; gap: 8px; align-items: center;">
                                 <select id="sel-add-class" style="flex: 1;">
                                     <option value="Alchemist">Alchemist</option>
@@ -234,7 +244,8 @@
                                     <option value="Witch">Witch</option>
                                     <option value="Wizard">Wizard</option>
                                 </select>
-                                <input type="number" id="in-add-class-level" value="1" min="1" max="20" placeholder="Lvl" style="width: 60px;">
+                                <input type="number" id="in-add-class-level" value="1" min="1" max="20"
+                                    placeholder="Lvl" style="width: 60px;">
                                 <button id="btn-add-class" class="btn secondary" style="margin:0;">+ Add</button>
                             </div>
                         </div>
@@ -248,27 +259,35 @@
                         <div class="form-row">
                             <div class="form-group" style="flex:1.5;">
                                 <label>Equipped Armor</label>
-                                <input type="text" id="in-armor-name" list="armor-list" placeholder="e.g. Chainmail" autocomplete="off">
+                                <input type="text" id="in-armor-name" list="armor-list" placeholder="e.g. Chainmail"
+                                    autocomplete="off">
                             </div>
-                            <div class="form-group"><label>Armor AC</label><input type="number" id="in-ac-armor" value="0"></div>
+                            <div class="form-group"><label>Armor AC</label><input type="number" id="in-ac-armor"
+                                    value="0"></div>
 
                             <div class="form-group" style="flex:1.5;">
                                 <label>Equipped Shield</label>
-                                <input type="text" id="in-shield-name" list="shield-list" placeholder="e.g. Heavy Shield" autocomplete="off">
+                                <input type="text" id="in-shield-name" list="shield-list"
+                                    placeholder="e.g. Heavy Shield" autocomplete="off">
                             </div>
-                            <div class="form-group"><label>Shield AC</label><input type="number" id="in-ac-shield" value="0"></div>
+                            <div class="form-group"><label>Shield AC</label><input type="number" id="in-ac-shield"
+                                    value="0"></div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group"><label>Nat. Armor</label><input type="number" id="in-ac-natural" value="0"></div>
-                            <div class="form-group"><label>Deflection</label><input type="number" id="in-ac-deflection" value="0"></div>
-                            <div class="form-group"><label>Dodge</label><input type="number" id="in-ac-dodge" value="0"></div>
+                            <div class="form-group"><label>Nat. Armor</label><input type="number" id="in-ac-natural"
+                                    value="0"></div>
+                            <div class="form-group"><label>Deflection</label><input type="number" id="in-ac-deflection"
+                                    value="0"></div>
+                            <div class="form-group"><label>Dodge</label><input type="number" id="in-ac-dodge" value="0">
+                            </div>
                         </div>
                     </section>
 
                     <section class="form-section">
                         <h2>Hit Points & Saves</h2>
                         <div class="form-row">
-                            <div class="form-group"><label>Hit Dice (HD)</label><input type="number" id="in-hd-amount" value="1"></div>
+                            <div class="form-group"><label>Hit Dice (HD)</label><input type="number" id="in-hd-amount"
+                                    value="1"></div>
                             <div class="form-group">
                                 <label>HD Size</label>
                                 <select id="in-hd-size">
@@ -282,8 +301,10 @@
                         </div>
 
                         <div class="form-row">
-                            <div class="form-group"><label>Fortitude</label><input type="text" id="in-fort" value="+0"></div>
-                            <div class="form-group"><label>Reflex</label><input type="text" id="in-ref" value="+0"></div>
+                            <div class="form-group"><label>Fortitude</label><input type="text" id="in-fort" value="+0">
+                            </div>
+                            <div class="form-group"><label>Reflex</label><input type="text" id="in-ref" value="+0">
+                            </div>
                             <div class="form-group"><label>Will</label><input type="text" id="in-will" value="+0"></div>
                         </div>
 
@@ -292,13 +313,18 @@
                             <input type="text" id="in-def-abilities" placeholder="e.g. evasion, rock catching" value="">
                         </div>
                         <div class="form-row">
-                            <div class="form-group"><label>DR</label><input type="text" id="in-dr" placeholder="e.g. 5/slashing" value=""></div>
-                            <div class="form-group"><label>Immune</label><input type="text" id="in-immune" placeholder="e.g. poison, disease" value=""></div>
+                            <div class="form-group"><label>DR</label><input type="text" id="in-dr"
+                                    placeholder="e.g. 5/slashing" value=""></div>
+                            <div class="form-group"><label>Immune</label><input type="text" id="in-immune"
+                                    placeholder="e.g. poison, disease" value=""></div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group"><label>Resist</label><input type="text" id="in-resist" placeholder="e.g. acid 10, fire 10" value=""></div>
-                            <div class="form-group"><label>Weaknesses</label><input type="text" id="in-weaknesses" placeholder="e.g. vulnerable to fire" value=""></div>
-                            <div class="form-group"><label>SR</label><input type="text" id="in-sr" placeholder="e.g. 19" value=""></div>
+                            <div class="form-group"><label>Resist</label><input type="text" id="in-resist"
+                                    placeholder="e.g. acid 10, fire 10" value=""></div>
+                            <div class="form-group"><label>Weaknesses</label><input type="text" id="in-weaknesses"
+                                    placeholder="e.g. vulnerable to fire" value=""></div>
+                            <div class="form-group"><label>SR</label><input type="text" id="in-sr" placeholder="e.g. 19"
+                                    value=""></div>
                         </div>
                     </section>
                 </div>
@@ -308,9 +334,12 @@
                     <section class="form-section">
                         <h2>Movement & Reach</h2>
                         <div class="form-row">
-                            <div class="form-group"><label>Speed</label><input type="text" id="in-speed" value="30 ft."></div>
-                            <div class="form-group"><label>Space</label><input type="text" id="in-space" value="5 ft."></div>
-                            <div class="form-group"><label>Reach</label><input type="text" id="in-reach" value="5 ft."></div>
+                            <div class="form-group"><label>Speed</label><input type="text" id="in-speed" value="30 ft.">
+                            </div>
+                            <div class="form-group"><label>Space</label><input type="text" id="in-space" value="5 ft.">
+                            </div>
+                            <div class="form-group"><label>Reach</label><input type="text" id="in-reach" value="5 ft.">
+                            </div>
                         </div>
                     </section>
 
@@ -330,7 +359,8 @@
                             <label>Special Attacks</label>
                             <input type="hidden" id="in-special-attacks" value="">
                             <div id="selected-sa-container" class="selected-tags-container"></div>
-                            <input type="text" id="in-sa-search" placeholder="Select or search special attacks... ⚔️" autocomplete="off">
+                            <input type="text" id="in-sa-search" placeholder="Select or search special attacks... ⚔️"
+                                autocomplete="off">
                             <ul id="sa-autocomplete-list" class="autocomplete-list" style="display: none;"></ul>
                         </div>
                     </section>
@@ -383,9 +413,12 @@
                         </div>
 
                         <div class="form-row" style="margin-top: 14px;">
-                            <div class="form-group"><label>Base Atk</label><input type="number" id="in-bab" value="0"></div>
-                            <div class="form-group"><label>CMB</label><input type="text" id="in-cmb" disabled style="opacity:0.6;"></div>
-                            <div class="form-group"><label>CMD</label><input type="text" id="in-cmd" disabled style="opacity:0.6;"></div>
+                            <div class="form-group"><label>Base Atk</label><input type="number" id="in-bab" value="0">
+                            </div>
+                            <div class="form-group"><label>CMB</label><input type="text" id="in-cmb" disabled
+                                    style="opacity:0.6;"></div>
+                            <div class="form-group"><label>CMD</label><input type="text" id="in-cmd" disabled
+                                    style="opacity:0.6;"></div>
                         </div>
                     </section>
 
@@ -395,7 +428,8 @@
                             <label>Feats</label>
                             <input type="hidden" id="in-feats" value="">
                             <div id="selected-feats-container" class="selected-tags-container"></div>
-                            <input type="text" id="in-feat-search" placeholder="Select or search feats... ▼" autocomplete="off">
+                            <input type="text" id="in-feat-search" placeholder="Select or search feats... ▼"
+                                autocomplete="off">
                             <ul id="feat-autocomplete-list" class="autocomplete-list" style="display: none;"></ul>
                         </div>
                         <div class="form-group">
@@ -411,7 +445,8 @@
                             <label>Special Qualities (SQ)</label>
                             <input type="hidden" id="in-sq" value="">
                             <div id="selected-sq-container" class="selected-tags-container"></div>
-                            <input type="text" id="in-sq-search" placeholder="Select or search special qualities... 🛡️" autocomplete="off">
+                            <input type="text" id="in-sq-search" placeholder="Select or search special qualities... 🛡️"
+                                autocomplete="off">
                             <ul id="sq-autocomplete-list" class="autocomplete-list" style="display: none;"></ul>
                         </div>
                     </section>
@@ -439,10 +474,12 @@
                         <h2>Spells Known / Prepared</h2>
                         <div class="form-group" style="position: relative;">
                             <label>Search & Add Spells <small>(Click a spell for details)</small></label>
-                            <input type="text" id="in-spell-search" placeholder="Search spells (e.g., Fireball)..." autocomplete="off">
+                            <input type="text" id="in-spell-search" placeholder="Search spells (e.g., Fireball)..."
+                                autocomplete="off">
                             <ul id="spell-autocomplete" class="autocomplete-list" style="display: none;"></ul>
                         </div>
-                        <div id="active-spells-container" style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px;"></div>
+                        <div id="active-spells-container"
+                            style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px;"></div>
 
                         <div class="form-row" style="margin-top: 10px;">
                             <div class="form-group" style="flex: 2;">
@@ -468,7 +505,8 @@
                         </div>
                         <input type="hidden" id="in-spells-data" value="">
                         <div id="spell-levels-container"></div>
-                        <button id="btn-add-spell-level" class="btn secondary" style="margin-top: 10px; width: 100%;">+ Add Spell Level</button>
+                        <button id="btn-add-spell-level" class="btn secondary" style="margin-top: 10px; width: 100%;">+
+                            Add Spell Level</button>
                     </section>
 
                     <section class="form-section">
@@ -570,7 +608,8 @@
                     <div id="wrap-spells" style="display: none;">
                         <h2 class="pf-section-title">SPELLS</h2>
                         <div class="pf-property-line" style="margin-bottom: 2px;">
-                            <i id="out-spell-class"></i> (CL <span id="out-spell-cl"></span>; concentration <span id="out-spell-conc"></span>)
+                            <i id="out-spell-class"></i> (CL <span id="out-spell-cl"></span>; concentration <span
+                                id="out-spell-conc"></span>)
                         </div>
                         <div id="out-spells-list"></div>
                     </div>
@@ -580,27 +619,33 @@
                     <div class="pf-stats-table">
                         <div class="pf-stat-col">
                             <div class="pf-label">STR</div>
-                            <div class="pf-stat-val"><span id="out-str">10</span><br><span id="out-str-mod">(+0)</span></div>
+                            <div class="pf-stat-val"><span id="out-str">10</span><br><span id="out-str-mod">(+0)</span>
+                            </div>
                         </div>
                         <div class="pf-stat-col">
                             <div class="pf-label">DEX</div>
-                            <div class="pf-stat-val"><span id="out-dex">10</span><br><span id="out-dex-mod">(+0)</span></div>
+                            <div class="pf-stat-val"><span id="out-dex">10</span><br><span id="out-dex-mod">(+0)</span>
+                            </div>
                         </div>
                         <div class="pf-stat-col">
                             <div class="pf-label">CON</div>
-                            <div class="pf-stat-val"><span id="out-con">10</span><br><span id="out-con-mod">(+0)</span></div>
+                            <div class="pf-stat-val"><span id="out-con">10</span><br><span id="out-con-mod">(+0)</span>
+                            </div>
                         </div>
                         <div class="pf-stat-col">
                             <div class="pf-label">INT</div>
-                            <div class="pf-stat-val"><span id="out-int">10</span><br><span id="out-int-mod">(+0)</span></div>
+                            <div class="pf-stat-val"><span id="out-int">10</span><br><span id="out-int-mod">(+0)</span>
+                            </div>
                         </div>
                         <div class="pf-stat-col">
                             <div class="pf-label">WIS</div>
-                            <div class="pf-stat-val"><span id="out-wis">10</span><br><span id="out-wis-mod">(+0)</span></div>
+                            <div class="pf-stat-val"><span id="out-wis">10</span><br><span id="out-wis-mod">(+0)</span>
+                            </div>
                         </div>
                         <div class="pf-stat-col">
                             <div class="pf-label">CHA</div>
-                            <div class="pf-stat-val"><span id="out-cha">10</span><br><span id="out-cha-mod">(+0)</span></div>
+                            <div class="pf-stat-val"><span id="out-cha">10</span><br><span id="out-cha-mod">(+0)</span>
+                            </div>
                         </div>
                     </div>
 

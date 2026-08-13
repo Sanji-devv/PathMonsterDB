@@ -495,7 +495,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             state.basic.stat_type = 'monster';
         }
-        
+
         // Armor & Shield names from Gear string (for custom NPCs and imported monsters)
         if (m.Gear && !state.basic['in-armor-name']) {
             const gearLower = m.Gear.toLowerCase();
@@ -508,7 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
             else if (gearLower.includes('scale mail')) state.basic['in-armor-name'] = 'Scale Mail';
             else if (gearLower.includes('hide')) state.basic['in-armor-name'] = 'Hide';
             else if (gearLower.includes('leather')) state.basic['in-armor-name'] = 'Leather';
-            
+
             if (gearLower.includes('buckler')) state.basic['in-shield-name'] = 'Buckler';
             else if (gearLower.includes('heavy steel shield')) state.basic['in-shield-name'] = 'Heavy Steel Shield';
             else if (gearLower.includes('light steel shield')) state.basic['in-shield-name'] = 'Light Steel Shield';
@@ -531,7 +531,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'Buckler': 1, 'Light Wooden Shield': 1, 'Light Steel Shield': 1,
             'Heavy Wooden Shield': 2, 'Heavy Steel Shield': 2, 'Tower Shield': 4
         };
-        
+
         if (state.basic['in-armor-name'] && !state.basic['in-ac-armor']) {
             const aName = state.basic['in-armor-name'];
             if (armorBonusMap[aName] !== undefined) {

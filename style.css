@@ -98,6 +98,7 @@ body {
         width: 400px;
         max-width: 90vw;
     }
+
     .controls-panel.collapsed {
         margin-left: -400px;
     }
@@ -890,8 +891,13 @@ body {
     color: var(--sb-red);
 }
 
-.mt-2 { margin-top: 8px; }
-.mt-3 { margin-top: 14px; }
+.mt-2 {
+    margin-top: 8px;
+}
+
+.mt-3 {
+    margin-top: 14px;
+}
 
 .pf-stats-table {
     display: flex;
@@ -945,8 +951,11 @@ body {
 /* Modal Overlay */
 .info-modal-overlay {
     position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.75);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.75);
     backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
@@ -965,7 +974,7 @@ body {
 .info-modal-content {
     background: #0f172a;
     border: 1px solid var(--border-color);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
     border-radius: 12px;
     padding: 24px;
     max-width: 540px;
@@ -1013,11 +1022,25 @@ body {
 }
 
 /* Section Stacking & Z-index Ordering */
-.tab-pane .form-section:nth-child(1) { z-index: 20; }
-.tab-pane .form-section:nth-child(2) { z-index: 19; }
-.tab-pane .form-section:nth-child(3) { z-index: 18; }
-.tab-pane .form-section:nth-child(4) { z-index: 17; }
-.tab-pane .form-section:nth-child(5) { z-index: 16; }
+.tab-pane .form-section:nth-child(1) {
+    z-index: 20;
+}
+
+.tab-pane .form-section:nth-child(2) {
+    z-index: 19;
+}
+
+.tab-pane .form-section:nth-child(3) {
+    z-index: 18;
+}
+
+.tab-pane .form-section:nth-child(4) {
+    z-index: 17;
+}
+
+.tab-pane .form-section:nth-child(5) {
+    z-index: 16;
+}
 
 /* Responsive Adjustments */
 @media (max-width: 900px) {
@@ -1026,7 +1049,7 @@ body {
         height: auto;
         min-height: 100vh;
     }
-    
+
     .controls-panel {
         width: 100%;
         min-width: unset;
@@ -1035,7 +1058,7 @@ body {
         border-right: none;
         border-bottom: 2px solid var(--border-color);
     }
-    
+
     .preview-panel {
         width: 100%;
         height: auto;

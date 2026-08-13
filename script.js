@@ -666,7 +666,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Event delegation on the whole controls panel ensures instant reactive updates
         // for ALL inputs, textareas, selects, and dynamically added children with zero latency!
         const controlsPanel = document.querySelector('.controls-panel') || document.getElementById('form-container') || document.body;
-        
+
         controlsPanel.addEventListener('input', () => {
             updatePreview();
         });
@@ -1977,7 +1977,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const blob = new Blob([prettyJson], { type: 'application/json;charset=utf-8' });
                 const rawName = document.getElementById('in-name')?.value || 'Monster';
                 const safeName = rawName.trim().replace(/[/\\?%*:|"<>]/g, '_') || 'Monster';
-                
+
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
