@@ -25,17 +25,20 @@ class PATHGMRequestHandler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
-        parsed_url = urlparse(self.path)
-        if parsed_url.path == '/api/search':
-            self._handle_search(parsed_url.query)
-        elif parsed_url.path == '/api/spells':
-            self._handle_spells(parsed_url.query)
-        elif parsed_url.path == '/api/proxy':
-            self._handle_proxy(parsed_url.query)
-        elif parsed_url.path == '/api/scrape_status':
-            self._handle_scrape_status()
-        else:
-            super().do_GET()
+        try:
+            parsed_url = urlparse(self.path)
+            if parsed_url.path == '/api/search':
+                self._handle_search(parsed_url.query)
+            elif parsed_url.path == '/api/spells':
+                self._handle_spells(parsed_url.query)
+            elif parsed_url.path == '/api/proxy':
+                self._handle_proxy(parsed_url.query)
+            elif parsed_url.path == '/api/scrape_status':
+                self._handle_scrape_status()
+            else:
+                super().do_GET()
+        except (ConnectionAbortedError, ConnectionResetError, BrokenPipeError):
+            pass
 
     def _handle_scrape_status(self):
         body = get_scrape_status()

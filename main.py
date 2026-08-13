@@ -24,6 +24,13 @@ def start_server():
     if httpd:
         httpd.serve_forever()
 
+import sys
+if hasattr(sys.stdout, 'reconfigure'):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
+
 if __name__ == "__main__":
     monsters = load_monsters()
     spells = load_spells()
@@ -33,12 +40,15 @@ if __name__ == "__main__":
     
     time.sleep(0.5)
     url = f"http://localhost:{PORT}"
-    webbrowser.open(url)
+    try:
+        webbrowser.open(url)
+    except Exception:
+        pass
     
     print("=" * 60)
-    print("  🗡️  Pathfinder 1e Master Sheet (PATHGM) Server")
-    print(f"  📊 Loaded: {len(monsters):,} Monsters | {len(spells):,} Spells")
-    print(f"  🚀 Server Running: {url}")
+    print("  [PATHGM] Pathfinder 1e Master Sheet Server")
+    print(f"  Loaded: {len(monsters):,} Monsters | {len(spells):,} Spells")
+    print(f"  Server Running: {url}")
     print("=" * 60)
     print("  Press CTRL+C to stop.\n")
     

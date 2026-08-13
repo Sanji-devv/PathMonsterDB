@@ -387800,7 +387800,7 @@
     "_global_index": 6535
   },
   {
-    "Name": "Owlbear Corrupted",
+    "Name": "Undead Owlbear",
     "CR": "7",
     "XP": "3200",
     "Alignment": "NE",
@@ -387850,7 +387850,7 @@
     "Special Abilities": "Void Hug (Ex) Grappled targets take 2d8+12 constrict damage + 1d4 Strength drain/rd.\nWounding Roar (Su) 30-ft cone dealing 3d6 negative energy and shaken (DC 18 Will half).",
     "OriginalState": {
       "basic": {
-        "in-name": "Owlbear Corrupted",
+        "in-name": "Undead Owlbear",
         "in-cr": "7",
         "in-xp": "3200",
         "in-alignment": "NE",
@@ -387908,10 +387908,12 @@
         "in-spell-conc": "0",
         "in-spells-data": "",
         "in-hp": "84 (8d10+40)",
-        "in-init": "+1"
+        "in-init": "+1",
+        "in-ac": "20, touch 10, flat-footed 19 (+1 Dex, -1 size, +10 natural)"
       },
       "html": {},
       "dynamic": {
+        "classes": [],
         "subtypes": [
           "",
           "extraplanar"
@@ -387961,12 +387963,12 @@
       },
       "_global_index": 6536
     },
-    "_m_name": "owlbear corrupted",
+    "_m_name": "undead owlbear",
     "_m_cr": "7",
     "_m_type": "magical beast",
     "_m_align": "ne",
     "_m_env": "shadow-corrupted forests or plane of shadow",
-    "_m_source": "",
+    "_m_source": "custom",
     "_global_index": 6536
   },
   {
@@ -388958,10 +388960,12 @@
         "in-spell-conc": "0",
         "in-spells-data": "",
         "in-hp": "84 (8d10+40)",
-        "in-init": "+2"
+        "in-init": "+2",
+        "in-ac": "30, touch 11, flat-footed 28 (+2 Dex, -1 size, +19 natural)"
       },
       "html": {},
       "dynamic": {
+        "classes": [],
         "subtypes": [
           "",
           ""
@@ -389020,7 +389024,7 @@
     "_m_type": "magical beast",
     "_m_align": "ne",
     "_m_env": "alchemical laboratories, subterranean dungeons, ruined fortresses",
-    "_m_source": "",
+    "_m_source": "custom",
     "_global_index": 6542
   },
   {

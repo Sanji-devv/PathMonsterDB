@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const idx = parseInt(e.target.getAttribute('data-idx'));
                 window.activeClasses.splice(idx, 1);
                 renderClasses();
-                if(typeof debouncedUpdatePreview === 'function') debouncedUpdatePreview();
+                if (typeof debouncedUpdatePreview === 'function') debouncedUpdatePreview();
                 else updatePreview();
             });
         });
@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const clsLevel = parseInt(document.getElementById('in-add-class-level').value) || 1;
                 window.activeClasses.push({ name: clsName, level: clsLevel });
                 renderClasses();
-                if(typeof debouncedUpdatePreview === 'function') debouncedUpdatePreview();
+                if (typeof debouncedUpdatePreview === 'function') debouncedUpdatePreview();
                 else updatePreview();
             });
         }
@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const cData = pfClasses[cls.name];
             if (!cData) return;
             const lvl = cls.level;
-            
+
             if (cData.bab === 'Fast') classBAB += lvl;
             else if (cData.bab === 'Medium') classBAB += Math.floor(lvl * 0.75);
             else if (cData.bab === 'Slow') classBAB += Math.floor(lvl * 0.5);
@@ -627,46 +627,61 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof renderSlas === 'function') renderSlas();
         if (typeof renderAttacks === 'function') renderAttacks();
         if (typeof renderAbilities === 'function') renderAbilities();
-    // INTERACTIVE ABILITIES INJECTION
-    const makeInteractive = (arr, outId, category) => {
-        const el = document.getElementById(outId);
-        if (el && window[arr] && window[arr].length > 0) {
-            el.innerHTML = window[arr].filter(Boolean).map(item => {
-                const name = (item && typeof item === 'object' ? item.name : item) || '';
-                const desc = (item && typeof item === 'object' && item.description)
-                    ? item.description.replace(/"/g, '&quot;').replace(/'/g, "\\'").replace(/\n/g, '<br>')
-                    : "Description not available.";
-                const safeName = String(name).replace(/'/g, "\\'");
-                return `<a href="#" onclick="if(window.showInfoModal) window.showInfoModal('${safeName}', '${desc}', '${category}'); return false;" style="color: inherit; text-decoration: underline dotted;">${name}</a>`;
-            }).join(', ');
-        }
-    };
-    makeInteractive('activeImmune', 'out-immune', 'Immunity');
-    makeInteractive('activeResist', 'out-resist', 'Resistance');
-    makeInteractive('activeWeakness', 'out-weakness', 'Weakness');
-    makeInteractive('activeDef', 'out-defensive', 'Defensive');
-    makeInteractive('activeAura', 'out-aura', 'Aura');
-    makeInteractive('activeSA', 'out-special-attacks', 'Special Attack');
-    makeInteractive('activeSQ', 'out-sq', 'Special Quality');
+        if (typeof updateGearDisplay === 'function') updateGearDisplay();
+        if (typeof updateStatBadges === 'function') updateStatBadges();
 
-    if (typeof window.applyMechanics === 'function') window.applyMechanics();
+        // INTERACTIVE ABILITIES INJECTION
+        const makeInteractive = (arr, outId, category) => {
+            const el = document.getElementById(outId);
+            if (el && window[arr] && window[arr].length > 0) {
+                el.innerHTML = window[arr].filter(Boolean).map(item => {
+                    const name = (item && typeof item === 'object' ? item.name : item) || '';
+                    const desc = (item && typeof item === 'object' && item.description)
+                        ? item.description.replace(/"/g, '&quot;').replace(/'/g, "\\'").replace(/\n/g, '<br>')
+                        : "Description not available.";
+                    const safeName = String(name).replace(/'/g, "\\'");
+                    return `<a href="#" onclick="if(window.showInfoModal) window.showInfoModal('${safeName}', '${desc}', '${category}'); return false;" style="color: inherit; text-decoration: underline dotted;">${name}</a>`;
+                }).join(', ');
+            }
+        };
+        makeInteractive('activeImmune', 'out-immune', 'Immunity');
+        makeInteractive('activeResist', 'out-resist', 'Resistance');
+        makeInteractive('activeWeakness', 'out-weakness', 'Weakness');
+        makeInteractive('activeDef', 'out-defensive', 'Defensive');
+        makeInteractive('activeAura', 'out-aura', 'Aura');
+        makeInteractive('activeSA', 'out-special-attacks', 'Special Attack');
+        makeInteractive('activeSQ', 'out-sq', 'Special Quality');
+
+        if (typeof window.applyMechanics === 'function') window.applyMechanics();
 
         autoSave();
     }
 
+    window.updatePreview = updatePreview;
+
     // -------------------------
     // 3. EVENT LISTENERS
     // -------------------------
-    const debouncedUpdatePreview = debounce(updatePreview, 300);
-
     function attachGlobalListeners() {
+        // Event delegation on the whole controls panel ensures instant reactive updates
+        // for ALL inputs, textareas, selects, and dynamically added children with zero latency!
+        const controlsPanel = document.querySelector('.controls-panel') || document.getElementById('form-container') || document.body;
+        
+        controlsPanel.addEventListener('input', () => {
+            updatePreview();
+        });
+
+        controlsPanel.addEventListener('change', () => {
+            updatePreview();
+        });
+
         document.querySelectorAll('input, textarea, select').forEach(el => {
-            el.addEventListener('input', debouncedUpdatePreview);
-            el.addEventListener('change', debouncedUpdatePreview);
+            el.addEventListener('input', updatePreview);
+            el.addEventListener('change', updatePreview);
         });
 
         document.querySelectorAll('.rich-text-editor').forEach(el => {
-            el.addEventListener('input', debouncedUpdatePreview);
+            el.addEventListener('input', updatePreview);
         });
     }
 
@@ -869,7 +884,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.sla-item input').forEach(el => el.addEventListener('input', renderSlas));
     });
 
-    
+
     setupTagSystem({
         activeArray: 'activeAura',
         dbUrl: 'data/auras.json',
@@ -936,18 +951,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (mode === 'raw') {
             return `
                 <input type="hidden" class="atk-mode" value="raw">
-                <textarea class="atk-raw" rows="1"
+                <textarea class="atk-raw" rows="2"
                     placeholder="e.g. mwk rapier +12 (1d6+5/18-20 plus 5 precision) or 2 claws +9 (1d4+4), bite +9 (1d6+4)"
-                    style="flex:1; padding:8px 10px; border-radius:6px; background:rgba(0,0,0,0.35);
-                           color:#f0e6d0; border:1px solid rgba(255,200,100,0.25); resize:none; overflow:hidden;
-                           font-family:inherit; font-size:0.9rem; min-height:38px; line-height:1.4;
+                    style="flex:1; padding:8px 10px; border-radius:8px; background:rgba(0,0,0,0.35);
+                           color:#f0e6d0; border:1px solid rgba(255,200,100,0.3); resize:vertical; overflow-y:auto;
+                           font-family:inherit; font-size:0.98rem; min-height:56px; line-height:1.45;
                            box-shadow:inset 0 2px 6px rgba(0,0,0,0.3); transition:border-color 0.2s;"
                     onfocus="this.style.borderColor='rgba(255,200,100,0.6)'"
-                    onblur="this.style.borderColor='rgba(255,200,100,0.25)'"></textarea>
+                    onblur="this.style.borderColor='rgba(255,200,100,0.3)'"></textarea>
                 <button class="btn-mode-toggle" title="Switch to Formula Mode"
-                    style="padding:6px 10px; font-size:0.75rem; background:linear-gradient(135deg,#4f46e5,#3b82f6);
+                    style="padding:6px 10px; font-size:0.82rem; background:linear-gradient(135deg,#4f46e5,#3b82f6);
                            color:white; border:none; border-radius:6px; cursor:pointer;
-                           height:38px; white-space:nowrap; font-weight:600;
+                           height:42px; white-space:nowrap; font-weight:600;
                            box-shadow:0 2px 8px rgba(79,70,229,0.4); transition:all 0.2s;">⚙ Calc</button>
             `;
         } else {
@@ -971,9 +986,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
                 <button class="btn-mode-toggle" title="Switch to Text Mode"
-                    style="padding:6px 10px; font-size:0.75rem; background:rgba(255,200,0,0.1);
+                    style="padding:6px 10px; font-size:0.82rem; background:rgba(255,200,0,0.1);
                            color:#ffd700; border:1px solid rgba(255,200,0,0.4); border-radius:6px; cursor:pointer;
-                           height:38px; white-space:nowrap; transition:all 0.2s;">✏ Raw</button>
+                           height:42px; white-space:nowrap; transition:all 0.2s;">✏ Raw</button>
             `;
         }
     }
@@ -982,18 +997,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (mode === 'raw') {
             return `
                 <input type="hidden" class="atk-mode" value="raw">
-                <textarea class="atk-raw" rows="1"
+                <textarea class="atk-raw" rows="2"
                     placeholder="e.g. mwk composite longbow +11 (1d8+3/x3) or 4 javelins +8 (1d6+2)"
-                    style="flex:1; padding:8px 10px; border-radius:6px; background:rgba(0,0,0,0.35);
-                           color:#f0e6d0; border:1px solid rgba(100,200,255,0.25); resize:none; overflow:hidden;
-                           font-family:inherit; font-size:0.9rem; min-height:38px; line-height:1.4;
+                    style="flex:1; padding:8px 10px; border-radius:8px; background:rgba(0,0,0,0.35);
+                           color:#f0e6d0; border:1px solid rgba(100,200,255,0.3); resize:vertical; overflow-y:auto;
+                           font-family:inherit; font-size:0.98rem; min-height:56px; line-height:1.45;
                            box-shadow:inset 0 2px 6px rgba(0,0,0,0.3); transition:border-color 0.2s;"
                     onfocus="this.style.borderColor='rgba(100,200,255,0.6)'"
-                    onblur="this.style.borderColor='rgba(100,200,255,0.25)'"></textarea>
+                    onblur="this.style.borderColor='rgba(100,200,255,0.3)'"></textarea>
                 <button class="btn-mode-toggle" title="Switch to Formula Mode"
-                    style="padding:6px 10px; font-size:0.75rem; background:linear-gradient(135deg,#0891b2,#06b6d4);
+                    style="padding:6px 10px; font-size:0.82rem; background:linear-gradient(135deg,#0891b2,#06b6d4);
                            color:white; border:none; border-radius:6px; cursor:pointer;
-                           height:38px; white-space:nowrap; font-weight:600;
+                           height:42px; white-space:nowrap; font-weight:600;
                            box-shadow:0 2px 8px rgba(6,182,212,0.4); transition:all 0.2s;">⚙ Calc</button>
             `;
         } else {
@@ -1017,9 +1032,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
                 <button class="btn-mode-toggle" title="Switch to Text Mode"
-                    style="padding:6px 10px; font-size:0.75rem; background:rgba(0,200,255,0.1);
+                    style="padding:6px 10px; font-size:0.82rem; background:rgba(0,200,255,0.1);
                            color:#67e8f9; border:1px solid rgba(0,200,255,0.3); border-radius:6px; cursor:pointer;
-                           height:38px; white-space:nowrap; transition:all 0.2s;">✏ Raw</button>
+                           height:42px; white-space:nowrap; transition:all 0.2s;">✏ Raw</button>
             `;
         }
     }
@@ -1184,7 +1199,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-                function processRow(item, isMelee) {
+        function processRow(item, isMelee) {
             const mode = item.querySelector('.atk-mode') ? item.querySelector('.atk-mode').value : 'calc';
             const featList = window.activeFeats ? window.activeFeats.map(f => f.toLowerCase()) : [];
 
@@ -1202,7 +1217,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const type = item.querySelector('.atk-type') ? item.querySelector('.atk-type').value : '';
             if (!type || type === '-') return null;
             const isMw = item.querySelector('.atk-mw') ? item.querySelector('.atk-mw').checked : false;
-            
+
             // Defaults (if weapon is not in DB or is Ranged)
             let isSecondary = item.querySelector('.atk-sec') ? item.querySelector('.atk-sec').checked : false;
             let dice = item.querySelector('.atk-dice') ? item.querySelector('.atk-dice').value.trim() : '1d4';
@@ -1242,7 +1257,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Weapon Focus / Specialization / Training & Masterwork
             let featAtkBonus = isMw ? 1 : 0;
             let featDmgBonus = 0;
-            
+
             if (featList.some(f => f.includes('weapon focus') && (f.includes(type.toLowerCase()) || !f.includes('(')))) featAtkBonus += 1;
             if (featList.some(f => f.includes('greater weapon focus') && (f.includes(type.toLowerCase()) || !f.includes('(')))) featAtkBonus += 1;
             if (featList.some(f => f.includes('weapon specialization') && (f.includes(type.toLowerCase()) || !f.includes('(')))) featDmgBonus += 2;
@@ -1463,7 +1478,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (outHpEl) state.basic['in-hp'] = outHpEl.textContent.trim();
         const outInitEl = document.getElementById('out-init');
         if (outInitEl) state.basic['in-init'] = outInitEl.textContent.trim();
+        const outCrEl = document.getElementById('out-cr');
+        if (outCrEl && outCrEl.textContent.trim()) state.basic['in-cr'] = outCrEl.textContent.trim();
+        const outAcEl = document.getElementById('out-ac');
+        if (outAcEl && outAcEl.textContent.trim()) state.basic['in-ac'] = outAcEl.textContent.trim();
         // Dynamic lists
+        state.dynamic.classes = window.activeClasses || [];
         state.dynamic.subtypes = Array.from(document.querySelectorAll('.subtype-select')).map(el => el.value);
         state.dynamic.senses = Array.from(document.querySelectorAll('.sense-item')).map(el => ({
             name: el.querySelector('.sense-name').value,
@@ -1636,7 +1656,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function consolidateSlaItems(rawItems) {
         if (!Array.isArray(rawItems) || rawItems.length === 0) return [];
-        
+
         let rawTextParts = [];
         rawItems.forEach(item => {
             let f = typeof item === 'string' ? item : (item.freq || '');
@@ -1707,6 +1727,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Restore dynamic
             state.dynamic = state.dynamic || {};
+            window.activeClasses = state.dynamic.classes || [];
+            renderClasses();
             if (state.dynamic.subtypes) {
                 state.dynamic.subtypes.forEach(val => {
                     document.getElementById('btn-add-subtype').click();
@@ -1838,12 +1860,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            
+
             handleToggle();
-            
+
             // Trigger change events for armor/shields to calculate AC properly
             const armorEl = document.getElementById('in-armor-name');
-            if(armorEl && armorEl.value && window.allArmorsDB) {
+            if (armorEl && armorEl.value && window.allArmorsDB) {
                 const item = window.allArmorsDB.find(a => a.name.toLowerCase() === armorEl.value.toLowerCase());
                 if (item) {
                     document.getElementById('in-ac-armor').setAttribute('data-max-dex', item.max_dex);
@@ -1851,7 +1873,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
             const shieldEl = document.getElementById('in-shield-name');
-            if(shieldEl && shieldEl.value && window.allArmorsDB) {
+            if (shieldEl && shieldEl.value && window.allArmorsDB) {
                 const item = window.allArmorsDB.find(a => a.name.toLowerCase() === shieldEl.value.toLowerCase());
                 if (item) {
                     document.getElementById('in-ac-shield').setAttribute('data-acp', item.acp);
@@ -1892,9 +1914,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (typeof window.renderImmuneTags === 'function') window.renderImmuneTags();
             if (typeof window.renderResistTags === 'function') window.renderResistTags();
             if (typeof window.renderWeaknessTags === 'function') window.renderWeaknessTags();
-            
+
             if (typeof renderAbilities === 'function') renderAbilities();
-            
+
             updatePreview();
         } catch (e) {
             console.error("Error loading state", e);
@@ -1908,7 +1930,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const dataStr = serializeState();
                 localStorage.setItem('pf_monster_creator_current_draft', dataStr);
-            } catch (e) {}
+            } catch (e) { }
         }, 400);
     }
 
@@ -1944,14 +1966,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // JSON Export
-    document.getElementById('btn-save-json').addEventListener('click', () => {
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(serializeState());
-        const dlAnchorElem = document.createElement('a');
-        dlAnchorElem.setAttribute("href", dataStr);
-        dlAnchorElem.setAttribute("download", `${document.getElementById('in-name').value || 'Monster'}.json`);
-        dlAnchorElem.click();
-    });
+    // JSON Export (Robust Blob & ObjectURL download)
+    const btnSaveJson = document.getElementById('btn-save-json');
+    if (btnSaveJson) {
+        btnSaveJson.addEventListener('click', () => {
+            try {
+                const stateStr = serializeState();
+                const stateObj = JSON.parse(stateStr);
+                const prettyJson = JSON.stringify(stateObj, null, 2);
+                const blob = new Blob([prettyJson], { type: 'application/json;charset=utf-8' });
+                const rawName = document.getElementById('in-name')?.value || 'Monster';
+                const safeName = rawName.trim().replace(/[/\\?%*:|"<>]/g, '_') || 'Monster';
+                
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${safeName}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            } catch (err) {
+                console.error('Error exporting JSON:', err);
+                alert('JSON indirme hatası: ' + err.message);
+            }
+        });
+    }
 
     // JSON Import
     const fileLoadBtn = document.getElementById('btn-load-json');
@@ -2019,55 +2059,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Auto-Calculate Stats
-    const btnAutoCalc = document.getElementById('btn-auto-calc');
-    if (btnAutoCalc) {
-        btnAutoCalc.addEventListener('click', () => {
-            const typeSelect = document.getElementById('in-type').value;
-            const hdAmount = parseInt(document.getElementById('in-hd-amount').value) || 1;
-            const rules = creatureTypes[typeSelect];
-            if (!rules) return;
-
-            // 1. HD Size
-            document.getElementById('in-hd-size').value = rules.hit_die;
-
-            // 2. BAB
-            let bab = 0;
-            if (rules.bab === "Fast") bab = hdAmount;
-            else if (rules.bab === "Medium") bab = Math.floor(hdAmount * 0.75);
-            else if (rules.bab === "Slow") bab = Math.floor(hdAmount * 0.5);
-            document.getElementById('in-bab').value = bab;
-
-            // 3. Base Saves & Ability Mods
-            const conMod = calculateModifier(document.getElementById('in-con').value);
-            const dexMod = calculateModifier(document.getElementById('in-dex').value);
-            const wisMod = calculateModifier(document.getElementById('in-wis').value);
-
-            const goodSave = Math.floor(hdAmount / 2) + 2;
-            const poorSave = Math.floor(hdAmount / 3);
-
-            const isFortGood = rules.good_saves.includes("Fortitude");
-            const isRefGood = rules.good_saves.includes("Reflex");
-            const isWillGood = rules.good_saves.includes("Will");
-
-            const baseFort = isFortGood ? goodSave : poorSave;
-            const baseRef = isRefGood ? goodSave : poorSave;
-            const baseWill = isWillGood ? goodSave : poorSave;
-
-            const totalFort = baseFort + conMod;
-            const totalRef = baseRef + dexMod;
-            const totalWill = baseWill + wisMod;
-
-            const formatSave = (val) => (val >= 0 ? '+' : '') + val;
-
-            document.getElementById('in-fort').value = formatSave(totalFort);
-            document.getElementById('in-ref').value = formatSave(totalRef);
-            document.getElementById('in-will').value = formatSave(totalWill);
-
-            updatePreview();
-        });
-    }
-
     // Auto-Calculate XP from CR & Validation
     const inCr = document.getElementById('in-cr');
     if (inCr) {
@@ -2077,7 +2068,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (val < 0) {
                 inCr.value = '0';
             }
-            
+
             const xp = crToXp[inCr.value.trim()];
             if (xp) {
                 document.getElementById('in-xp').value = xp;
@@ -2177,7 +2168,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 tag.innerHTML = `<span class="editable-tag-text" style="outline:none; min-width:20px; cursor:pointer;" title="Click to view details">${itemName}</span><span class="remove-tag" style="margin-left:6px; cursor:pointer; font-weight:bold; color:#ff6666;">&times;</span>`;
 
                 const span = tag.querySelector('.editable-tag-text');
-                span.addEventListener('click', function(e) {
+                span.addEventListener('click', function (e) {
                     if (e.target !== this) return;
                     let desc = "Description not available. Please edit the JSON file to add a description.";
                     if (item && typeof item === 'object' && item.description) {
@@ -2215,7 +2206,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const name = (f && typeof f === 'object' ? f.name : f) || '';
                     return String(name).toLowerCase().includes(filter.toLowerCase());
                 }).slice(0, 50);
-                
+
                 if (matches.length > 0) {
                     listEl.style.display = 'block';
                     matches.forEach(m => {
@@ -2248,7 +2239,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             searchInput.addEventListener('focus', () => renderList(searchInput.value));
             searchInput.addEventListener('input', () => renderList(searchInput.value));
-            searchInput.addEventListener('blur', () => { setTimeout(() => listEl.style.display='none', 150); });
+            searchInput.addEventListener('blur', () => { setTimeout(() => listEl.style.display = 'none', 150); });
 
             searchInput.addEventListener('keydown', (e) => {
                 const items = listEl.getElementsByTagName('li');
@@ -2269,7 +2260,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     } else if (searchInput.value.trim() !== '') {
                         const raw = searchInput.value.trim();
                         if (!window[config.activeArray].some(x => (typeof x === 'object' ? x.name : x) === raw)) {
-                            window[config.activeArray].push({name: raw, description: "Custom ability. No description provided."});
+                            window[config.activeArray].push({ name: raw, description: "Custom ability. No description provided." });
                             sync();
                             render();
                         }
@@ -2571,12 +2562,12 @@ document.addEventListener('DOMContentLoaded', () => {
     window.allWeaponsDB = [];
     fetch('data/weapons.json')
         .then(res => res.json())
-        .then(data => { 
-            window.allWeaponsDB = data; 
-            
+        .then(data => {
+            window.allWeaponsDB = data;
+
             // Melee Weapons Datalist
             let meleeList = document.getElementById('melee-weapons-list');
-            if(!meleeList) {
+            if (!meleeList) {
                 meleeList = document.createElement('datalist');
                 meleeList.id = 'melee-weapons-list';
                 document.body.appendChild(meleeList);
@@ -2585,7 +2576,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Ranged Weapons Datalist
             let rangedList = document.getElementById('ranged-weapons-list');
-            if(!rangedList) {
+            if (!rangedList) {
                 rangedList = document.createElement('datalist');
                 rangedList.id = 'ranged-weapons-list';
                 document.body.appendChild(rangedList);
@@ -2599,9 +2590,9 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(res => res.json())
         .then(data => {
             window.allArmorDB = data;
-            
+
             let armorList = document.getElementById('armor-list');
-            if(!armorList) {
+            if (!armorList) {
                 armorList = document.createElement('datalist');
                 armorList.id = 'armor-list';
                 document.body.appendChild(armorList);
@@ -2609,7 +2600,7 @@ document.addEventListener('DOMContentLoaded', () => {
             armorList.innerHTML = data.filter(a => a.category !== 'Shield').map(a => `<option value="${a.name}">`).join('');
 
             let shieldList = document.getElementById('shield-list');
-            if(!shieldList) {
+            if (!shieldList) {
                 shieldList = document.createElement('datalist');
                 shieldList.id = 'shield-list';
                 document.body.appendChild(shieldList);
@@ -2626,11 +2617,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (stepDiff === 0) return diceStr;
         const diceProgression = ["1", "1d2", "1d3", "1d4", "1d6", "1d8", "1d10", "2d6", "2d8", "3d6", "3d8", "4d6", "4d8", "6d6", "6d8", "8d6"];
         let match = diceStr.match(/^(\d+d\d+)(.*)$/i);
-        if(!match) return diceStr;
+        if (!match) return diceStr;
         let currentDice = match[1].toLowerCase();
         let suffix = match[2];
         let idx = diceProgression.indexOf(currentDice);
-        if(idx === -1) {
+        if (idx === -1) {
             if (currentDice === '2d4') { currentDice = '1d6'; idx = 4; }
             else if (currentDice === '1d12') { currentDice = '1d10'; idx = 6; }
             else return diceStr;
@@ -2640,7 +2631,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return diceProgression[newIdx] + suffix;
     }
 
-    document.addEventListener('change', function(e) {
+    document.addEventListener('change', function (e) {
         if (e.target && e.target.classList.contains('atk-type')) {
             const row = e.target.closest('.atk-row') || e.target.parentElement.parentElement;
             if (!row) return;
@@ -2654,11 +2645,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     finalDiceStr += `/${weapon.crit.split('/')[0]}`;
                 }
                 const diceInput = row.querySelector('.atk-dice');
-                if(diceInput) { 
+                if (diceInput) {
                     diceInput.value = finalDiceStr;
                 }
                 const multInput = row.querySelector('.atk-str-mult');
-                if(multInput && weapon.str_mult !== undefined) {
+                if (multInput && weapon.str_mult !== undefined) {
                     multInput.value = weapon.str_mult.toString();
                 }
 
@@ -2666,7 +2657,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (weapon.category && (weapon.category.includes('Light') || weapon.special.toLowerCase().includes('finesse'))) {
                     if (window.activeFeats && !window.activeFeats.some(f => f.toLowerCase().includes('weapon finesse'))) {
                         window.activeFeats.push('Weapon Finesse');
-                        if(window.renderFeatTags) window.renderFeatTags();
+                        if (window.renderFeatTags) window.renderFeatTags();
                     }
                 }
                 renderAttacks();
@@ -2681,19 +2672,19 @@ document.addEventListener('DOMContentLoaded', () => {
     window.allArmorsDB = [];
     fetch('data/armor.json')
         .then(res => res.json())
-        .then(data => { 
-            window.allArmorsDB = data; 
-            
+        .then(data => {
+            window.allArmorsDB = data;
+
             let armorList = document.getElementById('armor-list');
-            if(!armorList) {
+            if (!armorList) {
                 armorList = document.createElement('datalist');
                 armorList.id = 'armor-list';
                 document.body.appendChild(armorList);
             }
             armorList.innerHTML = data.filter(a => a.type !== 'Shield').map(a => `<option value="${a.name}">`).join('');
-            
+
             let shieldList = document.getElementById('shield-list');
-            if(!shieldList) {
+            if (!shieldList) {
                 shieldList = document.createElement('datalist');
                 shieldList.id = 'shield-list';
                 document.body.appendChild(shieldList);
@@ -2708,11 +2699,11 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(res => res.json())
         .then(data => {
             window.allWeaponsDB = data;
-            
+
             let meleeList = document.getElementById('melee-weapons-list');
             if (!meleeList) { meleeList = document.createElement('datalist'); meleeList.id = 'melee-weapons-list'; document.body.appendChild(meleeList); }
             meleeList.innerHTML = data.filter(w => w.type !== 'Ranged').map(w => `<option value="${w.name}">`).join('');
-            
+
             let rangedList = document.getElementById('ranged-weapons-list');
             if (!rangedList) { rangedList = document.createElement('datalist'); rangedList.id = 'ranged-weapons-list'; document.body.appendChild(rangedList); }
             rangedList.innerHTML = data.filter(w => w.type === 'Ranged').map(w => `<option value="${w.name}">`).join('');
@@ -2755,7 +2746,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (shieldName) {
             gearArr.push(`<a href="#" class="interactive-gear" onclick="if(window.showInfoModal) window.showInfoModal('${shieldName.replace(/'/g, "\\'")}', '', 'Shield'); return false;" style="color: inherit; text-decoration: underline dotted;">${shieldName}</a>`);
         }
-        
+
         const wrapGear = document.getElementById('wrap-gear');
         const outGear = document.getElementById('out-gear');
         if (wrapGear && outGear) {
@@ -2772,12 +2763,48 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('in-armor-name')?.addEventListener('change', updateGearDisplay);
     document.getElementById('in-shield-name')?.addEventListener('input', updateGearDisplay);
     document.getElementById('in-shield-name')?.addEventListener('change', updateGearDisplay);
-    
-    // Also attach it to updatePreview so it runs on load
-    const oldUpdatePreview = window.updatePreview;
-    window.updatePreview = function() {
-        if (oldUpdatePreview) oldUpdatePreview();
-        updateGearDisplay();
-    };
 
+    // Also attach it to updatePreview so it runs on load
+    function updateStatBadges() {
+        const stats = ['str', 'dex', 'con', 'int', 'wis', 'cha'];
+        stats.forEach(st => {
+            const input = document.getElementById(`in-${st}`);
+            const badge = document.getElementById(`mod-badge-${st}`);
+            if (input && badge) {
+                const score = parseInt(input.value);
+                if (!isNaN(score)) {
+                    const mod = Math.floor((score - 10) / 2);
+                    const text = mod >= 0 ? `+${mod}` : `${mod}`;
+                    badge.textContent = text;
+                    badge.className = 'stat-mod-badge ' + (mod > 0 ? 'positive' : (mod < 0 ? 'negative' : ''));
+                }
+            }
+        });
+    }
+
+    // Zoom Controls Logic
+    let currentZoom = 100;
+    const zoomPaper = document.getElementById('statblock-paper');
+    const zoomIndicator = document.getElementById('zoom-indicator');
+    const btnZoomIn = document.getElementById('btn-zoom-in');
+    const btnZoomOut = document.getElementById('btn-zoom-out');
+    const btnZoomReset = document.getElementById('btn-zoom-reset');
+
+    function applyZoom(zoom) {
+        currentZoom = Math.min(180, Math.max(50, zoom));
+        if (zoomPaper) {
+            zoomPaper.style.transform = `scale(${currentZoom / 100})`;
+        }
+        if (zoomIndicator) {
+            zoomIndicator.textContent = `${currentZoom}%`;
+        }
+    }
+
+    if (btnZoomIn) btnZoomIn.addEventListener('click', () => applyZoom(currentZoom + 10));
+    if (btnZoomOut) btnZoomOut.addEventListener('click', () => applyZoom(currentZoom - 10));
+    if (btnZoomReset) btnZoomReset.addEventListener('click', () => applyZoom(100));
+
+    // Ensure gear and stat badges are initialized
+    updateStatBadges();
+    updateGearDisplay();
 });
