@@ -1,7 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Apply Active Theme
+    const savedTheme = localStorage.getItem('pf_creator_theme') || 'theme-default';
+    document.body.className = savedTheme;
+
     let currentPage = 1;
     let maxPage = 1;
     const itemsPerPage = 50;
+
+    // Load Magic Items DB for gear resolution
+    fetch('/data/magic_items.json')
+        .then(r => r.json())
+        .then(data => { window.allMagicItemsDB = data; })
+        .catch(e => console.warn('Could not load magic items:', e));
 
     // Elements
     const mainList = document.getElementById('main-list');
@@ -285,6 +295,63 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+        // Armor & Shield names and bonuses from Gear string
+        const armorBonusMap = {
+            'Padded': 1, 'Leather': 2, 'Studded Leather': 3, 'Chain Shirt': 4, 'Mithral Chain Shirt': 4,
+            'Hide': 4, 'Scale Mail': 5, 'Chainmail': 6, 'Breastplate': 6, 'Mithral Breastplate': 6,
+            'Splint Mail': 7, 'Banded Mail': 7, 'Half-Plate': 8, 'Full Plate': 9, 'Mithral Full Plate': 9
+        };
+        const shieldBonusMap = {
+            'Buckler': 1, 'Light Wooden Shield': 1, 'Light Steel Shield': 1,
+            'Heavy Wooden Shield': 2, 'Heavy Steel Shield': 2, 'Tower Shield': 4
+        };
+
+        const allGearStr = [m.Gear, m.Treasure, m.OtherGear].filter(Boolean).join(' ');
+        if (allGearStr && !state.basic['in-armor-name']) {
+            const gearLower = allGearStr.toLowerCase();
+            if (gearLower.includes('mithral full plate')) state.basic['in-armor-name'] = 'Mithral Full Plate';
+            else if (gearLower.includes('full plate')) state.basic['in-armor-name'] = 'Full Plate';
+            else if (gearLower.includes('mithral breastplate')) state.basic['in-armor-name'] = 'Mithral Breastplate';
+            else if (gearLower.includes('breastplate')) state.basic['in-armor-name'] = 'Breastplate';
+            else if (gearLower.includes('mithral chain shirt')) state.basic['in-armor-name'] = 'Mithral Chain Shirt';
+            else if (gearLower.includes('chain shirt')) state.basic['in-armor-name'] = 'Chain Shirt';
+            else if (gearLower.includes('chainmail')) state.basic['in-armor-name'] = 'Chainmail';
+            else if (gearLower.includes('half-plate') || gearLower.includes('half plate')) state.basic['in-armor-name'] = 'Half-Plate';
+            else if (gearLower.includes('splint mail')) state.basic['in-armor-name'] = 'Splint Mail';
+            else if (gearLower.includes('banded mail')) state.basic['in-armor-name'] = 'Banded Mail';
+            else if (gearLower.includes('scale mail')) state.basic['in-armor-name'] = 'Scale Mail';
+            else if (gearLower.includes('studded leather')) state.basic['in-armor-name'] = 'Studded Leather';
+            else if (gearLower.includes('hide')) state.basic['in-armor-name'] = 'Hide';
+            else if (gearLower.includes('leather')) state.basic['in-armor-name'] = 'Leather';
+            else if (gearLower.includes('padded')) state.basic['in-armor-name'] = 'Padded';
+
+            if (gearLower.includes('tower shield')) state.basic['in-shield-name'] = 'Tower Shield';
+            else if (gearLower.includes('buckler')) state.basic['in-shield-name'] = 'Buckler';
+            else if (gearLower.includes('heavy steel shield')) state.basic['in-shield-name'] = 'Heavy Steel Shield';
+            else if (gearLower.includes('heavy wooden shield')) state.basic['in-shield-name'] = 'Heavy Wooden Shield';
+            else if (gearLower.includes('heavy shield')) state.basic['in-shield-name'] = 'Heavy Steel Shield';
+            else if (gearLower.includes('light steel shield')) state.basic['in-shield-name'] = 'Light Steel Shield';
+            else if (gearLower.includes('light wooden shield')) state.basic['in-shield-name'] = 'Light Wooden Shield';
+            else if (gearLower.includes('light shield')) state.basic['in-shield-name'] = 'Light Steel Shield';
+        }
+
+        let acArmorBonus = 0;
+        let acShieldBonus = 0;
+        if (state.basic['in-armor-name']) {
+            const aName = state.basic['in-armor-name'];
+            if (armorBonusMap[aName] !== undefined) {
+                acArmorBonus = armorBonusMap[aName];
+                state.basic['in-ac-armor'] = acArmorBonus.toString();
+            }
+        }
+        if (state.basic['in-shield-name']) {
+            const sName = state.basic['in-shield-name'];
+            if (shieldBonusMap[sName] !== undefined) {
+                acShieldBonus = shieldBonusMap[sName];
+                state.basic['in-ac-shield'] = acShieldBonus.toString();
+            }
+        }
+
         // AC, HP, Saves
         // CSV only provides AC final number (e.g., 25). Calculate Natural Armor backwards.
         let acTotal = parseInt(m.AC) || 10;
@@ -300,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (sz === 'gargantuan') sizeMod = -4;
         if (sz === 'colossal') sizeMod = -8;
 
-        let calculatedNatArmor = acTotal - 10 - dexMod - sizeMod;
+        let calculatedNatArmor = acTotal - 10 - dexMod - sizeMod - acArmorBonus - acShieldBonus;
         if (calculatedNatArmor > 0) {
             state.basic['in-ac-natural'] = calculatedNatArmor;
         }
@@ -308,7 +375,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // HD
         let hdAmount = 1;
         if (m.HD) {
-            const hdMatch = m.HD.match(/^([0-9]+)d([0-9]+)/i);
+            const hdMatch = String(m.HD).match(/^([0-9]+)d([0-9]+)/i);
             if (hdMatch) {
                 hdAmount = parseInt(hdMatch[1]) || 1;
                 state.basic['in-hd-amount'] = hdMatch[1];
@@ -336,23 +403,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Offense
         state.basic['in-speed'] = m.Speed || '30 ft.';
-        state.basic['in-space'] = m.Space ? (m.Space.includes('ft') ? m.Space : m.Space + ' ft.') : '5 ft.';
-        state.basic['in-reach'] = m.Reach ? (m.Reach.includes('ft') ? m.Reach : m.Reach + ' ft.') : '5 ft.';
+        state.basic['in-space'] = m.Space ? (String(m.Space).includes('ft') ? String(m.Space) : m.Space + ' ft.') : '5 ft.';
+        state.basic['in-reach'] = m.Reach ? (String(m.Reach).includes('ft') ? String(m.Reach) : m.Reach + ' ft.') : '5 ft.';
 
         // Melee & Ranged Parsing
-        // Split attacks by comma or " or " outside parentheses to populate separate rows
         function splitAttacks(str) {
             if (!str) return [];
-            // Split by comma or " or " outside of parentheses
-            return str.split(/,(?![^\(\)]*\))|\s+or\s+(?![^\(\)]*\))/g).map(s => s.trim()).filter(s => s);
+            return String(str).split(/,(?![^\(\)]*\))|\s+or\s+(?![^\(\)]*\))/g).map(s => s.trim()).filter(s => s);
         }
 
-        if (m.Melee && m.Melee.trim()) {
+        if (m.Melee && String(m.Melee).trim()) {
             splitAttacks(m.Melee).forEach(atk => {
                 state.dynamic.melee.push({ mode: 'raw', rawText: atk });
             });
         }
-        if (m.Ranged && m.Ranged.trim()) {
+        if (m.Ranged && String(m.Ranged).trim()) {
             splitAttacks(m.Ranged).forEach(atk => {
                 state.dynamic.ranged.push({ mode: 'raw', rawText: atk });
             });
@@ -361,30 +426,29 @@ document.addEventListener('DOMContentLoaded', () => {
         state.basic['in-special-attacks'] = m.SpecialAttacks || '';
 
         // Special Abilities (Local data from dynamic.abilities, Special Abilities text, or SpecialAttacks)
-        if (m.dynamic && m.dynamic.abilities && m.dynamic.abilities.length > 0) {
+        if (m.dynamic && m.dynamic.abilities && Array.isArray(m.dynamic.abilities) && m.dynamic.abilities.length > 0) {
             m.dynamic.abilities.forEach(ab => {
                 state.dynamic.abilities.push({ name: ab.name || 'Special Ability', desc: ab.desc || ab.name || '' });
             });
         } else if (m['Special Abilities']) {
-            let lines = m['Special Abilities'].split('\n');
+            let lines = String(m['Special Abilities']).split('\n');
             let currentName = '';
             let currentDesc = [];
 
             lines.forEach(line => {
                 line = line.trim();
                 if (!line) return;
-                // Match title at the start of the line, e.g., "Dream Haunting (Su) Description..."
                 const match = line.match(/^([A-Za-z0-9\s\-\'\’]+?\s*\((?:Su|Ex|Sp)\))\s*(.*)/i);
                 if (match) {
                     if (currentName) {
                         state.dynamic.abilities.push({ name: currentName, desc: currentDesc.join('<br><br>') });
                     }
-                    currentName = match[1].trim(); // "Dream Haunting (Su)"
+                    currentName = match[1].trim();
                     currentDesc = [];
                     const remainingDesc = match[2].trim();
                     if (remainingDesc) currentDesc.push(remainingDesc);
                 } else {
-                    if (!currentName) currentName = "Special Ability"; // Fallback
+                    if (!currentName) currentName = "Special Ability";
                     currentDesc.push(line);
                 }
             });
@@ -392,12 +456,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 state.dynamic.abilities.push({ name: currentName, desc: currentDesc.join('<br><br>') });
             }
         } else if (m.SpecialAttacks) {
-            // Fallback for monsters that didn't get perfectly scraped
             let sas = [];
             let current = '';
             let depth = 0;
-            for (let i = 0; i < m.SpecialAttacks.length; i++) {
-                let c = m.SpecialAttacks[i];
+            const saStr = String(m.SpecialAttacks);
+            for (let i = 0; i < saStr.length; i++) {
+                let c = saStr[i];
                 if (c === '(') depth++;
                 if (c === ')') depth--;
                 if (c === ',' && depth === 0) {
@@ -419,25 +483,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // SpellLikeAbilities -> Parse into SLAs in OFFENSE section
         if (m.SpellLikeAbilities) {
-            let lines = m.SpellLikeAbilities.split('\n');
+            let lines = String(m.SpellLikeAbilities).split('\n');
+            const reHeader = /^(?:Spell-Like|Spells Prepared|Spells Known|\(?CL\s+)/i;
+            const reFreq = /^((?:\d+\/(?:day|week|month|year)|at\s*will|constant|\d+(?:st|nd|rd|th)\s*\([^)]*\)|\d+(?:st|nd|rd|th)|\d+\s*\(at\s*will\)))\s*[\—\–\-\ufffd\:]\s*(.*)$/i;
+
             lines.forEach(line => {
                 line = line.trim();
                 if (!line) return;
 
-                // Extract CL if present and main CL is not set
                 const clMatch = line.match(/\((CL\s+[^\)]+)\)/i);
                 if (clMatch && !state.basic['in-sla-cl']) {
                     state.basic['in-sla-cl'] = clMatch[1];
                 }
 
-                // Extract frequency and spells (supports —, –, -, \ufffd, :)
-                const dashMatch = line.match(/[\—\–\-\ufffd]/);
-                if (dashMatch) {
-                    const freq = line.substring(0, dashMatch.index).trim();
-                    const spells = line.substring(dashMatch.index + 1).trim();
-                    state.dynamic.slas.push({ freq: freq, spells: spells });
-                } else if (line.length > 0) {
+                if (reHeader.test(line)) {
                     state.dynamic.slas.push({ freq: '', spells: line });
+                } else {
+                    const freqMatch = line.match(reFreq);
+                    if (freqMatch) {
+                        state.dynamic.slas.push({ freq: freqMatch[1].trim(), spells: freqMatch[2].trim() });
+                    } else {
+                        const dashMatch = line.match(/[\—\–\ufffd]/);
+                        if (dashMatch) {
+                            state.dynamic.slas.push({
+                                freq: line.substring(0, dashMatch.index).trim(),
+                                spells: line.substring(dashMatch.index + 1).trim()
+                            });
+                        } else {
+                            state.dynamic.slas.push({ freq: '', spells: line });
+                        }
+                    }
                 }
             });
         }
@@ -467,7 +542,7 @@ document.addEventListener('DOMContentLoaded', () => {
         state.basic['in-feats'] = m.Feats || '';
 
         if (m.Skills) {
-            let skillParts = m.Skills.split(/,(?![^\(]*\))/);
+            let skillParts = String(m.Skills).split(/,(?![^\(]*\))/);
             skillParts.forEach(s => {
                 let match = s.trim().match(/^(.*?)\s+([+-]\d+)$/);
                 if (match) {
@@ -496,52 +571,28 @@ document.addEventListener('DOMContentLoaded', () => {
             state.basic.stat_type = 'monster';
         }
 
-        // Armor & Shield names from Gear string (for custom NPCs and imported monsters)
-        if (m.Gear && !state.basic['in-armor-name']) {
-            const gearLower = m.Gear.toLowerCase();
-            if (gearLower.includes('mithral chain shirt')) state.basic['in-armor-name'] = 'Mithral Chain Shirt';
-            else if (gearLower.includes('chain shirt')) state.basic['in-armor-name'] = 'Chain Shirt';
-            else if (gearLower.includes('chainmail')) state.basic['in-armor-name'] = 'Chainmail';
-            else if (gearLower.includes('full plate')) state.basic['in-armor-name'] = 'Full Plate';
-            else if (gearLower.includes('half-plate') || gearLower.includes('half plate')) state.basic['in-armor-name'] = 'Half-Plate';
-            else if (gearLower.includes('breastplate')) state.basic['in-armor-name'] = 'Breastplate';
-            else if (gearLower.includes('scale mail')) state.basic['in-armor-name'] = 'Scale Mail';
-            else if (gearLower.includes('hide')) state.basic['in-armor-name'] = 'Hide';
-            else if (gearLower.includes('leather')) state.basic['in-armor-name'] = 'Leather';
-
-            if (gearLower.includes('buckler')) state.basic['in-shield-name'] = 'Buckler';
-            else if (gearLower.includes('heavy steel shield')) state.basic['in-shield-name'] = 'Heavy Steel Shield';
-            else if (gearLower.includes('light steel shield')) state.basic['in-shield-name'] = 'Light Steel Shield';
-            else if (gearLower.includes('heavy wooden shield')) state.basic['in-shield-name'] = 'Heavy Wooden Shield';
-            else if (gearLower.includes('light wooden shield')) state.basic['in-shield-name'] = 'Light Wooden Shield';
-        }
-
-        // Auto-populate AC armor/shield bonuses from armor name
-        const armorBonusMap = {
-            'Padded': 1, 'Leather': 2, 'Studded Leather': 3, 'Chain Shirt': 4, 'Mithral Chain Shirt': 4,
-            'Hide': 4, 'Scale Mail': 5, 'Chainmail': 6, 'Breastplate': 6, 'Mithral Breastplate': 6,
-            'Splint Mail': 7, 'Banded Mail': 7, 'Half-Plate': 8, 'Full Plate': 9, 'Mithral Full Plate': 9
-        };
-        const armorMaxDexMap = {
-            'Padded': 8, 'Leather': 6, 'Studded Leather': 5, 'Chain Shirt': 4, 'Mithral Chain Shirt': 6,
-            'Hide': 4, 'Scale Mail': 3, 'Chainmail': 2, 'Breastplate': 3, 'Mithral Breastplate': 5,
-            'Splint Mail': 0, 'Banded Mail': 1, 'Half-Plate': 0, 'Full Plate': 1, 'Mithral Full Plate': 3
-        };
-        const shieldBonusMap = {
-            'Buckler': 1, 'Light Wooden Shield': 1, 'Light Steel Shield': 1,
-            'Heavy Wooden Shield': 2, 'Heavy Steel Shield': 2, 'Tower Shield': 4
-        };
-
-        if (state.basic['in-armor-name'] && !state.basic['in-ac-armor']) {
-            const aName = state.basic['in-armor-name'];
-            if (armorBonusMap[aName] !== undefined) {
-                state.basic['in-ac-armor'] = armorBonusMap[aName].toString();
-            }
-        }
-        if (state.basic['in-shield-name'] && !state.basic['in-ac-shield']) {
-            const sName = state.basic['in-shield-name'];
-            if (shieldBonusMap[sName] !== undefined) {
-                state.basic['in-ac-shield'] = shieldBonusMap[sName].toString();
+        // Magic Items & Equipment from OriginalState, Gear, Treasure, or OtherGear
+        if (m.OriginalState && m.OriginalState.dynamic && Array.isArray(m.OriginalState.dynamic.magic_items)) {
+            state.dynamic.magic_items = m.OriginalState.dynamic.magic_items;
+        } else {
+            const allItemsRaw = [m.Gear, m.Treasure, m.OtherGear].filter(Boolean).join(', ');
+            if (allItemsRaw) {
+                state.dynamic.magic_items = [];
+                const gearParts = allItemsRaw.split(/[,;]\s*/);
+                gearParts.forEach(part => {
+                    const pLower = part.trim().toLowerCase();
+                    if (pLower.includes('amulet of natural armor') || pLower.includes('ring of protection') || pLower.includes('cloak of resistance') || pLower.includes('belt of ') || pLower.includes('headband of ') || pLower.includes('bracers of armor') || pLower.includes('boots of speed') || pLower.includes('ring of invisibility') || pLower.includes('eyes of the eagle') || pLower.includes('goggles of night') || pLower.includes('gauntlets of ogre power')) {
+                        let matched = null;
+                        if (window.allMagicItemsDB) {
+                            matched = window.allMagicItemsDB.find(mi => pLower.includes(mi.name.toLowerCase()));
+                        }
+                        if (matched) {
+                            state.dynamic.magic_items.push(matched);
+                        } else {
+                            state.dynamic.magic_items.push({ name: part.trim(), slot: 'Wondrous', description: part.trim() });
+                        }
+                    }
+                });
             }
         }
 

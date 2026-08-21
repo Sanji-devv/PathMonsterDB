@@ -12,14 +12,19 @@ This project is a feature-rich, **offline-first** Game Master (GM) and player as
 
 ---
 
-## ✨ Present Features & Database Content (What's Included)
+## Present Features & Database Content (What's Included)
 
 ### 1. 📚 Comprehensive Embedded Library
 - **6,549+ Monsters & NPCs (`data/monsters.json`):** Full Bestiary 1–6, NPC Codex, Unique Monsters, 3rd Party (3PP) creatures, and Custom Homebrew database.
-- **2,905 Spells (`data/spells.json`):** Searchable by spell level, school, and class, integrated with Archives of Nethys pop-up modals.
-- **3,188 Feats (`data/feats.json`):** Tag autocomplete, rule description popups, and automatic stat bonus calculations.
+- **2,909 Spells (`data/spells.json`):** Searchable by spell level, school, and class, integrated with Archives of Nethys pop-up modals.
+- **3,188 Feats (`data/feats.json`):** Tag autocomplete, rule description popups, and automatic stat bonus calculations with enriched RAW mechanics.
+- **321 Special Abilities & Universal Monster Rules (`data/special_abilities.json`):** Complete Paizo RAW mechanics, save DC formulas, and Bestiary 1-6 traits.
+- **75 Monster & Spell Auras (`data/auras.json`):** Full mechanical descriptions for fear auras, elemental halos, holy/unholy shields, and planar emanations.
+- **141 Class Features (`data/class_features.json`):** Complete abilities covering Core, Base, Hybrid, and Occult classes.
+- **Official Rules & Conditions Database (`data/rules.json`):** Comprehensive rules covering 32 Combat Conditions, 11 Combat Maneuvers, Combat Modifiers, and Environmental Hazards.
 - **21 Armors & Shields (`data/armor.json`):** Automatic calculation of Armor Class (AC), Max DEX limits, and Armor Check Penalty (ACP).
 - **41 Weapons (`data/weapons.json`):** Datalist autocompletion with range, damage, and critical stats.
+- **43 Immunities, 37 Resistances & 24 Weaknesses (`data/immunities.json`, `data/resistances.json`, `data/weaknesses.json`):** Complete monster defense and vulnerability profiles.
 
 ### 2. ⚔️ Dual-Mode Attack System (RAW & CALC)
 - **RAW Mode (Free-Text):** Edit melee and ranged attacks freely in gold-framed textareas (e.g., `mwk rapier +13 (1d6+11/18-20)`).
@@ -32,21 +37,13 @@ This project is a feature-rich, **offline-first** Game Master (GM) and player as
 - **Visual Themes:** Over 20 built-in themes (Gold, Dark, Parchment, Arcane, High Contrast, etc.).
 
 ### 4. 🧮 Real-Time Math & Mechanics Engine
-- **Live Stat Calculation:** Real-time updates for HP, Initiative, Saving Throws (Fort/Ref/Will), AC (Touch and Flat-Footed), BAB, CMB, and CMD based on ability scores and class levels.
+- **Live Stat Calculation:** Real-time updates for HP, Initiative, Saving Throws (Fort/Ref/Will), AC (Touch and Flat-Footed), BAB, CMB, and CMD based on ability scores.
 - **SLA & Special Ability Formatting:** Automatic parsing and formatting for Spell-Like Abilities (`At will—...`, `3/day—...`, `1/day—...`).
 - **Wondrous Item Bonuses:** Automatic attribute scaling for items like *Belt of Giant Strength* and *Belt of Incredible Dexterity*.
 
 ### 5. 📸 Exporting Capabilities
 - **Native High-Res PNG Export:** One-click `#btn-export-png` button renders gold-framed statblocks directly to your Desktop via `html2canvas`.
 - **JSON Import/Export:** Save custom monsters to local JSON files and reload them into the editor at any time.
-
-### 6. 🐉 Pre-Built Custom Monster & NPC Suite
-- **Sand Worm (CR 10):** Large Magical Beast (Desert Death-Worm), *Bite +19*, *Acid Spit +13*, *Electrical Discharge 30-ft line*, *Chitinous Carapace (DR 10/adamantine)*.
-- **Undead Elder Minotaur (CR 11):** Large Undead, *Necrotic Decay*, *Death Roar*, *Desecrating Aura*.
-- **Rovesta NPC Fleet:** Rovesta Guard, Alchemist, Duelist, Shadowblade, Battlepriest, Spellblade, Warden, Sniper, Dreadnought.
-- **Elemental Roc Variants:** Roc Storm, Roc Frostfeather, Roc Pyre, Roc Terra, Roc Voidstorm.
-
----
 
 ## ❌ System Limitations & Missing Features (What's Missing)
 

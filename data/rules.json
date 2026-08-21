@@ -1,0 +1,254 @@
+{
+  "conditions": [
+    {
+      "name": "Bleed",
+      "type": "Condition",
+      "description": "A creature that is taking bleed damage takes the listed amount of damage at the beginning of its turn. Bleeding can be stopped by a DC 15 Heal check or through the application of any spell that cures hit point damage. Bleed damage does not stack unless specified."
+    },
+    {
+      "name": "Blinded",
+      "type": "Condition",
+      "description": "The creature cannot see. It takes a -2 penalty to Armor Class, loses its Dexterity bonus to AC (if any), and takes a -4 penalty on Perception checks and most Strength- and Dexterity-based skill checks. All checks and activities that rely on vision automatically fail. All opponents are considered to have total concealment (50% miss chance) relative to the blinded character."
+    },
+    {
+      "name": "Confused",
+      "type": "Condition",
+      "description": "A confused creature cannot determine what it will do. Roll d% at the start of each turn: 01-25 Act normally; 26-50 Do nothing but babble incoherently; 51-75 Deal 1d8 points of damage + Str modifier to self with item in hand; 76-100 Attack nearest creature."
+    },
+    {
+      "name": "Cowering",
+      "type": "Condition",
+      "description": "The character is frozen in fear and can take no actions. A cowering character takes a -2 penalty to Armor Class and loses her Dexterity bonus to AC (if any)."
+    },
+    {
+      "name": "Dazed",
+      "type": "Condition",
+      "description": "The creature is unable to act normally. A dazed creature can take no actions, but has no penalty to AC."
+    },
+    {
+      "name": "Dazzled",
+      "type": "Condition",
+      "description": "The creature is unable to see well because of overstimulation of eyes. A dazzled creature takes a -1 penalty on attack rolls and sight-based Perception checks."
+    },
+    {
+      "name": "Dead",
+      "type": "Condition",
+      "description": "The character's hit points are reduced to a negative amount equal to his Constitution score, his Constitution drops to 0, or he is killed outright by a death effect. The character's soul leaves his body."
+    },
+    {
+      "name": "Deafened",
+      "type": "Condition",
+      "description": "A deafened creature cannot hear. It takes a -4 penalty on initiative checks, automatically fails Perception checks based on sound, takes a -4 penalty on opposed Perception checks, and has a 20% chance of spell failure when casting spells with verbal components."
+    },
+    {
+      "name": "Disabled",
+      "type": "Condition",
+      "description": "A character with 0 hit points, or one who has negative hit points but has become stable, is disabled. The character can take a single move or standard action each round (but not both). Taking a standard action inflicts 1 point of damage after the action is completed."
+    },
+    {
+      "name": "Dying",
+      "type": "Condition",
+      "description": "A character whose hit points are negative (between -1 and his Constitution score) is dying. A dying character is unconscious and near death. At the end of each round, the character must make a Constitution check (DC 10 - current negative HP) to stabilize; failure causes the character to lose 1 hit point."
+    },
+    {
+      "name": "Energy Drained",
+      "type": "Condition",
+      "description": "The character gains one or more negative levels. Each negative level imposes a cumulative -1 penalty on all attack rolls, saving throws, skill checks, ability checks, effective caster level, and subtracts 5 hit points."
+    },
+    {
+      "name": "Entangled",
+      "type": "Condition",
+      "description": "The character is ensnared. Being entangled impedes movement: moves at half speed, cannot run or charge, takes a -2 penalty on all attack rolls, and a -4 penalty to Dexterity. Casting a spell requires a concentration check (DC 15 + spell level)."
+    },
+    {
+      "name": "Exhausted",
+      "type": "Condition",
+      "description": "An exhausted character moves at half speed, cannot run or charge, and takes a -6 penalty to Strength and Dexterity. After 1 hour of complete rest, an exhausted character becomes fatigued."
+    },
+    {
+      "name": "Fascinated",
+      "type": "Condition",
+      "description": "A fascinated creature is entranced by a supernatural or spell effect. The creature stands or sits quietly, taking no actions other than to pay attention to the fascinating effect. It takes a -4 penalty on skill checks made as reactions (such as Perception). Any potential threat allows a new saving throw; any obvious threat breaks the effect immediately."
+    },
+    {
+      "name": "Fatigued",
+      "type": "Condition",
+      "description": "A fatigued character cannot run or charge and takes a -2 penalty to Strength and Dexterity. Doing anything that would cause fatigue causes the fatigued character to become exhausted. 8 hours of rest removes fatigue."
+    },
+    {
+      "name": "Flat-Footed",
+      "type": "Condition",
+      "description": "A character who has not yet acted during a combat is flat-footed, unable to react normally to the situation. A flat-footed character loses his Dexterity bonus to AC (if any) and cannot make attacks of opportunity (unless he has Combat Reflexes)."
+    },
+    {
+      "name": "Frightened",
+      "type": "Condition",
+      "description": "A frightened creature flees from the source of its fear as best it can. If unable to flee, it may fight. A frightened creature takes a -2 penalty on all attack rolls, saving throws, skill checks, and ability checks."
+    },
+    {
+      "name": "Grappled",
+      "type": "Condition",
+      "description": "A grappled creature is restrained by a creature, trap, or effect. Grappled creatures cannot move and take a -4 penalty to Dexterity. A grappled creature takes a -2 penalty on all attack rolls and combat maneuver checks, except those made to grapple or escape a grapple. Spells require a concentration check (DC 10 + grappler's CMB + spell level)."
+    },
+    {
+      "name": "Helpless",
+      "type": "Condition",
+      "description": "A helpless character is paralyzed, held, bound, sleeping, unconscious, or otherwise completely at an opponent's mercy. A helpless character has an effective Dexterity score of 0 (-5 modifier). Melee attacks against a helpless target get a +4 bonus. An attacker can make a coup de grace against a helpless target as a full-round action."
+    },
+    {
+      "name": "Incorporeal",
+      "type": "Condition",
+      "description": "Creatures with the incorporeal condition have no physical body. They are immune to all nonmagical attack forms and take only half damage (50%) from corporeal magical sources. Incorporeal creatures ignore armor bonuses to AC (retaining Charisma bonus as deflection AC)."
+    },
+    {
+      "name": "Invisible",
+      "type": "Condition",
+      "description": "Invisible creatures are visually undetectable. An invisible creature gains a +2 bonus on attack rolls against sighted opponents and ignores its opponent's Dexterity bonus to AC. Opponents have total concealment (50% miss chance) against invisible attackers."
+    },
+    {
+      "name": "Nauseated",
+      "type": "Condition",
+      "description": "Creatures with the nauseated condition are experiencing extreme stomach distress. Nauseated creatures are unable to attack, cast spells, concentrate on spells, or do anything else requiring attention. The only action such a character can take is a single move action per turn."
+    },
+    {
+      "name": "Panicked",
+      "type": "Condition",
+      "description": "A panicked creature must drop anything it holds and flee at top speed from the source of its fear and any other dangers. It takes a -2 penalty on all attack rolls, saving throws, skill checks, and ability checks. If cornered, a panicked creature cowers and does not attack."
+    },
+    {
+      "name": "Paralyzed",
+      "type": "Condition",
+      "description": "A paralyzed character is frozen in place and unable to move or act. A paralyzed character has effective Dexterity and Strength scores of 0 and is helpless, but can take purely mental actions. Flying creatures fail and swimmers sink."
+    },
+    {
+      "name": "Petrified",
+      "type": "Condition",
+      "description": "A petrified character has been turned to stone and is considered unconscious. If a petrified character cracks or breaks, but the broken pieces are joined with the body as he returns to flesh, he is unharmed."
+    },
+    {
+      "name": "Pinned",
+      "type": "Condition",
+      "description": "A pinned creature is tightly bound and can take few actions. A pinned creature cannot move and is flat-footed (-4 penalty to AC). A pinned creature cannot cast spells with somatic components and must make a concentration check (DC 10 + grappler's CMB + spell level) to cast other spells."
+    },
+    {
+      "name": "Prone",
+      "type": "Condition",
+      "description": "The character is lying on the ground. A prone attacker takes a -4 penalty on melee attack rolls and cannot use a ranged weapon (except crossbows/firearms). Opponents gain a +4 bonus on melee attack rolls against a prone target, but take a -4 penalty on ranged attack rolls against a prone target. Standing up is a move action that provokes an attack of opportunity."
+    },
+    {
+      "name": "Shaken",
+      "type": "Condition",
+      "description": "A shaken character takes a -2 penalty on attack rolls, saving throws, skill checks, and ability checks. Shaken is a less severe state of fear than frightened or panicked."
+    },
+    {
+      "name": "Sickened",
+      "type": "Condition",
+      "description": "The character takes a -2 penalty on all attack rolls, weapon damage rolls, saving throws, skill checks, and ability checks."
+    },
+    {
+      "name": "Staggered",
+      "type": "Condition",
+      "description": "A staggered creature is limited to taking a single move action or standard action each round (but not both, nor can he take full-round actions). He can still take free, swift, and immediate actions."
+    },
+    {
+      "name": "Stunned",
+      "type": "Condition",
+      "description": "A stunned creature drops everything held, cannot take actions, takes a -2 penalty to AC, and loses its Dexterity bonus to AC (if any). Attackers gain a +4 bonus on combat maneuver checks made against a stunned target."
+    },
+    {
+      "name": "Unconscious",
+      "type": "Condition",
+      "description": "Unconscious creatures are knocked out and helpless. Unconsciousness can result from having negative hit points, nonlethal damage exceeding current HP, or sleep effects."
+    }
+  ],
+  "combat_maneuvers": [
+    {
+      "name": "Bull Rush",
+      "description": "As a standard action or part of a charge, you can attempt to push an opponent straight back. Check result = 1d20 + CMB vs target's CMD. Success pushes target 5 ft. (+5 ft. for every 5 by which check exceeds CMD). Provokes attack of opportunity without Improved Bull Rush."
+    },
+    {
+      "name": "Dirty Trick",
+      "description": "As a standard action, you can attempt to temporarily hinder a foe (blinding, dazzling, deafening, entangling, shaking, or sickening them) for 1 round (+1 round per 5 by which check exceeds CMD). Removing condition requires a move action. Provokes AoO without Improved Dirty Trick."
+    },
+    {
+      "name": "Disarm",
+      "description": "As a standard action, you attempt to knock an item or weapon from an opponent's hands. Success causes the weapon to fall to the ground in the opponent's square. If check beats CMD by 10+, opponent drops items in both hands. Provokes AoO without Improved Disarm."
+    },
+    {
+      "name": "Drag",
+      "description": "As a standard action, you attempt to drag a foe backward. Success drags target 5 feet (+5 ft. per 5 above CMD), moving you with the target. Provokes AoO without Improved Drag."
+    },
+    {
+      "name": "Grapple",
+      "description": "As a standard action, you attempt to grab and hold a foe. Success gives both you and the target the grappled condition. On subsequent turns, a standard action maintains the grapple to move, damage, pin, or tie up the target. Provokes AoO without Improved Grapple."
+    },
+    {
+      "name": "Overrun",
+      "description": "As a standard action taken during your move or as part of a charge, you attempt to run past or over an opponent. Success allows you to move through their space; beating CMD by 5+ knocks the opponent prone. Provokes AoO without Improved Overrun."
+    },
+    {
+      "name": "Reposition",
+      "description": "As a standard action, you attempt to move a foe to a different space within your reach. Success moves the target 5 ft. (+5 ft. per 5 above CMD) to any unoccupied square within your reach. Provokes AoO without Improved Reposition."
+    },
+    {
+      "name": "Steal",
+      "description": "As a standard action, you attempt to snatch an item from an opponent's person (not weapon in hand or armor). Success gains the item. Provokes AoO without Improved Steal."
+    },
+    {
+      "name": "Sunder",
+      "description": "As a standard action, you attempt to damage or break an item held or worn by an opponent with a melee weapon. Deals weapon damage directly to the item (reduced by item hardness). Provokes AoO without Improved Sunder."
+    },
+    {
+      "name": "Trip",
+      "description": "As a standard action (or in place of a melee attack), you attempt to knock an opponent prone. If successful, target falls prone. If you fail by 10 or more, you must make a check or be knocked prone yourself. Provokes AoO without Improved Trip."
+    },
+    {
+      "name": "Feint",
+      "description": "As a standard action (move action with Improved Feint), make a Bluff check vs. DC 10 + BAB + Wis mod (or 10 + Sense Motive mod). Success denies opponent their Dexterity bonus to AC against your next melee attack made on or before your next turn."
+    }
+  ],
+  "combat_rules": [
+    {
+      "name": "Attack of Opportunity",
+      "description": "Any time a creature takes a distracting action within a threatened square (casting a spell, making a ranged attack, standing up from prone, moving out of a threatened square), opponents can make a free single melee attack."
+    },
+    {
+      "name": "Concentration",
+      "description": "To cast a spell under duress (damaged while casting, grappled, in vigorous motion, or casting defensively), caster must make a concentration check: 1d20 + Caster Level + Casting Mod vs required DC."
+    },
+    {
+      "name": "Flanking",
+      "description": "When two allies threaten opposite sides or corners of a target in melee, they flank the opponent, each gaining a +2 flanking bonus on melee attack rolls."
+    },
+    {
+      "name": "Two-Weapon Fighting",
+      "description": "Attacking with two weapons imposes penalties: Primary -6 / Off-hand -10 (-4/-8 with light off-hand; -2/-2 with Two-Weapon Fighting feat and light off-hand). Off-hand adds only 1/2 Str bonus to damage."
+    },
+    {
+      "name": "Charge",
+      "description": "Must move at least 10 feet in a straight line at up to double speed to the closest available square and make a single melee attack. Grants +2 on attack roll and -2 penalty to AC for 1 round."
+    },
+    {
+      "name": "Cover & Concealment",
+      "description": "Standard Cover grants +4 bonus to AC and +2 bonus on Reflex saves. Concealment (dim light, mist) imposes a 20% miss chance; Total Concealment (darkness, blindness) imposes 50% miss chance and prevents attacks of opportunity."
+    }
+  ],
+  "environmental_hazards": [
+    {
+      "name": "Falling Damage",
+      "description": "Creatures take 1d6 points of damage per 10 feet fallen (maximum 20d6). A successful DC 15 Acrobatics check or landing in deep water reduces effective fall distance."
+    },
+    {
+      "name": "Suffocation & Drowning",
+      "description": "A character can hold their breath for 2 rounds per point of Constitution. After this, make a Constitution check (DC 10, +1 per prior check) each round or fall unconscious and drop to 0 HP, then -1 HP and dying."
+    },
+    {
+      "name": "Extreme Heat & Cold",
+      "description": "Extreme cold (below 40°F) or heat (above 90°F) requires Fortitude saves each hour/10 minutes or take 1d6 nonlethal damage and become fatigued."
+    },
+    {
+      "name": "Lava",
+      "description": "Immersion in lava or magma deals 20d6 fire damage per round (2d6 for superficial contact). Damage continues for 1d3 rounds after leaving lava (half damage)."
+    }
+  ]
+}

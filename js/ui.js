@@ -46,10 +46,45 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+            modalOverlay.classList.remove('active');
+        }
+    });
+
     // Expose globally so other modules can call it
     window.showInfoModal = function(title, bodyHTML, itemType = '') {
-        modalTitle.textContent = title;
-        modalBody.innerHTML = bodyHTML || `<em>Local description for ${title}.</em>`;
+        modalTitle.textContent = title + (itemType ? ` (${itemType})` : '');
+        let resolvedHTML = bodyHTML;
+        if (!resolvedHTML || resolvedHTML.trim() === '') {
+            const cleanTitle = (title || '').toLowerCase().trim();
+            const findIn = (arr) => (arr || []).find(item => {
+                const itemName = (typeof item === 'object' && item !== null ? (item.name || item.spell || '') : item) || '';
+                const cleanItem = itemName.toLowerCase().trim();
+                return cleanItem === cleanTitle ||
+                       cleanTitle.includes(cleanItem) ||
+                       cleanItem.includes(cleanTitle);
+            });
+            const entry = findIn(window.allSpecialAbilitiesDB) ||
+                          findIn(window.allAurasDB) ||
+                          findIn(window.allImmunitiesDB) ||
+                          findIn(window.allResistancesDB) ||
+                          findIn(window.allWeaknessesDB) ||
+                          findIn(window.allFeatsDB) ||
+                          findIn(window.allSpellsDB) ||
+                          findIn(window.allMagicItemsDB);
+            if (entry && typeof entry === 'object') {
+                const desc = entry.description || entry.short_description || entry.desc || '';
+                if (desc) {
+                    resolvedHTML = desc.replace(/\n/g, '<br>');
+                } else {
+                    resolvedHTML = `<em>Pathfinder 1e reference for <strong>${title}</strong>.</em>`;
+                }
+            } else {
+                resolvedHTML = `<em>Pathfinder 1e reference for <strong>${title}</strong>.</em>`;
+            }
+        }
+        modalBody.innerHTML = resolvedHTML;
         modalOverlay.classList.add('active');
     };
 });

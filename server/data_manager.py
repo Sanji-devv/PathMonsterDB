@@ -1,10 +1,11 @@
 import os
 import json
-from urllib.parse import parse_qs
+from urllib.parse import parse_qs, urlencode
 from server.monster_formatter import parse_cr, format_monster_from_state
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MONSTERS_FILE = os.path.join(BASE_DIR, 'data', 'monsters.json')
+CUSTOM_MONSTERS_FILE = os.path.join(BASE_DIR, 'data', 'custom_monsters.json')
 SPELLS_FILE = os.path.join(BASE_DIR, 'data', 'spells.json')
 
 GLOBAL_MONSTERS = []
@@ -18,25 +19,42 @@ def clear_cache():
 def load_monsters():
     global GLOBAL_MONSTERS
     clear_cache()
-    if not os.path.exists(MONSTERS_FILE):
-        GLOBAL_MONSTERS = []
-        return GLOBAL_MONSTERS
-    try:
-        with open(MONSTERS_FILE, 'r', encoding='utf-8') as f:
-            GLOBAL_MONSTERS = json.load(f)
-            for idx, m in enumerate(GLOBAL_MONSTERS):
-                m['_m_name'] = str(m.get('Name', '')).lower()
-                m['_m_cr'] = str(m.get('CR', '')).lower()
-                m['_m_type'] = str(m.get('Type', '')).lower()
-                m['_m_align'] = str(m.get('Alignment', '')).lower()
-                m['_m_env'] = str(m.get('Environment', '')).lower()
-                m['_m_source'] = str(m.get('Source', '')).lower()
-                m['_global_index'] = idx
-                if 'OriginalState' in m and isinstance(m['OriginalState'], dict):
-                    m['OriginalState']['_global_index'] = idx
-    except Exception as e:
-        print(f"Error loading monsters.json: {e}")
-        GLOBAL_MONSTERS = []
+    official_list = []
+    custom_list = []
+
+    if os.path.exists(MONSTERS_FILE):
+        try:
+            with open(MONSTERS_FILE, 'r', encoding='utf-8') as f:
+                official_list = json.load(f)
+        except Exception as e:
+            print(f"Error loading monsters.json: {e}")
+            official_list = []
+
+    if os.path.exists(CUSTOM_MONSTERS_FILE):
+        try:
+            with open(CUSTOM_MONSTERS_FILE, 'r', encoding='utf-8') as f:
+                custom_list = json.load(f)
+        except Exception as e:
+            print(f"Error loading custom_monsters.json: {e}")
+            custom_list = []
+    else:
+        try:
+            with open(CUSTOM_MONSTERS_FILE, 'w', encoding='utf-8') as f:
+                json.dump([], f, ensure_ascii=False)
+        except Exception:
+            pass
+
+    GLOBAL_MONSTERS = official_list + custom_list
+    for idx, m in enumerate(GLOBAL_MONSTERS):
+        m['_m_name'] = str(m.get('Name', '')).lower()
+        m['_m_cr'] = str(m.get('CR', '')).lower()
+        m['_m_type'] = str(m.get('Type', '')).lower()
+        m['_m_align'] = str(m.get('Alignment', '')).lower()
+        m['_m_env'] = str(m.get('Environment', '')).lower()
+        m['_m_source'] = str(m.get('Source', '')).lower()
+        m['_global_index'] = idx
+        if 'OriginalState' in m and isinstance(m['OriginalState'], dict):
+            m['OriginalState']['_global_index'] = idx
     return GLOBAL_MONSTERS
 
 def load_spells():
@@ -54,20 +72,39 @@ def load_spells():
         GLOBAL_SPELLS = []
     return GLOBAL_SPELLS
 
-def save_monsters():
+def save_custom_monsters():
     try:
+        custom_list = [m for m in GLOBAL_MONSTERS if m.get('IsUserCustom', False)]
+        with open(CUSTOM_MONSTERS_FILE, 'w', encoding='utf-8') as f:
+            json.dump(custom_list, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print(f"Error saving custom_monsters.json: {e}")
+
+def save_official_monsters():
+    try:
+        official_list = [m for m in GLOBAL_MONSTERS if not m.get('IsUserCustom', False)]
         with open(MONSTERS_FILE, 'w', encoding='utf-8') as f:
-            json.dump(GLOBAL_MONSTERS, f, ensure_ascii=False, indent=2)
+            json.dump(official_list, f, ensure_ascii=False)
     except Exception as e:
         print(f"Error saving monsters.json: {e}")
+
+def save_monsters():
+    save_custom_monsters()
+    save_official_monsters()
 
 def search_monsters(query_string):
     global GLOBAL_MONSTERS, SEARCH_CACHE
 
-    if query_string in SEARCH_CACHE:
-        return SEARCH_CACHE[query_string]
+    if not GLOBAL_MONSTERS:
+        load_monsters()
 
     params = parse_qs(query_string)
+    # Strip timestamp / cache-busting parameters for reliable search caching
+    cache_params = {k: v for k, v in sorted(params.items()) if k not in ('_t', 'timestamp', '_')}
+    cache_key = urlencode(cache_params, doseq=True)
+
+    if cache_key in SEARCH_CACHE:
+        return SEARCH_CACHE[cache_key]
     
     name = params.get('name', [''])[0].lower()
     cr = params.get('cr', [''])[0].lower()
@@ -142,7 +179,7 @@ def search_monsters(query_string):
     elif sort_by == 'cr_desc':
         filtered.sort(key=lambda x: parse_cr(x.get('CR', '')), reverse=True)
     elif sort_by == 'cr_asc':
-        filtered.sort(key=lambda x: parse_cr(x.get('CR', '')))
+        filtered.sort(key=lambda x: (parse_cr(x.get('CR', '')) if parse_cr(x.get('CR', '')) >= 0 else 9999))
     elif sort_by == 'name_desc':
         filtered.sort(key=lambda x: str(x.get('Name') or '').lower(), reverse=True)
         
@@ -159,12 +196,16 @@ def search_monsters(query_string):
     }
     
     body = json.dumps(response).encode('utf-8')
-    SEARCH_CACHE[query_string] = body
+    SEARCH_CACHE[cache_key] = body
     return body
 
 def save_monster_from_json(raw_json_str):
     global GLOBAL_MONSTERS
-    data = json.loads(raw_json_str.decode('utf-8'))
+    if not GLOBAL_MONSTERS:
+        load_monsters()
+    if isinstance(raw_json_str, bytes):
+        raw_json_str = raw_json_str.decode('utf-8')
+    data = json.loads(raw_json_str)
     
     if 'basic' in data:
         state = data
@@ -211,13 +252,15 @@ def save_monster_from_json(raw_json_str):
         GLOBAL_MONSTERS.append(monster_rec)
         updated_idx = new_idx
         
-    save_monsters()
+    save_custom_monsters()
     clear_cache()
     
     return json.dumps({"status": "ok", "global_index": updated_idx}).encode('utf-8')
 
 def delete_monster(idx):
     global GLOBAL_MONSTERS
+    if not GLOBAL_MONSTERS:
+        load_monsters()
     if 0 <= idx < len(GLOBAL_MONSTERS):
         if GLOBAL_MONSTERS[idx].get('IsUserCustom', False):
             GLOBAL_MONSTERS.pop(idx)
@@ -225,21 +268,26 @@ def delete_monster(idx):
                 m['_global_index'] = i
                 if 'OriginalState' in m and isinstance(m['OriginalState'], dict):
                     m['OriginalState']['_global_index'] = i
-            save_monsters()
+            save_custom_monsters()
             clear_cache()
             return json.dumps({"status": "ok"}).encode('utf-8'), 200
         else:
-            return json.dumps({"error": "Cannot delete official monsters"}).encode('utf-8'), 403
+            return json.dumps({"status": "error", "error": "Cannot delete official monsters"}).encode('utf-8'), 200
     else:
-        return json.dumps({"error": "Monster not found"}).encode('utf-8'), 404
+        return json.dumps({"status": "error", "error": "Monster not found"}).encode('utf-8'), 200
 
 def toggle_favorite(idx):
     global GLOBAL_MONSTERS
+    if not GLOBAL_MONSTERS:
+        load_monsters()
     if 0 <= idx < len(GLOBAL_MONSTERS):
         m = GLOBAL_MONSTERS[idx]
         current_fav = m.get('IsFavorite', False)
         m['IsFavorite'] = not current_fav
-        save_monsters()
+        if m.get('IsUserCustom', False):
+            save_custom_monsters()
+        else:
+            save_official_monsters()
         clear_cache()
         response = {"status": "success", "is_favorite": not current_fav}
         return json.dumps(response).encode('utf-8'), 200
@@ -248,6 +296,8 @@ def toggle_favorite(idx):
 
 def search_spells(query_string):
     global GLOBAL_SPELLS
+    if not GLOBAL_SPELLS:
+        load_spells()
     if not GLOBAL_SPELLS:
         return None, 404
     

@@ -4,26 +4,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const autocompleteList = document.getElementById('spell-autocomplete');
     const activeSpellsContainer = document.getElementById('active-spells-container');
 
-    if (!searchInput) return;
+    if (!searchInput || !autocompleteList) return;
 
     // Fetch spells
     fetch('/data/spells.json')
         .then(res => res.json())
         .then(data => {
             allSpells = data;
-            console.log(`Loaded ${allSpells.length} spells.`);
+            window.allSpellsDB = data;
         })
         .catch(err => console.error("Error loading spells:", err));
 
     searchInput.addEventListener('input', (e) => {
-        const val = e.target.value.toLowerCase();
+        const val = (e.target.value || '').toLowerCase().trim();
         autocompleteList.innerHTML = '';
         if (!val) {
             autocompleteList.style.display = 'none';
             return;
         }
 
-        const matches = allSpells.filter(s => s.name.toLowerCase().includes(val)).slice(0, 15);
+        const matches = allSpells.filter(s => s && s.name && s.name.toLowerCase().includes(val)).slice(0, 15);
         
         if (matches.length > 0) {
             autocompleteList.style.display = 'block';
@@ -32,9 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 li.style.padding = '8px';
                 li.style.cursor = 'pointer';
                 li.style.borderBottom = '1px solid #444';
-                li.innerHTML = `<strong>${spell.name}</strong> <small style="color:#aaa;">(${spell.school})</small>`;
+                li.innerHTML = `<strong>${spell.name}</strong> <small style="color:#aaa;">(${spell.school || ''})</small>`;
                 
-                li.addEventListener('mousedown', () => {
+                li.addEventListener('mousedown', (evt) => {
+                    evt.preventDefault();
                     addSpellToState(spell);
                     searchInput.value = '';
                     autocompleteList.style.display = 'none';
@@ -47,11 +48,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     searchInput.addEventListener('blur', () => {
-        setTimeout(() => autocompleteList.style.display = 'none', 150);
+        setTimeout(() => { if (autocompleteList) autocompleteList.style.display = 'none'; }, 150);
     });
 
     function addSpellToState(spell) {
-        if (!window.CharacterState.spells.find(s => s.name === spell.name)) {
+        if (!window.CharacterState) return;
+        if (!Array.isArray(window.CharacterState.spells)) window.CharacterState.spells = [];
+        const existing = window.CharacterState.spells.find(s => (typeof s === 'object' ? s.name : s) === spell.name);
+        if (!existing) {
             window.CharacterState.spells.push(spell);
             renderActiveSpells();
             window.CharacterState.notifyUpdate();
@@ -59,8 +63,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderActiveSpells() {
+        if (!activeSpellsContainer || !window.CharacterState) return;
         activeSpellsContainer.innerHTML = '';
-        window.CharacterState.spells.forEach(spell => {
+        (window.CharacterState.spells || []).forEach(spell => {
+            if (!spell) return;
+            const spellName = typeof spell === 'object' ? (spell.name || '') : String(spell);
+            const spellDesc = typeof spell === 'object' ? (spell.description || 'Description not available.') : 'Description not available.';
+            
             const tag = document.createElement('div');
             tag.className = 'spell-tag';
             tag.style.background = '#2b4d6b';
@@ -73,13 +82,13 @@ document.addEventListener('DOMContentLoaded', () => {
             tag.style.cursor = 'pointer';
 
             const nameSpan = document.createElement('span');
-            nameSpan.textContent = spell.name;
+            nameSpan.textContent = spellName;
             nameSpan.title = "Click for details";
             
             // Pop up the Info Modal
             nameSpan.addEventListener('click', () => {
                 if (window.showInfoModal) {
-                    window.showInfoModal(spell.name, spell.description || "Description not available.", "Spell");
+                    window.showInfoModal(spellName, spellDesc, "Spell");
                 }
             });
 
@@ -91,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
             removeBtn.title = "Remove";
             removeBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                window.CharacterState.spells = window.CharacterState.spells.filter(s => s.name !== spell.name);
+                window.CharacterState.spells = window.CharacterState.spells.filter(s => (typeof s === 'object' ? s.name : s) !== spellName);
                 renderActiveSpells();
                 window.CharacterState.notifyUpdate();
             });
@@ -101,4 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
             activeSpellsContainer.appendChild(tag);
         });
     }
+
+    window.renderActiveSpells = renderActiveSpells;
 });

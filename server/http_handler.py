@@ -1,6 +1,6 @@
 import http.server
 import urllib.request
-from urllib.parse import urlparse
+from urllib.parse import urlparse, parse_qs
 from server.data_manager import (
     search_monsters,
     search_spells,
@@ -11,6 +11,25 @@ from server.data_manager import (
 )
 
 class PATHGMRequestHandler(http.server.SimpleHTTPRequestHandler):
+    protocol_version = "HTTP/1.0"
+    extensions_map = {
+        **http.server.SimpleHTTPRequestHandler.extensions_map,
+        '.js': 'application/javascript',
+        '.mjs': 'application/javascript',
+        '.css': 'text/css',
+        '.json': 'application/json',
+        '.svg': 'image/svg+xml',
+        '.png': 'image/png',
+        '.jpg': 'image/jpeg',
+        '.jpeg': 'image/jpeg',
+        '.webp': 'image/webp',
+        '.html': 'text/html; charset=utf-8',
+    }
+
+    def address_string(self):
+        # Avoid slow reverse DNS lookup on Windows
+        return str(self.client_address[0])
+
     def end_headers(self):
         self.send_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
         self.send_header('Pragma', 'no-cache')
@@ -44,11 +63,12 @@ class PATHGMRequestHandler(http.server.SimpleHTTPRequestHandler):
         body = get_scrape_status()
         self.send_response(200)
         self.send_header('Content-Type', 'application/json; charset=utf-8')
+        self.send_header('Content-Length', str(len(body)))
         self.end_headers()
         self.wfile.write(body)
+        self.wfile.flush()
 
     def _handle_proxy(self, query):
-        from urllib.parse import parse_qs
         qs = parse_qs(query)
         target_url = qs.get('url', [''])[0]
         if not target_url:
@@ -64,50 +84,72 @@ class PATHGMRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_header('Content-Type', 'text/html; charset=utf-8')
                 self.end_headers()
                 self.wfile.write(html.encode('utf-8'))
+                self.wfile.flush()
         except Exception as e:
             self.send_response(500)
             self.send_header('Content-Type', 'text/plain; charset=utf-8')
             self.end_headers()
             self.wfile.write(str(e).encode('utf-8'))
+            self.wfile.flush()
 
     def do_POST(self):
-        parsed_url = urlparse(self.path)
-        if parsed_url.path.startswith('/api/favorite/'):
-            try:
-                idx = int(parsed_url.path.split('/')[-1])
+        try:
+            parsed_url = urlparse(self.path)
+            if parsed_url.path.startswith('/api/favorite/'):
+                length = int(self.headers.get('Content-Length', 0))
+                if length > 0:
+                    self.rfile.read(length)
+                idx_str = parsed_url.path.rstrip('/').split('/')[-1]
+                idx = int(idx_str)
                 body, status_code = toggle_favorite(idx)
                 self.send_response(status_code)
-                self.send_header('Content-Type', 'application/json')
+                self.send_header('Content-Type', 'application/json; charset=utf-8')
+                self.send_header('Content-Length', str(len(body)))
                 self.end_headers()
                 self.wfile.write(body)
-            except ValueError:
-                self.send_error(400, "Invalid index")
-        elif parsed_url.path == '/api/save':
-            self._handle_save()
-        else:
-            self.send_error(404)
+                self.wfile.flush()
+            elif parsed_url.path == '/api/save':
+                self._handle_save()
+            else:
+                self.send_error(404)
+        except ValueError:
+            self.send_error(400, "Invalid index")
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+            self.send_error(500, str(e))
 
     def do_DELETE(self):
-        if self.path.startswith('/api/delete/'):
-            try:
-                idx = int(self.path.split('/')[-1])
+        try:
+            length = int(self.headers.get('Content-Length', 0))
+            if length > 0:
+                self.rfile.read(length)
+            parsed_url = urlparse(self.path)
+            if parsed_url.path.startswith('/api/delete/'):
+                idx_str = parsed_url.path.rstrip('/').split('/')[-1]
+                idx = int(idx_str)
                 body, status_code = delete_monster(idx)
                 self.send_response(status_code)
-                self.send_header('Content-Type', 'application/json')
+                self.send_header('Content-Type', 'application/json; charset=utf-8')
+                self.send_header('Content-Length', str(len(body)))
                 self.end_headers()
                 self.wfile.write(body)
-            except ValueError:
-                self.send_error(400, "Invalid index")
-        else:
-            self.send_error(404)
+                self.wfile.flush()
+            else:
+                self.send_error(404)
+        except ValueError:
+            self.send_error(400, "Invalid index")
+        except Exception as e:
+            self.send_error(500, str(e))
 
     def _handle_search(self, query_string):
         body = search_monsters(query_string)
         self.send_response(200)
-        self.send_header('Content-Type', 'application/json')
+        self.send_header('Content-Type', 'application/json; charset=utf-8')
         self.send_header('Content-Length', str(len(body)))
         self.end_headers()
         self.wfile.write(body)
+        self.wfile.flush()
 
     def _handle_save(self):
         try:
@@ -115,10 +157,11 @@ class PATHGMRequestHandler(http.server.SimpleHTTPRequestHandler):
             raw = self.rfile.read(length)
             body = save_monster_from_json(raw)
             self.send_response(200)
-            self.send_header('Content-Type', 'application/json')
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
             self.send_header('Content-Length', str(len(body)))
             self.end_headers()
             self.wfile.write(body)
+            self.wfile.flush()
         except Exception as e:
             print("Error saving monster:", e)
             self.send_error(500, str(e))
@@ -130,15 +173,18 @@ class PATHGMRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_error(status_code, "Spells data not found")
                 return
             self.send_response(200)
-            self.send_header('Content-Type', 'application/json')
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
             self.send_header('Content-Length', str(len(body)))
             self.end_headers()
             self.wfile.write(body)
+            self.wfile.flush()
         except Exception as e:
             print(f"Error handling spell search: {e}")
             self.send_response(500)
             self.end_headers()
 
+    def log_request(self, code='-', size='-'):
+        pass
+
     def log_message(self, format, *args):
-        if args and len(args) >= 2 and str(args[1]) not in ('200', '304'):
-            super().log_message(format, *args)
+        pass

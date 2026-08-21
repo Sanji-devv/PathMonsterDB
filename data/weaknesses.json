@@ -1,10 +1,98 @@
 [
-  "vulnerability to fire",
-  "vulnerability to cold",
-  "vulnerability to acid",
-  "vulnerability to electricity",
-  "vulnerability to sonic",
-  "light sensitivity",
-  "light blindness",
-  "water dependency"
+  {
+    "name": "Aversion to Fire",
+    "description": "Fears open fire and must make a Will save to approach or attack a fire source."
+  },
+  {
+    "name": "Aversion to Mirrors",
+    "description": "Cannot approach within 30 ft. of a presented mirror without failing a Will save."
+  },
+  {
+    "name": "Fragile",
+    "description": "Brittle anatomy; takes +50% damage from bludgeoning and sonic attacks, -4 on saves vs shatter."
+  },
+  {
+    "name": "Light Blindness",
+    "description": "Blinded for 1 round upon exposure to bright light, and dazzled on subsequent rounds."
+  },
+  {
+    "name": "Light Sensitivity",
+    "description": "Dazzled in areas of bright sunlight or daylight spell (-1 on attacks and sight Perception)."
+  },
+  {
+    "name": "Resurrection Vulnerability",
+    "description": "Raise dead, resurrection, or heal spells deal massive damage or destroy the creature (Will save)."
+  },
+  {
+    "name": "Salt Vulnerability",
+    "description": "Contact with salt or immersion in salt water deals 1d6 lethal damage per round."
+  },
+  {
+    "name": "Sunlight Helplessness",
+    "description": "Completely helpless and paralyzed when exposed to direct natural sunlight."
+  },
+  {
+    "name": "Sunlight Powerlessness",
+    "description": "Utterly powerless in natural sunlight; cannot attack and is considered staggered or helpless."
+  },
+  {
+    "name": "Sunlight Vulnerability",
+    "description": "Direct sunlight deals 1d6 damage or 1 Con drain per round until destroyed."
+  },
+  {
+    "name": "Susceptible to Wood",
+    "description": "Vulnerable to wooden weapons or stakes driven through the heart (as vampires)."
+  },
+  {
+    "name": "Vulnerability to Acid",
+    "description": "Takes +50% damage from acid attacks, regardless of saving throws."
+  },
+  {
+    "name": "Vulnerability to Adamantine",
+    "description": "Adamantine weapons bypass hardness and damage reduction."
+  },
+  {
+    "name": "Vulnerability to Cold",
+    "description": "Takes +50% damage from cold attacks, regardless of saving throws."
+  },
+  {
+    "name": "Vulnerability to Cold Iron",
+    "description": "Cold iron weapons bypass damage reduction and suppress regeneration."
+  },
+  {
+    "name": "Vulnerability to Electricity",
+    "description": "Takes +50% damage from electricity attacks, regardless of saving throws."
+  },
+  {
+    "name": "Vulnerability to Fire",
+    "description": "Takes +50% damage from fire attacks, regardless of saving throws."
+  },
+  {
+    "name": "Vulnerability to Force",
+    "description": "Takes +50% damage from force damage spells and effects."
+  },
+  {
+    "name": "Vulnerability to Holy Water",
+    "description": "Holy water deals damage as if the creature were undead or an evil outsider (2d4 damage per flask)."
+  },
+  {
+    "name": "Vulnerability to Negative Energy",
+    "description": "Takes +50% damage from negative energy attacks, regardless of saving throws."
+  },
+  {
+    "name": "Vulnerability to Positive Energy",
+    "description": "Takes +50% damage from positive energy attacks, regardless of saving throws."
+  },
+  {
+    "name": "Vulnerability to Silver",
+    "description": "Silver weapons bypass damage reduction and deal extra damage against this creature."
+  },
+  {
+    "name": "Vulnerability to Sonic",
+    "description": "Takes +50% damage from sonic attacks, regardless of saving throws."
+  },
+  {
+    "name": "Water Dependency",
+    "description": "Can survive out of water for only 1 hour per 2 points of Con before suffocating."
+  }
 ]

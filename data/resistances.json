@@ -1,22 +1,150 @@
 [
-  "acid 5",
-  "acid 10",
-  "acid 20",
-  "acid 30",
-  "cold 5",
-  "cold 10",
-  "cold 20",
-  "cold 30",
-  "electricity 5",
-  "electricity 10",
-  "electricity 20",
-  "electricity 30",
-  "fire 5",
-  "fire 10",
-  "fire 20",
-  "fire 30",
-  "sonic 5",
-  "sonic 10",
-  "sonic 20",
-  "sonic 30"
+  {
+    "name": "Acid 5",
+    "description": "Ignores the first 5 points of acid damage from each attack."
+  },
+  {
+    "name": "Acid 10",
+    "description": "Ignores the first 10 points of acid damage from each attack."
+  },
+  {
+    "name": "Acid 15",
+    "description": "Ignores the first 15 points of acid damage from each attack."
+  },
+  {
+    "name": "Acid 20",
+    "description": "Ignores the first 20 points of acid damage from each attack."
+  },
+  {
+    "name": "Acid 30",
+    "description": "Ignores the first 30 points of acid damage from each attack."
+  },
+  {
+    "name": "Cold 5",
+    "description": "Ignores the first 5 points of cold damage from each attack."
+  },
+  {
+    "name": "Cold 10",
+    "description": "Ignores the first 10 points of cold damage from each attack."
+  },
+  {
+    "name": "Cold 15",
+    "description": "Ignores the first 15 points of cold damage from each attack."
+  },
+  {
+    "name": "Cold 20",
+    "description": "Ignores the first 20 points of cold damage from each attack."
+  },
+  {
+    "name": "Cold 30",
+    "description": "Ignores the first 30 points of cold damage from each attack."
+  },
+  {
+    "name": "Electricity 5",
+    "description": "Ignores the first 5 points of electricity damage from each attack."
+  },
+  {
+    "name": "Electricity 10",
+    "description": "Ignores the first 10 points of electricity damage from each attack."
+  },
+  {
+    "name": "Electricity 15",
+    "description": "Ignores the first 15 points of electricity damage from each attack."
+  },
+  {
+    "name": "Electricity 20",
+    "description": "Ignores the first 20 points of electricity damage from each attack."
+  },
+  {
+    "name": "Electricity 30",
+    "description": "Ignores the first 30 points of electricity damage from each attack."
+  },
+  {
+    "name": "Fire 5",
+    "description": "Ignores the first 5 points of fire damage from each attack."
+  },
+  {
+    "name": "Fire 10",
+    "description": "Ignores the first 10 points of fire damage from each attack."
+  },
+  {
+    "name": "Fire 15",
+    "description": "Ignores the first 15 points of fire damage from each attack."
+  },
+  {
+    "name": "Fire 20",
+    "description": "Ignores the first 20 points of fire damage from each attack."
+  },
+  {
+    "name": "Fire 30",
+    "description": "Ignores the first 30 points of fire damage from each attack."
+  },
+  {
+    "name": "Sonic 5",
+    "description": "Ignores the first 5 points of sonic damage from each attack."
+  },
+  {
+    "name": "Sonic 10",
+    "description": "Ignores the first 10 points of sonic damage from each attack."
+  },
+  {
+    "name": "Sonic 15",
+    "description": "Ignores the first 15 points of sonic damage from each attack."
+  },
+  {
+    "name": "Sonic 20",
+    "description": "Ignores the first 20 points of sonic damage from each attack."
+  },
+  {
+    "name": "Sonic 30",
+    "description": "Ignores the first 30 points of sonic damage from each attack."
+  },
+  {
+    "name": "Channel Resistance +1",
+    "description": "Gains a +1 bonus on saving throws made to resist channeled positive energy."
+  },
+  {
+    "name": "Channel Resistance +2",
+    "description": "Gains a +2 bonus on saving throws made to resist channeled positive energy."
+  },
+  {
+    "name": "Channel Resistance +4",
+    "description": "Gains a +4 bonus on saving throws made to resist channeled positive energy."
+  },
+  {
+    "name": "Channel Resistance +6",
+    "description": "Gains a +6 bonus on saving throws made to resist channeled positive energy."
+  },
+  {
+    "name": "Negative Energy 5",
+    "description": "Ignores the first 5 points of negative energy damage from each attack."
+  },
+  {
+    "name": "Negative Energy 10",
+    "description": "Ignores the first 10 points of negative energy damage from each attack."
+  },
+  {
+    "name": "Negative Energy 20",
+    "description": "Ignores the first 20 points of negative energy damage from each attack."
+  },
+  {
+    "name": "Positive Energy 5",
+    "description": "Ignores the first 5 points of positive energy damage from each attack."
+  },
+  {
+    "name": "Positive Energy 10",
+    "description": "Ignores the first 10 points of positive energy damage from each attack."
+  },
+  {
+    "name": "Channel Resistance +3",
+    "description": "Adds +3 bonus on saving throws made to resist channeled energy."
+  },
+  {
+    "name": "Channel Resistance +5",
+    "description": "Adds +5 bonus on saving throws made to resist channeled energy."
+  },
+  {
+    "name": "Channel Resistance +8",
+    "description": "Adds +8 bonus on saving throws made to resist channeled energy."
+  }
 ]

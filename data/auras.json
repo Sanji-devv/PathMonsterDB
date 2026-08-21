@@ -1,9 +1,302 @@
 [
-  "frightful presence (30 ft., DC 15)",
-  "stench (30 ft., DC 15)",
-  "fire (10 ft., 1d6 fire)",
-  "cold (10 ft., 1d6 cold)",
-  "madness (30 ft., DC 15)",
-  "despair (30 ft., DC 15)",
-  "fear (30 ft., DC 15)"
+  {
+    "name": "Acid Aura (Su)",
+    "description": "Creatures within 10 feet take 2d6 points of acid damage at the start of their turn. Weapons that strike the creature take acid damage unless protected."
+  },
+  {
+    "name": "Alien Presence (Su)",
+    "description": "Creatures within 30 ft. who look upon or approach the creature must succeed on a Will save (DC 10 + 1/2 HD + Cha mod) or suffer 1d4 Wisdom damage and become confused for 1d4 rounds."
+  },
+  {
+    "name": "Antimagic Aura (Su)",
+    "description": "Generates a 10-foot radius sphere of antimagic centered on the creature, suppressing all magical effects, spells, and magic items within the radius (as antimagic field)."
+  },
+  {
+    "name": "Archon's Aura (Su)",
+    "description": "Any hostile creature within a 20-foot radius must make a Will save (DC 10 + 1/2 HD + Cha mod). Those who fail take a -2 penalty on attack rolls, AC, and saving throws for 24 hours or until they hit the archon with an attack."
+  },
+  {
+    "name": "Aura of Cannibalism (Sp)",
+    "description": "Emits a 20-foot aura that causes living creatures to suffer 1d4 damage each round on a failed Fortitude save; if a creature dies within the aura, the user gains temporary HP and a profane bonus on attacks."
+  },
+  {
+    "name": "Aura of Courage (Su)",
+    "description": "Grants immunity to fear to the user. Allies within 10 feet gain a +4 morale bonus on saving throws against fear effects."
+  },
+  {
+    "name": "Aura of Cowardice (Su)",
+    "description": "Enemies within 10 feet take a -4 penalty on saving throws against fear effects. Creatures that are normally immune to fear lose that immunity while within 10 feet of the antipaladin."
+  },
+  {
+    "name": "Aura of Despair (Su)",
+    "description": "Enemies within 10 feet take a -2 penalty on all saving throws. This penalty does not stack with the penalty from aura of cowardice."
+  },
+  {
+    "name": "Aura of Doom (Su)",
+    "description": "Creatures within 30 feet that fail a Will save become shaken for as long as they remain in the aura and for 1d4 rounds thereafter."
+  },
+  {
+    "name": "Aura of Faith (Su)",
+    "description": "At 14th level, a paladin's weapons are treated as good-aligned for the purposes of overcoming damage reduction. Any ally within 10 feet of her gains this benefit as well while within the aura."
+  },
+  {
+    "name": "Aura of Justice (Su)",
+    "description": "At 11th level, a paladin can expend two uses of her smite evil ability to grant the ability to smite evil to all allies within 10 feet, using her bonuses."
+  },
+  {
+    "name": "Aura of Madness (Su)",
+    "description": "Creatures within 30 feet must succeed on a Will save (DC 10 + 1/2 HD + Cha mod) or suffer the effects of confusion for 1d6 rounds. A successful save grants immunity for 24 hours."
+  },
+  {
+    "name": "Aura of Menace (Su)",
+    "description": "A righteous aura surrounds archons, angels, and certain celestials. Any hostile creature within a 20-foot radius of an angel must succeed on a Will save (DC 10 + 1/2 HD + Cha mod) or take a -2 penalty on attack rolls, AC, and saving throws for 24 hours."
+  },
+  {
+    "name": "Aura of Misfortune (Su)",
+    "description": "Creatures within a 20-foot radius must roll twice and take the worse result on all attack rolls and saving throws on a failed Will save (DC 10 + 1/2 HD + Cha mod)."
+  },
+  {
+    "name": "Aura of Resolve (Su)",
+    "description": "At 8th level, a paladin is immune to charm spells and spell-like abilities. Each ally within 10 feet of her gains a +4 morale bonus on saving throws against charm effects."
+  },
+  {
+    "name": "Aura of Righteousness (Su)",
+    "description": "At 17th level, a paladin gains DR 5/evil and immunity to compulsion spells and spell-like abilities. Each ally within 10 feet gains a +4 morale bonus on saving throws against compulsion effects."
+  },
+  {
+    "name": "Aura of Sin (Su)",
+    "description": "At 14th level, an antipaladin's weapons are treated as evil-aligned for the purpose of overcoming damage reduction. Any ally within 10 feet also gains this benefit."
+  },
+  {
+    "name": "Bleed Aura (Su)",
+    "description": "Any creature within 20 feet that takes slashing or piercing damage begins bleeding for an additional 1d6 bleed damage each round."
+  },
+  {
+    "name": "Blinding Aura (Su)",
+    "description": "Creatures within 30 feet who look upon the user must make a Fortitude save (DC 10 + 1/2 HD + Cha mod) or be permanently blinded (or dazzled for 1d4 rounds on a successful save)."
+  },
+  {
+    "name": "Celestial Aura (Su)",
+    "description": "Allies within 30 feet gain a +2 sacred bonus to AC and saving throws, while evil creatures take 2d6 points of holy damage at the start of their turns."
+  },
+  {
+    "name": "Chaos Aura (Su)",
+    "description": "A chaotic aura surrounds the creature. Lawful opponents within 20 ft. take a -2 penalty on attack rolls and saves, and take 2d6 chaotic damage when entering or ending their turn in the area."
+  },
+  {
+    "name": "Cloak of Chaos (Sp)",
+    "description": "A 30-foot aura that grants allies a +4 deflection bonus to AC and +4 resistance bonus on saves, SR 25 against lawful spells, and causes lawful attackers to become confused on a failed Will save."
+  },
+  {
+    "name": "Cold Aura (Su)",
+    "description": "Creatures within 10 feet take 1d6 (or up to 3d6) cold damage at the start of their turn. Water within the aura freezes rapidly."
+  },
+  {
+    "name": "Confusion Aura (Su)",
+    "description": "Creatures within 30 feet must succeed on a Will save (DC 10 + 1/2 HD + Cha mod) or become confused for as long as they remain in the aura + 1d4 rounds."
+  },
+  {
+    "name": "Consecration Aura (Su)",
+    "description": "A constant 20-foot aura functioning as the consecrate spell, providing +2 sacred bonus on checks to turn undead, -1 penalty on undead attack/damage/saves, and blocking undead creation."
+  },
+  {
+    "name": "Darkness Aura (Su)",
+    "description": "Generates a constant 30-foot radius sphere of darkness or deeper darkness, lowering light levels by two steps and granting concealment."
+  },
+  {
+    "name": "Dazing Aura (Su)",
+    "description": "Any creature ending its turn within 20 feet must make a Will save (DC 10 + 1/2 HD + Cha mod) or be dazed for 1 round."
+  },
+  {
+    "name": "Death Aura (Su)",
+    "description": "Living creatures within 30 feet take 2d6 points of negative energy damage at the start of their turns (Fortitude save for half). Any living creature dying in the aura rises as an undead spawn under the creature's control."
+  },
+  {
+    "name": "Desecrating Aura (Su)",
+    "description": "A constant 20-foot aura functioning as a permanent desecrate spell. Undead within the aura gain a +1 profane bonus on attack rolls, damage rolls, and saving throws, and +1 hit point per HD."
+  },
+  {
+    "name": "Destructive Aura (Su)",
+    "description": "Creatures within 30 feet take a -2 penalty to AC and all weapon attacks made within the aura deal +2 additional damage."
+  },
+  {
+    "name": "Dread Aura (Su)",
+    "description": "Opponents within 30 feet take a -2 penalty on attack rolls, saving throws, skill checks, and ability checks while within the aura."
+  },
+  {
+    "name": "Electricity Aura (Su)",
+    "description": "Creatures within 10 feet take 1d6 to 2d6 points of electricity damage at the start of their turn. Metal weapons striking the creature conduct 1d6 electricity damage back to the attacker."
+  },
+  {
+    "name": "Elemental Aura (Su)",
+    "description": "The creature radiates elemental power (fire, cold, electricity, or acid) in a 10-foot radius, dealing 2d6 elemental damage to adjacent creatures at the start of its turn."
+  },
+  {
+    "name": "Entangling Aura (Su)",
+    "description": "Vines, spectral hands, or dense gravity within a 20-foot radius grasp at foes, causing all opponents to become entangled (Reflex DC 10 + 1/2 HD + Con/Cha mod to resist)."
+  },
+  {
+    "name": "Exhausting Aura (Su)",
+    "description": "Creatures within 20 feet must succeed on a Fortitude save (DC 10 + 1/2 HD + Con mod) each round or become fatigued; fatigued creatures become exhausted."
+  },
+  {
+    "name": "Fear Aura (Su)",
+    "description": "Creatures within 30 ft. must succeed on a Will save (DC 10 + 1/2 HD + Cha mod) or become panicked or shaken for the listed duration (typically 5d6 rounds or 1d4 rounds). A creature that saves is immune for 24 hours."
+  },
+  {
+    "name": "Fire Aura (Su)",
+    "description": "Creatures within 10 feet take 2d6 (or listed) fire damage at the start of their turn. Anyone attacking the creature with non-reach melee weapons takes 1d6 fire damage."
+  },
+  {
+    "name": "Frightful Presence (Ex)",
+    "description": "Opponents within 30 ft. (or size-based range) who witness the creature attack, charge, or fly overhead become shaken or panicked on a failed Will save (DC 10 + 1/2 HD + Cha mod). Immune for 24 hours on success."
+  },
+  {
+    "name": "Fungal Aura (Ex)",
+    "description": "Puffs of virulent spores fill a 20-foot radius around the creature. Living creatures within the aura must succeed on a Fortitude save or take 1d2 Con damage and grow choking fungal blossoms."
+  },
+  {
+    "name": "Glacial Aura (Su)",
+    "description": "A 20-foot aura of extreme cold that freezes the ground into slippery ice (Acrobatics DC 10 to walk) and deals 2d6 cold damage per round to warm-blooded creatures."
+  },
+  {
+    "name": "Gravitational Aura (Su)",
+    "description": "Gravity is doubled within a 30-foot radius around the creature. Movement speeds are halved, jump distances are halved, and ranged projectile attacks suffer a -4 penalty."
+  },
+  {
+    "name": "Holy Aura (Sp)",
+    "description": "Grants +4 deflection bonus to AC and +4 resistance bonus on saves to good creatures within 20 ft., SR 25 against evil spells, and blinds evil creatures who strike them on a failed Fortitude save."
+  },
+  {
+    "name": "Hypnotic Aura (Su)",
+    "description": "Swirling, shifting colors radiate in a 30-foot aura. Opponents within range must make a Will save (DC 10 + 1/2 HD + Cha mod) or become fascinated for 1d4 rounds."
+  },
+  {
+    "name": "Infernal Aura (Su)",
+    "description": "Hellfire swirls in a 20-foot radius. Good creatures take 2d6 fire and unholy damage at the start of their turns; non-evil creatures take a -2 penalty on attack rolls."
+  },
+  {
+    "name": "Law Aura (Su)",
+    "description": "A lawful aura surrounds the creature. Chaotic opponents within 20 ft. take a -2 penalty on attack rolls and saves, and take 2d6 lawful damage when entering the area."
+  },
+  {
+    "name": "Madness Aura (Su)",
+    "description": "Creatures within 30 ft. must succeed on a Will save (DC 10 + 1/2 HD + Cha mod) or take 1d4 Wisdom drain and be confused for 1 round. A creature that succeeds is immune for 24 hours."
+  },
+  {
+    "name": "Magic Circle against Chaos (Su)",
+    "description": "Generates a 10-foot radius magic circle against chaos, granting +2 deflection to AC, +2 resistance on saves against chaotic creatures, and preventing bodily contact by summoned chaotic creatures."
+  },
+  {
+    "name": "Magic Circle against Evil (Su)",
+    "description": "Generates a 10-foot radius magic circle against evil, granting +2 deflection to AC, +2 resistance on saves against evil creatures, and preventing bodily contact by summoned evil creatures."
+  },
+  {
+    "name": "Magic Circle against Good (Su)",
+    "description": "Generates a 10-foot radius magic circle against good, granting +2 deflection to AC, +2 resistance on saves against good creatures, and preventing bodily contact by summoned good creatures."
+  },
+  {
+    "name": "Magic Circle against Law (Su)",
+    "description": "Generates a 10-foot radius magic circle against law, granting +2 deflection to AC, +2 resistance on saves against lawful creatures, and preventing bodily contact by summoned lawful creatures."
+  },
+  {
+    "name": "Magnetic Aura (Su)",
+    "description": "Creates a 30-foot magnetic pull. Creatures wearing metal armor or wielding metal weapons are pulled 10 feet toward the creature each round and suffer a -2 penalty on attack rolls with metal weapons."
+  },
+  {
+    "name": "Menacing Aura (Su)",
+    "description": "Hostile creatures within a 20-foot radius take a -2 penalty on attack rolls, AC, and saving throws for 24 hours or until they strike the creature on a failed Will save (DC 10 + 1/2 HD + Cha mod)."
+  },
+  {
+    "name": "Miasma Aura (Ex)",
+    "description": "Toxic, choking swamp gas surrounds the creature in a 15-foot radius. Living breathing creatures within the aura take 1d4 acid damage per round and must make a Fortitude save or be sickened."
+  },
+  {
+    "name": "Nauseating Aura (Su)",
+    "description": "Foul stench or psychic corruption fills a 20-foot radius. Creatures failing a Fortitude save (DC 10 + 1/2 HD + Con mod) are nauseated for 1 round, and sickened for 1 minute thereafter."
+  },
+  {
+    "name": "Negative Energy Aura (Su)",
+    "description": "An aura of dark energy pulses in a 30-foot radius. Living creatures take 1d8 negative energy damage each round, and undead heal 1d8 damage each round."
+  },
+  {
+    "name": "Positive Energy Aura (Su)",
+    "description": "An aura of divine light in a 30-foot radius. Living creatures heal 1d6 hit points per round (up to their maximum HP), while undead take 1d6 positive energy damage per round."
+  },
+  {
+    "name": "Prismatic Aura (Su)",
+    "description": "A dazzling, multi-colored corona surrounds the creature in a 20-foot aura. Attackers within 20 feet are exposed to a random beam of the prismatic spray spell upon striking the creature."
+  },
+  {
+    "name": "Protective Aura (Su)",
+    "description": "Against attacks made or effects produced by evil creatures, this ability provides a +4 deflection bonus to AC and a +4 resistance bonus on saving throws to anyone within 20 feet of the angel. Functions as magic circle against evil and lesser globe of invulnerability."
+  },
+  {
+    "name": "Psychic Aura (Su)",
+    "description": "A telepathic distortion within 30 feet forces creatures attempting to cast spells or concentrate to make a concentration check (DC 15 + spell level) or lose the spell."
+  },
+  {
+    "name": "Reinvigorating Aura (Su)",
+    "description": "Allies within 30 feet gain fast healing 2 and a +2 morale bonus on saving throws against exhaustion and fatigue."
+  },
+  {
+    "name": "Rusting Aura (Su)",
+    "description": "Metal objects within 20 feet rapidly corrode. Any nonmagical metal weapon striking the creature is destroyed, and metal armor in the aura loses 1 point of AC bonus per round."
+  },
+  {
+    "name": "Shield of Law (Sp)",
+    "description": "A 30-foot aura granting allies +4 deflection bonus to AC, +4 resistance bonus on saves, SR 25 against chaotic spells, and slowing chaotic attackers on a failed Will save."
+  },
+  {
+    "name": "Sickness Aura (Su)",
+    "description": "Living creatures within 20 feet must make a Fortitude save (DC 10 + 1/2 HD + Con mod) or become sickened for as long as they remain in the aura and for 1d4 rounds thereafter."
+  },
+  {
+    "name": "Silence Aura (Su)",
+    "description": "Creates a constant 20-foot sphere of silence centered on the creature, preventing all sound, vocal communication, and verbal spellcasting (as silence)."
+  },
+  {
+    "name": "Slime Aura (Ex)",
+    "description": "Gooey slime coats the ground within a 10-foot radius. The area is difficult terrain, and creatures moving into the area must succeed on a DC 15 Reflex save or fall prone."
+  },
+  {
+    "name": "Spores Aura (Ex)",
+    "description": "Living creatures ending their turn within 10 feet of the creature take 1d4 points of piercing damage as spores burrow into their flesh, dealing 1d4 damage per round for 3 rounds unless treated."
+  },
+  {
+    "name": "Static Aura (Su)",
+    "description": "Crackling lightning discharges in a 10-foot radius. Any creature entering or ending its turn in the area takes 1d8 electricity damage (Reflex save for half)."
+  },
+  {
+    "name": "Stench (Ex)",
+    "description": "Creatures within 30 ft. must succeed on a Fortitude save (DC 10 + 1/2 HD + Con mod) or become sickened for 1d6+4 minutes. A creature that saves is immune for 24 hours."
+  },
+  {
+    "name": "Stench of Decay (Ex)",
+    "description": "The smell of rotting flesh fills a 30-foot radius. Creatures must make a Fortitude save or be sickened and suffer a -2 penalty on Perception checks for 1 hour."
+  },
+  {
+    "name": "Stupefying Aura (Su)",
+    "description": "Creatures within 30 feet must make a Will save (DC 10 + 1/2 HD + Cha mod) or take 1d4 Intelligence and Wisdom damage from mind-numbing psychic reverberations."
+  },
+  {
+    "name": "Sunlight Aura (Su)",
+    "description": "Radiates natural bright light in a 60-foot radius and dim light for an additional 60 feet. Undead and creatures vulnerable to sunlight take 1d6 damage per round in the bright light."
+  },
+  {
+    "name": "Toxic Aura (Ex)",
+    "description": "A cloud of poison gas surrounds the creature in a 10-foot radius. Any breathing creature entering the area is exposed to the creature's inhaled poison (Fort DC 10 + 1/2 HD + Con mod)."
+  },
+  {
+    "name": "Unholy Aura (Sp)",
+    "description": "A 30-foot aura granting evil allies +4 deflection to AC, +4 resistance on saves, SR 25 against good spells, and dealing 1d6 Str damage to good creatures striking them on a failed Fortitude save."
+  },
+  {
+    "name": "Unnatural Aura (Su)",
+    "description": "Animals within 30 feet can sense the unnatural presence of the creature and become frightened unless they succeed on a Will save (DC 10 + 1/2 HD + Cha mod). Animals will not willingly approach."
+  },
+  {
+    "name": "Wind Aura (Su)",
+    "description": "Surrounds the creature with severe or windstorm-force winds in a 20-foot radius, blowing away Tiny flying creatures and imposing a -4 penalty on ranged weapon attacks."
+  }
 ]

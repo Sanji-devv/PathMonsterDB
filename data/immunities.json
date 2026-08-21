@@ -1,27 +1,174 @@
 [
-  "fire",
-  "cold",
-  "acid",
-  "electricity",
-  "sonic",
-  "poison",
-  "disease",
-  "sleep",
-  "paralysis",
-  "mind-affecting effects",
-  "death effects",
-  "critical hits",
-  "nonlethal damage",
-  "precision damage",
-  "stunning",
-  "ability damage",
-  "ability drain",
-  "energy drain",
-  "exhaustion",
-  "fatigue",
-  "petrification",
-  "polymorph",
-  "bleed",
-  "charm",
-  "compulsion"
+  {
+    "name": "Ability Damage",
+    "description": "Immune to temporary ability score damage."
+  },
+  {
+    "name": "Ability Drain",
+    "description": "Immune to permanent ability score drain."
+  },
+  {
+    "name": "Acid",
+    "description": "Immune to acid damage and caustic effects."
+  },
+  {
+    "name": "Bleed",
+    "description": "Immune to continuous bleed damage."
+  },
+  {
+    "name": "Blindness",
+    "description": "Immune to being blinded."
+  },
+  {
+    "name": "Charm",
+    "description": "Immune to charm spells (charm person, charm monster)."
+  },
+  {
+    "name": "Cold",
+    "description": "Immune to cold damage and freezing effects."
+  },
+  {
+    "name": "Compulsion",
+    "description": "Immune to compulsion spells (dominate person, command, suggestion)."
+  },
+  {
+    "name": "Confusion",
+    "description": "Immune to confusion spells, madness, and insanity effects."
+  },
+  {
+    "name": "Construct Traits",
+    "description": "Immune to mind-affecting, bleed, disease, death, paralysis, poison, sleep, stun, nonlethal, ability damage, ability drain, Fortitude saves not affecting objects."
+  },
+  {
+    "name": "Critical Hits",
+    "description": "Immune to extra damage and special effects from critical hits."
+  },
+  {
+    "name": "Daze",
+    "description": "Immune to daze effects and spells that cause dazed condition."
+  },
+  {
+    "name": "Deafness",
+    "description": "Immune to being deafened."
+  },
+  {
+    "name": "Death Effects",
+    "description": "Immune to spells and effects that cause instantaneous death (finger of death, slay living)."
+  },
+  {
+    "name": "Disease",
+    "description": "Immune to all natural and supernatural diseases."
+  },
+  {
+    "name": "Electricity",
+    "description": "Immune to electricity damage and lightning effects."
+  },
+  {
+    "name": "Energy Drain",
+    "description": "Immune to negative levels and energy drain."
+  },
+  {
+    "name": "Exhaustion",
+    "description": "Immune to the exhausted condition."
+  },
+  {
+    "name": "Fatigue",
+    "description": "Immune to the fatigued condition."
+  },
+  {
+    "name": "Fear",
+    "description": "Immune to all fear effects, shaken, frightened, and panicked conditions."
+  },
+  {
+    "name": "Fire",
+    "description": "Immune to fire damage and fire effects."
+  },
+  {
+    "name": "Flanking",
+    "description": "Cannot be flanked; attackers gain no flank bonus or sneak attack."
+  },
+  {
+    "name": "Force",
+    "description": "Immune to force damage and effects created by force spells (such as Magic Missile)."
+  },
+  {
+    "name": "Gaze Attacks",
+    "description": "Immune to all supernatural and extraordinary gaze attacks."
+  },
+  {
+    "name": "Magic (Golem Immunity)",
+    "description": "Immune to any spell or spell-like ability that allows spell resistance."
+  },
+  {
+    "name": "Mind-Affecting Effects",
+    "description": "Immune to all charms, compulsions, morale effects, patterns, and phantasms."
+  },
+  {
+    "name": "Negative Energy",
+    "description": "Immune to damage and penalties caused by negative energy effects."
+  },
+  {
+    "name": "Nonlethal Damage",
+    "description": "Immune to all nonlethal damage."
+  },
+  {
+    "name": "Ooze Traits",
+    "description": "Immune to mind-affecting, poison, sleep, paralysis, polymorph, stunning, critical hits, and flanking."
+  },
+  {
+    "name": "Paralysis",
+    "description": "Immune to paralysis effects and hold spells."
+  },
+  {
+    "name": "Petrification",
+    "description": "Immune to flesh to stone and other petrification effects."
+  },
+  {
+    "name": "Plant Traits",
+    "description": "Immune to mind-affecting, paralysis, poison, polymorph, sleep, and stunning."
+  },
+  {
+    "name": "Poison",
+    "description": "Immune to all forms of poison (contact, ingested, inhaled, and injury)."
+  },
+  {
+    "name": "Polymorph",
+    "description": "Immune to polymorph and shape-changing effects unless willing."
+  },
+  {
+    "name": "Positive Energy",
+    "description": "Immune to damage and effects caused by positive energy effects."
+  },
+  {
+    "name": "Precision Damage",
+    "description": "Immune to sneak attack damage and precision-based damage."
+  },
+  {
+    "name": "Sleep",
+    "description": "Immune to magical and nonmagical sleep effects."
+  },
+  {
+    "name": "Sonic",
+    "description": "Immune to sonic damage and deafening effects."
+  },
+  {
+    "name": "Stun",
+    "description": "Immune to stunning effects, spells, and abilities (such as Stunning Fist)."
+  },
+  {
+    "name": "Stunning",
+    "description": "Immune to the stunned condition."
+  },
+  {
+    "name": "Swarm Traits",
+    "description": "Immune to critical hits, flanking, tripping, grappling, bull rush, and weapon damage (if Fine/Diminutive)."
+  },
+  {
+    "name": "Undead Traits",
+    "description": "Immune to mind-affecting, bleed, death, disease, paralysis, poison, sleep, stun, nonlethal, ability drain, energy drain."
+  },
+  {
+    "name": "Visual Effects",
+    "description": "Immune to patterns, blinding effects, and visual illusions."
+  }
 ]

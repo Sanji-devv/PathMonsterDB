@@ -37,7 +37,13 @@ def format_monster_from_state(state):
     
     hd_amount = basic.get('in-hd-amount') or '1'
     hd_size = basic.get('in-hd-size') or '8'
-    hp_val = get_val('in-hp', 'HP', '')
+    raw_hp = get_val('in-hp', 'HP', '')
+    if raw_hp:
+        # Extract leading numeric HP e.g. "49 (7d12+21)" -> "49"
+        m_hp = re.match(r'^(\d+)', str(raw_hp).strip())
+        hp_val = m_hp.group(1) if m_hp else str(raw_hp).split('(')[0].strip()
+    else:
+        hp_val = ''
     
     hd_str = f"{hd_amount}d{hd_size}"
     
@@ -56,8 +62,8 @@ def format_monster_from_state(state):
     senses_parts = []
     for s in senses_list:
         if isinstance(s, dict):
-            n = s.get('name', '').strip()
-            d = s.get('dist', '').strip()
+            n = str(s.get('name', '') or '').strip()
+            d = str(s.get('dist', '') or '').strip()
             if n:
                 senses_parts.append(f"{n} {d}".strip())
     if senses_parts:
@@ -69,10 +75,20 @@ def format_monster_from_state(state):
     skills_parts = []
     for sk in skills_list:
         if isinstance(sk, dict):
-            n = sk.get('name', '').strip()
-            m = sk.get('mod', '').strip()
+            n = str(sk.get('name', '') or '').strip()
+            m_val = sk.get('mod', '')
+            if m_val is not None and m_val != '':
+                m_str = str(m_val).strip()
+                if not m_str.startswith('+') and not m_str.startswith('-'):
+                    try:
+                        int_m = int(m_str)
+                        m_str = f"+{int_m}" if int_m >= 0 else str(int_m)
+                    except ValueError:
+                        pass
+            else:
+                m_str = ''
             if n:
-                skills_parts.append(f"{n} {m}".strip())
+                skills_parts.append(f"{n} {m_str}".strip())
     if skills_parts:
         skills_str = ", ".join(skills_parts)
     else:
@@ -83,14 +99,14 @@ def format_monster_from_state(state):
     for atk in melee_list:
         if isinstance(atk, dict):
             if atk.get('mode') == 'raw' or 'rawText' in atk:
-                txt = atk.get('rawText', '').strip()
+                txt = str(atk.get('rawText', '') or '').strip()
                 if txt:
                     melee_parts.append(txt)
             else:
-                cnt = atk.get('count', '1')
-                t = atk.get('type', 'bite')
-                dice = atk.get('dice', '1d6')
-                ext = atk.get('extra', '').strip()
+                cnt = str(atk.get('count', '1') or '1')
+                t = str(atk.get('type', 'bite') or 'bite')
+                dice = str(atk.get('dice', '1d6') or '1d6')
+                ext = str(atk.get('extra', '') or '').strip()
                 part = f"{cnt} {t} ({dice}" + (f" plus {ext}" if ext else "") + ")"
                 melee_parts.append(part)
     if melee_parts:
@@ -98,12 +114,33 @@ def format_monster_from_state(state):
     else:
         melee_str = get_val('in-melee', 'Melee', '')
     
+    ranged_list = dynamic.get('ranged', [])
+    ranged_parts = []
+    for atk in ranged_list:
+        if isinstance(atk, dict):
+            if atk.get('mode') == 'raw' or 'rawText' in atk:
+                txt = str(atk.get('rawText', '') or '').strip()
+                if txt:
+                    ranged_parts.append(txt)
+            else:
+                cnt = str(atk.get('count', '1') or '1')
+                t = str(atk.get('type', 'bow') or 'bow')
+                dice = str(atk.get('dice', '1d8') or '1d8')
+                rng = str(atk.get('range', '') or '').strip()
+                ext = str(atk.get('extra', '') or '').strip()
+                part = f"{cnt} {t} ({dice}" + (f", range {rng}" if rng else "") + (f" plus {ext}" if ext else "") + ")"
+                ranged_parts.append(part)
+    if ranged_parts:
+        ranged_str = ", ".join(ranged_parts)
+    else:
+        ranged_str = get_val('in-ranged', 'Ranged', '')
+    
     abilities_list = dynamic.get('abilities', [])
     sa_parts = []
     for ab in abilities_list:
         if isinstance(ab, dict):
-            aname = ab.get('name', '').strip()
-            adesc = ab.get('desc', '').strip()
+            aname = str(ab.get('name', '') or '').strip()
+            adesc = str(ab.get('desc', '') or '').strip()
             clean_desc = re.sub('<[^<]+?>', '', adesc).strip()
             if aname:
                 sa_parts.append(f"{aname} {clean_desc}".strip())
@@ -120,12 +157,12 @@ def format_monster_from_state(state):
     
     for sla in slas_list:
         if isinstance(sla, dict):
-            freq = sla.get('freq', '').strip()
+            freq = str(sla.get('freq', '') or '').strip()
             spells = sla.get('spells', '')
             if isinstance(spells, list):
                 spells_str = ", ".join([s.get('name') if isinstance(s, dict) else str(s) for s in spells if s])
             else:
-                spells_str = str(spells).strip()
+                spells_str = str(spells or '').strip()
             if spells_str.startswith('[object Object]'):
                 spells_str = ''
             if freq or spells_str:
@@ -159,9 +196,34 @@ def format_monster_from_state(state):
     ac_dodge = safe_int(basic.get('in-ac-dodge'))
     dex_mod = (safe_int(dex_val, 10) - 10) // 2
     
-    total_ac = 10 + dex_mod + ac_natural + ac_armor + ac_shield + ac_deflection + ac_dodge
-    touch_ac = 10 + dex_mod + ac_deflection + ac_dodge
-    ff_ac = 10 + ac_natural + ac_armor + ac_shield + ac_deflection
+    size_ac_map = {
+        'Fine': 8, 'Diminutive': 4, 'Tiny': 2, 'Small': 1, 'Medium': 0,
+        'Large': -1, 'Huge': -2, 'Gargantuan': -4, 'Colossal': -8
+    }
+    size_ac = size_ac_map.get(size, 0)
+    
+    total_ac = 10 + dex_mod + size_ac + ac_natural + ac_armor + ac_shield + ac_deflection + ac_dodge
+    touch_ac = 10 + dex_mod + size_ac + ac_deflection + ac_dodge
+    ff_ac = 10 + size_ac + ac_natural + ac_armor + ac_shield + ac_deflection + (dex_mod if dex_mod < 0 else 0)
+
+    # Fallback to existing AC values if not calculated
+    if total_ac == 10 and state.get('AC'):
+        try:
+            ac_str = str(state.get('AC', '')).split(',')[0].strip()
+            if ac_str.isdigit():
+                total_ac = int(ac_str)
+            if state.get('AC_Touch'):
+                touch_ac = safe_int(state.get('AC_Touch'), touch_ac)
+            if state.get('AC_Flat-footed'):
+                ff_ac = safe_int(state.get('AC_Flat-footed'), ff_ac)
+        except Exception:
+            pass
+
+    if not hp_val and hd_amount:
+        try:
+            hp_val = str(int(hd_amount) * (int(hd_size) // 2 + 1))
+        except Exception:
+            pass
     
     subtypes_raw = dynamic.get('subtypes', [])
     if isinstance(subtypes_raw, list):
@@ -196,9 +258,13 @@ def format_monster_from_state(state):
         "Will": will,
         "Speed": get_val('in-speed', 'Speed', '30 ft.') or '30 ft.',
         "Melee": melee_str,
+        "Ranged": ranged_str,
         "Space": get_val('in-space', 'Space', '5 ft.') or '5 ft.',
         "Reach": get_val('in-reach', 'Reach', '5 ft.') or '5 ft.',
         "SpecialAttacks": get_val('in-special-attacks', 'SpecialAttacks', ''),
+        "DefensiveAbilities": get_val('in-def-abilities', 'DefensiveAbilities', ''),
+        "Weaknesses": get_val('in-weaknesses', 'Weaknesses', ''),
+        "Organization": get_val('in-organization', 'Organization', ''),
         "Str": str(str_val),
         "Dex": str(dex_val),
         "Con": str(con_val),
@@ -218,9 +284,12 @@ def format_monster_from_state(state):
         "SR": get_val('in-sr', 'SR', ''),
         "Environment": get_val('in-environment', 'Environment', ''),
         "Treasure": get_val('in-treasure', 'Treasure', ''),
-        "IsFavorite": True,
+        "Gear": get_val('in-gear', 'Gear', '') or ', '.join([x for x in [get_val('in-armor-name', '', ''), get_val('in-shield-name', '', '')] + [mi.get('name', mi) if isinstance(mi, dict) else str(mi) for mi in dynamic.get('magic_items', [])] if x]),
+        "Class1": get_val('Class1', 'Class1', ''),
+        "Class1_Lvl": get_val('Class1_Lvl', 'Class1_Lvl', ''),
+        "IsFavorite": state.get('IsFavorite', False) if not isinstance(state.get('IsFavorite'), str) else state.get('IsFavorite').lower() == 'true',
         "IsUserCustom": True,
-        "CharacterFlag": "0",
+        "CharacterFlag": "1" if (basic.get('stat_type') == 'npc' or str(state.get('CharacterFlag', '')) == '1') else "0",
         "SpellLikeAbilities": sla_str,
         "Special Abilities": sa_str,
         "OriginalState": state,

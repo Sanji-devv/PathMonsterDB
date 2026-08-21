@@ -1,558 +1,1286 @@
 [
-    {
-        "name": "Advanced Talents",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Amorphous",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Amphibious",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Arcane Bond",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Arcane School",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Armor Training",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Attach",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Aura of Courage",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Bane",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Bardic Performance",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Bleed",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Blind",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Blindsense",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Blindsight",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Blood Drain",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Bloodline",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Bombs",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Bravery",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Breath Weapon",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Burn",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Camouflage",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Capsize",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Cavalier Order",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Challenge",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Change Shape",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Channel Energy",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Channel Resistance",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Charmed Life",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Compression",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Constrict",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Construct Traits",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Curse",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Damage Reduction",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Darkvision",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Deaf",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Death Attacks",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Deeds",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Dirge of Doom",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Discoveries",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Disease",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Distraction",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Divine Grace",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Earth Glide",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Energy Drain",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Entangle",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Evasion",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Fascinate",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Fast Healing",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Fast Swallow",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Favored Enemy",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Favored Terrain",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Fear",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Ferocity",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Flight",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Flurry of Blows",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Frightful Presence",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Gaze",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Grab",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Grand Hex",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Grit",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Hex",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Hide in Plain Sight",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Hold Breath",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Hunter's Bond",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Improved Evasion",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Improved Uncanny Dodge",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Incorporeal",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Inquisitions",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Inspire Competence",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Inspire Courage",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Investigators Inspiration",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Jet",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Judgement",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Keen Scent",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Ki Pool",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Lay on Hands",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Light Blindness",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Light Sensitivity",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Lore Master",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Low-Light Vision",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Lycanthropy",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Major Hex",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Mount",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Mutagen",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Nature Sense",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Noxious Breath",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Ooze Traits",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Panache",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Paralysis",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Plant Traits",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Poison",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Pounce",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Powerful Charge",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Pull",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Push",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Quarry",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Rage",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Rage Powers",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Rake",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Regeneration",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Rend",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Roar",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Rock Catching",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Rock Throwing",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Rogue Talents",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Scent",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "See in Darkness",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Smite Evil",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Smite Good",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Sneak Attack",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Sound Mimicry",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Spell Resistance",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Split",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Stench",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Strangle",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Studied Combat",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Studied Strike",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Sunlight Powerlessness",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Swallow Whole",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Swarm Traits",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Swashbuckler Finesse",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Tactician",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Telepathy",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Track",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Trample",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Trap Sense",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Trapfinding",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Tremorsense",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Trip",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Uncanny Dodge",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Undead Traits",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Versatile Performance",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Water Breathing",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Weapon Mastery",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Weapon Training",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Web",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Well-Versed",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Whirlwind",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    },
-    {
-        "name": "Wild Shape",
-        "description": "Description not available. Please edit the JSON file to add a description."
-    }
+  {
+    "name": "Ability Score Damage and Drain (Ex or Su)",
+    "description": "Some attacks or spells reduce an opponent's ability scores. Ability Damage reduces the score temporarily (healed at 1 point per day per damaged ability score). Ability Drain permanently reduces the score (cannot be healed naturally, requires magic like restoration). If an ability score drops to 0, the creature suffers specific incapacitation (Constitution 0 is death; Strength, Dexterity, or Wisdom 0 is helpless/comatose; Intelligence or Charisma 0 is unconscious/comatose)."
+  },
+  {
+    "name": "Advanced Talents",
+    "description": "At 10th level, a rogue (or slayer) can choose one of the advanced talents in place of a standard rogue talent, gaining powerful combat, stealth, or utility capabilities such as Crippling Strike, Defensive Roll, Feat, Opportunist, Slippery Mind, or Skill Mastery."
+  },
+  {
+    "name": "Advanced Talents (Ex)",
+    "description": "At 10th level, a rogue (or slayer) can choose one of the advanced talents in place of a standard rogue talent, gaining powerful combat, stealth, or utility capabilities such as Crippling Strike, Defensive Roll, Feat, Opportunist, Slippery Mind, or Skill Mastery."
+  },
+  {
+    "name": "All-Around Vision (Ex)",
+    "description": "The creature sees in all directions at once, providing a +4 racial bonus on Perception checks and immunity to flanking."
+  },
+  {
+    "name": "Amorphous",
+    "description": "The creature has no definite form, organs, or anatomy (such as oozes). It is immune to critical hits and precision-based damage (such as sneak attack)."
+  },
+  {
+    "name": "Amorphous (Ex)",
+    "description": "The creature has no definite form, organs, or anatomy (such as oozes). It is immune to critical hits and precision-based damage (such as sneak attack)."
+  },
+  {
+    "name": "Amphibious",
+    "description": "Creatures with this special quality have the aquatic subtype, but they can breathe air and survive on land indefinitely just as easily as they can in water."
+  },
+  {
+    "name": "Amphibious (Ex)",
+    "description": "Creatures with this special quality have the aquatic subtype, but they can breathe air and survive on land indefinitely just as easily as they can in water."
+  },
+  {
+    "name": "Aquatic (Ex)",
+    "description": "These creatures always have swim speeds and thus can move in water without making Swim checks. An aquatic creature can breathe water. It cannot breathe air unless it has the amphibious special quality."
+  },
+  {
+    "name": "Arcane Bond",
+    "description": "At 1st level, wizards form a powerful bond with an object (amulet, ring, staff, wand, weapon) or a familiar. A bonded object allows the wizard to cast any one spell per day from their spellbook without preparing it. A familiar grants special senses, skill bonuses, and the ability to deliver touch spells."
+  },
+  {
+    "name": "Arcane Bond (Ex or Sp)",
+    "description": "At 1st level, wizards form a powerful bond with an object (amulet, ring, staff, wand, weapon) or a familiar. A bonded object allows the wizard to cast any one spell per day from their spellbook without preparing it. A familiar grants special senses, skill bonuses, and the ability to deliver touch spells."
+  },
+  {
+    "name": "Arcane Reservoir (Su)",
+    "description": "An arcanist has an innate pool of magical energy that can fuel her arcanist exploits and enhance spells. Maximum pool size equals 3 + arcanist level. Points can be spent to increase caster level by +1 or spell DC by +1 as a free action when casting."
+  },
+  {
+    "name": "Arcane School",
+    "description": "A wizard who specializes in a school of magic gains bonus spell slots of each spell level they can cast, unique school powers, and must choose two opposition schools which require two spell slots to prepare."
+  },
+  {
+    "name": "Arcane School (Ex or Sp)",
+    "description": "A wizard who specializes in a school of magic gains bonus spell slots of each spell level they can cast, unique school powers, and must choose two opposition schools which require two spell slots to prepare."
+  },
+  {
+    "name": "Armor Training",
+    "description": "Starting at 3rd level, a fighter learns to be more maneuverable while wearing armor. Whenever he is wearing armor, he reduces the armor check penalty by 1 (to a minimum of 0) and increases the maximum Dexterity bonus allowed by his armor by +1. Every 4 levels thereafter (7th, 11th, and 15th), these bonuses increase by +1, up to -4 ACP and +4 Max Dex at 15th level. At 3rd level, he moves at normal speed in medium armor, and at 7th level in heavy armor."
+  },
+  {
+    "name": "Armor Training (Ex)",
+    "description": "Starting at 3rd level, a fighter learns to be more maneuverable while wearing armor. Whenever he is wearing armor, he reduces the armor check penalty by 1 (to a minimum of 0) and increases the maximum Dexterity bonus allowed by his armor by +1. Every 4 levels thereafter (7th, 11th, and 15th), these bonuses increase by +1, up to -4 ACP and +4 Max Dex at 15th level. At 3rd level, he moves at normal speed in medium armor, and at 7th level in heavy armor."
+  },
+  {
+    "name": "Attach",
+    "description": "When a creature with this ability hits with a specified attack, it latches onto the target's body. The target is not grappled, but the attacking creature gains a +4 bonus on grapple checks against the target and automatically deals attack or blood drain damage each round without needing to make another attack roll until removed."
+  },
+  {
+    "name": "Attach (Ex)",
+    "description": "When a creature with this ability hits with a specified attack, it latches onto the target's body. The target is not grappled, but the attacking creature gains a +4 bonus on grapple checks against the target and automatically deals attack or blood drain damage each round without needing to make another attack roll until removed."
+  },
+  {
+    "name": "Aura of Courage",
+    "description": "At 3rd level, a paladin is immune to fear (magical or otherwise). Each ally within 10 feet of her gains a +4 morale bonus on saving throws against fear effects. This ability functions only while the paladin is conscious, not if she is unconscious or dead."
+  },
+  {
+    "name": "Aura of Courage (Su)",
+    "description": "At 3rd level, a paladin is immune to fear (magical or otherwise). Each ally within 10 feet of her gains a +4 morale bonus on saving throws against fear effects. This ability functions only while the paladin is conscious, not if she is unconscious or dead."
+  },
+  {
+    "name": "Bane",
+    "description": "At 5th level, an inquisitor can imbue one of her weapons with the bane weapon special quality as a swift action. The weapon's enhancement bonus is +2 better than its actual bonus against the designated creature type and deals an extra 2d6 points of damage. This lasts for a number of rounds per day equal to her inquisitor level."
+  },
+  {
+    "name": "Bane (Su)",
+    "description": "At 5th level, an inquisitor can imbue one of her weapons with the bane weapon special quality as a swift action. The weapon's enhancement bonus is +2 better than its actual bonus against the designated creature type and deals an extra 2d6 points of damage. This lasts for a number of rounds per day equal to her inquisitor level."
+  },
+  {
+    "name": "Bardic Performance",
+    "description": "A bard is trained to use the Perform skill to create magical effects on those around him, including himself if desired. Starting at 1st level, a bard can use this ability for a number of rounds per day equal to 4 + his Charisma modifier (+2 rounds/level after 1st). Types of performances include Inspire Courage, Inspire Competence, Countersong, Distraction, Fascinate, Suggestion, Dirge of Doom, and Inspire Greatness."
+  },
+  {
+    "name": "Bardic Performance (Su)",
+    "description": "A bard is trained to use the Perform skill to create magical effects on those around him, including himself if desired. Starting at 1st level, a bard can use this ability for a number of rounds per day equal to 4 + his Charisma modifier (+2 rounds/level after 1st). Types of performances include Inspire Courage, Inspire Competence, Countersong, Distraction, Fascinate, Suggestion, Dirge of Doom, and Inspire Greatness."
+  },
+  {
+    "name": "Bleed",
+    "description": "A creature with this ability causes attacks to deal continuing blood damage at the start of each of the wounded creature's turns. Bleed damage can be stopped by a DC 15 Heal check or through the application of any spell or effect that cures hit point damage. Bleed damage does not stack with itself unless specified."
+  },
+  {
+    "name": "Bleed (Ex)",
+    "description": "A creature with this ability causes attacks to deal continuing blood damage at the start of each of the wounded creature's turns. Bleed damage can be stopped by a DC 15 Heal check or through the application of any spell or effect that cures hit point damage. Bleed damage does not stack with itself unless specified."
+  },
+  {
+    "name": "Blind",
+    "description": "The creature cannot see. It takes a -2 penalty to Armor Class, loses its Dexterity bonus to AC (if any), moves at half speed, and takes a -4 penalty on Perception checks and most Strength- and Dexterity-based skill checks. All opponents have total concealment (50% miss chance) against the creature."
+  },
+  {
+    "name": "Blind (Ex)",
+    "description": "The creature cannot see. It takes a -2 penalty to Armor Class, loses its Dexterity bonus to AC (if any), moves at half speed, and takes a -4 penalty on Perception checks and most Strength- and Dexterity-based skill checks. All opponents have total concealment (50% miss chance) against the creature."
+  },
+  {
+    "name": "Blindsense",
+    "description": "Using non-visual senses (such as acute hearing, scent, or vibrations), a creature with blindsense notices things that it cannot see. The creature usually does not need to make Perception checks to pinpoint the location of a creature within range, provided there is line of effect. However, opponents still have total concealment (50% miss chance), and the creature cannot attack them with gaze attacks."
+  },
+  {
+    "name": "Blindsense (Ex)",
+    "description": "Using non-visual senses (such as acute hearing, scent, or vibrations), a creature with blindsense notices things that it cannot see. The creature usually does not need to make Perception checks to pinpoint the location of a creature within range, provided there is line of effect. However, opponents still have total concealment (50% miss chance), and the creature cannot attack them with gaze attacks."
+  },
+  {
+    "name": "Blindsight",
+    "description": "This ability is similar to blindsense, but is far more discerning. Using non-visual senses (such as sensitivity to vibrations, sound, scent, or magnetic fields), a creature with blindsight maneuvers and fights as well as a sighted creature. Invisibility, darkness, and most kinds of concealment are irrelevant, though the creature must have line of effect to a creature or object to discern that creature or object."
+  },
+  {
+    "name": "Blindsight (Ex)",
+    "description": "This ability is similar to blindsense, but is far more discerning. Using non-visual senses (such as sensitivity to vibrations, sound, scent, or magnetic fields), a creature with blindsight maneuvers and fights as well as a sighted creature. Invisibility, darkness, and most kinds of concealment are irrelevant, though the creature must have line of effect to a creature or object to discern that creature or object."
+  },
+  {
+    "name": "Blood Drain",
+    "description": "A creature with this ability drains blood from a grappled or pinned opponent, dealing Constitution damage each round it maintains the grapple (typically 1d2 to 1d4 Con damage)."
+  },
+  {
+    "name": "Blood Drain (Ex)",
+    "description": "A creature with this ability drains blood from a grappled or pinned opponent, dealing Constitution damage each round it maintains the grapple (typically 1d2 to 1d4 Con damage)."
+  },
+  {
+    "name": "Blood Rage (Ex)",
+    "description": "When a creature takes damage in combat, on its next turn it can fly into a rage as a free action, gaining +2 (or more) to Strength and Constitution, +1 on Will saves, and a -2 penalty to AC for a set duration."
+  },
+  {
+    "name": "Bloodline",
+    "description": "Each sorcerer (and bloodrager) has a magical origin or planar heritage (such as Draconic, Abyssal, Celestial, Fey, Arcane, Undead) that grants bonus spells, bonus feats, a bloodline arcana, and distinctive thematic supernatural powers that unlock as class levels increase."
+  },
+  {
+    "name": "Bloodline (Ex, Sp, or Su)",
+    "description": "Each sorcerer (and bloodrager) has a magical origin or planar heritage (such as Draconic, Abyssal, Celestial, Fey, Arcane, Undead) that grants bonus spells, bonus feats, a bloodline arcana, and distinctive thematic supernatural powers that unlock as class levels increase."
+  },
+  {
+    "name": "Bombs",
+    "description": "In addition to magical extracts, alchemists are adept at swiftly mixing various volatile chemicals and infusing them with their magical reserves to create powerful bombs. An alchemist can throw a number of bombs per day equal to his class level + his Intelligence modifier, dealing 1d6 + Int mod fire damage at 1st level, plus 1d6 for every 2 levels beyond 1st (splash damage deals minimum damage)."
+  },
+  {
+    "name": "Bombs (Su)",
+    "description": "In addition to magical extracts, alchemists are adept at swiftly mixing various volatile chemicals and infusing them with their magical reserves to create powerful bombs. An alchemist can throw a number of bombs per day equal to his class level + his Intelligence modifier, dealing 1d6 + Int mod fire damage at 1st level, plus 1d6 for every 2 levels beyond 1st (splash damage deals minimum damage)."
+  },
+  {
+    "name": "Bravery",
+    "description": "Starting at 2nd level, a fighter gains a +1 bonus on Will saves against fear. This bonus increases by +1 for every four levels beyond 2nd (to a maximum of +5 at 18th level)."
+  },
+  {
+    "name": "Bravery (Ex)",
+    "description": "Starting at 2nd level, a fighter gains a +1 bonus on Will saves against fear. This bonus increases by +1 for every four levels beyond 2nd (to a maximum of +5 at 18th level)."
+  },
+  {
+    "name": "Breath Weapon",
+    "description": "A breath weapon attack usually deals damage and is often based on an energy type (fire, cold, electricity, acid). It allows a Reflex save for half damage (DC 10 + 1/2 user's racial HD + user's Con modifier). Breath weapons come in cones (typically 30 or 60 ft.) or lines (typically 60 or 120 ft.) and can usually be used once every 1d4 rounds."
+  },
+  {
+    "name": "Breath Weapon (Su)",
+    "description": "A breath weapon attack usually deals damage and is often based on an energy type (fire, cold, electricity, acid). It allows a Reflex save for half damage (DC 10 + 1/2 user's racial HD + user's Con modifier). Breath weapons come in cones (typically 30 or 60 ft.) or lines (typically 60 or 120 ft.) and can usually be used once every 1d4 rounds."
+  },
+  {
+    "name": "Burn",
+    "description": "A creature with the burn special attack deals fire damage in addition to damage dealt on a successful hit with its natural attacks. Those affected by the burn ability must also succeed on a Reflex save (DC 10 + 1/2 user's HD + user's Con mod) or catch fire, taking the listed damage for an additional 1d4 rounds at the start of their turn."
+  },
+  {
+    "name": "Burn (Ex)",
+    "description": "A creature with the burn special attack deals fire damage in addition to damage dealt on a successful hit with its natural attacks. Those affected by the burn ability must also succeed on a Reflex save (DC 10 + 1/2 user's HD + user's Con mod) or catch fire, taking the listed damage for an additional 1d4 rounds at the start of their turn."
+  },
+  {
+    "name": "Camouflage",
+    "description": "A creature with this ability can use the Stealth skill in any of its favored terrains, even if the terrain doesn't provide cover or concealment."
+  },
+  {
+    "name": "Camouflage (Ex)",
+    "description": "A creature with this ability can use the Stealth skill in any of its favored terrains, even if the terrain doesn't provide cover or concealment."
+  },
+  {
+    "name": "Capsize",
+    "description": "A creature with this ability can attempt to overturn a boat or ship by ramming it as a standard action. It makes a combat maneuver check against the ship's CMD (or a flat DC based on ship size)."
+  },
+  {
+    "name": "Capsize (Ex)",
+    "description": "A creature with this ability can attempt to overturn a boat or ship by ramming it as a standard action. It makes a combat maneuver check against the ship's CMD (or a flat DC based on ship size)."
+  },
+  {
+    "name": "Cavalier Order",
+    "description": "At 1st level, a cavalier pledges himself to a specific order (e.g., Order of the Shield, Order of the Sword, Order of the Lion). The order grants class skills, specialized edicts, bonus abilities, and specific bonuses whenever he issues a Challenge."
+  },
+  {
+    "name": "Cavalier Order (Ex)",
+    "description": "At 1st level, a cavalier pledges himself to a specific order (e.g., Order of the Shield, Order of the Sword, Order of the Lion). The order grants class skills, specialized edicts, bonus abilities, and specific bonuses whenever he issues a Challenge."
+  },
+  {
+    "name": "Challenge",
+    "description": "Once per day at 1st level, a cavalier can challenge an opponent to combat. As a swift action, the cavalier chooses one target within sight. The cavalier's melee attacks deal extra damage equal to his cavalier level against the target of his challenge, but he takes a -2 penalty to AC against attacks made by anyone other than the target."
+  },
+  {
+    "name": "Challenge (Ex)",
+    "description": "Once per day at 1st level, a cavalier can challenge an opponent to combat. As a swift action, the cavalier chooses one target within sight. The cavalier's melee attacks deal extra damage equal to his cavalier level against the target of his challenge, but he takes a -2 penalty to AC against attacks made by anyone other than the target."
+  },
+  {
+    "name": "Change Shape",
+    "description": "The creature has the ability to assume the appearance of a specific creature or type of creature (as the alter self, beast shape, or shapechange spell), but retains most of its own physical abilities and statistics."
+  },
+  {
+    "name": "Change Shape (Su)",
+    "description": "The creature has the ability to assume the appearance of a specific creature or type of creature (as the alter self, beast shape, or shapechange spell), but retains most of its own physical abilities and statistics."
+  },
+  {
+    "name": "Channel Energy",
+    "description": "Clerics and paladins can channel divine energy. Channeling positive energy heals living creatures or damages undead in a 30-foot burst (Reflex DC 10 + 1/2 class level + Cha mod for half damage). Channeling negative energy damages living creatures or heals undead. Amount healed/dealt is 1d6, increasing by 1d6 every 2 levels beyond 1st."
+  },
+  {
+    "name": "Channel Energy (Su)",
+    "description": "Clerics and paladins can channel divine energy. Channeling positive energy heals living creatures or damages undead in a 30-foot burst (Reflex DC 10 + 1/2 class level + Cha mod for half damage). Channeling negative energy damages living creatures or heals undead. Amount healed/dealt is 1d6, increasing by 1d6 every 2 levels beyond 1st."
+  },
+  {
+    "name": "Channel Resistance",
+    "description": "A creature with channel resistance gains a bonus (+1 to +6) on saving throws made to resist the effects of channeled energy (such as Turn Undead or Command Undead, or damage from positive energy)."
+  },
+  {
+    "name": "Channel Resistance (Ex)",
+    "description": "A creature with channel resistance gains a bonus (+1 to +6) on saving throws made to resist the effects of channeled energy (such as Turn Undead or Command Undead, or damage from positive energy)."
+  },
+  {
+    "name": "Charmed Life",
+    "description": "At 2nd level, a swashbuckler gains a knack for getting out of trouble. Three times per day as an immediate action, she can add her Charisma modifier to the result of a saving throw she is about to make."
+  },
+  {
+    "name": "Charmed Life (Ex)",
+    "description": "At 2nd level, a swashbuckler gains a knack for getting out of trouble. Three times per day as an immediate action, she can add her Charisma modifier to the result of a saving throw she is about to make."
+  },
+  {
+    "name": "Compression",
+    "description": "The creature can move through an area as small as one-quarter its space without squeezing or one-eighth its space when squeezing."
+  },
+  {
+    "name": "Compression (Ex)",
+    "description": "The creature can move through an area as small as one-quarter its space without squeezing or one-eighth its space when squeezing."
+  },
+  {
+    "name": "Constrict",
+    "description": "A creature with this ability can crush an opponent, dealing bludgeoning damage (equal to its natural attack damage + Str bonus) whenever it makes a successful grapple check in addition to any other damage caused by the grapple."
+  },
+  {
+    "name": "Constrict (Ex)",
+    "description": "A creature with this ability can crush an opponent, dealing bludgeoning damage (equal to its natural attack damage + Str bonus) whenever it makes a successful grapple check in addition to any other damage caused by the grapple."
+  },
+  {
+    "name": "Construct Traits",
+    "description": "Constructs are immune to all mind-affecting effects, bleed, disease, death effects, necromancy effects, paralysis, poison, sleep effects, stunning, fatigue, exhaustion, nonlethal damage, ability damage, ability drain, energy drain, and any effect requiring a Fortitude save unless it affects objects or is harmless. Constructs cannot heal damage on their own, do not breathe, eat, or sleep, and are destroyed at 0 HP."
+  },
+  {
+    "name": "Construct Traits (Ex)",
+    "description": "Constructs are immune to all mind-affecting effects, bleed, disease, death effects, necromancy effects, paralysis, poison, sleep effects, stunning, fatigue, exhaustion, nonlethal damage, ability damage, ability drain, energy drain, and any effect requiring a Fortitude save unless it affects objects or is harmless. Constructs cannot heal damage on their own, do not breathe, eat, or sleep, and are destroyed at 0 HP."
+  },
+  {
+    "name": "Curse",
+    "description": "A supernatural affliction delivered via natural attack, gaze, or touch. A curse cannot be healed naturally and persists until removed via remove curse or similar magic. Saving throw DC is typically 10 + 1/2 HD + Cha or Con modifier."
+  },
+  {
+    "name": "Curse (Su)",
+    "description": "A supernatural affliction delivered via natural attack, gaze, or touch. A curse cannot be healed naturally and persists until removed via remove curse or similar magic. Saving throw DC is typically 10 + 1/2 HD + Cha or Con modifier."
+  },
+  {
+    "name": "Damage Reduction",
+    "description": "The creature ignores a set amount of weapon damage from each hit unless the weapon overcomes its DR (such as DR 5/magic, DR 10/cold iron, DR 10/silver, DR 15/adamantine, DR 10/good, or DR 10/slashing). Energy attacks, spells, spell-like abilities, and supernatural attacks bypass damage reduction."
+  },
+  {
+    "name": "Damage Reduction (Ex or Su)",
+    "description": "The creature ignores a set amount of weapon damage from each hit unless the weapon overcomes its DR (such as DR 5/magic, DR 10/cold iron, DR 10/silver, DR 15/adamantine, DR 10/good, or DR 10/slashing). Energy attacks, spells, spell-like abilities, and supernatural attacks bypass damage reduction."
+  },
+  {
+    "name": "Darkvision",
+    "description": "The creature can see perfectly in total darkness up to the listed distance (typically 60 ft. or 120 ft.), in black and white only. Darkvision does not allow sight in magical darkness unless specified."
+  },
+  {
+    "name": "Darkvision (Ex)",
+    "description": "The creature can see perfectly in total darkness up to the listed distance (typically 60 ft. or 120 ft.), in black and white only. Darkvision does not allow sight in magical darkness unless specified."
+  },
+  {
+    "name": "Deaf",
+    "description": "The creature cannot hear. It takes a -4 penalty on initiative checks, automatically fails Perception checks based on sound, takes a -4 penalty on opposed Perception checks, and has a 20% chance of spell failure when casting spells with verbal components."
+  },
+  {
+    "name": "Deaf (Ex)",
+    "description": "The creature cannot hear. It takes a -4 penalty on initiative checks, automatically fails Perception checks based on sound, takes a -4 penalty on opposed Perception checks, and has a 20% chance of spell failure when casting spells with verbal components."
+  },
+  {
+    "name": "Death Attacks",
+    "description": "Special attacks (such as Assassin's Death Attack or Bodak's Death Gaze) that can cause instant death or massive negative levels on a failed Fortitude save (DC 10 + 1/2 HD or level + Int/Cha mod)."
+  },
+  {
+    "name": "Death Attacks (Ex or Su)",
+    "description": "Special attacks (such as Assassin's Death Attack or Bodak's Death Gaze) that can cause instant death or massive negative levels on a failed Fortitude save (DC 10 + 1/2 HD or level + Int/Cha mod)."
+  },
+  {
+    "name": "Death Throes (Su)",
+    "description": "When the creature is killed, its body explodes or releases destructive energy in a burst (typically 30-foot radius), dealing energy damage (fire, unholy, acid) or releasing an affliction to all nearby creatures (Reflex save for half)."
+  },
+  {
+    "name": "Deeds",
+    "description": "Gunslingers and swashbucklers spend Grit or Panache points to accomplish daring and lethal deeds, such as Derring-Do, Dodging Panache, Opportune Parry and Riposte, Deadeye, Quick Clear, and Dead Shot."
+  },
+  {
+    "name": "Deeds (Ex or Su)",
+    "description": "Gunslingers and swashbucklers spend Grit or Panache points to accomplish daring and lethal deeds, such as Derring-Do, Dodging Panache, Opportune Parry and Riposte, Deadeye, Quick Clear, and Dead Shot."
+  },
+  {
+    "name": "Dirge of Doom",
+    "description": "At 8th level, a bard can use bardic performance to cause shaken conditions in all enemies within 30 feet who can see and hear him. This effect causes enemies to become shaken automatically with no saving throw."
+  },
+  {
+    "name": "Dirge of Doom (Su)",
+    "description": "At 8th level, a bard can use bardic performance to cause shaken conditions in all enemies within 30 feet who can see and hear him. This effect causes enemies to become shaken automatically with no saving throw."
+  },
+  {
+    "name": "Discoveries",
+    "description": "At 2nd level and every 2 levels thereafter, an alchemist uncovers a new alchemical discovery, such as Infusion, Feral Mutagen, Spontaneous Healing, Wings, Preserve Organs, or Holy Bombs."
+  },
+  {
+    "name": "Discoveries (Ex or Su)",
+    "description": "At 2nd level and every 2 levels thereafter, an alchemist uncovers a new alchemical discovery, such as Infusion, Feral Mutagen, Spontaneous Healing, Wings, Preserve Organs, or Holy Bombs."
+  },
+  {
+    "name": "Disease",
+    "description": "An affliction delivered through a bite, injury, or contact. Requires a Fortitude save (DC 10 + 1/2 user's HD + Con mod). Diseases have an onset time and inflict ability damage, ability drain, or conditions until cured with consecutive successful saves or remove disease."
+  },
+  {
+    "name": "Disease (Ex or Su)",
+    "description": "An affliction delivered through a bite, injury, or contact. Requires a Fortitude save (DC 10 + 1/2 user's HD + Con mod). Diseases have an onset time and inflict ability damage, ability drain, or conditions until cured with consecutive successful saves or remove disease."
+  },
+  {
+    "name": "Distraction",
+    "description": "A creature with this ability (often swarms) can sicken or nauseate opponents it damages. Any living creature that takes damage must succeed on a Fortitude save (DC 10 + 1/2 user's HD + Con mod) or become nauseated for 1 round."
+  },
+  {
+    "name": "Distraction (Ex)",
+    "description": "A creature with this ability (often swarms) can sicken or nauseate opponents it damages. Any living creature that takes damage must succeed on a Fortitude save (DC 10 + 1/2 user's HD + Con mod) or become nauseated for 1 round."
+  },
+  {
+    "name": "Divine Grace",
+    "description": "At 2nd level, a paladin gains a bonus equal to her Charisma bonus (if any) on all saving throws."
+  },
+  {
+    "name": "Divine Grace (Su)",
+    "description": "At 2nd level, a paladin gains a bonus equal to her Charisma bonus (if any) on all saving throws."
+  },
+  {
+    "name": "Dragon Traits (Ex)",
+    "description": "Dragons possess darkvision 120 ft., low-light vision, blindsense 60 ft., immunity to sleep and paralysis effects, and immunity to their associated breath weapon energy type."
+  },
+  {
+    "name": "Dual Mind (Ex)",
+    "description": "The creature has two minds or duplicate mental faculties, granting it a +2 (or +4) racial bonus on all Will saving throws and allowing it to roll twice against mind-affecting effects."
+  },
+  {
+    "name": "Earth Glide",
+    "description": "A creature with earth glide can pass through stone, dirt, or almost any other sort of earth except metal as easily as a fish swims through water, leaving no tunnel or hole behind."
+  },
+  {
+    "name": "Earth Glide (Ex)",
+    "description": "A creature with earth glide can pass through stone, dirt, or almost any other sort of earth except metal as easily as a fish swims through water, leaving no tunnel or hole behind."
+  },
+  {
+    "name": "Elemental Traits (Ex)",
+    "description": "Elementals are immune to poison, sleep effects, paralysis, stunning, critical hits, and flanking. They do not breathe, eat, or sleep."
+  },
+  {
+    "name": "Energy Drain",
+    "description": "A creature with this ability imparts one or more negative levels on a successful hit (or touch). Negative levels impose a cumulative -1 penalty on attack rolls, saves, skill checks, ability checks, and subtract 5 HP. After 24 hours, the victim must succeed on a Fortitude save (DC 10 + 1/2 HD + Cha mod) or the negative level becomes permanent."
+  },
+  {
+    "name": "Energy Drain (Su)",
+    "description": "A creature with this ability imparts one or more negative levels on a successful hit (or touch). Negative levels impose a cumulative -1 penalty on attack rolls, saves, skill checks, ability checks, and subtract 5 HP. After 24 hours, the victim must succeed on a Fortitude save (DC 10 + 1/2 HD + Cha mod) or the negative level becomes permanent."
+  },
+  {
+    "name": "Engulf (Ex)",
+    "description": "The creature can engulf creatures in its path as part of a move action, trapping them within its body. Victims must succeed on a Reflex save (DC 10 + 1/2 HD + Str/Con mod) or be trapped, subjected to suffocation and internal damage each round."
+  },
+  {
+    "name": "Entangle",
+    "description": "A creature or effect that anchors foes, causing them to become entangled (moving at half speed, taking a -2 penalty on attack rolls, a -4 penalty to Dexterity, and requiring concentration checks to cast spells)."
+  },
+  {
+    "name": "Entangle (Su or Ex)",
+    "description": "A creature or effect that anchors foes, causing them to become entangled (moving at half speed, taking a -2 penalty on attack rolls, a -4 penalty to Dexterity, and requiring concentration checks to cast spells)."
+  },
+  {
+    "name": "Evasion",
+    "description": "If a creature with evasion makes a successful Reflex saving throw against an attack that normally deals half damage on a successful save, it instead takes no damage. Evasion can only be used if wearing light or no armor."
+  },
+  {
+    "name": "Evasion (Ex)",
+    "description": "If a creature with evasion makes a successful Reflex saving throw against an attack that normally deals half damage on a successful save, it instead takes no damage. Evasion can only be used if wearing light or no armor."
+  },
+  {
+    "name": "Fascinate",
+    "description": "A bard can use performance to cause one or more creatures to become fascinated with him (imposing a -4 penalty on skill checks made as reactions, such as Perception). Any obvious threat breaks the effect immediately."
+  },
+  {
+    "name": "Fascinate (Su)",
+    "description": "A bard can use performance to cause one or more creatures to become fascinated with him (imposing a -4 penalty on skill checks made as reactions, such as Perception). Any obvious threat breaks the effect immediately."
+  },
+  {
+    "name": "Fast Healing",
+    "description": "A creature with fast healing regains hit points at a listed rate (e.g., Fast Healing 5) at the start of each of its turns until it dies or the effect ends. Unlike regeneration, fast healing does not restore severed body parts and stops functioning if the creature drops below 0 HP (unless specified)."
+  },
+  {
+    "name": "Fast Healing (Ex)",
+    "description": "A creature with fast healing regains hit points at a listed rate (e.g., Fast Healing 5) at the start of each of its turns until it dies or the effect ends. Unlike regeneration, fast healing does not restore severed body parts and stops functioning if the creature drops below 0 HP (unless specified)."
+  },
+  {
+    "name": "Fast Swallow",
+    "description": "The creature can use its swallow whole ability as a free action after a successful grapple check, rather than having to wait until its next turn."
+  },
+  {
+    "name": "Fast Swallow (Ex)",
+    "description": "The creature can use its swallow whole ability as a free action after a successful grapple check, rather than having to wait until its next turn."
+  },
+  {
+    "name": "Favored Enemy",
+    "description": "At 1st level, a ranger selects a creature type (e.g., Humanoid [human], Undead, Dragon, Outsider [evil]). He gains a +2 bonus on Bluff, Knowledge, Perception, Sense Motive, and Survival checks against creatures of this type, and a +2 bonus on weapon attack and damage rolls against them. Every 5 levels, he selects an additional favored enemy and increases bonuses against one type by +2."
+  },
+  {
+    "name": "Favored Enemy (Ex)",
+    "description": "At 1st level, a ranger selects a creature type (e.g., Humanoid [human], Undead, Dragon, Outsider [evil]). He gains a +2 bonus on Bluff, Knowledge, Perception, Sense Motive, and Survival checks against creatures of this type, and a +2 bonus on weapon attack and damage rolls against them. Every 5 levels, he selects an additional favored enemy and increases bonuses against one type by +2."
+  },
+  {
+    "name": "Favored Terrain",
+    "description": "At 3rd level, a ranger selects a terrain type (e.g., Forest, Mountain, Plains, Swamp, Underground, Urban). He gains a +2 bonus on initiative checks and Knowledge (geography), Perception, Stealth, and Survival skill checks while in that terrain. Every 5 levels thereafter, he gains an additional favored terrain and increases bonuses in one terrain by +2."
+  },
+  {
+    "name": "Favored Terrain (Ex)",
+    "description": "At 3rd level, a ranger selects a terrain type (e.g., Forest, Mountain, Plains, Swamp, Underground, Urban). He gains a +2 bonus on initiative checks and Knowledge (geography), Perception, Stealth, and Survival skill checks while in that terrain. Every 5 levels thereafter, he gains an additional favored terrain and increases bonuses in one terrain by +2."
+  },
+  {
+    "name": "Fear",
+    "description": "Fear effects force victims to make a Will save (DC 10 + 1/2 HD + Cha mod) or suffer shaken, frightened, or panicked conditions depending on severity and duration."
+  },
+  {
+    "name": "Fear (Su or Sp)",
+    "description": "Fear effects force victims to make a Will save (DC 10 + 1/2 HD + Cha mod) or suffer shaken, frightened, or panicked conditions depending on severity and duration."
+  },
+  {
+    "name": "Ferocity",
+    "description": "A creature with ferocity remains conscious and can continue fighting even if its hit point total is below 0. The creature is still staggered and loses 1 hit point each round it takes a standard action, dying when its hit points reach a negative amount equal to its Constitution score."
+  },
+  {
+    "name": "Ferocity (Ex)",
+    "description": "A creature with ferocity remains conscious and can continue fighting even if its hit point total is below 0. The creature is still staggered and loses 1 hit point each round it takes a standard action, dying when its hit points reach a negative amount equal to its Constitution score."
+  },
+  {
+    "name": "Flight",
+    "description": "The creature has a fly speed and a maneuverability rating (Clumsy, Poor, Average, Good, or Perfect) which governs its Fly skill check bonuses and movement capabilities in the air."
+  },
+  {
+    "name": "Flight (Ex or Su)",
+    "description": "The creature has a fly speed and a maneuverability rating (Clumsy, Poor, Average, Good, or Perfect) which governs its Fly skill check bonuses and movement capabilities in the air."
+  },
+  {
+    "name": "Flurry of Blows",
+    "description": "Starting at 1st level, a monk can make a flurry of blows as a full-attack action. When doing so, he may make one additional attack using any combination of his unarmed strikes or monk special weapons as if using the Two-Weapon Fighting feat, using his full monk level as his base attack bonus."
+  },
+  {
+    "name": "Flurry of Blows (Ex)",
+    "description": "Starting at 1st level, a monk can make a flurry of blows as a full-attack action. When doing so, he may make one additional attack using any combination of his unarmed strikes or monk special weapons as if using the Two-Weapon Fighting feat, using his full monk level as his base attack bonus."
+  },
+  {
+    "name": "Formless (Ex)",
+    "description": "The creature has no fixed shape, allowing it to flow through tiny apertures, cracks, and fissures without squeezing. It is immune to critical hits, precision damage, and flanking."
+  },
+  {
+    "name": "Fortification (Ex)",
+    "description": "The creature has internal anatomy or thick plating that gives it a percentage chance (typically 25%, 50%, or 75%) to ignore the extra damage from critical hits and sneak attacks, treating them as regular hits."
+  },
+  {
+    "name": "Freeze (Ex)",
+    "description": "The creature can hold itself so still that it appears to be a normal object (statue, stalactite, boulder). An opponent must succeed on a high Perception check or Knowledge check to recognize it before it attacks."
+  },
+  {
+    "name": "Frightful Presence",
+    "description": "This ability takes effect automatically whenever the creature attacks, charges, or flies overhead. Opponents within range (typically 30 ft. or 60 ft.) who witness the action become shaken (or panicked if HD < creature's HD / 2) for 5d6 rounds on a failed Will save (DC 10 + 1/2 racial HD + Cha mod). A successful save renders them immune for 24 hours."
+  },
+  {
+    "name": "Frightful Presence (Ex)",
+    "description": "This ability takes effect automatically whenever the creature attacks, charges, or flies overhead. Opponents within range (typically 30 ft. or 60 ft.) who witness the action become shaken (or panicked if HD < creature's HD / 2) for 5d6 rounds on a failed Will save (DC 10 + 1/2 racial HD + Cha mod). A successful save renders them immune for 24 hours."
+  },
+  {
+    "name": "Gaze",
+    "description": "A gaze attack takes effect when opponents look at the creature's eyes. Each opponent within range (typically 30 ft.) must attempt a saving throw (Fort or Will, DC 10 + 1/2 HD + Cha mod) at the start of each of its turns or suffer petrification, charm, insanity, or death. Looking away grants a 50% chance to avoid the gaze check, or closing eyes grants total immunity but inflicts blindness."
+  },
+  {
+    "name": "Gaze (Su)",
+    "description": "A gaze attack takes effect when opponents look at the creature's eyes. Each opponent within range (typically 30 ft.) must attempt a saving throw (Fort or Will, DC 10 + 1/2 HD + Cha mod) at the start of each of its turns or suffer petrification, charm, insanity, or death. Looking away grants a 50% chance to avoid the gaze check, or closing eyes grants total immunity but inflicts blindness."
+  },
+  {
+    "name": "Grab",
+    "description": "If a creature with this ability hits with the specified attack (usually a claw or bite attack), it deals normal damage and attempts to start a grapple as a free action without provoking an attack of opportunity. Grab only works against opponents of equal or smaller size unless specified."
+  },
+  {
+    "name": "Grab (Ex)",
+    "description": "If a creature with this ability hits with the specified attack (usually a claw or bite attack), it deals normal damage and attempts to start a grapple as a free action without provoking an attack of opportunity. Grab only works against opponents of equal or smaller size unless specified."
+  },
+  {
+    "name": "Grand Hex",
+    "description": "Starting at 18th level, a witch can select powerful Grand Hexes, such as Death Curse, Eternal Slumber, Forced Reincarnation, Life Giver, Natural Disaster, or Summon Spirit."
+  },
+  {
+    "name": "Grand Hex (Su)",
+    "description": "Starting at 18th level, a witch can select powerful Grand Hexes, such as Death Curse, Eternal Slumber, Forced Reincarnation, Life Giver, Natural Disaster, or Summon Spirit."
+  },
+  {
+    "name": "Grit",
+    "description": "A gunslinger's grit is a measure of her focus and resolve in combat. A gunslinger has grit points equal to her Wisdom modifier (minimum 1) and regains grit each time she confirms a critical hit with a firearm or reduces a worthy opponent to 0 or fewer HP."
+  },
+  {
+    "name": "Grit (Ex)",
+    "description": "A gunslinger's grit is a measure of her focus and resolve in combat. A gunslinger has grit points equal to her Wisdom modifier (minimum 1) and regains grit each time she confirms a critical hit with a firearm or reduces a worthy opponent to 0 or fewer HP."
+  },
+  {
+    "name": "Heat (Ex)",
+    "description": "A creature with heat deals additional fire damage whenever it hits with its natural attacks or whenever a creature attacks it with natural weapons or unarmed strikes."
+  },
+  {
+    "name": "Hex",
+    "description": "Witches learn subtle magical curses and boons called hexes (such as Evil Eye, Misfortune, Fortune, Slumber, Healing, Cackle, Flight). The saving throw DC to resist a hex is 10 + 1/2 the witch's class level + her Intelligence modifier."
+  },
+  {
+    "name": "Hex (Su)",
+    "description": "Witches learn subtle magical curses and boons called hexes (such as Evil Eye, Misfortune, Fortune, Slumber, Healing, Cackle, Flight). The saving throw DC to resist a hex is 10 + 1/2 the witch's class level + her Intelligence modifier."
+  },
+  {
+    "name": "Hide in Plain Sight",
+    "description": "The creature can use the Stealth skill even while being observed, provided it is within 10 feet of dim light/shadows (for supernatural versions) or in its favored terrain (for extraordinary versions)."
+  },
+  {
+    "name": "Hide in Plain Sight (Ex or Su)",
+    "description": "The creature can use the Stealth skill even while being observed, provided it is within 10 feet of dim light/shadows (for supernatural versions) or in its favored terrain (for extraordinary versions)."
+  },
+  {
+    "name": "Hold Breath",
+    "description": "The creature can hold its breath for a number of rounds or minutes equal to 4 times its Constitution score before it risks drowning or suffocating."
+  },
+  {
+    "name": "Hold Breath (Ex)",
+    "description": "The creature can hold its breath for a number of rounds or minutes equal to 4 times its Constitution score before it risks drowning or suffocating."
+  },
+  {
+    "name": "Hunter's Bond",
+    "description": "At 4th level, a ranger forms a divine bond with either his hunting companions (granting allies half his favored enemy bonus) or an animal companion (which functions as a druid's animal companion with effective druid level equal to ranger level - 3)."
+  },
+  {
+    "name": "Hunter's Bond (Ex)",
+    "description": "At 4th level, a ranger forms a divine bond with either his hunting companions (granting allies half his favored enemy bonus) or an animal companion (which functions as a druid's animal companion with effective druid level equal to ranger level - 3)."
+  },
+  {
+    "name": "Icewalking (Ex)",
+    "description": "The creature can move across icy surfaces without slipping or needing to make Acrobatics checks, and treats icy terrain as normal terrain."
+  },
+  {
+    "name": "Immunity (Ex)",
+    "description": "The creature never takes damage or suffers harmful effects from the listed energy type, disease, poison, condition, or spell school."
+  },
+  {
+    "name": "Improved Evasion",
+    "description": "As evasion, but the creature takes only half damage on a failed Reflex saving throw, and no damage on a successful Reflex save."
+  },
+  {
+    "name": "Improved Evasion (Ex)",
+    "description": "As evasion, but the creature takes only half damage on a failed Reflex saving throw, and no damage on a successful Reflex save."
+  },
+  {
+    "name": "Improved Uncanny Dodge",
+    "description": "The creature can no longer be flanked. This defense denies opponents the ability to sneak attack the creature by flanking it, unless the attacker has at least 4 more rogue/class levels than the target."
+  },
+  {
+    "name": "Improved Uncanny Dodge (Ex)",
+    "description": "The creature can no longer be flanked. This defense denies opponents the ability to sneak attack the creature by flanking it, unless the attacker has at least 4 more rogue/class levels than the target."
+  },
+  {
+    "name": "Incorporeal",
+    "description": "An incorporeal creature has no physical body. It is immune to all nonmagical attack forms, and takes only half damage (50%) from corporeal magical sources (spells, magic weapons). Holy water and force effects affect it normally. It ignores armor, shield, and natural armor AC bonuses, possesses a deflection bonus to AC equal to its Charisma modifier (minimum +1), and can pass through solid objects at will."
+  },
+  {
+    "name": "Incorporeal (Ex)",
+    "description": "An incorporeal creature has no physical body. It is immune to all nonmagical attack forms, and takes only half damage (50%) from corporeal magical sources (spells, magic weapons). Holy water and force effects affect it normally. It ignores armor, shield, and natural armor AC bonuses, possesses a deflection bonus to AC equal to its Charisma modifier (minimum +1), and can pass through solid objects at will."
+  },
+  {
+    "name": "Inquisitions",
+    "description": "An inquisitor can choose an inquisition in place of a cleric domain, granting specialized combat, interrogation, or tracking powers (such as Justice, Vengeance, Conversion, or Spellkiller)."
+  },
+  {
+    "name": "Inquisitions (Ex or Su)",
+    "description": "An inquisitor can choose an inquisition in place of a cleric domain, granting specialized combat, interrogation, or tracking powers (such as Justice, Vengeance, Conversion, or Spellkiller)."
+  },
+  {
+    "name": "Inspire Competence",
+    "description": "A bard of 3rd level or higher can use his performance to help an ally succeed at a task, granting a +2 competence bonus on skill checks with a particular skill (+1 every four levels thereafter)."
+  },
+  {
+    "name": "Inspire Competence (Su)",
+    "description": "A bard of 3rd level or higher can use his performance to help an ally succeed at a task, granting a +2 competence bonus on skill checks with a particular skill (+1 every four levels thereafter)."
+  },
+  {
+    "name": "Inspire Courage",
+    "description": "A 1st-level bard uses performance to inspire courage in his allies. Affected allies receive a +1 morale bonus on saving throws against charm and fear effects and a +1 competence bonus on attack and weapon damage rolls (+1 at 5th, 11th, and 17th level)."
+  },
+  {
+    "name": "Inspire Courage (Su)",
+    "description": "A 1st-level bard uses performance to inspire courage in his allies. Affected allies receive a +1 morale bonus on saving throws against charm and fear effects and a +1 competence bonus on attack and weapon damage rolls (+1 at 5th, 11th, and 17th level)."
+  },
+  {
+    "name": "Investigator's Inspiration (Ex)",
+    "description": "An investigator has an inspiration pool equal to 1/2 his investigator level + his Int modifier. He can expend one use of inspiration to add 1d6 to the result of any skill check, ability check, attack roll, or saving throw."
+  },
+  {
+    "name": "Investigators Inspiration",
+    "description": "An investigator has an inspiration pool equal to 1/2 his investigator level + his Int modifier. He can expend one use of inspiration to add 1d6 to the result of any skill check, ability check, attack roll, or saving throw."
+  },
+  {
+    "name": "Jet",
+    "description": "The creature can swim backward as a full-round action at a tremendous speed (typically 200 to 280 ft.). It must move in a straight line while jetting and does not provoke attacks of opportunity while jetting."
+  },
+  {
+    "name": "Jet (Ex)",
+    "description": "The creature can swim backward as a full-round action at a tremendous speed (typically 200 to 280 ft.). It must move in a straight line while jetting and does not provoke attacks of opportunity while jetting."
+  },
+  {
+    "name": "Judgement",
+    "description": "At 1st level, an inquisitor can pronounce judgment upon her foes as a swift action. Once activated, this ability grants the inquisitor a sacred (or profane) bonus to destruction, healing, justice, piercing, protection, purity, resiliency, resistance, or smiting until combat ends."
+  },
+  {
+    "name": "Judgement (Su)",
+    "description": "At 1st level, an inquisitor can pronounce judgment upon her foes as a swift action. Once activated, this ability grants the inquisitor a sacred (or profane) bonus to destruction, healing, justice, piercing, protection, purity, resiliency, resistance, or smiting until combat ends."
+  },
+  {
+    "name": "Keen Scent",
+    "description": "The creature can notice creatures by scent in a 180-foot radius and can detect up to a mile away if the creatures are downwind or blood is in the water."
+  },
+  {
+    "name": "Keen Scent (Ex)",
+    "description": "The creature can notice creatures by scent in a 180-foot radius and can detect up to a mile away if the creatures are downwind or blood is in the water."
+  },
+  {
+    "name": "Ki Pool",
+    "description": "At 4th level, a monk gains a pool of ki points equal to 1/2 his monk level + his Wisdom modifier. By spending 1 ki point, he can make an extra attack in a flurry, increase his speed by +20 ft., or gain a +4 dodge bonus to AC for 1 round."
+  },
+  {
+    "name": "Ki Pool (Su)",
+    "description": "At 4th level, a monk gains a pool of ki points equal to 1/2 his monk level + his Wisdom modifier. By spending 1 ki point, he can make an extra attack in a flurry, increase his speed by +20 ft., or gain a +4 dodge bonus to AC for 1 round."
+  },
+  {
+    "name": "Kinetic Blast (Sp)",
+    "description": "A kineticist can unleash a blast of elemental energy (physical or energy) as a standard action. Physical blasts deal 1d6+1 bludgeoning, piercing, or slashing damage + Con mod, increasing by 1d6+1 per 2 kineticist levels. Energy blasts target touch AC and deal 1d6 damage + 1/2 Con mod, increasing by 1d6 per 2 levels."
+  },
+  {
+    "name": "Lay on Hands",
+    "description": "A paladin can heal wounds by touch. She can use this ability a number of times per day equal to 1/2 her paladin level + her Charisma modifier. Each use heals 1d6 HP (+1d6 every two levels beyond 2nd). Alternatively, she can use it to deal damage to undead creatures with a melee touch attack."
+  },
+  {
+    "name": "Lay on Hands (Su)",
+    "description": "A paladin can heal wounds by touch. She can use this ability a number of times per day equal to 1/2 her paladin level + her Charisma modifier. Each use heals 1d6 HP (+1d6 every two levels beyond 2nd). Alternatively, she can use it to deal damage to undead creatures with a melee touch attack."
+  },
+  {
+    "name": "Lifesense (Su)",
+    "description": "The creature notices and locates living creatures within the listed range (typically 60 ft.) just as if it possessed the blindsight ability."
+  },
+  {
+    "name": "Light Blindness",
+    "description": "Abrupt exposure to bright light blinds the creature for 1 round; on subsequent rounds, it is dazzled as long as it remains in the affected area."
+  },
+  {
+    "name": "Light Blindness (Ex)",
+    "description": "Abrupt exposure to bright light blinds the creature for 1 round; on subsequent rounds, it is dazzled as long as it remains in the affected area."
+  },
+  {
+    "name": "Light Sensitivity",
+    "description": "Creatures with light sensitivity are dazzled in areas of bright sunlight or within the radius of a daylight spell."
+  },
+  {
+    "name": "Light Sensitivity (Ex)",
+    "description": "Creatures with light sensitivity are dazzled in areas of bright sunlight or within the radius of a daylight spell."
+  },
+  {
+    "name": "Lore Master",
+    "description": "At 5th level, a bard can take 10 on any Knowledge skill check that he has ranks in. A number of times per day, he can take 20 on any Knowledge check as a standard action."
+  },
+  {
+    "name": "Lore Master (Ex)",
+    "description": "At 5th level, a bard can take 10 on any Knowledge skill check that he has ranks in. A number of times per day, he can take 20 on any Knowledge check as a standard action."
+  },
+  {
+    "name": "Low-Light Vision",
+    "description": "The creature can see twice as far as a human in starlight, moonlight, torchlight, and similar conditions of poor illumination. It retains the ability to distinguish color and detail under these conditions."
+  },
+  {
+    "name": "Low-Light Vision (Ex)",
+    "description": "The creature can see twice as far as a human in starlight, moonlight, torchlight, and similar conditions of poor illumination. It retains the ability to distinguish color and detail under these conditions."
+  },
+  {
+    "name": "Lycanthropy",
+    "description": "A curse transmitted by a lycanthrope's bite attack. Any humanoid creature bitten must succeed on a DC 15 Fortitude save or contract lycanthropy (turning into an afflicted werewolf, werebear, wererat, or weretiger during the next full moon)."
+  },
+  {
+    "name": "Lycanthropy (Su)",
+    "description": "A curse transmitted by a lycanthrope's bite attack. Any humanoid creature bitten must succeed on a DC 15 Fortitude save or contract lycanthropy (turning into an afflicted werewolf, werebear, wererat, or weretiger during the next full moon)."
+  },
+  {
+    "name": "Major Hex",
+    "description": "Starting at 10th level, a witch gains access to Major Hexes, such as Agony, Beast of Ill Omen, Retribution, Restless Slumber, Ice Tomb, Wax Doll, and Weather Control."
+  },
+  {
+    "name": "Major Hex (Su)",
+    "description": "Starting at 10th level, a witch gains access to Major Hexes, such as Agony, Beast of Ill Omen, Retribution, Restless Slumber, Ice Tomb, Wax Doll, and Weather Control."
+  },
+  {
+    "name": "Martial Flexibility (Ex)",
+    "description": "A brawler (or barroom brawler) can take a move action to gain the benefit of any combat feat she doesn't possess for 1 minute, provided she meets the prerequisites. At higher levels, she can gain multiple feats at once."
+  },
+  {
+    "name": "Mesmerist Tricks (Su)",
+    "description": "A mesmerist can implant a hypnotic suggestion or trick into an ally or himself as a standard action. The trick remains dormant until triggered as a free or immediate action to mitigate attacks, redirect foes, or provide sudden bonuses."
+  },
+  {
+    "name": "Mistsight (Ex)",
+    "description": "The creature can see through fog, mist, smoke, clouds, and murky water as if they were perfectly clear, ignoring all concealment miss chances from such conditions."
+  },
+  {
+    "name": "Mount",
+    "description": "At 1st level, a cavalier gains the service of a loyal and trusty steed to carry him into battle. This mount functions as a druid's animal companion, using the cavalier's level as his effective druid level."
+  },
+  {
+    "name": "Mount (Ex)",
+    "description": "At 1st level, a cavalier gains the service of a loyal and trusty steed to carry him into battle. This mount functions as a druid's animal companion, using the cavalier's level as his effective druid level."
+  },
+  {
+    "name": "Multiweapon Mastery (Ex)",
+    "description": "A creature with this ability takes no penalty on attack rolls when fighting with multiple weapons or multi-limbed natural attacks."
+  },
+  {
+    "name": "Mutagen",
+    "description": "At 1st level, an alchemist discovers how to brew a mutagen that enhances his physical abilities at the cost of his mental faculties (+4 alchemical bonus to Str, Dex, or Con, +2 natural armor bonus, -2 penalty to Int, Wis, or Cha for 10 min/level)."
+  },
+  {
+    "name": "Mutagen (Su)",
+    "description": "At 1st level, an alchemist discovers how to brew a mutagen that enhances his physical abilities at the cost of his mental faculties (+4 alchemical bonus to Str, Dex, or Con, +2 natural armor bonus, -2 penalty to Int, Wis, or Cha for 10 min/level)."
+  },
+  {
+    "name": "Natural Invisibility (Su or Ex)",
+    "description": "The creature is constantly invisible, even when attacking. This ability is inherent and not subject to invisibility purge (if extraordinary) or works as a constant spell-like ability."
+  },
+  {
+    "name": "Nature Sense",
+    "description": "A druid gains a +2 bonus on Knowledge (nature) and Survival checks."
+  },
+  {
+    "name": "Nature Sense (Ex)",
+    "description": "A druid gains a +2 bonus on Knowledge (nature) and Survival checks."
+  },
+  {
+    "name": "No Breath (Ex)",
+    "description": "The creature does not breathe and is immune to all effects that require breathing (such as inhaled poisons, suffocation, and vacuum)."
+  },
+  {
+    "name": "Noxious Breath",
+    "description": "The creature exhales a cloud of foul, toxic vapors. Anyone in the area must succeed on a Fortitude save (DC 10 + 1/2 HD + Con mod) or be nauseated and/or sickened for 1d4+1 rounds."
+  },
+  {
+    "name": "Noxious Breath (Ex or Su)",
+    "description": "The creature exhales a cloud of foul, toxic vapors. Anyone in the area must succeed on a Fortitude save (DC 10 + 1/2 HD + Con mod) or be nauseated and/or sickened for 1d4+1 rounds."
+  },
+  {
+    "name": "Ooze Traits",
+    "description": "Oozes are immune to all mind-affecting effects, poison, sleep effects, paralysis, polymorph, stunning, critical hits, and precision damage. They are blind and deaf, but possess blindsight 60 ft."
+  },
+  {
+    "name": "Ooze Traits (Ex)",
+    "description": "Oozes are immune to all mind-affecting effects, poison, sleep effects, paralysis, polymorph, stunning, critical hits, and precision damage. They are blind and deaf, but possess blindsight 60 ft."
+  },
+  {
+    "name": "Painful Stare (Su)",
+    "description": "When a target of a mesmerist's hypnotic stare takes damage from an attack, the mesmerist can trigger painful stare as a free action to deal extra damage (1 + 1/2 mesmerist level, or 1d6 + 1d6 per 3 levels if the mesmerist attacked)."
+  },
+  {
+    "name": "Panache",
+    "description": "A swashbuckler's panache is a pool of points equal to her Charisma modifier (minimum 1) used to perform dazzling deeds. She regains panache by confirming a critical hit with a light or one-handed piercing melee weapon or landing a killing blow."
+  },
+  {
+    "name": "Panache (Ex)",
+    "description": "A swashbuckler's panache is a pool of points equal to her Charisma modifier (minimum 1) used to perform dazzling deeds. She regains panache by confirming a critical hit with a light or one-handed piercing melee weapon or landing a killing blow."
+  },
+  {
+    "name": "Paralysis",
+    "description": "This ability renders the target paralyzed (immobile and helpless) on a failed Fortitude save (DC 10 + 1/2 user's HD + Con or Cha mod) for a listed duration (usually 1d4+1 rounds or 1d6 minutes). Flying creatures fall, and swimmers sink."
+  },
+  {
+    "name": "Paralysis (Ex or Su)",
+    "description": "This ability renders the target paralyzed (immobile and helpless) on a failed Fortitude save (DC 10 + 1/2 user's HD + Con or Cha mod) for a listed duration (usually 1d4+1 rounds or 1d6 minutes). Flying creatures fall, and swimmers sink."
+  },
+  {
+    "name": "Petrification (Su)",
+    "description": "A supernatural attack (such as a Medusa's gaze or Cockatrice's bite) that turns flesh to solid stone on a failed Fortitude save (DC 10 + 1/2 HD + Cha or Con mod). Petrified creatures are unconscious and treated as stone objects."
+  },
+  {
+    "name": "Phrenic Pool (Su)",
+    "description": "A psychic has a pool of mental power equal to 1/2 her psychic level + her Wisdom or Charisma modifier. She can spend phrenic points to apply phrenic amplifications to her psychic spells (such as Relentless Casting, Overpowering Mind, or Mind Thrust augmentation)."
+  },
+  {
+    "name": "Plant Traits",
+    "description": "Plants are immune to all mind-affecting effects, poison, sleep effects, paralysis, polymorph, and stunning. They are not subject to critical hits or precision-based damage."
+  },
+  {
+    "name": "Plant Traits (Ex)",
+    "description": "Plants are immune to all mind-affecting effects, poison, sleep effects, paralysis, polymorph, and stunning. They are not subject to critical hits or precision-based damage."
+  },
+  {
+    "name": "Poison",
+    "description": "Delivered through bite, sting, injury, contact, inhalation, or ingestion. Requires a Fortitude save (DC 10 + 1/2 user's HD + Con mod). Inflicts initial and secondary damage (ability damage, hp damage, or conditions like paralyzed/unconscious) each round for a frequency duration unless cured by consecutive saves."
+  },
+  {
+    "name": "Poison (Ex or Su)",
+    "description": "Delivered through bite, sting, injury, contact, inhalation, or ingestion. Requires a Fortitude save (DC 10 + 1/2 user's HD + Con mod). Inflicts initial and secondary damage (ability damage, hp damage, or conditions like paralyzed/unconscious) each round for a frequency duration unless cured by consecutive saves."
+  },
+  {
+    "name": "Pounce",
+    "description": "When a creature with this special attack makes a charge, it can make a full attack (including rake attacks if the creature also has the rake ability)."
+  },
+  {
+    "name": "Pounce (Ex)",
+    "description": "When a creature with this special attack makes a charge, it can make a full attack (including rake attacks if the creature also has the rake ability)."
+  },
+  {
+    "name": "Powerful Charge",
+    "description": "When a creature with this ability charges, its specified attack (often gore or slam) deals extra damage (often double its normal base damage die + 1.5x Str bonus)."
+  },
+  {
+    "name": "Powerful Charge (Ex)",
+    "description": "When a creature with this ability charges, its specified attack (often gore or slam) deals extra damage (often double its normal base damage die + 1.5x Str bonus)."
+  },
+  {
+    "name": "Pull",
+    "description": "A creature with this ability can choose to make a free combat maneuver check with a successful attack. If the check succeeds, the creature pulls the target 5 feet closer to it (plus 5 feet for every 5 by which the check exceeds the target's CMD)."
+  },
+  {
+    "name": "Pull (Ex)",
+    "description": "A creature with this ability can choose to make a free combat maneuver check with a successful attack. If the check succeeds, the creature pulls the target 5 feet closer to it (plus 5 feet for every 5 by which the check exceeds the target's CMD)."
+  },
+  {
+    "name": "Push",
+    "description": "A creature with this ability can choose to make a free combat maneuver check with a successful attack. If successful, the creature pushes the target 5 feet directly away from it (plus 5 feet for every 5 by which the check exceeds the target's CMD)."
+  },
+  {
+    "name": "Push (Ex)",
+    "description": "A creature with this ability can choose to make a free combat maneuver check with a successful attack. If successful, the creature pushes the target 5 feet directly away from it (plus 5 feet for every 5 by which the check exceeds the target's CMD)."
+  },
+  {
+    "name": "Quarry",
+    "description": "At 11th level, a ranger can select a quarry as a standard action. He receives a +2 insight bonus on attack rolls against his quarry, all critical threats are automatically confirmed, and he can take 10 on Survival checks to track the quarry."
+  },
+  {
+    "name": "Quarry (Ex)",
+    "description": "At 11th level, a ranger can select a quarry as a standard action. He receives a +2 insight bonus on attack rolls against his quarry, all critical threats are automatically confirmed, and he can take 10 on Survival checks to track the quarry."
+  },
+  {
+    "name": "Quickness (Su)",
+    "description": "The creature is extraordinarily fast. It can take an extra standard action or move action during each of its turns, and gains a +2 (or +4) dodge bonus to AC and Reflex saves."
+  },
+  {
+    "name": "Rage",
+    "description": "A barbarian can call upon inner reserves of strength and ferocity. When raging, she gains a +4 morale bonus to Strength and Constitution, a +2 morale bonus on Will saves, and takes a -2 penalty to AC for a number of rounds per day equal to 4 + Con modifier (+2 rounds/level after 1st)."
+  },
+  {
+    "name": "Rage (Ex)",
+    "description": "A barbarian can call upon inner reserves of strength and ferocity. When raging, she gains a +4 morale bonus to Strength and Constitution, a +2 morale bonus on Will saves, and takes a -2 penalty to AC for a number of rounds per day equal to 4 + Con modifier (+2 rounds/level after 1st)."
+  },
+  {
+    "name": "Rage Powers",
+    "description": "At 2nd level and every two levels thereafter, a barbarian gains a rage power (such as Superstition, Beast Totem, Reckless Abandon, Guarded Stance, Knockback, or Witch Hunter)."
+  },
+  {
+    "name": "Rage Powers (Ex or Su)",
+    "description": "At 2nd level and every two levels thereafter, a barbarian gains a rage power (such as Superstition, Beast Totem, Reckless Abandon, Guarded Stance, Knockback, or Witch Hunter)."
+  },
+  {
+    "name": "Rake",
+    "description": "A creature with this ability gains two free claw attacks against grappled foes or foes it charges when pouncing. These claw attacks are made with the creature's full attack bonus."
+  },
+  {
+    "name": "Rake (Ex)",
+    "description": "A creature with this ability gains two free claw attacks against grappled foes or foes it charges when pouncing. These claw attacks are made with the creature's full attack bonus."
+  },
+  {
+    "name": "Regeneration",
+    "description": "A creature with this ability heals damage each round at a listed rate (e.g., Regeneration 10). It cannot die as long as its regeneration is functioning, and regrows severed body parts. Certain damage types (such as fire or acid for trolls, or silver for devils) suppress the creature's regeneration for 1 round."
+  },
+  {
+    "name": "Regeneration (Ex)",
+    "description": "A creature with this ability heals damage each round at a listed rate (e.g., Regeneration 10). It cannot die as long as its regeneration is functioning, and regrows severed body parts. Certain damage types (such as fire or acid for trolls, or silver for devils) suppress the creature's regeneration for 1 round."
+  },
+  {
+    "name": "Rend",
+    "description": "If the creature hits with two or more natural attacks (usually claws) in a single round against the same target, it latches onto the opponent's body and tears the flesh, dealing additional rend damage (typically equal to the damage of one natural attack + 1.5x Str bonus)."
+  },
+  {
+    "name": "Rend (Ex)",
+    "description": "If the creature hits with two or more natural attacks (usually claws) in a single round against the same target, it latches onto the opponent's body and tears the flesh, dealing additional rend damage (typically equal to the damage of one natural attack + 1.5x Str bonus)."
+  },
+  {
+    "name": "Resistance (Ex)",
+    "description": "The creature ignores the first X points of damage of the listed energy type (e.g., Fire 10, Cold 5, Electricity 10) each time it takes damage from that source."
+  },
+  {
+    "name": "Roar",
+    "description": "The creature emits a terrifying sonic bellow in a cone or burst. Creatures in the area take sonic damage and/or must succeed on a Will save (DC 10 + 1/2 HD + Cha mod) or become panicked or shaken for 2d4 rounds."
+  },
+  {
+    "name": "Roar (Su)",
+    "description": "The creature emits a terrifying sonic bellow in a cone or burst. Creatures in the area take sonic damage and/or must succeed on a Will save (DC 10 + 1/2 HD + Cha mod) or become panicked or shaken for 2d4 rounds."
+  },
+  {
+    "name": "Rock Catching",
+    "description": "A creature with this ability (often giants) can catch Small, Medium, or Large rocks (or projectiles of similar shape) thrown at it once per round with a successful Reflex save (DC 15 for Small, 20 for Medium, 25 for Large)."
+  },
+  {
+    "name": "Rock Catching (Ex)",
+    "description": "A creature with this ability (often giants) can catch Small, Medium, or Large rocks (or projectiles of similar shape) thrown at it once per round with a successful Reflex save (DC 15 for Small, 20 for Medium, 25 for Large)."
+  },
+  {
+    "name": "Rock Throwing",
+    "description": "The creature is skilled at hurling rocks, gaining a +1 racial bonus on attack rolls when throwing rocks. It can hurl rocks up to two categories smaller than its size with a range increment of 120 feet or more."
+  },
+  {
+    "name": "Rock Throwing (Ex)",
+    "description": "The creature is skilled at hurling rocks, gaining a +1 racial bonus on attack rolls when throwing rocks. It can hurl rocks up to two categories smaller than its size with a range increment of 120 feet or more."
+  },
+  {
+    "name": "Rogue Talents",
+    "description": "At 2nd level and every 2 levels thereafter, a rogue gains a talent (such as Bleeding Attack, Fast Stealth, Combat Trick, Minor Magic, Major Magic, Trap Spotter, or Resiliency)."
+  },
+  {
+    "name": "Rogue Talents (Ex or Su)",
+    "description": "At 2nd level and every 2 levels thereafter, a rogue gains a talent (such as Bleeding Attack, Fast Stealth, Combat Trick, Minor Magic, Major Magic, Trap Spotter, or Resiliency)."
+  },
+  {
+    "name": "Sacred Weapon (Su)",
+    "description": "At 1st level, a warpriest's chosen weapons deal damage based on his warpriest level (starting at 1d6 and scaling up to 2d8 at 20th level). At 4th level, he can enhance his sacred weapon with enhancement bonuses and weapon special abilities as a swift action."
+  },
+  {
+    "name": "Scent",
+    "description": "The creature can detect opponents within 30 feet by sense of smell (60 ft. upwind, 15 ft. downwind), pinpointing their exact square when within 5 feet."
+  },
+  {
+    "name": "Scent (Ex)",
+    "description": "The creature can detect opponents within 30 feet by sense of smell (60 ft. upwind, 15 ft. downwind), pinpointing their exact square when within 5 feet."
+  },
+  {
+    "name": "See in Darkness",
+    "description": "The creature can see perfectly in darkness of any kind, including supernatural and magical darkness such as deeper darkness."
+  },
+  {
+    "name": "See in Darkness (Su)",
+    "description": "The creature can see perfectly in darkness of any kind, including supernatural and magical darkness such as deeper darkness."
+  },
+  {
+    "name": "Shifter Aspect (Su)",
+    "description": "At 1st level, a shifter gains the minor aspect of an animal (e.g., Bear, Tiger, Falcon, Wolf), gaining physical stat bonuses and senses. At 4th level, she can wild shape into that animal's form (major aspect)."
+  },
+  {
+    "name": "Shifter Claws (Su)",
+    "description": "At 1st level, a shifter can extend claws from her hands as a swift action, dealing 1d4 damage (for Medium) and scaling in damage and DR penetration (magic, silver/cold iron, adamantine) as she levels up."
+  },
+  {
+    "name": "Slayer's Studied Target (Ex)",
+    "description": "A slayer can study a creature he can see as a move action (swift action at 7th level). He gains a +1 bonus on Bluff, Knowledge, Perception, Sense Motive, and Survival checks against that target, and a +1 bonus on weapon attack and damage rolls against it (+1 for every 5 levels)."
+  },
+  {
+    "name": "Slime (Ex)",
+    "description": "The creature is coated in acidic, sticky, or poisonous slime. Unarmed or natural attacks against the creature expose the attacker to damage or grapple entanglement."
+  },
+  {
+    "name": "Smite Evil",
+    "description": "Once per day at 1st level (plus 1/day every 3 levels thereafter), a paladin can smite an evil target as a swift action. She adds her Charisma bonus to attack rolls and her paladin level to damage rolls (+2 damage per level against evil dragons, undead, and evil outsiders on the first hit). She also gains a deflection bonus to AC equal to her Charisma bonus against attacks made by the target."
+  },
+  {
+    "name": "Smite Evil (Su)",
+    "description": "Once per day at 1st level (plus 1/day every 3 levels thereafter), a paladin can smite an evil target as a swift action. She adds her Charisma bonus to attack rolls and her paladin level to damage rolls (+2 damage per level against evil dragons, undead, and evil outsiders on the first hit). She also gains a deflection bonus to AC equal to her Charisma bonus against attacks made by the target."
+  },
+  {
+    "name": "Smite Good",
+    "description": "As smite evil, but targeting a good creature, adding the creature's Charisma bonus to attack rolls and HD to damage rolls."
+  },
+  {
+    "name": "Smite Good (Su)",
+    "description": "As smite evil, but targeting a good creature, adding the creature's Charisma bonus to attack rolls and HD to damage rolls."
+  },
+  {
+    "name": "Sneak Attack",
+    "description": "If a character with sneak attack catches an opponent unable to defend effectively (flat-footed or flanked), she deals an extra 1d6 points of precision damage (+1d6 every two rogue levels beyond 1st). Precision damage is not multiplied on a critical hit."
+  },
+  {
+    "name": "Sneak Attack (Ex)",
+    "description": "If a character with sneak attack catches an opponent unable to defend effectively (flat-footed or flanked), she deals an extra 1d6 points of precision damage (+1d6 every two rogue levels beyond 1st). Precision damage is not multiplied on a critical hit."
+  },
+  {
+    "name": "Sound Mimicry",
+    "description": "The creature can perfectly mimic sounds, animal cries, or specific voices it has heard. Listeners must succeed on an opposed Sense Motive check vs. the creature's Bluff check (+8 racial bonus) to detect the forgery."
+  },
+  {
+    "name": "Sound Mimicry (Ex)",
+    "description": "The creature can perfectly mimic sounds, animal cries, or specific voices it has heard. Listeners must succeed on an opposed Sense Motive check vs. the creature's Bluff check (+8 racial bonus) to detect the forgery."
+  },
+  {
+    "name": "Spell Combat (Ex)",
+    "description": "At 1st level, a magus learns to cast spells and wield his weapons at the same time. As a full-round action, he can make all of his melee attacks with his weapon and also cast any spell from the magus spell list with a casting time of 1 standard action (taking a -2 penalty on all attack rolls)."
+  },
+  {
+    "name": "Spell Resistance",
+    "description": "A creature with Spell Resistance (SR) ignores the effects of spells and spell-like abilities that allow spell resistance unless the caster succeeds on a caster level check (1d20 + Caster Level) equal to or exceeding the creature's SR."
+  },
+  {
+    "name": "Spell Resistance (Ex)",
+    "description": "A creature with Spell Resistance (SR) ignores the effects of spells and spell-like abilities that allow spell resistance unless the caster succeeds on a caster level check (1d20 + Caster Level) equal to or exceeding the creature's SR."
+  },
+  {
+    "name": "Spellstrike (Su)",
+    "description": "At 2nd level, whenever a magus casts a spell with a range of 'touch' from the magus spell list, he can deliver the spell through any weapon he is wielding as part of a melee attack (making one free melee attack at his highest base attack bonus)."
+  },
+  {
+    "name": "Split",
+    "description": "When the creature is subjected to slashing or piercing damage or electric damage, it splits into two identical creatures (each with half the original HP)."
+  },
+  {
+    "name": "Split (Ex)",
+    "description": "When the creature is subjected to slashing or piercing damage or electric damage, it splits into two identical creatures (each with half the original HP)."
+  },
+  {
+    "name": "Stability (Ex)",
+    "description": "The creature gains a +4 racial bonus to its Combat Maneuver Defense (CMD) when resisting a bull rush, drag, overrun, reposition, or trip attempt while standing firmly on solid ground."
+  },
+  {
+    "name": "Stench",
+    "description": "A creature with this ability exudes an overwhelming, sickening odor. Any living creature within 30 feet must succeed on a Fortitude save (DC 10 + 1/2 user's HD + Con mod) or become sickened for the listed duration (typically 1d6+4 minutes). Creatures that save are immune for 24 hours."
+  },
+  {
+    "name": "Stench (Ex)",
+    "description": "A creature with this ability exudes an overwhelming, sickening odor. Any living creature within 30 feet must succeed on a Fortitude save (DC 10 + 1/2 user's HD + Con mod) or become sickened for the listed duration (typically 1d6+4 minutes). Creatures that save are immune for 24 hours."
+  },
+  {
+    "name": "Strangle",
+    "description": "When a creature with this ability grapples an opponent, the target cannot speak, cast spells with verbal components, or breathe, and suffocates while pinned."
+  },
+  {
+    "name": "Strangle (Ex)",
+    "description": "When a creature with this ability grapples an opponent, the target cannot speak, cast spells with verbal components, or breathe, and suffocates while pinned."
+  },
+  {
+    "name": "Studied Combat",
+    "description": "At 4th level, an investigator can use a move action to study a creature within sight, adding 1/2 his investigator level as an insight bonus on melee attack rolls and damage rolls against that creature for a number of rounds equal to his Int modifier."
+  },
+  {
+    "name": "Studied Combat (Ex)",
+    "description": "At 4th level, an investigator can use a move action to study a creature within sight, adding 1/2 his investigator level as an insight bonus on melee attack rolls and damage rolls against that creature for a number of rounds equal to his Int modifier."
+  },
+  {
+    "name": "Studied Strike",
+    "description": "At 4th level, when an investigator hits a target of studied combat, he can choose to end the studied combat to deal an additional 1d6 precision damage (+1d6 every two levels beyond 4th)."
+  },
+  {
+    "name": "Studied Strike (Ex)",
+    "description": "At 4th level, when an investigator hits a target of studied combat, he can choose to end the studied combat to deal an additional 1d6 precision damage (+1d6 every two levels beyond 4th)."
+  },
+  {
+    "name": "Suffocation (Ex)",
+    "description": "When a creature is deprived of air, it can hold its breath for 2 rounds per point of Constitution. After this, it must make a Constitution check each round (DC 10, +1 per previous check) or fall unconscious and drop to 0 HP, then -1 HP and dying on the next round."
+  },
+  {
+    "name": "Sunlight Powerlessness",
+    "description": "The creature is completely powerless in natural sunlight and flees from it. If caught in sunlight, it cannot attack and is staggered."
+  },
+  {
+    "name": "Sunlight Powerlessness (Ex)",
+    "description": "The creature is completely powerless in natural sunlight and flees from it. If caught in sunlight, it cannot attack and is staggered."
+  },
+  {
+    "name": "Swallow Whole",
+    "description": "If a creature with this ability begins its turn with an opponent grappled in its mouth, it can attempt a new grapple check. If successful, it swallows its prey, dealing automatic bite damage. The swallowed creature takes crushing damage plus acid damage each round inside the gizzard/stomach. It can cut its way out by dealing a required amount of slashing/piercing damage to the interior AC (typically 10 + 1/2 natural armor)."
+  },
+  {
+    "name": "Swallow Whole (Ex)",
+    "description": "If a creature with this ability begins its turn with an opponent grappled in its mouth, it can attempt a new grapple check. If successful, it swallows its prey, dealing automatic bite damage. The swallowed creature takes crushing damage plus acid damage each round inside the gizzard/stomach. It can cut its way out by dealing a required amount of slashing/piercing damage to the interior AC (typically 10 + 1/2 natural armor)."
+  },
+  {
+    "name": "Swarm Attack (Ex)",
+    "description": "A swarm deals automatic damage to any creature whose space it occupies at the end of its turn, without needing to make an attack roll. Swarm attacks are not subject to a miss chance for concealment or cover."
+  },
+  {
+    "name": "Swarm Traits",
+    "description": "A swarm has no clear front or back and no discernible anatomy. It is immune to all critical hits, flanking, and precision damage. A swarm made of Fine or Diminutive creatures is immune to all weapon damage; a Tiny swarm takes half damage from slashing and piercing weapons. Swarms are immune to single-target spells and effects, but take +50% damage from area-of-effect spells."
+  },
+  {
+    "name": "Swarm Traits (Ex)",
+    "description": "A swarm has no clear front or back and no discernible anatomy. It is immune to all critical hits, flanking, and precision damage. A swarm made of Fine or Diminutive creatures is immune to all weapon damage; a Tiny swarm takes half damage from slashing and piercing weapons. Swarms are immune to single-target spells and effects, but take +50% damage from area-of-effect spells."
+  },
+  {
+    "name": "Swashbuckler Finesse",
+    "description": "At 1st level, a swashbuckler gains the benefits of the Weapon Finesse feat with light or one-handed piercing melee weapons, and can use her Charisma score in place of Intelligence to meet combat feat prerequisites."
+  },
+  {
+    "name": "Swashbuckler Finesse (Ex)",
+    "description": "At 1st level, a swashbuckler gains the benefits of the Weapon Finesse feat with light or one-handed piercing melee weapons, and can use her Charisma score in place of Intelligence to meet combat feat prerequisites."
+  },
+  {
+    "name": "Tactician",
+    "description": "At 1st level, a cavalier receives a teamwork feat as a bonus feat. As a standard action, he can grant this teamwork feat to all allies within 30 feet who can see and hear him for 3 rounds (+1 round every two levels)."
+  },
+  {
+    "name": "Tactician (Ex)",
+    "description": "At 1st level, a cavalier receives a teamwork feat as a bonus feat. As a standard action, he can grant this teamwork feat to all allies within 30 feet who can see and hear him for 3 rounds (+1 round every two levels)."
+  },
+  {
+    "name": "Telepathy",
+    "description": "The creature can mentally communicate with any other creature within the listed range (typically 100 ft.) that has a language."
+  },
+  {
+    "name": "Telepathy (Su)",
+    "description": "The creature can mentally communicate with any other creature within the listed range (typically 100 ft.) that has a language."
+  },
+  {
+    "name": "Toxic (Ex)",
+    "description": "The creature's skin, blood, or secretions are poisonous to the touch. Any creature that hits it with an unarmed strike or natural attack is exposed to its contact poison."
+  },
+  {
+    "name": "Track",
+    "description": "A ranger or slayer adds 1/2 his class level (minimum +1) to Survival skill checks made to follow tracks."
+  },
+  {
+    "name": "Track (Ex)",
+    "description": "A ranger or slayer adds 1/2 his class level (minimum +1) to Survival skill checks made to follow tracks."
+  },
+  {
+    "name": "Trample",
+    "description": "As a full-round action, a creature with trample can run over any creatures at least one size category smaller than itself, dealing slam damage + 1.5x Str bonus. Targets can choose to make an attack of opportunity at -4 penalty or attempt a Reflex save (DC 10 + 1/2 HD + Str mod) for half damage."
+  },
+  {
+    "name": "Trample (Ex)",
+    "description": "As a full-round action, a creature with trample can run over any creatures at least one size category smaller than itself, dealing slam damage + 1.5x Str bonus. Targets can choose to make an attack of opportunity at -4 penalty or attempt a Reflex save (DC 10 + 1/2 HD + Str mod) for half damage."
+  },
+  {
+    "name": "Trap Sense",
+    "description": "At 3rd level, a barbarian or rogue gains a +1 bonus on Reflex saves to avoid traps and a +1 dodge bonus to AC against attacks made by traps (+1 every 3 levels thereafter)."
+  },
+  {
+    "name": "Trap Sense (Ex)",
+    "description": "At 3rd level, a barbarian or rogue gains a +1 bonus on Reflex saves to avoid traps and a +1 dodge bonus to AC against attacks made by traps (+1 every 3 levels thereafter)."
+  },
+  {
+    "name": "Trapfinding",
+    "description": "A rogue adds 1/2 her level to Perception checks to locate traps and to Disable Device checks. She can use Disable Device to disarm magical traps."
+  },
+  {
+    "name": "Trapfinding (Ex)",
+    "description": "A rogue adds 1/2 her level to Perception checks to locate traps and to Disable Device checks. She can use Disable Device to disarm magical traps."
+  },
+  {
+    "name": "Tremorsense",
+    "description": "A creature with tremorsense is sensitive to vibrations in the ground and can automatically pinpoint the location of anything that is in contact with the ground within range (typically 60 ft.), provided it is in contact with the same ground or substance."
+  },
+  {
+    "name": "Tremorsense (Ex)",
+    "description": "A creature with tremorsense is sensitive to vibrations in the ground and can automatically pinpoint the location of anything that is in contact with the ground within range (typically 60 ft.), provided it is in contact with the same ground or substance."
+  },
+  {
+    "name": "Trip",
+    "description": "A creature with this ability can attempt to trip its opponent as a free action without provoking an attack of opportunity if it hits with the specified attack (usually bite or tail). If the trip attempt fails, the creature cannot be tripped in return."
+  },
+  {
+    "name": "Trip (Ex)",
+    "description": "A creature with this ability can attempt to trip its opponent as a free action without provoking an attack of opportunity if it hits with the specified attack (usually bite or tail). If the trip attempt fails, the creature cannot be tripped in return."
+  },
+  {
+    "name": "Uncanny Dodge",
+    "description": "The creature can react to danger before its senses would normally allow it to do so. It retains its Dexterity bonus to AC (if any) even if caught flat-footed or struck by an invisible attacker, losing this benefit only if immobilized."
+  },
+  {
+    "name": "Uncanny Dodge (Ex)",
+    "description": "The creature can react to danger before its senses would normally allow it to do so. It retains its Dexterity bonus to AC (if any) even if caught flat-footed or struck by an invisible attacker, losing this benefit only if immobilized."
+  },
+  {
+    "name": "Undead Traits",
+    "description": "Undead are immune to all mind-affecting effects, bleed, death effects, disease, paralysis, poison, sleep effects, stunning, ability drain, energy drain, nonlethal damage, fatigue, exhaustion, and physical ability damage (Str/Dex/Con). They have no Constitution score and are destroyed at 0 HP (or healed by negative energy)."
+  },
+  {
+    "name": "Undead Traits (Ex)",
+    "description": "Undead are immune to all mind-affecting effects, bleed, death effects, disease, paralysis, poison, sleep effects, stunning, ability drain, energy drain, nonlethal damage, fatigue, exhaustion, and physical ability damage (Str/Dex/Con). They have no Constitution score and are destroyed at 0 HP (or healed by negative energy)."
+  },
+  {
+    "name": "Vermin Traits (Ex)",
+    "description": "Vermin are mindless and possess immunity to all mind-affecting effects (charms, compulsions, morale effects, phantasms, patterns)."
+  },
+  {
+    "name": "Versatile Performance",
+    "description": "At 2nd level, a bard can substitute his bonus in a chosen Perform skill for the bonus in associated skills (e.g., Act for Bluff/Disguise, Oratory for Diplomacy/Sense Motive, Dance for Acrobatics/Fly)."
+  },
+  {
+    "name": "Versatile Performance (Ex)",
+    "description": "At 2nd level, a bard can substitute his bonus in a chosen Perform skill for the bonus in associated skills (e.g., Act for Bluff/Disguise, Oratory for Diplomacy/Sense Motive, Dance for Acrobatics/Fly)."
+  },
+  {
+    "name": "Vulnerability (Ex)",
+    "description": "A creature with a vulnerability takes half again as much (+50%) damage as normal from that energy type, regardless of whether a saving throw is allowed or successful."
+  },
+  {
+    "name": "Water Breathing",
+    "description": "The creature breathes water freely and cannot drown in water."
+  },
+  {
+    "name": "Water Breathing (Ex)",
+    "description": "The creature breathes water freely and cannot drown in water."
+  },
+  {
+    "name": "Weapon Mastery",
+    "description": "At 20th level, a fighter chooses one weapon. Any attacks made with that weapon automatically confirm critical threats, and its critical multiplier is increased by 1 (e.g., x2 becomes x3). In addition, he cannot be disarmed while wielding it."
+  },
+  {
+    "name": "Weapon Mastery (Ex)",
+    "description": "At 20th level, a fighter chooses one weapon. Any attacks made with that weapon automatically confirm critical threats, and its critical multiplier is increased by 1 (e.g., x2 becomes x3). In addition, he cannot be disarmed while wielding it."
+  },
+  {
+    "name": "Weapon Training",
+    "description": "Starting at 5th level, a fighter selects a weapon group. He gains a +1 bonus on attack and damage rolls with weapons in that group. Every 4 levels thereafter, he selects another weapon group and increases existing bonuses by +1 (+4 max at 17th level)."
+  },
+  {
+    "name": "Weapon Training (Ex)",
+    "description": "Starting at 5th level, a fighter selects a weapon group. He gains a +1 bonus on attack and damage rolls with weapons in that group. Every 4 levels thereafter, he selects another weapon group and increases existing bonuses by +1 (+4 max at 17th level)."
+  },
+  {
+    "name": "Web",
+    "description": "Creatures with the web ability can shoot webs up to 8 times per day (or create stationary sheets). Victims struck are entangled and anchored to the spot. Escaping requires an Escape Artist check or Combat Maneuver check (DC 10 + 1/2 HD + Con mod). Webs have HP based on creature HD and take double damage from fire."
+  },
+  {
+    "name": "Web (Ex)",
+    "description": "Creatures with the web ability can shoot webs up to 8 times per day (or create stationary sheets). Victims struck are entangled and anchored to the spot. Escaping requires an Escape Artist check or Combat Maneuver check (DC 10 + 1/2 HD + Con mod). Webs have HP based on creature HD and take double damage from fire."
+  },
+  {
+    "name": "Well-Versed",
+    "description": "At 2nd level, a bard gains a +4 bonus on saving throws made against bardic performance, sonic, and language-dependent effects."
+  },
+  {
+    "name": "Well-Versed (Ex)",
+    "description": "At 2nd level, a bard gains a +4 bonus on saving throws made against bardic performance, sonic, and language-dependent effects."
+  },
+  {
+    "name": "Whirlwind",
+    "description": "The creature can transform itself into a whirlwind as a standard action. It can engulf creatures of up to its size, dealing automatic slam damage and lifting them into the air on a failed Reflex save (DC 10 + 1/2 HD + Str mod)."
+  },
+  {
+    "name": "Whirlwind (Su)",
+    "description": "The creature can transform itself into a whirlwind as a standard action. It can engulf creatures of up to its size, dealing automatic slam damage and lifting them into the air on a failed Reflex save (DC 10 + 1/2 HD + Str mod)."
+  },
+  {
+    "name": "Wild Empathy (Ex)",
+    "description": "A druid or ranger can improve the initial attitude of an animal. This ability functions just like a Diplomacy check made to improve the attitude of a person, adding class level + Charisma modifier."
+  },
+  {
+    "name": "Wild Shape",
+    "description": "At 4th level, a druid gains the ability to turn herself into any Small or Medium animal and back again once per day (as beast shape I). As she gains levels, she can transform into Diminutive, Huge, elemental, or plant creatures for 1 hour per druid level."
+  },
+  {
+    "name": "Wild Shape (Su)",
+    "description": "At 4th level, a druid gains the ability to turn herself into any Small or Medium animal and back again once per day (as beast shape I). As she gains levels, she can transform into Diminutive, Huge, elemental, or plant creatures for 1 hour per druid level."
+  }
 ]

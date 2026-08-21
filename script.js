@@ -27,40 +27,16 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     window.creatureTypes = creatureTypes;
 
-    const pfClasses = {
-        "Alchemist": { hd: 8, bab: "Medium", fort: "Good", ref: "Good", will: "Poor" },
-        "Antipaladin": { hd: 10, bab: "Fast", fort: "Good", ref: "Poor", will: "Good" },
-        "Arcanist": { hd: 6, bab: "Slow", fort: "Poor", ref: "Poor", will: "Good" },
-        "Barbarian": { hd: 12, bab: "Fast", fort: "Good", ref: "Poor", will: "Poor" },
-        "Bard": { hd: 8, bab: "Medium", fort: "Poor", ref: "Good", will: "Good" },
-        "Bloodrager": { hd: 10, bab: "Fast", fort: "Good", ref: "Poor", will: "Poor" },
-        "Brawler": { hd: 10, bab: "Fast", fort: "Good", ref: "Good", will: "Poor" },
-        "Cavalier": { hd: 10, bab: "Fast", fort: "Good", ref: "Poor", will: "Poor" },
-        "Cleric": { hd: 8, bab: "Medium", fort: "Good", ref: "Poor", will: "Good" },
-        "Druid": { hd: 8, bab: "Medium", fort: "Good", ref: "Poor", will: "Good" },
-        "Fighter": { hd: 10, bab: "Fast", fort: "Good", ref: "Poor", will: "Poor" },
-        "Gunslinger": { hd: 10, bab: "Fast", fort: "Good", ref: "Good", will: "Poor" },
-        "Hunter": { hd: 8, bab: "Medium", fort: "Good", ref: "Good", will: "Poor" },
-        "Inquisitor": { hd: 8, bab: "Medium", fort: "Good", ref: "Poor", will: "Good" },
-        "Investigator": { hd: 8, bab: "Medium", fort: "Poor", ref: "Good", will: "Good" },
-        "Magus": { hd: 8, bab: "Medium", fort: "Good", ref: "Poor", will: "Good" },
-        "Monk": { hd: 8, bab: "Medium", fort: "Good", ref: "Good", will: "Good" },
-        "Oracle": { hd: 8, bab: "Medium", fort: "Poor", ref: "Poor", will: "Good" },
-        "Paladin": { hd: 10, bab: "Fast", fort: "Good", ref: "Poor", will: "Good" },
-        "Ranger": { hd: 10, bab: "Fast", fort: "Good", ref: "Good", will: "Poor" },
-        "Rogue": { hd: 8, bab: "Medium", fort: "Poor", ref: "Good", will: "Poor" },
-        "Shaman": { hd: 8, bab: "Medium", fort: "Poor", ref: "Poor", will: "Good" },
-        "Skald": { hd: 8, bab: "Medium", fort: "Good", ref: "Poor", will: "Good" },
-        "Slayer": { hd: 10, bab: "Fast", fort: "Good", ref: "Good", will: "Poor" },
-        "Sorcerer": { hd: 6, bab: "Slow", fort: "Poor", ref: "Poor", will: "Good" },
-        "Summoner": { hd: 8, bab: "Medium", fort: "Poor", ref: "Poor", will: "Good" },
-        "Swashbuckler": { hd: 10, bab: "Fast", fort: "Poor", ref: "Good", will: "Poor" },
-        "Warpriest": { hd: 8, bab: "Medium", fort: "Good", ref: "Poor", will: "Good" },
-        "Witch": { hd: 6, bab: "Slow", fort: "Poor", ref: "Poor", will: "Good" },
-        "Wizard": { hd: 6, bab: "Slow", fort: "Poor", ref: "Poor", will: "Good" }
+    const templatesData = {
+        'Advanced': { str: 4, dex: 4, con: 4, int: 4, wis: 4, cha: 4, natAc: 2, cr: 1, size: 0 },
+        'Giant': { str: 4, dex: -2, con: 4, int: 0, wis: 0, cha: 0, natAc: 3, cr: 1, size: 1 },
+        'Fiendish': { str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0, natAc: 0, cr: 1, size: 0 },
+        'Celestial': { str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0, natAc: 0, cr: 1, size: 0 },
+        'Young': { str: -4, dex: 4, con: -4, int: 0, wis: 0, cha: 0, natAc: -2, cr: -1, size: -1 },
+        'Skeleton': { str: 0, dex: 2, con: 0, int: 0, wis: 10, cha: 10, natAc: 2, cr: 0, size: 0 },
+        'Zombie': { str: 2, dex: -2, con: 0, int: 0, wis: 10, cha: 10, natAc: 2, cr: 0, size: 0 }
     };
-    window.pfClasses = pfClasses;
-    window.activeClasses = [];
+    window.templatesData = templatesData;
 
     const crToXp = {
         "1/8": "50", "1/6": "65", "1/4": "100", "1/3": "135", "1/2": "200",
@@ -145,79 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // -------------------------
     // 2. MAIN UPDATE FUNCTION
     // -------------------------
-    function renderClasses() {
-        const container = document.getElementById('classes-container');
-        if (!container) return;
-        container.innerHTML = '';
-        window.activeClasses.forEach((cls, idx) => {
-            const div = document.createElement('div');
-            div.style.display = 'flex';
-            div.style.justifyContent = 'space-between';
-            div.style.background = '#444';
-            div.style.padding = '4px 8px';
-            div.style.borderRadius = '4px';
-            div.style.marginTop = '4px';
-            div.innerHTML = `<span>${cls.name} ${cls.level}</span><button class="btn-remove-class" data-idx="${idx}" style="background:transparent; border:none; color:#f55; cursor:pointer;" title="Remove Class">✖</button>`;
-            container.appendChild(div);
-        });
-
-        document.querySelectorAll('.btn-remove-class').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const idx = parseInt(e.target.getAttribute('data-idx'));
-                window.activeClasses.splice(idx, 1);
-                renderClasses();
-                if (typeof debouncedUpdatePreview === 'function') debouncedUpdatePreview();
-                else updatePreview();
-            });
-        });
-    }
-
-    // Call once to attach Add button if available
-    setTimeout(() => {
-        const btnAddClass = document.getElementById('btn-add-class');
-        if (btnAddClass) {
-            btnAddClass.addEventListener('click', (e) => {
-                e.preventDefault();
-                const clsName = document.getElementById('sel-add-class').value;
-                const clsLevel = parseInt(document.getElementById('in-add-class-level').value) || 1;
-                window.activeClasses.push({ name: clsName, level: clsLevel });
-                renderClasses();
-                if (typeof debouncedUpdatePreview === 'function') debouncedUpdatePreview();
-                else updatePreview();
-            });
-        }
-    }, 100);
-
-
     function updatePreview() {
-        // CLASS LEVELS LOGIC
-        let classBAB = 0;
-        let classFort = 0;
-        let classRef = 0;
-        let classWill = 0;
-        let classHPBonus = 0;
-        let classHDString = '';
-        let classTotalHD = 0;
-        let classCRBonus = 0;
-
-        (window.activeClasses || []).forEach(cls => {
-            const cData = pfClasses[cls.name];
-            if (!cData) return;
-            const lvl = cls.level;
-
-            if (cData.bab === 'Fast') classBAB += lvl;
-            else if (cData.bab === 'Medium') classBAB += Math.floor(lvl * 0.75);
-            else if (cData.bab === 'Slow') classBAB += Math.floor(lvl * 0.5);
-
-            classFort += cData.fort === 'Good' ? Math.floor(lvl / 2) + 2 : Math.floor(lvl / 3);
-            classRef += cData.ref === 'Good' ? Math.floor(lvl / 2) + 2 : Math.floor(lvl / 3);
-            classWill += cData.will === 'Good' ? Math.floor(lvl / 2) + 2 : Math.floor(lvl / 3);
-
-            classHDString += ` + ${lvl}d${cData.hd}`;
-            classTotalHD += lvl;
-            classHPBonus += Math.floor(lvl * ((cData.hd / 2) + 0.5));
-            classCRBonus += lvl; // Approximation
-        });
         // FEAT SYSTEM RE-DESIGN: STATE MANAGEMENT
         let featsRaw = document.getElementById('in-feats') ? document.getElementById('in-feats').value : '';
 
@@ -231,14 +135,24 @@ document.addEventListener('DOMContentLoaded', () => {
                     currentFeats = featsRaw.split(',').map(s => ({ name: s.trim() }));
                 }
             }
-            window.activeFeats = currentFeats.map(f => (f.name ? f.name : f));
+            window.activeFeats = currentFeats.map(f => (typeof f === 'object' && f !== null ? (f.name || '') : String(f || ''))).filter(Boolean);
             window.lastFeatsRaw = featsRaw;
             if (typeof window.renderFeatTags === 'function') window.renderFeatTags();
         }
 
-        // Process feats from the Source of Truth (window.activeFeats)
-        let currentFeats = (window.activeFeats || []).map(f => ({ name: f }));
+        // Process feats safely from the Source of Truth (window.activeFeats)
+        let currentFeats = (window.activeFeats || []).map(f => {
+            if (typeof f === 'object' && f !== null) {
+                return { name: f.name || '', description: f.description || '' };
+            }
+            return { name: String(f || ''), description: '' };
+        }).filter(f => f.name);
         const featNames = currentFeats.map(f => f.name.toLowerCase());
+
+        // Magic Items Modifiers (Pathfinder 1e Stacking Rules)
+        const itemMods = (window.CharacterState && typeof window.CharacterState.getMagicItemModifiers === 'function')
+            ? window.CharacterState.getMagicItemModifiers()
+            : { ac_natural: 0, ac_deflection: 0, ac_armor: 0, saves_resistance: 0, fort_resistance: 0, ref_resistance: 0, will_resistance: 0, str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 };
 
         // Basic Text Fields
         basicFields.forEach(field => {
@@ -248,26 +162,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (field === 'feats') {
                     // Custom rendering for feats
                     output.innerHTML = currentFeats.map(f => {
-                        const safeName = f.name.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-                        const desc = f.description ? f.description.replace(/'/g, "\\'").replace(/"/g, '&quot;') : "Description not available.";
+                        const featObj = (window.allFeatsDB || []).find(dbF => (dbF && dbF.name && dbF.name.toLowerCase() === f.name.toLowerCase()));
+                        const rawDesc = (f.description || (featObj && featObj.description) || "Description not available.");
+                        const safeName = (f.name || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                        const desc = rawDesc.replace(/'/g, "\\'").replace(/"/g, '&quot;');
                         return `<a href="#" onclick="if(window.showInfoModal) window.showInfoModal('${safeName}', '${desc}', 'Feat'); return false;" class="pf-feat" style="color: inherit; text-decoration: underline dotted;" title="${sanitizeText(f.name)}">${sanitizeText(f.name)}</a>`;
                     }).join(', ');
                 } else {
                     let text = sanitizeText(input.value);
                     if (field === 'fort') {
                         let baseVal = parseInt(text) || 0;
-                        baseVal += classFort;
-                        if (featNames.includes('great fortitude')) baseVal += 2;
+                        if (featNames.some(f => f.includes('great fortitude'))) baseVal += 2;
+                        baseVal += (itemMods.saves_resistance || itemMods.fort_resistance || 0);
                         text = formatMod(baseVal);
                     } else if (field === 'ref') {
                         let baseVal = parseInt(text) || 0;
-                        baseVal += classRef;
-                        if (featNames.includes('lightning reflexes')) baseVal += 2;
+                        if (featNames.some(f => f.includes('lightning reflexes'))) baseVal += 2;
+                        baseVal += (itemMods.saves_resistance || itemMods.ref_resistance || 0);
                         text = formatMod(baseVal);
                     } else if (field === 'will') {
                         let baseVal = parseInt(text) || 0;
-                        baseVal += classWill;
-                        if (featNames.includes('iron will')) baseVal += 2;
+                        if (featNames.some(f => f.includes('iron will'))) baseVal += 2;
+                        baseVal += (itemMods.saves_resistance || itemMods.will_resistance || 0);
                         text = formatMod(baseVal);
                     }
                     output.textContent = text;
@@ -278,11 +194,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // Template Aggregation
         let tempMods = { str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0, natAc: 0, cr: 0, size: 0 };
         (window.activeTemplates || []).forEach(t => {
-            const td = templatesData[t];
+            const td = (typeof templatesData !== 'undefined' ? templatesData[t] : (window.templatesData ? window.templatesData[t] : null));
             if (td) {
-                tempMods.str += td.str; tempMods.dex += td.dex; tempMods.con += td.con;
-                tempMods.int += td.int; tempMods.wis += td.wis; tempMods.cha += td.cha;
-                tempMods.natAc += td.natAc; tempMods.cr += td.cr; tempMods.size += td.size;
+                tempMods.str += td.str || 0; tempMods.dex += td.dex || 0; tempMods.con += td.con || 0;
+                tempMods.int += td.int || 0; tempMods.wis += td.wis || 0; tempMods.cha += td.cha || 0;
+                tempMods.natAc += td.natAc || 0; tempMods.cr += td.cr || 0; tempMods.size += td.size || 0;
             }
         });
 
@@ -299,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (baseCrStr === '1/6') crVal = 0.16;
             if (baseCrStr === '1/8') crVal = 0.125;
             if (!isNaN(crVal)) {
-                finalCr = Math.max(0.125, crVal + tempMods.cr + classCRBonus);
+                finalCr = Math.max(0.125, crVal + tempMods.cr);
                 if (finalCr < 1) {
                     if (finalCr <= 0.125) outCr.textContent = '1/8';
                     else if (finalCr <= 0.16) outCr.textContent = '1/6';
@@ -323,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (input && outScore && outMod) {
                 let score = parseInt(input.value);
                 if (!isNaN(score)) {
-                    score += tempMods[stat];
+                    score += tempMods[stat] + (itemMods[stat] || 0);
                     const mod = calculateModifier(score);
                     mods[stat] = mod;
                     outScore.textContent = score;
@@ -396,9 +312,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const creatureType = document.getElementById('in-type') ? document.getElementById('in-type').value.toLowerCase() : '';
         const hpModStat = (creatureType.includes('undead')) ? mods['cha'] : mods['con'];
 
-        let hpBonus = (hdAmt + classTotalHD) * hpModStat;
-        if (featNames.includes('toughness')) {
-            hpBonus += Math.max(3, hdAmt + classTotalHD);
+        let hpBonus = hdAmt * hpModStat;
+        if (featNames.some(f => f.includes('toughness'))) {
+            hpBonus += Math.max(3, hdAmt);
         }
 
         if (creatureType === 'construct') {
@@ -410,20 +326,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Average HP per die = (size / 2) + 0.5
-        const avgHp = Math.floor(hdAmt * ((hdSize / 2) + 0.5)) + classHPBonus + hpBonus;
+        const avgHp = Math.floor(hdAmt * ((hdSize / 2) + 0.5)) + hpBonus;
         const outHp = document.getElementById('out-hp');
         if (outHp) {
-            outHp.textContent = `${avgHp} (${hdAmt}d${hdSize}${classHDString}${hpBonus >= 0 ? '+' : ''}${hpBonus})`;
+            outHp.textContent = `${avgHp} (${hdAmt}d${hdSize}${hpBonus >= 0 ? '+' : ''}${hpBonus})`;
         }
 
         // Armor Class (Auto Calc)
         let acArmor = parseInt(document.getElementById('in-ac-armor').value) || 0;
+        if (itemMods.ac_armor && itemMods.ac_armor > acArmor) {
+            acArmor = itemMods.ac_armor;
+        }
         let acShield = parseInt(document.getElementById('in-ac-shield').value) || 0;
-        let acNat = (parseInt(document.getElementById('in-ac-natural').value) || 0) + tempMods.natAc;
-        let acDef = parseInt(document.getElementById('in-ac-deflection').value) || 0;
+        let acNat = (parseInt(document.getElementById('in-ac-natural').value) || 0) + tempMods.natAc + (itemMods.ac_natural || 0);
+        let acDef = (parseInt(document.getElementById('in-ac-deflection').value) || 0) + (itemMods.ac_deflection || 0);
         let acDodge = parseInt(document.getElementById('in-ac-dodge').value) || 0;
 
-        if (featNames.includes('dodge')) {
+        if (featNames.some(f => f.includes('dodge'))) {
             acDodge += 1;
         }
 
@@ -464,27 +383,54 @@ document.addEventListener('DOMContentLoaded', () => {
             outAc.innerHTML = `${totalAc}, touch ${touchAc}, flat-footed ${flatAc}${details.length > 0 ? ` (${details.join(', ')})` : ''}`;
         }
 
-        // CMB & CMD (Auto Calc)
-        const bab = (parseInt(document.getElementById('in-bab').value) || 0) + classBAB;
-        document.getElementById('out-bab').textContent = formatMod(bab);
+        // CMB & CMD
+        const bab = parseInt(document.getElementById('in-bab').value) || 0;
+        const outBabEl = document.getElementById('out-bab');
+        if (outBabEl) outBabEl.textContent = formatMod(bab);
+
+        const cmbExtra = parseInt(document.getElementById('in-cmb-extra') ? document.getElementById('in-cmb-extra').value : 0) || 0;
+        const cmdExtra = parseInt(document.getElementById('in-cmd-extra') ? document.getElementById('in-cmd-extra').value : 0) || 0;
 
         let cmbStrMod = mods['str'];
         if (['Fine', 'Diminutive', 'Tiny'].includes(size) || featNames.some(f => f.includes('agile maneuvers'))) {
             cmbStrMod = Math.max(mods['str'], mods['dex']);
         }
 
-        const cmb = bab + cmbStrMod + sizeData.cmb_cmd;
-        const cmd = 10 + bab + mods['str'] + mods['dex'] + sizeData.cmb_cmd + acDodge + acDef;
+        const calculatedCmb = bab + cmbStrMod + sizeData.cmb_cmd + cmbExtra;
+        const calculatedCmd = 10 + bab + mods['str'] + mods['dex'] + sizeData.cmb_cmd + acDodge + acDef + cmdExtra;
 
-        document.getElementById('in-cmb').value = formatMod(cmb);
-        document.getElementById('in-cmd').value = cmd;
-        document.getElementById('out-cmb').textContent = formatMod(cmb);
-        document.getElementById('out-cmd').textContent = cmd;
+        const inCmbEl = document.getElementById('in-cmb');
+        const inCmdEl = document.getElementById('in-cmd');
+        const outCmbEl = document.getElementById('out-cmb');
+        const outCmdEl = document.getElementById('out-cmd');
+
+        let displayCmb = formatMod(calculatedCmb);
+        let displayCmd = String(calculatedCmd);
+
+        if (inCmbEl) {
+            if (inCmbEl.dataset.custom === 'true') {
+                displayCmb = inCmbEl.value.trim() || formatMod(calculatedCmb);
+            } else {
+                inCmbEl.value = formatMod(calculatedCmb);
+            }
+        }
+        if (inCmdEl) {
+            if (inCmdEl.dataset.custom === 'true') {
+                displayCmd = inCmdEl.value.trim() || String(calculatedCmd);
+            } else {
+                inCmdEl.value = String(calculatedCmd);
+            }
+        }
+
+        if (outCmbEl) outCmbEl.textContent = displayCmb;
+        if (outCmdEl) outCmdEl.textContent = displayCmd;
 
         // Rich Text Fields (Special Attacks)
         const inSA = document.getElementById('in-special-attacks');
         const outSA = document.getElementById('out-special-attacks');
-        if (inSA && outSA) outSA.innerHTML = inSA.value;
+        if (inSA && outSA) {
+            outSA.innerHTML = sanitizeText(inSA.value.trim());
+        }
 
         // Skills
         const skillItems = document.querySelectorAll('.skill-item');
@@ -552,12 +498,22 @@ document.addEventListener('DOMContentLoaded', () => {
             defAbs += 'incorporeal';
         }
 
+        // Format defensive tokens as interactive modal links
+        const formatDefTokens = (text, category) => {
+            if (!text) return '';
+            const tokens = String(text).split(/,(?![^\(]*\))/).map(t => t.trim()).filter(Boolean);
+            return tokens.map(tok => {
+                const safeName = tok.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                return `<a href="#" onclick="if(window.showInfoModal) window.showInfoModal('${safeName}', '', '${category}'); return false;" style="color: inherit; text-decoration: underline dotted;">${tok}</a>`;
+            }).join(', ');
+        };
+
         let defExtras = [];
-        if (defAbs) defExtras.push(`<span class="pf-label">Defensive Abilities</span> ${sanitizeText(defAbs)}`);
+        if (defAbs) defExtras.push(`<span class="pf-label">Defensive Abilities</span> ${formatDefTokens(defAbs, 'Defensive')}`);
         if (dr) defExtras.push(`<span class="pf-label">DR</span> ${sanitizeText(dr)}`);
-        if (immune) defExtras.push(`<span class="pf-label">Immune</span> ${sanitizeText(immune)}`);
-        if (resist) defExtras.push(`<span class="pf-label">Resist</span> ${sanitizeText(resist)}`);
-        if (weaknesses) defExtras.push(`<span class="pf-label">Weaknesses</span> ${sanitizeText(weaknesses)}`);
+        if (immune) defExtras.push(`<span class="pf-label">Immune</span> ${formatDefTokens(immune, 'Immunity')}`);
+        if (resist) defExtras.push(`<span class="pf-label">Resist</span> ${formatDefTokens(resist, 'Resistance')}`);
+        if (weaknesses) defExtras.push(`<span class="pf-label">Weaknesses</span> ${formatDefTokens(weaknesses, 'Weakness')}`);
         if (sr) defExtras.push(`<span class="pf-label">SR</span> ${sanitizeText(sr)}`);
 
         const wrapDefExtras = document.getElementById('wrap-def-extras');
@@ -649,7 +605,6 @@ document.addEventListener('DOMContentLoaded', () => {
         makeInteractive('activeWeakness', 'out-weakness', 'Weakness');
         makeInteractive('activeDef', 'out-defensive', 'Defensive');
         makeInteractive('activeAura', 'out-aura', 'Aura');
-        makeInteractive('activeSA', 'out-special-attacks', 'Special Attack');
         makeInteractive('activeSQ', 'out-sq', 'Special Quality');
 
         if (typeof window.applyMechanics === 'function') window.applyMechanics();
@@ -665,7 +620,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function attachGlobalListeners() {
         // Event delegation on the whole controls panel ensures instant reactive updates
         // for ALL inputs, textareas, selects, and dynamically added children with zero latency!
-        const controlsPanel = document.querySelector('.controls-panel') || document.getElementById('form-container') || document.body;
+        const controlsPanel = document.getElementById('controls-panel') || document.querySelector('.controls-panel') || document.body;
 
         controlsPanel.addEventListener('input', () => {
             updatePreview();
@@ -683,6 +638,95 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.rich-text-editor').forEach(el => {
             el.addEventListener('input', updatePreview);
         });
+
+        // Stepper adjusters for HP, CMB, CMD
+        document.addEventListener('click', (e) => {
+            const hpAdjust = e.target.closest('.btn-hp-adjust');
+            if (hpAdjust) {
+                const step = parseInt(hpAdjust.dataset.step) || 0;
+                const inHpExtra = document.getElementById('in-hp-extra');
+                if (inHpExtra) {
+                    const current = parseInt(inHpExtra.value) || 0;
+                    inHpExtra.value = current + step;
+                    updatePreview();
+                }
+                return;
+            }
+
+            const hpReset = e.target.closest('.btn-hp-reset');
+            if (hpReset) {
+                const inHpExtra = document.getElementById('in-hp-extra');
+                if (inHpExtra) {
+                    inHpExtra.value = 0;
+                    updatePreview();
+                }
+                return;
+            }
+
+            const cmbAdjust = e.target.closest('.btn-cmb-adjust');
+            if (cmbAdjust) {
+                const step = parseInt(cmbAdjust.dataset.step) || 0;
+                const inCmbExtra = document.getElementById('in-cmb-extra');
+                const inCmb = document.getElementById('in-cmb');
+                if (inCmb) delete inCmb.dataset.custom;
+                if (inCmbExtra) {
+                    const current = parseInt(inCmbExtra.value) || 0;
+                    inCmbExtra.value = current + step;
+                }
+                updatePreview();
+                return;
+            }
+
+            const cmbReset = e.target.closest('.btn-cmb-reset');
+            if (cmbReset) {
+                const inCmbExtra = document.getElementById('in-cmb-extra');
+                const inCmb = document.getElementById('in-cmb');
+                if (inCmb) delete inCmb.dataset.custom;
+                if (inCmbExtra) inCmbExtra.value = 0;
+                updatePreview();
+                return;
+            }
+
+            const cmdAdjust = e.target.closest('.btn-cmd-adjust');
+            if (cmdAdjust) {
+                const step = parseInt(cmdAdjust.dataset.step) || 0;
+                const inCmdExtra = document.getElementById('in-cmd-extra');
+                const inCmd = document.getElementById('in-cmd');
+                if (inCmd) delete inCmd.dataset.custom;
+                if (inCmdExtra) {
+                    const current = parseInt(inCmdExtra.value) || 0;
+                    inCmdExtra.value = current + step;
+                }
+                updatePreview();
+                return;
+            }
+
+            const cmdReset = e.target.closest('.btn-cmd-reset');
+            if (cmdReset) {
+                const inCmdExtra = document.getElementById('in-cmd-extra');
+                const inCmd = document.getElementById('in-cmd');
+                if (inCmd) delete inCmd.dataset.custom;
+                if (inCmdExtra) inCmdExtra.value = 0;
+                updatePreview();
+                return;
+            }
+        });
+
+        // Listen for direct typing in CMB / CMD to enable custom override
+        const inCmbEl = document.getElementById('in-cmb');
+        if (inCmbEl) {
+            inCmbEl.addEventListener('input', () => {
+                inCmbEl.dataset.custom = 'true';
+                updatePreview();
+            });
+        }
+        const inCmdEl = document.getElementById('in-cmd');
+        if (inCmdEl) {
+            inCmdEl.addEventListener('input', () => {
+                inCmdEl.dataset.custom = 'true';
+                updatePreview();
+            });
+        }
     }
 
     attachGlobalListeners();
@@ -695,17 +739,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const wrapNpcType = document.getElementById('wrap-npc-type');
 
     function handleToggle() {
-        const type = document.querySelector('input[name="stat_type"]:checked').value;
+        const checkedRadio = document.querySelector('input[name="stat_type"]:checked');
+        const type = checkedRadio ? checkedRadio.value : 'monster';
         if (type === 'monster') {
-            monsterInputs.style.display = 'block';
-            npcInputs.style.display = 'none';
-            wrapMonsterType.style.display = 'block';
-            wrapNpcType.style.display = 'none';
+            if (monsterInputs) monsterInputs.style.display = 'block';
+            if (npcInputs) npcInputs.style.display = 'none';
+            if (wrapMonsterType) wrapMonsterType.style.display = 'block';
+            if (wrapNpcType) wrapNpcType.style.display = 'none';
         } else {
-            monsterInputs.style.display = 'none';
-            npcInputs.style.display = 'block';
-            wrapMonsterType.style.display = 'none';
-            wrapNpcType.style.display = 'block';
+            if (monsterInputs) monsterInputs.style.display = 'none';
+            if (npcInputs) npcInputs.style.display = 'block';
+            if (wrapMonsterType) wrapMonsterType.style.display = 'none';
+            if (wrapNpcType) wrapNpcType.style.display = 'block';
         }
         updatePreview();
     }
@@ -941,109 +986,41 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // =========================================================
-    // ATTACK SYSTEM — Clean rebuild
-    // Two modes per attack row:
-    //   RAW MODE  : one text field, rendered verbatim (for DB imports)
-    //   CALC MODE : count/type/dice/mult/extra → formula calculation
+    // ATTACK SYSTEM
+    // Pure Raw text field mode for Melee & Ranged attacks
     // =========================================================
 
     function buildMeleeRowHtml(mode) {
-        if (mode === 'raw') {
-            return `
-                <input type="hidden" class="atk-mode" value="raw">
-                <textarea class="atk-raw" rows="2"
-                    placeholder="e.g. mwk rapier +12 (1d6+5/18-20 plus 5 precision) or 2 claws +9 (1d4+4), bite +9 (1d6+4)"
-                    style="flex:1; padding:8px 10px; border-radius:8px; background:rgba(0,0,0,0.35);
-                           color:#f0e6d0; border:1px solid rgba(255,200,100,0.3); resize:vertical; overflow-y:auto;
-                           font-family:inherit; font-size:0.98rem; min-height:56px; line-height:1.45;
-                           box-shadow:inset 0 2px 6px rgba(0,0,0,0.3); transition:border-color 0.2s;"
-                    onfocus="this.style.borderColor='rgba(255,200,100,0.6)'"
-                    onblur="this.style.borderColor='rgba(255,200,100,0.3)'"></textarea>
-                <button class="btn-mode-toggle" title="Switch to Formula Mode"
-                    style="padding:6px 10px; font-size:0.82rem; background:linear-gradient(135deg,#4f46e5,#3b82f6);
-                           color:white; border:none; border-radius:6px; cursor:pointer;
-                           height:42px; white-space:nowrap; font-weight:600;
-                           box-shadow:0 2px 8px rgba(79,70,229,0.4); transition:all 0.2s;">⚙ Calc</button>
-            `;
-        } else {
-            return `
-                <input type="hidden" class="atk-mode" value="calc">
-                <div style="display:flex; flex-direction:column; gap:4px; flex:1;">
-                    <div style="display:flex; gap:4px; align-items:center; flex-wrap:wrap;">
-                        <input type="number" class="atk-count" placeholder="Qty" min="1" value="1"
-                            style="width:55px; padding:6px; border-radius:6px; background:rgba(0,0,0,0.3);
-                                   color:white; border:1px solid rgba(255,255,255,0.15); text-align:center;">
-                        <input type="text" list="melee-weapons-list" class="atk-type" placeholder="Weapon (e.g. Rapier, Longsword)"
-                            style="flex:1; min-width:120px; padding:6px; border-radius:6px; background:rgba(0,0,0,0.3);
-                                   color:white; border:1px solid rgba(255,255,255,0.15);">
-                        <label style="display:flex; align-items:center; gap:4px; font-size:0.8rem; cursor:pointer;
-                               padding:6px 8px; background:rgba(0,0,0,0.3); border-radius:6px; border:1px solid rgba(255,255,255,0.15); white-space:nowrap;">
-                            <input type="checkbox" class="atk-mw"> MW
-                        </label>
-                        <input type="text" class="atk-extra-dmg" placeholder="+bonus dmg (e.g. 2)"
-                            style="width:90px; padding:6px; border-radius:6px; background:rgba(0,0,0,0.3);
-                                   color:white; border:1px solid rgba(255,255,255,0.15);">
-                    </div>
-                </div>
-                <button class="btn-mode-toggle" title="Switch to Text Mode"
-                    style="padding:6px 10px; font-size:0.82rem; background:rgba(255,200,0,0.1);
-                           color:#ffd700; border:1px solid rgba(255,200,0,0.4); border-radius:6px; cursor:pointer;
-                           height:42px; white-space:nowrap; transition:all 0.2s;">✏ Raw</button>
-            `;
-        }
+        return `
+            <input type="hidden" class="atk-mode" value="raw">
+            <textarea class="atk-raw" rows="2"
+                placeholder="e.g. mwk rapier +12 (1d6+5/18-20 plus 5 precision) or 2 claws +9 (1d4+4), bite +9 (1d6+4)"
+                style="flex:1; padding:8px 10px; border-radius:8px; background:rgba(0,0,0,0.35);
+                       color:#f0e6d0; border:1px solid rgba(255,200,100,0.3); resize:vertical; overflow-y:auto;
+                       font-family:inherit; font-size:0.98rem; min-height:56px; line-height:1.45;
+                       box-shadow:inset 0 2px 6px rgba(0,0,0,0.3); transition:border-color 0.2s;"
+                onfocus="this.style.borderColor='rgba(255,200,100,0.6)'"
+                onblur="this.style.borderColor='rgba(255,200,100,0.3)'"></textarea>
+        `;
     }
 
     function buildRangedRowHtml(mode) {
-        if (mode === 'raw') {
-            return `
-                <input type="hidden" class="atk-mode" value="raw">
-                <textarea class="atk-raw" rows="2"
-                    placeholder="e.g. mwk composite longbow +11 (1d8+3/x3) or 4 javelins +8 (1d6+2)"
-                    style="flex:1; padding:8px 10px; border-radius:8px; background:rgba(0,0,0,0.35);
-                           color:#f0e6d0; border:1px solid rgba(100,200,255,0.3); resize:vertical; overflow-y:auto;
-                           font-family:inherit; font-size:0.98rem; min-height:56px; line-height:1.45;
-                           box-shadow:inset 0 2px 6px rgba(0,0,0,0.3); transition:border-color 0.2s;"
-                    onfocus="this.style.borderColor='rgba(100,200,255,0.6)'"
-                    onblur="this.style.borderColor='rgba(100,200,255,0.3)'"></textarea>
-                <button class="btn-mode-toggle" title="Switch to Formula Mode"
-                    style="padding:6px 10px; font-size:0.82rem; background:linear-gradient(135deg,#0891b2,#06b6d4);
-                           color:white; border:none; border-radius:6px; cursor:pointer;
-                           height:42px; white-space:nowrap; font-weight:600;
-                           box-shadow:0 2px 8px rgba(6,182,212,0.4); transition:all 0.2s;">⚙ Calc</button>
-            `;
-        } else {
-            return `
-                <input type="hidden" class="atk-mode" value="calc">
-                <div style="display:flex; flex-direction:column; gap:4px; flex:1;">
-                    <div style="display:flex; gap:4px; align-items:center; flex-wrap:wrap;">
-                        <input type="number" class="atk-count" placeholder="Qty" min="1" value="1"
-                            style="width:55px; padding:6px; border-radius:6px; background:rgba(0,0,0,0.3);
-                                   color:white; border:1px solid rgba(255,255,255,0.15); text-align:center;">
-                        <input type="text" list="ranged-weapons-list" class="atk-type" placeholder="Weapon (e.g. Longbow, Crossbow)"
-                            style="flex:1; min-width:120px; padding:6px; border-radius:6px; background:rgba(0,0,0,0.3);
-                                   color:white; border:1px solid rgba(255,255,255,0.15);">
-                        <label style="display:flex; align-items:center; gap:4px; font-size:0.8rem; cursor:pointer;
-                               padding:6px 8px; background:rgba(0,0,0,0.3); border-radius:6px; border:1px solid rgba(255,255,255,0.15); white-space:nowrap;">
-                            <input type="checkbox" class="atk-mw"> MW
-                        </label>
-                        <input type="text" class="atk-range" placeholder="Range (e.g. 60 ft.)"
-                            style="width:90px; padding:6px; border-radius:6px; background:rgba(0,0,0,0.3);
-                                   color:white; border:1px solid rgba(255,255,255,0.15);">
-                    </div>
-                </div>
-                <button class="btn-mode-toggle" title="Switch to Text Mode"
-                    style="padding:6px 10px; font-size:0.82rem; background:rgba(0,200,255,0.1);
-                           color:#67e8f9; border:1px solid rgba(0,200,255,0.3); border-radius:6px; cursor:pointer;
-                           height:42px; white-space:nowrap; transition:all 0.2s;">✏ Raw</button>
-            `;
-        }
+        return `
+            <input type="hidden" class="atk-mode" value="raw">
+            <textarea class="atk-raw" rows="2"
+                placeholder="e.g. mwk composite longbow +11 (1d8+3/x3) or 4 javelins +8 (1d6+2)"
+                style="flex:1; padding:8px 10px; border-radius:8px; background:rgba(0,0,0,0.35);
+                       color:#f0e6d0; border:1px solid rgba(100,200,255,0.3); resize:vertical; overflow-y:auto;
+                       font-family:inherit; font-size:0.98rem; min-height:56px; line-height:1.45;
+                       box-shadow:inset 0 2px 6px rgba(0,0,0,0.3); transition:border-color 0.2s;"
+                onfocus="this.style.borderColor='rgba(100,200,255,0.6)'"
+                onblur="this.style.borderColor='rgba(100,200,255,0.3)'"></textarea>
+        `;
     }
 
     function addAttackRow(containerId, mode, buildFn) {
         const container = document.getElementById(containerId);
         if (!container) return null;
-
-        const buildFnRef = containerId === 'melee-container' ? buildMeleeRowHtml : buildRangedRowHtml;
 
         function attachListeners(div) {
             // Remove button
@@ -1069,35 +1046,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     ta.style.height = ta.scrollHeight + 'px';
                 });
             });
-
-            // Mode toggle button (raw ↔ calc)
-            const toggleBtn = div.querySelector('.btn-mode-toggle');
-            if (toggleBtn) {
-                toggleBtn.addEventListener('click', () => {
-                    const modeEl = div.querySelector('.atk-mode');
-                    const currentMode = modeEl ? modeEl.value : 'raw';
-                    const newMode = currentMode === 'raw' ? 'calc' : 'raw';
-                    const currentRaw = div.querySelector('.atk-raw') ? div.querySelector('.atk-raw').value : '';
-
-                    div.innerHTML = buildFnRef(newMode) +
-                        `<button class="btn-remove-dynamic"
-                            style="background:linear-gradient(45deg,#ef4444,#f87171);color:white;border:none;
-                                   border-radius:4px;padding:6px 12px;cursor:pointer;height:36px;font-weight:bold;
-                                   box-shadow:0 2px 5px rgba(0,0,0,0.2);transition:all 0.2s;">✕</button>`;
-
-                    if (newMode === 'raw' && currentRaw) {
-                        const rawEl = div.querySelector('.atk-raw');
-                        if (rawEl) {
-                            rawEl.value = currentRaw;
-                            rawEl.style.height = 'auto';
-                            rawEl.style.height = rawEl.scrollHeight + 'px';
-                        }
-                    }
-                    attachListeners(div);
-                    renderAttacks();
-                    updatePreview();
-                });
-            }
         }
 
         const div = document.createElement('div');
@@ -1133,7 +1081,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 babDiff = babVal - baseBab;
             }
 
-            const featList = window.activeFeats ? window.activeFeats.map(f => f.toLowerCase()) : [];
+            const featList = window.activeFeats ? window.activeFeats.map(f => (typeof f === 'object' && f !== null ? (f.name || '') : String(f || '')).toLowerCase()) : [];
             let wfBonus = 0;
             let wsBonus = 0;
             if (featList.some(f => f.includes('weapon focus'))) wfBonus += 1;
@@ -1188,7 +1136,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Apply Improved Critical
                 let finalCrit = critStr || '';
-                if (featList.includes('improved critical')) {
+                if (featList.some(f => f.includes('improved critical'))) {
                     if (!finalCrit) finalCrit = '/19-20';
                     else if (finalCrit.includes('19-20') || finalCrit.includes('19–20')) finalCrit = finalCrit.replace(/19[-–]20/, '17-20');
                     else if (finalCrit.includes('18-20') || finalCrit.includes('18–20')) finalCrit = finalCrit.replace(/18[-–]20/, '15-20');
@@ -1201,7 +1149,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function processRow(item, isMelee) {
             const mode = item.querySelector('.atk-mode') ? item.querySelector('.atk-mode').value : 'calc';
-            const featList = window.activeFeats ? window.activeFeats.map(f => f.toLowerCase()) : [];
+            const featList = window.activeFeats ? window.activeFeats.map(f => (typeof f === 'object' && f !== null ? (f.name || '') : String(f || '')).toLowerCase()) : [];
 
             if (mode === 'raw') {
                 const rawEl = item.querySelector('.atk-raw');
@@ -1229,10 +1177,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // Identify Weapon in DB
             const weaponObj = window.allWeaponsDB ? window.allWeaponsDB.find(w => w.name.toLowerCase() === type.toLowerCase()) : null;
             if (weaponObj) {
-                isNatural = weaponObj.category.toLowerCase().includes('natural');
-                dice = weaponObj.dmg || dice;
+                isNatural = weaponObj.category ? weaponObj.category.toLowerCase().includes('natural') : false;
+                dice = weaponObj.damage || weaponObj.dmg || dice;
                 if (weaponObj.str_mult !== undefined) strMult = weaponObj.str_mult;
-                critStr = weaponObj.crit && weaponObj.crit !== 'x2' ? `/${weaponObj.crit}` : '';
+                critStr = weaponObj.crit && weaponObj.crit !== 'x2' && weaponObj.crit !== '20/x2' ? `/${weaponObj.crit}` : '';
             }
 
             // Power Attack / Deadly Aim calculation
@@ -1289,9 +1237,14 @@ document.addEventListener('DOMContentLoaded', () => {
             let dmgStatMod = strMod;
             if (isMelee) {
                 if (featList.some(f => f.includes('weapon finesse')) || ['Fine', 'Diminutive', 'Tiny'].includes(size)) {
-                    if (weaponObj && (weaponObj.category.includes('Light') || weaponObj.category.includes('Natural') || (weaponObj.special && weaponObj.special.toLowerCase().includes('finesse')))) {
+                    const isFinesseEligible = weaponObj && (
+                        (weaponObj.type && weaponObj.type.includes('Light')) ||
+                        (weaponObj.category && weaponObj.category.includes('Light')) ||
+                        (weaponObj.category && weaponObj.category.includes('Natural')) ||
+                        (weaponObj.special && typeof weaponObj.special === 'string' && weaponObj.special.toLowerCase().includes('finesse'))
+                    );
+                    if (isFinesseEligible) {
                         atkMod = Math.max(strMod, dexMod);
-                        // Automatic DEX to Damage requested by user if DEX > STR and Finesse is active
                         if (dexMod > strMod) {
                             dmgStatMod = dexMod;
                         }
@@ -1355,7 +1308,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (dice) {
                 const bonus = Math.floor(dmgStatMod * strMult) + paBonus + featDmgBonus;
 
-                if (featList.includes('improved critical')) {
+                if (featList.some(f => f.includes('improved critical'))) {
                     if (!critStr) critStr = '/19-20';
                     else if (critStr.includes('19-20')) critStr = critStr.replace('19-20', '17-20');
                     else if (critStr.includes('18-20')) critStr = critStr.replace('18-20', '15-20');
@@ -1483,7 +1436,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const outAcEl = document.getElementById('out-ac');
         if (outAcEl && outAcEl.textContent.trim()) state.basic['in-ac'] = outAcEl.textContent.trim();
         // Dynamic lists
-        state.dynamic.classes = window.activeClasses || [];
         state.dynamic.subtypes = Array.from(document.querySelectorAll('.subtype-select')).map(el => el.value);
         state.dynamic.senses = Array.from(document.querySelectorAll('.sense-item')).map(el => ({
             name: el.querySelector('.sense-name').value,
@@ -1531,6 +1483,12 @@ document.addEventListener('DOMContentLoaded', () => {
             name: el.querySelector('.sa-name').value,
             desc: el.querySelector('.sa-desc').innerHTML
         }));
+        state.dynamic.magic_items = (window.CharacterState && Array.isArray(window.CharacterState.inventory.magicItems))
+            ? window.CharacterState.inventory.magicItems
+            : [];
+        state.dynamic.spells = (window.CharacterState && Array.isArray(window.CharacterState.spells))
+            ? window.CharacterState.spells
+            : [];
         return JSON.stringify(state);
     }
 
@@ -1709,6 +1667,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     else el.value = state.basic[id];
                 }
             }
+
+            if (state.basic) {
+                const inCmb = document.getElementById('in-cmb');
+                if (inCmb && state.basic['in-cmb'] !== undefined) {
+                    inCmb.dataset.custom = 'true';
+                }
+                const inCmd = document.getElementById('in-cmd');
+                if (inCmd && state.basic['in-cmd'] !== undefined) {
+                    inCmd.dataset.custom = 'true';
+                }
+            }
             // HTML
             state.html = state.html || {};
             for (let id in state.html) {
@@ -1727,8 +1696,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Restore dynamic
             state.dynamic = state.dynamic || {};
-            window.activeClasses = state.dynamic.classes || [];
-            renderClasses();
             if (state.dynamic.subtypes) {
                 state.dynamic.subtypes.forEach(val => {
                     document.getElementById('btn-add-subtype').click();
@@ -1860,6 +1827,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
+            if (state.dynamic.magic_items && window.CharacterState) {
+                window.CharacterState.inventory.magicItems = state.dynamic.magic_items;
+                if (typeof window.renderEquippedMagicItems === 'function') {
+                    window.renderEquippedMagicItems();
+                }
+            }
+
+            if (state.dynamic.spells && window.CharacterState) {
+                window.CharacterState.spells = state.dynamic.spells;
+                if (typeof window.renderActiveSpells === 'function') {
+                    window.renderActiveSpells();
+                }
+            }
+
 
             handleToggle();
 
@@ -1898,7 +1879,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             };
             syncArray('activeFeats', 'in-feats');
-            syncArray('activeSA', 'in-special-attacks');
             syncArray('activeSQ', 'in-sq');
             syncArray('activeAura', 'in-aura');
             syncArray('activeDef', 'in-def-abilities');
@@ -1907,7 +1887,6 @@ document.addEventListener('DOMContentLoaded', () => {
             syncArray('activeWeakness', 'in-weaknesses');
 
             if (typeof window.renderFeatTags === 'function') window.renderFeatTags();
-            if (typeof window.renderSATags === 'function') window.renderSATags();
             if (typeof window.renderSQTags === 'function') window.renderSQTags();
             if (typeof window.renderAuraTags === 'function') window.renderAuraTags();
             if (typeof window.renderDefTags === 'function') window.renderDefTags();
@@ -1935,7 +1914,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Attach autoSave draft to form inputs
-    const editorFormContainer = document.getElementById('form-container') || document.body;
+    const editorFormContainer = document.getElementById('controls-panel') || document.querySelector('.controls-panel') || document.body;
     editorFormContainer.addEventListener('input', autoSave);
     editorFormContainer.addEventListener('change', autoSave);
 
@@ -1988,7 +1967,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 URL.revokeObjectURL(url);
             } catch (err) {
                 console.error('Error exporting JSON:', err);
-                alert('JSON indirme hatası: ' + err.message);
+                alert('JSON export error: ' + err.message);
             }
         });
     }
@@ -2111,24 +2090,40 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     btnExportPng.addEventListener('click', () => {
-        html2canvas(statblockPaper, { scale: 2, backgroundColor: getThemeBgColor() }).then(canvas => {
-            const link = document.createElement('a');
-            link.download = `${document.getElementById('in-name').value || 'Monster'}.png`;
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-        });
+        const monsterName = document.getElementById('in-name')?.value || 'Monster';
+        html2canvas(statblockPaper, { scale: 2, backgroundColor: getThemeBgColor() })
+            .then(canvas => {
+                const link = document.createElement('a');
+                link.download = `${monsterName}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            })
+            .catch(err => {
+                console.error('PNG Export Error:', err);
+                alert('PNG export failed: ' + err.message);
+            });
     });
 
     btnExportPdf.addEventListener('click', () => {
-        const { jsPDF } = window.jspdf;
-        html2canvas(statblockPaper, { scale: 2, backgroundColor: getThemeBgColor() }).then(canvas => {
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-            pdf.save(`${document.getElementById('in-name').value || 'Monster'}.pdf`);
-        });
+        const jsPDFConstructor = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
+        if (!jsPDFConstructor) {
+            alert('jsPDF library is loading or unavailable. Please try again.');
+            return;
+        }
+        const monsterName = document.getElementById('in-name')?.value || 'Monster';
+        html2canvas(statblockPaper, { scale: 2, backgroundColor: getThemeBgColor() })
+            .then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDFConstructor({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                pdf.save(`${monsterName}.pdf`);
+            })
+            .catch(err => {
+                console.error('PDF Export Error:', err);
+                alert('PDF export failed: ' + err.message);
+            });
     });
 
     // -------------------------------------------------------------------
@@ -2140,7 +2135,22 @@ document.addEventListener('DOMContentLoaded', () => {
         let db = [];
 
         if (config.dbUrl) {
-            fetch(config.dbUrl).then(r => r.json()).then(d => { db = d; }).catch(e => console.error(e));
+            fetch(config.dbUrl).then(r => r.json()).then(d => {
+                db = d;
+                if (config.activeArray === 'activeFeats') {
+                    window.allFeatsDB = d;
+                } else if (config.activeArray === 'activeAura') {
+                    window.allAurasDB = d;
+                } else if (config.activeArray === 'activeDef' || config.activeArray === 'activeSQ') {
+                    window.allSpecialAbilitiesDB = d;
+                } else if (config.activeArray === 'activeImmune') {
+                    window.allImmunitiesDB = d;
+                } else if (config.activeArray === 'activeResist') {
+                    window.allResistancesDB = d;
+                } else if (config.activeArray === 'activeWeakness') {
+                    window.allWeaknessesDB = d;
+                }
+            }).catch(e => console.error(e));
         }
 
         const searchInput = document.getElementById(config.searchInputId);
@@ -2188,6 +2198,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 containerEl.appendChild(tag);
             });
             sync();
+        }
+
+        if (config.renderFunc) {
+            window[config.renderFunc] = render;
         }
 
         function sync() {
@@ -2284,17 +2298,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     setupTagSystem({
-        activeArray: 'activeSA',
-        dbUrl: 'data/special_abilities.json',
-        searchInputId: 'in-sa-search',
-        listId: 'sa-autocomplete-list',
-        containerId: 'selected-sa-container',
-        hiddenInputId: 'in-special-attacks',
-        renderFunc: 'renderSATags',
-        bgColor: '#5a2a2a'
-    });
-
-    setupTagSystem({
         activeArray: 'activeSQ',
         dbUrl: 'data/special_abilities.json',
         searchInputId: 'in-sq-search',
@@ -2312,10 +2315,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     // SPELLS UI LOGIC
     // ==========================================
-    let allSpellsDB = [];
+    window.allSpellsDB = [];
     fetch('data/spells.json')
         .then(res => res.json())
-        .then(data => { allSpellsDB = data; })
+        .then(data => { window.allSpellsDB = data; })
         .catch(err => console.error('Could not load spells.json:', err));
 
     window.activeSpells = {};
@@ -2340,7 +2343,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const inConc = document.getElementById('in-spell-conc') ? document.getElementById('in-spell-conc').value : '0';
 
         if (document.getElementById('out-spell-class')) document.getElementById('out-spell-class').textContent = inClass;
-        if (document.getElementById('out-spell-cl')) document.getElementById('out-spell-cl').textContent = inCL + (inCL === '1' ? 'st' : inCL === '2' ? 'nd' : inCL === '3' ? 'rd' : 'th');
+        if (document.getElementById('out-spell-cl')) {
+            const clNum = parseInt(inCL) || 1;
+            let suffix = 'th';
+            if (clNum % 10 === 1 && clNum % 100 !== 11) suffix = 'st';
+            else if (clNum % 10 === 2 && clNum % 100 !== 12) suffix = 'nd';
+            else if (clNum % 10 === 3 && clNum % 100 !== 13) suffix = 'rd';
+            document.getElementById('out-spell-cl').textContent = `${clNum}${suffix}`;
+        }
 
         let concMod = parseInt(inConc);
         if (isNaN(concMod) || inConc === '0') {
@@ -2547,84 +2557,165 @@ document.addEventListener('DOMContentLoaded', () => {
         renderSpellsPreview();
     }, 500);
 
-    // Sidebar Toggle Logic
-    const toggleBtn = document.getElementById('btn-toggle-panel');
-    const controlsPanel = document.getElementById('controls-panel');
-    if (toggleBtn && controlsPanel) {
-        toggleBtn.addEventListener('click', () => {
-            const isCollapsed = controlsPanel.classList.toggle('collapsed');
-            toggleBtn.setAttribute('title', isCollapsed ? 'Open Sidebar (Show Editor)' : 'Close Sidebar (Hide Editor)');
+    // -------------------------------------------------------------------
+    // Panel Settings (Font Family & Font Size Customizer)
+    // -------------------------------------------------------------------
+    const settingsBtn = document.getElementById('btn-settings-panel');
+    const settingsModal = document.getElementById('panel-settings-modal');
+    const closeSettingsBtn = document.getElementById('btn-close-settings');
+    const applySettingsBtn = document.getElementById('btn-apply-panel-settings');
+    const resetSettingsBtn = document.getElementById('btn-reset-panel-settings');
+    const fontSelect = document.getElementById('setting-panel-font');
+    const sizeSlider = document.getElementById('setting-panel-size');
+    const sizeBadge = document.getElementById('setting-font-size-badge');
+    const previewSample = document.getElementById('setting-preview-sample');
+    const sizePresetBtns = document.querySelectorAll('.btn-size-preset');
+    const panelEl = document.getElementById('controls-panel');
+
+    const DEFAULT_SETTINGS = {
+        fontFamily: "'Inter', sans-serif",
+        fontSize: '14'
+    };
+
+    function loadPanelSettings() {
+        try {
+            const saved = localStorage.getItem('pf_panel_settings');
+            if (saved) {
+                return { ...DEFAULT_SETTINGS, ...JSON.parse(saved) };
+            }
+        } catch (e) {
+            console.error('Failed to load panel settings:', e);
+        }
+        return { ...DEFAULT_SETTINGS };
+    }
+
+    function savePanelSettings(settings) {
+        try {
+            localStorage.setItem('pf_panel_settings', JSON.stringify(settings));
+        } catch (e) {
+            console.error('Failed to save panel settings:', e);
+        }
+    }
+
+    function applyPanelStyles(fontFamily, fontSize) {
+        if (panelEl) {
+            panelEl.style.setProperty('--panel-font-family', fontFamily);
+            panelEl.style.setProperty('--panel-base-size', `${fontSize}px`);
+        }
+        if (previewSample) {
+            previewSample.style.fontFamily = fontFamily;
+            previewSample.style.fontSize = `${fontSize}px`;
+        }
+        if (sizeBadge) {
+            sizeBadge.textContent = `${fontSize} px`;
+        }
+        if (sizePresetBtns) {
+            sizePresetBtns.forEach(btn => {
+                if (btn.getAttribute('data-size') === String(fontSize)) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+    }
+
+    // Initial setup on page load
+    const currentSettings = loadPanelSettings();
+    applyPanelStyles(currentSettings.fontFamily, currentSettings.fontSize);
+
+    if (fontSelect) fontSelect.value = currentSettings.fontFamily;
+    if (sizeSlider) sizeSlider.value = currentSettings.fontSize;
+
+    if (settingsBtn && settingsModal) {
+        settingsBtn.addEventListener('click', () => {
+            const current = loadPanelSettings();
+            if (fontSelect) fontSelect.value = current.fontFamily;
+            if (sizeSlider) sizeSlider.value = current.fontSize;
+            applyPanelStyles(current.fontFamily, current.fontSize);
+            settingsModal.classList.add('active');
         });
+
+        const closeModal = () => {
+            settingsModal.classList.remove('active');
+        };
+
+        if (closeSettingsBtn) closeSettingsBtn.addEventListener('click', closeModal);
+        if (applySettingsBtn) applySettingsBtn.addEventListener('click', closeModal);
+
+        settingsModal.addEventListener('click', (e) => {
+            if (e.target === settingsModal) closeModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && settingsModal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        if (fontSelect) {
+            fontSelect.addEventListener('change', () => {
+                const f = fontSelect.value;
+                const s = sizeSlider ? sizeSlider.value : '14';
+                applyPanelStyles(f, s);
+                savePanelSettings({ fontFamily: f, fontSize: s });
+            });
+        }
+
+        if (sizeSlider) {
+            sizeSlider.addEventListener('input', () => {
+                const s = sizeSlider.value;
+                const f = fontSelect ? fontSelect.value : DEFAULT_SETTINGS.fontFamily;
+                applyPanelStyles(f, s);
+                savePanelSettings({ fontFamily: f, fontSize: s });
+            });
+        }
+
+        if (sizePresetBtns) {
+            sizePresetBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const s = btn.getAttribute('data-size');
+                    if (sizeSlider) sizeSlider.value = s;
+                    const f = fontSelect ? fontSelect.value : DEFAULT_SETTINGS.fontFamily;
+                    applyPanelStyles(f, s);
+                    savePanelSettings({ fontFamily: f, fontSize: s });
+                });
+            });
+        }
+
+        if (resetSettingsBtn) {
+            resetSettingsBtn.addEventListener('click', () => {
+                if (fontSelect) fontSelect.value = DEFAULT_SETTINGS.fontFamily;
+                if (sizeSlider) sizeSlider.value = DEFAULT_SETTINGS.fontSize;
+                applyPanelStyles(DEFAULT_SETTINGS.fontFamily, DEFAULT_SETTINGS.fontSize);
+                savePanelSettings(DEFAULT_SETTINGS);
+            });
+        }
     }
     // -------------------------------------------------------------------
-    // WEAPONS LOGIC (AUTOCOMPLETE DATALIST)
-    // -------------------------------------------------------------------
-    window.allWeaponsDB = [];
-    fetch('data/weapons.json')
-        .then(res => res.json())
-        .then(data => {
-            window.allWeaponsDB = data;
-
-            // Melee Weapons Datalist
-            let meleeList = document.getElementById('melee-weapons-list');
-            if (!meleeList) {
-                meleeList = document.createElement('datalist');
-                meleeList.id = 'melee-weapons-list';
-                document.body.appendChild(meleeList);
-            }
-            meleeList.innerHTML = data.filter(w => w.is_melee).map(w => `<option value="${w.name}">`).join('');
-
-            // Ranged Weapons Datalist
-            let rangedList = document.getElementById('ranged-weapons-list');
-            if (!rangedList) {
-                rangedList = document.createElement('datalist');
-                rangedList.id = 'ranged-weapons-list';
-                document.body.appendChild(rangedList);
-            }
-            rangedList.innerHTML = data.filter(w => !w.is_melee).map(w => `<option value="${w.name}">`).join('');
-        })
-        .catch(err => console.error('Could not load weapons.json:', err));
-    // Armor and Shields Datalist
-    window.allArmorDB = [];
-    fetch('data/armor.json')
-        .then(res => res.json())
-        .then(data => {
-            window.allArmorDB = data;
-
-            let armorList = document.getElementById('armor-list');
-            if (!armorList) {
-                armorList = document.createElement('datalist');
-                armorList.id = 'armor-list';
-                document.body.appendChild(armorList);
-            }
-            armorList.innerHTML = data.filter(a => a.category !== 'Shield').map(a => `<option value="${a.name}">`).join('');
-
-            let shieldList = document.getElementById('shield-list');
-            if (!shieldList) {
-                shieldList = document.createElement('datalist');
-                shieldList.id = 'shield-list';
-                document.body.appendChild(shieldList);
-            }
-            shieldList.innerHTML = data.filter(a => a.category === 'Shield').map(a => `<option value="${a.name}">`).join('');
-        })
-        .catch(err => console.error('Could not load armor.json:', err));
-
-
     function scaleWeaponDamage(diceStr, size) {
         if (!diceStr || size === 'Medium' || !size) return diceStr;
         const sizeSteps = { 'Fine': -4, 'Diminutive': -3, 'Tiny': -2, 'Small': -1, 'Medium': 0, 'Large': 1, 'Huge': 2, 'Gargantuan': 3, 'Colossal': 4 };
         const stepDiff = (sizeSteps[size] || 0);
         if (stepDiff === 0) return diceStr;
         const diceProgression = ["1", "1d2", "1d3", "1d4", "1d6", "1d8", "1d10", "2d6", "2d8", "3d6", "3d8", "4d6", "4d8", "6d6", "6d8", "8d6"];
-        let match = diceStr.match(/^(\d+d\d+)(.*)$/i);
+        let match = diceStr.match(/^(\d+d\d+|\d+)(.*)$/i);
         if (!match) return diceStr;
         let currentDice = match[1].toLowerCase();
-        let suffix = match[2];
+        let suffix = match[2] || '';
         let idx = diceProgression.indexOf(currentDice);
         if (idx === -1) {
-            if (currentDice === '2d4') { currentDice = '1d6'; idx = 4; }
-            else if (currentDice === '1d12') { currentDice = '1d10'; idx = 6; }
-            else return diceStr;
+            if (currentDice === '2d4') {
+                if (stepDiff < 0) currentDice = '1d6';
+                else if (stepDiff > 0) currentDice = '2d6';
+                idx = diceProgression.indexOf(currentDice);
+            } else if (currentDice === '1d12') {
+                if (stepDiff < 0) currentDice = '1d10';
+                else if (stepDiff > 0) currentDice = '3d6';
+                idx = diceProgression.indexOf(currentDice);
+            } else {
+                return diceStr;
+            }
         }
         let newIdx = idx + stepDiff;
         newIdx = Math.max(0, Math.min(diceProgression.length - 1, newIdx));
@@ -2633,15 +2724,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.addEventListener('change', function (e) {
         if (e.target && e.target.classList.contains('atk-type')) {
-            const row = e.target.closest('.atk-row') || e.target.parentElement.parentElement;
+            const row = e.target.closest('.atk-row') || e.target.closest('.dynamic-item-row') || e.target.parentElement.parentElement;
             if (!row) return;
-            const val = e.target.value.toLowerCase();
-            const weapon = window.allWeaponsDB.find(w => w.name.toLowerCase() === val);
+            const val = (e.target.value || '').toLowerCase().trim();
+            const weapon = window.allWeaponsDB ? window.allWeaponsDB.find(w => w.name.toLowerCase() === val) : null;
             if (weapon) {
-                let size = document.getElementById('in-size').value || 'Medium';
-                let scaledDice = scaleWeaponDamage(weapon.dmg, size);
+                let size = document.getElementById('in-size')?.value || 'Medium';
+                let weaponDmg = weapon.damage || weapon.dmg || '1d6';
+                let scaledDice = scaleWeaponDamage(weaponDmg, size);
                 let finalDiceStr = scaledDice;
-                if (weapon.crit && weapon.crit !== '20/x2') {
+                if (weapon.crit && weapon.crit !== '20/x2' && weapon.crit !== 'x2') {
                     finalDiceStr += `/${weapon.crit.split('/')[0]}`;
                 }
                 const diceInput = row.querySelector('.atk-dice');
@@ -2649,13 +2741,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     diceInput.value = finalDiceStr;
                 }
                 const multInput = row.querySelector('.atk-str-mult');
-                if (multInput && weapon.str_mult !== undefined) {
-                    multInput.value = weapon.str_mult.toString();
+                if (multInput) {
+                    if (weapon.str_mult !== undefined) {
+                        multInput.value = weapon.str_mult.toString();
+                    } else if (weapon.type === 'Two-Handed') {
+                        multInput.value = '1.5';
+                    }
                 }
 
                 // Check finesse
-                if (weapon.category && (weapon.category.includes('Light') || weapon.special.toLowerCase().includes('finesse'))) {
-                    if (window.activeFeats && !window.activeFeats.some(f => f.toLowerCase().includes('weapon finesse'))) {
+                const isLight = weapon.type === 'Light';
+                const hasFinesse = weapon.special && typeof weapon.special === 'string' && weapon.special.toLowerCase().includes('finesse');
+                if (isLight || hasFinesse) {
+                    if (window.activeFeats && !window.activeFeats.some(f => String(f).toLowerCase().includes('weapon finesse'))) {
                         window.activeFeats.push('Weapon Finesse');
                         if (window.renderFeatTags) window.renderFeatTags();
                     }
@@ -2747,6 +2845,18 @@ document.addEventListener('DOMContentLoaded', () => {
             gearArr.push(`<a href="#" class="interactive-gear" onclick="if(window.showInfoModal) window.showInfoModal('${shieldName.replace(/'/g, "\\'")}', '', 'Shield'); return false;" style="color: inherit; text-decoration: underline dotted;">${shieldName}</a>`);
         }
 
+        const magicItems = (window.CharacterState && Array.isArray(window.CharacterState.inventory.magicItems))
+            ? window.CharacterState.inventory.magicItems
+            : [];
+
+        magicItems.forEach(item => {
+            if (!item || !item.name) return;
+            const safeName = item.name.replace(/'/g, "\\'");
+            const safeDesc = (item.description || 'Magic item description not available.').replace(/'/g, "\\'");
+            const safeSlot = (item.slot || 'Magic Item').replace(/'/g, "\\'");
+            gearArr.push(`<a href="#" class="interactive-gear" onclick="if(window.showInfoModal) window.showInfoModal('${safeName}', '${safeDesc}', '${safeSlot}'); return false;" style="color: #60a5fa; text-decoration: underline dotted;" title="${item.slot || 'Magic Item'}">${item.name}</a>`);
+        });
+
         const wrapGear = document.getElementById('wrap-gear');
         const outGear = document.getElementById('out-gear');
         if (wrapGear && outGear) {
@@ -2807,4 +2917,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ensure gear and stat badges are initialized
     updateStatBadges();
     updateGearDisplay();
+
+    // Sidebar Collapse / Expand Controller
+    const btnToggleSidebar = document.getElementById('btn-toggle-sidebar');
+    const toggleArrow = document.getElementById('sidebar-toggle-arrow');
+    const controlsPanelEl = document.getElementById('controls-panel');
+
+    function applySidebarState(isCollapsed) {
+        if (!controlsPanelEl) return;
+        if (isCollapsed) {
+            controlsPanelEl.classList.add('collapsed');
+            if (btnToggleSidebar) btnToggleSidebar.classList.add('collapsed-state');
+            if (toggleArrow) toggleArrow.setAttribute('d', 'M13 9l3 3-3 3');
+        } else {
+            controlsPanelEl.classList.remove('collapsed');
+            if (btnToggleSidebar) btnToggleSidebar.classList.remove('collapsed-state');
+            if (toggleArrow) toggleArrow.setAttribute('d', 'M14 9l-3 3 3 3');
+        }
+    }
+
+    if (btnToggleSidebar && controlsPanelEl) {
+        const savedCollapsed = localStorage.getItem('pf_sidebar_collapsed') === 'true';
+        if (savedCollapsed) applySidebarState(true);
+
+        btnToggleSidebar.addEventListener('click', () => {
+            const willCollapse = !controlsPanelEl.classList.contains('collapsed');
+            applySidebarState(willCollapse);
+            localStorage.setItem('pf_sidebar_collapsed', String(willCollapse));
+        });
+    }
 });
