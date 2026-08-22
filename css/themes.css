@@ -1,0 +1,253 @@
+/* Theme Classes */
+.theme-default,
+.theme-parchment {
+    --sb-bg: #fdf6e2;
+    --sb-text: #1c1514;
+    --sb-subtext: #55443d;
+    --sb-modtext: #55443d;
+    --sb-red: #7a200d;
+    --sb-border: #7a200d;
+    --sb-border-outer: #c9ad6a;
+    --sb-border-top: #e69a28;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+.theme-abyssal {
+    --sb-bg: #100808;
+    --sb-text: #f5d0d0;
+    --sb-subtext: #fca5a5;
+    --sb-modtext: #fca5a5;
+    --sb-red: #d91818;
+    --sb-border: #990a0a;
+    --sb-border-outer: #990a0a;
+    --sb-border-top: #d91818;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+.theme-necromancer {
+    --sb-bg: #051408;
+    --sb-text: #4ade80;
+    --sb-subtext: #86efac;
+    --sb-modtext: #86efac;
+    --sb-red: #22c55e;
+    --sb-border: #166534;
+    --sb-border-outer: #166534;
+    --sb-border-top: #22c55e;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+.theme-celestial {
+    --sb-bg: #f0f9ff;
+    --sb-text: #0f172a;
+    --sb-subtext: #475569;
+    --sb-modtext: #475569;
+    --sb-red: #0284c7;
+    --sb-border: #0369a1;
+    --sb-border-outer: #0284c7;
+    --sb-border-top: #38bdf8;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+.theme-ink {
+    --sb-bg: #ffffff;
+    --sb-text: #000000;
+    --sb-subtext: #4b5563;
+    --sb-modtext: #4b5563;
+    --sb-red: #111111;
+    --sb-border: #000000;
+    --sb-border-outer: #000000;
+    --sb-border-top: #000000;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+.theme-obsidian {
+    --sb-bg: #1c1c1c;
+    --sb-text: #e0e0e0;
+    --sb-subtext: #9ca3af;
+    --sb-modtext: #9ca3af;
+    --sb-red: #ffb300;
+    --sb-border: #ffb300;
+    --sb-border-outer: #d97706;
+    --sb-border-top: #ffb300;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+.theme-astral {
+    --sb-bg: #0f172a;
+    --sb-text: #bae6fd;
+    --sb-subtext: #7dd3fc;
+    --sb-modtext: #7dd3fc;
+    --sb-red: #38bdf8;
+    --sb-border: #0284c7;
+    --sb-border-outer: #0369a1;
+    --sb-border-top: #38bdf8;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+.theme-feywild {
+    --sb-bg: #14532d;
+    --sb-text: #ecfdf5;
+    --sb-subtext: #a7f3d0;
+    --sb-modtext: #a7f3d0;
+    --sb-red: #34d399;
+    --sb-border: #10b981;
+    --sb-border-outer: #047857;
+    --sb-border-top: #34d399;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+.theme-amethyst {
+    --sb-bg: #2e1065;
+    --sb-text: #f3e8ff;
+    --sb-subtext: #d8b4fe;
+    --sb-modtext: #d8b4fe;
+    --sb-red: #d8b4fe;
+    --sb-border: #a855f7;
+    --sb-border-outer: #7e22ce;
+    --sb-border-top: #c084fc;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+.theme-clockwork {
+    --sb-bg: #292524;
+    --sb-text: #fdba74;
+    --sb-subtext: #fed7aa;
+    --sb-modtext: #fed7aa;
+    --sb-red: #f97316;
+    --sb-border: #c2410c;
+    --sb-border-outer: #9a3412;
+    --sb-border-top: #f97316;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+.theme-ancient {
+    --sb-bg: #fef3c7;
+    --sb-text: #451a03;
+    --sb-subtext: #78350f;
+    --sb-modtext: #78350f;
+    --sb-red: #9a3412;
+    --sb-border: #78350f;
+    --sb-border-outer: #b45309;
+    --sb-border-top: #d97706;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+.theme-fey-mirage {
+    --sb-bg: #170229;
+    --sb-text: #fdf4ff;
+    --sb-subtext: #f5d0fe;
+    --sb-modtext: #f5d0fe;
+    --sb-red: #f472b6;
+    --sb-border: #d946ef;
+    --sb-border-outer: #a21caf;
+    --sb-border-top: #f472b6;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+.theme-crimson {
+    --sb-bg: #1c0611;
+    --sb-text: #ffe4e6;
+    --sb-subtext: #fecdd3;
+    --sb-modtext: #fecdd3;
+    --sb-red: #fb7185;
+    --sb-border: #e11d48;
+    --sb-border-outer: #be123c;
+    --sb-border-top: #fb7185;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+.theme-vampiric {
+    --sb-bg: #2a0909;
+    --sb-text: #fecdd3;
+    --sb-subtext: #fda4af;
+    --sb-modtext: #fda4af;
+    --sb-red: #f43f5e;
+    --sb-border: #be123c;
+    --sb-border-outer: #881337;
+    --sb-border-top: #f43f5e;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+.theme-abyssal-depths {
+    --sb-bg: #042f2e;
+    --sb-text: #ccfbf1;
+    --sb-subtext: #99f6e4;
+    --sb-modtext: #99f6e4;
+    --sb-red: #2dd4bf;
+    --sb-border: #0f766e;
+    --sb-border-outer: #115e59;
+    --sb-border-top: #2dd4bf;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+.theme-golden-hour {
+    --sb-bg: #181411;
+    --sb-text: #fef08a;
+    --sb-subtext: #fde047;
+    --sb-modtext: #fde047;
+    --sb-red: #f59e0b;
+    --sb-border: #b45309;
+    --sb-border-outer: #78350f;
+    --sb-border-top: #f59e0b;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+.theme-toxic {
+    --sb-bg: #1f290d;
+    --sb-text: #d9f99d;
+    --sb-subtext: #bef264;
+    --sb-modtext: #bef264;
+    --sb-red: #84cc16;
+    --sb-border: #4d7c0f;
+    --sb-border-outer: #3f6212;
+    --sb-border-top: #84cc16;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+.theme-frozen {
+    --sb-bg: #082f49;
+    --sb-text: #e0f2fe;
+    --sb-subtext: #bae6fd;
+    --sb-modtext: #bae6fd;
+    --sb-red: #7dd3fc;
+    --sb-border: #38bdf8;
+    --sb-border-outer: #0284c7;
+    --sb-border-top: #7dd3fc;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+.theme-volcanic {
+    --sb-bg: #27272a;
+    --sb-text: #fef08a;
+    --sb-subtext: #fed7aa;
+    --sb-modtext: #fed7aa;
+    --sb-red: #ef4444;
+    --sb-border: #ea580c;
+    --sb-border-outer: #c2410c;
+    --sb-border-top: #ef4444;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+.theme-eldritch {
+    --sb-bg: #0a0a0a;
+    --sb-text: #e879f9;
+    --sb-subtext: #f0abfc;
+    --sb-modtext: #f0abfc;
+    --sb-red: #c026d3;
+    --sb-border: #86198f;
+    --sb-border-outer: #701a75;
+    --sb-border-top: #c026d3;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+.theme-desert {
+    --sb-bg: #fffbeb;
+    --sb-text: #78350f;
+    --sb-subtext: #92400e;
+    --sb-modtext: #92400e;
+    --sb-red: #d97706;
+    --sb-border: #b45309;
+    --sb-border-outer: #78350f;
+    --sb-border-top: #d97706;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}

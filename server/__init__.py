@@ -1,1 +1,1 @@
-# PATHGM Server Package
+# PathMonsterDB Server Package

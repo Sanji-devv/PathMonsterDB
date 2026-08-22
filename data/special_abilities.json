@@ -1282,5 +1282,21 @@
   {
     "name": "Wild Shape (Su)",
     "description": "At 4th level, a druid gains the ability to turn herself into any Small or Medium animal and back again once per day (as beast shape I). As she gains levels, she can transform into Diminutive, Huge, elemental, or plant creatures for 1 hour per druid level."
+  },
+  {
+    "name": "Lunge (Ex)",
+    "description": "The creature’s limbs are capable of reaching much farther than normal for a creature of its size. As a full-attack action, it can make a single attack with its claws at double its normal reach with a +4 bonus on its attack roll. It cannot make attacks of opportunity with its lunge."
+  },
+  {
+    "name": "Mandibles (Ex)",
+    "description": "A mantis that grabs a foe can make a bite attack against that foe as a secondary attack, dealing damage on a hit."
+  },
+  {
+    "name": "Sudden Strike (Ex)",
+    "description": "The creature is particularly adept at moving quickly when its foes are surprised. During a surprise round, it may act as if it had a full round to act, rather than just one standard action."
+  },
+  {
+    "name": "Floral Camouflage (Ex)",
+    "description": "The creature gains a substantial racial bonus on Stealth checks (+8, or +16 in floral/vegetated terrain). When motionless among flora, it can take 20 on Stealth checks and hide even while being observed."
   }
 ]

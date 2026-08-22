@@ -1,4 +1,5 @@
 import http.server
+import json
 import urllib.request
 from urllib.parse import urlparse, parse_qs
 from server.data_manager import (
@@ -9,8 +10,15 @@ from server.data_manager import (
     delete_monster,
     toggle_favorite
 )
+from server.auth import (
+    register_user,
+    login_user,
+    logout_user,
+    get_user_by_token,
+    get_authenticated_user_from_headers
+)
 
-class PATHGMRequestHandler(http.server.SimpleHTTPRequestHandler):
+class PathMonsterDBRequestHandler(http.server.SimpleHTTPRequestHandler):
     protocol_version = "HTTP/1.0"
     extensions_map = {
         **http.server.SimpleHTTPRequestHandler.extensions_map,
@@ -36,17 +44,56 @@ class PATHGMRequestHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header('Expires', '0')
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS')
-        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
         super().end_headers()
 
     def do_OPTIONS(self):
         self.send_response(200)
         self.end_headers()
 
+    def _send_json(self, data, status_code=200):
+        if isinstance(data, (dict, list)):
+            body = json.dumps(data, ensure_ascii=False).encode('utf-8')
+        elif isinstance(data, str):
+            body = data.encode('utf-8')
+        else:
+            body = data
+        self.send_response(status_code)
+        self.send_header('Content-Type', 'application/json; charset=utf-8')
+        self.send_header('Content-Length', str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+        self.wfile.flush()
+
     def do_GET(self):
         try:
             parsed_url = urlparse(self.path)
-            if parsed_url.path == '/api/search':
+            if parsed_url.path in ('', '/'):
+                self.send_response(302)
+                self.send_header('Location', '/html/index.html')
+                self.end_headers()
+                return
+            elif parsed_url.path == '/index.html':
+                self.send_response(302)
+                self.send_header('Location', '/html/index.html')
+                self.end_headers()
+                return
+            elif parsed_url.path == '/database.html':
+                self.send_response(302)
+                self.send_header('Location', '/html/database.html')
+                self.end_headers()
+                return
+            elif parsed_url.path in ('/style.css', '/themes.css'):
+                self.send_response(302)
+                self.send_header('Location', f'/css{parsed_url.path}')
+                self.end_headers()
+                return
+            elif parsed_url.path in ('/script.js', '/database.js'):
+                self.send_response(302)
+                self.send_header('Location', f'/js{parsed_url.path}')
+                self.end_headers()
+                return
+            elif parsed_url.path == '/api/search':
                 self._handle_search(parsed_url.query)
             elif parsed_url.path == '/api/spells':
                 self._handle_spells(parsed_url.query)
@@ -54,6 +101,8 @@ class PATHGMRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self._handle_proxy(parsed_url.query)
             elif parsed_url.path == '/api/scrape_status':
                 self._handle_scrape_status()
+            elif parsed_url.path == '/api/auth/me':
+                self._handle_auth_me()
             else:
                 super().do_GET()
         except (ConnectionAbortedError, ConnectionResetError, BrokenPipeError):
@@ -67,6 +116,13 @@ class PATHGMRequestHandler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
         self.wfile.flush()
+
+    def _handle_auth_me(self):
+        user = get_authenticated_user_from_headers(self.headers)
+        if user:
+            self._send_json({"status": "ok", "user": user}, 200)
+        else:
+            self._send_json({"status": "error", "message": "Unauthorized"}, 401)
 
     def _handle_proxy(self, query):
         qs = parse_qs(query)
@@ -95,7 +151,13 @@ class PATHGMRequestHandler(http.server.SimpleHTTPRequestHandler):
     def do_POST(self):
         try:
             parsed_url = urlparse(self.path)
-            if parsed_url.path.startswith('/api/favorite/'):
+            if parsed_url.path == '/api/auth/register':
+                self._handle_auth_register()
+            elif parsed_url.path == '/api/auth/login':
+                self._handle_auth_login()
+            elif parsed_url.path == '/api/auth/logout':
+                self._handle_auth_logout()
+            elif parsed_url.path.startswith('/api/favorite/'):
                 length = int(self.headers.get('Content-Length', 0))
                 if length > 0:
                     self.rfile.read(length)
@@ -119,8 +181,46 @@ class PATHGMRequestHandler(http.server.SimpleHTTPRequestHandler):
             traceback.print_exc()
             self.send_error(500, str(e))
 
+    def _handle_auth_register(self):
+        length = int(self.headers.get('Content-Length', 0))
+        raw = self.rfile.read(length).decode('utf-8') if length > 0 else "{}"
+        try:
+            data = json.loads(raw)
+        except Exception:
+            self._send_json({"status": "error", "message": "Invalid JSON"}, 400)
+            return
+        res, status_code = register_user(data)
+        self._send_json(res, status_code)
+
+    def _handle_auth_login(self):
+        length = int(self.headers.get('Content-Length', 0))
+        raw = self.rfile.read(length).decode('utf-8') if length > 0 else "{}"
+        try:
+            data = json.loads(raw)
+        except Exception:
+            self._send_json({"status": "error", "message": "Invalid JSON"}, 400)
+            return
+        res, status_code = login_user(data)
+        self._send_json(res, status_code)
+
+    def _handle_auth_logout(self):
+        auth_header = self.headers.get('Authorization', '')
+        token = auth_header[7:].strip() if auth_header.startswith('Bearer ') else ''
+        if not token:
+            length = int(self.headers.get('Content-Length', 0))
+            if length > 0:
+                raw = self.rfile.read(length).decode('utf-8')
+                try:
+                    data = json.loads(raw)
+                    token = data.get('token', '')
+                except Exception:
+                    pass
+        res, status_code = logout_user(token)
+        self._send_json(res, status_code)
+
     def do_DELETE(self):
         try:
+            user = get_authenticated_user_from_headers(self.headers)
             length = int(self.headers.get('Content-Length', 0))
             if length > 0:
                 self.rfile.read(length)
@@ -128,7 +228,7 @@ class PATHGMRequestHandler(http.server.SimpleHTTPRequestHandler):
             if parsed_url.path.startswith('/api/delete/'):
                 idx_str = parsed_url.path.rstrip('/').split('/')[-1]
                 idx = int(idx_str)
-                body, status_code = delete_monster(idx)
+                body, status_code = delete_monster(idx, user=user)
                 self.send_response(status_code)
                 self.send_header('Content-Type', 'application/json; charset=utf-8')
                 self.send_header('Content-Length', str(len(body)))
@@ -143,7 +243,8 @@ class PATHGMRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_error(500, str(e))
 
     def _handle_search(self, query_string):
-        body = search_monsters(query_string)
+        user = get_authenticated_user_from_headers(self.headers)
+        body = search_monsters(query_string, user=user)
         self.send_response(200)
         self.send_header('Content-Type', 'application/json; charset=utf-8')
         self.send_header('Content-Length', str(len(body)))
@@ -153,9 +254,10 @@ class PATHGMRequestHandler(http.server.SimpleHTTPRequestHandler):
 
     def _handle_save(self):
         try:
+            user = get_authenticated_user_from_headers(self.headers)
             length = int(self.headers.get('Content-Length', 0))
             raw = self.rfile.read(length)
-            body = save_monster_from_json(raw)
+            body = save_monster_from_json(raw, user=user)
             self.send_response(200)
             self.send_header('Content-Type', 'application/json; charset=utf-8')
             self.send_header('Content-Length', str(len(body)))
@@ -188,3 +290,6 @@ class PATHGMRequestHandler(http.server.SimpleHTTPRequestHandler):
 
     def log_message(self, format, *args):
         pass
+
+# Backward compatibility alias
+PATHGMRequestHandler = PathMonsterDBRequestHandler

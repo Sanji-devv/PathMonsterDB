@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "Outsider": { "hit_die": 10, "bab": "Fast", "good_saves": ["Varies"] },
         "Plant": { "hit_die": 8, "bab": "Medium", "good_saves": ["Fortitude"] },
         "Undead": { "hit_die": 8, "bab": "Medium", "good_saves": ["Will"] },
+        "Vermin": { "hit_die": 8, "bab": "Medium", "good_saves": ["Fortitude"] },
     };
     window.creatureTypes = creatureTypes;
 
@@ -583,6 +584,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof renderSlas === 'function') renderSlas();
         if (typeof renderAttacks === 'function') renderAttacks();
         if (typeof renderAbilities === 'function') renderAbilities();
+        if (typeof renderSpellsPreview === 'function') renderSpellsPreview();
         if (typeof updateGearDisplay === 'function') updateGearDisplay();
         if (typeof updateStatBadges === 'function') updateStatBadges();
 
@@ -741,6 +743,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleToggle() {
         const checkedRadio = document.querySelector('input[name="stat_type"]:checked');
         const type = checkedRadio ? checkedRadio.value : 'monster';
+        const btnMonster = document.getElementById('btn-type-monster');
+        const btnNpc = document.getElementById('btn-type-npc');
+        if (btnMonster && btnNpc) {
+            btnMonster.classList.toggle('active', type === 'monster');
+            btnNpc.classList.toggle('active', type === 'npc');
+        }
         if (type === 'monster') {
             if (monsterInputs) monsterInputs.style.display = 'block';
             if (npcInputs) npcInputs.style.display = 'none';
@@ -1659,16 +1667,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentEditingIndex = state._global_index;
             }
 
-            // Basic
-            for (let id in state.basic) {
-                const el = document.getElementById(id) || document.querySelector(`input[name="${id}"][value="${state.basic[id]}"]`);
-                if (el) {
-                    if (el.type === 'radio') el.checked = true;
-                    else el.value = state.basic[id];
-                }
-            }
-
+            // 1. Basic Fields
             if (state.basic) {
+                for (let id in state.basic) {
+                    const el = document.getElementById(id) || document.querySelector(`input[name="${id}"][value="${state.basic[id]}"]`);
+                    if (el) {
+                        if (el.type === 'radio') {
+                            el.checked = true;
+                        } else {
+                            el.value = state.basic[id];
+                        }
+                    }
+                }
+
                 const inCmb = document.getElementById('in-cmb');
                 if (inCmb && state.basic['in-cmb'] !== undefined) {
                     inCmb.dataset.custom = 'true';
@@ -1678,97 +1689,130 @@ document.addEventListener('DOMContentLoaded', () => {
                     inCmd.dataset.custom = 'true';
                 }
             }
-            // HTML
-            state.html = state.html || {};
-            for (let id in state.html) {
-                const el = document.getElementById(id);
-                if (el) el.innerHTML = state.html[id];
+
+            // 2. HTML Fields
+            if (state.html) {
+                for (let id in state.html) {
+                    const el = document.getElementById(id);
+                    if (el) el.innerHTML = state.html[id];
+                }
             }
 
-            // Clear dynamic containers
-            document.getElementById('subtypes-container').innerHTML = '';
-            document.getElementById('senses-container').innerHTML = '';
-            document.getElementById('skills-container').innerHTML = '';
-            document.getElementById('slas-container').innerHTML = '';
-            document.getElementById('melee-container').innerHTML = '';
-            document.getElementById('ranged-container').innerHTML = '';
-            document.getElementById('special-abilities-container').innerHTML = '';
+            // 3. Clear dynamic containers safely
+            ['subtypes-container', 'senses-container', 'skills-container', 'slas-container', 'melee-container', 'ranged-container', 'special-abilities-container', 'spells-container'].forEach(cid => {
+                const el = document.getElementById(cid);
+                if (el) el.innerHTML = '';
+            });
 
-            // Restore dynamic
+            // 4. Restore Dynamic Items
             state.dynamic = state.dynamic || {};
-            if (state.dynamic.subtypes) {
+
+            // Subtypes
+            if (state.dynamic.subtypes && Array.isArray(state.dynamic.subtypes)) {
+                const btnSubtype = document.getElementById('btn-add-subtype');
                 state.dynamic.subtypes.forEach(val => {
-                    document.getElementById('btn-add-subtype').click();
+                    if (btnSubtype) btnSubtype.click();
                     const selects = document.querySelectorAll('.subtype-select');
-                    selects[selects.length - 1].value = val;
+                    if (selects.length > 0) {
+                        selects[selects.length - 1].value = val;
+                    }
                 });
             }
-            if (state.dynamic.senses) {
+
+            // Senses
+            if (state.dynamic.senses && Array.isArray(state.dynamic.senses)) {
+                const btnSense = document.getElementById('btn-add-sense');
                 state.dynamic.senses.forEach(val => {
-                    document.getElementById('btn-add-sense').click();
+                    if (btnSense) btnSense.click();
                     const items = document.querySelectorAll('.sense-item');
-                    const last = items[items.length - 1];
-                    last.querySelector('.sense-name') && (last.querySelector('.sense-name').value = val.name);
-                    last.querySelector('.sense-dist') && (last.querySelector('.sense-dist').value = val.dist);
-                });
-            }
-            if (state.dynamic.skills) {
-                state.dynamic.skills.forEach(val => {
-                    document.getElementById('btn-add-skill').click();
-                    const items = document.querySelectorAll('.skill-item');
-                    const last = items[items.length - 1];
-                    last.querySelector('.skill-name') && (last.querySelector('.skill-name').value = val.name);
-                    last.querySelector('.skill-mod') && (last.querySelector('.skill-mod').value = val.mod);
-                });
-            }
-            if (state.dynamic.slas) {
-                state.dynamic.slas = consolidateSlaItems(state.dynamic.slas);
-                state.dynamic.slas.forEach(val => {
-                    document.getElementById('btn-add-sla').click();
-                    const items = document.querySelectorAll('.sla-item');
-                    const last = items[items.length - 1];
-                    let freqStr = typeof val === 'string' ? val : (val.freq || '');
-                    let spellsStr = typeof val === 'object' && val !== null ? val.spells : '';
-
-                    if (typeof spellsStr !== 'string') {
-                        if (Array.isArray(spellsStr)) {
-                            spellsStr = spellsStr.map(s => (typeof s === 'object' && s !== null ? (s.name || s.spell || s.rawText || Object.values(s).join(' ')) : String(s))).filter(Boolean).join(', ');
-                        } else if (spellsStr && typeof spellsStr === 'object') {
-                            spellsStr = spellsStr.name || spellsStr.spell || Object.values(spellsStr).join(' ');
-                        } else {
-                            spellsStr = '';
+                    if (items.length > 0) {
+                        const last = items[items.length - 1];
+                        if (last) {
+                            const nameIn = last.querySelector('.sense-name');
+                            const distIn = last.querySelector('.sense-dist');
+                            if (nameIn) nameIn.value = val.name || '';
+                            if (distIn) distIn.value = val.dist || '';
                         }
                     }
-
-                    // If spellsStr is empty but freqStr contains a dash, split them!
-                    if (!spellsStr && freqStr) {
-                        const dashMatch = freqStr.match(/[\—\–\-\ufffd\:]/);
-                        if (dashMatch) {
-                            const actualFreq = freqStr.substring(0, dashMatch.index).trim();
-                            const actualSpells = freqStr.substring(dashMatch.index + 1).trim();
-                            freqStr = actualFreq;
-                            spellsStr = actualSpells;
-                        }
-                    }
-
-                    // Clean any replacement characters or lingering object strings
-                    freqStr = freqStr.replace(/\ufffd/g, '').replace(/\[object Object\]/g, '').trim();
-                    spellsStr = spellsStr.replace(/\ufffd/g, '').replace(/\[object Object\]/g, '').replace(/^,\s*|,\s*$/g, '').trim();
-
-                    last.querySelector('.sla-freq') && (last.querySelector('.sla-freq').value = freqStr);
-                    last.querySelector('.sla-spells') && (last.querySelector('.sla-spells').value = spellsStr);
                 });
             }
-            if (state.dynamic.melee) {
+
+            // Skills
+            if (state.dynamic.skills && Array.isArray(state.dynamic.skills)) {
+                const btnSkill = document.getElementById('btn-add-skill');
+                if (btnSkill) {
+                    state.dynamic.skills.forEach(val => {
+                        btnSkill.click();
+                        const items = document.querySelectorAll('.skill-item');
+                        if (items.length > 0) {
+                            const last = items[items.length - 1];
+                            if (last) {
+                                const nameIn = last.querySelector('.skill-name');
+                                const modIn = last.querySelector('.skill-mod');
+                                if (nameIn) nameIn.value = val.name || '';
+                                if (modIn) modIn.value = val.mod !== undefined ? val.mod : 0;
+                            }
+                        }
+                    });
+                }
+                const inSkills = document.getElementById('in-skills');
+                if (inSkills && (!state.basic || !state.basic['in-skills']) && state.dynamic.skills.length > 0) {
+                    inSkills.value = state.dynamic.skills.map(s => `${s.name} ${s.mod >= 0 ? '+' : ''}${s.mod}`).join(', ');
+                }
+            }
+
+            // Spell-Like Abilities (SLAs)
+            if (state.dynamic.slas && Array.isArray(state.dynamic.slas)) {
+                const btnSla = document.getElementById('btn-add-sla');
+                if (btnSla) {
+                    const consolidated = consolidateSlaItems(state.dynamic.slas);
+                    consolidated.forEach(val => {
+                        btnSla.click();
+                        const items = document.querySelectorAll('.sla-item');
+                        if (items.length > 0) {
+                            const last = items[items.length - 1];
+                            if (last) {
+                                let freqStr = typeof val === 'string' ? val : (val.freq || '');
+                                let spellsStr = typeof val === 'object' && val !== null ? val.spells : '';
+
+                                if (typeof spellsStr !== 'string') {
+                                    if (Array.isArray(spellsStr)) {
+                                        spellsStr = spellsStr.map(s => (typeof s === 'object' && s !== null ? (s.name || s.spell || s.rawText || Object.values(s).join(' ')) : String(s))).filter(Boolean).join(', ');
+                                    } else if (spellsStr && typeof spellsStr === 'object') {
+                                        spellsStr = spellsStr.name || spellsStr.spell || Object.values(spellsStr).join(' ');
+                                    } else {
+                                        spellsStr = '';
+                                    }
+                                }
+
+                                if (!spellsStr && freqStr) {
+                                    const dashMatch = freqStr.match(/[\—\–\-\ufffd\:]/);
+                                    if (dashMatch) {
+                                        freqStr = freqStr.substring(0, dashMatch.index).trim();
+                                        spellsStr = freqStr.substring(dashMatch.index + 1).trim();
+                                    }
+                                }
+
+                                freqStr = freqStr.replace(/\ufffd/g, '').replace(/\[object Object\]/g, '').trim();
+                                spellsStr = spellsStr.replace(/\ufffd/g, '').replace(/\[object Object\]/g, '').replace(/^,\s*|,\s*$/g, '').trim();
+
+                                const freqIn = last.querySelector('.sla-freq');
+                                const spellsIn = last.querySelector('.sla-spells');
+                                if (freqIn) freqIn.value = freqStr;
+                                if (spellsIn) spellsIn.value = spellsStr;
+                            }
+                        }
+                    });
+                }
+            }
+
+            // Melee Attacks
+            if (state.dynamic.melee && Array.isArray(state.dynamic.melee)) {
                 state.dynamic.melee.forEach(val => {
-                    // Determine mode: new format has val.mode, legacy formats use rawStr/dmg/dice
-                    let mode = val.mode || 'raw'; // default to raw for better UX
+                    let mode = val.mode || 'raw';
                     let rawText = '';
-                    // Legacy: rawStr field
                     if (!val.mode && val.rawStr) { mode = 'raw'; rawText = val.rawStr; }
-                    // Legacy: dmg field (old format like {type:'claw', dmg:'1d4+5'})
                     else if (!val.mode && val.dmg !== undefined) { mode = 'raw'; rawText = val.type ? `${val.type} (${val.dmg})` : val.dmg; }
-                    // New format raw
                     else if (val.mode === 'raw') { rawText = val.rawText || ''; }
 
                     const row = addAttackRow('melee-container', mode, buildMeleeRowHtml);
@@ -1777,8 +1821,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const ta = row.querySelector('.atk-raw');
                         if (ta) {
                             ta.value = rawText;
-                            ta.setAttribute('data-base-bab', state.basic['in-bab'] || 0);
-                            // trigger auto-resize
+                            ta.setAttribute('data-base-bab', (state.basic && state.basic['in-bab']) || 0);
                             setTimeout(() => { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; }, 0);
                         }
                     } else {
@@ -1791,9 +1834,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
             }
-            if (state.dynamic.ranged) {
+
+            // Ranged Attacks
+            if (state.dynamic.ranged && Array.isArray(state.dynamic.ranged)) {
                 state.dynamic.ranged.forEach(val => {
-                    let mode = val.mode || 'raw'; // default to raw for better UX
+                    let mode = val.mode || 'raw';
                     let rawText = '';
                     if (!val.mode && val.rawStr) { mode = 'raw'; rawText = val.rawStr; }
                     else if (!val.mode && val.dmg !== undefined) { mode = 'raw'; rawText = val.type ? `${val.type} (${val.dmg})` : val.dmg; }
@@ -1805,7 +1850,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         const ta = row.querySelector('.atk-raw');
                         if (ta) {
                             ta.value = rawText;
-                            ta.setAttribute('data-base-bab', state.basic['in-bab'] || 0);
+                            ta.setAttribute('data-base-bab', (state.basic && state.basic['in-bab']) || 0);
+                            setTimeout(() => { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; }, 0);
                         }
                     } else {
                         if (row.querySelector('.atk-count')) row.querySelector('.atk-count').value = val.count || '';
@@ -1817,16 +1863,28 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
             }
-            if (state.dynamic.abilities) {
-                state.dynamic.abilities.forEach(val => {
-                    document.getElementById('btn-add-ability').click();
-                    const items = document.querySelectorAll('.sa-item');
-                    const last = items[items.length - 1];
-                    last.querySelector('.sa-name').value = val.name;
-                    last.querySelector('.sa-desc').innerHTML = val.desc || '';
-                });
+
+            // Special Abilities
+            if (state.dynamic.abilities && Array.isArray(state.dynamic.abilities)) {
+                const btnAbility = document.getElementById('btn-add-ability');
+                if (btnAbility) {
+                    state.dynamic.abilities.forEach(val => {
+                        btnAbility.click();
+                        const items = document.querySelectorAll('.sa-item');
+                        if (items.length > 0) {
+                            const last = items[items.length - 1];
+                            if (last) {
+                                const nameIn = last.querySelector('.sa-name');
+                                const descIn = last.querySelector('.sa-desc');
+                                if (nameIn) nameIn.value = val.name || '';
+                                if (descIn) descIn.innerHTML = val.desc || '';
+                            }
+                        }
+                    });
+                }
             }
 
+            // Magic Items
             if (state.dynamic.magic_items && window.CharacterState) {
                 window.CharacterState.inventory.magicItems = state.dynamic.magic_items;
                 if (typeof window.renderEquippedMagicItems === 'function') {
@@ -1834,42 +1892,66 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            if (state.dynamic.spells && window.CharacterState) {
-                window.CharacterState.spells = state.dynamic.spells;
-                if (typeof window.renderActiveSpells === 'function') {
-                    window.renderActiveSpells();
+            // Spells Database Deserialization
+            const spellsDataRaw = (state.basic && state.basic['in-spells-data']) || state.dynamic.spells || (state.basic && state.basic['in-spells']);
+            window.activeSpells = {};
+            if (spellsDataRaw) {
+                try {
+                    const parsed = typeof spellsDataRaw === 'string' ? JSON.parse(spellsDataRaw) : spellsDataRaw;
+                    if (typeof parsed === 'object' && parsed !== null) {
+                        window.activeSpells = parsed;
+                    }
+                } catch(e) {
+                    console.warn('Error parsing spells data:', e);
                 }
             }
 
+            const inSpellsData = document.getElementById('in-spells-data');
+            if (inSpellsData) inSpellsData.value = JSON.stringify(window.activeSpells);
+            const inSpells = document.getElementById('in-spells');
+            if (inSpells) inSpells.value = JSON.stringify(window.activeSpells);
 
+            const spellsContainer = document.getElementById('spells-container') || document.getElementById('spell-levels-container');
+            if (spellsContainer) {
+                spellsContainer.innerHTML = '';
+                Object.keys(window.activeSpells).map(Number).sort((a, b) => b - a).forEach(lvl => {
+                    if (typeof buildSpellLevelUI === 'function') {
+                        buildSpellLevelUI(lvl, window.activeSpells[lvl]);
+                    }
+                });
+            }
+            if (typeof renderSpellsPreview === 'function') {
+                renderSpellsPreview();
+            }
+
+            // 5. Monster vs NPC View Toggle
             handleToggle();
 
-            // Trigger change events for armor/shields to calculate AC properly
+            // 6. Armor / Shield AC metadata
             const armorEl = document.getElementById('in-armor-name');
             if (armorEl && armorEl.value && window.allArmorsDB) {
                 const item = window.allArmorsDB.find(a => a.name.toLowerCase() === armorEl.value.toLowerCase());
                 if (item) {
-                    document.getElementById('in-ac-armor').setAttribute('data-max-dex', item.max_dex);
-                    document.getElementById('in-ac-armor').setAttribute('data-acp', item.acp);
+                    document.getElementById('in-ac-armor')?.setAttribute('data-max-dex', item.max_dex);
+                    document.getElementById('in-ac-armor')?.setAttribute('data-acp', item.acp);
                 }
             }
             const shieldEl = document.getElementById('in-shield-name');
             if (shieldEl && shieldEl.value && window.allArmorsDB) {
                 const item = window.allArmorsDB.find(a => a.name.toLowerCase() === shieldEl.value.toLowerCase());
                 if (item) {
-                    document.getElementById('in-ac-shield').setAttribute('data-acp', item.acp);
+                    document.getElementById('in-ac-shield')?.setAttribute('data-acp', item.acp);
                 }
             }
 
+            // 7. Render Sections
             if (typeof renderSlas === 'function') renderSlas();
-
-            // renderAttacks MUST run after all rows are populated with values
             if (typeof renderAttacks === 'function') {
                 renderAttacks();
-                // Second call guarantees textarea values (set after row creation) are picked up
                 setTimeout(() => { renderAttacks(); updatePreview(); }, 0);
             }
-            // Sync UI Tags for Feats, SA, and SQ
+
+            // Sync Interactive Tag Arrays
             const syncArray = (arrName, inputId) => {
                 const el = document.getElementById(inputId);
                 if (el && el.value) {
@@ -1895,7 +1977,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (typeof window.renderWeaknessTags === 'function') window.renderWeaknessTags();
 
             if (typeof renderAbilities === 'function') renderAbilities();
+            if (typeof renderSpellsPreview === 'function') renderSpellsPreview();
+            if (typeof updateStatBadges === 'function') updateStatBadges();
+            if (typeof updateGearDisplay === 'function') updateGearDisplay();
 
+            // 8. Trigger Full Paper Update
             updatePreview();
         } catch (e) {
             console.error("Error loading state", e);
@@ -2008,17 +2094,69 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Author & Visibility Sync
+    function updateAuthorUI() {
+        const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+        const user = (auth && typeof auth.getUser === 'function') ? auth.getUser() : null;
+        const inAuthor = document.getElementById('in-author');
+        if (inAuthor) {
+            if (user) {
+                inAuthor.value = user.username || user.name || 'User';
+            } else {
+                inAuthor.value = 'Not Logged In (Anonymous)';
+            }
+        }
+    }
+    window.addEventListener('pathgm:auth', updateAuthorUI);
+    setTimeout(updateAuthorUI, 200);
+
+    const inVisEl = document.getElementById('in-visibility');
+    if (inVisEl) {
+        inVisEl.addEventListener('change', () => {
+            const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+            const isAuth = auth && typeof auth.isAuthenticated === 'function' && auth.isAuthenticated();
+            if (inVisEl.value === 'private' && !isAuth) {
+                if (auth && typeof auth.showToast === 'function') {
+                    auth.showToast('🔒 Private monsters can only be saved to an authenticated account. Please log in first.', 'warning');
+                }
+                if (auth && typeof auth.openModal === 'function') {
+                    auth.openModal('login');
+                }
+            }
+        });
+    }
+
     // Save to Database (monsters.json via API)
     const btnSaveDatabase = document.getElementById('btn-save-database');
     if (btnSaveDatabase) {
         btnSaveDatabase.addEventListener('click', () => {
+            const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+            const isAuth = auth && typeof auth.isAuthenticated === 'function' && auth.isAuthenticated();
+            const inVis = document.getElementById('in-visibility');
+            const visValue = inVis ? inVis.value : 'public';
+
+            if (visValue === 'private' && !isAuth) {
+                if (confirm('🔒 You must be signed in to save a Private monster. Would you like to sign in or create an account now?\n\n(Click Cancel to save as Public)')) {
+                    if (auth && typeof auth.openModal === 'function') {
+                        auth.openModal('login');
+                    }
+                    return;
+                } else {
+                    if (inVis) inVis.value = 'public';
+                }
+            }
+
             const dataStr = serializeState();
             const stateObj = JSON.parse(dataStr);
             const monsterName = document.getElementById('in-name').value || 'Unnamed Monster';
 
+            const headers = (auth && typeof auth.getAuthHeaders === 'function')
+                ? auth.getAuthHeaders()
+                : { 'Content-Type': 'application/json' };
+
             fetch('/api/save', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: headers,
                 body: JSON.stringify(stateObj)
             })
                 .then(r => r.json())
@@ -2029,9 +2167,19 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                         const freshState = serializeState();
                         localStorage.setItem('pf_monster_creator_current_draft', freshState);
-                        alert(`✅ "${monsterName}" saved to Monster Database!`);
+                        const user = (auth && auth.getUser()) || null;
+                        const authorName = res.author || (user ? (user.username || user.name) : 'Anonymous');
+                        const isPriv = (res.visibility === 'private' || visValue === 'private');
+                        const visBadge = isPriv ? '🔒 Private (My Account Only)' : '🌐 Public (All Users)';
+                        const msg = `✅ "${monsterName}" saved successfully!\n[${visBadge} | Creator: ${authorName}]`;
+
+                        if (auth && typeof auth.showToast === 'function') {
+                            auth.showToast(`✅ "${monsterName}" saved! (${visBadge})`, 'success');
+                        } else {
+                            alert(msg);
+                        }
                     } else {
-                        alert('Failed to save: unexpected response');
+                        alert('Failed to save: ' + (res.message || res.error || 'Unknown error'));
                     }
                 })
                 .catch(err => alert('Failed to save: ' + err.message));
@@ -2068,11 +2216,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Theme Selector
     const themeSelector = document.getElementById('theme-selector');
     if (themeSelector && statblockPaper) {
-        const savedTheme = localStorage.getItem('pf_creator_theme') || 'theme-default';
+        let savedTheme = localStorage.getItem('pf_creator_theme');
+        if (!savedTheme || savedTheme === 'theme-default') {
+            savedTheme = 'theme-parchment';
+        }
         themeSelector.value = savedTheme;
 
         const updateTheme = () => {
-            const theme = themeSelector.value;
+            const theme = themeSelector.value || 'theme-parchment';
             statblockPaper.className = `statblock-paper ${theme}`;
             document.body.classList.forEach(cls => {
                 if (cls.startsWith('theme-')) document.body.classList.remove(cls);
@@ -2086,44 +2237,78 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const getThemeBgColor = () => {
-        return getComputedStyle(document.body).getPropertyValue('--sb-bg').trim() || '#F4E3C5';
+        return getComputedStyle(document.body).getPropertyValue('--sb-bg').trim() || '#fdf6e2';
     };
 
-    btnExportPng.addEventListener('click', () => {
-        const monsterName = document.getElementById('in-name')?.value || 'Monster';
-        html2canvas(statblockPaper, { scale: 2, backgroundColor: getThemeBgColor() })
-            .then(canvas => {
-                const link = document.createElement('a');
-                link.download = `${monsterName}.png`;
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-            })
-            .catch(err => {
-                console.error('PNG Export Error:', err);
-                alert('PNG export failed: ' + err.message);
+    async function captureStatblockCanvas() {
+        const workspace = document.querySelector('.app-workspace');
+        const wasInFormView = workspace && workspace.classList.contains('view-form');
+        const previewPanel = document.querySelector('.preview-panel');
+
+        if (wasInFormView && previewPanel) {
+            previewPanel.style.setProperty('display', 'flex', 'important');
+            previewPanel.style.setProperty('position', 'fixed', 'important');
+            previewPanel.style.setProperty('top', '0', 'important');
+            previewPanel.style.setProperty('left', '-9999px', 'important');
+            previewPanel.style.setProperty('width', '800px', 'important');
+            previewPanel.style.setProperty('opacity', '0', 'important');
+            previewPanel.style.setProperty('pointer-events', 'none', 'important');
+        }
+
+        try {
+            const canvas = await html2canvas(statblockPaper, { 
+                scale: 2, 
+                backgroundColor: getThemeBgColor(),
+                useCORS: true,
+                logging: false
             });
+            return canvas;
+        } finally {
+            if (wasInFormView && previewPanel) {
+                previewPanel.style.removeProperty('display');
+                previewPanel.style.removeProperty('position');
+                previewPanel.style.removeProperty('top');
+                previewPanel.style.removeProperty('left');
+                previewPanel.style.removeProperty('width');
+                previewPanel.style.removeProperty('opacity');
+                previewPanel.style.removeProperty('pointer-events');
+            }
+        }
+    }
+
+    btnExportPng.addEventListener('click', async () => {
+        const monsterName = document.getElementById('in-name')?.value || 'Monster';
+        try {
+            const canvas = await captureStatblockCanvas();
+            const link = document.createElement('a');
+            link.download = `${monsterName}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        } catch (err) {
+            console.error('PNG Export Error:', err);
+            alert('PNG export failed: ' + err.message);
+        }
     });
 
-    btnExportPdf.addEventListener('click', () => {
+    btnExportPdf.addEventListener('click', async () => {
         const jsPDFConstructor = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
         if (!jsPDFConstructor) {
             alert('jsPDF library is loading or unavailable. Please try again.');
             return;
         }
         const monsterName = document.getElementById('in-name')?.value || 'Monster';
-        html2canvas(statblockPaper, { scale: 2, backgroundColor: getThemeBgColor() })
-            .then(canvas => {
-                const imgData = canvas.toDataURL('image/png');
-                const pdf = new jsPDFConstructor({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-                const pdfWidth = pdf.internal.pageSize.getWidth();
-                const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-                pdf.save(`${monsterName}.pdf`);
-            })
-            .catch(err => {
-                console.error('PDF Export Error:', err);
-                alert('PDF export failed: ' + err.message);
-            });
+        try {
+            const canvas = await captureStatblockCanvas();
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDFConstructor({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            pdf.save(`${monsterName}.pdf`);
+        } catch (err) {
+            console.error('PDF Export Error:', err);
+            alert('PDF export failed: ' + err.message);
+        }
     });
 
     // -------------------------------------------------------------------
@@ -2313,22 +2498,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ==========================================
-    // SPELLS UI LOGIC
+    // SPELLS UI & STATBLOCK ENGINE
     // ==========================================
     window.allSpellsDB = [];
-    fetch('data/spells.json')
-        .then(res => res.json())
-        .then(data => { window.allSpellsDB = data; })
-        .catch(err => console.error('Could not load spells.json:', err));
+    const loadSpellsDatabase = () => {
+        fetch('/data/spells.json')
+            .then(res => res.json())
+            .then(data => {
+                window.allSpellsDB = Array.isArray(data) ? data : [];
+                if (typeof renderSpellsPreview === 'function') renderSpellsPreview();
+            })
+            .catch(() => {
+                fetch('../data/spells.json')
+                    .then(res => res.json())
+                    .then(data => {
+                        window.allSpellsDB = Array.isArray(data) ? data : [];
+                        if (typeof renderSpellsPreview === 'function') renderSpellsPreview();
+                    })
+                    .catch(err => console.warn('Could not load spells.json:', err));
+            });
+    };
+    loadSpellsDatabase();
 
-    window.activeSpells = {};
-    const hiddenSpellsInput = document.getElementById('in-spells-data');
-    const spellsContainer = document.getElementById('spell-levels-container');
+    window.activeSpells = window.activeSpells || {};
+    const getHiddenSpellsInput = () => document.getElementById('in-spells-data') || document.getElementById('in-spells');
+    const getSpellsContainer = () => document.getElementById('spells-container') || document.getElementById('spell-levels-container');
     const btnAddSpellLevel = document.getElementById('btn-add-spell-level');
+    const selectNewSpellLevel = document.getElementById('select-new-spell-level');
 
     function saveSpellsState() {
-        if (hiddenSpellsInput) {
-            hiddenSpellsInput.value = JSON.stringify(window.activeSpells);
+        const hiddenIn = getHiddenSpellsInput();
+        if (hiddenIn) {
+            hiddenIn.value = JSON.stringify(window.activeSpells);
+        }
+        const inSpells = document.getElementById('in-spells');
+        if (inSpells) {
+            inSpells.value = JSON.stringify(window.activeSpells);
         }
         renderSpellsPreview();
         if (typeof autoSave === 'function') autoSave();
@@ -2337,106 +2542,149 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderSpellsPreview() {
         const wrapSpells = document.getElementById('wrap-spells');
         const outList = document.getElementById('out-spells-list');
-        const inClass = document.getElementById('in-spell-class') ? document.getElementById('in-spell-class').value.trim() : '';
+        const inClassEl = document.getElementById('in-spell-class');
+        const inClass = inClassEl ? inClassEl.value.trim() : '';
         const inCL = document.getElementById('in-spell-cl') ? document.getElementById('in-spell-cl').value : '1';
-        const inStat = document.getElementById('in-spell-stat') ? document.getElementById('in-spell-stat').value : 'cha';
-        const inConc = document.getElementById('in-spell-conc') ? document.getElementById('in-spell-conc').value : '0';
+        const inStat = document.getElementById('in-spell-stat') ? document.getElementById('in-spell-stat').value : 'int';
+        const inConc = document.getElementById('in-spell-conc') ? document.getElementById('in-spell-conc').value.trim() : '';
 
-        if (document.getElementById('out-spell-class')) document.getElementById('out-spell-class').textContent = inClass;
-        if (document.getElementById('out-spell-cl')) {
+        const outSpellClass = document.getElementById('out-spell-class');
+        if (outSpellClass) {
+            outSpellClass.textContent = inClass || 'Spells Prepared';
+        }
+
+        const outSpellCl = document.getElementById('out-spell-cl');
+        if (outSpellCl) {
             const clNum = parseInt(inCL) || 1;
             let suffix = 'th';
             if (clNum % 10 === 1 && clNum % 100 !== 11) suffix = 'st';
             else if (clNum % 10 === 2 && clNum % 100 !== 12) suffix = 'nd';
             else if (clNum % 10 === 3 && clNum % 100 !== 13) suffix = 'rd';
-            document.getElementById('out-spell-cl').textContent = `${clNum}${suffix}`;
+            outSpellCl.textContent = `${clNum}${suffix}`;
         }
 
-        let concMod = parseInt(inConc);
-        if (isNaN(concMod) || inConc === '0') {
-            const statScore = parseInt(document.getElementById(`in-${inStat}`) ? document.getElementById(`in-${inStat}`).value : 10) || 10;
-            const statMod = calculateModifier(statScore);
-            concMod = parseInt(inCL) + statMod;
+        const statScore = parseInt(document.getElementById(`in-${inStat}`) ? document.getElementById(`in-${inStat}`).value : 10) || 10;
+        const statMod = calculateModifier(statScore);
+
+        let concMod;
+        if (inConc && inConc !== '0' && inConc !== '+0') {
+            const s = inConc.trim();
+            concMod = (s.startsWith('+') || s.startsWith('-')) ? s : (parseInt(s) >= 0 ? `+${s}` : s);
+        } else {
+            const autoConc = (parseInt(inCL) || 1) + statMod;
+            concMod = formatMod(autoConc);
         }
-        if (document.getElementById('out-spell-conc')) document.getElementById('out-spell-conc').textContent = formatMod(concMod);
+
+        const outSpellConc = document.getElementById('out-spell-conc');
+        if (outSpellConc) outSpellConc.textContent = concMod;
 
         if (!outList) return;
         outList.innerHTML = '';
         let hasSpells = false;
 
-        const levels = Object.keys(window.activeSpells).map(Number).sort((a, b) => b - a);
+        const levels = Object.keys(window.activeSpells || {}).map(Number).sort((a, b) => b - a);
 
         levels.forEach(lvl => {
             const data = window.activeSpells[lvl];
-            if (!data || data.spells.length === 0) return;
+            if (!data || !Array.isArray(data.spells) || data.spells.length === 0) return;
             hasSpells = true;
 
             const div = document.createElement('div');
-            div.className = 'pf-property-line special-ability';
+            div.className = 'pf-property-line';
+            div.style.marginBottom = '2px';
 
-            let lvlText = lvl === 0 ? '0 (at will)' : `${lvl}${lvl === 1 ? 'st' : lvl === 2 ? 'nd' : lvl === 3 ? 'rd' : 'th'}`;
-            let html = `<span class="pf-label">${lvlText}</span>`;
-            if (data.slots && lvl !== 0) {
-                html += ` <span style="font-weight: normal;">(${data.slots})</span>`;
+            let lvlText;
+            if (lvl === 0) {
+                lvlText = '0 (at will)';
+            } else {
+                let suffix = 'th';
+                if (lvl === 1) suffix = 'st';
+                else if (lvl === 2) suffix = 'nd';
+                else if (lvl === 3) suffix = 'rd';
+                lvlText = `${lvl}${suffix}`;
             }
-            html += `—`;
 
-            const statScore = parseInt(document.getElementById(`in-${inStat}`) ? document.getElementById(`in-${inStat}`).value : 10) || 10;
-            const statMod = calculateModifier(statScore);
+            let slotsText = '';
+            if (data.slots && lvl !== 0) {
+                slotsText = ` (${data.slots})`;
+            }
+
             const dc = 10 + lvl + statMod;
 
             const spellLinks = data.spells.map(s => {
-                let sName = s;
+                let sName = typeof s === 'object' && s !== null ? (s.name || s.spell || '') : String(s);
                 let sExtra = '';
-                const match = s.match(/^(.*?)\s*(\(.*?\))$/);
+                const match = sName.match(/^(.*?)\s*(\(.*?\))$/);
                 if (match) {
-                    sName = match[1];
-                    sExtra = ' ' + match[2];
+                    sName = match[1].trim();
+                    sExtra = ' ' + match[2].trim();
                 }
 
-                const dbSpell = allSpellsDB.find(x => x.name.toLowerCase() === sName.toLowerCase());
-                const isSave = dbSpell && dbSpell.short_description && dbSpell.short_description.toLowerCase().includes('save');
-                let dcText = isSave ? ` (DC ${dc})` : '';
+                const dbSpell = (window.allSpellsDB || []).find(x => x && x.name && x.name.toLowerCase() === sName.toLowerCase());
+                const isSave = dbSpell && ((dbSpell.saving_throw && !dbSpell.saving_throw.toLowerCase().includes('none')) || (dbSpell.short_description && dbSpell.short_description.toLowerCase().includes('save')));
+                let dcText = (isSave || sExtra.includes('DC')) ? '' : ` (DC ${dc})`;
+                if (sExtra.includes('DC')) dcText = '';
 
-                return `<i><a href="https://aonprd.com/SpellDisplay.aspx?ItemName=${encodeURIComponent(sName)}" target="_blank" class="pf-spell" style="color: inherit; text-decoration: none;" title="${dbSpell && dbSpell.short_description ? dbSpell.short_description.replace(/"/g, '&quot;') : ''}">${sName}</a></i>${dcText}${sExtra}`;
+                const desc = dbSpell ? (dbSpell.description || dbSpell.short_description || '') : '';
+                const safeName = sName.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                const safeDesc = desc.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+
+                return `<i><a href="#" onclick="if(window.showInfoModal) window.showInfoModal('${safeName}', '${safeDesc}', 'Spell'); return false;" class="pf-spell" style="color: inherit; text-decoration: underline dotted;" title="${desc ? desc.substring(0, 150).replace(/"/g, '&quot;') : sName}">${sName}</a></i>${dcText}${sExtra}`;
             });
 
-            html += spellLinks.join(', ');
-            div.innerHTML = html;
+            div.innerHTML = `<span class="pf-label">${lvlText}${slotsText}</span>—${spellLinks.join(', ')}`;
             outList.appendChild(div);
         });
 
-        if (wrapSpells) wrapSpells.style.display = (hasSpells || inClass) ? 'block' : 'none';
+        if (wrapSpells) {
+            wrapSpells.style.display = (hasSpells || inClass) ? 'block' : 'none';
+        }
     }
 
     function buildSpellLevelUI(lvl, data) {
-        if (!spellsContainer) return;
+        const container = getSpellsContainer();
+        if (!container) return;
+
+        // Check if level card already exists
+        const existingRow = container.querySelector(`.spell-level-card[data-level="${lvl}"]`);
+        if (existingRow) {
+            existingRow.remove();
+        }
+
         const div = document.createElement('div');
-        div.className = 'dynamic-item-row';
-        div.style.background = 'rgba(0,0,0,0.2)';
-        div.style.padding = '8px';
-        div.style.borderRadius = '4px';
-        div.style.marginBottom = '8px';
+        div.className = 'spell-level-card dynamic-item-row';
+        div.setAttribute('data-level', lvl);
+        div.style.background = 'rgba(255, 255, 255, 0.03)';
+        div.style.border = '1px solid rgba(255, 255, 255, 0.1)';
+        div.style.borderRadius = '6px';
+        div.style.padding = '10px';
+        div.style.marginBottom = '10px';
+
+        let lvlLabel = lvl === '0' || lvl === 0 ? 'Cantrips / Level 0' : `Level ${lvl}`;
 
         div.innerHTML = `
-            <div style="display:flex; gap:8px; align-items:center; margin-bottom: 5px;">
-                <label style="font-weight:bold; min-width:60px;">Level ${lvl}</label>
-                <input type="text" class="spell-slots" placeholder="Slots (e.g. 4/day)" value="${data.slots || ''}" style="width:120px; padding:4px; background:rgba(0,0,0,0.3); color:white; border:1px solid rgba(255,255,255,0.1); border-radius:4px;">
-                <button class="btn-remove-level" style="margin-left:auto; background:linear-gradient(45deg, #ef4444, #f87171); color:white; border:none; border-radius:4px; padding:4px 8px; cursor:pointer;">✕</button>
+            <div style="display: flex; gap: 8px; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span class="tag-badge" style="font-size: 12px; font-weight: bold; background: rgba(242, 202, 80, 0.15); color: var(--primary); border: 1px solid rgba(242, 202, 80, 0.3);">${lvlLabel}</span>
+                    <input type="text" class="spell-slots" placeholder="Slots (e.g. 4/day or 3)" value="${data.slots || ''}" style="width: 140px; padding: 4px 8px; background: rgba(0, 0, 0, 0.3); color: #fff; border: 1px solid var(--border-subtle); border-radius: 4px; font-size: 12px;">
+                </div>
+                <button type="button" class="btn-remove-level btn-remove-row" title="Delete this spell level" style="width: 28px; height: 28px; font-size: 12px;">✕</button>
             </div>
-            <div style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:5px;" class="spell-tags-container"></div>
-            <div style="position:relative;">
-                <input type="text" class="spell-search" placeholder="Add spell..." autocomplete="off" style="width:100%; padding:6px; background:rgba(0,0,0,0.3); color:white; border:1px solid rgba(255,255,255,0.1); border-radius:4px;">
-                <ul class="spell-autocomplete" style="display:none; position:absolute; z-index:1000; width:100%; max-height:150px; overflow-y:auto; background:#222; border:1px solid #444; list-style:none; padding:0; margin:0;"></ul>
+            <div class="spell-tags-container selected-tags-container" style="min-height: 24px; margin-bottom: 8px;"></div>
+            <div style="position: relative;">
+                <input type="text" class="spell-search" placeholder="Search from 2,900+ spells to add... ▼" autocomplete="off" style="width: 100%; padding: 6px 10px; background: rgba(0, 0, 0, 0.4); color: #fff; border: 1px solid var(--border-subtle); border-radius: 4px; font-size: 12px;">
+                <ul class="spell-autocomplete autocomplete-list" style="display: none;"></ul>
             </div>
         `;
 
-        spellsContainer.appendChild(div);
+        container.appendChild(div);
 
         const slotsInput = div.querySelector('.spell-slots');
         slotsInput.addEventListener('input', (e) => {
-            window.activeSpells[lvl].slots = e.target.value;
-            saveSpellsState();
+            if (window.activeSpells[lvl]) {
+                window.activeSpells[lvl].slots = e.target.value;
+                saveSpellsState();
+            }
         });
 
         div.querySelector('.btn-remove-level').addEventListener('click', () => {
@@ -2451,58 +2699,76 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function renderTags() {
             tagsContainer.innerHTML = '';
-            window.activeSpells[lvl].spells.forEach((spell, idx) => {
-                const tag = document.createElement('div');
-                tag.className = 'tag-item';
-                tag.style.display = 'inline-flex';
-                tag.style.alignItems = 'center';
-                tag.style.background = '#8b5cf6';
-                tag.style.color = '#fff';
-                tag.style.padding = '2px 8px';
-                tag.style.borderRadius = '12px';
-                tag.style.fontSize = '0.85rem';
+            if (!window.activeSpells[lvl] || !Array.isArray(window.activeSpells[lvl].spells)) return;
 
-                tag.innerHTML = `<span>${spell}</span><span class="remove-tag" style="margin-left:6px; cursor:pointer; font-weight:bold;">&times;</span>`;
-                tag.querySelector('.remove-tag').addEventListener('click', () => {
+            window.activeSpells[lvl].spells.forEach((spell, idx) => {
+                const sName = typeof spell === 'object' && spell !== null ? (spell.name || spell.spell || '') : String(spell);
+                const tag = document.createElement('div');
+                tag.className = 'tag-badge';
+                tag.style.background = 'rgba(59, 130, 246, 0.2)';
+                tag.style.borderColor = 'rgba(59, 130, 246, 0.4)';
+                tag.style.color = '#93c5fd';
+
+                tag.innerHTML = `
+                    <span class="spell-name-span" style="cursor: pointer;" title="Click for details">${sName}</span>
+                    <span class="btn-tag-remove" style="cursor: pointer; font-weight: bold; margin-left: 4px;">&times;</span>
+                `;
+
+                tag.querySelector('.spell-name-span').addEventListener('click', () => {
+                    const dbSpell = (window.allSpellsDB || []).find(x => x && x.name && x.name.toLowerCase() === sName.toLowerCase());
+                    const desc = dbSpell ? (dbSpell.description || dbSpell.short_description || '') : 'Description not available.';
+                    if (window.showInfoModal) {
+                        window.showInfoModal(sName, desc, 'Spell');
+                    }
+                });
+
+                tag.querySelector('.btn-tag-remove').addEventListener('click', (e) => {
+                    e.stopPropagation();
                     window.activeSpells[lvl].spells.splice(idx, 1);
                     renderTags();
                     saveSpellsState();
                 });
+
                 tagsContainer.appendChild(tag);
             });
         }
 
         searchInput.addEventListener('input', function () {
-            const val = this.value;
+            const val = this.value.trim().toLowerCase();
             autocomplete.innerHTML = '';
             if (!val) {
                 autocomplete.style.display = 'none';
                 return;
             }
 
-            let matches = allSpellsDB.filter(s => s.name.toLowerCase().includes(val.toLowerCase()));
+            const matches = (window.allSpellsDB || []).filter(s => s && s.name && s.name.toLowerCase().includes(val)).slice(0, 30);
 
             const customLi = document.createElement('li');
-            customLi.style.padding = '6px';
-            customLi.style.cursor = 'pointer';
-            customLi.style.color = '#aaf';
-            customLi.textContent = `+ Add "${val}" (Custom)`;
-            customLi.addEventListener('click', () => {
-                window.activeSpells[lvl].spells.push(val);
-                searchInput.value = '';
-                autocomplete.style.display = 'none';
-                renderTags();
-                saveSpellsState();
+            customLi.className = 'autocomplete-item';
+            customLi.style.color = 'var(--primary)';
+            customLi.style.fontWeight = 'bold';
+            customLi.textContent = `+ Add "${this.value.trim()}" (Custom Spell)`;
+            customLi.addEventListener('mousedown', (evt) => {
+                evt.preventDefault();
+                const customVal = searchInput.value.trim();
+                if (customVal) {
+                    if (!window.activeSpells[lvl]) window.activeSpells[lvl] = { slots: '', spells: [] };
+                    window.activeSpells[lvl].spells.push(customVal);
+                    searchInput.value = '';
+                    autocomplete.style.display = 'none';
+                    renderTags();
+                    saveSpellsState();
+                }
             });
             autocomplete.appendChild(customLi);
 
-            matches.slice(0, 50).forEach(m => {
+            matches.forEach(m => {
                 const li = document.createElement('li');
-                li.style.padding = '6px';
-                li.style.cursor = 'pointer';
-                li.style.borderBottom = '1px solid #333';
-                li.textContent = m.name;
-                li.addEventListener('click', () => {
+                li.className = 'autocomplete-item';
+                li.innerHTML = `<span><strong>${m.name}</strong> <small style="color: var(--text-muted);">(${m.school || 'Spell'})</small></span>`;
+                li.addEventListener('mousedown', (evt) => {
+                    evt.preventDefault();
+                    if (!window.activeSpells[lvl]) window.activeSpells[lvl] = { slots: '', spells: [] };
                     window.activeSpells[lvl].spells.push(m.name);
                     searchInput.value = '';
                     autocomplete.style.display = 'none';
@@ -2511,51 +2777,75 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 autocomplete.appendChild(li);
             });
+
             autocomplete.style.display = 'block';
         });
 
-        document.addEventListener('click', function (e) {
-            if (e.target !== searchInput) {
-                autocomplete.style.display = 'none';
-            }
+        searchInput.addEventListener('blur', () => {
+            setTimeout(() => {
+                if (autocomplete) autocomplete.style.display = 'none';
+            }, 200);
         });
 
         renderTags();
     }
 
+    window.buildSpellLevelUI = buildSpellLevelUI;
+    window.renderSpellsPreview = renderSpellsPreview;
+
     if (btnAddSpellLevel) {
         btnAddSpellLevel.addEventListener('click', () => {
-            const lvl = prompt("Enter Spell Level (0-9):");
-            const parsed = parseInt(lvl);
+            let selectedLvl = selectNewSpellLevel ? selectNewSpellLevel.value : null;
+            if (selectedLvl === null) {
+                const promptLvl = prompt("Enter Spell Level (0-9):", "1");
+                if (promptLvl !== null) selectedLvl = promptLvl.trim();
+            }
+            const parsed = parseInt(selectedLvl);
             if (!isNaN(parsed) && parsed >= 0 && parsed <= 9) {
                 if (!window.activeSpells[parsed]) {
                     window.activeSpells[parsed] = { slots: '', spells: [] };
                     buildSpellLevelUI(parsed, window.activeSpells[parsed]);
                     saveSpellsState();
                 } else {
-                    alert("Level already exists!");
+                    alert(`Spell level ${parsed} is already added in the editor!`);
                 }
             }
         });
     }
 
+    // Attach listeners to spell metadata inputs
+    ['in-spell-class', 'in-spell-cl', 'in-spell-stat', 'in-spell-conc'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('input', () => {
+                saveSpellsState();
+            });
+            el.addEventListener('change', () => {
+                saveSpellsState();
+            });
+        }
+    });
+
+    // Auto-restore spells on load
     setTimeout(() => {
-        if (hiddenSpellsInput && hiddenSpellsInput.value) {
+        const hiddenIn = getHiddenSpellsInput();
+        if (hiddenIn && hiddenIn.value) {
             try {
-                window.activeSpells = JSON.parse(hiddenSpellsInput.value);
-                Object.keys(window.activeSpells).sort((a, b) => b - a).forEach(lvl => {
-                    buildSpellLevelUI(lvl, window.activeSpells[lvl]);
-                });
+                const parsed = JSON.parse(hiddenIn.value);
+                if (typeof parsed === 'object' && parsed !== null) {
+                    window.activeSpells = parsed;
+                    const container = getSpellsContainer();
+                    if (container) container.innerHTML = '';
+                    Object.keys(window.activeSpells).map(Number).sort((a, b) => b - a).forEach(lvl => {
+                        buildSpellLevelUI(lvl, window.activeSpells[lvl]);
+                    });
+                }
             } catch (e) {
-                console.error(e);
+                console.warn('Could not parse hidden spells input:', e);
             }
         }
-        ['in-spell-class', 'in-spell-cl', 'in-spell-stat', 'in-spell-conc'].forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.addEventListener('input', saveSpellsState);
-        });
         renderSpellsPreview();
-    }, 500);
+    }, 250);
 
     // -------------------------------------------------------------------
     // Panel Settings (Font Family & Font Size Customizer)
@@ -2886,7 +3176,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     const mod = Math.floor((score - 10) / 2);
                     const text = mod >= 0 ? `+${mod}` : `${mod}`;
                     badge.textContent = text;
-                    badge.className = 'stat-mod-badge ' + (mod > 0 ? 'positive' : (mod < 0 ? 'negative' : ''));
+                    badge.className = 'stat-mod-val ' + (mod > 0 ? 'positive' : (mod < 0 ? 'negative' : ''));
+                } else {
+                    badge.textContent = '-';
+                    badge.className = 'stat-mod-val';
                 }
             }
         });
@@ -2917,33 +3210,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ensure gear and stat badges are initialized
     updateStatBadges();
     updateGearDisplay();
-
-    // Sidebar Collapse / Expand Controller
-    const btnToggleSidebar = document.getElementById('btn-toggle-sidebar');
-    const toggleArrow = document.getElementById('sidebar-toggle-arrow');
-    const controlsPanelEl = document.getElementById('controls-panel');
-
-    function applySidebarState(isCollapsed) {
-        if (!controlsPanelEl) return;
-        if (isCollapsed) {
-            controlsPanelEl.classList.add('collapsed');
-            if (btnToggleSidebar) btnToggleSidebar.classList.add('collapsed-state');
-            if (toggleArrow) toggleArrow.setAttribute('d', 'M13 9l3 3-3 3');
-        } else {
-            controlsPanelEl.classList.remove('collapsed');
-            if (btnToggleSidebar) btnToggleSidebar.classList.remove('collapsed-state');
-            if (toggleArrow) toggleArrow.setAttribute('d', 'M14 9l-3 3 3 3');
-        }
-    }
-
-    if (btnToggleSidebar && controlsPanelEl) {
-        const savedCollapsed = localStorage.getItem('pf_sidebar_collapsed') === 'true';
-        if (savedCollapsed) applySidebarState(true);
-
-        btnToggleSidebar.addEventListener('click', () => {
-            const willCollapse = !controlsPanelEl.classList.contains('collapsed');
-            applySidebarState(willCollapse);
-            localStorage.setItem('pf_sidebar_collapsed', String(willCollapse));
-        });
-    }
 });

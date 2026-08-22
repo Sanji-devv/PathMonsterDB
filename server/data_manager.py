@@ -92,7 +92,7 @@ def save_monsters():
     save_custom_monsters()
     save_official_monsters()
 
-def search_monsters(query_string):
+def search_monsters(query_string, user=None):
     global GLOBAL_MONSTERS, SEARCH_CACHE
 
     if not GLOBAL_MONSTERS:
@@ -101,7 +101,8 @@ def search_monsters(query_string):
     params = parse_qs(query_string)
     # Strip timestamp / cache-busting parameters for reliable search caching
     cache_params = {k: v for k, v in sorted(params.items()) if k not in ('_t', 'timestamp', '_')}
-    cache_key = urlencode(cache_params, doseq=True)
+    user_id_key = str(user.get('id', 'anon')) if user else 'anon'
+    cache_key = f"{user_id_key}:{urlencode(cache_params, doseq=True)}"
 
     if cache_key in SEARCH_CACHE:
         return SEARCH_CACHE[cache_key]
@@ -123,11 +124,23 @@ def search_monsters(query_string):
     except (ValueError, TypeError):
         per_page = 50
     
+    user_id = str(user.get('id', '')) if user else ''
+    user_name = str(user.get('username', '')).lower() if user else ''
+
     filtered = []
     for i, m in enumerate(GLOBAL_MONSTERS):
         is_custom = m.get('IsUserCustom', False)
         is_npc = str(m.get('CharacterFlag', '0')) == '1'
         is_fav = m.get('IsFavorite', False)
+        m_vis = str(m.get('Visibility', 'public')).lower()
+        m_auth_id = str(m.get('AuthorId', ''))
+        m_auth_name = str(m.get('AuthorName', '')).lower()
+
+        is_own = bool(user_id and (m_auth_id == user_id or (not m_auth_id and m_auth_name == user_name)))
+
+        # Privacy rule: Private custom monsters are ONLY visible to their author!
+        if is_custom and m_vis == 'private' and not is_own:
+            continue
         
         if category == 'favorites' and not is_fav:
             continue
@@ -136,6 +149,12 @@ def search_monsters(query_string):
         if category == 'official_npc' and (is_custom or not is_npc):
             continue
         if category == 'custom' and not is_custom:
+            continue
+        if category in ('my_monsters', 'my_custom') and (not is_custom or not is_own):
+            continue
+        if category in ('my_private', 'private') and (not is_custom or not is_own or m_vis != 'private'):
+            continue
+        if category == 'public_custom' and (not is_custom or m_vis != 'public'):
             continue
         
         m_source = str(m.get('_m_source') or m.get('Source') or '').lower()
@@ -199,7 +218,7 @@ def search_monsters(query_string):
     SEARCH_CACHE[cache_key] = body
     return body
 
-def save_monster_from_json(raw_json_str):
+def save_monster_from_json(raw_json_str, user=None):
     global GLOBAL_MONSTERS
     if not GLOBAL_MONSTERS:
         load_monsters()
@@ -219,6 +238,18 @@ def save_monster_from_json(raw_json_str):
         target_idx = data['_global_index']
         
     monster_rec = format_monster_from_state(state)
+
+    if user:
+        monster_rec['AuthorId'] = user.get('id')
+        monster_rec['AuthorName'] = user.get('username') or user.get('name', '')
+        if 'OriginalState' in monster_rec and isinstance(monster_rec['OriginalState'], dict):
+            monster_rec['OriginalState']['AuthorId'] = user.get('id')
+            monster_rec['OriginalState']['AuthorName'] = user.get('username') or user.get('name', '')
+    elif monster_rec.get('Visibility') == 'private':
+        # Unauthenticated users saving private -> default to public
+        monster_rec['Visibility'] = 'public'
+        if 'OriginalState' in monster_rec and isinstance(monster_rec['OriginalState'], dict):
+            monster_rec['OriginalState']['Visibility'] = 'public'
     
     updated_idx = None
     if target_idx is not None:
@@ -255,26 +286,44 @@ def save_monster_from_json(raw_json_str):
     save_custom_monsters()
     clear_cache()
     
-    return json.dumps({"status": "ok", "global_index": updated_idx}).encode('utf-8')
+    return json.dumps({
+        "status": "ok",
+        "global_index": updated_idx,
+        "visibility": monster_rec.get('Visibility', 'public'),
+        "author": monster_rec.get('AuthorName', '')
+    }).encode('utf-8')
 
-def delete_monster(idx):
+def delete_monster(idx, user=None):
     global GLOBAL_MONSTERS
     if not GLOBAL_MONSTERS:
         load_monsters()
     if 0 <= idx < len(GLOBAL_MONSTERS):
-        if GLOBAL_MONSTERS[idx].get('IsUserCustom', False):
+        m = GLOBAL_MONSTERS[idx]
+        if m.get('IsUserCustom', False):
+            m_auth_id = str(m.get('AuthorId', ''))
+            m_auth_name = str(m.get('AuthorName', '')).lower()
+            if m_auth_id or m_auth_name:
+                user_id = str(user.get('id', '')) if user else ''
+                user_name = str(user.get('username', '')).lower() if user else ''
+                is_author = bool(user_id and (m_auth_id == user_id or (not m_auth_id and m_auth_name == user_name)))
+                if not is_author:
+                    return json.dumps({
+                        "status": "error",
+                        "error": "You do not have permission to delete this custom monster (Unauthorized)."
+                    }).encode('utf-8'), 403
+
             GLOBAL_MONSTERS.pop(idx)
-            for i, m in enumerate(GLOBAL_MONSTERS):
-                m['_global_index'] = i
-                if 'OriginalState' in m and isinstance(m['OriginalState'], dict):
-                    m['OriginalState']['_global_index'] = i
+            for i, mon in enumerate(GLOBAL_MONSTERS):
+                mon['_global_index'] = i
+                if 'OriginalState' in mon and isinstance(mon['OriginalState'], dict):
+                    mon['OriginalState']['_global_index'] = i
             save_custom_monsters()
             clear_cache()
             return json.dumps({"status": "ok"}).encode('utf-8'), 200
         else:
-            return json.dumps({"status": "error", "error": "Cannot delete official monsters"}).encode('utf-8'), 200
+            return json.dumps({"status": "error", "error": "Cannot delete official monsters"}).encode('utf-8'), 400
     else:
-        return json.dumps({"status": "error", "error": "Monster not found"}).encode('utf-8'), 200
+        return json.dumps({"status": "error", "error": "Monster not found"}).encode('utf-8'), 404
 
 def toggle_favorite(idx):
     global GLOBAL_MONSTERS

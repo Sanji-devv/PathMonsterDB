@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Apply Active Theme
-    const savedTheme = localStorage.getItem('pf_creator_theme') || 'theme-default';
+    const savedTheme = (localStorage.getItem('pf_creator_theme') && localStorage.getItem('pf_creator_theme') !== 'theme-default') ? localStorage.getItem('pf_creator_theme') : 'theme-parchment';
     document.body.className = savedTheme;
 
     let currentPage = 1;
@@ -46,7 +46,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         mainList.innerHTML = `<div style="text-align: center; color: #aaa; padding: 20px;">Loading database...</div>`;
 
-        fetch(`/api/search?name=${nameVal}&cr=${crVal}&type=${typeVal}&alignment=${alignVal}&environment=${envVal}&category=${catVal}&sort=${sortVal}&page=${currentPage}&per_page=${itemsPerPage}&_t=${Date.now()}`, { cache: 'no-store' })
+        const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+        const headers = (auth && typeof auth.getAuthHeaders === 'function')
+            ? auth.getAuthHeaders()
+            : {};
+
+        fetch(`/api/search?name=${nameVal}&cr=${crVal}&type=${typeVal}&alignment=${alignVal}&environment=${envVal}&category=${catVal}&sort=${sortVal}&page=${currentPage}&per_page=${itemsPerPage}&_t=${Date.now()}`, {
+            headers: headers,
+            cache: 'no-store'
+        })
             .then(r => r.json())
             .then(res => {
                 renderList(res.data, res.total_count, res.page, res.per_page);
@@ -55,6 +63,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 mainList.innerHTML = `<div style="color: red; text-align: center;">Error loading database: ${err.message}</div>`;
             });
     }
+
+    window.addEventListener('pathgm:auth', () => {
+        loadData();
+    });
 
     // Filters
     function applyFilters() {
@@ -149,46 +161,95 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+        const currentUser = (auth && typeof auth.getUser === 'function') ? auth.getUser() : null;
+
         pageData.forEach(m => {
             const card = document.createElement('div');
             card.className = 'monster-card';
 
             const isOriginal = !m.IsUserCustom;
             if (!isOriginal) {
-                card.style.background = 'rgba(234, 179, 8, 0.15)';
-                card.style.borderColor = 'rgba(234, 179, 8, 0.4)';
+                card.style.background = 'rgba(234, 179, 8, 0.12)';
+                card.style.borderColor = 'rgba(234, 179, 8, 0.35)';
             }
 
             let badges = '';
             if (!isOriginal) {
-                badges += `<span style="background: #eab308; color: #000; padding: 2px 6px; border-radius: 4px; font-size: 0.7rem; margin-left: 5px; font-weight: bold;">CUSTOM</span>`;
+                badges += `<span class="badge-tag badge-custom">CUSTOM</span>`;
+                
+                // Visibility Badge (Public / Private)
+                const isPrivate = (m.Visibility === 'private');
+                if (isPrivate) {
+                    badges += `<span class="badge-tag badge-private" title="Only visible to you">PRIVATE</span>`;
+                } else {
+                    badges += `<span class="badge-tag badge-public" title="Visible to all users">PUBLIC</span>`;
+                }
+
+                // Author Badge
+                if (m.AuthorName) {
+                    badges += `<span class="badge-tag badge-author" title="Created by ${m.AuthorName}">👤 ${m.AuthorName.toUpperCase()}</span>`;
+                }
             }
             if (m.CharacterFlag === "1") {
-                badges += `<span style="background: var(--sb-red); color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 0.7rem; margin-left: 5px; font-weight: bold;">NPC</span>`;
+                badges += `<span class="badge-tag badge-npc">NPC</span>`;
             }
 
             let actionsHtml = '';
             let starBtnHtml = `<button class="star-btn ${m.IsFavorite ? 'active' : ''}" title="Toggle Favorite">⭐</button>`;
 
+            const isAuthor = isOriginal || !m.AuthorId || (currentUser && (String(currentUser.id) === String(m.AuthorId) || String(currentUser.username).toLowerCase() === String(m.AuthorName).toLowerCase()));
+
             if (isOriginal) {
+                const npcBadge = (m.CharacterFlag === "1")
+                    ? `<span class="badge-tag badge-npc">NPC</span>`
+                    : `<span class="badge-spacer"></span>`;
+
                 actionsHtml = `
                     ${starBtnHtml}
-                    <button class="btn btn-load" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.4); transition: transform 0.1s, box-shadow 0.1s; display: flex; align-items: center; gap: 6px;" onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 6px 8px -1px rgba(16, 185, 129, 0.5)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 6px -1px rgba(16, 185, 129, 0.4)';">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Load to Editor
-                </button>`;
+                    <div class="actions-grid-2x2">
+                        <div class="actions-top-tier">
+                            ${npcBadge}
+                        </div>
+                        <div class="actions-bottom-tier">
+                            <button class="btn btn-load" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none; cursor: pointer; box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.4); transition: transform 0.1s, box-shadow 0.1s; display: inline-flex; align-items: center; justify-content: center; gap: 4px;" onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 6px 8px -1px rgba(16, 185, 129, 0.5)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 6px -1px rgba(16, 185, 129, 0.4)';">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> LOAD
+                            </button>
+                        </div>
+                    </div>
+                `;
             } else {
+                const isPrivate = (m.Visibility === 'private');
+                const visBadgeHtml = isPrivate
+                    ? `<span class="badge-tag badge-private" title="Only visible to you">PRIVATE</span>`
+                    : `<span class="badge-tag badge-public" title="Visible to all users">PUBLIC</span>`;
+
+                const customBadgeHtml = `<span class="badge-tag badge-custom">CUSTOM</span>`;
+
+                const deleteBtnHtml = isAuthor
+                    ? `<button class="btn btn-delete-custom" style="background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='rgba(239, 68, 68, 0.25)';" onmouseout="this.style.background='rgba(239, 68, 68, 0.15)';">DELETE</button>`
+                    : `<span class="badge-spacer"></span>`;
+
                 actionsHtml = `
                     ${starBtnHtml}
-                    <button class="btn btn-load-custom" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.4); transition: transform 0.1s, box-shadow 0.1s; display: flex; align-items: center; gap: 6px;" onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 6px 8px -1px rgba(59, 130, 246, 0.5)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 6px -1px rgba(59, 130, 246, 0.4)';">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Load Custom
-                    </button>
-                    <button class="btn btn-delete-custom" style="background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); padding: 8px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='rgba(239, 68, 68, 0.25)';" onmouseout="this.style.background='rgba(239, 68, 68, 0.15)';">Delete</button>
+                    <div class="actions-grid-2x2">
+                        <div class="actions-top-tier">
+                            ${visBadgeHtml}
+                            ${customBadgeHtml}
+                        </div>
+                        <div class="actions-bottom-tier">
+                            <button class="btn btn-load-custom" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; border: none; cursor: pointer; box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.4); transition: transform 0.1s, box-shadow 0.1s; display: inline-flex; align-items: center; justify-content: center; gap: 4px;" onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 6px 8px -1px rgba(59, 130, 246, 0.5)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 6px -1px rgba(59, 130, 246, 0.4)';">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> LOAD
+                            </button>
+                            ${deleteBtnHtml}
+                        </div>
+                    </div>
                 `;
             }
 
             card.innerHTML = `
                 <div class="monster-info">
-                    <h3>${m.Name} ${badges}</h3>
+                    <h3>${m.Name}</h3>
                     <p>CR: ${m.CR || '-'} | HP: ${m.HP || '-'} | AC: ${m.AC || '-'} | Type: ${m.Type || '-'} | Alignment: ${m.Alignment || '-'} | Size: ${m.Size || '-'}</p>
                 </div>
                 <div class="monster-actions">
@@ -210,14 +271,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
 
-                card.querySelector('.btn-delete-custom').addEventListener('click', () => {
-                    if (confirm(`Delete "${m.Name}"?`)) {
-                        fetch(`/api/delete/${m._global_index}`, { method: 'DELETE' })
-                            .then(r => r.json())
-                            .then(() => loadData())
-                            .catch(err => alert('Delete failed: ' + err.message));
-                    }
-                });
+                const delBtn = card.querySelector('.btn-delete-custom');
+                if (delBtn) {
+                    delBtn.addEventListener('click', () => {
+                        if (confirm(`Are you sure you want to delete "${m.Name}"?`)) {
+                            const headers = (auth && typeof auth.getAuthHeaders === 'function')
+                                ? auth.getAuthHeaders()
+                                : {};
+                            fetch(`/api/delete/${m._global_index}`, {
+                                method: 'DELETE',
+                                headers: headers
+                            })
+                                .then(r => r.json())
+                                .then(res => {
+                                    if (res.status === 'ok') {
+                                        loadData();
+                                    } else {
+                                        alert('Delete failed: ' + (res.error || res.message || 'Unknown error'));
+                                    }
+                                })
+                                .catch(err => alert('Delete failed: ' + err.message));
+                        }
+                    });
+                }
             }
 
             card.querySelector('.star-btn').addEventListener('click', (e) => {
@@ -242,47 +318,154 @@ document.addEventListener('DOMContentLoaded', () => {
     loadData();
 
     // Mapping Function (Database Row -> Our Form State)
+    // Mapping Function (Database Row -> Our Form State)
     function loadToEditor(m) {
-        // Create an empty state object matching our structure
+        // Create a clean, full state object matching our structure
         const state = {
-            basic: {},
+            basic: {
+                'in-name': m.Name || 'Unknown Creature',
+                'in-cr': m.CR || '1',
+                'in-xp': m.XP || '400',
+                'in-alignment': 'N',
+                'in-size': 'Medium',
+                'in-type': 'Humanoid',
+                'in-type-full': '',
+                'in-aura': m.Aura || '',
+                'in-speed': m.Speed || '30 ft.',
+                'in-space': '5 ft.',
+                'in-reach': '5 ft.',
+                'in-str': m.Str || '10',
+                'in-dex': m.Dex || '10',
+                'in-con': m.Con || '10',
+                'in-int': m.Int || '10',
+                'in-wis': m.Wis || '10',
+                'in-cha': m.Cha || '10',
+                'in-bab': '1',
+                'in-cmb-extra': '0',
+                'in-cmd-extra': '0',
+                'in-init-extra': '0',
+                'in-hd-amount': '1',
+                'in-hd-size': '8',
+                'in-fort': '+0',
+                'in-ref': '+0',
+                'in-will': '+0',
+                'in-ac-armor': '0',
+                'in-ac-shield': '0',
+                'in-ac-natural': '0',
+                'in-ac-deflection': '0',
+                'in-ac-dodge': '0',
+                'in-armor-name': '',
+                'in-shield-name': '',
+                'in-def-abilities': m.DefensiveAbilities || '',
+                'in-dr': m.DR || '',
+                'in-immune': m.Immune || '',
+                'in-resist': m.Resist || '',
+                'in-weaknesses': m.Weaknesses || '',
+                'in-sr': m.SR || '',
+                'in-special-attacks': m.SpecialAttacks || '',
+                'in-feats': m.Feats || '',
+                'in-skills': m.Skills || '',
+                'in-languages': m.Languages || '',
+                'in-sq': m.SQ || '',
+                'in-gear': '',
+                'in-environment': m.Environment || '',
+                'in-organization': m.Organization || '',
+                'in-treasure': m.Treasure || '',
+                'in-sla-cl': '',
+                'in-spell-class': '',
+                'in-spell-cl': '1'
+            },
             html: {},
             dynamic: {
-                subtypes: [], senses: [], skills: [], slas: [], abilities: [], melee: [], ranged: []
+                subtypes: [],
+                senses: [],
+                skills: [],
+                slas: [],
+                abilities: [],
+                melee: [],
+                ranged: [],
+                magic_items: [],
+                spells: []
             }
         };
 
-        // Name, CR, XP
-        state.basic['in-name'] = m.Name || '';
-        state.basic['in-cr'] = m.CR || '';
-        state.basic['in-xp'] = m.XP || '';
+        const validTypes = [
+            "Aberration", "Animal", "Construct", "Dragon", "Fey", "Humanoid",
+            "Magical Beast", "Monstrous Humanoid", "Ooze", "Outsider", "Plant", "Undead", "Vermin"
+        ];
 
-        // Alignment, Size, Type
-        state.basic['in-alignment'] = m.Alignment || '';
-        state.basic['in-size'] = m.Size || 'Medium';
+        // 1. Creature Type
         if (m.Type) {
-            // Convert "magical beast" to "Magical Beast"
-            state.basic['in-type'] = m.Type.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+            const rawType = String(m.Type).trim().toLowerCase();
+            const matchedType = validTypes.find(t => t.toLowerCase() === rawType);
+            if (matchedType) {
+                state.basic['in-type'] = matchedType;
+            } else {
+                // Title case formatting
+                state.basic['in-type'] = rawType.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+            }
         } else {
-            state.basic['in-type'] = '';
+            // Infer type from Name or Race
+            const nLower = (m.Name || '').toLowerCase();
+            if (/undead|lich|ghost|wight|vampire|skeleton|zombie|mummy|wraith|spectre|ghoul/i.test(nLower)) {
+                state.basic['in-type'] = 'Undead';
+            } else if (/dragon|wyrm|drake|wyvern/i.test(nLower)) {
+                state.basic['in-type'] = 'Dragon';
+            } else if (/construct|golem|clockwork|robot|automaton|animated/i.test(nLower)) {
+                state.basic['in-type'] = 'Construct';
+            } else if (/elemental|demon|devil|angel|archon|azata|daemon|oni|div/i.test(nLower)) {
+                state.basic['in-type'] = 'Outsider';
+            } else if (/plant|treant|fungus|shambler|vine/i.test(nLower)) {
+                state.basic['in-type'] = 'Plant';
+            } else if (/ooze|pudding|jelly|slime|cube/i.test(nLower)) {
+                state.basic['in-type'] = 'Ooze';
+            } else if (/beast|hydra|chimera|basilisk|manticore|griffon|pegasus/i.test(nLower)) {
+                state.basic['in-type'] = 'Magical Beast';
+            } else {
+                state.basic['in-type'] = 'Humanoid';
+            }
         }
 
-        // Subtypes (m.subtype1 .. m.subtype6)
+        // 2. Alignment
+        const validAligns = ["LG", "NG", "CG", "LN", "N", "CN", "LE", "NE", "CE"];
+        if (m.Alignment && validAligns.includes(String(m.Alignment).trim().toUpperCase())) {
+            state.basic['in-alignment'] = String(m.Alignment).trim().toUpperCase();
+        } else {
+            state.basic['in-alignment'] = 'N';
+        }
+
+        // 3. Size
+        const validSizes = ["Fine", "Diminutive", "Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan", "Colossal"];
+        if (m.Size) {
+            const rawSize = String(m.Size).trim().toLowerCase();
+            const matchedSize = validSizes.find(s => s.toLowerCase() === rawSize);
+            if (matchedSize) state.basic['in-size'] = matchedSize;
+        } else {
+            const nLower = (m.Name || '').toLowerCase();
+            if (nLower.includes('giant') || nLower.includes('large')) state.basic['in-size'] = 'Large';
+            else if (nLower.includes('huge')) state.basic['in-size'] = 'Huge';
+            else if (nLower.includes('gargantuan')) state.basic['in-size'] = 'Gargantuan';
+            else if (nLower.includes('colossal')) state.basic['in-size'] = 'Colossal';
+            else if (nLower.includes('small')) state.basic['in-size'] = 'Small';
+            else if (nLower.includes('tiny')) state.basic['in-size'] = 'Tiny';
+            else state.basic['in-size'] = 'Medium';
+        }
+
+        // 4. Space & Reach
+        if (m.Space) state.basic['in-space'] = String(m.Space).includes('ft') ? String(m.Space) : m.Space + ' ft.';
+        if (m.Reach) state.basic['in-reach'] = String(m.Reach).includes('ft') ? String(m.Reach) : m.Reach + ' ft.';
+
+        // 5. Subtypes
         for (let i = 1; i <= 6; i++) {
             if (m[`subtype${i}`]) state.dynamic.subtypes.push(m[`subtype${i}`]);
         }
 
-        state.basic['in-aura'] = m.Aura || '';
-
-        // Senses
+        // 6. Senses
         if (m.Senses) {
             let parts = String(m.Senses).split(/,(?![^\(]*\))/);
             parts.forEach(part => {
                 part = part.trim();
                 if (!part) return;
-
-                // e.g., "darkvision 60 ft." -> name: "darkvision", dist: "60 ft."
-                // simple split by first digit
                 const match = part.match(/^(.*?)(\d+.*)?$/);
                 if (match) {
                     state.dynamic.senses.push({
@@ -295,7 +478,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Armor & Shield names and bonuses from Gear string
+        // 7. Armor & Shield Gear Resolution
         const armorBonusMap = {
             'Padded': 1, 'Leather': 2, 'Studded Leather': 3, 'Chain Shirt': 4, 'Mithral Chain Shirt': 4,
             'Hide': 4, 'Scale Mail': 5, 'Chainmail': 6, 'Breastplate': 6, 'Mithral Breastplate': 6,
@@ -307,7 +490,9 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const allGearStr = [m.Gear, m.Treasure, m.OtherGear].filter(Boolean).join(' ');
-        if (allGearStr && !state.basic['in-armor-name']) {
+        state.basic['in-gear'] = allGearStr;
+
+        if (allGearStr) {
             const gearLower = allGearStr.toLowerCase();
             if (gearLower.includes('mithral full plate')) state.basic['in-armor-name'] = 'Mithral Full Plate';
             else if (gearLower.includes('full plate')) state.basic['in-armor-name'] = 'Full Plate';
@@ -337,23 +522,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let acArmorBonus = 0;
         let acShieldBonus = 0;
-        if (state.basic['in-armor-name']) {
-            const aName = state.basic['in-armor-name'];
-            if (armorBonusMap[aName] !== undefined) {
-                acArmorBonus = armorBonusMap[aName];
-                state.basic['in-ac-armor'] = acArmorBonus.toString();
-            }
+        if (state.basic['in-armor-name'] && armorBonusMap[state.basic['in-armor-name']]) {
+            acArmorBonus = armorBonusMap[state.basic['in-armor-name']];
+            state.basic['in-ac-armor'] = acArmorBonus.toString();
         }
-        if (state.basic['in-shield-name']) {
-            const sName = state.basic['in-shield-name'];
-            if (shieldBonusMap[sName] !== undefined) {
-                acShieldBonus = shieldBonusMap[sName];
-                state.basic['in-ac-shield'] = acShieldBonus.toString();
-            }
+        if (state.basic['in-shield-name'] && shieldBonusMap[state.basic['in-shield-name']]) {
+            acShieldBonus = shieldBonusMap[state.basic['in-shield-name']];
+            state.basic['in-ac-shield'] = acShieldBonus.toString();
         }
 
-        // AC, HP, Saves
-        // CSV only provides AC final number (e.g., 25). Calculate Natural Armor backwards.
+        // 8. AC & Natural Armor Back-Calculation
         let acTotal = parseInt(m.AC) || 10;
         let dexMod = Math.floor(((parseInt(m.Dex) || 10) - 10) / 2);
         let sizeMod = 0;
@@ -367,22 +545,32 @@ document.addEventListener('DOMContentLoaded', () => {
         if (sz === 'gargantuan') sizeMod = -4;
         if (sz === 'colossal') sizeMod = -8;
 
-        let calculatedNatArmor = acTotal - 10 - dexMod - sizeMod - acArmorBonus - acShieldBonus;
-        if (calculatedNatArmor > 0) {
-            state.basic['in-ac-natural'] = calculatedNatArmor;
-        }
+        let calculatedNatArmor = Math.max(0, acTotal - 10 - dexMod - sizeMod - acArmorBonus - acShieldBonus);
+        state.basic['in-ac-natural'] = calculatedNatArmor.toString();
 
-        // HD
+        // 9. HD & HP
         let hdAmount = 1;
         if (m.HD) {
-            const hdMatch = String(m.HD).match(/^([0-9]+)d([0-9]+)/i);
-            if (hdMatch) {
-                hdAmount = parseInt(hdMatch[1]) || 1;
-                state.basic['in-hd-amount'] = hdMatch[1];
-                state.basic['in-hd-size'] = hdMatch[2];
+            const hdStr = String(m.HD);
+            const allDiceMatches = [...hdStr.matchAll(/(\d+)d(\d+)/gi)];
+            if (allDiceMatches.length > 0) {
+                let totalDiceCount = 0;
+                let primaryDieSize = allDiceMatches[0][2];
+                allDiceMatches.forEach(match => {
+                    totalDiceCount += parseInt(match[1]) || 0;
+                });
+                hdAmount = totalDiceCount || 1;
+                state.basic['in-hd-amount'] = hdAmount.toString();
+                state.basic['in-hd-size'] = primaryDieSize || '8';
             }
+        } else if (m.HP) {
+            let hpVal = parseInt(m.HP) || 20;
+            hdAmount = Math.max(1, Math.round(hpVal / 4.5));
+            state.basic['in-hd-amount'] = hdAmount.toString();
+            state.basic['in-hd-size'] = '8';
         }
 
+        // 10. Saves
         const formatS = (val) => {
             if (val === undefined || val === null || val === '') return '+0';
             const s = String(val).trim();
@@ -393,20 +581,7 @@ document.addEventListener('DOMContentLoaded', () => {
         state.basic['in-ref'] = formatS(m.Ref);
         state.basic['in-will'] = formatS(m.Will);
 
-        // Defensives
-        state.basic['in-def-abilities'] = m.DefensiveAbilities || '';
-        state.basic['in-dr'] = m.DR || '';
-        state.basic['in-immune'] = m.Immune || '';
-        state.basic['in-resist'] = m.Resist || '';
-        state.basic['in-weaknesses'] = m.Weaknesses || '';
-        state.basic['in-sr'] = m.SR || '';
-
-        // Offense
-        state.basic['in-speed'] = m.Speed || '30 ft.';
-        state.basic['in-space'] = m.Space ? (String(m.Space).includes('ft') ? String(m.Space) : m.Space + ' ft.') : '5 ft.';
-        state.basic['in-reach'] = m.Reach ? (String(m.Reach).includes('ft') ? String(m.Reach) : m.Reach + ' ft.') : '5 ft.';
-
-        // Melee & Ranged Parsing
+        // 11. Melee & Ranged
         function splitAttacks(str) {
             if (!str) return [];
             return String(str).split(/,(?![^\(\)]*\))|\s+or\s+(?![^\(\)]*\))/g).map(s => s.trim()).filter(s => s);
@@ -423,15 +598,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        state.basic['in-special-attacks'] = m.SpecialAttacks || '';
-
-        // Special Abilities (Local data from dynamic.abilities, Special Abilities text, or SpecialAttacks)
+        // 12. Special Abilities
         if (m.dynamic && m.dynamic.abilities && Array.isArray(m.dynamic.abilities) && m.dynamic.abilities.length > 0) {
             m.dynamic.abilities.forEach(ab => {
                 state.dynamic.abilities.push({ name: ab.name || 'Special Ability', desc: ab.desc || ab.name || '' });
             });
-        } else if (m['Special Abilities']) {
-            let lines = String(m['Special Abilities']).split('\n');
+        } else if (m['Special Abilities'] || m.SpecialAbilities) {
+            let lines = String(m['Special Abilities'] || m.SpecialAbilities).split('\n');
             let currentName = '';
             let currentDesc = [];
 
@@ -481,7 +654,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // SpellLikeAbilities -> Parse into SLAs in OFFENSE section
+        // 13. Spell-Like Abilities & Spells
         if (m.SpellLikeAbilities) {
             let lines = String(m.SpellLikeAbilities).split('\n');
             const reHeader = /^(?:Spell-Like|Spells Prepared|Spells Known|\(?CL\s+)/i;
@@ -517,15 +690,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Stats
-        state.basic['in-str'] = m.Str || '10';
-        state.basic['in-dex'] = m.Dex || '10';
-        state.basic['in-con'] = m.Con || '10';
-        state.basic['in-int'] = m.Int || '10';
-        state.basic['in-wis'] = m.Wis || '10';
-        state.basic['in-cha'] = m.Cha || '10';
-
-        // Auto-calculate BAB for Bestiary imports since CSV doesn't have it
+        // 14. Auto-Calculate BAB
         let typeValStr = state.basic['in-type'] || 'Humanoid';
         const typeBabMap = {
             "Aberration": 0.75, "Animal": 0.75, "Construct": 1.0,
@@ -535,12 +700,10 @@ document.addEventListener('DOMContentLoaded', () => {
             "Undead": 0.75, "Vermin": 0.75
         };
         let babMult = typeBabMap[typeValStr] || 0.75;
-        let calculatedBab = Math.floor(hdAmount * babMult);
+        let calculatedBab = Math.max(1, Math.floor(hdAmount * babMult));
         state.basic['in-bab'] = m.BaseAtk || m.BaseAttack || calculatedBab.toString();
 
-        // Feats & Skills & Languages
-        state.basic['in-feats'] = m.Feats || '';
-
+        // 15. Skills
         if (m.Skills) {
             let skillParts = String(m.Skills).split(/,(?![^\(]*\))/);
             skillParts.forEach(s => {
@@ -553,50 +716,68 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        state.basic['in-languages'] = m.Languages || '';
-        state.basic['in-sq'] = m.SQ || '';
+        // 16. Monster vs NPC Flag
+        const isNpc = m.CharacterFlag === "1" || m.CharacterFlag === 1 ||
+            (m.URL && m.URL.includes('/npc-s/')) ||
+            Boolean(m.Class1) || Boolean(m.Class) ||
+            /cleric|wizard|fighter|rogue|paladin|ranger|bard|druid|sorcerer|monk|necromancer|alchemist|inquisitor|magus|cavalier|gunslinger|witch|oracle|summoner|aristocrat|adept|expert|warrior/i.test(m.Name || '');
 
-        // Ecology
-        state.basic['in-environment'] = m.Environment || '';
-        state.basic['in-organization'] = m.Organization || '';
-        state.basic['in-treasure'] = m.Treasure || '';
-
-        // Category Toggle
-        if (m.CharacterFlag === "1" || m.CharacterFlag === 1) {
+        if (isNpc) {
             state.basic.stat_type = 'npc';
             const cls = m.Class1 || m.Class || '';
             const lvl = m.Class1_Lvl || '';
-            state.basic['in-type-full'] = cls ? (lvl ? `${cls} ${lvl}` : cls) : '';
+            state.basic['in-type-full'] = cls ? (lvl ? `${cls} ${lvl}` : cls) : m.Name;
         } else {
             state.basic.stat_type = 'monster';
+            state.basic['in-type-full'] = '';
         }
 
-        // Magic Items & Equipment from OriginalState, Gear, Treasure, or OtherGear
+        // 17. Magic Items
         if (m.OriginalState && m.OriginalState.dynamic && Array.isArray(m.OriginalState.dynamic.magic_items)) {
             state.dynamic.magic_items = m.OriginalState.dynamic.magic_items;
-        } else {
-            const allItemsRaw = [m.Gear, m.Treasure, m.OtherGear].filter(Boolean).join(', ');
-            if (allItemsRaw) {
-                state.dynamic.magic_items = [];
-                const gearParts = allItemsRaw.split(/[,;]\s*/);
-                gearParts.forEach(part => {
-                    const pLower = part.trim().toLowerCase();
-                    if (pLower.includes('amulet of natural armor') || pLower.includes('ring of protection') || pLower.includes('cloak of resistance') || pLower.includes('belt of ') || pLower.includes('headband of ') || pLower.includes('bracers of armor') || pLower.includes('boots of speed') || pLower.includes('ring of invisibility') || pLower.includes('eyes of the eagle') || pLower.includes('goggles of night') || pLower.includes('gauntlets of ogre power')) {
-                        let matched = null;
-                        if (window.allMagicItemsDB) {
-                            matched = window.allMagicItemsDB.find(mi => pLower.includes(mi.name.toLowerCase()));
-                        }
-                        if (matched) {
-                            state.dynamic.magic_items.push(matched);
-                        } else {
-                            state.dynamic.magic_items.push({ name: part.trim(), slot: 'Wondrous', description: part.trim() });
-                        }
+        } else if (allGearStr) {
+            state.dynamic.magic_items = [];
+            const gearParts = allGearStr.split(/[,;]\s*/);
+            gearParts.forEach(part => {
+                const pLower = part.trim().toLowerCase();
+                if (pLower.includes('amulet of natural armor') || pLower.includes('ring of protection') || pLower.includes('cloak of resistance') || pLower.includes('belt of ') || pLower.includes('headband of ') || pLower.includes('bracers of armor') || pLower.includes('boots of speed') || pLower.includes('ring of invisibility') || pLower.includes('eyes of the eagle') || pLower.includes('goggles of night') || pLower.includes('gauntlets of ogre power')) {
+                    let matched = null;
+                    if (window.allMagicItemsDB) {
+                        matched = window.allMagicItemsDB.find(mi => pLower.includes(mi.name.toLowerCase()));
                     }
-                });
-            }
+                    if (matched) {
+                        state.dynamic.magic_items.push(matched);
+                    } else {
+                        state.dynamic.magic_items.push({ name: part.trim(), slot: 'Wondrous', description: part.trim() });
+                    }
+                }
+            });
         }
 
-        // Save to LocalStorage and redirect
+        // 18. Spells and Spellcasting Data
+        if (m.OriginalState && m.OriginalState.basic && m.OriginalState.basic['in-spells-data']) {
+            state.basic['in-spells-data'] = m.OriginalState.basic['in-spells-data'];
+            state.basic['in-spell-class'] = m.OriginalState.basic['in-spell-class'] || '';
+            state.basic['in-spell-cl'] = m.OriginalState.basic['in-spell-cl'] || '1';
+            state.basic['in-spell-stat'] = m.OriginalState.basic['in-spell-stat'] || 'int';
+            state.basic['in-spell-conc'] = m.OriginalState.basic['in-spell-conc'] || '';
+            try {
+                state.dynamic.spells = typeof m.OriginalState.basic['in-spells-data'] === 'string'
+                    ? JSON.parse(m.OriginalState.basic['in-spells-data'])
+                    : m.OriginalState.basic['in-spells-data'];
+            } catch(e) {
+                state.dynamic.spells = m.OriginalState.dynamic?.spells || {};
+            }
+        } else if (m.OriginalState && m.OriginalState.dynamic && m.OriginalState.dynamic.spells) {
+            state.dynamic.spells = m.OriginalState.dynamic.spells;
+            state.basic['in-spells-data'] = JSON.stringify(m.OriginalState.dynamic.spells);
+            state.basic['in-spell-class'] = m.OriginalState.basic?.['in-spell-class'] || '';
+            state.basic['in-spell-cl'] = m.OriginalState.basic?.['in-spell-cl'] || '1';
+            state.basic['in-spell-stat'] = m.OriginalState.basic?.['in-spell-stat'] || 'int';
+            state.basic['in-spell-conc'] = m.OriginalState.basic?.['in-spell-conc'] || '';
+        }
+
+        // 19. Save to LocalStorage and redirect directly to editor
         state._global_index = m._global_index;
         localStorage.setItem('pf_monster_creator_save', JSON.stringify(state));
         window.location.href = 'index.html';

@@ -1,9 +1,3 @@
-# Memory Bank
-MEMORY BANK.md
-memory-bank/
-memory_bank/
-.memorybank/
-
 # Python
 __pycache__/
 *.py[cod]

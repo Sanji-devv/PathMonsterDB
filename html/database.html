@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <title>PathMonsterDB | Pathfinder 1e Monster Database</title>
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=EB+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css?v=6">
+    <link rel="stylesheet" href="../css/themes.css?v=6">
+    <style>
+        body {
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .database-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .database-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .tab-btn.active {
+            background: var(--sb-red);
+            border-color: var(--sb-red);
+        }
+
+        .filters {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            background: rgba(0, 0, 0, 0.35);
+            padding: 14px 18px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .filters input,
+        .filters select {
+            padding: 9px 12px;
+            border-radius: 6px;
+            background: rgba(0, 0, 0, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: white;
+            font-size: 13.5px;
+        }
+
+        .filters input {
+            flex: 2;
+            min-width: 220px;
+        }
+
+        .filters select {
+            flex: 1;
+            min-width: 110px;
+        }
+
+        .monster-list {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 1450px) {
+            .monster-list {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 900px) {
+            .monster-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .monster-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.45);
+            padding: 14px 18px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+            gap: 14px;
+            min-height: 74px;
+            box-sizing: border-box;
+        }
+
+        .monster-card:hover {
+            border-color: var(--sb-red);
+            background: rgba(0, 0, 0, 0.65);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+        }
+
+        .monster-info {
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .monster-info h3 {
+            margin: 0 0 6px 0;
+            color: #fff;
+            font-size: 1.08rem;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.25;
+        }
+
+        .monster-info p {
+            margin: 0;
+            color: #94a3b8;
+            font-size: 0.84rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.3;
+        }
+
+        .monster-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+            justify-content: flex-end;
+        }
+
+        .actions-grid-2x2 {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            align-items: flex-end;
+        }
+
+        .actions-top-tier,
+        .actions-bottom-tier {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            justify-content: flex-end;
+        }
+
+        .actions-top-tier .badge-tag,
+        .actions-top-tier .badge-spacer,
+        .actions-bottom-tier .btn,
+        .actions-bottom-tier .badge-spacer {
+            width: 82px !important;
+            min-width: 82px !important;
+            max-width: 82px !important;
+            height: 30px !important;
+            min-height: 30px !important;
+            max-height: 30px !important;
+            padding: 0 4px !important;
+            margin: 0 !important;
+            border-radius: 6px !important;
+            font-size: 11.5px !important;
+            font-weight: 800 !important;
+            letter-spacing: 0.5px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+            box-sizing: border-box !important;
+            line-height: 1 !important;
+            white-space: nowrap !important;
+        }
+
+        .actions-bottom-tier .btn {
+            cursor: pointer !important;
+        }
+
+        .badge-spacer {
+            visibility: hidden;
+            display: block;
+        }
+
+        .badge-tag {
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-sizing: border-box;
+        }
+
+        .badge-custom {
+            background: #eab308;
+            color: #000;
+        }
+
+        .badge-public {
+            background: rgba(16, 185, 129, 0.25);
+            color: #34d399;
+            border: 1px solid rgba(52, 211, 153, 0.45);
+        }
+
+        .badge-private {
+            background: rgba(245, 158, 11, 0.25);
+            color: #fbbf24;
+            border: 1px solid rgba(251, 191, 36, 0.45);
+        }
+
+        .badge-npc {
+            background: var(--sb-red);
+            color: #fff;
+        }
+
+        .star-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0.35;
+            transition: all 0.2s ease;
+            filter: grayscale(100%);
+            padding: 0 4px;
+            margin: 0;
+            line-height: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            align-self: center;
+        }
+
+        .star-btn:hover {
+            opacity: 0.9;
+            transform: scale(1.15);
+            filter: grayscale(0%);
+        }
+
+        .star-btn.active {
+            opacity: 1;
+            filter: grayscale(0%);
+            transform: scale(1.15);
+            text-shadow: 0 0 12px rgba(234, 179, 8, 0.7);
+        }
+
+        .badge-author {
+            background: rgba(59, 130, 246, 0.2);
+            color: #93c5fd;
+            border: 1px solid rgba(59, 130, 246, 0.4);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 30px;
+            margin-bottom: 25px;
+            align-items: center;
+        }
+
+        .pagination button {
+            padding: 10px 24px;
+            height: 44px;
+            min-width: 130px;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            border: 1px solid #60a5fa;
+            color: #ffffff;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-sizing: border-box;
+        }
+
+        .pagination button:hover:not(:disabled) {
+            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.5);
+        }
+
+        .pagination button:disabled {
+            opacity: 0.4;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #94a3b8;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        #page-info {
+            font-size: 15px;
+            font-weight: 700;
+            color: #fef08a;
+            background: rgba(15, 23, 42, 0.8);
+            padding: 10px 22px;
+            border-radius: 20px;
+            border: 1px solid rgba(234, 179, 8, 0.4);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+
+<body style="padding: 0; background: var(--bg-workspace); overflow-y: auto;">
+    <!-- Top Navigation Bar -->
+    <header class="app-header">
+        <div class="header-left">
+            <a href="index.html" class="brand-container" title="PathMonsterDB Home">
+                <img src="../assets/logo.png" alt="PathMonsterDB Logo" class="brand-logo-img">
+                <span class="brand-name">PathMonsterDB</span>
+            </a>
+
+            <nav class="header-nav">
+                <a href="index.html" class="nav-pill" title="Open Monster Creator & Editor">
+                    <span>Monster Creator</span>
+                </a>
+                <a href="#" class="nav-pill active" title="Search Monster Database">
+                    <span>Monster Database</span>
+                </a>
+            </nav>
+        </div>
+
+        <div class="header-right">
+            <button id="btn-reset-filters" class="btn-hdr btn-hdr-subtle" title="Reset all search filters">🔄 Reset Filters</button>
+            <a href="index.html" class="btn-hdr btn-hdr-blue" title="Back to Monster Creator">⬅ Back to Editor</a>
+            <div class="user-profile-slot" id="user-profile-container"></div>
+            <a href="index.html" class="btn-hdr-icon" title="Panel Settings">⚙️</a>
+
+            <!-- Mobile Hamburger Menu Button -->
+            <button type="button" id="btn-mobile-menu" class="btn-mobile-menu" aria-label="Open Mobile Menu" title="Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Actions Slide-out Drawer -->
+    <div id="mobile-drawer-overlay" class="mobile-drawer-overlay"></div>
+    <aside id="mobile-drawer" class="mobile-drawer" aria-label="Mobile Actions Menu">
+        <div class="mobile-drawer-header">
+            <div class="mobile-drawer-brand">
+                <img src="../assets/logo.png" alt="PathMonsterDB Logo" class="brand-logo-img">
+                <span class="brand-name">PathMonsterDB</span>
+            </div>
+            <button type="button" id="btn-close-mobile-drawer" class="mobile-drawer-close" aria-label="Close Menu">&times;</button>
+        </div>
+
+        <div class="mobile-drawer-body">
+            <!-- Navigation Links -->
+            <div class="mobile-drawer-section">
+                <div class="mobile-drawer-heading">Navigation</div>
+                <div class="mobile-nav-links">
+                    <a href="index.html" class="mobile-nav-link">
+                        <span class="nav-icon">⚔️</span>
+                        <span>Monster Creator</span>
+                    </a>
+                    <a href="database.html" class="mobile-nav-link active">
+                        <span class="nav-icon">📚</span>
+                        <span>Monster Database</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Database Actions -->
+            <div class="mobile-drawer-section">
+                <div class="mobile-drawer-heading">Database Actions</div>
+                <div class="mobile-actions-grid" style="grid-template-columns: 1fr;">
+                    <a href="index.html" class="mob-btn mob-btn-blue" style="justify-content: center; text-decoration: none;">⬅ Back to Monster Editor</a>
+                    <button type="button" id="mob-btn-reset-filters" class="mob-btn mob-btn-subtle" style="justify-content: center;">🔄 Reset All Filters</button>
+                </div>
+            </div>
+
+            <!-- Customization & Account -->
+            <div class="mobile-drawer-section">
+                <div class="mobile-drawer-heading">Account & Profile</div>
+                <div class="user-profile-slot" id="mob-user-profile-slot"></div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="database-main-container">
+        <div id="view-main" class="tab-content">
+            <div class="filters">
+                <input type="text" id="filter-name" placeholder="Search by name...">
+                <select id="filter-cr">
+                    <option value="">Any CR</option>
+                    <!-- populated by js -->
+                </select>
+                <select id="filter-type">
+                    <option value="">Any Type</option>
+                    <option value="aberration">Aberration</option>
+                    <option value="animal">Animal</option>
+                    <option value="construct">Construct</option>
+                    <option value="dragon">Dragon</option>
+                    <option value="fey">Fey</option>
+                    <option value="humanoid">Humanoid</option>
+                    <option value="magical beast">Magical Beast</option>
+                    <option value="monstrous humanoid">Monstrous Humanoid</option>
+                    <option value="ooze">Ooze</option>
+                    <option value="outsider">Outsider</option>
+                    <option value="plant">Plant</option>
+                    <option value="undead">Undead</option>
+                    <option value="vermin">Vermin</option>
+                </select>
+                <select id="filter-alignment">
+                    <option value="">Any Alignment</option>
+                    <option value="lg">LG (Lawful Good)</option>
+                    <option value="ng">NG (Neutral Good)</option>
+                    <option value="cg">CG (Chaotic Good)</option>
+                    <option value="ln">LN (Lawful Neutral)</option>
+                    <option value="n">N (True Neutral)</option>
+                    <option value="cn">CN (Chaotic Neutral)</option>
+                    <option value="le">LE (Lawful Evil)</option>
+                    <option value="ne">NE (Neutral Evil)</option>
+                    <option value="ce">CE (Chaotic Evil)</option>
+                </select>
+                <select id="filter-environment">
+                    <option value="">Any Environment</option>
+                    <option value="aquatic">Aquatic (Water)</option>
+                    <option value="desert">Desert</option>
+                    <option value="forest">Forest / Jungle</option>
+                    <option value="hills">Hills</option>
+                    <option value="mountains">Mountains</option>
+                    <option value="plains">Plains</option>
+                    <option value="ruins">Ruins</option>
+                    <option value="swamp">Swamp / Marsh</option>
+                    <option value="underground">Underground</option>
+                    <option value="urban">Urban (City)</option>
+                </select>
+                <select id="filter-category">
+                    <option value="">All Categories</option>
+                    <option value="favorites">⭐ Favorites</option>
+                    <option value="custom">All Custom Monsters</option>
+                    <option value="my_monsters">My Monsters (Created by Me)</option>
+                    <option value="my_private">My Private Monsters</option>
+                    <option value="public_custom">Public Custom Monsters</option>
+                    <option value="official_monster">Official Bestiary Monsters</option>
+                    <option value="official_npc">Official Bestiary NPCs</option>
+                    <option value="unique_monster">Unique Monsters</option>
+                    <option value="3pp_monster">3rd Party Monsters</option>
+                </select>
+                <select id="filter-sort">
+                    <option value="default" selected>Alphabetical (A-Z)</option>
+                    <option value="newest">Newest First</option>
+                    <option value="cr_desc">CR (Highest to Lowest)</option>
+                    <option value="cr_asc">CR (Lowest to Highest)</option>
+                    <option value="name_desc">Alphabetical (Z-A)</option>
+                </select>
+            </div>
+
+            <div class="monster-list" id="main-list">
+                <div style="text-align: center; color: #aaa; padding: 20px;">Loading database...</div>
+            </div>
+
+            <div class="pagination">
+                <button id="btn-prev">⬅ Previous</button>
+                <span id="page-info">Page 1 of ?</span>
+                <button id="btn-next">Next ➡</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/auth.js?v=6"></script>
+    <script src="../js/ui.js?v=6"></script>
+    <script src="../js/database.js?v=6"></script>
+</body>
+
+</html>

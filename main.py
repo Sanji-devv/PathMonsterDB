@@ -12,7 +12,7 @@ if hasattr(sys.stdout, 'reconfigure'):
         pass
 
 from server.data_manager import BASE_DIR, load_monsters, load_spells
-from server.http_handler import PATHGMRequestHandler
+from server.http_handler import PathMonsterDBRequestHandler
 
 PORT = int(os.environ.get("PORT", 8000))
 
@@ -25,7 +25,7 @@ def start_server(ready_event):
     httpd = None
     for _ in range(10):
         try:
-            httpd = socketserver.ThreadingTCPServer(("", PORT), PATHGMRequestHandler)
+            httpd = socketserver.ThreadingTCPServer(("", PORT), PathMonsterDBRequestHandler)
             break
         except OSError:
             PORT += 1
@@ -52,7 +52,7 @@ if __name__ == "__main__":
     official_count = len([m for m in monsters if not m.get('IsUserCustom')])
     custom_count = len([m for m in monsters if m.get('IsUserCustom')])
     print("=" * 60)
-    print("  [PATHGM] Pathfinder 1e Master Sheet Server")
+    print("  [PathMonsterDB] Pathfinder 1e Master Sheet Server")
     print(f"  Loaded: {len(monsters):,} Monsters ({official_count:,} Official | {custom_count:,} Custom) | {len(spells):,} Spells")
     print(f"  Server Running: {url}")
     print("=" * 60)

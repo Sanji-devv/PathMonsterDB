@@ -5811,5 +5811,159 @@
     "_m_env": "",
     "_m_source": "",
     "_global_index": 6545
+  },
+  {
+    "Name": "Orchid Giant Mantis",
+    "CR": "4",
+    "XP": "1200",
+    "Alignment": "N",
+    "Size": "Large",
+    "Type": "Vermin",
+    "subtype1": "",
+    "Init": "+2",
+    "Senses": "darkvision 60 ft., tremorsense 30 ft.; Perception +10",
+    "AC": "17",
+    "AC_Touch": "11",
+    "AC_Flat-footed": "15",
+    "HP": "45",
+    "HD": "6d8+18",
+    "Fort": "+8",
+    "Ref": "+4",
+    "Will": "+4",
+    "Speed": "30 ft., climb 30 ft., fly 40 ft. (poor)",
+    "Melee": "2 claws +7 (1d8+4 plus grab)",
+    "Space": "10 ft.",
+    "Reach": "10 ft. (15 ft. with lunge)",
+    "SpecialAttacks": "mandibles (bite +7, 1d8+4), sudden strike",
+    "Str": "18",
+    "Dex": "15",
+    "Con": "16",
+    "Int": "-",
+    "Wis": "15",
+    "Cha": "13",
+    "BaseAtk": "4",
+    "CMB": "+9 (+13 grapple)",
+    "CMD": "21 (29 vs. trip)",
+    "Feats": "",
+    "Skills": "Climb +12, Fly +0, Perception +10, Stealth +6 (+18 in flowers/vegetation)",
+    "RacialMods": "+8 Climb, +8 Perception, +8 Stealth (+16 in flowers/vegetation)",
+    "Languages": "",
+    "SQ": "floral camouflage, lunge",
+    "Environment": "warm forests or tropical jungles",
+    "Organization": "solitary or pair",
+    "Treasure": "incidental",
+    "Group": "Mantis",
+    "CharacterFlag": "0",
+    "CompanionFlag": "0",
+    "IsFavorite": true,
+    "IsUserCustom": true,
+    "Special Abilities": "Floral Camouflage (Ex)\nAn orchid giant mantis gains a +8 racial bonus on Stealth checks (+16 in floral or vegetated terrain). When motionless among flora, it can take 20 on Stealth checks and hide even while observed.\n\nLunge (Ex)\nAn orchid giant mantis reach with its claws increases to 15 feet when making an attack of opportunity or when making a single attack with its claws as a standard action.\n\nMandibles (Ex)\nAn orchid giant mantis that begins its turn grappling an opponent can make a bite attack (+7 melee, 1d8+4) with no attack penalty.\n\nSudden Strike (Ex)\nDuring a surprise round, an orchid giant mantis may take a full attack action against a flat-footed opponent.",
+    "Ecology": "Orchid giant mantises are ambush predators adapted to tropical canopies and vibrant flower groves. Their petal-like limbs and vivid coloration render them nearly undetectable until they strike.",
+    "OriginalState": {
+      "basic": {
+        "in-name": "Orchid Giant Mantis",
+        "in-cr": "4",
+        "in-xp": "1200",
+        "in-alignment": "N",
+        "in-size": "Large",
+        "in-type": "Vermin",
+        "in-type-full": "Large vermin",
+        "stat_type": "monster",
+        "in-hd-amount": "6",
+        "in-hd-size": "8",
+        "in-hp": "45 (6d8+18)",
+        "in-ac-natural": "6",
+        "in-fort": "+8",
+        "in-ref": "+4",
+        "in-will": "+4",
+        "in-str": "18",
+        "in-dex": "15",
+        "in-con": "16",
+        "in-int": "-",
+        "in-wis": "15",
+        "in-cha": "13",
+        "in-bab": "4",
+        "in-cmb": "+9",
+        "in-cmd": "21",
+        "in-feats": "",
+        "in-speed": "30 ft., climb 30 ft., fly 40 ft. (poor)",
+        "in-space": "10 ft.",
+        "in-reach": "10 ft. (15 ft. with lunge)",
+        "in-environment": "warm forests or tropical jungles",
+        "in-organization": "solitary or pair",
+        "in-treasure": "incidental",
+        "in-special-attacks": "mandibles (bite +7, 1d8+4), sudden strike",
+        "in-sq": "floral camouflage, lunge"
+      },
+      "dynamic": {
+        "subtypes": [],
+        "senses": [
+          {
+            "name": "darkvision",
+            "dist": "60 ft."
+          },
+          {
+            "name": "tremorsense",
+            "dist": "30 ft."
+          },
+          {
+            "name": "Perception",
+            "dist": "+10"
+          }
+        ],
+        "skills": [
+          {
+            "name": "Climb",
+            "mod": 12
+          },
+          {
+            "name": "Fly",
+            "mod": 0
+          },
+          {
+            "name": "Perception",
+            "mod": 10
+          },
+          {
+            "name": "Stealth",
+            "mod": 6
+          }
+        ],
+        "slas": [],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "2 claws +7 (1d8+4 plus grab)"
+          }
+        ],
+        "ranged": [],
+        "abilities": [
+          {
+            "name": "Floral Camouflage (Ex)",
+            "desc": "Gains a +8 racial bonus on Stealth checks (+16 in floral or vegetated terrain). When motionless among flora, it can take 20 on Stealth and hide while observed."
+          },
+          {
+            "name": "Lunge (Ex)",
+            "desc": "Reach with claws increases to 15 ft. when making an AoO or single attack standard action."
+          },
+          {
+            "name": "Mandibles (Ex)",
+            "desc": "Can make bite attack (+7 melee, 1d8+4) against grappled target with no penalty."
+          },
+          {
+            "name": "Sudden Strike (Ex)",
+            "desc": "Can take a full attack action against flat-footed foes during a surprise round."
+          }
+        ]
+      },
+      "_global_index": 6546
+    },
+    "_m_name": "orchid giant mantis",
+    "_m_cr": "4",
+    "_m_type": "vermin",
+    "_m_align": "n",
+    "_m_env": "warm forests or tropical jungles",
+    "_m_source": "",
+    "_global_index": 6546
   }
 ]

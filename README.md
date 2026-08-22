@@ -1,6 +1,6 @@
-# 🐉 Pathfinder 1e Master Sheet & Monster Creator
+# 🐉 PathMonsterDB - Pathfinder 1e Master Sheet & Monster Creator
 
-Welcome to the **Pathfinder 1e Master Sheet & Monster Creator**! This is a powerful, offline-first, browser-based application designed specifically for Game Masters and Players of the Pathfinder 1st Edition Roleplaying Game.
+Welcome to **PathMonsterDB** (Pathfinder 1e Master Sheet & Monster Creator)! This is a powerful, offline-first, browser-based application designed specifically for Game Masters and Players of the Pathfinder 1st Edition Roleplaying Game.
 
 It allows you to search a massive database of monsters, NPCs, spells, feats, weapons, and armors, customize their stats with built-in math automation, edit attacks in free-text (RAW) or calculation (CALC) modes, and export print-ready A4 statblocks and high-quality PNGs directly to your desktop.
 
@@ -95,7 +95,7 @@ This application is designed to be run locally on your machine with zero externa
 
 1. **Navigate to the project folder:**
    ```bash
-   cd path/to/PATHGM
+   cd path/to/PathMonsterDB
    ```
 2. **Start the local server:**
    ```bash
