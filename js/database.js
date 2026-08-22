@@ -1,7 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Track Last Visited Page
+    try {
+        localStorage.setItem('pathgm_last_page', '/html/database.html');
+        document.cookie = "pathgm_last_page=/html/database.html; path=/; max-age=31536000; SameSite=Lax";
+    } catch (e) {}
+
     // Apply Active Theme
     const savedTheme = (localStorage.getItem('pf_creator_theme') && localStorage.getItem('pf_creator_theme') !== 'theme-default') ? localStorage.getItem('pf_creator_theme') : 'theme-parchment';
     document.body.className = savedTheme;
+    document.documentElement.className = savedTheme;
 
     let currentPage = 1;
     let maxPage = 1;
@@ -264,6 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (m.OriginalState) {
                         const stateToSave = JSON.parse(JSON.stringify(m.OriginalState));
                         stateToSave._global_index = m._global_index;
+                        if (m.id) stateToSave.id = m.id;
                         localStorage.setItem('pf_monster_creator_save', JSON.stringify(stateToSave));
                         window.location.href = 'index.html';
                     } else {
@@ -298,13 +306,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
             card.querySelector('.star-btn').addEventListener('click', (e) => {
                 const btn = e.currentTarget;
-                fetch(`/api/favorite/${m._global_index}`, { method: 'POST' })
+                const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+                const headers = (auth && typeof auth.getAuthHeaders === 'function')
+                    ? auth.getAuthHeaders()
+                    : {};
+                fetch(`/api/favorite/${m._global_index}`, {
+                    method: 'POST',
+                    headers: headers
+                })
                     .then(r => r.json())
                     .then(data => {
                         if (data.status === 'success') {
                             btn.classList.toggle('active', data.is_favorite);
-                            // If we are filtering by favorites, we might want to reload to hide it, 
-                            // but letting it stay unstarred until refresh is better UX.
+                            m.IsFavorite = data.is_favorite;
                         }
                     })
                     .catch(err => console.error('Failed to toggle favorite:', err));
@@ -779,6 +793,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 19. Save to LocalStorage and redirect directly to editor
         state._global_index = m._global_index;
+        if (m.id) state.id = m.id;
         localStorage.setItem('pf_monster_creator_save', JSON.stringify(state));
         window.location.href = 'index.html';
     }

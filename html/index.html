@@ -15,6 +15,18 @@
     <link rel="stylesheet" href="../css/style.css?v=6">
     <link rel="stylesheet" href="../css/themes.css?v=6">
 
+    <script>
+        // Track last visited page and apply saved theme immediately
+        try {
+            localStorage.setItem('pathgm_last_page', '/html/index.html');
+            document.cookie = "pathgm_last_page=/html/index.html; path=/; max-age=31536000; SameSite=Lax";
+            const savedTheme = localStorage.getItem('pf_creator_theme') || 'theme-parchment';
+            if (savedTheme && savedTheme !== 'theme-default') {
+                document.documentElement.className = savedTheme;
+            }
+        } catch(e){}
+    </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
@@ -225,18 +237,18 @@
 
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" id="in-name" value="Orchid Giant Mantis"
+                            <input type="text" id="in-name" value=""
                                 placeholder="Creature or Character Name">
                         </div>
 
                         <div class="form-row">
                             <div class="form-group">
                                 <label>CR (Challenge Rating)</label>
-                                <input type="text" id="in-cr" value="4">
+                                <input type="text" id="in-cr" value="1">
                             </div>
                             <div class="form-group">
                                 <label>XP</label>
-                                <input type="text" id="in-xp" value="1200">
+                                <input type="text" id="in-xp" value="400">
                             </div>
                         </div>
 
@@ -263,8 +275,8 @@
                                         <option value="Diminutive">Diminutive</option>
                                         <option value="Tiny">Tiny</option>
                                         <option value="Small">Small</option>
-                                        <option value="Medium">Medium</option>
-                                        <option value="Large" selected>Large</option>
+                                        <option value="Medium" selected>Medium</option>
+                                        <option value="Large">Large</option>
                                         <option value="Huge">Huge</option>
                                         <option value="Gargantuan">Gargantuan</option>
                                         <option value="Colossal">Colossal</option>
@@ -280,14 +292,14 @@
                                         <option value="Construct">Construct</option>
                                         <option value="Dragon">Dragon</option>
                                         <option value="Fey">Fey</option>
-                                        <option value="Humanoid">Humanoid</option>
+                                        <option value="Humanoid" selected>Humanoid</option>
                                         <option value="Magical Beast">Magical Beast</option>
                                         <option value="Monstrous Humanoid">Monstrous Humanoid</option>
                                         <option value="Ooze">Ooze</option>
                                         <option value="Outsider">Outsider</option>
                                         <option value="Plant">Plant</option>
                                         <option value="Undead">Undead</option>
-                                        <option value="Vermin" selected>Vermin</option>
+                                        <option value="Vermin">Vermin</option>
                                     </select>
                                 </div>
                                 <div class="form-group" style="flex: 1.5;">
@@ -302,7 +314,7 @@
                         <div id="npc-inputs" style="display: none;">
                             <div class="form-group">
                                 <label>Subtitle / Class (e.g.: NPC Fighter 14)</label>
-                                <input type="text" id="in-type-full" value="NPC Fighter 1">
+                                <input type="text" id="in-type-full" value="" placeholder="e.g. NPC Fighter 1">
                             </div>
                         </div>
 
@@ -331,33 +343,33 @@
                         <div class="ability-scores-grid">
                             <div class="ability-score-card">
                                 <span class="stat-label">STR</span>
-                                <input type="number" id="in-str" value="18">
-                                <span id="mod-badge-str" class="stat-mod-val">+4</span>
+                                <input type="number" id="in-str" value="10">
+                                <span id="mod-badge-str" class="stat-mod-val">+0</span>
                             </div>
                             <div class="ability-score-card">
                                 <span class="stat-label">DEX</span>
-                                <input type="number" id="in-dex" value="15">
-                                <span id="mod-badge-dex" class="stat-mod-val">+2</span>
+                                <input type="number" id="in-dex" value="10">
+                                <span id="mod-badge-dex" class="stat-mod-val">+0</span>
                             </div>
                             <div class="ability-score-card">
                                 <span class="stat-label">CON</span>
-                                <input type="number" id="in-con" value="16">
-                                <span id="mod-badge-con" class="stat-mod-val">+3</span>
+                                <input type="number" id="in-con" value="10">
+                                <span id="mod-badge-con" class="stat-mod-val">+0</span>
                             </div>
                             <div class="ability-score-card">
                                 <span class="stat-label">INT</span>
-                                <input type="number" id="in-int" value="">
-                                <span id="mod-badge-int" class="stat-mod-val">-</span>
+                                <input type="number" id="in-int" value="10">
+                                <span id="mod-badge-int" class="stat-mod-val">+0</span>
                             </div>
                             <div class="ability-score-card">
                                 <span class="stat-label">WIS</span>
-                                <input type="number" id="in-wis" value="15">
-                                <span id="mod-badge-wis" class="stat-mod-val">+2</span>
+                                <input type="number" id="in-wis" value="10">
+                                <span id="mod-badge-wis" class="stat-mod-val">+0</span>
                             </div>
                             <div class="ability-score-card">
                                 <span class="stat-label">CHA</span>
-                                <input type="number" id="in-cha" value="13">
-                                <span id="mod-badge-cha" class="stat-mod-val">+1</span>
+                                <input type="number" id="in-cha" value="10">
+                                <span id="mod-badge-cha" class="stat-mod-val">+0</span>
                             </div>
                         </div>
                     </section>
@@ -391,7 +403,7 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Nat. Armor</label>
-                                <input type="number" id="in-ac-natural" value="6">
+                                <input type="number" id="in-ac-natural" value="0">
                             </div>
                             <div class="form-group">
                                 <label>Deflection</label>
@@ -409,7 +421,7 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Hit Dice (HD)</label>
-                                <input type="number" id="in-hd-amount" value="6">
+                                <input type="number" id="in-hd-amount" value="1">
                             </div>
                             <div class="form-group">
                                 <label>HD Size</label>
@@ -461,11 +473,11 @@
                         </div>
 
                         <div class="form-row">
-                            <div class="form-group"><label>Fortitude</label><input type="text" id="in-fort" value="+8">
+                            <div class="form-group"><label>Fortitude</label><input type="text" id="in-fort" value="+0">
                             </div>
-                            <div class="form-group"><label>Reflex</label><input type="text" id="in-ref" value="+4">
+                            <div class="form-group"><label>Reflex</label><input type="text" id="in-ref" value="+0">
                             </div>
-                            <div class="form-group"><label>Will</label><input type="text" id="in-will" value="+4"></div>
+                            <div class="form-group"><label>Will</label><input type="text" id="in-will" value="+0"></div>
                         </div>
 
                         <div class="form-group">
@@ -495,11 +507,11 @@
                         <h2>Movement & Reach</h2>
                         <div class="form-row">
                             <div class="form-group"><label>Speed</label><input type="text" id="in-speed"
-                                    value="30 ft., climb 30 ft., fly 40 ft. (poor)"></div>
-                            <div class="form-group"><label>Space</label><input type="text" id="in-space" value="10 ft.">
+                                    value="30 ft."></div>
+                            <div class="form-group"><label>Space</label><input type="text" id="in-space" value="5 ft.">
                             </div>
                             <div class="form-group"><label>Reach</label><input type="text" id="in-reach"
-                                    value="10 ft. (15 ft. with lunge)"></div>
+                                    value="5 ft."></div>
                         </div>
                     </section>
 
@@ -540,7 +552,7 @@
                         <div class="form-row">
                             <div class="form-group" style="flex: 1;">
                                 <label>Base Atk (BAB)</label>
-                                <input type="number" id="in-bab" value="4">
+                                <input type="number" id="in-bab" value="1">
                             </div>
                         </div>
 
@@ -555,7 +567,7 @@
                                     Auto-calc</small>
                             </div>
                             <div style="display: flex; align-items: center; gap: 6px;">
-                                <input type="text" id="in-cmb" placeholder="+9" value="+9"
+                                <input type="text" id="in-cmb" placeholder="+0" value="+0"
                                     style="font-weight: bold; flex: 2; min-width: 80px;"
                                     title="CMB (Type directly or use modifier buttons)">
                                 <button type="button" class="btn-cmb-adjust" data-step="-2"
@@ -589,7 +601,7 @@
                                     Auto-calc</small>
                             </div>
                             <div style="display: flex; align-items: center; gap: 6px;">
-                                <input type="text" id="in-cmd" placeholder="21" value="21"
+                                <input type="text" id="in-cmd" placeholder="10" value="10"
                                     style="font-weight: bold; flex: 2; min-width: 80px;"
                                     title="CMD (Type directly or use modifier buttons)">
                                 <button type="button" class="btn-cmd-adjust" data-step="-2"
@@ -631,14 +643,14 @@
                                     style="background: rgba(242,202,80,0.15); border: 1px solid rgba(242,202,80,0.4); color: var(--primary); font-size: 11px; padding: 2px 8px; border-radius: 4px; cursor: pointer;">🧮
                                     Skill Calculator</button>
                             </div>
-                            <input type="text" id="in-skills" value="Climb +12, Fly +0, Perception +10, Stealth +6">
+                            <input type="text" id="in-skills" value="" placeholder="e.g. Climb +4, Perception +2">
                         </div>
 
                         <div class="form-row">
                             <div class="form-group"><label>Languages</label><input type="text" id="in-languages"
-                                    value="Common"></div>
+                                    value="" placeholder="e.g. Common"></div>
                             <div class="form-group"><label>Special Qualities (SQ)</label><input type="text" id="in-sq"
-                                    value="floral camouflage, lunge"></div>
+                                    value="" placeholder="e.g. darkvision"></div>
                         </div>
 
                         <div class="form-group">
@@ -718,11 +730,11 @@
                         <h2>Ecology & Lore</h2>
                         <div class="form-row">
                             <div class="form-group"><label>Environment</label><input type="text" id="in-environment"
-                                    value="warm forests"></div>
+                                    value="" placeholder="e.g. warm forests"></div>
                             <div class="form-group"><label>Organization</label><input type="text" id="in-organization"
-                                    value="solitary, pair, or garden (3-6)"></div>
+                                    value="" placeholder="e.g. solitary, pair"></div>
                             <div class="form-group"><label>Treasure</label><input type="text" id="in-treasure"
-                                    value="none"></div>
+                                    value="" placeholder="e.g. standard"></div>
                         </div>
                     </section>
                 </div>
@@ -734,32 +746,31 @@
             <div id="statblock-paper" class="statblock-paper theme-parchment">
                 <!-- Title Header Row -->
                 <div class="pf-header-row">
-                    <h1 id="out-name">Orchid Giant Mantis</h1>
+                    <h1 id="out-name">Unnamed Creature</h1>
                     <div class="pf-cr-box">
                         <div class="pf-cr-label">CR</div>
-                        <div id="out-cr" class="pf-cr-value">4</div>
+                        <div id="out-cr" class="pf-cr-value">1</div>
                     </div>
                 </div>
 
                 <!-- XP & Alignment / Size / Type -->
                 <div class="pf-property-line pf-xp-row" id="wrap-xp">
-                    <span class="pf-label">XP</span> <span id="out-xp">1200</span>
+                    <span class="pf-label">XP</span> <span id="out-xp">400</span>
                 </div>
 
                 <div class="pf-property-line pf-type-row" id="wrap-monster-type">
                     <span id="out-alignment">N</span>
-                    <span id="out-size">Large</span>
-                    <span id="out-type">vermin</span>
+                    <span id="out-size">Medium</span>
+                    <span id="out-type">humanoid</span>
                 </div>
 
                 <div class="pf-property-line pf-type-row" id="wrap-npc-type" style="display: none;">
-                    <i id="out-type-full">NPC Fighter 1</i>
+                    <i id="out-type-full"></i>
                 </div>
 
                 <div class="pf-property-line">
-                    <span class="pf-label">Init</span> <span id="out-init">+2</span>;
-                    <span class="pf-label">Senses</span> <span id="out-senses">darkvision 60 ft., tremorsense 30 ft.,
-                        Perception +10</span>
+                    <span class="pf-label">Init</span> <span id="out-init">+0</span>;
+                    <span class="pf-label">Senses</span> <span id="out-senses">Perception +0</span>
                 </div>
                 <div class="pf-property-line" id="wrap-aura" style="display: none;">
                     <span class="pf-label">Aura</span> <span id="out-aura"></span>
@@ -768,16 +779,15 @@
                 <!-- DEFENSE SECTION -->
                 <h2 class="pf-section-title">DEFENSE</h2>
                 <div class="pf-property-line">
-                    <span class="pf-label">AC</span> <span id="out-ac">17, touch 11, flat-footed 15 (+2 Dex, -1 size, +6
-                        natural)</span>
+                    <span class="pf-label">AC</span> <span id="out-ac">10, touch 10, flat-footed 10</span>
                 </div>
                 <div class="pf-property-line">
-                    <span class="pf-label">hp</span> <span id="out-hp">45 (6d8+18)</span>
+                    <span class="pf-label">hp</span> <span id="out-hp">8 (1d8)</span>
                 </div>
                 <div class="pf-property-line">
-                    <span class="pf-label">Fort</span> <span id="out-fort">+8</span>,
-                    <span class="pf-label">Ref</span> <span id="out-ref">+4</span>,
-                    <span class="pf-label">Will</span> <span id="out-will">+4</span>
+                    <span class="pf-label">Fort</span> <span id="out-fort">+0</span>,
+                    <span class="pf-label">Ref</span> <span id="out-ref">+0</span>,
+                    <span class="pf-label">Will</span> <span id="out-will">+0</span>
                 </div>
                 <div class="pf-property-line" id="wrap-def-extras" style="display: none;">
                     <span id="out-def-extras"></span>
@@ -786,22 +796,19 @@
                 <!-- OFFENSE SECTION -->
                 <h2 class="pf-section-title">OFFENSE</h2>
                 <div class="pf-property-line">
-                    <span class="pf-label">Speed</span> <span id="out-speed">30 ft., climb 30 ft., fly 40 ft.
-                        (poor)</span>
+                    <span class="pf-label">Speed</span> <span id="out-speed">30 ft.</span>
                 </div>
-                <div class="pf-property-line" id="wrap-melee">
-                    <span class="pf-label">Melee</span> <span id="out-melee">2 claws +7 (1d8+4 plus grab)</span>
+                <div class="pf-property-line" id="wrap-melee" style="display: none;">
+                    <span class="pf-label">Melee</span> <span id="out-melee"></span>
                 </div>
                 <div class="pf-property-line" id="wrap-ranged" style="display: none;">
                     <span class="pf-label">Ranged</span> <span id="out-ranged"></span>
                 </div>
                 <div class="pf-property-line" id="wrap-space-reach">
-                    <span class="pf-label">Space</span> 10 ft.; <span class="pf-label">Reach</span> 10 ft. (15 ft. with
-                    lunge)
+                    <span class="pf-label">Space</span> 5 ft.; <span class="pf-label">Reach</span> 5 ft.
                 </div>
-                <div class="pf-property-line" id="wrap-special-attacks">
-                    <span class="pf-label">Special Attacks</span> <span id="out-special-attacks">mandibles (bite +7,
-                        1d8+4), sudden strike</span>
+                <div class="pf-property-line" id="wrap-special-attacks" style="display: none;">
+                    <span class="pf-label">Special Attacks</span> <span id="out-special-attacks"></span>
                 </div>
 
                 <div id="wrap-slas" style="display: none;">
@@ -826,53 +833,52 @@
                 <div class="pf-stats-table">
                     <div class="pf-stat-col">
                         <div class="pf-label">STR</div>
-                        <div class="pf-stat-val" id="out-str">18</div>
-                        <div class="pf-stat-mod" id="out-str-mod">(+4)</div>
+                        <div class="pf-stat-val" id="out-str">10</div>
+                        <div class="pf-stat-mod" id="out-str-mod">(+0)</div>
                     </div>
                     <div class="pf-stat-col">
                         <div class="pf-label">DEX</div>
-                        <div class="pf-stat-val" id="out-dex">15</div>
-                        <div class="pf-stat-mod" id="out-dex-mod">(+2)</div>
+                        <div class="pf-stat-val" id="out-dex">10</div>
+                        <div class="pf-stat-mod" id="out-dex-mod">(+0)</div>
                     </div>
                     <div class="pf-stat-col">
                         <div class="pf-label">CON</div>
-                        <div class="pf-stat-val" id="out-con">16</div>
-                        <div class="pf-stat-mod" id="out-con-mod">(+3)</div>
+                        <div class="pf-stat-val" id="out-con">10</div>
+                        <div class="pf-stat-mod" id="out-con-mod">(+0)</div>
                     </div>
                     <div class="pf-stat-col">
                         <div class="pf-label">INT</div>
-                        <div class="pf-stat-val" id="out-int">-</div>
-                        <div class="pf-stat-mod" id="out-int-mod"></div>
+                        <div class="pf-stat-val" id="out-int">10</div>
+                        <div class="pf-stat-mod" id="out-int-mod">(+0)</div>
                     </div>
                     <div class="pf-stat-col">
                         <div class="pf-label">WIS</div>
-                        <div class="pf-stat-val" id="out-wis">15</div>
-                        <div class="pf-stat-mod" id="out-wis-mod">(+2)</div>
+                        <div class="pf-stat-val" id="out-wis">10</div>
+                        <div class="pf-stat-mod" id="out-wis-mod">(+0)</div>
                     </div>
                     <div class="pf-stat-col">
                         <div class="pf-label">CHA</div>
-                        <div class="pf-stat-val" id="out-cha">13</div>
-                        <div class="pf-stat-mod" id="out-cha-mod">(+1)</div>
+                        <div class="pf-stat-val" id="out-cha">10</div>
+                        <div class="pf-stat-mod" id="out-cha-mod">(+0)</div>
                     </div>
                 </div>
 
                 <div class="pf-property-line">
-                    <span class="pf-label">Base Atk</span> <span id="out-bab">+4</span>;
-                    <span class="pf-label">CMB</span> <span id="out-cmb">+9</span>;
-                    <span class="pf-label">CMD</span> <span id="out-cmd">21</span>
+                    <span class="pf-label">Base Atk</span> <span id="out-bab">+1</span>;
+                    <span class="pf-label">CMB</span> <span id="out-cmb">+0</span>;
+                    <span class="pf-label">CMD</span> <span id="out-cmd">10</span>
                 </div>
                 <div class="pf-property-line" id="wrap-feats" style="display: none;">
                     <span class="pf-label">Feats</span> <span id="out-feats"></span>
                 </div>
-                <div class="pf-property-line" id="wrap-skills">
-                    <span class="pf-label">Skills</span> <span id="out-skills">Climb +12, Fly +0, Perception +10,
-                        Stealth +6</span>
+                <div class="pf-property-line" id="wrap-skills" style="display: none;">
+                    <span class="pf-label">Skills</span> <span id="out-skills"></span>
                 </div>
-                <div class="pf-property-line" id="wrap-languages">
-                    <span class="pf-label">Languages</span> <span id="out-languages">Common</span>
+                <div class="pf-property-line" id="wrap-languages" style="display: none;">
+                    <span class="pf-label">Languages</span> <span id="out-languages"></span>
                 </div>
-                <div class="pf-property-line" id="wrap-sq">
-                    <span class="pf-label">SQ</span> <span id="out-sq">floral camouflage, lunge</span>
+                <div class="pf-property-line" id="wrap-sq" style="display: none;">
+                    <span class="pf-label">SQ</span> <span id="out-sq"></span>
                 </div>
                 <div class="pf-property-line" id="wrap-gear" style="display: none;">
                     <span class="pf-label">Gear</span> <span id="out-gear"></span>
@@ -888,14 +894,13 @@
                 <div id="wrap-ecology" style="display: none;">
                     <h2 class="pf-section-title">ECOLOGY</h2>
                     <div class="pf-property-line" id="wrap-environment">
-                        <span class="pf-label">Environment</span> <span id="out-environment">warm forests</span>
+                        <span class="pf-label">Environment</span> <span id="out-environment"></span>
                     </div>
                     <div class="pf-property-line" id="wrap-organization">
-                        <span class="pf-label">Organization</span> <span id="out-organization">solitary, pair, or garden
-                            (3-6)</span>
+                        <span class="pf-label">Organization</span> <span id="out-organization"></span>
                     </div>
                     <div class="pf-property-line" id="wrap-treasure">
-                        <span class="pf-label">Treasure</span> <span id="out-treasure">none</span>
+                        <span class="pf-label">Treasure</span> <span id="out-treasure"></span>
                     </div>
                 </div>
             </div>

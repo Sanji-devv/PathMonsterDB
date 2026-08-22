@@ -1,8 +1,6 @@
 import os
 import json
-import uuid
 import secrets
-import hashlib
 import re
 import time
 
@@ -38,7 +36,13 @@ def _load_users():
     _ensure_data_files()
     try:
         with open(USERS_FILE, 'r', encoding='utf-8') as f:
-            USERS_CACHE = json.load(f)
+            raw_data = json.load(f)
+            if isinstance(raw_data, list):
+                USERS_CACHE = raw_data
+            elif isinstance(raw_data, dict):
+                USERS_CACHE = [{"username": k, "password": v} for k, v in raw_data.items()]
+            else:
+                USERS_CACHE = []
     except Exception as e:
         print(f"Error loading users.json: {e}")
         USERS_CACHE = []
@@ -49,9 +53,22 @@ def _save_users():
     if USERS_CACHE is None:
         return
     try:
+        # Strictly save ONLY username and password
+        clean_users = []
+        for u in USERS_CACHE:
+            if not isinstance(u, dict):
+                continue
+            username = str(u.get("username") or u.get("name") or u.get("email") or "").strip()
+            password = str(u.get("password") or u.get("password_hash") or "")
+            if username:
+                clean_users.append({
+                    "username": username,
+                    "password": password
+                })
+
         temp_file = USERS_FILE + '.tmp'
         with open(temp_file, 'w', encoding='utf-8') as f:
-            json.dump(USERS_CACHE, f, ensure_ascii=False, indent=2)
+            json.dump(clean_users, f, ensure_ascii=False, indent=2)
         if os.path.exists(USERS_FILE):
             os.replace(temp_file, USERS_FILE)
         else:
@@ -85,22 +102,6 @@ def _save_sessions():
     except Exception as e:
         print(f"Error saving sessions.json: {e}")
 
-def hash_password(password: str, salt: str = None) -> tuple:
-    if salt is None:
-        salt = secrets.token_hex(16)
-    # Standard PBKDF2 HMAC SHA-256 with 100,000 iterations
-    pwd_hash = hashlib.pbkdf2_hmac(
-        'sha256',
-        password.encode('utf-8'),
-        salt.encode('utf-8'),
-        100000
-    ).hex()
-    return pwd_hash, salt
-
-def verify_password(password: str, salt: str, expected_hash: str) -> bool:
-    pwd_hash, _ = hash_password(password, salt)
-    return secrets.compare_digest(pwd_hash, expected_hash)
-
 def validate_username(username: str) -> bool:
     if not username or not isinstance(username, str):
         return False
@@ -115,9 +116,9 @@ def create_session(user: dict) -> str:
     sessions = _load_sessions()
     token = secrets.token_hex(32)
     now = int(time.time())
-    username = user.get("username") or user.get("name") or user.get("email", "")
+    username = str(user.get("username") or user.get("name") or user.get("id") or "").strip()
     sessions[token] = {
-        "user_id": user["id"],
+        "user_id": username,
         "username": username,
         "created_at": now,
         "expires_at": now + SESSION_DURATION_SECONDS
@@ -139,14 +140,20 @@ def get_user_by_token(token: str) -> dict:
         return None
     
     users = _load_users()
+    target_user_id = str(session.get("user_id", "")).lower()
     for u in users:
-        if u["id"] == session["user_id"]:
-            username = u.get("username") or u.get("name") or u.get("email", "")
+        curr_name = str(u.get("username") or u.get("name") or u.get("id") or "").strip()
+        if curr_name.lower() == target_user_id:
             return {
-                "id": u["id"],
-                "username": username,
-                "created_at": u.get("created_at", "")
+                "id": curr_name,
+                "username": curr_name
             }
+    # Fallback to session info if user still valid
+    if session.get("username"):
+        return {
+            "id": session["username"],
+            "username": session["username"]
+        }
     return None
 
 def get_authenticated_user_from_headers(headers) -> dict:
@@ -186,14 +193,9 @@ def register_user(data_dict: dict) -> tuple:
         if existing_name == username_lower:
             return {"status": "error", "message": "Username is already taken."}, 409
 
-    pwd_hash, salt = hash_password(password)
-    user_id = str(uuid.uuid4())
     new_user = {
-        "id": user_id,
         "username": username,
-        "password_hash": pwd_hash,
-        "salt": salt,
-        "created_at": time.strftime('%Y-%m-%d %H:%M:%S')
+        "password": password
     }
 
     users.append(new_user)
@@ -202,9 +204,8 @@ def register_user(data_dict: dict) -> tuple:
     token = create_session(new_user)
 
     user_info = {
-        "id": user_id,
-        "username": username,
-        "created_at": new_user["created_at"]
+        "id": username,
+        "username": username
     }
 
     return {
@@ -233,17 +234,17 @@ def login_user(data_dict: dict) -> tuple:
     if not matched_user:
         return {"status": "error", "message": "Invalid username or password."}, 401
 
-    if not verify_password(password, matched_user["salt"], matched_user["password_hash"]):
+    user_pwd = str(matched_user.get("password") or "")
+    if user_pwd != password:
         return {"status": "error", "message": "Invalid username or password."}, 401
 
     token = create_session(matched_user)
 
-    display_username = matched_user.get("username") or matched_user.get("name") or matched_user.get("email")
+    display_username = matched_user.get("username") or matched_user.get("name") or matched_user.get("email") or username
 
     user_info = {
-        "id": matched_user["id"],
-        "username": display_username,
-        "created_at": matched_user.get("created_at", "")
+        "id": display_username,
+        "username": display_username
     }
 
     return {

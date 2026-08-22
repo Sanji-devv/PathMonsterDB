@@ -1439,11 +1439,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5. SAVE / LOAD / EXPORT
     // -------------------------
     let currentEditingIndex = null;
+    let currentEditingMonsterId = null;
 
     function serializeState() {
         let state = { basic: {}, html: {}, dynamic: {} };
         if (currentEditingIndex !== null && currentEditingIndex !== undefined) {
             state._global_index = currentEditingIndex;
+        }
+        if (currentEditingMonsterId) {
+            state.id = currentEditingMonsterId;
         }
         // Basic inputs
         document.querySelectorAll('input[id^="in-"], select[id^="in-"], textarea[id^="in-"]').forEach(el => {
@@ -1690,6 +1694,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (state._global_index !== undefined) {
                 currentEditingIndex = state._global_index;
             }
+            if (state.id || state.Id || state._id) {
+                currentEditingMonsterId = state.id || state.Id || state._id;
+            }
 
             // 1. Basic Fields
             if (state.basic) {
@@ -1831,20 +1838,32 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Melee Attacks
-            if (state.dynamic.melee && Array.isArray(state.dynamic.melee)) {
-                state.dynamic.melee.forEach(val => {
-                    let mode = val.mode || 'raw';
+            let meleeItems = (state.dynamic && Array.isArray(state.dynamic.melee) && state.dynamic.melee.length > 0)
+                ? state.dynamic.melee
+                : (state.basic && state.basic['in-melee'] ? [state.basic['in-melee']] : (state.Melee ? [state.Melee] : []));
+
+            if (meleeItems && meleeItems.length > 0) {
+                meleeItems.forEach(val => {
+                    let mode = 'raw';
                     let rawText = '';
-                    if (!val.mode && val.rawStr) { mode = 'raw'; rawText = val.rawStr; }
-                    else if (!val.mode && val.dmg !== undefined) { mode = 'raw'; rawText = val.type ? `${val.type} (${val.dmg})` : val.dmg; }
-                    else if (val.mode === 'raw') { rawText = val.rawText || ''; }
+                    if (typeof val === 'string') {
+                        mode = 'raw';
+                        rawText = val;
+                    } else if (typeof val === 'object' && val !== null) {
+                        if (val.mode === 'calc') {
+                            mode = 'calc';
+                        } else {
+                            mode = 'raw';
+                            rawText = val.rawText || val.rawStr || val.raw || (val.dmg !== undefined ? (val.type ? `${val.type} (${val.dmg})` : val.dmg) : (val.name ? `${val.name} ${val.bonus || ''} (${val.dmg || ''})`.trim() : ''));
+                        }
+                    }
 
                     const row = addAttackRow('melee-container', mode, buildMeleeRowHtml);
                     if (!row) return;
                     if (mode === 'raw') {
                         const ta = row.querySelector('.atk-raw');
                         if (ta) {
-                            ta.value = rawText;
+                            ta.value = rawText.trim();
                             ta.setAttribute('data-base-bab', (state.basic && state.basic['in-bab']) || 0);
                             setTimeout(() => { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; }, 0);
                         }
@@ -1860,20 +1879,32 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Ranged Attacks
-            if (state.dynamic.ranged && Array.isArray(state.dynamic.ranged)) {
-                state.dynamic.ranged.forEach(val => {
-                    let mode = val.mode || 'raw';
+            let rangedItems = (state.dynamic && Array.isArray(state.dynamic.ranged) && state.dynamic.ranged.length > 0)
+                ? state.dynamic.ranged
+                : (state.basic && state.basic['in-ranged'] ? [state.basic['in-ranged']] : (state.Ranged ? [state.Ranged] : []));
+
+            if (rangedItems && rangedItems.length > 0) {
+                rangedItems.forEach(val => {
+                    let mode = 'raw';
                     let rawText = '';
-                    if (!val.mode && val.rawStr) { mode = 'raw'; rawText = val.rawStr; }
-                    else if (!val.mode && val.dmg !== undefined) { mode = 'raw'; rawText = val.type ? `${val.type} (${val.dmg})` : val.dmg; }
-                    else if (val.mode === 'raw') { rawText = val.rawText || ''; }
+                    if (typeof val === 'string') {
+                        mode = 'raw';
+                        rawText = val;
+                    } else if (typeof val === 'object' && val !== null) {
+                        if (val.mode === 'calc') {
+                            mode = 'calc';
+                        } else {
+                            mode = 'raw';
+                            rawText = val.rawText || val.rawStr || val.raw || (val.dmg !== undefined ? (val.type ? `${val.type} (${val.dmg})` : val.dmg) : (val.name ? `${val.name} ${val.bonus || ''} (${val.dmg || ''})`.trim() : ''));
+                        }
+                    }
 
                     const row = addAttackRow('ranged-container', mode, buildRangedRowHtml);
                     if (!row) return;
                     if (mode === 'raw') {
                         const ta = row.querySelector('.atk-raw');
                         if (ta) {
-                            ta.value = rawText;
+                            ta.value = rawText.trim();
                             ta.setAttribute('data-base-bab', (state.basic && state.basic['in-bab']) || 0);
                             setTimeout(() => { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; }, 0);
                         }
@@ -2033,6 +2064,142 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 400);
     }
 
+    // Reset sheet to clean default state with default theme
+    function resetToBlankSheet() {
+        currentEditingIndex = null;
+        currentEditingMonsterId = null;
+
+        // Reset Basic Inputs to Clean Default
+        const defaultValues = {
+            'in-name': '',
+            'in-cr': '1',
+            'in-xp': '400',
+            'in-visibility': 'public',
+            'in-alignment': 'N',
+            'in-size': 'Medium',
+            'in-type': 'Humanoid',
+            'in-type-full': '',
+            'in-init-extra': '0',
+            'in-aura': '',
+            'in-str': '10',
+            'in-dex': '10',
+            'in-con': '10',
+            'in-int': '10',
+            'in-wis': '10',
+            'in-cha': '10',
+            'in-armor-name': '',
+            'in-ac-armor': '0',
+            'in-shield-name': '',
+            'in-ac-shield': '0',
+            'in-ac-natural': '0',
+            'in-ac-deflection': '0',
+            'in-ac-dodge': '0',
+            'in-hd-amount': '1',
+            'in-hd-size': '8',
+            'in-hp-extra': '0',
+            'in-fort': '+0',
+            'in-ref': '+0',
+            'in-will': '+0',
+            'in-def-abilities': '',
+            'in-dr': '',
+            'in-immune': '',
+            'in-resist': '',
+            'in-weaknesses': '',
+            'in-sr': '',
+            'in-speed': '30 ft.',
+            'in-space': '5 ft.',
+            'in-reach': '5 ft.',
+            'in-special-attacks': '',
+            'in-sla-cl': '',
+            'in-bab': '1',
+            'in-cmb': '+0',
+            'in-cmb-extra': '0',
+            'in-cmd': '10',
+            'in-cmd-extra': '0',
+            'in-feats': '',
+            'in-skills': '',
+            'in-languages': '',
+            'in-sq': '',
+            'in-gear': '',
+            'in-spell-class': '',
+            'in-spell-cl': '1',
+            'in-spell-stat': 'int',
+            'in-spell-conc': '',
+            'in-spells-data': '',
+            'in-spells': '',
+            'in-environment': '',
+            'in-organization': '',
+            'in-treasure': ''
+        };
+
+        for (let id in defaultValues) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.value = defaultValues[id];
+            }
+        }
+
+        // Clear custom CMB/CMD flags
+        const inCmb = document.getElementById('in-cmb');
+        if (inCmb) delete inCmb.dataset.custom;
+        const inCmd = document.getElementById('in-cmd');
+        if (inCmd) delete inCmd.dataset.custom;
+
+        // Stat type segmented toggle: reset to monster
+        const typeMonsterRadio = document.getElementById('type-monster');
+        if (typeMonsterRadio) typeMonsterRadio.checked = true;
+        const btnMonster = document.getElementById('btn-type-monster');
+        const btnNpc = document.getElementById('btn-type-npc');
+        if (btnMonster) btnMonster.classList.add('active');
+        if (btnNpc) btnNpc.classList.remove('active');
+        const monsterInputs = document.getElementById('monster-inputs');
+        const npcInputs = document.getElementById('npc-inputs');
+        if (monsterInputs) monsterInputs.style.display = 'block';
+        if (npcInputs) npcInputs.style.display = 'none';
+
+        // Clear dynamic containers
+        ['subtypes-container', 'senses-container', 'skills-container', 'slas-container', 'melee-container', 'ranged-container', 'special-abilities-container', 'spells-container', 'spell-levels-container', 'selected-feats-container'].forEach(cid => {
+            const el = document.getElementById(cid);
+            if (el) el.innerHTML = '';
+        });
+
+        // Reset CharacterState & Feats
+        if (window.CharacterState) {
+            window.CharacterState.spells = [];
+            window.CharacterState.inventory = { weapons: [], armor: [], wondrous: [], magicItems: [] };
+            window.CharacterState.activeFeats = [];
+            window.CharacterState.activeBuffs = [];
+        }
+        window.lastFeatsRaw = '';
+
+        // Reset Author UI
+        updateAuthorUI();
+
+        // Clear LocalStorage Drafts
+        localStorage.removeItem('pf_monster_creator_current_draft');
+        localStorage.removeItem('pf_monster_creator_save');
+
+        // Preserve and apply the user's saved/active theme
+        const activeTheme = (localStorage.getItem('pf_creator_theme') && localStorage.getItem('pf_creator_theme') !== 'theme-default') ? localStorage.getItem('pf_creator_theme') : 'theme-parchment';
+        const themeSelector = document.getElementById('theme-selector');
+        const mobThemeSelect = document.getElementById('mobile-theme-selector');
+        const paper = document.getElementById('statblock-paper');
+        if (themeSelector) themeSelector.value = activeTheme;
+        if (mobThemeSelect) mobThemeSelect.value = activeTheme;
+        if (paper) paper.className = `statblock-paper ${activeTheme}`;
+        document.body.classList.forEach(cls => {
+            if (cls.startsWith('theme-')) document.body.classList.remove(cls);
+        });
+        document.body.classList.add(activeTheme);
+        document.documentElement.className = activeTheme;
+        localStorage.setItem('pf_creator_theme', activeTheme);
+        document.cookie = `pf_creator_theme=${activeTheme}; path=/; max-age=31536000; SameSite=Lax`;
+
+        handleToggle();
+        updatePreview();
+    }
+    window.resetToBlankSheet = resetToBlankSheet;
+
     // Attach autoSave draft to form inputs
     const editorFormContainer = document.getElementById('controls-panel') || document.querySelector('.controls-panel') || document.body;
     editorFormContainer.addEventListener('input', autoSave);
@@ -2046,10 +2213,20 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.removeItem('pf_monster_creator_save');
         localStorage.setItem('pf_monster_creator_current_draft', saved);
     } else if (activeDraft) {
-        deserializeState(activeDraft);
+        try {
+            const draftObj = JSON.parse(activeDraft);
+            // If previous draft was legacy sample Orchid Giant Mantis, discard and start clean
+            if (draftObj && draftObj.basic && draftObj.basic['in-name'] === 'Orchid Giant Mantis') {
+                localStorage.removeItem('pf_monster_creator_current_draft');
+                resetToBlankSheet();
+            } else {
+                deserializeState(activeDraft);
+            }
+        } catch (e) {
+            resetToBlankSheet();
+        }
     } else {
-        handleToggle();
-        updatePreview();
+        resetToBlankSheet();
     }
 
     // New Sheet
@@ -2057,10 +2234,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnNewSheet) {
         btnNewSheet.addEventListener('click', () => {
             if (confirm("Are you sure you want to clear all data and start a new sheet? Unsaved changes will be lost.")) {
-                currentEditingIndex = null;
-                localStorage.removeItem('pf_monster_creator_save');
-                localStorage.removeItem('pf_monster_creator_current_draft');
-                location.reload();
+                resetToBlankSheet();
             }
         });
     }
@@ -2199,6 +2373,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (res.global_index !== undefined) {
                             currentEditingIndex = res.global_index;
                         }
+                        if (res.id) {
+                            currentEditingMonsterId = res.id;
+                        }
                         const freshState = serializeState();
                         localStorage.setItem('pf_monster_creator_current_draft', freshState);
                         const user = (auth && auth.getUser()) || null;
@@ -2249,12 +2426,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Theme Selector
     const themeSelector = document.getElementById('theme-selector');
+    const mobThemeSelect = document.getElementById('mobile-theme-selector');
     if (themeSelector && statblockPaper) {
         let savedTheme = localStorage.getItem('pf_creator_theme');
         if (!savedTheme || savedTheme === 'theme-default') {
             savedTheme = 'theme-parchment';
         }
         themeSelector.value = savedTheme;
+        if (mobThemeSelect) mobThemeSelect.value = savedTheme;
 
         const updateTheme = () => {
             const theme = themeSelector.value || 'theme-parchment';
@@ -2263,10 +2442,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (cls.startsWith('theme-')) document.body.classList.remove(cls);
             });
             document.body.classList.add(theme);
+            document.documentElement.className = theme;
+            if (mobThemeSelect && mobThemeSelect.value !== theme) {
+                mobThemeSelect.value = theme;
+            }
             localStorage.setItem('pf_creator_theme', theme);
+            document.cookie = `pf_creator_theme=${theme}; path=/; max-age=31536000; SameSite=Lax`;
         };
 
         themeSelector.addEventListener('change', updateTheme);
+        if (mobThemeSelect) {
+            mobThemeSelect.addEventListener('change', (e) => {
+                themeSelector.value = e.target.value;
+                updateTheme();
+            });
+        }
         updateTheme();
     }
 

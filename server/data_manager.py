@@ -1,20 +1,171 @@
 import os
 import json
+import uuid
 from urllib.parse import parse_qs, urlencode
 from server.monster_formatter import parse_cr, format_monster_from_state
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MONSTERS_FILE = os.path.join(BASE_DIR, 'data', 'monsters.json')
 CUSTOM_MONSTERS_FILE = os.path.join(BASE_DIR, 'data', 'custom_monsters.json')
+FAVORITES_FILE = os.path.join(BASE_DIR, 'data', 'favorites.json')
 SPELLS_FILE = os.path.join(BASE_DIR, 'data', 'spells.json')
 
 GLOBAL_MONSTERS = []
 GLOBAL_SPELLS = []
 SEARCH_CACHE = {}
+FAVORITES_CACHE = None
 
 def clear_cache():
     global SEARCH_CACHE
     SEARCH_CACHE.clear()
+
+def _ensure_favorites_file():
+    global FAVORITES_CACHE
+    if not os.path.exists(FAVORITES_FILE):
+        initial_favs = {}
+        if os.path.exists(CUSTOM_MONSTERS_FILE):
+            try:
+                with open(CUSTOM_MONSTERS_FILE, 'r', encoding='utf-8') as f:
+                    c_list = json.load(f)
+                for cm in c_list:
+                    if cm.get('IsFavorite'):
+                        auth_id = str(cm.get('AuthorId', ''))
+                        auth_name = str(cm.get('AuthorName', '')).lower()
+                        user_key = auth_id if auth_id else (auth_name if auth_name else 'anon')
+                        m_key = get_monster_key(cm)
+                        if user_key not in initial_favs:
+                            initial_favs[user_key] = []
+                        if m_key not in initial_favs[user_key]:
+                            initial_favs[user_key].append(m_key)
+            except Exception:
+                pass
+        try:
+            with open(FAVORITES_FILE, 'w', encoding='utf-8') as f:
+                json.dump(initial_favs, f, ensure_ascii=False, indent=2)
+            FAVORITES_CACHE = initial_favs
+        except Exception as e:
+            print(f"Error initializing favorites.json: {e}")
+
+def _load_favorites():
+    global FAVORITES_CACHE
+    if FAVORITES_CACHE is not None:
+        return FAVORITES_CACHE
+    _ensure_favorites_file()
+    try:
+        if os.path.exists(FAVORITES_FILE):
+            with open(FAVORITES_FILE, 'r', encoding='utf-8') as f:
+                FAVORITES_CACHE = json.load(f)
+                if not isinstance(FAVORITES_CACHE, dict):
+                    FAVORITES_CACHE = {}
+        else:
+            FAVORITES_CACHE = {}
+    except Exception as e:
+        print(f"Error loading favorites.json: {e}")
+        FAVORITES_CACHE = {}
+    return FAVORITES_CACHE
+
+def _save_favorites():
+    global FAVORITES_CACHE
+    if FAVORITES_CACHE is None:
+        return
+    try:
+        temp_file = FAVORITES_FILE + '.tmp'
+        with open(temp_file, 'w', encoding='utf-8') as f:
+            json.dump(FAVORITES_CACHE, f, ensure_ascii=False, indent=2)
+        if os.path.exists(FAVORITES_FILE):
+            os.replace(temp_file, FAVORITES_FILE)
+        else:
+            os.rename(temp_file, FAVORITES_FILE)
+    except Exception as e:
+        print(f"Error saving favorites.json: {e}")
+
+def get_monster_key(m):
+    if not isinstance(m, dict):
+        return ""
+    if m.get('IsUserCustom', False):
+        m_id = m.get('id') or m.get('Id')
+        if m_id:
+            return f"custom:{m_id}"
+        auth_id = m.get('AuthorId', '')
+        auth_name = m.get('AuthorName', '').lower()
+        name_lower = str(m.get('_m_name') or m.get('Name', '')).lower()
+        return f"custom:{auth_id or auth_name}:{name_lower}"
+    else:
+        name = str(m.get('_m_name') or m.get('Name', '')).lower()
+        source = str(m.get('_m_source') or m.get('Source', '')).lower()
+        if source:
+            return f"official:{name}:{source}"
+        return f"official:{name}"
+
+def get_user_favorites(user_id_or_username):
+    favs = _load_favorites()
+    if not user_id_or_username:
+        user_id_or_username = 'anon'
+    key = str(user_id_or_username)
+    return set(favs.get(key, []))
+
+def is_monster_favorited(m, user_fav_set):
+    if not user_fav_set or not isinstance(m, dict):
+        return False
+    key = get_monster_key(m)
+    if key in user_fav_set:
+        return True
+    if m.get('id'):
+        if f"custom:{m['id']}" in user_fav_set or str(m['id']) in user_fav_set:
+            return True
+    name = str(m.get('_m_name') or m.get('Name', '')).lower()
+    if not m.get('IsUserCustom', False):
+        if f"official:{name}" in user_fav_set:
+            return True
+    else:
+        auth_id = str(m.get('AuthorId', ''))
+        auth_name = str(m.get('AuthorName', '')).lower()
+        if auth_id and f"custom:{auth_id}:{name}" in user_fav_set:
+            return True
+        if auth_name and f"custom:{auth_name}:{name}" in user_fav_set:
+            return True
+    return False
+
+def toggle_user_favorite(user_id_or_username, mon_key, monster=None):
+    favs = _load_favorites()
+    user_key = str(user_id_or_username) if user_id_or_username else 'anon'
+    if user_key not in favs:
+        favs[user_key] = []
+    
+    current_list = favs[user_key]
+    user_set = set(current_list)
+
+    is_fav = False
+    if monster:
+        is_fav = is_monster_favorited(monster, user_set)
+    else:
+        is_fav = mon_key in user_set
+
+    if is_fav:
+        # Remove
+        keys_to_remove = {mon_key}
+        if monster:
+            keys_to_remove.add(get_monster_key(monster))
+            if monster.get('id'):
+                keys_to_remove.add(f"custom:{monster['id']}")
+                keys_to_remove.add(str(monster['id']))
+            name = str(monster.get('_m_name') or monster.get('Name', '')).lower()
+            if not monster.get('IsUserCustom', False):
+                keys_to_remove.add(f"official:{name}")
+            else:
+                auth_id = str(monster.get('AuthorId', ''))
+                auth_name = str(monster.get('AuthorName', '')).lower()
+                if auth_id: keys_to_remove.add(f"custom:{auth_id}:{name}")
+                if auth_name: keys_to_remove.add(f"custom:{auth_name}:{name}")
+        favs[user_key] = [k for k in current_list if k not in keys_to_remove]
+        _save_favorites()
+        return False
+    else:
+        # Add
+        if mon_key not in current_list:
+            favs[user_key].append(mon_key)
+        _save_favorites()
+        return True
 
 def load_monsters():
     global GLOBAL_MONSTERS
@@ -30,10 +181,17 @@ def load_monsters():
             print(f"Error loading monsters.json: {e}")
             official_list = []
 
+    custom_updated = False
     if os.path.exists(CUSTOM_MONSTERS_FILE):
         try:
             with open(CUSTOM_MONSTERS_FILE, 'r', encoding='utf-8') as f:
                 custom_list = json.load(f)
+            for cm in custom_list:
+                if not cm.get('id'):
+                    cm['id'] = str(uuid.uuid4())
+                    custom_updated = True
+                if 'OriginalState' in cm and isinstance(cm['OriginalState'], dict):
+                    cm['OriginalState']['id'] = cm['id']
         except Exception as e:
             print(f"Error loading custom_monsters.json: {e}")
             custom_list = []
@@ -46,6 +204,9 @@ def load_monsters():
 
     GLOBAL_MONSTERS = official_list + custom_list
     for idx, m in enumerate(GLOBAL_MONSTERS):
+        if m.get('IsUserCustom', False) and not m.get('id'):
+            m['id'] = str(uuid.uuid4())
+            custom_updated = True
         m['_m_name'] = str(m.get('Name', '')).lower()
         m['_m_cr'] = str(m.get('CR', '')).lower()
         m['_m_type'] = str(m.get('Type', '')).lower()
@@ -55,6 +216,12 @@ def load_monsters():
         m['_global_index'] = idx
         if 'OriginalState' in m and isinstance(m['OriginalState'], dict):
             m['OriginalState']['_global_index'] = idx
+            if m.get('id'):
+                m['OriginalState']['id'] = m['id']
+
+    if custom_updated:
+        save_custom_monsters()
+
     return GLOBAL_MONSTERS
 
 def load_spells():
@@ -101,8 +268,10 @@ def search_monsters(query_string, user=None):
     params = parse_qs(query_string)
     # Strip timestamp / cache-busting parameters for reliable search caching
     cache_params = {k: v for k, v in sorted(params.items()) if k not in ('_t', 'timestamp', '_')}
-    user_id_key = str(user.get('id', 'anon')) if user else 'anon'
-    cache_key = f"{user_id_key}:{urlencode(cache_params, doseq=True)}"
+    user_id = str(user.get('id', '')) if user else ''
+    user_name = str(user.get('username', '')).lower() if user else ''
+    user_fav_key = user_id if user_id else (user_name if user_name else 'anon')
+    cache_key = f"{user_fav_key}:{urlencode(cache_params, doseq=True)}"
 
     if cache_key in SEARCH_CACHE:
         return SEARCH_CACHE[cache_key]
@@ -124,14 +293,12 @@ def search_monsters(query_string, user=None):
     except (ValueError, TypeError):
         per_page = 50
     
-    user_id = str(user.get('id', '')) if user else ''
-    user_name = str(user.get('username', '')).lower() if user else ''
+    user_favs = get_user_favorites(user_fav_key)
 
     filtered = []
     for i, m in enumerate(GLOBAL_MONSTERS):
         is_custom = m.get('IsUserCustom', False)
         is_npc = str(m.get('CharacterFlag', '0')) == '1'
-        is_fav = m.get('IsFavorite', False)
         m_vis = str(m.get('Visibility', 'public')).lower()
         m_auth_id = str(m.get('AuthorId', ''))
         m_auth_name = str(m.get('AuthorName', '')).lower()
@@ -142,6 +309,7 @@ def search_monsters(query_string, user=None):
         if is_custom and m_vis == 'private' and not is_own:
             continue
         
+        is_fav = is_monster_favorited(m, user_favs)
         if category == 'favorites' and not is_fav:
             continue
         if category == 'official_monster' and (is_custom or is_npc):
@@ -187,8 +355,10 @@ def search_monsters(query_string, user=None):
         if environment and environment not in m_env:
             continue
             
-        m['_global_index'] = i
-        filtered.append(m)
+        m_copy = dict(m)
+        m_copy['IsFavorite'] = is_fav
+        m_copy['_global_index'] = i
+        filtered.append(m_copy)
         
     sort_by = params.get('sort', ['default'])[0].lower()
     if sort_by == 'default' or sort_by == 'name_asc':
@@ -236,6 +406,8 @@ def save_monster_from_json(raw_json_str, user=None):
     target_idx = state.get('_global_index')
     if target_idx is None and '_global_index' in data:
         target_idx = data['_global_index']
+    
+    target_id = state.get('id') or data.get('id') or (data.get('OriginalState', {}).get('id') if isinstance(data.get('OriginalState'), dict) else None)
         
     monster_rec = format_monster_from_state(state)
 
@@ -252,30 +424,56 @@ def save_monster_from_json(raw_json_str, user=None):
             monster_rec['OriginalState']['Visibility'] = 'public'
     
     updated_idx = None
-    if target_idx is not None:
+    existing_monster = None
+
+    # 1. Match by persistent ID
+    if target_id:
+        for idx, m in enumerate(GLOBAL_MONSTERS):
+            if m.get('IsUserCustom', False) and m.get('id') == target_id:
+                existing_monster = m
+                updated_idx = idx
+                break
+
+    # 2. Match by target_idx
+    if updated_idx is None and target_idx is not None:
         try:
             idx = int(target_idx)
             if 0 <= idx < len(GLOBAL_MONSTERS) and GLOBAL_MONSTERS[idx].get('IsUserCustom', False):
-                monster_rec['_global_index'] = idx
-                if 'OriginalState' in monster_rec and isinstance(monster_rec['OriginalState'], dict):
-                    monster_rec['OriginalState']['_global_index'] = idx
-                GLOBAL_MONSTERS[idx] = monster_rec
+                existing_monster = GLOBAL_MONSTERS[idx]
                 updated_idx = idx
         except ValueError:
             pass
     
+    # 3. Match by Name + Author
     if updated_idx is None:
         name_lower = monster_rec['_m_name']
+        user_id = str(user.get('id', '')) if user else ''
+        user_name = str(user.get('username', '')).lower() if user else ''
         for idx, m in enumerate(GLOBAL_MONSTERS):
             if m.get('IsUserCustom', False) and m.get('_m_name') == name_lower:
-                monster_rec['_global_index'] = idx
-                if 'OriginalState' in monster_rec and isinstance(monster_rec['OriginalState'], dict):
-                    monster_rec['OriginalState']['_global_index'] = idx
-                GLOBAL_MONSTERS[idx] = monster_rec
-                updated_idx = idx
-                break
-                
-    if updated_idx is None:
+                m_auth_id = str(m.get('AuthorId', ''))
+                m_auth_name = str(m.get('AuthorName', '')).lower()
+                if (user_id and m_auth_id == user_id) or (user_name and m_auth_name == user_name) or (not m_auth_id and not user_id):
+                    existing_monster = m
+                    updated_idx = idx
+                    break
+
+    # Determine ID
+    if existing_monster:
+        final_id = existing_monster.get('id') or target_id or str(uuid.uuid4())
+    else:
+        final_id = target_id or str(uuid.uuid4())
+
+    monster_rec['id'] = final_id
+    if 'OriginalState' in monster_rec and isinstance(monster_rec['OriginalState'], dict):
+        monster_rec['OriginalState']['id'] = final_id
+
+    if updated_idx is not None:
+        monster_rec['_global_index'] = updated_idx
+        if 'OriginalState' in monster_rec and isinstance(monster_rec['OriginalState'], dict):
+            monster_rec['OriginalState']['_global_index'] = updated_idx
+        GLOBAL_MONSTERS[updated_idx] = monster_rec
+    else:
         new_idx = len(GLOBAL_MONSTERS)
         monster_rec['_global_index'] = new_idx
         if 'OriginalState' in monster_rec and isinstance(monster_rec['OriginalState'], dict):
@@ -289,6 +487,7 @@ def save_monster_from_json(raw_json_str, user=None):
     return json.dumps({
         "status": "ok",
         "global_index": updated_idx,
+        "id": final_id,
         "visibility": monster_rec.get('Visibility', 'public'),
         "author": monster_rec.get('AuthorName', '')
     }).encode('utf-8')
@@ -323,25 +522,46 @@ def delete_monster(idx, user=None):
         else:
             return json.dumps({"status": "error", "error": "Cannot delete official monsters"}).encode('utf-8'), 400
     else:
-        return json.dumps({"status": "error", "error": "Monster not found"}).encode('utf-8'), 404
+        return json.dumps({"error": "Monster not found"}).encode('utf-8'), 404
 
-def toggle_favorite(idx):
+def toggle_favorite(idx, user=None):
     global GLOBAL_MONSTERS
     if not GLOBAL_MONSTERS:
         load_monsters()
-    if 0 <= idx < len(GLOBAL_MONSTERS):
-        m = GLOBAL_MONSTERS[idx]
-        current_fav = m.get('IsFavorite', False)
-        m['IsFavorite'] = not current_fav
-        if m.get('IsUserCustom', False):
-            save_custom_monsters()
-        else:
-            save_official_monsters()
-        clear_cache()
-        response = {"status": "success", "is_favorite": not current_fav}
-        return json.dumps(response).encode('utf-8'), 200
-    else:
+    
+    target_mon = None
+    if isinstance(idx, int):
+        if 0 <= idx < len(GLOBAL_MONSTERS):
+            target_mon = GLOBAL_MONSTERS[idx]
+    elif isinstance(idx, str):
+        try:
+            num_idx = int(idx)
+            if 0 <= num_idx < len(GLOBAL_MONSTERS):
+                target_mon = GLOBAL_MONSTERS[num_idx]
+        except ValueError:
+            pass
+        if target_mon is None:
+            for mon in GLOBAL_MONSTERS:
+                if mon.get('id') == idx or get_monster_key(mon) == idx:
+                    target_mon = mon
+                    break
+
+    if not target_mon:
         return json.dumps({"error": "Monster not found"}).encode('utf-8'), 404
+
+    user_id = str(user.get('id', '')) if user else ''
+    user_name = str(user.get('username', '')).lower() if user else ''
+    user_fav_key = user_id if user_id else (user_name if user_name else 'anon')
+
+    mon_key = get_monster_key(target_mon)
+    new_fav_state = toggle_user_favorite(user_fav_key, mon_key, monster=target_mon)
+    clear_cache()
+    response = {
+        "status": "success",
+        "is_favorite": new_fav_state,
+        "monster_key": mon_key
+    }
+    return json.dumps(response).encode('utf-8'), 200
 
 def search_spells(query_string):
     global GLOBAL_SPELLS

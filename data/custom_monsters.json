@@ -51,7 +51,7 @@
     "Class1": "",
     "Class1_Lvl": "",
     "Visibility": "public",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
+    "AuthorId": "erdem",
     "AuthorName": "erdem",
     "IsFavorite": true,
     "IsUserCustom": true,
@@ -156,15 +156,17 @@
       },
       "_global_index": 6516,
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "b7d911f5-921d-49c8-a82d-dda27ef38789"
     },
     "_m_name": "rovesta guard",
     "_m_cr": "4",
     "_m_type": "humanoid",
     "_m_align": "cg",
     "_m_env": "warm forests",
-    "_m_source": "custom",
-    "_global_index": 6516
+    "_m_source": "",
+    "_global_index": 6516,
+    "id": "b7d911f5-921d-49c8-a82d-dda27ef38789"
   },
   {
     "Name": "Rovesta Duelist",
@@ -218,7 +220,7 @@
     "Class1": "",
     "Class1_Lvl": "",
     "Visibility": "public",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
+    "AuthorId": "erdem",
     "AuthorName": "erdem",
     "IsFavorite": false,
     "IsUserCustom": true,
@@ -323,15 +325,17 @@
       },
       "_global_index": 6517,
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "d97d75f1-281c-441c-9def-d5f65bea7065"
     },
     "_m_name": "rovesta duelist",
     "_m_cr": "6",
     "_m_type": "humanoid",
     "_m_align": "cg",
     "_m_env": "warm forests",
-    "_m_source": "custom",
-    "_global_index": 6517
+    "_m_source": "",
+    "_global_index": 6517,
+    "id": "d97d75f1-281c-441c-9def-d5f65bea7065"
   },
   {
     "Name": "Undead Dire Boar",
@@ -493,7 +497,8 @@
       "_global_index": 6518,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "4771284f-fdb9-4c5f-a2b2-31205abf6459"
     },
     "_m_name": "undead dire boar",
     "_m_cr": "6",
@@ -503,8 +508,9 @@
     "_m_source": "",
     "_global_index": 6518,
     "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "id": "4771284f-fdb9-4c5f-a2b2-31205abf6459"
   },
   {
     "Name": "Undead Wolf Spider",
@@ -704,7 +710,8 @@
       "_global_index": 6519,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "1a78dcec-8f15-4a0c-bba5-3b6d9820820a"
     },
     "_m_name": "undead wolf spider",
     "_m_cr": "7",
@@ -714,8 +721,9 @@
     "_m_source": "",
     "_global_index": 6519,
     "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "id": "1a78dcec-8f15-4a0c-bba5-3b6d9820820a"
   },
   {
     "Name": "Owlbear Alchemic Mutant",
@@ -895,7 +903,8 @@
       "_global_index": 6520,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "e08d27a1-9f35-46a5-909c-2cc41c275219"
     },
     "_m_name": "owlbear alchemic mutant",
     "_m_cr": "8",
@@ -905,8 +914,9 @@
     "_m_source": "",
     "_global_index": 6520,
     "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "id": "e08d27a1-9f35-46a5-909c-2cc41c275219"
   },
   {
     "Name": "Undead Dire Rat",
@@ -1090,7 +1100,8 @@
       "_global_index": 6521,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "f47a8dd2-a626-4af5-8bf4-0f2e7fdcca00"
     },
     "_m_name": "undead dire rat",
     "_m_cr": "5",
@@ -1100,8 +1111,9 @@
     "_m_source": "",
     "_global_index": 6521,
     "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "id": "f47a8dd2-a626-4af5-8bf4-0f2e7fdcca00"
   },
   {
     "Name": "Sand Worm",
@@ -1115,19 +1127,23 @@
     "Init": "+1",
     "Senses": "darkvision 60 ft., tremorsense 60 ft.; Perception +7",
     "Aura": "",
-    "AC": "20",
-    "AC_Touch": "11",
-    "AC_Flat-footed": "19",
-    "HP": "59 (7d10+21)",
+    "AC": "19",
+    "AC_Touch": "10",
+    "AC_Flat-footed": "18",
+    "HP": "59",
     "HD": "7d10",
     "Fort": "+9",
     "Ref": "+7",
     "Will": "+4",
     "Speed": "40 ft., burrow 40 ft.",
     "Melee": "Bite +11 (3d8+3)",
+    "Ranged": "Sand Spit +8 (2d4+2)",
     "Space": "10 ft.",
     "Reach": "5 ft.",
     "SpecialAttacks": "",
+    "DefensiveAbilities": "",
+    "Weaknesses": "",
+    "Organization": "solitary",
     "Str": "18",
     "Dex": "13",
     "Con": "16",
@@ -1138,7 +1154,7 @@
     "CMB": "+13",
     "CMD": "24",
     "Feats": "Cleave, Improved Overrun, Iron Will, Power Attack",
-    "Skills": "Perception 11, Stealth -3 (+13 in deserts) 0",
+    "Skills": "Perception +11, Stealth -3 (+13 in deserts) +0",
     "Languages": "Terran",
     "SQ": "",
     "DR": "5/Adamantine",
@@ -1147,7 +1163,13 @@
     "SR": "",
     "Environment": "warm deserts, plains, or hills",
     "Treasure": "none",
-    "IsFavorite": true,
+    "Gear": "",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "public",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": false,
     "IsUserCustom": true,
     "CharacterFlag": "0",
     "SpellLikeAbilities": "",
@@ -1157,13 +1179,20 @@
         "in-name": "Sand Worm",
         "in-cr": "6",
         "in-xp": "2,400",
+        "in-visibility": "public",
+        "in-author": "erdem",
         "in-alignment": "N",
         "in-size": "Large",
         "in-type": "Magical Beast",
         "in-type-full": "NPC Fighter 1",
         "in-init-extra": "0",
         "in-aura": "",
-        "in-add-class-level": "1",
+        "in-str": "18",
+        "in-dex": "13",
+        "in-con": "16",
+        "in-int": "3",
+        "in-wis": "11",
+        "in-cha": "5",
         "in-armor-name": "",
         "in-ac-armor": "0",
         "in-shield-name": "",
@@ -1173,6 +1202,7 @@
         "in-ac-dodge": "0",
         "in-hd-amount": "7",
         "in-hd-size": "10",
+        "in-hp-extra": "0",
         "in-fort": "+9",
         "in-ref": "+7",
         "in-will": "+4",
@@ -1186,35 +1216,30 @@
         "in-space": "10 ft.",
         "in-reach": "5 ft.",
         "in-special-attacks": "",
-        "in-sa-search": "",
         "in-sla-cl": "",
-        "in-str": "18",
-        "in-dex": "13",
-        "in-con": "16",
-        "in-int": "3",
-        "in-wis": "11",
-        "in-cha": "5",
         "in-bab": "8",
         "in-cmb": "+13",
+        "in-cmb-extra": "0",
         "in-cmd": "24",
+        "in-cmd-extra": "0",
         "in-feats": "Cleave, Improved Overrun, Iron Will, Power Attack",
         "in-feat-search": "",
+        "in-skills": "Perception +11, Stealth -3 (+13 in deserts) +0",
         "in-languages": "Terran",
         "in-sq": "",
-        "in-sq-search": "",
-        "in-environment": "warm deserts, plains, or hills",
-        "in-organization": "solitary",
-        "in-treasure": "none",
-        "in-spell-search": "",
+        "in-gear": "",
         "in-spell-class": "",
         "in-spell-cl": "1",
         "in-spell-stat": "cha",
         "in-spell-conc": "0",
-        "in-spells-data": "",
+        "in-spells-data": "{}",
+        "in-spells": "{}",
+        "in-environment": "warm deserts, plains, or hills",
+        "in-organization": "solitary",
+        "in-treasure": "none",
         "in-hp": "59 (7d10+21)",
         "in-init": "+1",
-        "in-visibility": "private",
-        "in-author": "erdem"
+        "in-ac": "19, touch 10, flat-footed 18 (+1 Dex, -1 size, +9 natural)"
       },
       "html": {},
       "dynamic": {
@@ -1229,16 +1254,7 @@
             "dist": "60 ft.; Perception +7"
           }
         ],
-        "skills": [
-          {
-            "name": "Perception",
-            "mod": "11"
-          },
-          {
-            "name": "Stealth -3 (+13 in deserts)",
-            "mod": "0"
-          }
-        ],
+        "skills": [],
         "slas": [],
         "melee": [
           {
@@ -1257,12 +1273,14 @@
             "name": "Sand Vacuum (Ex)",
             "desc": "As a standard action, the Sand Worm can create a powerful suction vortex. All Medium or smaller creatures within a 15-foot radius centered on the Sand Worm must succeed on a DC 17 Reflex save or be pulled 10 feet directly toward the Sand Worm. If this movement brings a creature within the Sand Worm's reach (10 ft.), the Sand Worm immediately makes a free Bite (+12) attack against that creature. The save DC is Strength-based."
           }
-        ]
+        ],
+        "magic_items": [],
+        "spells": []
       },
       "_global_index": 6522,
-      "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "914592a9-8c70-4b30-baf6-fdb9407efe75"
     },
     "_m_name": "sand worm",
     "_m_cr": "6",
@@ -1270,10 +1288,8 @@
     "_m_align": "n",
     "_m_env": "warm deserts, plains, or hills",
     "_m_source": "",
-    "_global_index": 6522,
-    "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "id": "914592a9-8c70-4b30-baf6-fdb9407efe75",
+    "_global_index": 6522
   },
   {
     "Name": "Kaelit, The Red Dragon",
@@ -1492,7 +1508,8 @@
       "_global_index": 6523,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "0ae78249-243e-4b79-a2f9-c94e4450670b"
     },
     "_m_name": "kaelit, the red dragon",
     "_m_cr": "14",
@@ -1502,8 +1519,9 @@
     "_m_source": "",
     "_global_index": 6523,
     "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "id": "0ae78249-243e-4b79-a2f9-c94e4450670b"
   },
   {
     "Name": "(Pyro)Rovesta, Barbarian",
@@ -1717,7 +1735,8 @@
       "_global_index": 6524,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "422a8b85-cbd7-4e60-b0be-fa7856072479"
     },
     "_m_name": "(pyro)rovesta, barbarian",
     "_m_cr": "8",
@@ -1727,8 +1746,9 @@
     "_m_source": "",
     "_global_index": 6524,
     "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "id": "422a8b85-cbd7-4e60-b0be-fa7856072479"
   },
   {
     "Name": "(Pyro)Rovesta, Cavalier",
@@ -1919,7 +1939,8 @@
       "_global_index": 6525,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "a2e1f1ec-4b8b-4fd0-a41d-3c748a42dfc2"
     },
     "_m_name": "(pyro)rovesta, cavalier",
     "_m_cr": "8",
@@ -1929,8 +1950,9 @@
     "_m_source": "",
     "_global_index": 6525,
     "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "id": "a2e1f1ec-4b8b-4fd0-a41d-3c748a42dfc2"
   },
   {
     "Name": "(Pyro)Rovesta, Ranger",
@@ -2129,7 +2151,8 @@
       "_global_index": 6526,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "3c3f42a2-d996-408f-be94-936888fed88f"
     },
     "_m_name": "(pyro)rovesta, ranger",
     "_m_cr": "8",
@@ -2139,8 +2162,9 @@
     "_m_source": "",
     "_global_index": 6526,
     "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "id": "3c3f42a2-d996-408f-be94-936888fed88f"
   },
   {
     "Name": "(Auran)Rovesta, Slayer",
@@ -2343,7 +2367,8 @@
       "_global_index": 6527,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "022e8501-ab79-42c4-a63c-5b2e1901c47e"
     },
     "_m_name": "(auran)rovesta, slayer",
     "_m_cr": "8",
@@ -2353,8 +2378,9 @@
     "_m_source": "",
     "_global_index": 6527,
     "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "id": "022e8501-ab79-42c4-a63c-5b2e1901c47e"
   },
   {
     "Name": "(Auran)Rovesta, Swashbuckler",
@@ -2544,7 +2570,8 @@
       "_global_index": 6528,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "f0fe2071-4c4d-45ca-a9bd-19edc5ba9622"
     },
     "_m_name": "(auran)rovesta, swashbuckler",
     "_m_cr": "8",
@@ -2554,8 +2581,9 @@
     "_m_source": "",
     "_global_index": 6528,
     "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "id": "f0fe2071-4c4d-45ca-a9bd-19edc5ba9622"
   },
   {
     "Name": "(Auran)Rovesta, Bard",
@@ -2750,7 +2778,8 @@
       "_global_index": 6529,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "86027e87-1cb7-4da5-a048-b2908e83acb8"
     },
     "_m_name": "(auran)rovesta, bard",
     "_m_cr": "8",
@@ -2760,8 +2789,9 @@
     "_m_source": "",
     "_global_index": 6529,
     "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "id": "86027e87-1cb7-4da5-a048-b2908e83acb8"
   },
   {
     "Name": "(Aqua)Rovesta, Brawler",
@@ -2974,7 +3004,8 @@
       "_global_index": 6530,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "9c31431f-5eb3-4269-a3eb-accfadfa2d4e"
     },
     "_m_name": "(aqua)rovesta, brawler",
     "_m_cr": "8",
@@ -2984,8 +3015,9 @@
     "_m_source": "",
     "_global_index": 6530,
     "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "id": "9c31431f-5eb3-4269-a3eb-accfadfa2d4e"
   },
   {
     "Name": "(Aqua)Rovesta, Rogue",
@@ -3198,7 +3230,8 @@
       "_global_index": 6531,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "42be2abd-1028-410a-a234-7ab7977970b0"
     },
     "_m_name": "(aqua)rovesta, rogue",
     "_m_cr": "8",
@@ -3208,8 +3241,9 @@
     "_m_source": "",
     "_global_index": 6531,
     "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "id": "42be2abd-1028-410a-a234-7ab7977970b0"
   },
   {
     "Name": "(Aqua)Rovesta, Wizard",
@@ -3432,7 +3466,8 @@
       "_global_index": 6532,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "4e6c4cf2-025c-40d8-96ba-5e1a73a79c7d"
     },
     "_m_name": "(aqua)rovesta, wizard",
     "_m_cr": "8",
@@ -3442,8 +3477,9 @@
     "_m_source": "",
     "_global_index": 6532,
     "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "id": "4e6c4cf2-025c-40d8-96ba-5e1a73a79c7d"
   },
   {
     "Name": "(Terran)Rovesta, Fighter",
@@ -3649,7 +3685,8 @@
       "_global_index": 6533,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "4023db47-f590-4af9-8e75-f7b0f991c5a2"
     },
     "_m_name": "(terran)rovesta, fighter",
     "_m_cr": "8",
@@ -3659,8 +3696,9 @@
     "_m_source": "",
     "_global_index": 6533,
     "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "id": "4023db47-f590-4af9-8e75-f7b0f991c5a2"
   },
   {
     "Name": "(Terran)Rovesta, Inquisitor ",
@@ -3864,7 +3902,8 @@
       "_global_index": 6534,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "c6c83d77-5a82-4db2-9e12-e7bf0922d7a0"
     },
     "_m_name": "(terran)rovesta, inquisitor ",
     "_m_cr": "8",
@@ -3874,8 +3913,9 @@
     "_m_source": "",
     "_global_index": 6534,
     "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "id": "c6c83d77-5a82-4db2-9e12-e7bf0922d7a0"
   },
   {
     "Name": "(Terran)Rovesta, Warpriest",
@@ -4062,7 +4102,8 @@
       "_global_index": 6535,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "2791d2a5-9d17-41c2-9d8a-927f2af30c54"
     },
     "_m_name": "(terran)rovesta, warpriest",
     "_m_cr": "8",
@@ -4072,8 +4113,9 @@
     "_m_source": "",
     "_global_index": 6535,
     "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "id": "2791d2a5-9d17-41c2-9d8a-927f2af30c54"
   },
   {
     "Name": "Catromancer",
@@ -4302,7 +4344,8 @@
       "_global_index": 6536,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "cdfad59f-ca10-4a9e-8c35-930dd61904f0"
     },
     "_m_name": "catromancer",
     "_m_cr": "16",
@@ -4312,8 +4355,9 @@
     "_m_source": "",
     "_global_index": 6536,
     "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "id": "cdfad59f-ca10-4a9e-8c35-930dd61904f0"
   },
   {
     "Name": "Undead Basilisk",
@@ -4496,7 +4540,8 @@
       "_global_index": 6537,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "7ade0ed1-b444-4746-a485-fca359c4a906"
     },
     "_m_name": "undead basilisk",
     "_m_cr": "8",
@@ -4506,8 +4551,9 @@
     "_m_source": "",
     "_global_index": 6537,
     "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "id": "7ade0ed1-b444-4746-a485-fca359c4a906"
   },
   {
     "Name": "Owlbear Alchemic Mutant, Armored",
@@ -4691,7 +4737,8 @@
       "_global_index": 6538,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "e95c9a51-30fc-44f1-b5ba-96612296c3e3"
     },
     "_m_name": "owlbear alchemic mutant, armored",
     "_m_cr": "9",
@@ -4701,8 +4748,9 @@
     "_m_source": "",
     "_global_index": 6538,
     "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "id": "e95c9a51-30fc-44f1-b5ba-96612296c3e3"
   },
   {
     "Name": "Unholy Knight of Rovesta",
@@ -4756,7 +4804,7 @@
     "Class1": "",
     "Class1_Lvl": "",
     "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
+    "AuthorId": "erdem",
     "AuthorName": "erdem",
     "IsFavorite": true,
     "IsUserCustom": true,
@@ -4945,7 +4993,8 @@
       },
       "_global_index": 6539,
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "cbf54ade-c067-4178-a491-287f0a96df3b"
     },
     "_m_name": "unholy knight of rovesta",
     "_m_cr": "11",
@@ -4953,7 +5002,8 @@
     "_m_align": "ce",
     "_m_env": "any",
     "_m_source": "",
-    "_global_index": 6539
+    "_global_index": 6539,
+    "id": "cbf54ade-c067-4178-a491-287f0a96df3b"
   },
   {
     "Name": "(Magnum Opus) Albedo",
@@ -5149,7 +5199,8 @@
       "_global_index": 6540,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "5922097b-f7d8-40c6-acb2-83a003fdb245"
     },
     "_m_name": "(magnum opus) albedo",
     "_m_cr": "11",
@@ -5159,8 +5210,9 @@
     "_m_source": "",
     "_global_index": 6540,
     "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "id": "5922097b-f7d8-40c6-acb2-83a003fdb245"
   },
   {
     "Name": "(Magnum Opus) Citrinitas",
@@ -5360,7 +5412,8 @@
       "_global_index": 6541,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "6b4e3b52-286a-4cef-9b19-76c612c49ee4"
     },
     "_m_name": "(magnum opus) citrinitas",
     "_m_cr": "11",
@@ -5370,8 +5423,9 @@
     "_m_source": "",
     "_global_index": 6541,
     "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "id": "6b4e3b52-286a-4cef-9b19-76c612c49ee4"
   },
   {
     "Name": "(Magnum Opus) Rubedo",
@@ -5567,7 +5621,8 @@
       "_global_index": 6542,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "4922bcf5-6619-42d8-9e28-02385f0910cb"
     },
     "_m_name": "(magnum opus) rubedo",
     "_m_cr": "11",
@@ -5577,8 +5632,9 @@
     "_m_source": "",
     "_global_index": 6542,
     "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "id": "4922bcf5-6619-42d8-9e28-02385f0910cb"
   },
   {
     "Name": "(Magnum Opus) Nigredo",
@@ -5787,7 +5843,8 @@
       "_global_index": 6543,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "3d08b8e8-3223-405f-a050-13468cba91b5"
     },
     "_m_name": "(magnum opus) nigredo",
     "_m_cr": "11",
@@ -5797,189 +5854,9 @@
     "_m_source": "",
     "_global_index": 6543,
     "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
-  },
-  {
-    "Name": "Emiliano Spadachiara",
-    "CR": "11",
-    "XP": "12800",
-    "Alignment": "LE",
-    "Size": "Medium",
-    "Type": "Humanoid",
-    "subtype1": "",
-    "subtype2": "",
-    "Init": "+7",
-    "Senses": "",
-    "Aura": "",
-    "AC": "22",
-    "AC_Touch": "17",
-    "AC_Flat-footed": "15",
-    "HP": "82 (11d10+22)",
-    "HD": "11d10",
-    "Fort": "+15",
-    "Ref": "+17",
-    "Will": "+15",
-    "Speed": "30 ft.",
-    "Melee": "+1 Unholy Rapier fighting defensively +17/+12 (1d6+16 + 2d6 unholy/15-20) (Touch 22, Flatfooted 15, Melee AC = 30 and 35 agains 1 person), (Swift Action) Smite Good +1 Unholy Rapier fighting defensively +21/+16 (1d6+20 + 2d6 unholy/15-20) (Touch 22, Flatfooted 15, Melee AC = 30 and 35 agains 1 person), (Swift Action) Unholy Lay On Hands 2d6 negative energy self heal.",
-    "Ranged": "",
-    "Space": "5 ft.",
-    "Reach": "5 ft.",
-    "SpecialAttacks": "panache (9 points), precise strike (+5), swashbuckler weapon training +1, unholy smite 2/day, stunning fist 2/day (DC 20), crane riposte",
-    "DefensiveAbilities": "Evasion, Cut from the air, Smash from the air",
-    "Weaknesses": "",
-    "Organization": "solitary",
-    "Str": "13",
-    "Dex": "20",
-    "Con": "14",
-    "Int": "17",
-    "Wis": "14",
-    "Cha": "20",
-    "BaseAtk": "10",
-    "CMB": "+11",
-    "CMD": "28",
-    "Feats": "Power Attack, Dodge, Fencing Grace, Crane Style, Crane Wing, Crane Riposte, Osyluth Guile, Cut from the Air, Smash from the Air, Weapon Focus (rapier), Weapon Finesse (rapier), Improved Critical (rapier), Combat Reflexes, Quick Draw, Greater Weapon Focus (rapier), Weapon Specialization (rapier)",
-    "Skills": "",
-    "Languages": "Common",
-    "SQ": "charmed life 3/day (+5), unholy resilience (+5 all saves), inspired panache (8 pool), nimble +1, scaled fist ac bonus (+5 cha to ac/cmd), swashbuckler initiative (+2)",
-    "DR": "",
-    "Immune": "",
-    "Resist": "",
-    "SR": "",
-    "Environment": "any",
-    "Treasure": "standard",
-    "Gear": "",
-    "Class1": "",
-    "Class1_Lvl": "",
-    "IsFavorite": true,
-    "IsUserCustom": true,
-    "CharacterFlag": "0",
-    "SpellLikeAbilities": "",
-    "Special Abilities": "Cut from the Air (Ex) Spend 1 AoO to roll melee attack against incoming ranged attack (arrows, bolts, thrown). If your roll equals or beats attack roll, ranged attack is deflected and negated.\nSmash from the Air (Ex) Use Cut from the Air against massive ranged weapons, siege weapons, ray spells (Disintegrate, Scorching Ray, etc.) and ranged targeted spell attacks.\nOpportune Parry and Riposte (Ex) Spend 1 Panache and 1 AoO to parry an incoming melee attack with an attack roll. If higher, attack misses, and if you have at least 1 Panache, spend an immediate action to make an instant riposte attack.\nInspired Panache (Ex) Panache 9 points. Refreshes on every 15-20 critical hit or killing blow.",
-    "OriginalState": {
-      "basic": {
-        "in-name": "Emiliano Spadachiara",
-        "in-cr": "11",
-        "in-xp": "12800",
-        "in-alignment": "LE",
-        "in-size": "Medium",
-        "in-type": "Humanoid",
-        "in-type-full": "Swashbuckler 5 (Inspired Blade) / Paladin 4 (Virtuoso Bravo) / Monk 2 (Scaled Fist)",
-        "in-init-extra": "2",
-        "in-aura": "",
-        "in-armor-name": "",
-        "in-ac-armor": "5",
-        "in-shield-name": "",
-        "in-ac-shield": "0",
-        "in-ac-natural": "0",
-        "in-ac-deflection": "0",
-        "in-ac-dodge": "2",
-        "in-magic-item-search": "",
-        "in-hd-amount": "11",
-        "in-hd-size": "10",
-        "in-fort": "+15",
-        "in-ref": "+17",
-        "in-will": "+15",
-        "in-def-abilities": "Evasion, Cut from the air, Smash from the air",
-        "in-dr": "",
-        "in-immune": "",
-        "in-resist": "",
-        "in-weaknesses": "",
-        "in-sr": "",
-        "in-speed": "30 ft.",
-        "in-space": "5 ft.",
-        "in-reach": "5 ft.",
-        "in-special-attacks": "panache (9 points), precise strike (+5), swashbuckler weapon training +1, unholy smite 2/day, stunning fist 2/day (DC 20), crane riposte",
-        "in-sla-cl": "",
-        "in-str": "13",
-        "in-dex": "20",
-        "in-con": "14",
-        "in-int": "17",
-        "in-wis": "14",
-        "in-cha": "20",
-        "in-bab": "10",
-        "in-cmb": "+11",
-        "in-cmd": "28",
-        "in-feats": "Power Attack, Dodge, Fencing Grace, Crane Style, Crane Wing, Crane Riposte, Osyluth Guile, Cut from the Air, Smash from the Air, Weapon Focus (rapier), Weapon Finesse (rapier), Improved Critical (rapier), Combat Reflexes, Quick Draw, Greater Weapon Focus (rapier), Weapon Specialization (rapier)",
-        "in-feat-search": "",
-        "in-languages": "Common",
-        "in-sq": "charmed life 3/day (+5), unholy resilience (+5 all saves), inspired panache (8 pool), nimble +1, scaled fist ac bonus (+5 cha to ac/cmd), swashbuckler initiative (+2)",
-        "in-sq-search": "",
-        "in-environment": "any",
-        "in-organization": "solitary",
-        "in-treasure": "standard",
-        "in-spell-search": "",
-        "in-spell-class": "",
-        "in-spell-cl": "1",
-        "in-spell-stat": "cha",
-        "in-spell-conc": "0",
-        "in-spells-data": "",
-        "in-hp": "82 (11d10+22)",
-        "in-init": "+7",
-        "in-ac": "22, touch 17, flat-footed 15 (+5 armor, +5 Dex, +2 dodge)",
-        "in-visibility": "private",
-        "in-author": "erdem"
-      },
-      "html": {},
-      "dynamic": {
-        "subtypes": [
-          "",
-          ""
-        ],
-        "senses": [],
-        "skills": [],
-        "slas": [],
-        "melee": [
-          {
-            "mode": "raw",
-            "rawText": "+1 Unholy Rapier fighting defensively +17/+12 (1d6+16 + 2d6 unholy/15-20) (Touch 22, Flatfooted 15, Melee AC = 30 and 35 agains 1 person)"
-          },
-          {
-            "mode": "raw",
-            "rawText": "(Swift Action) Smite Good +1 Unholy Rapier fighting defensively +21/+16 (1d6+20 + 2d6 unholy/15-20) (Touch 22, Flatfooted 15, Melee AC = 30 and 35 agains 1 person)"
-          },
-          {
-            "mode": "raw",
-            "rawText": "(Swift Action) Unholy Lay On Hands 2d6 negative energy self heal."
-          }
-        ],
-        "ranged": [],
-        "abilities": [
-          {
-            "name": "Cut from the Air (Ex)",
-            "desc": "Spend 1 AoO to roll melee attack against incoming ranged attack (arrows, bolts, thrown). If your roll equals or beats attack roll, ranged attack is deflected and negated."
-          },
-          {
-            "name": "Smash from the Air (Ex)",
-            "desc": "Use Cut from the Air against massive ranged weapons, siege weapons, ray spells (Disintegrate, Scorching Ray, etc.) and ranged targeted spell attacks."
-          },
-          {
-            "name": "Opportune Parry and Riposte (Ex)",
-            "desc": "Spend 1 Panache and 1 AoO to parry an incoming melee attack with an attack roll. If higher, attack misses, and if you have at least 1 Panache, spend an immediate action to make an instant riposte attack."
-          },
-          {
-            "name": "Inspired Panache (Ex)",
-            "desc": "Panache 9 points. Refreshes on every 15-20 critical hit or killing blow."
-          }
-        ],
-        "magic_items": [],
-        "spells": []
-      },
-      "_global_index": 6544,
-      "Visibility": "private",
-      "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
-    },
-    "_m_name": "emiliano spadachiara",
-    "_m_cr": "11",
-    "_m_type": "humanoid",
-    "_m_align": "le",
-    "_m_env": "any",
-    "_m_source": "",
-    "_global_index": 6544,
-    "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "id": "3d08b8e8-3223-405f-a050-13468cba91b5"
   },
   {
     "Name": "Shadow Curator",
@@ -6119,10 +5996,11 @@
           }
         ]
       },
-      "_global_index": 6545,
+      "_global_index": 6544,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem"
+      "AuthorName": "erdem",
+      "id": "3a15000c-640e-4fd6-8294-7976b3c5b6c9"
     },
     "_m_name": "shadow curator",
     "_m_cr": "13",
@@ -6130,10 +6008,11 @@
     "_m_align": "le",
     "_m_env": "",
     "_m_source": "",
-    "_global_index": 6545,
+    "_global_index": 6544,
     "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "id": "3a15000c-640e-4fd6-8294-7976b3c5b6c9"
   },
   {
     "Name": "Orchid Giant Mantis",
@@ -6143,83 +6022,125 @@
     "Size": "Large",
     "Type": "Vermin",
     "subtype1": "",
+    "subtype2": "",
     "Init": "+2",
-    "Senses": "darkvision 60 ft., tremorsense 30 ft.; Perception +10",
+    "Senses": "darkvision 60 ft., tremorsense 30 ft., Perception +10",
+    "Aura": "",
     "AC": "17",
     "AC_Touch": "11",
     "AC_Flat-footed": "15",
     "HP": "45",
-    "HD": "6d8+18",
+    "HD": "6d8",
     "Fort": "+8",
     "Ref": "+4",
     "Will": "+4",
     "Speed": "30 ft., climb 30 ft., fly 40 ft. (poor)",
     "Melee": "2 claws +7 (1d8+4 plus grab)",
+    "Ranged": "",
     "Space": "10 ft.",
     "Reach": "10 ft. (15 ft. with lunge)",
     "SpecialAttacks": "mandibles (bite +7, 1d8+4), sudden strike",
+    "DefensiveAbilities": "",
+    "Weaknesses": "",
+    "Organization": "solitary or pair",
     "Str": "18",
     "Dex": "15",
     "Con": "16",
-    "Int": "-",
+    "Int": "10",
     "Wis": "15",
     "Cha": "13",
     "BaseAtk": "4",
-    "CMB": "+9 (+13 grapple)",
-    "CMD": "21 (29 vs. trip)",
+    "CMB": "+9",
+    "CMD": "21",
     "Feats": "",
-    "Skills": "Climb +12, Fly +0, Perception +10, Stealth +6 (+18 in flowers/vegetation)",
-    "RacialMods": "+8 Climb, +8 Perception, +8 Stealth (+16 in flowers/vegetation)",
+    "Skills": "Climb +12, Fly +0, Perception +10, Stealth +6",
     "Languages": "",
     "SQ": "floral camouflage, lunge",
+    "DR": "",
+    "Immune": "",
+    "Resist": "",
+    "SR": "",
     "Environment": "warm forests or tropical jungles",
-    "Organization": "solitary or pair",
     "Treasure": "incidental",
-    "Group": "Mantis",
-    "CharacterFlag": "0",
-    "CompanionFlag": "0",
-    "IsFavorite": true,
+    "Gear": "",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "public",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": false,
     "IsUserCustom": true,
-    "Special Abilities": "Floral Camouflage (Ex)\nAn orchid giant mantis gains a +8 racial bonus on Stealth checks (+16 in floral or vegetated terrain). When motionless among flora, it can take 20 on Stealth checks and hide even while observed.\n\nLunge (Ex)\nAn orchid giant mantis reach with its claws increases to 15 feet when making an attack of opportunity or when making a single attack with its claws as a standard action.\n\nMandibles (Ex)\nAn orchid giant mantis that begins its turn grappling an opponent can make a bite attack (+7 melee, 1d8+4) with no attack penalty.\n\nSudden Strike (Ex)\nDuring a surprise round, an orchid giant mantis may take a full attack action against a flat-footed opponent.",
-    "Ecology": "Orchid giant mantises are ambush predators adapted to tropical canopies and vibrant flower groves. Their petal-like limbs and vivid coloration render them nearly undetectable until they strike.",
+    "CharacterFlag": "0",
+    "SpellLikeAbilities": "",
+    "Special Abilities": "Floral Camouflage (Ex) Gains a +8 racial bonus on Stealth checks (+16 in floral or vegetated terrain). When motionless among flora, it can take 20 on Stealth and hide while observed.\nLunge (Ex) Reach with claws increases to 15 ft. when making an AoO or single attack standard action.\nMandibles (Ex) Can make bite attack (+7 melee, 1d8+4) against grappled target with no penalty.\nSudden Strike (Ex) Can take a full attack action against flat-footed foes during a surprise round.",
     "OriginalState": {
       "basic": {
         "in-name": "Orchid Giant Mantis",
         "in-cr": "4",
         "in-xp": "1200",
+        "in-visibility": "public",
+        "in-author": "erdem",
         "in-alignment": "N",
         "in-size": "Large",
         "in-type": "Vermin",
         "in-type-full": "Large vermin",
-        "stat_type": "monster",
-        "in-hd-amount": "6",
-        "in-hd-size": "8",
-        "in-hp": "45 (6d8+18)",
-        "in-ac-natural": "6",
-        "in-fort": "+8",
-        "in-ref": "+4",
-        "in-will": "+4",
+        "in-init-extra": "0",
+        "in-aura": "",
         "in-str": "18",
         "in-dex": "15",
         "in-con": "16",
-        "in-int": "-",
+        "in-int": "",
         "in-wis": "15",
         "in-cha": "13",
-        "in-bab": "4",
-        "in-cmb": "+9",
-        "in-cmd": "21",
-        "in-feats": "",
+        "in-armor-name": "",
+        "in-ac-armor": "0",
+        "in-shield-name": "",
+        "in-ac-shield": "0",
+        "in-ac-natural": "6",
+        "in-ac-deflection": "0",
+        "in-ac-dodge": "0",
+        "in-hd-amount": "6",
+        "in-hd-size": "8",
+        "in-hp-extra": "0",
+        "in-fort": "+8",
+        "in-ref": "+4",
+        "in-will": "+4",
+        "in-def-abilities": "",
+        "in-dr": "",
+        "in-immune": "",
+        "in-resist": "",
+        "in-weaknesses": "",
+        "in-sr": "",
         "in-speed": "30 ft., climb 30 ft., fly 40 ft. (poor)",
         "in-space": "10 ft.",
         "in-reach": "10 ft. (15 ft. with lunge)",
+        "in-special-attacks": "mandibles (bite +7, 1d8+4), sudden strike",
+        "in-sla-cl": "",
+        "in-bab": "4",
+        "in-cmb": "+9",
+        "in-cmb-extra": "0",
+        "in-cmd": "21",
+        "in-cmd-extra": "0",
+        "in-feats": "",
+        "in-feat-search": "",
+        "in-skills": "Climb +12, Fly +0, Perception +10, Stealth +6",
+        "in-languages": "",
+        "in-sq": "floral camouflage, lunge",
+        "in-gear": "",
+        "in-spell-class": "",
+        "in-spell-cl": "1",
+        "in-spell-stat": "int",
+        "in-spell-conc": "",
+        "in-spells-data": "{}",
+        "in-spells": "{}",
         "in-environment": "warm forests or tropical jungles",
         "in-organization": "solitary or pair",
         "in-treasure": "incidental",
-        "in-special-attacks": "mandibles (bite +7, 1d8+4), sudden strike",
-        "in-sq": "floral camouflage, lunge",
-        "in-visibility": "private",
-        "in-author": "erdem"
+        "in-hp": "45 (6d8+18)",
+        "in-init": "+2",
+        "in-ac": "17, touch 11, flat-footed 15 (+2 Dex, -1 size, +6 natural)"
       },
+      "html": {},
       "dynamic": {
         "subtypes": [],
         "senses": [
@@ -6236,24 +6157,7 @@
             "dist": "+10"
           }
         ],
-        "skills": [
-          {
-            "name": "Climb",
-            "mod": 12
-          },
-          {
-            "name": "Fly",
-            "mod": 0
-          },
-          {
-            "name": "Perception",
-            "mod": 10
-          },
-          {
-            "name": "Stealth",
-            "mod": 6
-          }
-        ],
+        "skills": [],
         "slas": [],
         "melee": [
           {
@@ -6279,11 +6183,13 @@
             "name": "Sudden Strike (Ex)",
             "desc": "Can take a full attack action against flat-footed foes during a surprise round."
           }
-        ]
+        ],
+        "magic_items": [],
+        "spells": []
       },
-      "_global_index": 6546,
-      "Visibility": "private",
-      "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
+      "_global_index": 6545,
+      "id": "4e10a87c-966e-4466-b53d-0b1b9dd6cdb2",
+      "AuthorId": "erdem",
       "AuthorName": "erdem"
     },
     "_m_name": "orchid giant mantis",
@@ -6292,9 +6198,380 @@
     "_m_align": "n",
     "_m_env": "warm forests or tropical jungles",
     "_m_source": "",
-    "_global_index": 6546,
-    "Visibility": "private",
-    "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-    "AuthorName": "erdem"
+    "id": "4e10a87c-966e-4466-b53d-0b1b9dd6cdb2",
+    "_global_index": 6545
+  },
+  {
+    "Name": "Frost Roc",
+    "CR": "11",
+    "XP": "12,800",
+    "Alignment": "N",
+    "Size": "Gargantuan",
+    "Type": "Magical Beast",
+    "subtype1": "cold",
+    "subtype2": "",
+    "Init": "+6",
+    "Senses": "",
+    "Aura": "frigid aura (20 ft., 1d6 cold)",
+    "AC": "25",
+    "AC_Touch": "8",
+    "AC_Flat-footed": "23",
+    "HP": "157",
+    "HD": "15d10+75",
+    "Fort": "+14",
+    "Ref": "+11",
+    "Will": "+9",
+    "Speed": "20 ft., fly 80 ft. (average)",
+    "Melee": "2 talons +22 (2d6+11/19-20 plus 1d6 cold and grab), bite +22 (2d8+11 plus 1d6 cold)",
+    "Ranged": "",
+    "Space": "20 ft.",
+    "Reach": "15 ft.",
+    "SpecialAttacks": "blizzard wing (60-ft. cone, 8d6 cold, DC 22), glacial snatch, rend (2 talons, 2d6+16 plus 2d6 cold)",
+    "DefensiveAbilities": "icewalking",
+    "Weaknesses": "vulnerable to fire",
+    "Organization": "solitary or mated pair",
+    "Str": "32",
+    "Dex": "15",
+    "Con": "20",
+    "Int": "4",
+    "Wis": "14",
+    "Cha": "11",
+    "BaseAtk": "15",
+    "CMB": "+30 (+34 grapple)",
+    "CMD": "42",
+    "Feats": "Flyby Attack, Hover, Improved Critical (talons), Improved Initiative, Iron Will, Power Attack, Skill Focus (Perception), Wingover",
+    "Skills": "Fly +12, Perception +19, Stealth -4 (+4 in snow)",
+    "Languages": "Auran",
+    "SQ": "snow vision, icewalking, cold adaptation",
+    "DR": "10/magic",
+    "Immune": "cold",
+    "Resist": "",
+    "SR": "",
+    "Environment": "cold mountains and glacial tundras",
+    "Treasure": "incidental",
+    "Gear": "",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "public",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": true,
+    "IsUserCustom": true,
+    "CharacterFlag": "0",
+    "SpellLikeAbilities": "",
+    "Special Abilities": "Blizzard Wing (Su) Once every 1d4 rounds as a standard action, the Frost Roc beats its colossal rime-encrusted wings, releasing a swirling vortex of frost and freezing hail in a 60-foot cone dealing 8d6 points of cold damage (DC 22 Reflex save for half). The save DC is Constitution-based.\nFrigid Aura (Su) The Frost Roc radiates intense sub-zero cold. Any creature within 20 feet takes 1d6 points of cold damage at the beginning of the Roc's turn.\nSnow Vision (Ex) A Frost Roc can see perfectly through falling snow, blizzards, and freezing fog without taking any penalties to Perception checks or ranged attacks.\nGlacial Snatch (Ex) When a Frost Roc successfully grapples a creature of Huge size or smaller with its talons, it can move at its full flying speed while carrying the victim without taking any encumbrance penalty.\nIcewalking (Ex) This ability works like the spider climb spell, but the surfaces the Frost Roc climbs must be icy or frosty. It can move across icy surfaces without needing to make Acrobatics checks and does not treat ice as difficult terrain.",
+    "OriginalState": {
+      "id": "996f6011-061d-4d70-8e82-bd4728b5226f",
+      "basic": {
+        "in-name": "Frost Roc",
+        "in-cr": "11",
+        "in-xp": "12,800",
+        "in-visibility": "public",
+        "in-author": "erdem",
+        "in-alignment": "N",
+        "in-size": "Gargantuan",
+        "in-type": "Magical Beast",
+        "in-type-full": "",
+        "in-init": "+6",
+        "in-init-extra": "4",
+        "in-aura": "frigid aura (20 ft., 1d6 cold)",
+        "in-str": "32",
+        "in-dex": "15",
+        "in-con": "20",
+        "in-int": "4",
+        "in-wis": "14",
+        "in-cha": "11",
+        "in-armor-name": "",
+        "in-ac-armor": "0",
+        "in-shield-name": "",
+        "in-ac-shield": "0",
+        "in-ac-natural": "17",
+        "in-ac-deflection": "0",
+        "in-ac-dodge": "0",
+        "in-hd-amount": "15",
+        "in-hd-size": "10",
+        "in-hp": "157",
+        "in-hp-extra": "75",
+        "in-fort": "+14",
+        "in-ref": "+11",
+        "in-will": "+9",
+        "in-def-abilities": "icewalking",
+        "in-dr": "10/magic",
+        "in-immune": "cold",
+        "in-resist": "",
+        "in-weaknesses": "vulnerable to fire",
+        "in-sr": "",
+        "in-speed": "20 ft., fly 80 ft. (average)",
+        "in-space": "20 ft.",
+        "in-reach": "15 ft.",
+        "in-melee": "2 talons +22 (2d6+11/19-20 plus 1d6 cold and grab), bite +22 (2d8+11 plus 1d6 cold)",
+        "in-ranged": "",
+        "in-special-attacks": "blizzard wing (60-ft. cone, 8d6 cold, DC 22), glacial snatch, rend (2 talons, 2d6+16 plus 2d6 cold)",
+        "in-sla-cl": "",
+        "in-bab": "15",
+        "in-cmb": "+30 (+34 grapple)",
+        "in-cmd": "42",
+        "in-feats": "Flyby Attack, Hover, Improved Critical (talons), Improved Initiative, Iron Will, Power Attack, Skill Focus (Perception), Wingover",
+        "in-skills": "Fly +12, Perception +19, Stealth -4 (+4 in snow)",
+        "in-languages": "Auran",
+        "in-sq": "snow vision, icewalking, cold adaptation",
+        "in-gear": "",
+        "in-environment": "cold mountains and glacial tundras",
+        "in-organization": "solitary or mated pair",
+        "in-treasure": "incidental"
+      },
+      "dynamic": {
+        "subtypes": [
+          "cold"
+        ],
+        "senses": [
+          {
+            "type": "Low-light vision",
+            "val": ""
+          },
+          {
+            "type": "Darkvision",
+            "val": "60 ft."
+          },
+          {
+            "type": "Snow vision",
+            "val": ""
+          },
+          {
+            "type": "Perception",
+            "val": "+19"
+          }
+        ],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "2 talons +22 (2d6+11/19-20 plus 1d6 cold and grab)"
+          },
+          {
+            "mode": "raw",
+            "rawText": "bite +22 (2d8+11 plus 1d6 cold)"
+          }
+        ],
+        "ranged": [],
+        "abilities": [
+          {
+            "name": "Blizzard Wing (Su)",
+            "desc": "Once every 1d4 rounds as a standard action, the Frost Roc beats its colossal rime-encrusted wings, releasing a swirling vortex of frost and freezing hail in a 60-foot cone dealing 8d6 points of cold damage (DC 22 Reflex save for half). The save DC is Constitution-based."
+          },
+          {
+            "name": "Frigid Aura (Su)",
+            "desc": "The Frost Roc radiates intense sub-zero cold. Any creature within 20 feet takes 1d6 points of cold damage at the beginning of the Roc's turn."
+          },
+          {
+            "name": "Snow Vision (Ex)",
+            "desc": "A Frost Roc can see perfectly through falling snow, blizzards, and freezing fog without taking any penalties to Perception checks or ranged attacks."
+          },
+          {
+            "name": "Glacial Snatch (Ex)",
+            "desc": "When a Frost Roc successfully grapples a creature of Huge size or smaller with its talons, it can move at its full flying speed while carrying the victim without taking any encumbrance penalty."
+          },
+          {
+            "name": "Icewalking (Ex)",
+            "desc": "This ability works like the spider climb spell, but the surfaces the Frost Roc climbs must be icy or frosty. It can move across icy surfaces without needing to make Acrobatics checks and does not treat ice as difficult terrain."
+          }
+        ]
+      },
+      "_global_index": 6546
+    },
+    "_m_name": "frost roc",
+    "_m_cr": "11",
+    "_m_type": "magical beast",
+    "_m_align": "n",
+    "_m_env": "cold mountains and glacial tundras",
+    "_m_source": "",
+    "id": "996f6011-061d-4d70-8e82-bd4728b5226f",
+    "Ecology": "Environment cold mountains and glacial tundras  Organization solitary or mated pair  Treasure incidental\n\nThe Frost Roc is a legendary apex raptor of the highest frozen peaks and arctic tundras. Its feathers gleam like blue-white glacial ice, radiating a perpetual winter chill. Swooping down from blizzards with silent speed, it snatches prey as large as woolly mammoths and frost giants in its rimed talons.",
+    "_global_index": 6546
+  },
+  {
+    "Name": "Chef Dire Ape",
+    "CR": "5",
+    "XP": "1,600",
+    "Alignment": "CN",
+    "Size": "Large",
+    "Type": "Humanoid",
+    "subtype1": "",
+    "subtype2": "",
+    "Init": "+3",
+    "Senses": "",
+    "Aura": "chieftain's presence (30 ft., +2 attack and saves vs fear to allies)",
+    "AC": "17",
+    "AC_Touch": "12",
+    "AC_Flat-footed": "14",
+    "HP": "69",
+    "HD": "6d12",
+    "Fort": "+11",
+    "Ref": "+9",
+    "Will": "+6",
+    "Speed": "40 ft., climb 30 ft.",
+    "Melee": "+1 large bone greatclub +16/+11 (2d8+13), bite +10 (1d8+4), 2 claws +15 (1d6+8 plus rend)",
+    "Ranged": "",
+    "Space": "10 ft.",
+    "Reach": "10 ft.",
+    "SpecialAttacks": "",
+    "DefensiveAbilities": "uncanny dodge",
+    "Weaknesses": "",
+    "Organization": "solitary or troop leader (1 chieftain plus 4-10 dire apes)",
+    "Str": "26",
+    "Dex": "16",
+    "Con": "20",
+    "Int": "8",
+    "Wis": "14",
+    "Cha": "12",
+    "BaseAtk": "6",
+    "CMB": "+17 (+19 bull rush)",
+    "CMD": "30",
+    "Feats": "",
+    "Skills": "Acrobatics +12, Climb +22, Intimidate +12, Perception +13, Survival +11",
+    "Languages": "Ape (primal gestures), understands crude Common and Orc",
+    "SQ": "fast movement, chieftain's authority, scent",
+    "DR": "",
+    "Immune": "",
+    "Resist": "",
+    "SR": "",
+    "Environment": "warm forests, deep jungles, and ruined ancient temples",
+    "Treasure": "standard (+1 large bone greatclub, tribal gems, trophy hides)",
+    "Gear": "",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "public",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": false,
+    "IsUserCustom": true,
+    "CharacterFlag": "0",
+    "SpellLikeAbilities": "",
+    "Special Abilities": "Chieftain's Presence (Ex) The tribal chieftain inspires sheer ferocity in lesser primates. All allied apes, gorillas, and primitive humanoids within 30 feet gain a +2 morale bonus on attack rolls, weapon damage rolls, and saving throws against fear effects.",
+    "OriginalState": {
+      "basic": {
+        "in-name": "Chef Dire Ape",
+        "in-cr": "5",
+        "in-xp": "1,600",
+        "in-visibility": "public",
+        "in-author": "erdem",
+        "in-alignment": "CN",
+        "in-size": "Large",
+        "in-type": "Humanoid",
+        "in-type-full": "Troop Chieftain Barbarian 4",
+        "in-init-extra": "0",
+        "in-aura": "chieftain's presence (30 ft., +2 attack and saves vs fear to allies)",
+        "in-str": "26",
+        "in-dex": "16",
+        "in-con": "20",
+        "in-int": "8",
+        "in-wis": "14",
+        "in-cha": "12",
+        "in-armor-name": "",
+        "in-ac-armor": "0",
+        "in-shield-name": "",
+        "in-ac-shield": "0",
+        "in-ac-natural": "5",
+        "in-ac-deflection": "0",
+        "in-ac-dodge": "0",
+        "in-hd-amount": "6",
+        "in-hd-size": "12",
+        "in-hp-extra": "40",
+        "in-fort": "+11",
+        "in-ref": "+9",
+        "in-will": "+6",
+        "in-def-abilities": "uncanny dodge",
+        "in-dr": "",
+        "in-immune": "",
+        "in-resist": "",
+        "in-weaknesses": "",
+        "in-sr": "",
+        "in-speed": "40 ft., climb 30 ft.",
+        "in-space": "10 ft.",
+        "in-reach": "10 ft.",
+        "in-special-attacks": "",
+        "in-sla-cl": "",
+        "in-bab": "6",
+        "in-cmb": "+17 (+19 bull rush)",
+        "in-cmb-extra": "0",
+        "in-cmd": "30",
+        "in-cmd-extra": "0",
+        "in-feats": "",
+        "in-feat-search": "",
+        "in-skills": "Acrobatics +12, Climb +22, Intimidate +12, Perception +13, Survival +11",
+        "in-languages": "Ape (primal gestures), understands crude Common and Orc",
+        "in-sq": "fast movement, chieftain's authority, scent",
+        "in-gear": "",
+        "in-spell-class": "",
+        "in-spell-cl": "1",
+        "in-spell-stat": "int",
+        "in-spell-conc": "",
+        "in-spells-data": "{}",
+        "in-spells": "{}",
+        "in-environment": "warm forests, deep jungles, and ruined ancient temples",
+        "in-organization": "solitary or troop leader (1 chieftain plus 4-10 dire apes)",
+        "in-treasure": "standard (+1 large bone greatclub, tribal gems, trophy hides)",
+        "in-hp": "69 (6d12+30)",
+        "in-init": "+3",
+        "in-ac": "17, touch 12, flat-footed 14 (+3 Dex, -1 size, +5 natural)",
+        "in-melee": "+1 large bone greatclub +16/+11 (2d8+13), bite +10 (1d8+4), 2 claws +15 (1d6+8 plus rend)"
+      },
+      "html": {},
+      "dynamic": {
+        "subtypes": [
+          ""
+        ],
+        "senses": [
+          {
+            "name": "",
+            "dist": ""
+          },
+          {
+            "name": "",
+            "dist": ""
+          },
+          {
+            "name": "",
+            "dist": ""
+          }
+        ],
+        "skills": [],
+        "slas": [],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "+1 large bone greatclub +16/+11 (2d8+13)"
+          },
+          {
+            "mode": "raw",
+            "rawText": "bite +10 (1d8+4)"
+          },
+          {
+            "mode": "raw",
+            "rawText": "2 claws +15 (1d6+8 plus rend)"
+          }
+        ],
+        "ranged": [],
+        "abilities": [
+          {
+            "name": "Chieftain's Presence (Ex)",
+            "desc": "The tribal chieftain inspires sheer ferocity in lesser primates. All allied apes, gorillas, and primitive humanoids within 30 feet gain a +2 morale bonus on attack rolls, weapon damage rolls, and saving throws against fear effects."
+          }
+        ],
+        "magic_items": [],
+        "spells": []
+      },
+      "_global_index": 6547,
+      "id": "1595f3e0-f819-41a9-820a-826b4dbaa6fa",
+      "AuthorId": "erdem",
+      "AuthorName": "erdem"
+    },
+    "_m_name": "chef dire ape",
+    "_m_cr": "5",
+    "_m_type": "humanoid",
+    "_m_align": "cn",
+    "_m_env": "warm forests, deep jungles, and ruined ancient temples",
+    "_m_source": "",
+    "id": "1595f3e0-f819-41a9-820a-826b4dbaa6fa",
+    "_global_index": 6547
   }
 ]

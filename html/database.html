@@ -13,6 +13,18 @@
         rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css?v=6">
     <link rel="stylesheet" href="../css/themes.css?v=6">
+
+    <script>
+        // Track last visited page and apply saved theme immediately
+        try {
+            localStorage.setItem('pathgm_last_page', '/html/database.html');
+            document.cookie = "pathgm_last_page=/html/database.html; path=/; max-age=31536000; SameSite=Lax";
+            const savedTheme = localStorage.getItem('pf_creator_theme') || 'theme-parchment';
+            if (savedTheme && savedTheme !== 'theme-default') {
+                document.documentElement.className = savedTheme;
+            }
+        } catch(e){}
+    </script>
     <style>
         body {
             padding: 20px;

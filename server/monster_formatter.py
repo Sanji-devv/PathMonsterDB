@@ -321,4 +321,9 @@ def format_monster_from_state(state):
         "_m_env": get_val('in-environment', 'Environment', '').lower(),
         "_m_source": "custom"
     }
+    m_id = state.get('id') or state.get('Id') or state.get('_id') or (basic.get('id') if isinstance(basic, dict) else None)
+    if m_id:
+        rec['id'] = str(m_id)
+        if isinstance(rec.get('OriginalState'), dict):
+            rec['OriginalState']['id'] = str(m_id)
     return rec

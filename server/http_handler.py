@@ -69,8 +69,18 @@ class PathMonsterDBRequestHandler(http.server.SimpleHTTPRequestHandler):
         try:
             parsed_url = urlparse(self.path)
             if parsed_url.path in ('', '/'):
+                cookie_header = self.headers.get('Cookie', '')
+                last_page = '/html/index.html'
+                if 'pathgm_last_page=' in cookie_header:
+                    for c in cookie_header.split(';'):
+                        parts = c.strip().split('=')
+                        if len(parts) == 2 and parts[0] == 'pathgm_last_page':
+                            val = parts[1].strip()
+                            if val in ('/html/index.html', '/html/database.html', 'index.html', 'database.html'):
+                                last_page = val if val.startswith('/html/') else f'/html/{val}'
+                                break
                 self.send_response(302)
-                self.send_header('Location', '/html/index.html')
+                self.send_header('Location', last_page)
                 self.end_headers()
                 return
             elif parsed_url.path == '/index.html':
@@ -158,12 +168,16 @@ class PathMonsterDBRequestHandler(http.server.SimpleHTTPRequestHandler):
             elif parsed_url.path == '/api/auth/logout':
                 self._handle_auth_logout()
             elif parsed_url.path.startswith('/api/favorite/'):
+                user = get_authenticated_user_from_headers(self.headers)
                 length = int(self.headers.get('Content-Length', 0))
                 if length > 0:
                     self.rfile.read(length)
                 idx_str = parsed_url.path.rstrip('/').split('/')[-1]
-                idx = int(idx_str)
-                body, status_code = toggle_favorite(idx)
+                try:
+                    idx = int(idx_str)
+                    body, status_code = toggle_favorite(idx, user=user)
+                except ValueError:
+                    body, status_code = toggle_favorite(idx_str, user=user)
                 self.send_response(status_code)
                 self.send_header('Content-Type', 'application/json; charset=utf-8')
                 self.send_header('Content-Length', str(len(body)))

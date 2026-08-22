@@ -429,6 +429,153 @@ def run_tests():
                     assert del_pub_resp.status == 200
                     print("  [OK] Author (User A) successfully deleted their Public custom monster.")
 
+        # --- Per-Account Favorites & Private->Public Favorite Retention Test Suite ---
+        print("\n  [FAVORITES] Testing Per-Account Favorites & Private->Public Favorite Retention...")
+
+        # 1. User A creates a Private monster
+        fav_mon_state = {
+            "basic": {
+                "in-name": "Arcane Star Phoenix",
+                "in-cr": "15",
+                "in-hp": "220",
+                "in-type": "Magical Beast",
+                "in-visibility": "private"
+            }
+        }
+        save_fav_mon_req = urllib.request.Request(
+            f"{base_url}/api/save",
+            data=json.dumps(fav_mon_state).encode('utf-8'),
+            headers={'Content-Type': 'application/json', 'Authorization': f"Bearer {auth_token}"}
+        )
+        with urllib.request.urlopen(save_fav_mon_req) as response:
+            assert response.status == 200
+            phoenix_res = json.loads(response.read().decode('utf-8'))
+            phoenix_idx = phoenix_res["global_index"]
+            phoenix_id = phoenix_res.get("id")
+
+        # 2. User A favorites the private monster
+        fav_toggle_req = urllib.request.Request(
+            f"{base_url}/api/favorite/{phoenix_idx}",
+            data=b'{}',
+            headers={'Authorization': f"Bearer {auth_token}", 'Content-Type': 'application/json'}
+        )
+        with urllib.request.urlopen(fav_toggle_req) as response:
+            assert response.status == 200
+            fav_data = json.loads(response.read().decode('utf-8'))
+            assert fav_data["is_favorite"] is True, "User A favorite toggle failed"
+            print("  [OK] User A favorited their Private monster.")
+
+        # Verify User A sees it in category=favorites
+        user_a_fav_search = urllib.request.Request(
+            f"{base_url}/api/search?category=favorites",
+            headers={'Authorization': f"Bearer {auth_token}"}
+        )
+        with urllib.request.urlopen(user_a_fav_search) as response:
+            assert response.status == 200
+            fav_search_data = json.loads(response.read().decode('utf-8'))
+            fav_names = [m["Name"] for m in fav_search_data["data"]]
+            assert "Arcane Star Phoenix" in fav_names, "Monster should appear in User A's favorites"
+            print("  [OK] Private monster appears in User A's favorites.")
+
+        # 3. User A changes monster visibility from Private to Public and saves
+        fav_mon_state["basic"]["in-visibility"] = "public"
+        fav_mon_state["_global_index"] = phoenix_idx
+        if phoenix_id:
+            fav_mon_state["id"] = phoenix_id
+
+        save_pub_phoenix_req = urllib.request.Request(
+            f"{base_url}/api/save",
+            data=json.dumps(fav_mon_state).encode('utf-8'),
+            headers={'Content-Type': 'application/json', 'Authorization': f"Bearer {auth_token}"}
+        )
+        with urllib.request.urlopen(save_pub_phoenix_req) as response:
+            assert response.status == 200
+            pub_phoenix_res = json.loads(response.read().decode('utf-8'))
+            assert pub_phoenix_res["visibility"] == "public"
+            phoenix_idx = pub_phoenix_res["global_index"]
+            print("  [OK] User A updated monster visibility from Private to Public.")
+
+        # 4. Verify User A STILL has the monster in favorites! (CRITICAL REQUIREMENT)
+        with urllib.request.urlopen(user_a_fav_search) as response:
+            assert response.status == 200
+            fav_search_data = json.loads(response.read().decode('utf-8'))
+            fav_names = [m["Name"] for m in fav_search_data["data"]]
+            assert "Arcane Star Phoenix" in fav_names, "Monster MUST NOT drop from favorites when switched to public"
+            # Verify IsFavorite flag is True on normal search
+            user_a_search = urllib.request.Request(
+                f"{base_url}/api/search?name=arcane+star+phoenix",
+                headers={'Authorization': f"Bearer {auth_token}"}
+            )
+            with urllib.request.urlopen(user_a_search) as search_resp:
+                s_data = json.loads(search_resp.read().decode('utf-8'))
+                assert s_data["data"][0]["IsFavorite"] is True, "IsFavorite flag must be True for User A"
+            print("  [OK] Monster retained in User A's favorites after switching from Private to Public.")
+
+        # 5. User B searches: Can see the monster (now Public), but NOT favorited for User B (Account Isolation)
+        user_b_search = urllib.request.Request(
+            f"{base_url}/api/search?name=arcane+star+phoenix",
+            headers={'Authorization': f"Bearer {user_b_token}"}
+        )
+        with urllib.request.urlopen(user_b_search) as response:
+            assert response.status == 200
+            s_data = json.loads(response.read().decode('utf-8'))
+            assert s_data["total_count"] == 1, "User B can see the Public monster"
+            assert s_data["data"][0]["IsFavorite"] is False, "Monster MUST NOT be favorited for User B (Account Isolation)"
+            print("  [OK] User B sees Public monster as UNFAVORITED (account isolation verified).")
+
+        user_b_fav_search = urllib.request.Request(
+            f"{base_url}/api/search?category=favorites",
+            headers={'Authorization': f"Bearer {user_b_token}"}
+        )
+        with urllib.request.urlopen(user_b_fav_search) as response:
+            assert response.status == 200
+            b_fav_data = json.loads(response.read().decode('utf-8'))
+            b_fav_names = [m["Name"] for m in b_fav_data["data"]]
+            assert "Arcane Star Phoenix" not in b_fav_names, "User B's favorites list must be empty of User A's favorites"
+            print("  [OK] User B's favorites filter correctly excludes monsters favorited by other users.")
+
+        # 6. User B favorites the Public monster -> now both users have it favorited
+        user_b_fav_toggle = urllib.request.Request(
+            f"{base_url}/api/favorite/{phoenix_idx}",
+            data=b'{}',
+            headers={'Authorization': f"Bearer {user_b_token}", 'Content-Type': 'application/json'}
+        )
+        with urllib.request.urlopen(user_b_fav_toggle) as response:
+            assert response.status == 200
+            fav_data = json.loads(response.read().decode('utf-8'))
+            assert fav_data["is_favorite"] is True
+            print("  [OK] User B favorited the Public monster.")
+
+        with urllib.request.urlopen(user_b_fav_search) as response:
+            b_fav_data = json.loads(response.read().decode('utf-8'))
+            assert "Arcane Star Phoenix" in [m["Name"] for m in b_fav_data["data"]]
+            print("  [OK] Public monster is now in User B's favorites.")
+
+        # 7. User A unfavorites it -> User A no longer has it, but User B still has it
+        with urllib.request.urlopen(fav_toggle_req) as response:
+            fav_data = json.loads(response.read().decode('utf-8'))
+            assert fav_data["is_favorite"] is False
+            print("  [OK] User A unfavorited the monster.")
+
+        with urllib.request.urlopen(user_a_fav_search) as response:
+            a_fav_data = json.loads(response.read().decode('utf-8'))
+            assert "Arcane Star Phoenix" not in [m["Name"] for m in a_fav_data["data"]], "User A should no longer have it in favorites"
+
+        with urllib.request.urlopen(user_b_fav_search) as response:
+            b_fav_data = json.loads(response.read().decode('utf-8'))
+            assert "Arcane Star Phoenix" in [m["Name"] for m in b_fav_data["data"]], "User B MUST still have it in favorites"
+            print("  [OK] Unfavoriting by User A did not affect User B's favorites (full independence).")
+
+        # Cleanup: User A deletes the test monster
+        del_phoenix_req = urllib.request.Request(
+            f"{base_url}/api/delete/{phoenix_idx}",
+            headers={'Authorization': f"Bearer {auth_token}"},
+            method='DELETE'
+        )
+        with urllib.request.urlopen(del_phoenix_req) as response:
+            assert response.status == 200
+            print("  [OK] Cleaned up test monster.")
+
         # Test Logout
         print("\n  [AUTH] Testing Logout & Session Invalidation...")
         logout_req = urllib.request.Request(f"{base_url}/api/auth/logout", data=b'{}', headers={'Authorization': f"Bearer {auth_token}", 'Content-Type': 'application/json'})
@@ -448,6 +595,63 @@ def run_tests():
         print("  [OK] All HTTP endpoints & Authentication & Privacy Suite verified successfully.")
     finally:
         httpd.shutdown()
+
+    # 8. Testing Default Blank Sheet & Default Colors Configuration
+    print("\n8. Testing Default Blank Sheet & Default Colors...")
+    with open('html/index.html', 'r', encoding='utf-8') as f:
+        index_html = f.read()
+
+    assert 'id="in-name" value=""' in index_html, "Name input must default to empty/blank"
+    assert 'id="in-cr" value="1"' in index_html, "CR input must default to 1"
+    assert 'id="in-xp" value="400"' in index_html, "XP input must default to 400"
+    assert 'option value="theme-parchment" selected' in index_html, "Default theme must be theme-parchment"
+    assert 'statblock-paper theme-parchment' in index_html, "Statblock paper must default to theme-parchment"
+    assert 'Orchid Giant Mantis' not in index_html, "Sample creature 'Orchid Giant Mantis' should not be hardcoded in default sheet"
+    print("  [OK] html/index.html verified with clean default blank sheet and theme-parchment.")
+
+    with open('js/script.js', 'r', encoding='utf-8') as f:
+        script_js = f.read()
+
+    assert 'function resetToBlankSheet()' in script_js, "resetToBlankSheet function must exist"
+    assert "'in-name': ''" in script_js, "resetToBlankSheet must set empty name"
+    assert "theme-parchment" in script_js, "script.js must default to theme-parchment"
+    # 9. Testing users.json Schema (Strictly ONLY username and password)
+    print("\n9. Testing users.json Schema...")
+    with open('data/users.json', 'r', encoding='utf-8') as f:
+        users_data = json.load(f)
+
+    assert isinstance(users_data, list), "users.json must be a list of user objects"
+    for user_entry in users_data:
+        keys = set(user_entry.keys())
+        assert keys == {"username", "password"}, f"User entry has invalid keys: {keys}. Must only contain 'username' and 'password'."
+    print(f"  [OK] data/users.json verified ({len(users_data)} users). Every record strictly has only 'username' and 'password'.")
+
+    # 10. Testing Last Visited Page & Selected Theme Persistence
+    print("\n10. Testing Last Visited Page & Selected Theme Persistence...")
+    with open('html/index.html', 'r', encoding='utf-8') as f:
+        idx_h = f.read()
+    assert "localStorage.setItem('pathgm_last_page', '/html/index.html')" in idx_h
+    assert "pf_creator_theme" in idx_h
+
+    with open('html/database.html', 'r', encoding='utf-8') as f:
+        db_h = f.read()
+    assert "localStorage.setItem('pathgm_last_page', '/html/database.html')" in db_h
+    assert "pf_creator_theme" in db_h
+
+    with open('js/script.js', 'r', encoding='utf-8') as f:
+        sc_j = f.read()
+    assert "pf_creator_theme" in sc_j
+    assert "localStorage.setItem('pf_creator_theme', activeTheme)" in sc_j
+
+    with open('js/database.js', 'r', encoding='utf-8') as f:
+        db_j = f.read()
+    assert "pathgm_last_page" in db_j
+    assert "pf_creator_theme" in db_j
+
+    with open('server/http_handler.py', 'r', encoding='utf-8') as f:
+        handler_py = f.read()
+    assert "pathgm_last_page=" in handler_py
+    print("  [OK] Page navigation and theme persistence validated across server, client, and HTML.")
 
     print("\n========================================================")
     print("  ALL VERIFICATION TESTS PASSED SUCCESSFULLY! (100%) ")
