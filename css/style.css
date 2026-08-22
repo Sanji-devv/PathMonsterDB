@@ -2007,15 +2007,66 @@ select {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
-.mob-user-profile-slot {
+/* Mobile Drawer User Profile Slot & Dropdown */
+#mob-user-profile-slot,
+.mob-user-profile-slot,
+.mobile-drawer .user-profile-slot {
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
+#mob-user-profile-slot .user-chip-dropdown,
 .mob-user-profile-slot .user-chip-dropdown,
-.mob-user-profile-slot .btn-auth-trigger {
+.mobile-drawer .user-chip-dropdown {
     width: 100%;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
+
+#mob-user-profile-slot .user-chip-btn,
+.mob-user-profile-slot .user-chip-btn,
+.mobile-drawer .user-chip-btn {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px 0 10px;
+    box-sizing: border-box;
+}
+
+#mob-user-profile-slot .user-chip-btn .user-name-label,
+.mob-user-profile-slot .user-chip-btn .user-name-label,
+.mobile-drawer .user-chip-btn .user-name-label {
+    flex: 1;
+    text-align: left;
+    margin-left: 10px;
+}
+
+#mob-user-profile-slot .user-dropdown-menu,
+.mob-user-profile-slot .user-dropdown-menu,
+.mobile-drawer .user-dropdown-menu {
+    position: static;
+    width: 100%;
+    min-width: 100%;
+    box-sizing: border-box;
+    margin-top: 8px;
+    top: auto;
+    right: auto;
+    left: auto;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+#mob-user-profile-slot .btn-auth-trigger,
+.mob-user-profile-slot .btn-auth-trigger,
+.mobile-drawer .btn-auth-trigger {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
 
 /* Body lock when mobile drawer is open */
 body.mobile-drawer-open {
@@ -2553,4 +2604,33 @@ body.mobile-drawer-open {
     .mobile-actions-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* Badge Tags Global Styles */
+.badge-tag {
+    font-size: 0.65rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-sizing: border-box;
+}
+
+.badge-custom {
+    background: #eab308;
+    color: #000;
+}
+
+.badge-public {
+    background: rgba(16, 185, 129, 0.25);
+    color: #34d399;
+    border: 1px solid rgba(52, 211, 153, 0.45);
+}
+
+.badge-private {
+    background: rgba(239, 68, 68, 0.25);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.55);
+    font-weight: 700;
 }

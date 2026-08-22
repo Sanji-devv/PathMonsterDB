@@ -45,20 +45,49 @@
 
 ## 📋 Upcoming Roadmap
 
-### 📍 Phase 1: In-Game Usability & Combat Enhancements
-- [ ] **Interactive Dice Roller:** Clickable attack bonuses, damage dice, and save modifiers with roll result toasts.
-- [ ] **Quick Combat Condition Toggles:** Instant status effect buttons (*Grappled*, *Prone*, *Sickened*, *Entangled*) that dynamically modify active stats.
-- [ ] **Creature Template Engine:** 1-click application of standard templates (*Fiendish*, *Celestial*, *Advanced*, *Skeleton*, *Zombie*).
+### 📍 Phase 1: Spellcasting Resolution & Combat Enhancements
+- [ ] **[HIGH PRIORITY / ZORLU GELİŞTİRME] Dynamic Spellcasting Resolution & Automatic Spell Save DC Engine:**
+  - Automatic key casting ability modifier calculation (SLA Cha/Wis/Int resolver, primary class Int/Wis/Cha detection).
+  - Real-time `data/spells.json` lookup for spell school and class-specific level.
+  - Automatic feat synergy scanning (`Spell Focus`, `Greater Spell Focus`, `Elemental Focus`).
+  - Inline statblock formatting: `*fireball* (DC 18, 10d6 fire)`.
+- [ ] **Quick Combat Condition Toggles:** Instant status effect toggles (*Grappled, Prone, Sickened, Entangled, Blinded, Shaken, Stunned*) and common buffs (*Haste, Bull's Strength, Rage*) with dynamic live stat recalculation.
 
-### 📍 Phase 2: GM Encounter & Combat Suite
-- [ ] **Encounter Builder & XP Budgeting:** Multi-creature selection calculating Total Encounter CR, APL difficulty, and XP rewards.
-- [ ] **Live Initiative & HP Tracker:** In-session GM dashboard for turn order and live HP tracking.
-- [ ] **Multi-Card Printable PDF Layout:** Grid layout for printing multiple compact monster cards on A4 sheets.
+### 📍 Phase 2: Creature Creation, Templates & Progression
+- [ ] **1-Click Monster Template Engine:** Instant application/removal of official templates (*Advanced, Giant, Fiendish, Celestial, Skeleton, Zombie, Lich, Vampire, Ghost*) with automated stat, DR, immunity, and CR scaling.
+- [ ] **Class Level & HD Progression Engine:** Add racial HD or class levels (Fighter, Cleric, Rogue, etc.) to monsters with automatic BAB, base save, feat, and ability score progression.
+- [ ] **Skill Point & Class Skill Auto-Helper:** Calculates available skill points by HD/class and automatically marks class skills with +3 trained bonuses.
 
-### 📍 Phase 3: Automation & Ecosystem Integration
-- [ ] **Plain-Text Statblock Parser:** Paste text from PDFs or Archives of Nethys to populate form inputs automatically.
-- [ ] **Foundry VTT / Roll20 Export:** Export custom creatures to Foundry VTT PF1E Actor JSON.
-- [ ] **Progressive Web App (PWA):** Offline service-worker support for tablets and mobile devices.
+### 📍 Phase 3: Spellcasting Utilities & Metamagic Tools
+- [ ] **Spell Slot & Daily Usage Tracker:** Checkboxes for prepared spells, spontaneous spell slots (0th–9th), and Spell-Like Abilities (At will, 3/day, 1/day).
+- [ ] **Metamagic Quick-Applier:** Quick Empower, Maximize, Quicken, Extend, Heighten modifier integration with slot and DC recalculation.
+
+### 📍 Phase 4: Statblock Parsing & Cross-Platform Integrations
+- [ ] **Smart Raw Text / OCR Statblock Importer:** Regex-based heuristic parser converting raw Paizo/Nethys/d20pfsrd text directly into editable monster forms.
+- [ ] **Foundry VTT (PF1e) & Roll20 Export:** Generate Foundry VTT `pf1` actor JSON and Roll20 token action macros.
+- [ ] **Multi-Card Printable PDF & Print CSS:** High-contrast `@media print` 2-up and 4-up battle index card printing for tabletop GM screens.
+- [ ] **Markdown / Reddit / BBCode Formatter:** One-click formatted export for Reddit, Paizo boards, and Obsidian vault notes.
+
+### 📍 Phase 5: GM Encounter Builder & Campaign Management
+- [ ] **Encounter Builder & XP Budgeting:** Multi-creature builder calculating Total CR, party APL difficulty, and individual/party XP awards.
+- [ ] **Campaign Folders & Bestiary Bundles:** Group custom monsters into campaign tags with bulk JSON export/import.
+- [ ] **Side-by-Side Creature Comparison View:** Diff tool comparing two monsters or baseline vs modified statblocks.
+
+### 📍 Phase 6: UI/UX, Performance & Offline PWA
+- [ ] **Global Command Palette (`Ctrl+K`):** Spotlight modal search across all monsters, spells, feats, and rules.
+- [ ] **Undo / Redo History Stack (`Ctrl+Z` / `Ctrl+Y`):** Full state timeline for the editor.
+- [ ] **Progressive Web App (PWA) & Service Worker:** Installable offline web app for laptops, iPads, and Android tablets.
+- [ ] **Token Generator & Portrait Cropper:** Circular gold-bordered token generation for VTTs and printing.
+
+---
+
+## 🚫 Strictly Forbidden Features (ASLA ÖNERİLMEYECEKLER)
+
+- ❌ **Interactive Dice Roller & 3D Dice Simulation** (Strictly Out of Scope)
+- ❌ **Live Initiative & In-Session Health/Combat Tracker** (Strictly Out of Scope)
+- ❌ **Custom Magic Weapon & Armor Forge** (Strictly Out of Scope)
+
+
 
 ---
 

@@ -75,20 +75,31 @@ graph TD
 - [x] **Python Backend:**
   - Lightweight multi-threaded HTTP server with zero pip dependencies.
   - Normalized query caching (`SEARCH_CACHE`) and atomic JSON file writing.
+- [ ] **Dynamic Spellcasting Resolution & Automatic Spell Save DC Engine (High-Complexity Planned):**
+  - Live casting ability modifier resolution (SLA key ability selection, caster class Int/Wis/Cha detection).
+  - School and level based DC calculations: `DC = 10 + Spell Level + Key Ability Mod + Feats (Spell Focus, Greater Spell Focus, etc.) + Racial/Trait Modifiers`.
+  - Automatic inline statblock formatting (e.g. `*fireball* (DC 18), *lightning bolt* (DC 18)`).
 
 ---
 
-## 🚫 Out of Scope (Explicit Non-Goals)
+## 🚫 Out of Scope (Explicit Non-Goals & Strictly Prohibited Features)
 
-To prevent scope creep and maintain system reliability, the following features are strictly **Out of Scope** for current development iterations:
+To prevent scope creep and maintain system reliability, the following features are strictly **Out of Scope** and must **NEVER BE PROPOSED OR IMPLEMENTED**:
 
-1. **Heavy Frontend Frameworks (React, Vue, Next.js, Redux):**
+1. **Interactive Dice Roller & 3D Dice Simulation:**
+   - **STRICTLY FORBIDDEN:** Do not propose or build virtual 3D dice rollers, dice rolling toasts, or automated combat roll simulators.
+2. **Live Initiative & In-Session Health/Combat Tracker:**
+   - **STRICTLY FORBIDDEN:** Do not propose or build live combat turn order managers, initiative trackers, or active HP/damage tracking drawers.
+3. **Custom Magic Weapon & Armor Forge:**
+   - **STRICTLY FORBIDDEN:** Do not propose or build complex custom weapon/armor crafting or enchanting forge tools beyond standard static item selection.
+4. **Heavy Frontend Frameworks (React, Vue, Next.js, Redux):**
    - The application MUST remain pure Vanilla HTML5, CSS3, and ES6+ JavaScript. Do not introduce build steps (Webpack/Vite), npm node_modules bundles, or frontend framework runtimes.
-2. **Third-Party Cloud Services & External Databases:**
+5. **Third-Party Cloud Services & External Databases:**
    - No external SQL databases (PostgreSQL/MySQL), cloud storage (AWS S3/Supabase), or external authentication (OAuth/Firebase). The app must remain 100% functional offline on localhost.
-3. **Full Virtual Tabletop (VTT) Simulation:**
+6. **Full Virtual Tabletop (VTT) Simulation:**
    - PathMonsterDB is a statblock creator and rules assistant, NOT a 3D battle map, token physics simulator, or real-time WebRTC multi-player platform.
-4. **Automated Rule Breaker / Character Enforcement Engine:**
+7. **Automated Rule Breaker / Character Enforcement Engine:**
    - Do not strictly block user homebrew combinations that violate RAW (Rules As Written). Provide calculations, but allow free-text overrides for GM discretion.
-5. **Python Pip Package Dependencies:**
+8. **Python Pip Package Dependencies:**
    - The backend MUST run exclusively on Python 3 Standard Library modules (`http.server`, `urllib`, `json`, `os`, `threading`, `socketserver`). Do not introduce Flask, Django, FastAPI, SQLAlchemy, or requests.
+

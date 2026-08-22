@@ -65,13 +65,17 @@ def run_tests():
     spells = load_spells()
     print(f"  [OK] Loaded {len(monsters)} total monsters and {len(spells)} spells.")
     
-    res_bytes = search_monsters("name=kaelit")
+    res_bytes = search_monsters("name=goblin")
     res = json.loads(res_bytes.decode('utf-8'))
     if res and res.get("total_count", 0) > 0:
-        kaelit = res["data"][0]
-        print(f"  [OK] Found Kaelit: CR {kaelit.get('CR')}, Name: '{kaelit.get('Name')}'")
-    else:
-        print("  [WARN] Kaelit search query returned no results.")
+        goblin = res["data"][0]
+        print(f"  [OK] Found Goblin: CR {goblin.get('CR')}, Name: '{goblin.get('Name')}'")
+    
+    res_author = search_monsters("name=kaelit", user={"username": "erdem"})
+    author_res = json.loads(res_author.decode('utf-8'))
+    if author_res and author_res.get("total_count", 0) > 0:
+        kaelit = author_res["data"][0]
+        print(f"  [OK] Found Author's Private Monster Kaelit: CR {kaelit.get('CR')}, Name: '{kaelit.get('Name')}'")
 
     # 4. Spells Search Verification
     print("\n4. Testing Spell Search...")
@@ -84,8 +88,8 @@ def run_tests():
         return False
 
     # Test cache key normalization with _t
-    res1 = search_monsters("name=kaelit&_t=1000")
-    res2 = search_monsters("name=kaelit&_t=2000")
+    res1 = search_monsters("name=goblin&_t=1000")
+    res2 = search_monsters("name=goblin&_t=2000")
     assert res1 == res2, "Cache key normalization failed"
     print("  [OK] Cache key normalization verified.")
 

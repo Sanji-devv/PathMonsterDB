@@ -1,4 +1,22 @@
 import re
+import json
+
+def clean_tag_val(val):
+    if not val:
+        return ''
+    if isinstance(val, list):
+        return ', '.join([item.get('name', '') if isinstance(item, dict) else str(item) for item in val if item])
+    if isinstance(val, str):
+        val_s = val.strip()
+        if val_s.startswith('[') and val_s.endswith(']'):
+            try:
+                parsed = json.loads(val_s)
+                if isinstance(parsed, list):
+                    return ', '.join([item.get('name', '') if isinstance(item, dict) else str(item) for item in parsed if item])
+            except Exception:
+                pass
+        return val_s
+    return str(val)
 
 def parse_cr(cr_str):
     if not cr_str or cr_str == '-' or str(cr_str).lower() == 'any': 
@@ -247,7 +265,7 @@ def format_monster_from_state(state):
         "subtype2": st2,
         "Init": get_val('in-init', 'Init', '+0') or '+0',
         "Senses": senses_str,
-        "Aura": get_val('in-aura', 'Aura', ''),
+        "Aura": clean_tag_val(get_val('in-aura', 'Aura', '')),
         "AC": str(total_ac),
         "AC_Touch": str(touch_ac),
         "AC_Flat-footed": str(ff_ac),
@@ -261,9 +279,9 @@ def format_monster_from_state(state):
         "Ranged": ranged_str,
         "Space": get_val('in-space', 'Space', '5 ft.') or '5 ft.',
         "Reach": get_val('in-reach', 'Reach', '5 ft.') or '5 ft.',
-        "SpecialAttacks": get_val('in-special-attacks', 'SpecialAttacks', ''),
-        "DefensiveAbilities": get_val('in-def-abilities', 'DefensiveAbilities', ''),
-        "Weaknesses": get_val('in-weaknesses', 'Weaknesses', ''),
+        "SpecialAttacks": clean_tag_val(get_val('in-special-attacks', 'SpecialAttacks', '')),
+        "DefensiveAbilities": clean_tag_val(get_val('in-def-abilities', 'DefensiveAbilities', '')),
+        "Weaknesses": clean_tag_val(get_val('in-weaknesses', 'Weaknesses', '')),
         "Organization": get_val('in-organization', 'Organization', ''),
         "Str": str(str_val),
         "Dex": str(dex_val),
@@ -274,13 +292,13 @@ def format_monster_from_state(state):
         "BaseAtk": get_val('in-bab', 'BaseAtk', '0') or '0',
         "CMB": get_val('in-cmb', 'CMB', '+0') or '+0',
         "CMD": get_val('in-cmd', 'CMD', '10') or '10',
-        "Feats": get_val('in-feats', 'Feats', ''),
+        "Feats": clean_tag_val(get_val('in-feats', 'Feats', '')),
         "Skills": skills_str,
-        "Languages": get_val('in-languages', 'Languages', ''),
-        "SQ": get_val('in-sq', 'SQ', ''),
+        "Languages": clean_tag_val(get_val('in-languages', 'Languages', '')),
+        "SQ": clean_tag_val(get_val('in-sq', 'SQ', '')),
         "DR": get_val('in-dr', 'DR', ''),
-        "Immune": get_val('in-immune', 'Immune', ''),
-        "Resist": get_val('in-resist', 'Resist', ''),
+        "Immune": clean_tag_val(get_val('in-immune', 'Immune', '')),
+        "Resist": clean_tag_val(get_val('in-resist', 'Resist', '')),
         "SR": get_val('in-sr', 'SR', ''),
         "Environment": get_val('in-environment', 'Environment', ''),
         "Treasure": get_val('in-treasure', 'Treasure', ''),

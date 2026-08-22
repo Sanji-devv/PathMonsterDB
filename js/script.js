@@ -123,26 +123,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. MAIN UPDATE FUNCTION
     // -------------------------
     function updatePreview() {
-        // FEAT SYSTEM RE-DESIGN: STATE MANAGEMENT
+        // FEAT SYSTEM: STATE MANAGEMENT
         let featsRaw = document.getElementById('in-feats') ? document.getElementById('in-feats').value : '';
 
         // If the hidden input differs from our tracked state, it means it was loaded externally (e.g. database.js)
         if (featsRaw !== window.lastFeatsRaw) {
             let currentFeats = [];
-            try {
-                currentFeats = JSON.parse(featsRaw);
-            } catch (e) {
-                if (featsRaw) {
-                    currentFeats = featsRaw.split(',').map(s => ({ name: s.trim() }));
+            let val = (featsRaw || '').trim();
+            if (val.startsWith('[') && val.endsWith(']')) {
+                try {
+                    currentFeats = JSON.parse(val);
+                } catch (e) {
+                    currentFeats = [];
                 }
+            } else if (val) {
+                currentFeats = val.split(',').map(s => s.trim().replace(/^["'\[\]]+|["'\[\]]+$/g, '')).filter(Boolean);
             }
-            window.activeFeats = currentFeats.map(f => (typeof f === 'object' && f !== null ? (f.name || '') : String(f || ''))).filter(Boolean);
+            window.activeFeats = (Array.isArray(currentFeats) ? currentFeats : []).map(f => (typeof f === 'object' && f !== null ? (f.name || '') : String(f || ''))).map(s => s.trim().replace(/^["'\[\]]+|["'\[\]]+$/g, '')).filter(Boolean);
             window.lastFeatsRaw = featsRaw;
             if (typeof window.renderFeatTags === 'function') window.renderFeatTags();
         }
 
-        // Process feats safely from the Source of Truth (window.activeFeats)
-        let currentFeats = (window.activeFeats || []).map(f => {
+        // Process feats safely from the Source of Truth (window.activeFeats or in-feats fallback)
+        let featList = (Array.isArray(window.activeFeats) && window.activeFeats.length > 0)
+            ? window.activeFeats
+            : (featsRaw ? featsRaw.split(',').map(s => s.trim().replace(/^["'\[\]]+|["'\[\]]+$/g, '')).filter(Boolean) : []);
+
+        let currentFeats = featList.map(f => {
             if (typeof f === 'object' && f !== null) {
                 return { name: f.name || '', description: f.description || '' };
             }
@@ -162,13 +169,22 @@ document.addEventListener('DOMContentLoaded', () => {
             if (input && output) {
                 if (field === 'feats') {
                     // Custom rendering for feats
-                    output.innerHTML = currentFeats.map(f => {
-                        const featObj = (window.allFeatsDB || []).find(dbF => (dbF && dbF.name && dbF.name.toLowerCase() === f.name.toLowerCase()));
-                        const rawDesc = (f.description || (featObj && featObj.description) || "Description not available.");
-                        const safeName = (f.name || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
-                        const desc = rawDesc.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-                        return `<a href="#" onclick="if(window.showInfoModal) window.showInfoModal('${safeName}', '${desc}', 'Feat'); return false;" class="pf-feat" style="color: inherit; text-decoration: underline dotted;" title="${sanitizeText(f.name)}">${sanitizeText(f.name)}</a>`;
-                    }).join(', ');
+                    if (currentFeats.length > 0) {
+                        output.innerHTML = currentFeats.map(f => {
+                            const featName = (f.name || '').trim();
+                            const featObj = (window.allFeatsDB || []).find(dbF => (dbF && dbF.name && dbF.name.toLowerCase() === featName.toLowerCase()));
+                            const rawDesc = (f.description || (featObj && featObj.description) || "Description not available.");
+                            const safeName = featName.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                            const desc = rawDesc.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                            return `<a href="#" onclick="if(window.showInfoModal) window.showInfoModal('${safeName}', '${desc}', 'Feat'); return false;" class="pf-feat" style="color: inherit; text-decoration: underline dotted;" title="${sanitizeText(featName)}">${sanitizeText(featName)}</a>`;
+                        }).join(', ');
+                    } else {
+                        output.innerHTML = '';
+                    }
+                    const wrapFeats = document.getElementById('wrap-feats');
+                    if (wrapFeats) {
+                        wrapFeats.style.display = currentFeats.length > 0 ? 'block' : 'none';
+                    }
                 } else {
                     let text = sanitizeText(input.value);
                     if (field === 'fort') {
@@ -437,12 +453,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const skillItems = document.querySelectorAll('.skill-item');
         let skillsArr = [];
         skillItems.forEach(item => {
-            const skillName = item.querySelector('.skill-name').value;
-            const skillMod = parseInt(item.querySelector('.skill-mod').value);
+            const nameEl = item.querySelector('.skill-name');
+            const modEl = item.querySelector('.skill-mod');
+            const skillName = nameEl ? nameEl.value : '';
+            const skillMod = modEl ? parseInt(modEl.value) : NaN;
             if (skillName && skillName !== '-' && !isNaN(skillMod)) {
                 skillsArr.push(`${skillName} ${formatMod(skillMod)}`);
             }
         });
+        if (skillsArr.length === 0) {
+            const inSkillsEl = document.getElementById('in-skills');
+            if (inSkillsEl && inSkillsEl.value.trim()) {
+                skillsArr = inSkillsEl.value.split(',').map(s => s.trim()).filter(Boolean);
+            }
+        }
         skillsArr.sort((a, b) => a.localeCompare(b));
         const outSkills = document.getElementById('out-skills');
         const wrapSkills = document.getElementById('wrap-skills');
@@ -1955,7 +1979,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const syncArray = (arrName, inputId) => {
                 const el = document.getElementById(inputId);
                 if (el && el.value) {
-                    window[arrName] = el.value.split(',').map(s => s.trim()).filter(x => x);
+                    let val = el.value.trim();
+                    if (val.startsWith('[') && val.endsWith(']')) {
+                        try {
+                            const parsed = JSON.parse(val);
+                            if (Array.isArray(parsed)) {
+                                window[arrName] = parsed.map(item => (typeof item === 'object' && item !== null ? (item.name || '') : String(item || ''))).map(s => s.trim()).filter(Boolean);
+                                return;
+                            }
+                        } catch (e) { }
+                    }
+                    window[arrName] = val.split(',').map(s => s.trim().replace(/^["'\[\]]+|["'\[\]]+$/g, '')).filter(Boolean);
                 } else {
                     window[arrName] = [];
                 }
@@ -2316,7 +2350,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // -------------------------------------------------------------------
     // Generic Autocomplete and Editable Tags System
     function setupTagSystem(config) {
-        window[config.activeArray] = [];
+        if (!Array.isArray(window[config.activeArray])) {
+            window[config.activeArray] = [];
+        }
         let db = [];
 
         if (config.dbUrl) {
@@ -2335,6 +2371,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (config.activeArray === 'activeWeakness') {
                     window.allWeaknessesDB = d;
                 }
+                if (typeof updatePreview === 'function') updatePreview();
             }).catch(e => console.error(e));
         }
 
@@ -2342,6 +2379,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const listEl = document.getElementById(config.listId);
         const containerEl = document.getElementById(config.containerId);
         const hiddenInput = document.getElementById(config.hiddenInputId);
+
+        // If hidden input has values and activeArray is empty, populate activeArray
+        if (hiddenInput && hiddenInput.value && window[config.activeArray].length === 0) {
+            let val = hiddenInput.value.trim();
+            if (val.startsWith('[') && val.endsWith(']')) {
+                try {
+                    const parsed = JSON.parse(val);
+                    if (Array.isArray(parsed)) {
+                        window[config.activeArray] = parsed.map(item => (typeof item === 'object' && item !== null ? (item.name || '') : String(item || ''))).map(s => s.trim().replace(/^["'\[\]]+|["'\[\]]+$/g, '')).filter(Boolean);
+                    }
+                } catch (e) { }
+            }
+            if (window[config.activeArray].length === 0) {
+                window[config.activeArray] = val.split(',').map(s => s.trim().replace(/^["'\[\]]+|["'\[\]]+$/g, '')).filter(Boolean);
+            }
+        }
 
         function render() {
             if (!containerEl) return;
@@ -2372,7 +2425,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const found = db.find(d => (d && typeof d === 'object' ? d.name === itemName : d === itemName));
                         if (found && typeof found === 'object' && found.description) desc = found.description;
                     }
-                    if (window.showInfoModal) window.showInfoModal(itemName, desc);
+                    if (window.showInfoModal) window.showInfoModal(itemName, desc, 'Feat');
                 });
 
                 tag.querySelector('.remove-tag').addEventListener('click', () => {
@@ -2382,7 +2435,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 containerEl.appendChild(tag);
             });
-            sync();
         }
 
         if (config.renderFunc) {
@@ -2392,8 +2444,11 @@ document.addEventListener('DOMContentLoaded', () => {
         function sync() {
             if (!hiddenInput) return;
             hiddenInput.value = (window[config.activeArray] || []).filter(Boolean).map(i => (i && typeof i === 'object' ? i.name : i) || '').join(', ');
+            window.lastFeatsRaw = hiddenInput.value;
             updatePreview();
         }
+
+        render();
 
         if (searchInput) {
             let focusIdx = -1;

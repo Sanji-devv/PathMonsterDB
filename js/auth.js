@@ -522,7 +522,7 @@
                             <div class="user-dropdown-menu" id="user-dropdown-menu">
                                 <div class="user-dropdown-header">
                                     <div class="user-dropdown-name">${this.escapeHtml(displayName)}</div>
-                                    <span class="user-role-tag">👑 Game Master</span>
+                                    <span class="user-role-tag">Game Master</span>
                                 </div>
                                 <div class="user-dropdown-divider"></div>
                                 <button type="button" class="user-dropdown-item btn-logout-action">
