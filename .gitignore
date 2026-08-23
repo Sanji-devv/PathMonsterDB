@@ -28,3 +28,7 @@ venv.bak/
 .DS_Store
 Thumbs.db
 scratch/
+
+# Agents
+agents/
+.agents/
