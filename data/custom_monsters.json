@@ -349,19 +349,23 @@
     "Init": "+0",
     "Senses": "Darkvision 60 ft., Scent, Perception +12",
     "Aura": "",
-    "AC": "20",
-    "AC_Touch": "10",
-    "AC_Flat-footed": "20",
-    "HP": "38 (7d10+0)",
+    "AC": "19",
+    "AC_Touch": "9",
+    "AC_Flat-footed": "19",
+    "HP": "38",
     "HD": "7d10",
     "Fort": "+10",
     "Ref": "+6",
     "Will": "+4",
     "Speed": "40 ft.",
     "Melee": "gore +13 (2d6+10/19-20 plus 1d6 negative energy)",
+    "Ranged": "",
     "Space": "10 ft.",
     "Reach": "5 ft.",
     "SpecialAttacks": "",
+    "DefensiveAbilities": "",
+    "Weaknesses": "",
+    "Organization": "solitary",
     "Str": "25",
     "Dex": "11",
     "Con": "20",
@@ -372,7 +376,7 @@
     "CMB": "+15",
     "CMD": "25",
     "Feats": "",
-    "Skills": "Perception 12",
+    "Skills": "Perception +12",
     "Languages": "Common",
     "SQ": "",
     "DR": "5/slashing",
@@ -381,22 +385,36 @@
     "SR": "",
     "Environment": "Desolated forests, haunted battlefields",
     "Treasure": "standard",
-    "IsFavorite": true,
+    "Gear": "",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "public",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": false,
     "IsUserCustom": true,
     "CharacterFlag": "0",
+    "SpellLikeAbilities": "",
     "Special Abilities": "Grave Chill Aura (Su) Deals 1d6 negative energy damage to living creatures within 10 ft.\nNegative Energy Affinity (Ex) Healed by negative energy, harmed by positive energy.",
     "OriginalState": {
       "basic": {
         "in-name": "Undead Dire Boar",
         "in-cr": "6",
         "in-xp": "2400",
+        "in-visibility": "public",
+        "in-author": "erdem",
         "in-alignment": "NE",
         "in-size": "Large",
         "in-type": "Undead",
         "in-type-full": "NPC Fighter 1",
         "in-init-extra": "0",
         "in-aura": "",
-        "in-add-class-level": "1",
+        "in-str": "25",
+        "in-dex": "11",
+        "in-con": "20",
+        "in-int": "2",
+        "in-wis": "13",
+        "in-cha": "10",
         "in-armor-name": "",
         "in-ac-armor": "0",
         "in-shield-name": "",
@@ -406,6 +424,7 @@
         "in-ac-dodge": "0",
         "in-hd-amount": "7",
         "in-hd-size": "10",
+        "in-hp-extra": "0",
         "in-fort": "+10",
         "in-ref": "+6",
         "in-will": "+4",
@@ -419,35 +438,30 @@
         "in-space": "10 ft.",
         "in-reach": "5 ft.",
         "in-special-attacks": "",
-        "in-sa-search": "",
         "in-sla-cl": "",
-        "in-str": "25",
-        "in-dex": "11",
-        "in-con": "20",
-        "in-int": "2",
-        "in-wis": "13",
-        "in-cha": "10",
         "in-bab": "7",
         "in-cmb": "+15",
+        "in-cmb-extra": "0",
         "in-cmd": "25",
+        "in-cmd-extra": "0",
         "in-feats": "",
         "in-feat-search": "",
+        "in-skills": "Perception +12",
         "in-languages": "Common",
         "in-sq": "",
-        "in-sq-search": "",
-        "in-environment": "Desolated forests, haunted battlefields",
-        "in-organization": "solitary",
-        "in-treasure": "standard",
-        "in-spell-search": "",
+        "in-gear": "",
         "in-spell-class": "",
         "in-spell-cl": "1",
         "in-spell-stat": "cha",
         "in-spell-conc": "0",
-        "in-spells-data": "",
-        "in-hp": "38 (7d10+0)",
+        "in-spells-data": "{}",
+        "in-spells": "{}",
+        "in-environment": "Desolated forests, haunted battlefields",
+        "in-organization": "solitary",
+        "in-treasure": "standard",
+        "in-hp": "38 (7d10)",
         "in-init": "+0",
-        "in-visibility": "private",
-        "in-author": "erdem"
+        "in-ac": "19, touch 9, flat-footed 19 (-1 size, +10 natural)"
       },
       "html": {},
       "dynamic": {
@@ -469,12 +483,7 @@
             "dist": "+12"
           }
         ],
-        "skills": [
-          {
-            "name": "Perception",
-            "mod": "12"
-          }
-        ],
+        "skills": [],
         "slas": [],
         "melee": [
           {
@@ -492,13 +501,14 @@
             "name": "Negative Energy Affinity (Ex)",
             "desc": "Healed by negative energy, harmed by positive energy."
           }
-        ]
+        ],
+        "magic_items": [],
+        "spells": []
       },
       "_global_index": 6518,
-      "Visibility": "private",
-      "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem",
-      "id": "4771284f-fdb9-4c5f-a2b2-31205abf6459"
+      "id": "4771284f-fdb9-4c5f-a2b2-31205abf6459",
+      "AuthorId": "erdem",
+      "AuthorName": "erdem"
     },
     "_m_name": "undead dire boar",
     "_m_cr": "6",
@@ -506,11 +516,8 @@
     "_m_align": "ne",
     "_m_env": "desolated forests, haunted battlefields",
     "_m_source": "",
-    "_global_index": 6518,
-    "Visibility": "private",
-    "AuthorId": "erdem",
-    "AuthorName": "erdem",
-    "id": "4771284f-fdb9-4c5f-a2b2-31205abf6459"
+    "id": "4771284f-fdb9-4c5f-a2b2-31205abf6459",
+    "_global_index": 6518
   },
   {
     "Name": "Undead Wolf Spider",
@@ -927,13 +934,13 @@
     "Type": "Undead",
     "subtype1": "",
     "subtype2": "",
-    "Init": "+3",
+    "Init": "+7",
     "Senses": "Darkvision 60 ft., Scent, Tremorsense 30 ft., Perception +12",
     "Aura": "",
     "AC": "18",
     "AC_Touch": "12",
     "AC_Flat-footed": "15",
-    "HP": "52 (7d8+21)",
+    "HP": "59",
     "HD": "7d8",
     "Fort": "+5",
     "Ref": "+5",
@@ -969,7 +976,10 @@
     "Gear": "",
     "Class1": "",
     "Class1_Lvl": "",
-    "IsFavorite": true,
+    "Visibility": "public",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": false,
     "IsUserCustom": true,
     "CharacterFlag": "0",
     "SpellLikeAbilities": "",
@@ -979,13 +989,20 @@
         "in-name": "Undead Dire Rat",
         "in-cr": "5",
         "in-xp": "1600",
+        "in-visibility": "public",
+        "in-author": "erdem",
         "in-alignment": "NE",
         "in-size": "Large",
         "in-type": "Undead",
         "in-type-full": "NPC Fighter 1",
         "in-init-extra": "0",
         "in-aura": "",
-        "in-add-class-level": "1",
+        "in-str": "19",
+        "in-dex": "16",
+        "in-con": "",
+        "in-int": "6",
+        "in-wis": "15",
+        "in-cha": "16",
         "in-armor-name": "",
         "in-ac-armor": "0",
         "in-shield-name": "",
@@ -995,6 +1012,7 @@
         "in-ac-dodge": "0",
         "in-hd-amount": "7",
         "in-hd-size": "8",
+        "in-hp-extra": "0",
         "in-fort": "+5",
         "in-ref": "+5",
         "in-will": "+7",
@@ -1008,40 +1026,33 @@
         "in-space": "10 ft.",
         "in-reach": "5 ft.",
         "in-special-attacks": "ghoul fever (DC 16), rotting gnaw, plague-blight breath (4d6 neg energy), tomb swarm call",
-        "in-sa-search": "",
         "in-sla-cl": "",
-        "in-str": "19",
-        "in-dex": "16",
-        "in-con": "",
-        "in-int": "6",
-        "in-wis": "15",
-        "in-cha": "16",
         "in-bab": "5",
         "in-cmb": "+10",
+        "in-cmb-extra": "0",
         "in-cmd": "23",
+        "in-cmd-extra": "0",
         "in-feats": "Improved Initiative, Power Attack, Toughness, Weapon Focus (bite)",
         "in-feat-search": "",
+        "in-skills": "Acrobatics +10, Climb +16, Perception +12, Stealth +9",
         "in-languages": "Undercommon (cannot speak)",
         "in-sq": "undead traits, compression",
-        "in-sq-search": "",
-        "in-environment": "Tombs, Catacombs, Sewers",
-        "in-organization": "solitary",
-        "in-treasure": "incidental",
-        "in-spell-search": "",
+        "in-gear": "",
         "in-spell-class": "",
         "in-spell-cl": "1",
         "in-spell-stat": "cha",
         "in-spell-conc": "0",
-        "in-spells-data": "",
-        "in-hp": "52 (7d8+21)",
-        "in-init": "+3",
-        "in-ac": "18, touch 12, flat-footed 15 (+3 Dex, -1 size, +6 natural)",
-        "in-visibility": "private",
-        "in-author": "erdem"
+        "in-spells-data": "{}",
+        "in-spells": "{}",
+        "in-environment": "Tombs, Catacombs, Sewers",
+        "in-organization": "solitary",
+        "in-treasure": "incidental",
+        "in-hp": "59 (7d8+28)",
+        "in-init": "+7",
+        "in-ac": "18, touch 12, flat-footed 15 (+3 Dex, -1 size, +6 natural)"
       },
       "html": {},
       "dynamic": {
-        "classes": [],
         "subtypes": [
           "",
           ""
@@ -1064,24 +1075,7 @@
             "dist": "+12"
           }
         ],
-        "skills": [
-          {
-            "name": "Acrobatics",
-            "mod": "10"
-          },
-          {
-            "name": "Climb",
-            "mod": "16"
-          },
-          {
-            "name": "Perception",
-            "mod": "12"
-          },
-          {
-            "name": "Stealth",
-            "mod": "9"
-          }
-        ],
+        "skills": [],
         "slas": [],
         "melee": [
           {
@@ -1095,13 +1089,14 @@
             "name": "Rotting Gnaw (Ex)",
             "desc": "Bite attacks cause 1d4 bleed damage and force a DC 16 Fortitude save against 1d2 Strength damage."
           }
-        ]
+        ],
+        "magic_items": [],
+        "spells": []
       },
       "_global_index": 6521,
-      "Visibility": "private",
-      "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem",
-      "id": "f47a8dd2-a626-4af5-8bf4-0f2e7fdcca00"
+      "id": "f47a8dd2-a626-4af5-8bf4-0f2e7fdcca00",
+      "AuthorId": "erdem",
+      "AuthorName": "erdem"
     },
     "_m_name": "undead dire rat",
     "_m_cr": "5",
@@ -1109,11 +1104,8 @@
     "_m_align": "ne",
     "_m_env": "tombs, catacombs, sewers",
     "_m_source": "",
-    "_global_index": 6521,
-    "Visibility": "private",
-    "AuthorId": "erdem",
-    "AuthorName": "erdem",
-    "id": "f47a8dd2-a626-4af5-8bf4-0f2e7fdcca00"
+    "id": "f47a8dd2-a626-4af5-8bf4-0f2e7fdcca00",
+    "_global_index": 6521
   },
   {
     "Name": "Sand Worm",
@@ -1524,2600 +1516,6 @@
     "id": "0ae78249-243e-4b79-a2f9-c94e4450670b"
   },
   {
-    "Name": "(Pyro)Rovesta, Barbarian",
-    "CR": "8",
-    "XP": "4800",
-    "Alignment": "CN",
-    "Size": "Medium",
-    "Type": "Humanoid",
-    "subtype1": "",
-    "subtype2": "",
-    "Init": "+2",
-    "Senses": "Perception +13",
-    "Aura": "",
-    "AC": "18",
-    "AC_Touch": "12",
-    "AC_Flat-footed": "16",
-    "HP": "85 (9d12+27)",
-    "HD": "9d12",
-    "Fort": "+9",
-    "Ref": "+5",
-    "Will": "+4",
-    "Speed": "40 ft.",
-    "Melee": "+1 furious greataxe +16/+11 (1d12+8/x3), gore +14 (1d6+5)",
-    "Ranged": "mwk composite longbow (+5 Str) +12/+7 (1d8+5/x3)",
-    "Space": "5 ft.",
-    "Reach": "5 ft.",
-    "SpecialAttacks": "rage (24 rounds/day), rage powers (bleeding blow, powerful blow +3, reckless abandon, superstition +3, increased damage reduction)",
-    "DefensiveAbilities": "improved uncanny dodge, trap sense +3, DR 2/—",
-    "Weaknesses": "",
-    "Organization": "solitary or warband",
-    "Str": "20",
-    "Dex": "14",
-    "Con": "16",
-    "Int": "10",
-    "Wis": "12",
-    "Cha": "10",
-    "BaseAtk": "9",
-    "CMB": "+14",
-    "CMD": "27",
-    "Feats": "Power Attack, Furious Focus, Improved Bull Rush, Toughness, Raging Vitality, Weapon Focus (greataxe)",
-    "Skills": "Acrobatics +13, Climb +14, Intimidate +12, Perception +13, Survival +13",
-    "Languages": "Common",
-    "SQ": "fast movement, rage powers, ram charge",
-    "DR": "2/—",
-    "Immune": "",
-    "Resist": "",
-    "SR": "",
-    "Environment": "any",
-    "Treasure": "NPC Gear",
-    "Gear": "+1 Breastplate, Ring of Protection +1, Amulet of Natural Armor +1",
-    "Class1": "",
-    "Class1_Lvl": "",
-    "IsFavorite": true,
-    "IsUserCustom": true,
-    "CharacterFlag": "0",
-    "SpellLikeAbilities": "",
-    "Special Abilities": "Rage (Ex) Can rage for 24 rounds/day gaining +4 Str, +4 Con, +2 Will saves, and -2 AC.\nReckless Abandon (Ex) While raging, takes -3 AC penalty to gain +3 bonus on attack rolls.\nSuperstition (Ex) While raging, gains +3 competence bonus on saving throws vs spells and SLAs.",
-    "OriginalState": {
-      "basic": {
-        "in-name": "(Pyro)Rovesta, Barbarian",
-        "in-cr": "8",
-        "in-xp": "4800",
-        "in-alignment": "CN",
-        "in-size": "Medium",
-        "in-type": "Humanoid",
-        "in-type-full": "Human barbarian 9",
-        "in-init-extra": "0",
-        "in-aura": "",
-        "in-armor-name": "+1 Breastplate",
-        "in-ac-armor": "6",
-        "in-shield-name": "",
-        "in-ac-shield": "0",
-        "in-ac-natural": "0",
-        "in-ac-deflection": "0",
-        "in-ac-dodge": "0",
-        "in-magic-item-search": "",
-        "in-hd-amount": "9",
-        "in-hd-size": "12",
-        "in-fort": "+9",
-        "in-ref": "+5",
-        "in-will": "+4",
-        "in-def-abilities": "improved uncanny dodge, trap sense +3, DR 2/—",
-        "in-dr": "2/—",
-        "in-immune": "",
-        "in-resist": "",
-        "in-weaknesses": "",
-        "in-sr": "",
-        "in-speed": "40 ft.",
-        "in-space": "5 ft.",
-        "in-reach": "5 ft.",
-        "in-special-attacks": "rage (24 rounds/day), rage powers (bleeding blow, powerful blow +3, reckless abandon, superstition +3, increased damage reduction)",
-        "in-sla-cl": "",
-        "in-str": "20",
-        "in-dex": "14",
-        "in-con": "16",
-        "in-int": "10",
-        "in-wis": "12",
-        "in-cha": "10",
-        "in-bab": "9",
-        "in-cmb": "+14",
-        "in-cmd": "27",
-        "in-feats": "Power Attack, Furious Focus, Improved Bull Rush, Toughness, Raging Vitality, Weapon Focus (greataxe)",
-        "in-feat-search": "",
-        "in-languages": "Common",
-        "in-sq": "fast movement, rage powers, ram charge",
-        "in-sq-search": "",
-        "in-environment": "any",
-        "in-organization": "solitary or warband",
-        "in-treasure": "NPC Gear",
-        "in-spell-search": "",
-        "in-spell-class": "",
-        "in-spell-cl": "1",
-        "in-spell-stat": "cha",
-        "in-spell-conc": "0",
-        "in-spells-data": "",
-        "in-hp": "85 (9d12+27)",
-        "in-init": "+2",
-        "in-ac": "20, touch 13, flat-footed 18 (+6 armor, +2 Dex, +1 natural, +1 deflection)",
-        "in-visibility": "private",
-        "in-author": "erdem"
-      },
-      "html": {},
-      "dynamic": {
-        "subtypes": [
-          ""
-        ],
-        "senses": [
-          {
-            "name": "Perception",
-            "dist": "+13"
-          }
-        ],
-        "skills": [
-          {
-            "name": "Acrobatics",
-            "mod": "13"
-          },
-          {
-            "name": "Climb",
-            "mod": "14"
-          },
-          {
-            "name": "Intimidate",
-            "mod": "12"
-          },
-          {
-            "name": "Perception",
-            "mod": "13"
-          },
-          {
-            "name": "Survival",
-            "mod": "13"
-          }
-        ],
-        "slas": [],
-        "melee": [
-          {
-            "mode": "raw",
-            "rawText": "+1 furious greataxe +16/+11 (1d12+8/x3)"
-          },
-          {
-            "mode": "raw",
-            "rawText": "gore +14 (1d6+5)"
-          }
-        ],
-        "ranged": [
-          {
-            "mode": "raw",
-            "rawText": "mwk composite longbow (+5 Str) +12/+7 (1d8+5/x3)"
-          }
-        ],
-        "abilities": [
-          {
-            "name": "Rage (Ex)",
-            "desc": "Can rage for 24 rounds/day gaining +4 Str, +4 Con, +2 Will saves, and -2 AC."
-          },
-          {
-            "name": "Reckless Abandon (Ex)",
-            "desc": "While raging, takes -3 AC penalty to gain +3 bonus on attack rolls."
-          },
-          {
-            "name": "Superstition (Ex)",
-            "desc": "While raging, gains +3 competence bonus on saving throws vs spells and SLAs."
-          }
-        ],
-        "magic_items": [
-          {
-            "name": "Ring of Protection +1",
-            "slot": "Ring",
-            "price": "2,000 gp",
-            "cl": "5th",
-            "aura": "faint abjuration",
-            "modifiers": {
-              "ac_deflection": 1
-            },
-            "description": "This ring offers continual magical protection in the form of a +1 deflection bonus to AC and CMD."
-          },
-          {
-            "name": "Amulet of Natural Armor +1",
-            "slot": "Neck",
-            "price": "2,000 gp",
-            "cl": "5th",
-            "aura": "faint abjuration",
-            "modifiers": {
-              "ac_natural": 1
-            },
-            "description": "This amulet, usually crafted from bone or beast scales, toughens the wearer's skin, granting a +1 enhancement bonus to her natural armor."
-          }
-        ]
-      },
-      "_global_index": 6524,
-      "Visibility": "private",
-      "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem",
-      "id": "422a8b85-cbd7-4e60-b0be-fa7856072479"
-    },
-    "_m_name": "(pyro)rovesta, barbarian",
-    "_m_cr": "8",
-    "_m_type": "humanoid",
-    "_m_align": "cn",
-    "_m_env": "any",
-    "_m_source": "",
-    "_global_index": 6524,
-    "Visibility": "private",
-    "AuthorId": "erdem",
-    "AuthorName": "erdem",
-    "id": "422a8b85-cbd7-4e60-b0be-fa7856072479"
-  },
-  {
-    "Name": "(Pyro)Rovesta, Cavalier",
-    "CR": "8",
-    "XP": "4800",
-    "Alignment": "LG",
-    "Size": "Medium",
-    "Type": "Humanoid",
-    "subtype1": "",
-    "subtype2": "",
-    "Init": "+1",
-    "Senses": "Perception +13",
-    "Aura": "",
-    "AC": "24",
-    "AC_Touch": "11",
-    "AC_Flat-footed": "23",
-    "HP": "67 (9d10+18)",
-    "HD": "9d10",
-    "Fort": "+8",
-    "Ref": "+1",
-    "Will": "+4",
-    "Speed": "20 ft.",
-    "Melee": "+1 lance +15/+10 (1d8+7/x3), +1 longsword +14/+9 (1d8+5/19-20)",
-    "Ranged": "heavy crossbow +10 (1d10/19-20)",
-    "Space": "5 ft.",
-    "Reach": "5 ft.",
-    "SpecialAttacks": "challenge (3/day, +9 dmg, +3 morale AC vs others), cavalier's charge, mighty charge, tactician 2/day (Outflank)",
-    "DefensiveAbilities": "banner (+3 fear saves, +2 charge attack)",
-    "Weaknesses": "",
-    "Organization": "solitary, pair, or retinue",
-    "Str": "18",
-    "Dex": "12",
-    "Con": "14",
-    "Int": "10",
-    "Wis": "12",
-    "Cha": "16",
-    "BaseAtk": "9",
-    "CMB": "+13",
-    "CMD": "24",
-    "Feats": "Mounted Combat, Ride-By Attack, Spirited Charge, Power Attack, Weapon Focus (lance), Outflank, Heavy Armor Proficiency",
-    "Skills": "Diplomacy +15, Handle Animal +15, Intimidate +15, Perception +13, Ride +13",
-    "Languages": "Common",
-    "SQ": "expert trainer +4, lion's call (+3 attacks & fear saves), order of the lion, mount (warhorse)",
-    "DR": "",
-    "Immune": "",
-    "Resist": "",
-    "SR": "",
-    "Environment": "any",
-    "Treasure": "NPC Gear",
-    "Gear": "+1 Full Plate, +1 Heavy Shield",
-    "Class1": "",
-    "Class1_Lvl": "",
-    "IsFavorite": true,
-    "IsUserCustom": true,
-    "CharacterFlag": "0",
-    "SpellLikeAbilities": "",
-    "Special Abilities": "Lion's Call (Ex) Standard action grants allies within 60 ft. +3 vs fear and +3 morale bonus on attack rolls for 3 rounds.\nFor the King (Ex) 1/day swift action grants allies within 30 ft. +3 competence bonus on attack and damage rolls for 1 round.\nSpirited Charge Deals triple damage with a lance on a mounted charge.",
-    "OriginalState": {
-      "basic": {
-        "in-name": "(Pyro)Rovesta, Cavalier",
-        "in-cr": "8",
-        "in-xp": "4800",
-        "in-alignment": "LG",
-        "in-size": "Medium",
-        "in-type": "Humanoid",
-        "in-type-full": "Human cavalier 9",
-        "in-init-extra": "0",
-        "in-aura": "",
-        "in-armor-name": "+1 Full Plate",
-        "in-ac-armor": "10",
-        "in-shield-name": "+1 Heavy Shield",
-        "in-ac-shield": "3",
-        "in-ac-natural": "0",
-        "in-ac-deflection": "0",
-        "in-ac-dodge": "0",
-        "in-magic-item-search": "",
-        "in-hd-amount": "9",
-        "in-hd-size": "10",
-        "in-fort": "+8",
-        "in-ref": "+1",
-        "in-will": "+4",
-        "in-def-abilities": "banner (+3 fear saves, +2 charge attack)",
-        "in-dr": "",
-        "in-immune": "",
-        "in-resist": "",
-        "in-weaknesses": "",
-        "in-sr": "",
-        "in-speed": "20 ft.",
-        "in-space": "5 ft.",
-        "in-reach": "5 ft.",
-        "in-special-attacks": "challenge (3/day, +9 dmg, +3 morale AC vs others), cavalier's charge, mighty charge, tactician 2/day (Outflank)",
-        "in-sla-cl": "",
-        "in-str": "18",
-        "in-dex": "12",
-        "in-con": "14",
-        "in-int": "10",
-        "in-wis": "12",
-        "in-cha": "16",
-        "in-bab": "9",
-        "in-cmb": "+13",
-        "in-cmd": "24",
-        "in-feats": "Mounted Combat, Ride-By Attack, Spirited Charge, Power Attack, Weapon Focus (lance), Outflank, Heavy Armor Proficiency",
-        "in-feat-search": "",
-        "in-languages": "Common",
-        "in-sq": "expert trainer +4, lion's call (+3 attacks & fear saves), order of the lion, mount (warhorse)",
-        "in-sq-search": "",
-        "in-environment": "any",
-        "in-organization": "solitary, pair, or retinue",
-        "in-treasure": "NPC Gear",
-        "in-spell-search": "",
-        "in-spell-class": "",
-        "in-spell-cl": "1",
-        "in-spell-stat": "cha",
-        "in-spell-conc": "0",
-        "in-spells-data": "",
-        "in-hp": "67 (9d10+18)",
-        "in-init": "+1",
-        "in-ac": "24, touch 11, flat-footed 23 (+10 armor, +3 shield, +1 Dex)",
-        "in-visibility": "private",
-        "in-author": "erdem"
-      },
-      "html": {},
-      "dynamic": {
-        "subtypes": [
-          ""
-        ],
-        "senses": [
-          {
-            "name": "Perception",
-            "dist": "+13"
-          }
-        ],
-        "skills": [
-          {
-            "name": "Diplomacy",
-            "mod": "15"
-          },
-          {
-            "name": "Handle Animal",
-            "mod": "15"
-          },
-          {
-            "name": "Intimidate",
-            "mod": "15"
-          },
-          {
-            "name": "Perception",
-            "mod": "13"
-          },
-          {
-            "name": "Ride",
-            "mod": "13"
-          }
-        ],
-        "slas": [],
-        "melee": [
-          {
-            "mode": "raw",
-            "rawText": "+1 lance +15/+10 (1d8+7/x3)"
-          },
-          {
-            "mode": "raw",
-            "rawText": "+1 longsword +14/+9 (1d8+5/19-20)"
-          }
-        ],
-        "ranged": [
-          {
-            "mode": "raw",
-            "rawText": "heavy crossbow +10 (1d10/19-20)"
-          }
-        ],
-        "abilities": [
-          {
-            "name": "Lion's Call (Ex)",
-            "desc": "Standard action grants allies within 60 ft. +3 vs fear and +3 morale bonus on attack rolls for 3 rounds."
-          },
-          {
-            "name": "For the King (Ex)",
-            "desc": "1/day swift action grants allies within 30 ft. +3 competence bonus on attack and damage rolls for 1 round."
-          },
-          {
-            "name": "Spirited Charge",
-            "desc": "Deals triple damage with a lance on a mounted charge."
-          }
-        ],
-        "magic_items": []
-      },
-      "_global_index": 6525,
-      "Visibility": "private",
-      "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem",
-      "id": "a2e1f1ec-4b8b-4fd0-a41d-3c748a42dfc2"
-    },
-    "_m_name": "(pyro)rovesta, cavalier",
-    "_m_cr": "8",
-    "_m_type": "humanoid",
-    "_m_align": "lg",
-    "_m_env": "any",
-    "_m_source": "",
-    "_global_index": 6525,
-    "Visibility": "private",
-    "AuthorId": "erdem",
-    "AuthorName": "erdem",
-    "id": "a2e1f1ec-4b8b-4fd0-a41d-3c748a42dfc2"
-  },
-  {
-    "Name": "(Pyro)Rovesta, Ranger",
-    "CR": "8",
-    "XP": "4800",
-    "Alignment": "CG",
-    "Size": "Medium",
-    "Type": "Humanoid",
-    "subtype1": "",
-    "subtype2": "",
-    "Init": "+5",
-    "Senses": "Perception +16",
-    "Aura": "",
-    "AC": "20",
-    "AC_Touch": "15",
-    "AC_Flat-footed": "15",
-    "HP": "67 (9d10+18)",
-    "HD": "9d10",
-    "Fort": "+8",
-    "Ref": "+8",
-    "Will": "+8",
-    "Speed": "30 ft.",
-    "Melee": "2 mwk short swords +12/+12 (1d6+2/19-20)",
-    "Ranged": "+1 adaptive composite longbow +16/+11 (1d8+5/19-20/x3), Rapid Shot +14/+14/+9 (1d8+5/19-20/x3)",
-    "Space": "5 ft.",
-    "Reach": "5 ft.",
-    "SpecialAttacks": "favored enemy (monstrous humanoids +4, evil outsiders +2, humans +2), favored terrain (plains +4, forest +2), hunter's bond (hunting allies)",
-    "DefensiveAbilities": "evasion, woodland stride, swift tracker",
-    "Weaknesses": "",
-    "Organization": "solitary or scout squad",
-    "Str": "14",
-    "Dex": "20",
-    "Con": "14",
-    "Int": "12",
-    "Wis": "20",
-    "Cha": "10",
-    "BaseAtk": "9",
-    "CMB": "+11",
-    "CMD": "26",
-    "Feats": "Point-Blank Shot, Precise Shot, Rapid Shot, Many Shot, Deadly Aim, Improved Critical (composite longbow), Clustered Shots, Weapon Focus (composite longbow)",
-    "Skills": "Acrobatics +16, Climb +14, Knowledge (geography) +13, Knowledge (nature) +13, Perception +16, Stealth +17, Survival +16",
-    "Languages": "Common, Sylvan",
-    "SQ": "track +4, wild empathy +9, endurance",
-    "DR": "",
-    "Immune": "",
-    "Resist": "",
-    "SR": "",
-    "Environment": "any",
-    "Treasure": "NPC Gear",
-    "Gear": "+1 Mithral Chain Shirt",
-    "Class1": "",
-    "Class1_Lvl": "",
-    "IsFavorite": true,
-    "IsUserCustom": true,
-    "CharacterFlag": "0",
-    "SpellLikeAbilities": "",
-    "Special Abilities": "Manyshot First attack with a full attack fires two arrows simultaneously.\nClustered Shots Total all damage from a full-attack with a bow before applying DR.\nFavored Enemy (Ex) +4 bonus on weapon attack/damage and skill checks vs monstrous humanoids.",
-    "OriginalState": {
-      "basic": {
-        "in-name": "(Pyro)Rovesta, Ranger",
-        "in-cr": "8",
-        "in-xp": "4800",
-        "in-alignment": "CG",
-        "in-size": "Medium",
-        "in-type": "Humanoid",
-        "in-type-full": "Human ranger 9",
-        "in-init-extra": "0",
-        "in-aura": "",
-        "in-armor-name": "+1 Mithral Chain Shirt",
-        "in-ac-armor": "5",
-        "in-shield-name": "",
-        "in-ac-shield": "0",
-        "in-ac-natural": "0",
-        "in-ac-deflection": "0",
-        "in-ac-dodge": "0",
-        "in-magic-item-search": "",
-        "in-hd-amount": "9",
-        "in-hd-size": "10",
-        "in-fort": "+8",
-        "in-ref": "+8",
-        "in-will": "+8",
-        "in-def-abilities": "evasion, woodland stride, swift tracker",
-        "in-dr": "",
-        "in-immune": "",
-        "in-resist": "",
-        "in-weaknesses": "",
-        "in-sr": "",
-        "in-speed": "30 ft.",
-        "in-space": "5 ft.",
-        "in-reach": "5 ft.",
-        "in-special-attacks": "favored enemy (monstrous humanoids +4, evil outsiders +2, humans +2), favored terrain (plains +4, forest +2), hunter's bond (hunting allies)",
-        "in-sla-cl": "",
-        "in-str": "14",
-        "in-dex": "20",
-        "in-con": "14",
-        "in-int": "12",
-        "in-wis": "20",
-        "in-cha": "10",
-        "in-bab": "9",
-        "in-cmb": "+11",
-        "in-cmd": "26",
-        "in-feats": "Point-Blank Shot, Precise Shot, Rapid Shot, Many Shot, Deadly Aim, Improved Critical (composite longbow), Clustered Shots, Weapon Focus (composite longbow)",
-        "in-feat-search": "",
-        "in-languages": "Common, Sylvan",
-        "in-sq": "track +4, wild empathy +9, endurance",
-        "in-sq-search": "",
-        "in-environment": "any",
-        "in-organization": "solitary or scout squad",
-        "in-treasure": "NPC Gear",
-        "in-spell-search": "",
-        "in-spell-class": "Ranger Spells Prepared",
-        "in-spell-cl": "6",
-        "in-spell-stat": "wis",
-        "in-spell-conc": "8",
-        "in-spells-data": "{\"2\": {\"slots\": \"2\", \"spells\": [\"Barkskin\", \"Cat's Grace\"]}, \"1\": {\"slots\": \"3\", \"spells\": [\"Gravity Bow\", \"Longstrider\", \"Resist Energy\"]}}",
-        "in-hp": "67 (9d10+18)",
-        "in-init": "+5",
-        "in-ac": "20, touch 15, flat-footed 15 (+5 armor, +5 Dex)",
-        "in-visibility": "private",
-        "in-author": "erdem"
-      },
-      "html": {},
-      "dynamic": {
-        "subtypes": [
-          ""
-        ],
-        "senses": [
-          {
-            "name": "Perception",
-            "dist": "+16"
-          }
-        ],
-        "skills": [
-          {
-            "name": "Acrobatics",
-            "mod": "16"
-          },
-          {
-            "name": "Climb",
-            "mod": "14"
-          },
-          {
-            "name": "Knowledge (geography)",
-            "mod": "13"
-          },
-          {
-            "name": "Knowledge (nature)",
-            "mod": "13"
-          },
-          {
-            "name": "Perception",
-            "mod": "16"
-          },
-          {
-            "name": "Stealth",
-            "mod": "17"
-          },
-          {
-            "name": "Survival",
-            "mod": "16"
-          }
-        ],
-        "slas": [],
-        "melee": [
-          {
-            "mode": "raw",
-            "rawText": "2 mwk short swords +12/+12 (1d6+2/19-20)"
-          }
-        ],
-        "ranged": [
-          {
-            "mode": "raw",
-            "rawText": "+1 adaptive composite longbow +16/+11 (1d8+5/19-20/x3)"
-          },
-          {
-            "mode": "raw",
-            "rawText": "Rapid Shot +14/+14/+9 (1d8+5/19-20/x3)"
-          }
-        ],
-        "abilities": [
-          {
-            "name": "Manyshot",
-            "desc": "First attack with a full attack fires two arrows simultaneously."
-          },
-          {
-            "name": "Clustered Shots",
-            "desc": "Total all damage from a full-attack with a bow before applying DR."
-          },
-          {
-            "name": "Favored Enemy (Ex)",
-            "desc": "+4 bonus on weapon attack/damage and skill checks vs monstrous humanoids."
-          }
-        ],
-        "magic_items": []
-      },
-      "_global_index": 6526,
-      "Visibility": "private",
-      "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem",
-      "id": "3c3f42a2-d996-408f-be94-936888fed88f"
-    },
-    "_m_name": "(pyro)rovesta, ranger",
-    "_m_cr": "8",
-    "_m_type": "humanoid",
-    "_m_align": "cg",
-    "_m_env": "any",
-    "_m_source": "",
-    "_global_index": 6526,
-    "Visibility": "private",
-    "AuthorId": "erdem",
-    "AuthorName": "erdem",
-    "id": "3c3f42a2-d996-408f-be94-936888fed88f"
-  },
-  {
-    "Name": "(Auran)Rovesta, Slayer",
-    "CR": "8",
-    "XP": "4800",
-    "Alignment": "N",
-    "Size": "Medium",
-    "Type": "Humanoid",
-    "subtype1": "",
-    "subtype2": "",
-    "Init": "+5",
-    "Senses": "Perception +15",
-    "Aura": "",
-    "AC": "21",
-    "AC_Touch": "15",
-    "AC_Flat-footed": "16",
-    "HP": "67 (9d10+18)",
-    "HD": "9d10",
-    "Fort": "+8",
-    "Ref": "+11",
-    "Will": "+4",
-    "Speed": "30 ft.",
-    "Melee": "+1 keen short sword +15/+10 (1d6+3/17-20), +1 short sword +15/+10 (1d6+3/19-20)",
-    "Ranged": "mwk composite shortbow (+2 Str) +15/+10 (1d6+2/x3)",
-    "Space": "5 ft.",
-    "Reach": "5 ft.",
-    "SpecialAttacks": "sneak attack +3d6, studied target +3 (swift action, 2 targets), slayer talents (two-weapon fighting, bleeding attack 3 bleed, fast stealth)",
-    "DefensiveAbilities": "stalker, track +4",
-    "Weaknesses": "",
-    "Organization": "solitary or pair",
-    "Str": "14",
-    "Dex": "20",
-    "Con": "14",
-    "Int": "14",
-    "Wis": "12",
-    "Cha": "10",
-    "BaseAtk": "9",
-    "CMB": "+11",
-    "CMD": "26",
-    "Feats": "Two-Weapon Fighting, Double Slice, Improved Two-Weapon Fighting, Weapon Focus (short sword), Two-Weapon Defense, Piranha Strike, Toughness, Improved Initiative",
-    "Skills": "Acrobatics +17, Bluff +12, Disable Device +17, Disguise +12, Knowledge (local) +14, Perception +15, Sense Motive +13, Stealth +17",
-    "Languages": "Common, Elven, Undercommon",
-    "SQ": "slayer talents, track +4",
-    "DR": "",
-    "Immune": "",
-    "Resist": "",
-    "SR": "",
-    "Environment": "any",
-    "Treasure": "NPC Gear",
-    "Gear": "+2 Mithral Chain Shirt",
-    "Class1": "",
-    "Class1_Lvl": "",
-    "IsFavorite": true,
-    "IsUserCustom": true,
-    "CharacterFlag": "0",
-    "SpellLikeAbilities": "",
-    "Special Abilities": "Studied Target (Ex) Swift action grants +3 bonus on attack/damage rolls and key skill checks vs studied targets.\nBleeding Attack (Ex) Sneak attacks deal 3 bleed damage per round.\nSneak Attack (Ex) Deals +3d6 precision damage when flanking or target is denied Dex bonus.",
-    "OriginalState": {
-      "basic": {
-        "in-name": "(Auran)Rovesta, Slayer",
-        "in-cr": "8",
-        "in-xp": "4800",
-        "in-alignment": "N",
-        "in-size": "Medium",
-        "in-type": "Humanoid",
-        "in-type-full": "Human slayer 9",
-        "in-init-extra": "0",
-        "in-aura": "",
-        "in-armor-name": "+2 Mithral Chain Shirt",
-        "in-ac-armor": "6",
-        "in-shield-name": "",
-        "in-ac-shield": "0",
-        "in-ac-natural": "0",
-        "in-ac-deflection": "0",
-        "in-ac-dodge": "0",
-        "in-magic-item-search": "",
-        "in-hd-amount": "9",
-        "in-hd-size": "10",
-        "in-fort": "+8",
-        "in-ref": "+11",
-        "in-will": "+4",
-        "in-def-abilities": "stalker, track +4",
-        "in-dr": "",
-        "in-immune": "",
-        "in-resist": "",
-        "in-weaknesses": "",
-        "in-sr": "",
-        "in-speed": "30 ft.",
-        "in-space": "5 ft.",
-        "in-reach": "5 ft.",
-        "in-special-attacks": "sneak attack +3d6, studied target +3 (swift action, 2 targets), slayer talents (two-weapon fighting, bleeding attack 3 bleed, fast stealth)",
-        "in-sla-cl": "",
-        "in-str": "14",
-        "in-dex": "20",
-        "in-con": "14",
-        "in-int": "14",
-        "in-wis": "12",
-        "in-cha": "10",
-        "in-bab": "9",
-        "in-cmb": "+11",
-        "in-cmd": "26",
-        "in-feats": "Two-Weapon Fighting, Double Slice, Improved Two-Weapon Fighting, Weapon Focus (short sword), Two-Weapon Defense, Piranha Strike, Toughness, Improved Initiative",
-        "in-feat-search": "",
-        "in-languages": "Common, Elven, Undercommon",
-        "in-sq": "slayer talents, track +4",
-        "in-sq-search": "",
-        "in-environment": "any",
-        "in-organization": "solitary or pair",
-        "in-treasure": "NPC Gear",
-        "in-spell-search": "",
-        "in-spell-class": "",
-        "in-spell-cl": "1",
-        "in-spell-stat": "cha",
-        "in-spell-conc": "0",
-        "in-spells-data": "",
-        "in-hp": "67 (9d10+18)",
-        "in-init": "+5",
-        "in-ac": "21, touch 15, flat-footed 16 (+6 armor, +5 Dex)",
-        "in-visibility": "private",
-        "in-author": "erdem"
-      },
-      "html": {},
-      "dynamic": {
-        "subtypes": [
-          ""
-        ],
-        "senses": [
-          {
-            "name": "Perception",
-            "dist": "+15"
-          }
-        ],
-        "skills": [
-          {
-            "name": "Acrobatics",
-            "mod": "17"
-          },
-          {
-            "name": "Bluff",
-            "mod": "12"
-          },
-          {
-            "name": "Disable Device",
-            "mod": "17"
-          },
-          {
-            "name": "Disguise",
-            "mod": "12"
-          },
-          {
-            "name": "Knowledge (local)",
-            "mod": "14"
-          },
-          {
-            "name": "Perception",
-            "mod": "15"
-          },
-          {
-            "name": "Sense Motive",
-            "mod": "13"
-          },
-          {
-            "name": "Stealth",
-            "mod": "17"
-          }
-        ],
-        "slas": [],
-        "melee": [
-          {
-            "mode": "raw",
-            "rawText": "+1 keen short sword +15/+10 (1d6+3/17-20)"
-          },
-          {
-            "mode": "raw",
-            "rawText": "+1 short sword +15/+10 (1d6+3/19-20)"
-          }
-        ],
-        "ranged": [
-          {
-            "mode": "raw",
-            "rawText": "mwk composite shortbow (+2 Str) +15/+10 (1d6+2/x3)"
-          }
-        ],
-        "abilities": [
-          {
-            "name": "Studied Target (Ex)",
-            "desc": "Swift action grants +3 bonus on attack/damage rolls and key skill checks vs studied targets."
-          },
-          {
-            "name": "Bleeding Attack (Ex)",
-            "desc": "Sneak attacks deal 3 bleed damage per round."
-          },
-          {
-            "name": "Sneak Attack (Ex)",
-            "desc": "Deals +3d6 precision damage when flanking or target is denied Dex bonus."
-          }
-        ],
-        "magic_items": []
-      },
-      "_global_index": 6527,
-      "Visibility": "private",
-      "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem",
-      "id": "022e8501-ab79-42c4-a63c-5b2e1901c47e"
-    },
-    "_m_name": "(auran)rovesta, slayer",
-    "_m_cr": "8",
-    "_m_type": "humanoid",
-    "_m_align": "n",
-    "_m_env": "any",
-    "_m_source": "",
-    "_global_index": 6527,
-    "Visibility": "private",
-    "AuthorId": "erdem",
-    "AuthorName": "erdem",
-    "id": "022e8501-ab79-42c4-a63c-5b2e1901c47e"
-  },
-  {
-    "Name": "(Auran)Rovesta, Swashbuckler",
-    "CR": "8",
-    "XP": "4800",
-    "Alignment": "LN",
-    "Size": "Medium",
-    "Type": "Humanoid",
-    "subtype1": "",
-    "subtype2": "",
-    "Init": "+5",
-    "Senses": "Perception +12",
-    "Aura": "",
-    "AC": "24",
-    "AC_Touch": "17",
-    "AC_Flat-footed": "17",
-    "HP": "67 (9d10+18)",
-    "HD": "9d10",
-    "Fort": "+5",
-    "Ref": "+11",
-    "Will": "+4",
-    "Speed": "30 ft.",
-    "Melee": "+2 rapier +17/+12 (1d6+13/15-20 plus 9 precision)",
-    "Ranged": "",
-    "Space": "5 ft.",
-    "Reach": "5 ft.",
-    "SpecialAttacks": "panache (5 points), deeds (derring-do, dodging panache, opportune parry and riposte, precise strike +9 precision, swashbuckler initiative), swashbuckler weapon training +2",
-    "DefensiveAbilities": "charmed life (4/day, +3 to save), nimble +2",
-    "Weaknesses": "",
-    "Organization": "solitary or honor guard",
-    "Str": "10",
-    "Dex": "20",
-    "Con": "14",
-    "Int": "12",
-    "Wis": "12",
-    "Cha": "20",
-    "BaseAtk": "9",
-    "CMB": "+9",
-    "CMD": "26",
-    "Feats": "Weapon Finesse, Fencing Grace, Weapon Focus (rapier), Weapon Specialization (rapier), Combat Reflexes, Improved Critical (rapier), Dodge",
-    "Skills": "Acrobatics +17, Bluff +15, Diplomacy +15, Escape Artist +15, Intimidate +15, Perception +12, Sense Motive +12",
-    "Languages": "Common, Celestial",
-    "SQ": "swashbuckler finesse, panache, deeds",
-    "DR": "",
-    "Immune": "",
-    "Resist": "",
-    "SR": "",
-    "Environment": "any",
-    "Treasure": "NPC Gear",
-    "Gear": "+1 Mithral Chain Shirt, +1 Buckler",
-    "Class1": "",
-    "Class1_Lvl": "",
-    "IsFavorite": true,
-    "IsUserCustom": true,
-    "CharacterFlag": "0",
-    "SpellLikeAbilities": "",
-    "Special Abilities": "Opportune Parry and Riposte (Ex) Spends 1 panache point and AoO to parry an attack with opposed roll and make immediate riposte.\nPrecise Strike (Ex) Adds +9 precision damage with light/one-handed piercing weapons.\nCharmed Life (Ex) 4/day adds +3 Cha bonus to any saving throw as an immediate action.",
-    "OriginalState": {
-      "basic": {
-        "in-name": "(Auran)Rovesta, Swashbuckler",
-        "in-cr": "8",
-        "in-xp": "4800",
-        "in-alignment": "LN",
-        "in-size": "Medium",
-        "in-type": "Humanoid",
-        "in-type-full": "Human swashbuckler 9",
-        "in-init-extra": "0",
-        "in-aura": "",
-        "in-armor-name": "+1 Mithral Chain Shirt",
-        "in-ac-armor": "5",
-        "in-shield-name": "+1 Buckler",
-        "in-ac-shield": "2",
-        "in-ac-natural": "0",
-        "in-ac-deflection": "0",
-        "in-ac-dodge": "2",
-        "in-magic-item-search": "",
-        "in-hd-amount": "9",
-        "in-hd-size": "10",
-        "in-fort": "+5",
-        "in-ref": "+11",
-        "in-will": "+4",
-        "in-def-abilities": "charmed life (4/day, +3 to save), nimble +2",
-        "in-dr": "",
-        "in-immune": "",
-        "in-resist": "",
-        "in-weaknesses": "",
-        "in-sr": "",
-        "in-speed": "30 ft.",
-        "in-space": "5 ft.",
-        "in-reach": "5 ft.",
-        "in-special-attacks": "panache (5 points), deeds (derring-do, dodging panache, opportune parry and riposte, precise strike +9 precision, swashbuckler initiative), swashbuckler weapon training +2",
-        "in-sla-cl": "",
-        "in-str": "10",
-        "in-dex": "20",
-        "in-con": "14",
-        "in-int": "12",
-        "in-wis": "12",
-        "in-cha": "20",
-        "in-bab": "9",
-        "in-cmb": "+9",
-        "in-cmd": "26",
-        "in-feats": "Weapon Finesse, Fencing Grace, Weapon Focus (rapier), Weapon Specialization (rapier), Combat Reflexes, Improved Critical (rapier), Dodge",
-        "in-feat-search": "",
-        "in-languages": "Common, Celestial",
-        "in-sq": "swashbuckler finesse, panache, deeds",
-        "in-sq-search": "",
-        "in-environment": "any",
-        "in-organization": "solitary or honor guard",
-        "in-treasure": "NPC Gear",
-        "in-spell-search": "",
-        "in-spell-class": "",
-        "in-spell-cl": "1",
-        "in-spell-stat": "cha",
-        "in-spell-conc": "0",
-        "in-spells-data": "",
-        "in-hp": "67 (9d10+18)",
-        "in-init": "+5",
-        "in-ac": "24, touch 17, flat-footed 17 (+5 armor, +2 shield, +5 Dex, +2 dodge)",
-        "in-visibility": "private",
-        "in-author": "erdem"
-      },
-      "html": {},
-      "dynamic": {
-        "subtypes": [
-          ""
-        ],
-        "senses": [
-          {
-            "name": "Perception",
-            "dist": "+12"
-          }
-        ],
-        "skills": [
-          {
-            "name": "Acrobatics",
-            "mod": "17"
-          },
-          {
-            "name": "Bluff",
-            "mod": "15"
-          },
-          {
-            "name": "Diplomacy",
-            "mod": "15"
-          },
-          {
-            "name": "Escape Artist",
-            "mod": "15"
-          },
-          {
-            "name": "Intimidate",
-            "mod": "15"
-          },
-          {
-            "name": "Perception",
-            "mod": "12"
-          },
-          {
-            "name": "Sense Motive",
-            "mod": "12"
-          }
-        ],
-        "slas": [],
-        "melee": [
-          {
-            "mode": "raw",
-            "rawText": "+2 rapier +17/+12 (1d6+13/15-20 plus 9 precision)"
-          }
-        ],
-        "ranged": [],
-        "abilities": [
-          {
-            "name": "Opportune Parry and Riposte (Ex)",
-            "desc": "Spends 1 panache point and AoO to parry an attack with opposed roll and make immediate riposte."
-          },
-          {
-            "name": "Precise Strike (Ex)",
-            "desc": "Adds +9 precision damage with light/one-handed piercing weapons."
-          },
-          {
-            "name": "Charmed Life (Ex)",
-            "desc": "4/day adds +3 Cha bonus to any saving throw as an immediate action."
-          }
-        ],
-        "magic_items": []
-      },
-      "_global_index": 6528,
-      "Visibility": "private",
-      "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem",
-      "id": "f0fe2071-4c4d-45ca-a9bd-19edc5ba9622"
-    },
-    "_m_name": "(auran)rovesta, swashbuckler",
-    "_m_cr": "8",
-    "_m_type": "humanoid",
-    "_m_align": "ln",
-    "_m_env": "any",
-    "_m_source": "",
-    "_global_index": 6528,
-    "Visibility": "private",
-    "AuthorId": "erdem",
-    "AuthorName": "erdem",
-    "id": "f0fe2071-4c4d-45ca-a9bd-19edc5ba9622"
-  },
-  {
-    "Name": "(Auran)Rovesta, Bard",
-    "CR": "8",
-    "XP": "4800",
-    "Alignment": "CG",
-    "Size": "Medium",
-    "Type": "Humanoid",
-    "subtype1": "",
-    "subtype2": "",
-    "Init": "+3",
-    "Senses": "Perception +12",
-    "Aura": "",
-    "AC": "20",
-    "AC_Touch": "14",
-    "AC_Flat-footed": "17",
-    "HP": "58 (9d8+18)",
-    "HD": "9d8",
-    "Fort": "+5",
-    "Ref": "+9",
-    "Will": "+6",
-    "Speed": "30 ft.",
-    "Melee": "+1 rapier +10/+5 (1d6+1/18-20)",
-    "Ranged": "+1 shortbow +10/+5 (1d6+1/x3)",
-    "Space": "5 ft.",
-    "Reach": "5 ft.",
-    "SpecialAttacks": "bardic performance 26 rounds/day (inspire courage +2, inspire competence +3, suggestion [DC 19], dirge of doom, inspire greatness)",
-    "DefensiveAbilities": "well-versed (+4 vs sonic/bardic)",
-    "Weaknesses": "",
-    "Organization": "solitary or troupe",
-    "Str": "10",
-    "Dex": "16",
-    "Con": "14",
-    "Int": "14",
-    "Wis": "10",
-    "Cha": "20",
-    "BaseAtk": "6",
-    "CMB": "+6",
-    "CMD": "20",
-    "Feats": "Lingering Performance, Arcane Strike, Extra Performance, Weapon Finesse, Dodge, Toughness",
-    "Skills": "Bluff +17, Diplomacy +17, Perception +12, Perform (sing) +17, Perform (string) +17, Spellcraft +14, Use Magic Device +17",
-    "Languages": "Common, Aquan, Elven",
-    "SQ": "bardic knowledge +4, versatile performance (sing, string), lore master 1/day, jack-of-all-trades",
-    "DR": "",
-    "Immune": "",
-    "Resist": "",
-    "SR": "",
-    "Environment": "any",
-    "Treasure": "NPC Gear",
-    "Gear": "+1 Mithral Chain Shirt, +1 Buckler",
-    "Class1": "",
-    "Class1_Lvl": "",
-    "IsFavorite": true,
-    "IsUserCustom": true,
-    "CharacterFlag": "0",
-    "SpellLikeAbilities": "",
-    "Special Abilities": "Inspire Courage +2 (Su) Allies gain +2 morale on saves vs charm/fear and +2 competence on attack/weapon damage.\nInspire Greatness (Su) Grants 2 allies +2 bonus HD (2d10+Con bonus hp), +2 attack bonus, +1 Fort save bonus.\nVersatile Performance (Ex) Uses Perform (sing) for Bluff/Sense Motive and Perform (string) for Diplomacy.",
-    "OriginalState": {
-      "basic": {
-        "in-name": "(Auran)Rovesta, Bard",
-        "in-cr": "8",
-        "in-xp": "4800",
-        "in-alignment": "CG",
-        "in-size": "Medium",
-        "in-type": "Humanoid",
-        "in-type-full": "Human bard 9",
-        "in-init-extra": "0",
-        "in-aura": "",
-        "in-armor-name": "+1 Mithral Chain Shirt",
-        "in-ac-armor": "5",
-        "in-shield-name": "+1 Buckler",
-        "in-ac-shield": "1",
-        "in-ac-natural": "0",
-        "in-ac-deflection": "1",
-        "in-ac-dodge": "0",
-        "in-magic-item-search": "",
-        "in-hd-amount": "9",
-        "in-hd-size": "8",
-        "in-fort": "+5",
-        "in-ref": "+9",
-        "in-will": "+6",
-        "in-def-abilities": "well-versed (+4 vs sonic/bardic)",
-        "in-dr": "",
-        "in-immune": "",
-        "in-resist": "",
-        "in-weaknesses": "",
-        "in-sr": "",
-        "in-speed": "30 ft.",
-        "in-space": "5 ft.",
-        "in-reach": "5 ft.",
-        "in-special-attacks": "bardic performance 26 rounds/day (inspire courage +2, inspire competence +3, suggestion [DC 19], dirge of doom, inspire greatness)",
-        "in-sla-cl": "",
-        "in-str": "10",
-        "in-dex": "16",
-        "in-con": "14",
-        "in-int": "14",
-        "in-wis": "10",
-        "in-cha": "20",
-        "in-bab": "6",
-        "in-cmb": "+6",
-        "in-cmd": "20",
-        "in-feats": "Lingering Performance, Arcane Strike, Extra Performance, Weapon Finesse, Dodge, Toughness",
-        "in-feat-search": "",
-        "in-languages": "Common, Aquan, Elven",
-        "in-sq": "bardic knowledge +4, versatile performance (sing, string), lore master 1/day, jack-of-all-trades",
-        "in-sq-search": "",
-        "in-environment": "any",
-        "in-organization": "solitary or troupe",
-        "in-treasure": "NPC Gear",
-        "in-spell-search": "",
-        "in-spell-class": "Bard Spells Known",
-        "in-spell-cl": "9",
-        "in-spell-stat": "cha",
-        "in-spell-conc": "14",
-        "in-spells-data": "{\"3\": {\"slots\": \"4\", \"spells\": [\"Haste\", \"Slow\", \"Displacement\", \"Crushing Despair\", \"Good Hope\"]}, \"2\": {\"slots\": \"5\", \"spells\": [\"Glitterdust\", \"Mirror Image\", \"Sound Burst\", \"Silence\", \"Heroism\", \"Cure Moderate Wounds\"]}, \"1\": {\"slots\": \"6\", \"spells\": [\"Cure Light Wounds\", \"Hideous Laughter\", \"Grease\", \"Charm Person\", \"Feather Fall\", \"Vanish\"]}, \"0\": {\"slots\": \"\", \"spells\": [\"Detect Magic\", \"Light\", \"Message\", \"Prestidigitation\", \"Read Magic\", \"Ghost Sound\"]}}",
-        "in-hp": "58 (9d8+18)",
-        "in-init": "+3",
-        "in-ac": "20, touch 14, flat-footed 17 (+5 armor, +1 shield, +3 Dex, +1 deflection)",
-        "in-visibility": "private",
-        "in-author": "erdem"
-      },
-      "html": {},
-      "dynamic": {
-        "subtypes": [
-          ""
-        ],
-        "senses": [
-          {
-            "name": "Perception",
-            "dist": "+12"
-          }
-        ],
-        "skills": [
-          {
-            "name": "Bluff",
-            "mod": "17"
-          },
-          {
-            "name": "Diplomacy",
-            "mod": "17"
-          },
-          {
-            "name": "Perception",
-            "mod": "12"
-          },
-          {
-            "name": "Perform (sing)",
-            "mod": "17"
-          },
-          {
-            "name": "Perform (string)",
-            "mod": "17"
-          },
-          {
-            "name": "Spellcraft",
-            "mod": "14"
-          },
-          {
-            "name": "Use Magic Device",
-            "mod": "17"
-          }
-        ],
-        "slas": [],
-        "melee": [
-          {
-            "mode": "raw",
-            "rawText": "+1 rapier +10/+5 (1d6+1/18-20)"
-          }
-        ],
-        "ranged": [
-          {
-            "mode": "raw",
-            "rawText": "+1 shortbow +10/+5 (1d6+1/x3)"
-          }
-        ],
-        "abilities": [
-          {
-            "name": "Inspire Courage +2 (Su)",
-            "desc": "Allies gain +2 morale on saves vs charm/fear and +2 competence on attack/weapon damage."
-          },
-          {
-            "name": "Inspire Greatness (Su)",
-            "desc": "Grants 2 allies +2 bonus HD (2d10+Con bonus hp), +2 attack bonus, +1 Fort save bonus."
-          },
-          {
-            "name": "Versatile Performance (Ex)",
-            "desc": "Uses Perform (sing) for Bluff/Sense Motive and Perform (string) for Diplomacy."
-          }
-        ],
-        "magic_items": []
-      },
-      "_global_index": 6529,
-      "Visibility": "private",
-      "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem",
-      "id": "86027e87-1cb7-4da5-a048-b2908e83acb8"
-    },
-    "_m_name": "(auran)rovesta, bard",
-    "_m_cr": "8",
-    "_m_type": "humanoid",
-    "_m_align": "cg",
-    "_m_env": "any",
-    "_m_source": "",
-    "_global_index": 6529,
-    "Visibility": "private",
-    "AuthorId": "erdem",
-    "AuthorName": "erdem",
-    "id": "86027e87-1cb7-4da5-a048-b2908e83acb8"
-  },
-  {
-    "Name": "(Aqua)Rovesta, Brawler",
-    "CR": "8",
-    "XP": "4800",
-    "Alignment": "N",
-    "Size": "Medium",
-    "Type": "Humanoid",
-    "subtype1": "",
-    "subtype2": "",
-    "Init": "+5",
-    "Senses": "Perception +13",
-    "Aura": "",
-    "AC": "20",
-    "AC_Touch": "15",
-    "AC_Flat-footed": "15",
-    "HP": "94 (9d10+45)",
-    "HD": "9d10",
-    "Fort": "+11",
-    "Ref": "+11",
-    "Will": "+8",
-    "Speed": "30 ft.",
-    "Melee": "unarmed strike +16/+11 (1d10+7), Brawler's Flurry +16/+16/+11/+11 (1d10+7)",
-    "Ranged": "",
-    "Space": "5 ft.",
-    "Reach": "5 ft.",
-    "SpecialAttacks": "brawler's flurry, martial flexibility (7/day, 2 feats), knockout (1/day, DC 19), maneuver training (grapple +2, trip +1), brawler's strike (magic)",
-    "DefensiveAbilities": "",
-    "Weaknesses": "",
-    "Organization": "solitary or pit fighting champion",
-    "Str": "20",
-    "Dex": "20",
-    "Con": "20",
-    "Int": "10",
-    "Wis": "20",
-    "Cha": "8",
-    "BaseAtk": "9",
-    "CMB": "+14",
-    "CMD": "30",
-    "Feats": "Improved Unarmed Strike, Improved Grapple, Greater Grapple, Power Attack, Weapon Focus (unarmed strike), Toughness, Iron Will, Snapping Turtle Style",
-    "Skills": "Acrobatics +15, Climb +16, Escape Artist +15, Intimidate +11, Perception +13, Swim +16",
-    "Languages": "Common",
-    "SQ": "martial flexibility, brawler's cunning",
-    "DR": "",
-    "Immune": "",
-    "Resist": "",
-    "SR": "",
-    "Environment": "any",
-    "Treasure": "NPC Gear",
-    "Gear": "Amulet of Natural Armor +1, Ring of Protection +1",
-    "Class1": "",
-    "Class1_Lvl": "",
-    "IsFavorite": true,
-    "IsUserCustom": true,
-    "CharacterFlag": "0",
-    "SpellLikeAbilities": "",
-    "Special Abilities": "Martial Flexibility (Ex) Swift action grants 2 combat feats for 1 minute (7/day).\nGreater Grapple (Ex) Maintaining a grapple is a move action, allowing two grapple checks per round.\nKnockout (Ex) 1/day forces target to make Fort DC 19 or fall unconscious for 1d6 rounds.",
-    "OriginalState": {
-      "basic": {
-        "in-name": "(Aqua)Rovesta, Brawler",
-        "in-cr": "8",
-        "in-xp": "4800",
-        "in-alignment": "N",
-        "in-size": "Medium",
-        "in-type": "Humanoid",
-        "in-type-full": "Human brawler 9",
-        "in-init-extra": "0",
-        "in-aura": "",
-        "in-armor-name": "",
-        "in-ac-armor": "5",
-        "in-shield-name": "",
-        "in-ac-shield": "0",
-        "in-ac-natural": "0",
-        "in-ac-deflection": "0",
-        "in-ac-dodge": "",
-        "in-magic-item-search": "",
-        "in-hd-amount": "9",
-        "in-hd-size": "10",
-        "in-fort": "+11",
-        "in-ref": "+11",
-        "in-will": "+8",
-        "in-def-abilities": "",
-        "in-dr": "",
-        "in-immune": "",
-        "in-resist": "",
-        "in-weaknesses": "",
-        "in-sr": "",
-        "in-speed": "30 ft.",
-        "in-space": "5 ft.",
-        "in-reach": "5 ft.",
-        "in-special-attacks": "brawler's flurry, martial flexibility (7/day, 2 feats), knockout (1/day, DC 19), maneuver training (grapple +2, trip +1), brawler's strike (magic)",
-        "in-sla-cl": "",
-        "in-str": "20",
-        "in-dex": "20",
-        "in-con": "20",
-        "in-int": "10",
-        "in-wis": "20",
-        "in-cha": "8",
-        "in-bab": "9",
-        "in-cmb": "+14",
-        "in-cmd": "30",
-        "in-feats": "Improved Unarmed Strike, Improved Grapple, Greater Grapple, Power Attack, Weapon Focus (unarmed strike), Toughness, Iron Will, Snapping Turtle Style",
-        "in-feat-search": "",
-        "in-languages": "Common",
-        "in-sq": "martial flexibility, brawler's cunning",
-        "in-sq-search": "",
-        "in-environment": "any",
-        "in-organization": "solitary or pit fighting champion",
-        "in-treasure": "NPC Gear",
-        "in-spell-search": "",
-        "in-spell-class": "",
-        "in-spell-cl": "1",
-        "in-spell-stat": "cha",
-        "in-spell-conc": "0",
-        "in-spells-data": "",
-        "in-hp": "94 (9d10+45)",
-        "in-init": "+5",
-        "in-ac": "22, touch 16, flat-footed 17 (+5 armor, +5 Dex, +1 natural, +1 deflection)",
-        "in-visibility": "private",
-        "in-author": "erdem"
-      },
-      "html": {},
-      "dynamic": {
-        "subtypes": [
-          ""
-        ],
-        "senses": [
-          {
-            "name": "Perception",
-            "dist": "+13"
-          }
-        ],
-        "skills": [
-          {
-            "name": "Acrobatics",
-            "mod": "15"
-          },
-          {
-            "name": "Climb",
-            "mod": "16"
-          },
-          {
-            "name": "Escape Artist",
-            "mod": "15"
-          },
-          {
-            "name": "Intimidate",
-            "mod": "11"
-          },
-          {
-            "name": "Perception",
-            "mod": "13"
-          },
-          {
-            "name": "Swim",
-            "mod": "16"
-          }
-        ],
-        "slas": [],
-        "melee": [
-          {
-            "mode": "raw",
-            "rawText": "unarmed strike +16/+11 (1d10+7)"
-          },
-          {
-            "mode": "raw",
-            "rawText": "Brawler's Flurry +16/+16/+11/+11 (1d10+7)"
-          }
-        ],
-        "ranged": [],
-        "abilities": [
-          {
-            "name": "Martial Flexibility (Ex)",
-            "desc": "Swift action grants 2 combat feats for 1 minute (7/day)."
-          },
-          {
-            "name": "Greater Grapple (Ex)",
-            "desc": "Maintaining a grapple is a move action, allowing two grapple checks per round."
-          },
-          {
-            "name": "Knockout (Ex)",
-            "desc": "1/day forces target to make Fort DC 19 or fall unconscious for 1d6 rounds."
-          }
-        ],
-        "magic_items": [
-          {
-            "name": "Amulet of Natural Armor +1",
-            "slot": "Neck",
-            "price": "2,000 gp",
-            "cl": "5th",
-            "aura": "faint abjuration",
-            "modifiers": {
-              "ac_natural": 1
-            },
-            "description": "This amulet, usually crafted from bone or beast scales, toughens the wearer's skin, granting a +1 enhancement bonus to her natural armor."
-          },
-          {
-            "name": "Ring of Protection +1",
-            "slot": "Ring",
-            "price": "2,000 gp",
-            "cl": "5th",
-            "aura": "faint abjuration",
-            "modifiers": {
-              "ac_deflection": 1
-            },
-            "description": "This ring offers continual magical protection in the form of a +1 deflection bonus to AC and CMD."
-          }
-        ]
-      },
-      "_global_index": 6530,
-      "Visibility": "private",
-      "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem",
-      "id": "9c31431f-5eb3-4269-a3eb-accfadfa2d4e"
-    },
-    "_m_name": "(aqua)rovesta, brawler",
-    "_m_cr": "8",
-    "_m_type": "humanoid",
-    "_m_align": "n",
-    "_m_env": "any",
-    "_m_source": "",
-    "_global_index": 6530,
-    "Visibility": "private",
-    "AuthorId": "erdem",
-    "AuthorName": "erdem",
-    "id": "9c31431f-5eb3-4269-a3eb-accfadfa2d4e"
-  },
-  {
-    "Name": "(Aqua)Rovesta, Rogue",
-    "CR": "8",
-    "XP": "4800",
-    "Alignment": "NE",
-    "Size": "Medium",
-    "Type": "Humanoid",
-    "subtype1": "",
-    "subtype2": "",
-    "Init": "+5",
-    "Senses": "Perception +15",
-    "Aura": "",
-    "AC": "20",
-    "AC_Touch": "15",
-    "AC_Flat-footed": "15",
-    "HP": "58 (9d8+18)",
-    "HD": "9d8",
-    "Fort": "+5",
-    "Ref": "+11",
-    "Will": "+4",
-    "Speed": "30 ft.",
-    "Melee": "+1 dagger +12/+7 (1d4+6/19-20 plus 5d6 sneak)",
-    "Ranged": "+1 returning dagger +12 (1d4+6/19-20)",
-    "Space": "5 ft.",
-    "Reach": "5 ft.",
-    "SpecialAttacks": "sneak attack +5d6, debilitating injury (bewildered, disoriented, hampered), rogue talents (bleeding attack 5 bleed, fast stealth, poison use)",
-    "DefensiveAbilities": "evasion, danger sense +3, improved uncanny dodge",
-    "Weaknesses": "",
-    "Organization": "solitary or assassin cell",
-    "Str": "10",
-    "Dex": "20",
-    "Con": "14",
-    "Int": "14",
-    "Wis": "12",
-    "Cha": "12",
-    "BaseAtk": "6",
-    "CMB": "+6",
-    "CMD": "22",
-    "Feats": "Weapon Finesse, Two-Weapon Fighting, Improved Two-Weapon Fighting, Weapon Focus (dagger), Improved Initiative, Stealthy",
-    "Skills": "Acrobatics +17, Bluff +13, Disable Device +19, Escape Artist +17, Knowledge (local) +14, Perception +15, Sleight of Hand +17, Stealth +21, Use Magic Device +13",
-    "Languages": "Common, Undercommon, Abyssal",
-    "SQ": "trapfinding +4, poison use, debilitating injury",
-    "DR": "",
-    "Immune": "",
-    "Resist": "",
-    "SR": "",
-    "Environment": "any",
-    "Treasure": "NPC Gear",
-    "Gear": "Chain Shirt, Buckler, Amulet of Natural Armor +1, Ring of Protection +1",
-    "Class1": "",
-    "Class1_Lvl": "",
-    "IsFavorite": true,
-    "IsUserCustom": true,
-    "CharacterFlag": "0",
-    "SpellLikeAbilities": "",
-    "Special Abilities": "",
-    "OriginalState": {
-      "basic": {
-        "in-name": "(Aqua)Rovesta, Rogue",
-        "in-cr": "8",
-        "in-xp": "4800",
-        "in-alignment": "NE",
-        "in-size": "Medium",
-        "in-type": "Humanoid",
-        "in-type-full": "Human rogue 9",
-        "in-init-extra": "0",
-        "in-aura": "",
-        "in-armor-name": "Chain Shirt",
-        "in-ac-armor": "4",
-        "in-shield-name": "Buckler",
-        "in-ac-shield": "1",
-        "in-ac-natural": "0",
-        "in-ac-deflection": "0",
-        "in-ac-dodge": "0",
-        "in-magic-item-search": "",
-        "in-hd-amount": "9",
-        "in-hd-size": "8",
-        "in-fort": "+5",
-        "in-ref": "+11",
-        "in-will": "+4",
-        "in-def-abilities": "evasion, danger sense +3, improved uncanny dodge",
-        "in-dr": "",
-        "in-immune": "",
-        "in-resist": "",
-        "in-weaknesses": "",
-        "in-sr": "",
-        "in-speed": "30 ft.",
-        "in-space": "5 ft.",
-        "in-reach": "5 ft.",
-        "in-special-attacks": "sneak attack +5d6, debilitating injury (bewildered, disoriented, hampered), rogue talents (bleeding attack 5 bleed, fast stealth, poison use)",
-        "in-sla-cl": "",
-        "in-str": "10",
-        "in-dex": "20",
-        "in-con": "14",
-        "in-int": "14",
-        "in-wis": "12",
-        "in-cha": "12",
-        "in-bab": "6",
-        "in-cmb": "+6",
-        "in-cmd": "22",
-        "in-feats": "Weapon Finesse, Two-Weapon Fighting, Improved Two-Weapon Fighting, Weapon Focus (dagger), Improved Initiative, Stealthy",
-        "in-feat-search": "",
-        "in-languages": "Common, Undercommon, Abyssal",
-        "in-sq": "trapfinding +4, poison use, debilitating injury",
-        "in-sq-search": "",
-        "in-environment": "any",
-        "in-organization": "solitary or assassin cell",
-        "in-treasure": "NPC Gear",
-        "in-spell-search": "",
-        "in-spell-class": "",
-        "in-spell-cl": "1",
-        "in-spell-stat": "cha",
-        "in-spell-conc": "0",
-        "in-spells-data": "",
-        "in-hp": "58 (9d8+18)",
-        "in-init": "+5",
-        "in-ac": "22, touch 16, flat-footed 17 (+4 armor, +1 shield, +5 Dex, +1 natural, +1 deflection)",
-        "in-visibility": "private",
-        "in-author": "erdem"
-      },
-      "html": {},
-      "dynamic": {
-        "subtypes": [
-          ""
-        ],
-        "senses": [
-          {
-            "name": "Perception",
-            "dist": "+15"
-          }
-        ],
-        "skills": [
-          {
-            "name": "Acrobatics",
-            "mod": "17"
-          },
-          {
-            "name": "Bluff",
-            "mod": "13"
-          },
-          {
-            "name": "Disable Device",
-            "mod": "19"
-          },
-          {
-            "name": "Escape Artist",
-            "mod": "17"
-          },
-          {
-            "name": "Knowledge (local)",
-            "mod": "14"
-          },
-          {
-            "name": "Perception",
-            "mod": "15"
-          },
-          {
-            "name": "Sleight of Hand",
-            "mod": "17"
-          },
-          {
-            "name": "Stealth",
-            "mod": "21"
-          },
-          {
-            "name": "Use Magic Device",
-            "mod": "13"
-          }
-        ],
-        "slas": [],
-        "melee": [
-          {
-            "mode": "raw",
-            "rawText": "+1 dagger +12/+7 (1d4+6/19-20 plus 5d6 sneak)"
-          }
-        ],
-        "ranged": [
-          {
-            "mode": "raw",
-            "rawText": "+1 returning dagger +12 (1d4+6/19-20)"
-          }
-        ],
-        "abilities": [],
-        "magic_items": [
-          {
-            "name": "Amulet of Natural Armor +1",
-            "slot": "Neck",
-            "price": "2,000 gp",
-            "cl": "5th",
-            "aura": "faint abjuration",
-            "modifiers": {
-              "ac_natural": 1
-            },
-            "description": "This amulet, usually crafted from bone or beast scales, toughens the wearer's skin, granting a +1 enhancement bonus to her natural armor."
-          },
-          {
-            "name": "Ring of Protection +1",
-            "slot": "Ring",
-            "price": "2,000 gp",
-            "cl": "5th",
-            "aura": "faint abjuration",
-            "modifiers": {
-              "ac_deflection": 1
-            },
-            "description": "This ring offers continual magical protection in the form of a +1 deflection bonus to AC and CMD."
-          }
-        ]
-      },
-      "_global_index": 6531,
-      "Visibility": "private",
-      "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem",
-      "id": "42be2abd-1028-410a-a234-7ab7977970b0"
-    },
-    "_m_name": "(aqua)rovesta, rogue",
-    "_m_cr": "8",
-    "_m_type": "humanoid",
-    "_m_align": "ne",
-    "_m_env": "any",
-    "_m_source": "",
-    "_global_index": 6531,
-    "Visibility": "private",
-    "AuthorId": "erdem",
-    "AuthorName": "erdem",
-    "id": "42be2abd-1028-410a-a234-7ab7977970b0"
-  },
-  {
-    "Name": "(Aqua)Rovesta, Wizard",
-    "CR": "8",
-    "XP": "4800",
-    "Alignment": "NG",
-    "Size": "Medium",
-    "Type": "Humanoid",
-    "subtype1": "",
-    "subtype2": "",
-    "Init": "+2",
-    "Senses": "Perception +14",
-    "Aura": "",
-    "AC": "18",
-    "AC_Touch": "12",
-    "AC_Flat-footed": "16",
-    "HP": "49 (9d6+18)",
-    "HD": "9d6",
-    "Fort": "+5",
-    "Ref": "+5",
-    "Will": "+8",
-    "Speed": "30 ft., swim 30 ft.",
-    "Melee": "+1 quarterstaff of flowing water +5 (1d6+1)",
-    "Ranged": "ray of frost +6 ranged touch (1d3+4 cold)",
-    "Space": "5 ft.",
-    "Reach": "5 ft.",
-    "SpecialAttacks": "water school powers: Wave (Sp, 8/day, 30-ft cone, 4d6 bludgeoning & trip, DC 19), Water Sight (Su, 60 ft.)",
-    "DefensiveAbilities": "",
-    "Weaknesses": "",
-    "Organization": "solitary or guild master",
-    "Str": "10",
-    "Dex": "14",
-    "Con": "14",
-    "Int": "20",
-    "Wis": "14",
-    "Cha": "10",
-    "BaseAtk": "4",
-    "CMB": "+4",
-    "CMD": "18",
-    "Feats": "Scribe Scroll, Spell Focus (Evocation), Greater Spell Focus (Evocation), Elemental Focus (Cold), Combat Casting, Toughness, Quicken Spell",
-    "Skills": "Fly +14, Knowledge (arcana) +17, Knowledge (nature) +17, Knowledge (planes) +17, Perception +14, Spellcraft +17, Swim +12",
-    "Languages": "Common, Aquan, Draconic, Elven",
-    "SQ": "arcane bond (ring of tides), elementalist school (water), water sight",
-    "DR": "",
-    "Immune": "",
-    "Resist": "",
-    "SR": "",
-    "Environment": "coastal or aquatic",
-    "Treasure": "NPC Gear",
-    "Gear": "Mage Armor, Shield, Ring of Protection +1, Ring of Protection +2",
-    "Class1": "",
-    "Class1_Lvl": "",
-    "IsFavorite": true,
-    "IsUserCustom": true,
-    "CharacterFlag": "0",
-    "SpellLikeAbilities": "8/day—Surging Wave (30-ft cone, 4d6 bludgeoning, DC 19 Reflex half and avoids trip)",
-    "Special Abilities": "Water Sight (Su) Immune to concealment penalties caused by fog, mist, and water up to 60 ft.\nSurging Wave (Sp) 8/day creates a 30-ft cone wave dealing 4d6 damage and tripping targets (DC 19).\nElemental Resistance (Ex) Gains cold resistance 10 and acid resistance 5.",
-    "OriginalState": {
-      "basic": {
-        "in-name": "(Aqua)Rovesta, Wizard",
-        "in-cr": "8",
-        "in-xp": "4800",
-        "in-alignment": "NG",
-        "in-size": "Medium",
-        "in-type": "Humanoid",
-        "in-type-full": "Human wizard (water elementalist) 9",
-        "in-init-extra": "0",
-        "in-aura": "",
-        "in-armor-name": "Mage Armor",
-        "in-ac-armor": "4",
-        "in-shield-name": "Shield",
-        "in-ac-shield": "2",
-        "in-ac-natural": "0",
-        "in-ac-deflection": "0",
-        "in-ac-dodge": "0",
-        "in-magic-item-search": "",
-        "in-hd-amount": "9",
-        "in-hd-size": "6",
-        "in-fort": "+5",
-        "in-ref": "+5",
-        "in-will": "+8",
-        "in-def-abilities": "",
-        "in-dr": "",
-        "in-immune": "",
-        "in-resist": "",
-        "in-weaknesses": "",
-        "in-sr": "",
-        "in-speed": "30 ft., swim 30 ft.",
-        "in-space": "5 ft.",
-        "in-reach": "5 ft.",
-        "in-special-attacks": "water school powers: Wave (Sp, 8/day, 30-ft cone, 4d6 bludgeoning & trip, DC 19), Water Sight (Su, 60 ft.)",
-        "in-sla-cl": "",
-        "in-str": "10",
-        "in-dex": "14",
-        "in-con": "14",
-        "in-int": "20",
-        "in-wis": "14",
-        "in-cha": "10",
-        "in-bab": "4",
-        "in-cmb": "+4",
-        "in-cmd": "18",
-        "in-feats": "Scribe Scroll, Spell Focus (Evocation), Greater Spell Focus (Evocation), Elemental Focus (Cold), Combat Casting, Toughness, Quicken Spell",
-        "in-feat-search": "",
-        "in-languages": "Common, Aquan, Draconic, Elven",
-        "in-sq": "arcane bond (ring of tides), elementalist school (water), water sight",
-        "in-sq-search": "",
-        "in-environment": "coastal or aquatic",
-        "in-organization": "solitary or guild master",
-        "in-treasure": "NPC Gear",
-        "in-spell-search": "",
-        "in-spell-class": "Water Wizard Spells Prepared",
-        "in-spell-cl": "9",
-        "in-spell-stat": "int",
-        "in-spell-conc": "15",
-        "in-spells-data": "{\"5\": {\"slots\": \"2\", \"spells\": [\"Cone of Cold\", \"Suffocation\"]}, \"4\": {\"slots\": \"4\", \"spells\": [\"Ice Storm\", \"Control Water\", \"Solid Fog\", \"Wall of Ice\"]}, \"3\": {\"slots\": \"5\", \"spells\": [\"Aqueous Orb\", \"Hydraulic Torrent\", \"Sleet Storm\", \"Water Breathing\", \"Dispel Magic\"]}, \"2\": {\"slots\": \"6\", \"spells\": [\"Fog Cloud\", \"Slipstream\", \"Acid Arrow\", \"Mirror Image\", \"Resist Energy\", \"Glitterdust\"]}, \"1\": {\"slots\": \"6\", \"spells\": [\"Hydraulic Push\", \"Obscuring Mist\", \"Touch of the Sea\", \"Mage Armor\", \"Grease\", \"Shield\"]}, \"0\": {\"slots\": \"\", \"spells\": [\"Ray of Frost\", \"Create Water\", \"Detect Magic\", \"Light\"]}}",
-        "in-hp": "49 (9d6+18)",
-        "in-init": "+2",
-        "in-ac": "20, touch 14, flat-footed 18 (+4 armor, +2 shield, +2 Dex, +2 deflection)",
-        "in-visibility": "private",
-        "in-author": "erdem"
-      },
-      "html": {},
-      "dynamic": {
-        "subtypes": [
-          ""
-        ],
-        "senses": [
-          {
-            "name": "Perception",
-            "dist": "+14"
-          }
-        ],
-        "skills": [
-          {
-            "name": "Fly",
-            "mod": "14"
-          },
-          {
-            "name": "Knowledge (arcana)",
-            "mod": "17"
-          },
-          {
-            "name": "Knowledge (nature)",
-            "mod": "17"
-          },
-          {
-            "name": "Knowledge (planes)",
-            "mod": "17"
-          },
-          {
-            "name": "Perception",
-            "mod": "14"
-          },
-          {
-            "name": "Spellcraft",
-            "mod": "17"
-          },
-          {
-            "name": "Swim",
-            "mod": "12"
-          }
-        ],
-        "slas": [
-          {
-            "freq": "8/day",
-            "spells": "Surging Wave (30-ft cone, 4d6 bludgeoning, DC 19 Reflex half and avoids trip)"
-          }
-        ],
-        "melee": [
-          {
-            "mode": "raw",
-            "rawText": "+1 quarterstaff of flowing water +5 (1d6+1)"
-          }
-        ],
-        "ranged": [
-          {
-            "mode": "raw",
-            "rawText": "ray of frost +6 ranged touch (1d3+4 cold)"
-          }
-        ],
-        "abilities": [
-          {
-            "name": "Water Sight (Su)",
-            "desc": "Immune to concealment penalties caused by fog, mist, and water up to 60 ft."
-          },
-          {
-            "name": "Surging Wave (Sp)",
-            "desc": "8/day creates a 30-ft cone wave dealing 4d6 damage and tripping targets (DC 19)."
-          },
-          {
-            "name": "Elemental Resistance (Ex)",
-            "desc": "Gains cold resistance 10 and acid resistance 5."
-          }
-        ],
-        "magic_items": [
-          {
-            "name": "Ring of Protection +1",
-            "slot": "Ring",
-            "price": "2,000 gp",
-            "cl": "5th",
-            "aura": "faint abjuration",
-            "modifiers": {
-              "ac_deflection": 1
-            },
-            "description": "This ring offers continual magical protection in the form of a +1 deflection bonus to AC and CMD."
-          },
-          {
-            "name": "Ring of Protection +2",
-            "slot": "Ring",
-            "price": "8,000 gp",
-            "cl": "5th",
-            "aura": "faint abjuration",
-            "modifiers": {
-              "ac_deflection": 2
-            },
-            "description": "This ring offers continual magical protection in the form of a +2 deflection bonus to AC and CMD."
-          }
-        ]
-      },
-      "_global_index": 6532,
-      "Visibility": "private",
-      "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem",
-      "id": "4e6c4cf2-025c-40d8-96ba-5e1a73a79c7d"
-    },
-    "_m_name": "(aqua)rovesta, wizard",
-    "_m_cr": "8",
-    "_m_type": "humanoid",
-    "_m_align": "ng",
-    "_m_env": "coastal or aquatic",
-    "_m_source": "",
-    "_global_index": 6532,
-    "Visibility": "private",
-    "AuthorId": "erdem",
-    "AuthorName": "erdem",
-    "id": "4e6c4cf2-025c-40d8-96ba-5e1a73a79c7d"
-  },
-  {
-    "Name": "(Terran)Rovesta, Fighter",
-    "CR": "8",
-    "XP": "4800",
-    "Alignment": "LN",
-    "Size": "Medium",
-    "Type": "Humanoid",
-    "subtype1": "",
-    "subtype2": "",
-    "Init": "+1",
-    "Senses": "Perception +13",
-    "Aura": "",
-    "AC": "21",
-    "AC_Touch": "11",
-    "AC_Flat-footed": "20",
-    "HP": "76 (9d10+27)",
-    "HD": "9d10",
-    "Fort": "+9",
-    "Ref": "+4",
-    "Will": "+4",
-    "Speed": "30 ft.",
-    "Melee": "+2 greatsword +18/+13 (2d6+12/17-20)",
-    "Ranged": "composite longbow (+5 Str) +11/+6 (1d8+5/x3)",
-    "Space": "5 ft.",
-    "Reach": "5 ft.",
-    "SpecialAttacks": "weapon training (heavy blades +2, close +1), weapon guard (+2 CMD vs disarm/sunder)",
-    "DefensiveAbilities": "bravery +2, armor training 2 (full speed in heavy armor)",
-    "Weaknesses": "",
-    "Organization": "solitary or battle line commander",
-    "Str": "20",
-    "Dex": "12",
-    "Con": "16",
-    "Int": "10",
-    "Wis": "12",
-    "Cha": "10",
-    "BaseAtk": "9",
-    "CMB": "+14",
-    "CMD": "27",
-    "Feats": "Power Attack, Furious Focus, Cleave, Great Cleave, Weapon Focus (greatsword), Weapon Specialization (greatsword), Greater Weapon Focus (greatsword), Improved Bull Rush, Greater Bull Rush, Improved Critical (greatsword), Toughness, Iron Will",
-    "Skills": "Climb +16, Intimidate +12, Perception +13, Survival +13",
-    "Languages": "Common",
-    "SQ": "armor training 2, bravery +2",
-    "DR": "",
-    "Immune": "",
-    "Resist": "",
-    "SR": "",
-    "Environment": "any",
-    "Treasure": "NPC Gear",
-    "Gear": "+1 Full Plate, Ring of Protection +2, Amulet of Natural Armor +1",
-    "Class1": "",
-    "Class1_Lvl": "",
-    "IsFavorite": true,
-    "IsUserCustom": true,
-    "CharacterFlag": "0",
-    "SpellLikeAbilities": "",
-    "Special Abilities": "Greater Bull Rush (Ex) Target of successful bull rush provokes attacks of opportunity from allies.\nArmor Training 2 (Ex) Moves at full 30 ft. base speed even in heavy armor with +2 max Dex.\nWeapon Training +2 (Ex) +2 attack and damage with heavy blades.",
-    "OriginalState": {
-      "basic": {
-        "in-name": "(Terran)Rovesta, Fighter",
-        "in-cr": "8",
-        "in-xp": "4800",
-        "in-alignment": "LN",
-        "in-size": "Medium",
-        "in-type": "Humanoid",
-        "in-type-full": "Human fighter 9",
-        "in-init-extra": "0",
-        "in-aura": "",
-        "in-armor-name": "+1 Full Plate",
-        "in-ac-armor": "10",
-        "in-shield-name": "",
-        "in-ac-shield": "0",
-        "in-ac-natural": "0",
-        "in-ac-deflection": "0",
-        "in-ac-dodge": "0",
-        "in-magic-item-search": "",
-        "in-hd-amount": "9",
-        "in-hd-size": "10",
-        "in-fort": "+9",
-        "in-ref": "+4",
-        "in-will": "+4",
-        "in-def-abilities": "bravery +2, armor training 2 (full speed in heavy armor)",
-        "in-dr": "",
-        "in-immune": "",
-        "in-resist": "",
-        "in-weaknesses": "",
-        "in-sr": "",
-        "in-speed": "30 ft.",
-        "in-space": "5 ft.",
-        "in-reach": "5 ft.",
-        "in-special-attacks": "weapon training (heavy blades +2, close +1), weapon guard (+2 CMD vs disarm/sunder)",
-        "in-sla-cl": "",
-        "in-str": "20",
-        "in-dex": "12",
-        "in-con": "16",
-        "in-int": "10",
-        "in-wis": "12",
-        "in-cha": "10",
-        "in-bab": "9",
-        "in-cmb": "+14",
-        "in-cmd": "27",
-        "in-feats": "Power Attack, Furious Focus, Cleave, Great Cleave, Weapon Focus (greatsword), Weapon Specialization (greatsword), Greater Weapon Focus (greatsword), Improved Bull Rush, Greater Bull Rush, Improved Critical (greatsword), Toughness, Iron Will",
-        "in-feat-search": "",
-        "in-languages": "Common",
-        "in-sq": "armor training 2, bravery +2",
-        "in-sq-search": "",
-        "in-environment": "any",
-        "in-organization": "solitary or battle line commander",
-        "in-treasure": "NPC Gear",
-        "in-spell-search": "",
-        "in-spell-class": "",
-        "in-spell-cl": "1",
-        "in-spell-stat": "cha",
-        "in-spell-conc": "0",
-        "in-spells-data": "",
-        "in-hp": "76 (9d10+27)",
-        "in-init": "+1",
-        "in-ac": "24, touch 13, flat-footed 23 (+10 armor, +1 Dex, +1 natural, +2 deflection)",
-        "in-visibility": "private",
-        "in-author": "erdem"
-      },
-      "html": {},
-      "dynamic": {
-        "subtypes": [
-          ""
-        ],
-        "senses": [
-          {
-            "name": "Perception",
-            "dist": "+13"
-          }
-        ],
-        "skills": [
-          {
-            "name": "Climb",
-            "mod": "16"
-          },
-          {
-            "name": "Intimidate",
-            "mod": "12"
-          },
-          {
-            "name": "Perception",
-            "mod": "13"
-          },
-          {
-            "name": "Survival",
-            "mod": "13"
-          }
-        ],
-        "slas": [],
-        "melee": [
-          {
-            "mode": "raw",
-            "rawText": "+2 greatsword +18/+13 (2d6+12/17-20)"
-          }
-        ],
-        "ranged": [
-          {
-            "mode": "raw",
-            "rawText": "composite longbow (+5 Str) +11/+6 (1d8+5/x3)"
-          }
-        ],
-        "abilities": [
-          {
-            "name": "Greater Bull Rush (Ex)",
-            "desc": "Target of successful bull rush provokes attacks of opportunity from allies."
-          },
-          {
-            "name": "Armor Training 2 (Ex)",
-            "desc": "Moves at full 30 ft. base speed even in heavy armor with +2 max Dex."
-          },
-          {
-            "name": "Weapon Training +2 (Ex)",
-            "desc": "+2 attack and damage with heavy blades."
-          }
-        ],
-        "magic_items": [
-          {
-            "name": "Ring of Protection +2",
-            "slot": "Ring",
-            "price": "8,000 gp",
-            "cl": "5th",
-            "aura": "faint abjuration",
-            "modifiers": {
-              "ac_deflection": 2
-            },
-            "description": "This ring offers continual magical protection in the form of a +2 deflection bonus to AC and CMD."
-          },
-          {
-            "name": "Amulet of Natural Armor +1",
-            "slot": "Neck",
-            "price": "2,000 gp",
-            "cl": "5th",
-            "aura": "faint abjuration",
-            "modifiers": {
-              "ac_natural": 1
-            },
-            "description": "This amulet, usually crafted from bone or beast scales, toughens the wearer's skin, granting a +1 enhancement bonus to her natural armor."
-          }
-        ]
-      },
-      "_global_index": 6533,
-      "Visibility": "private",
-      "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem",
-      "id": "4023db47-f590-4af9-8e75-f7b0f991c5a2"
-    },
-    "_m_name": "(terran)rovesta, fighter",
-    "_m_cr": "8",
-    "_m_type": "humanoid",
-    "_m_align": "ln",
-    "_m_env": "any",
-    "_m_source": "",
-    "_global_index": 6533,
-    "Visibility": "private",
-    "AuthorId": "erdem",
-    "AuthorName": "erdem",
-    "id": "4023db47-f590-4af9-8e75-f7b0f991c5a2"
-  },
-  {
-    "Name": "(Terran)Rovesta, Inquisitor ",
-    "CR": "8",
-    "XP": "4800",
-    "Alignment": "LN",
-    "Size": "Medium",
-    "Type": "Humanoid",
-    "subtype1": "",
-    "subtype2": "",
-    "Init": "+7",
-    "Senses": "Perception +17",
-    "Aura": "",
-    "AC": "21",
-    "AC_Touch": "13",
-    "AC_Flat-footed": "19",
-    "HP": "58 (9d8+18)",
-    "HD": "9d8",
-    "Fort": "+8",
-    "Ref": "+5",
-    "Will": "+11",
-    "Speed": "30 ft.",
-    "Melee": "+1 holy longsword +11/+6 (1d8+4/19-20 plus 2d6 vs evil)",
-    "Ranged": "+1 repeating heavy crossbow +9 (1d10+1/19-20)",
-    "Space": "5 ft.",
-    "Reach": "5 ft.",
-    "SpecialAttacks": "judgement 3/day (2 active: Justice +3, Destruction +4, Protection +3 AC), bane 9 rounds/day (+2 & 2d6), discern lies 9 rounds/day",
-    "DefensiveAbilities": "solo tactics, monster lore +5, stern gaze +4, cunning initiative (+5 init)",
-    "Weaknesses": "",
-    "Organization": "solitary or inquisitorial court",
-    "Str": "16",
-    "Dex": "14",
-    "Con": "14",
-    "Int": "12",
-    "Wis": "20",
-    "Cha": "10",
-    "BaseAtk": "6",
-    "CMB": "+9",
-    "CMD": "22",
-    "Feats": "Power Attack, Weapon Focus (longsword), Outflank, Precise Strike, Lookout, Toughness, Iron Will",
-    "Skills": "Intimidate +16, Knowledge (religion) +13, Knowledge (planes) +13, Perception +17, Sense Motive +21, Spellcraft +13, Stealth +14, Survival +17",
-    "Languages": "Common, Celestial",
-    "SQ": "cunning initiative, detect alignment at will, track +4, second judgement",
-    "DR": "",
-    "Immune": "",
-    "Resist": "",
-    "SR": "",
-    "Environment": "any",
-    "Treasure": "NPC Gear",
-    "Gear": "+1 Breastplate, +1 Buckler",
-    "Class1": "",
-    "Class1_Lvl": "",
-    "IsFavorite": true,
-    "IsUserCustom": true,
-    "CharacterFlag": "0",
-    "SpellLikeAbilities": "At will—Detect Alignment",
-    "Special Abilities": "Second Judgement (Su) Can maintain two active judgements simultaneously.\nBane (Su) 9 rounds/day as a swift action gains +2 enhancement bonus and +2d6 damage against targeted creature type.\nSolo Tactics (Ex) Treats allies as having all of her teamwork feats.",
-    "OriginalState": {
-      "basic": {
-        "in-name": "(Terran)Rovesta, Inquisitor ",
-        "in-cr": "8",
-        "in-xp": "4800",
-        "in-alignment": "LN",
-        "in-size": "Medium",
-        "in-type": "Humanoid",
-        "in-type-full": "Human inquisitor 9",
-        "in-init-extra": "5",
-        "in-aura": "",
-        "in-armor-name": "+1 Breastplate",
-        "in-ac-armor": "6",
-        "in-shield-name": "+1 Buckler",
-        "in-ac-shield": "2",
-        "in-ac-natural": "0",
-        "in-ac-deflection": "1",
-        "in-ac-dodge": "0",
-        "in-magic-item-search": "",
-        "in-hd-amount": "9",
-        "in-hd-size": "8",
-        "in-fort": "+8",
-        "in-ref": "+5",
-        "in-will": "+11",
-        "in-def-abilities": "solo tactics, monster lore +5, stern gaze +4, cunning initiative (+5 init)",
-        "in-dr": "",
-        "in-immune": "",
-        "in-resist": "",
-        "in-weaknesses": "",
-        "in-sr": "",
-        "in-speed": "30 ft.",
-        "in-space": "5 ft.",
-        "in-reach": "5 ft.",
-        "in-special-attacks": "judgement 3/day (2 active: Justice +3, Destruction +4, Protection +3 AC), bane 9 rounds/day (+2 & 2d6), discern lies 9 rounds/day",
-        "in-sla-cl": "",
-        "in-str": "16",
-        "in-dex": "14",
-        "in-con": "14",
-        "in-int": "12",
-        "in-wis": "20",
-        "in-cha": "10",
-        "in-bab": "6",
-        "in-cmb": "+9",
-        "in-cmd": "22",
-        "in-feats": "Power Attack, Weapon Focus (longsword), Outflank, Precise Strike, Lookout, Toughness, Iron Will",
-        "in-feat-search": "",
-        "in-languages": "Common, Celestial",
-        "in-sq": "cunning initiative, detect alignment at will, track +4, second judgement",
-        "in-sq-search": "",
-        "in-environment": "any",
-        "in-organization": "solitary or inquisitorial court",
-        "in-treasure": "NPC Gear",
-        "in-spell-search": "",
-        "in-spell-class": "Inquisitor Spells Known",
-        "in-spell-cl": "9",
-        "in-spell-stat": "wis",
-        "in-spell-conc": "14",
-        "in-spells-data": "{\"3\": {\"slots\": \"4\", \"spells\": [\"Dispel Magic\", \"Prayer\", \"Searing Light\", \"Coordinate Effort\", \"Invisibility Purge\"]}, \"2\": {\"slots\": \"5\", \"spells\": [\"Invisibility\", \"Silence\", \"Spiritual Weapon\", \"See Invisibility\", \"Cure Moderate Wounds\", \"Confess\"]}, \"1\": {\"slots\": \"6\", \"spells\": [\"Divine Favor\", \"Shield of Faith\", \"True Strike\", \"Cure Light Wounds\", \"Command\", \"Wrath\"]}, \"0\": {\"slots\": \"\", \"spells\": [\"Guidance\", \"Stabilize\", \"Light\", \"Detect Magic\", \"Virtue\", \"Brand\"]}}",
-        "in-hp": "58 (9d8+18)",
-        "in-init": "+7",
-        "in-ac": "21, touch 13, flat-footed 19 (+6 armor, +2 shield, +2 Dex, +1 deflection)",
-        "in-visibility": "private",
-        "in-author": "erdem"
-      },
-      "html": {},
-      "dynamic": {
-        "subtypes": [
-          ""
-        ],
-        "senses": [
-          {
-            "name": "Perception",
-            "dist": "+17"
-          }
-        ],
-        "skills": [
-          {
-            "name": "Intimidate",
-            "mod": "16"
-          },
-          {
-            "name": "Knowledge (religion)",
-            "mod": "13"
-          },
-          {
-            "name": "Knowledge (planes)",
-            "mod": "13"
-          },
-          {
-            "name": "Perception",
-            "mod": "17"
-          },
-          {
-            "name": "Sense Motive",
-            "mod": "21"
-          },
-          {
-            "name": "Spellcraft",
-            "mod": "13"
-          },
-          {
-            "name": "Stealth",
-            "mod": "14"
-          },
-          {
-            "name": "Survival",
-            "mod": "17"
-          }
-        ],
-        "slas": [
-          {
-            "freq": "At will",
-            "spells": "Detect Alignment"
-          }
-        ],
-        "melee": [
-          {
-            "mode": "raw",
-            "rawText": "+1 holy longsword +11/+6 (1d8+4/19-20 plus 2d6 vs evil)"
-          }
-        ],
-        "ranged": [
-          {
-            "mode": "raw",
-            "rawText": "+1 repeating heavy crossbow +9 (1d10+1/19-20)"
-          }
-        ],
-        "abilities": [
-          {
-            "name": "Second Judgement (Su)",
-            "desc": "Can maintain two active judgements simultaneously."
-          },
-          {
-            "name": "Bane (Su)",
-            "desc": "9 rounds/day as a swift action gains +2 enhancement bonus and +2d6 damage against targeted creature type."
-          },
-          {
-            "name": "Solo Tactics (Ex)",
-            "desc": "Treats allies as having all of her teamwork feats."
-          }
-        ],
-        "magic_items": []
-      },
-      "_global_index": 6534,
-      "Visibility": "private",
-      "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem",
-      "id": "c6c83d77-5a82-4db2-9e12-e7bf0922d7a0"
-    },
-    "_m_name": "(terran)rovesta, inquisitor ",
-    "_m_cr": "8",
-    "_m_type": "humanoid",
-    "_m_align": "ln",
-    "_m_env": "any",
-    "_m_source": "",
-    "_global_index": 6534,
-    "Visibility": "private",
-    "AuthorId": "erdem",
-    "AuthorName": "erdem",
-    "id": "c6c83d77-5a82-4db2-9e12-e7bf0922d7a0"
-  },
-  {
-    "Name": "(Terran)Rovesta, Warpriest",
-    "CR": "8",
-    "XP": "4800",
-    "Alignment": "LN",
-    "Size": "Medium",
-    "Type": "Humanoid",
-    "subtype1": "",
-    "subtype2": "",
-    "Init": "+0",
-    "Senses": "Perception +16",
-    "Aura": "",
-    "AC": "24",
-    "AC_Touch": "11",
-    "AC_Flat-footed": "24",
-    "HP": "67 (9d8+27)",
-    "HD": "9d8",
-    "Fort": "+9",
-    "Ref": "+3",
-    "Will": "+10",
-    "Speed": "20 ft.",
-    "Melee": "+1 heavy mace +12/+7 (1d10+5)",
-    "Ranged": "mwk light crossbow +7 (1d8/19-20)",
-    "Space": "5 ft.",
-    "Reach": "5 ft.",
-    "SpecialAttacks": "fervor 6/day (2d6 or swift self-buff), sacred weapon +2 (9 rds/day, 1d10 dmg), sacred armor +2, channel energy, blessings 6/day (Earth, Protection)",
-    "DefensiveAbilities": "blessings (Acid Strike, Armor of Earth DR 2/—, Increased Defense +2 AC)",
-    "Weaknesses": "",
-    "Organization": "solitary or high temple champion",
-    "Str": "18",
-    "Dex": "10",
-    "Con": "16",
-    "Int": "10",
-    "Wis": "18",
-    "Cha": "12",
-    "BaseAtk": "6",
-    "CMB": "+10",
-    "CMD": "21",
-    "Feats": "Heavy Armor Proficiency, Weapon Focus (heavy mace), Power Attack, Toughness, Vital Strike, Weapon Specialization (heavy mace), Furious Focus, Iron Will",
-    "Skills": "Heal +16, Knowledge (religion) +12, Perception +16, Sense Motive +16, Spellcraft +12",
-    "Languages": "Common, Terran",
-    "SQ": "sacred weapon, sacred armor, blessings (Earth, Protection), fervor",
-    "DR": "",
-    "Immune": "",
-    "Resist": "",
-    "SR": "",
-    "Environment": "any",
-    "Treasure": "NPC Gear",
-    "Gear": "+1 Full Plate, +1 Heavy Shield",
-    "Class1": "",
-    "Class1_Lvl": "",
-    "IsFavorite": true,
-    "IsUserCustom": true,
-    "CharacterFlag": "0",
-    "SpellLikeAbilities": "",
-    "Special Abilities": "Fervor (Su) 6/day as a swift action, casts prepared warpriest spell on self without somatic components, or heals 2d6 hp.\nSacred Weapon (Su) 9 rounds/day swift action enhances weapon with +2 enhancement or special abilities.\nBlessings (Su) 6/day uses Earth or Protection blessing abilities.",
-    "OriginalState": {
-      "basic": {
-        "in-name": "(Terran)Rovesta, Warpriest",
-        "in-cr": "8",
-        "in-xp": "4800",
-        "in-alignment": "LN",
-        "in-size": "Medium",
-        "in-type": "Humanoid",
-        "in-type-full": "Human warpriest 9",
-        "in-init-extra": "0",
-        "in-aura": "",
-        "in-armor-name": "+1 Full Plate",
-        "in-ac-armor": "10",
-        "in-shield-name": "+1 Heavy Shield",
-        "in-ac-shield": "3",
-        "in-ac-natural": "0",
-        "in-ac-deflection": "1",
-        "in-ac-dodge": "0",
-        "in-magic-item-search": "",
-        "in-hd-amount": "9",
-        "in-hd-size": "8",
-        "in-fort": "+9",
-        "in-ref": "+3",
-        "in-will": "+10",
-        "in-def-abilities": "blessings (Acid Strike, Armor of Earth DR 2/—, Increased Defense +2 AC)",
-        "in-dr": "",
-        "in-immune": "",
-        "in-resist": "",
-        "in-weaknesses": "",
-        "in-sr": "",
-        "in-speed": "20 ft.",
-        "in-space": "5 ft.",
-        "in-reach": "5 ft.",
-        "in-special-attacks": "fervor 6/day (2d6 or swift self-buff), sacred weapon +2 (9 rds/day, 1d10 dmg), sacred armor +2, channel energy, blessings 6/day (Earth, Protection)",
-        "in-sla-cl": "",
-        "in-str": "18",
-        "in-dex": "10",
-        "in-con": "16",
-        "in-int": "10",
-        "in-wis": "18",
-        "in-cha": "12",
-        "in-bab": "6",
-        "in-cmb": "+10",
-        "in-cmd": "21",
-        "in-feats": "Heavy Armor Proficiency, Weapon Focus (heavy mace), Power Attack, Toughness, Vital Strike, Weapon Specialization (heavy mace), Furious Focus, Iron Will",
-        "in-feat-search": "",
-        "in-languages": "Common, Terran",
-        "in-sq": "sacred weapon, sacred armor, blessings (Earth, Protection), fervor",
-        "in-sq-search": "",
-        "in-environment": "any",
-        "in-organization": "solitary or high temple champion",
-        "in-treasure": "NPC Gear",
-        "in-spell-search": "",
-        "in-spell-class": "Warpriest Spells Prepared",
-        "in-spell-cl": "9",
-        "in-spell-stat": "wis",
-        "in-spell-conc": "13",
-        "in-spells-data": "{\"3\": {\"slots\": \"4\", \"spells\": [\"Divine Power\", \"Prayer\", \"Dispel Magic\", \"Magic Vestment\"]}, \"2\": {\"slots\": \"5\", \"spells\": [\"Bull's Strength\", \"Weapon of Awe\", \"Silence\", \"Resist Energy\", \"Spiritual Weapon\"]}, \"1\": {\"slots\": \"6\", \"spells\": [\"Divine Favor\", \"Shield of Faith\", \"Bless\", \"Remove Fear\", \"Cure Light Wounds\"]}, \"0\": {\"slots\": \"\", \"spells\": [\"Guidance\", \"Stabilize\", \"Light\", \"Mending\", \"Spark\"]}}",
-        "in-hp": "67 (9d8+27)",
-        "in-init": "+0",
-        "in-ac": "24, touch 11, flat-footed 24 (+10 armor, +3 shield, +1 deflection)",
-        "in-visibility": "private",
-        "in-author": "erdem"
-      },
-      "html": {},
-      "dynamic": {
-        "subtypes": [
-          ""
-        ],
-        "senses": [
-          {
-            "name": "Perception",
-            "dist": "+16"
-          }
-        ],
-        "skills": [
-          {
-            "name": "Heal",
-            "mod": "16"
-          },
-          {
-            "name": "Knowledge (religion)",
-            "mod": "12"
-          },
-          {
-            "name": "Perception",
-            "mod": "16"
-          },
-          {
-            "name": "Sense Motive",
-            "mod": "16"
-          },
-          {
-            "name": "Spellcraft",
-            "mod": "12"
-          }
-        ],
-        "slas": [],
-        "melee": [
-          {
-            "mode": "raw",
-            "rawText": "+1 heavy mace +12/+7 (1d10+5)"
-          }
-        ],
-        "ranged": [
-          {
-            "mode": "raw",
-            "rawText": "mwk light crossbow +7 (1d8/19-20)"
-          }
-        ],
-        "abilities": [
-          {
-            "name": "Fervor (Su)",
-            "desc": "6/day as a swift action, casts prepared warpriest spell on self without somatic components, or heals 2d6 hp."
-          },
-          {
-            "name": "Sacred Weapon (Su)",
-            "desc": "9 rounds/day swift action enhances weapon with +2 enhancement or special abilities."
-          },
-          {
-            "name": "Blessings (Su)",
-            "desc": "6/day uses Earth or Protection blessing abilities."
-          }
-        ],
-        "magic_items": []
-      },
-      "_global_index": 6535,
-      "Visibility": "private",
-      "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
-      "AuthorName": "erdem",
-      "id": "2791d2a5-9d17-41c2-9d8a-927f2af30c54"
-    },
-    "_m_name": "(terran)rovesta, warpriest",
-    "_m_cr": "8",
-    "_m_type": "humanoid",
-    "_m_align": "ln",
-    "_m_env": "any",
-    "_m_source": "",
-    "_global_index": 6535,
-    "Visibility": "private",
-    "AuthorId": "erdem",
-    "AuthorName": "erdem",
-    "id": "2791d2a5-9d17-41c2-9d8a-927f2af30c54"
-  },
-  {
     "Name": "Catromancer",
     "CR": "16",
     "XP": "76800",
@@ -4341,7 +1739,7 @@
           }
         ]
       },
-      "_global_index": 6536,
+      "_global_index": 6524,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
       "AuthorName": "erdem",
@@ -4353,7 +1751,7 @@
     "_m_align": "ne",
     "_m_env": "any ruins, crypts, or ancient feline tombs",
     "_m_source": "",
-    "_global_index": 6536,
+    "_global_index": 6524,
     "Visibility": "private",
     "AuthorId": "erdem",
     "AuthorName": "erdem",
@@ -4537,7 +1935,7 @@
           }
         ]
       },
-      "_global_index": 6537,
+      "_global_index": 6525,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
       "AuthorName": "erdem",
@@ -4549,7 +1947,7 @@
     "_m_align": "ne",
     "_m_env": "ancient catacombs, corrupted caverns, and desolate petrified forests",
     "_m_source": "",
-    "_global_index": 6537,
+    "_global_index": 6525,
     "Visibility": "private",
     "AuthorId": "erdem",
     "AuthorName": "erdem",
@@ -4734,7 +2132,7 @@
           }
         ]
       },
-      "_global_index": 6538,
+      "_global_index": 6526,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
       "AuthorName": "erdem",
@@ -4746,7 +2144,7 @@
     "_m_align": "ne",
     "_m_env": "alchemical laboratories, subterranean dungeons, ruined fortresses, battlefields",
     "_m_source": "",
-    "_global_index": 6538,
+    "_global_index": 6526,
     "Visibility": "private",
     "AuthorId": "erdem",
     "AuthorName": "erdem",
@@ -4991,7 +2389,7 @@
         ],
         "spells": []
       },
-      "_global_index": 6539,
+      "_global_index": 6527,
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
       "AuthorName": "erdem",
       "id": "cbf54ade-c067-4178-a491-287f0a96df3b"
@@ -5002,7 +2400,7 @@
     "_m_align": "ce",
     "_m_env": "any",
     "_m_source": "",
-    "_global_index": 6539,
+    "_global_index": 6527,
     "id": "cbf54ade-c067-4178-a491-287f0a96df3b"
   },
   {
@@ -5196,7 +2594,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6540,
+      "_global_index": 6528,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
       "AuthorName": "erdem",
@@ -5208,7 +2606,7 @@
     "_m_align": "le",
     "_m_env": "any",
     "_m_source": "",
-    "_global_index": 6540,
+    "_global_index": 6528,
     "Visibility": "private",
     "AuthorId": "erdem",
     "AuthorName": "erdem",
@@ -5409,7 +2807,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6541,
+      "_global_index": 6529,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
       "AuthorName": "erdem",
@@ -5421,7 +2819,7 @@
     "_m_align": "ne",
     "_m_env": "any",
     "_m_source": "",
-    "_global_index": 6541,
+    "_global_index": 6529,
     "Visibility": "private",
     "AuthorId": "erdem",
     "AuthorName": "erdem",
@@ -5618,7 +3016,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6542,
+      "_global_index": 6530,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
       "AuthorName": "erdem",
@@ -5630,7 +3028,7 @@
     "_m_align": "ce",
     "_m_env": "any",
     "_m_source": "",
-    "_global_index": 6542,
+    "_global_index": 6530,
     "Visibility": "private",
     "AuthorId": "erdem",
     "AuthorName": "erdem",
@@ -5840,7 +3238,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6543,
+      "_global_index": 6531,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
       "AuthorName": "erdem",
@@ -5852,7 +3250,7 @@
     "_m_align": "ne",
     "_m_env": "any volcanic peaks, void temples, cataclysmic ruins, or scorched arcane laboratories",
     "_m_source": "",
-    "_global_index": 6543,
+    "_global_index": 6531,
     "Visibility": "private",
     "AuthorId": "erdem",
     "AuthorName": "erdem",
@@ -5996,7 +3394,7 @@
           }
         ]
       },
-      "_global_index": 6544,
+      "_global_index": 6532,
       "Visibility": "private",
       "AuthorId": "c160ba76-49ad-4195-913d-10af826c1b1d",
       "AuthorName": "erdem",
@@ -6008,7 +3406,7 @@
     "_m_align": "le",
     "_m_env": "",
     "_m_source": "",
-    "_global_index": 6544,
+    "_global_index": 6532,
     "Visibility": "private",
     "AuthorId": "erdem",
     "AuthorName": "erdem",
@@ -6187,7 +3585,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6545,
+      "_global_index": 6533,
       "id": "4e10a87c-966e-4466-b53d-0b1b9dd6cdb2",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -6199,7 +3597,7 @@
     "_m_env": "warm forests or tropical jungles",
     "_m_source": "",
     "id": "4e10a87c-966e-4466-b53d-0b1b9dd6cdb2",
-    "_global_index": 6545
+    "_global_index": 6533
   },
   {
     "Name": "Frost Roc",
@@ -6376,7 +3774,7 @@
           }
         ]
       },
-      "_global_index": 6546
+      "_global_index": 6534
     },
     "_m_name": "frost roc",
     "_m_cr": "11",
@@ -6386,7 +3784,7 @@
     "_m_source": "",
     "id": "996f6011-061d-4d70-8e82-bd4728b5226f",
     "Ecology": "Environment cold mountains and glacial tundras  Organization solitary or mated pair  Treasure incidental\n\nThe Frost Roc is a legendary apex raptor of the highest frozen peaks and arctic tundras. Its feathers gleam like blue-white glacial ice, radiating a perpetual winter chill. Swooping down from blizzards with silent speed, it snatches prey as large as woolly mammoths and frost giants in its rimed talons.",
-    "_global_index": 6546
+    "_global_index": 6534
   },
   {
     "Name": "Chef Dire Ape",
@@ -6560,7 +3958,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6547,
+      "_global_index": 6535,
       "id": "1595f3e0-f819-41a9-820a-826b4dbaa6fa",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -6572,6 +3970,6 @@
     "_m_env": "warm forests, deep jungles, and ruined ancient temples",
     "_m_source": "",
     "id": "1595f3e0-f819-41a9-820a-826b4dbaa6fa",
-    "_global_index": 6547
+    "_global_index": 6535
   }
 ]

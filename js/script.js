@@ -343,10 +343,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Average HP per die = (size / 2) + 0.5
-        const avgHp = Math.floor(hdAmt * ((hdSize / 2) + 0.5)) + hpBonus;
+        const extraHp = parseInt(document.getElementById('in-hp-extra') ? document.getElementById('in-hp-extra').value : 0) || 0;
+        const totalHpBonus = hpBonus + extraHp;
+        const avgHp = Math.max(1, Math.floor(hdAmt * ((hdSize / 2) + 0.5)) + totalHpBonus);
         const outHp = document.getElementById('out-hp');
         if (outHp) {
-            outHp.textContent = `${avgHp} (${hdAmt}d${hdSize}${hpBonus >= 0 ? '+' : ''}${hpBonus})`;
+            let bonusStr = totalHpBonus > 0 ? `+${totalHpBonus}` : (totalHpBonus < 0 ? `${totalHpBonus}` : '');
+            outHp.textContent = `${avgHp} (${hdAmt}d${hdSize}${bonusStr})`;
         }
 
         // Armor Class (Auto Calc)
@@ -2465,11 +2468,10 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     async function captureStatblockCanvas() {
-        const workspace = document.querySelector('.app-workspace');
-        const wasInFormView = workspace && workspace.classList.contains('view-form');
         const previewPanel = document.querySelector('.preview-panel');
+        const isHidden = previewPanel && window.getComputedStyle(previewPanel).display === 'none';
 
-        if (wasInFormView && previewPanel) {
+        if (isHidden && previewPanel) {
             previewPanel.style.setProperty('display', 'flex', 'important');
             previewPanel.style.setProperty('position', 'fixed', 'important');
             previewPanel.style.setProperty('top', '0', 'important');
@@ -2488,7 +2490,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             return canvas;
         } finally {
-            if (wasInFormView && previewPanel) {
+            if (isHidden && previewPanel) {
                 previewPanel.style.removeProperty('display');
                 previewPanel.style.removeProperty('position');
                 previewPanel.style.removeProperty('top');
@@ -3226,6 +3228,244 @@ document.addEventListener('DOMContentLoaded', () => {
                 savePanelSettings(DEFAULT_SETTINGS);
             });
         }
+    }
+    // -------------------------------------------------------------------
+    // Interactive Skill Calculator Modal
+    // -------------------------------------------------------------------
+    const btnSkillCalc = document.getElementById('btn-open-skill-calculator');
+    const PF_SKILLS = [
+        { name: 'Acrobatics', stat: 'dex', trainedOnly: false },
+        { name: 'Appraise', stat: 'int', trainedOnly: false },
+        { name: 'Bluff', stat: 'cha', trainedOnly: false },
+        { name: 'Climb', stat: 'str', trainedOnly: false },
+        { name: 'Craft (Alchemy)', stat: 'int', trainedOnly: false },
+        { name: 'Craft (Armor)', stat: 'int', trainedOnly: false },
+        { name: 'Craft (Weapons)', stat: 'int', trainedOnly: false },
+        { name: 'Diplomacy', stat: 'cha', trainedOnly: false },
+        { name: 'Disable Device', stat: 'dex', trainedOnly: true },
+        { name: 'Disguise', stat: 'cha', trainedOnly: false },
+        { name: 'Escape Artist', stat: 'dex', trainedOnly: false },
+        { name: 'Fly', stat: 'dex', trainedOnly: false },
+        { name: 'Handle Animal', stat: 'cha', trainedOnly: true },
+        { name: 'Heal', stat: 'wis', trainedOnly: false },
+        { name: 'Intimidate', stat: 'cha', trainedOnly: false },
+        { name: 'Knowledge (arcana)', stat: 'int', trainedOnly: true },
+        { name: 'Knowledge (dungeoneering)', stat: 'int', trainedOnly: true },
+        { name: 'Knowledge (engineering)', stat: 'int', trainedOnly: true },
+        { name: 'Knowledge (geography)', stat: 'int', trainedOnly: true },
+        { name: 'Knowledge (history)', stat: 'int', trainedOnly: true },
+        { name: 'Knowledge (local)', stat: 'int', trainedOnly: true },
+        { name: 'Knowledge (nature)', stat: 'int', trainedOnly: true },
+        { name: 'Knowledge (nobility)', stat: 'int', trainedOnly: true },
+        { name: 'Knowledge (planes)', stat: 'int', trainedOnly: true },
+        { name: 'Knowledge (religion)', stat: 'int', trainedOnly: true },
+        { name: 'Linguistics', stat: 'int', trainedOnly: true },
+        { name: 'Perception', stat: 'wis', trainedOnly: false },
+        { name: 'Perform (Act)', stat: 'cha', trainedOnly: false },
+        { name: 'Perform (Sing)', stat: 'cha', trainedOnly: false },
+        { name: 'Profession', stat: 'wis', trainedOnly: true },
+        { name: 'Ride', stat: 'dex', trainedOnly: false },
+        { name: 'Sense Motive', stat: 'wis', trainedOnly: false },
+        { name: 'Sleight of Hand', stat: 'dex', trainedOnly: true },
+        { name: 'Spellcraft', stat: 'int', trainedOnly: true },
+        { name: 'Stealth', stat: 'dex', trainedOnly: false },
+        { name: 'Survival', stat: 'wis', trainedOnly: false },
+        { name: 'Swim', stat: 'str', trainedOnly: false },
+        { name: 'Use Magic Device', stat: 'cha', trainedOnly: true }
+    ];
+
+    if (btnSkillCalc) {
+        btnSkillCalc.addEventListener('click', () => {
+            let modal = document.getElementById('skill-calculator-modal');
+            if (!modal) {
+                const modalHtml = `
+                <div id="skill-calculator-modal" class="settings-modal-overlay" style="z-index: 9999;">
+                    <div class="settings-modal-card" style="max-width: 680px; max-height: 85vh; display: flex; flex-direction: column; overflow: hidden;">
+                        <div class="settings-modal-header" style="flex-shrink: 0;">
+                            <div class="settings-modal-title">
+                                <h3>🧮 Pathfinder 1e Skill Calculator</h3>
+                            </div>
+                            <button type="button" id="btn-close-skill-calc" class="settings-modal-close" title="Close">&times;</button>
+                        </div>
+                        <div style="padding: 10px 16px; border-bottom: 1px solid var(--border-subtle); display: flex; gap: 10px; align-items: center; flex-shrink: 0; background: rgba(0,0,0,0.2);">
+                            <input type="text" id="skill-calc-search" placeholder="Search skills (e.g. Perception, Stealth)..." style="flex: 1; padding: 7px 12px; border-radius: 6px; background: rgba(0,0,0,0.4); border: 1px solid var(--border-subtle); color: #fff; font-size: 13px;">
+                            <button type="button" id="btn-skill-calc-clear-all" class="btn-hdr btn-hdr-subtle" style="padding: 6px 12px; font-size: 12px;">Clear All</button>
+                        </div>
+                        <div id="skill-calc-body" style="overflow-y: auto; flex: 1; padding: 12px 16px;"></div>
+                        <div class="settings-modal-footer" style="flex-shrink: 0; display: flex; justify-content: space-between; align-items: center;">
+                            <span id="skill-calc-ranks-summary" style="font-size: 12px; color: var(--text-muted);">Total Ranks: 0</span>
+                            <div style="display: flex; gap: 8px;">
+                                <button type="button" id="btn-cancel-skill-calc" class="btn-settings-reset">Cancel</button>
+                                <button type="button" id="btn-apply-skill-calc" class="btn-settings-apply">✓ Apply to Sheet</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+                document.body.insertAdjacentHTML('beforeend', modalHtml);
+                modal = document.getElementById('skill-calculator-modal');
+
+                const closeCalc = () => modal.classList.remove('active');
+                document.getElementById('btn-close-skill-calc').addEventListener('click', closeCalc);
+                document.getElementById('btn-cancel-skill-calc').addEventListener('click', closeCalc);
+                modal.addEventListener('click', (e) => { if (e.target === modal) closeCalc(); });
+
+                document.getElementById('skill-calc-search').addEventListener('input', (e) => {
+                    const q = e.target.value.toLowerCase().trim();
+                    modal.querySelectorAll('.skill-calc-row').forEach(row => {
+                        const sName = row.dataset.skillName.toLowerCase();
+                        row.style.display = (!q || sName.includes(q)) ? 'grid' : 'none';
+                    });
+                });
+
+                document.getElementById('btn-skill-calc-clear-all').addEventListener('click', () => {
+                    modal.querySelectorAll('.skill-calc-ranks').forEach(inp => inp.value = '0');
+                    modal.querySelectorAll('.skill-calc-class-chk').forEach(chk => chk.checked = false);
+                    modal.querySelectorAll('.skill-calc-misc').forEach(inp => inp.value = '0');
+                    modal.querySelectorAll('.skill-calc-row').forEach(updateRowTotal);
+                    updateSummary();
+                });
+
+                document.getElementById('btn-apply-skill-calc').addEventListener('click', () => {
+                    const resultTokens = [];
+                    modal.querySelectorAll('.skill-calc-row').forEach(row => {
+                        const sName = row.dataset.skillName;
+                        const ranks = parseInt(row.querySelector('.skill-calc-ranks').value) || 0;
+                        const misc = parseInt(row.querySelector('.skill-calc-misc').value) || 0;
+                        const total = parseInt(row.querySelector('.skill-calc-total').dataset.totalMod) || 0;
+                        if (ranks > 0 || misc !== 0) {
+                            const modStr = total >= 0 ? `+${total}` : `${total}`;
+                            resultTokens.push(`${sName} ${modStr}`);
+                        }
+                    });
+                    const inSkills = document.getElementById('in-skills');
+                    if (inSkills) {
+                        inSkills.value = resultTokens.join(', ');
+                        inSkills.dispatchEvent(new Event('input'));
+                        inSkills.dispatchEvent(new Event('change'));
+                    }
+                    updatePreview();
+                    if (typeof autoSave === 'function') autoSave();
+                    closeCalc();
+                });
+            }
+
+            const currentStats = {
+                str: Math.floor(((parseInt(document.getElementById('in-str')?.value) || 10) - 10) / 2),
+                dex: Math.floor(((parseInt(document.getElementById('in-dex')?.value) || 10) - 10) / 2),
+                con: Math.floor(((parseInt(document.getElementById('in-con')?.value) || 10) - 10) / 2),
+                int: Math.floor(((parseInt(document.getElementById('in-int')?.value) || 10) - 10) / 2),
+                wis: Math.floor(((parseInt(document.getElementById('in-wis')?.value) || 10) - 10) / 2),
+                cha: Math.floor(((parseInt(document.getElementById('in-cha')?.value) || 10) - 10) / 2)
+            };
+
+            const inSkillsVal = (document.getElementById('in-skills')?.value || '').trim();
+            const parsedExisting = {};
+            if (inSkillsVal) {
+                inSkillsVal.split(/,(?![^\(]*\))/).forEach(tok => {
+                    const m = tok.trim().match(/^(.*?)\s+([+-]?\d+)$/);
+                    if (m) {
+                        parsedExisting[m[1].trim().toLowerCase()] = parseInt(m[2]);
+                    }
+                });
+            }
+
+            const calcBody = document.getElementById('skill-calc-body');
+            let rowsHtml = `
+            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 8px; font-weight: bold; font-size: 11px; color: var(--text-muted); text-transform: uppercase; padding: 4px 8px; border-bottom: 1px solid var(--border-subtle); margin-bottom: 6px;">
+                <span>Skill Name (Stat)</span>
+                <span style="text-align: center;">Ranks</span>
+                <span style="text-align: center;" title="Class skill bonus: +3 if ranks >= 1">Class (+3)</span>
+                <span style="text-align: center;">Misc ±</span>
+                <span style="text-align: right;">Total Mod</span>
+            </div>
+            `;
+
+            PF_SKILLS.forEach(sk => {
+                const statMod = currentStats[sk.stat] || 0;
+                let existingTotal = parsedExisting[sk.name.toLowerCase()];
+                let initRanks = 0;
+                let initClass = false;
+                let initMisc = 0;
+
+                if (existingTotal !== undefined) {
+                    const diff = existingTotal - statMod;
+                    if (diff >= 4) {
+                        initClass = true;
+                        initRanks = diff - 3;
+                    } else if (diff > 0) {
+                        initRanks = diff;
+                    } else if (diff < 0) {
+                        initMisc = diff;
+                    }
+                }
+
+                rowsHtml += `
+                <div class="skill-calc-row" data-skill-name="${sk.name}" data-stat="${sk.stat}" data-stat-mod="${statMod}" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 8px; align-items: center; padding: 6px 8px; border-radius: 4px; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 13px;">
+                    <div>
+                        <strong style="color: #f1f5f9;">${sk.name}</strong>
+                        <small style="color: var(--primary); font-size: 11px; margin-left: 4px;">(${sk.stat.toUpperCase()} ${statMod >= 0 ? '+' + statMod : statMod})</small>
+                    </div>
+                    <div style="text-align: center;">
+                        <input type="number" class="skill-calc-ranks" min="0" max="99" value="${initRanks}" style="width: 50px; text-align: center; padding: 4px; border-radius: 4px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-subtle); color: #fff; font-size: 12px;">
+                    </div>
+                    <div style="text-align: center;">
+                        <input type="checkbox" class="skill-calc-class-chk" ${initClass ? 'checked' : ''} style="cursor: pointer; transform: scale(1.15);">
+                    </div>
+                    <div style="text-align: center;">
+                        <input type="number" class="skill-calc-misc" value="${initMisc}" style="width: 50px; text-align: center; padding: 4px; border-radius: 4px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-subtle); color: #fff; font-size: 12px;">
+                    </div>
+                    <div style="text-align: right;">
+                        <span class="skill-calc-total" style="font-weight: bold; color: #38bdf8; font-size: 13px;">+0</span>
+                    </div>
+                </div>
+                `;
+            });
+
+            calcBody.innerHTML = rowsHtml;
+
+            function updateRowTotal(row) {
+                const statMod = parseInt(row.dataset.statMod) || 0;
+                const ranks = parseInt(row.querySelector('.skill-calc-ranks').value) || 0;
+                const isClass = row.querySelector('.skill-calc-class-chk').checked;
+                const misc = parseInt(row.querySelector('.skill-calc-misc').value) || 0;
+
+                const classBonus = (isClass && ranks >= 1) ? 3 : 0;
+                const total = statMod + ranks + classBonus + misc;
+
+                const totalSpan = row.querySelector('.skill-calc-total');
+                totalSpan.dataset.totalMod = total;
+                totalSpan.textContent = total >= 0 ? `+${total}` : `${total}`;
+
+                if (ranks > 0 || misc !== 0) {
+                    row.style.background = 'rgba(59, 130, 246, 0.1)';
+                    totalSpan.style.color = '#34d399';
+                } else {
+                    row.style.background = 'transparent';
+                    totalSpan.style.color = '#94a3b8';
+                }
+            }
+
+            function updateSummary() {
+                let totalRanks = 0;
+                calcBody.querySelectorAll('.skill-calc-ranks').forEach(inp => {
+                    totalRanks += parseInt(inp.value) || 0;
+                });
+                const summaryEl = document.getElementById('skill-calc-ranks-summary');
+                if (summaryEl) summaryEl.textContent = `Total Skill Ranks: ${totalRanks}`;
+            }
+
+            calcBody.querySelectorAll('.skill-calc-row').forEach(row => {
+                row.querySelector('.skill-calc-ranks').addEventListener('input', () => { updateRowTotal(row); updateSummary(); });
+                row.querySelector('.skill-calc-class-chk').addEventListener('change', () => { updateRowTotal(row); updateSummary(); });
+                row.querySelector('.skill-calc-misc').addEventListener('input', () => { updateRowTotal(row); updateSummary(); });
+                updateRowTotal(row);
+            });
+            updateSummary();
+
+            document.getElementById('skill-calc-search').value = '';
+            modal.classList.add('active');
+        });
     }
     // -------------------------------------------------------------------
     function scaleWeaponDamage(diceStr, size) {

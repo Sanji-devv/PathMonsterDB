@@ -23,7 +23,7 @@
             if (savedTheme && savedTheme !== 'theme-default') {
                 document.documentElement.className = savedTheme;
             }
-        } catch(e){}
+        } catch (e) { }
     </script>
     <style>
         body {
@@ -57,6 +57,12 @@
         .tab-btn.active {
             background: var(--sb-red);
             border-color: var(--sb-red);
+        }
+
+        .database-main-container {
+            width: 95%;
+            margin: 20px auto 40px auto;
+            box-sizing: border-box;
         }
 
         .filters {
@@ -217,33 +223,94 @@
             display: block;
         }
 
+        .monster-card.custom-card {
+            background: linear-gradient(135deg, rgba(28, 23, 18, 0.82) 0%, rgba(18, 14, 10, 0.94) 100%) !important;
+            border: 1px solid rgba(217, 119, 6, 0.35) !important;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(251, 191, 36, 0.08);
+        }
+
+        .monster-card.custom-card:hover {
+            border-color: rgba(245, 158, 11, 0.75) !important;
+            background: linear-gradient(135deg, rgba(38, 30, 22, 0.92) 0%, rgba(24, 18, 12, 0.98) 100%) !important;
+            box-shadow: 0 8px 24px rgba(217, 119, 6, 0.22), 0 0 12px rgba(245, 158, 11, 0.15) !important;
+            transform: translateY(-2px);
+        }
+
         .badge-tag {
             text-transform: uppercase;
             letter-spacing: 0.5px;
             box-sizing: border-box;
+            font-weight: 800;
         }
 
         .badge-custom {
-            background: #eab308;
-            color: #000;
+            background: linear-gradient(135deg, rgba(217, 119, 6, 0.22) 0%, rgba(180, 83, 9, 0.32) 100%) !important;
+            color: #fcd34d !important;
+            border: 1px solid rgba(245, 158, 11, 0.45) !important;
+            text-shadow: 0 0 8px rgba(245, 158, 11, 0.35) !important;
         }
 
         .badge-public {
-            background: rgba(16, 185, 129, 0.25);
-            color: #34d399;
-            border: 1px solid rgba(52, 211, 153, 0.45);
+            background: rgba(16, 185, 129, 0.18) !important;
+            color: #34d399 !important;
+            border: 1px solid rgba(52, 211, 153, 0.45) !important;
+            text-shadow: 0 0 8px rgba(52, 211, 153, 0.25) !important;
         }
 
         .badge-private {
-            background: rgba(239, 68, 68, 0.25);
-            color: #ef4444;
-            border: 1px solid rgb(239, 68, 68);
-            font-weight: 700;
+            background: rgba(100, 116, 139, 0.22) !important;
+            color: #cbd5e1 !important;
+            border: 1px solid rgba(148, 163, 184, 0.38) !important;
         }
 
         .badge-npc {
-            background: var(--sb-red);
-            color: #fff;
+            background: rgba(244, 63, 94, 0.2) !important;
+            color: #fda4af !important;
+            border: 1px solid rgba(251, 113, 133, 0.45) !important;
+        }
+
+        .btn-load {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+            color: #ffffff !important;
+            border: none !important;
+            box-shadow: 0 3px 8px rgba(16, 185, 129, 0.35) !important;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            cursor: pointer !important;
+        }
+
+        .btn-load:hover {
+            box-shadow: 0 5px 14px rgba(16, 185, 129, 0.5) !important;
+            transform: translateY(-1px);
+        }
+
+        .btn-load-custom {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+            color: #ffffff !important;
+            border: none !important;
+            box-shadow: 0 3px 8px rgba(37, 99, 235, 0.35) !important;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            cursor: pointer !important;
+        }
+
+        .btn-load-custom:hover {
+            box-shadow: 0 5px 14px rgba(37, 99, 235, 0.5) !important;
+            transform: translateY(-1px);
+        }
+
+        .btn-delete-custom {
+            background: rgba(239, 68, 68, 0.12) !important;
+            color: #f87171 !important;
+            border: 1px solid rgba(239, 68, 68, 0.4) !important;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            cursor: pointer !important;
+        }
+
+        .btn-delete-custom:hover {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+            color: #ffffff !important;
+            border-color: #ef4444 !important;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.45) !important;
+            transform: translateY(-1px);
         }
 
         .star-btn {
@@ -265,21 +332,21 @@
 
         .star-btn:hover {
             opacity: 0.9;
-            transform: scale(1.15);
+            transform: scale(1.18);
             filter: grayscale(0%);
         }
 
         .star-btn.active {
             opacity: 1;
             filter: grayscale(0%);
-            transform: scale(1.15);
-            text-shadow: 0 0 12px rgba(234, 179, 8, 0.7);
+            transform: scale(1.18);
+            text-shadow: 0 0 14px rgba(250, 204, 21, 0.85);
         }
 
         .badge-author {
-            background: rgba(59, 130, 246, 0.2);
+            background: rgba(59, 130, 246, 0.18);
             color: #93c5fd;
-            border: 1px solid rgba(59, 130, 246, 0.4);
+            border: 1px solid rgba(59, 130, 246, 0.38);
         }
 
         .pagination {

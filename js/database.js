@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
         localStorage.setItem('pathgm_last_page', '/html/database.html');
         document.cookie = "pathgm_last_page=/html/database.html; path=/; max-age=31536000; SameSite=Lax";
-    } catch (e) {}
+    } catch (e) { }
 
     // Apply Active Theme
     const savedTheme = (localStorage.getItem('pf_creator_theme') && localStorage.getItem('pf_creator_theme') !== 'theme-default') ? localStorage.getItem('pf_creator_theme') : 'theme-parchment';
@@ -177,14 +177,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const isOriginal = !m.IsUserCustom;
             if (!isOriginal) {
-                card.style.background = 'rgba(234, 179, 8, 0.12)';
-                card.style.borderColor = 'rgba(234, 179, 8, 0.35)';
+                card.classList.add('custom-card');
             }
 
             let badges = '';
             if (!isOriginal) {
                 badges += `<span class="badge-tag badge-custom">CUSTOM</span>`;
-                
+
                 // Visibility Badge (Public / Private)
                 const isPrivate = (m.Visibility === 'private');
                 if (isPrivate) {
@@ -219,7 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             ${npcBadge}
                         </div>
                         <div class="actions-bottom-tier">
-                            <button class="btn btn-load" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none; cursor: pointer; box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.4); transition: transform 0.1s, box-shadow 0.1s; display: inline-flex; align-items: center; justify-content: center; gap: 4px;" onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 6px 8px -1px rgba(16, 185, 129, 0.5)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 6px -1px rgba(16, 185, 129, 0.4)';">
+                            <button class="btn btn-load">
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> LOAD
                             </button>
                         </div>
@@ -234,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const customBadgeHtml = `<span class="badge-tag badge-custom">CUSTOM</span>`;
 
                 const deleteBtnHtml = isAuthor
-                    ? `<button class="btn btn-delete-custom" style="background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='rgba(239, 68, 68, 0.25)';" onmouseout="this.style.background='rgba(239, 68, 68, 0.15)';">DELETE</button>`
+                    ? `<button class="btn btn-delete-custom">DELETE</button>`
                     : `<span class="badge-spacer"></span>`;
 
                 actionsHtml = `
@@ -245,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             ${customBadgeHtml}
                         </div>
                         <div class="actions-bottom-tier">
-                            <button class="btn btn-load-custom" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; border: none; cursor: pointer; box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.4); transition: transform 0.1s, box-shadow 0.1s; display: inline-flex; align-items: center; justify-content: center; gap: 4px;" onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 6px 8px -1px rgba(59, 130, 246, 0.5)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 6px -1px rgba(59, 130, 246, 0.4)';">
+                            <button class="btn btn-load-custom">
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> LOAD
                             </button>
                             ${deleteBtnHtml}
@@ -779,7 +778,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 state.dynamic.spells = typeof m.OriginalState.basic['in-spells-data'] === 'string'
                     ? JSON.parse(m.OriginalState.basic['in-spells-data'])
                     : m.OriginalState.basic['in-spells-data'];
-            } catch(e) {
+            } catch (e) {
                 state.dynamic.spells = m.OriginalState.dynamic?.spells || {};
             }
         } else if (m.OriginalState && m.OriginalState.dynamic && m.OriginalState.dynamic.spells) {

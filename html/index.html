@@ -24,7 +24,7 @@
             if (savedTheme && savedTheme !== 'theme-default') {
                 document.documentElement.className = savedTheme;
             }
-        } catch(e){}
+        } catch (e) { }
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -81,10 +81,12 @@
             <!-- Action Buttons -->
             <div class="header-actions">
                 <button id="btn-new-sheet" class="btn-hdr btn-hdr-emerald" title="Clear and start fresh">New</button>
-                <button id="btn-save-database" class="btn-hdr btn-hdr-blue" title="Save creature to local database">Save DB</button>
+                <button id="btn-save-database" class="btn-hdr btn-hdr-blue" title="Save creature to local database">Save
+                    DB</button>
                 <button id="btn-export-png" class="btn-hdr btn-hdr-subtle"
                     title="Export statblock as high-res PNG image">PNG</button>
-                <button id="btn-export-pdf" class="btn-hdr btn-hdr-subtle" title="Export statblock as PDF document">PDF</button>
+                <button id="btn-export-pdf" class="btn-hdr btn-hdr-subtle"
+                    title="Export statblock as PDF document">PDF</button>
                 <button id="btn-save-json" class="btn-hdr btn-hdr-subtle" title="Save Creature JSON File">JSON</button>
                 <button id="btn-load-json" class="btn-hdr btn-hdr-subtle" title="Load Creature JSON File">Load</button>
                 <input type="file" id="file-load-json" accept=".json" style="display:none;">
@@ -98,7 +100,8 @@
                 title="Panel Settings (Font & Scale)">⚙️</button>
 
             <!-- Mobile Hamburger Menu Button -->
-            <button type="button" id="btn-mobile-menu" class="btn-mobile-menu" aria-label="Open Mobile Menu" title="Menu">
+            <button type="button" id="btn-mobile-menu" class="btn-mobile-menu" aria-label="Open Mobile Menu"
+                title="Menu">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -126,7 +129,8 @@
                 <img src="../assets/logo.png" alt="PathMonsterDB Logo" class="brand-logo-img">
                 <span class="brand-name">PathMonsterDB</span>
             </div>
-            <button type="button" id="btn-close-mobile-drawer" class="mobile-drawer-close" aria-label="Close Menu">&times;</button>
+            <button type="button" id="btn-close-mobile-drawer" class="mobile-drawer-close"
+                aria-label="Close Menu">&times;</button>
         </div>
 
         <div class="mobile-drawer-body">
@@ -183,15 +187,16 @@
                     <button type="button" id="mob-btn-save-database" class="mob-btn mob-btn-blue">Save DB</button>
                     <button type="button" id="mob-btn-export-png" class="mob-btn mob-btn-subtle">PNG</button>
                     <button type="button" id="mob-btn-export-pdf" class="mob-btn mob-btn-subtle">PDF</button>
-                    <button type="button" id="mob-btn-save-json" class="mob-btn mob-btn-subtle">Save JSON</button>
-                    <button type="button" id="mob-btn-load-json" class="mob-btn mob-btn-subtle">Load JSON</button>
+                    <button type="button" id="mob-btn-save-json" class="mob-btn mob-btn-subtle">DOWNLOAD JSON</button>
+                    <button type="button" id="mob-btn-load-json" class="mob-btn mob-btn-subtle">UPLOAD JSON</button>
                 </div>
             </div>
 
             <!-- Customization & Account -->
             <div class="mobile-drawer-section">
                 <div class="mobile-drawer-heading">Customization & Profile</div>
-                <button type="button" id="mob-btn-settings" class="mob-btn mob-btn-subtle" style="width: 100%; margin-bottom: 12px; justify-content: center;">⚙️ Panel Font & Size</button>
+                <button type="button" id="mob-btn-settings" class="mob-btn mob-btn-subtle"
+                    style="width: 100%; margin-bottom: 12px; justify-content: center;">⚙️ Panel Font & Size</button>
                 <div class="user-profile-slot" id="mob-user-profile-slot"></div>
             </div>
         </div>
@@ -237,8 +242,7 @@
 
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" id="in-name" value=""
-                                placeholder="Creature or Character Name">
+                            <input type="text" id="in-name" value="" placeholder="Creature or Character Name">
                         </div>
 
                         <div class="form-row">
@@ -254,7 +258,8 @@
 
                         <!-- Visibility Setting -->
                         <div class="form-group" style="margin-bottom: 12px;">
-                            <label style="font-weight: 600; color: var(--primary); font-size: 0.85rem;">Visibility</label>
+                            <label
+                                style="font-weight: 600; color: var(--primary); font-size: 0.85rem;">Visibility</label>
                             <select id="in-visibility" style="font-weight: 600; width: 100%;">
                                 <option value="public" selected>Public</option>
                                 <option value="private">Private</option>
@@ -506,12 +511,12 @@
                     <section class="form-section">
                         <h2>Movement & Reach</h2>
                         <div class="form-row">
-                            <div class="form-group"><label>Speed</label><input type="text" id="in-speed"
-                                    value="30 ft."></div>
+                            <div class="form-group"><label>Speed</label><input type="text" id="in-speed" value="30 ft.">
+                            </div>
                             <div class="form-group"><label>Space</label><input type="text" id="in-space" value="5 ft.">
                             </div>
-                            <div class="form-group"><label>Reach</label><input type="text" id="in-reach"
-                                    value="5 ft."></div>
+                            <div class="form-group"><label>Reach</label><input type="text" id="in-reach" value="5 ft.">
+                            </div>
                         </div>
                     </section>
 
@@ -733,8 +738,8 @@
                                     value="" placeholder="e.g. warm forests"></div>
                             <div class="form-group"><label>Organization</label><input type="text" id="in-organization"
                                     value="" placeholder="e.g. solitary, pair"></div>
-                            <div class="form-group"><label>Treasure</label><input type="text" id="in-treasure"
-                                    value="" placeholder="e.g. standard"></div>
+                            <div class="form-group"><label>Treasure</label><input type="text" id="in-treasure" value=""
+                                    placeholder="e.g. standard"></div>
                         </div>
                     </section>
                 </div>
@@ -805,7 +810,8 @@
                     <span class="pf-label">Ranged</span> <span id="out-ranged"></span>
                 </div>
                 <div class="pf-property-line" id="wrap-space-reach">
-                    <span class="pf-label">Space</span> 5 ft.; <span class="pf-label">Reach</span> 5 ft.
+                    <span id="out-space-reach"><span class="pf-label">Space</span> 5 ft.; <span
+                            class="pf-label">Reach</span> 5 ft.</span>
                 </div>
                 <div class="pf-property-line" id="wrap-special-attacks" style="display: none;">
                     <span class="pf-label">Special Attacks</span> <span id="out-special-attacks"></span>

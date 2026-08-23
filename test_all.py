@@ -156,6 +156,27 @@ def run_tests():
 
     base_url = f"http://127.0.0.1:{PORT}"
 
+    users_file = os.path.join(BASE_DIR, 'data', 'users.json')
+    sessions_file = os.path.join(BASE_DIR, 'data', 'sessions.json')
+    favorites_file = os.path.join(BASE_DIR, 'data', 'favorites.json')
+    custom_monsters_file = os.path.join(BASE_DIR, 'data', 'custom_monsters.json')
+    original_users_content = None
+    original_sessions_content = None
+    original_favorites_content = None
+    original_custom_monsters_content = None
+    if os.path.exists(users_file):
+        with open(users_file, 'r', encoding='utf-8') as f:
+            original_users_content = f.read()
+    if os.path.exists(sessions_file):
+        with open(sessions_file, 'r', encoding='utf-8') as f:
+            original_sessions_content = f.read()
+    if os.path.exists(favorites_file):
+        with open(favorites_file, 'r', encoding='utf-8') as f:
+            original_favorites_content = f.read()
+    if os.path.exists(custom_monsters_file):
+        with open(custom_monsters_file, 'r', encoding='utf-8') as f:
+            original_custom_monsters_content = f.read()
+
     try:
         req = urllib.request.urlopen(f"{base_url}/html/index.html")
         assert req.status == 200
@@ -595,6 +616,21 @@ def run_tests():
         print("  [OK] All HTTP endpoints & Authentication & Privacy Suite verified successfully.")
     finally:
         httpd.shutdown()
+        import server.auth
+        server.auth.USERS_CACHE = None
+        server.auth.SESSIONS_CACHE = None
+        if original_users_content is not None:
+            with open(users_file, 'w', encoding='utf-8') as f:
+                f.write(original_users_content)
+        if original_sessions_content is not None:
+            with open(sessions_file, 'w', encoding='utf-8') as f:
+                f.write(original_sessions_content)
+        if original_favorites_content is not None:
+            with open(favorites_file, 'w', encoding='utf-8') as f:
+                f.write(original_favorites_content)
+        if original_custom_monsters_content is not None:
+            with open(custom_monsters_file, 'w', encoding='utf-8') as f:
+                f.write(original_custom_monsters_content)
 
     # 8. Testing Default Blank Sheet & Default Colors Configuration
     print("\n8. Testing Default Blank Sheet & Default Colors...")
