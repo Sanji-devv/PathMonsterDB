@@ -246,9 +246,12 @@ class PathMonsterDBRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.rfile.read(length)
             parsed_url = urlparse(self.path)
             if parsed_url.path.startswith('/api/delete/'):
-                idx_str = parsed_url.path.rstrip('/').split('/')[-1]
-                idx = int(idx_str)
-                body, status_code = delete_monster(idx, user=user)
+                target_str = parsed_url.path.rstrip('/').split('/')[-1]
+                try:
+                    target_arg = int(target_str)
+                except ValueError:
+                    target_arg = target_str
+                body, status_code = delete_monster(target_arg, user=user)
                 self.send_response(status_code)
                 self.send_header('Content-Type', 'application/json; charset=utf-8')
                 self.send_header('Content-Length', str(len(body)))
@@ -257,8 +260,6 @@ class PathMonsterDBRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.flush()
             else:
                 self.send_error(404)
-        except ValueError:
-            self.send_error(400, "Invalid index")
         except Exception as e:
             self.send_error(500, str(e))
 

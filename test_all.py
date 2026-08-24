@@ -23,6 +23,27 @@ from server.monster_formatter import format_monster_from_state, parse_cr
 from server.http_handler import PathMonsterDBRequestHandler
 
 def run_tests():
+    users_file = os.path.join(BASE_DIR, 'data', 'users.json')
+    sessions_file = os.path.join(BASE_DIR, 'data', 'sessions.json')
+    favorites_file = os.path.join(BASE_DIR, 'data', 'favorites.json')
+    custom_monsters_file = os.path.join(BASE_DIR, 'data', 'custom_monsters.json')
+    original_users_content = None
+    original_sessions_content = None
+    original_favorites_content = None
+    original_custom_monsters_content = None
+    if os.path.exists(users_file):
+        with open(users_file, 'r', encoding='utf-8') as f:
+            original_users_content = f.read()
+    if os.path.exists(sessions_file):
+        with open(sessions_file, 'r', encoding='utf-8') as f:
+            original_sessions_content = f.read()
+    if os.path.exists(favorites_file):
+        with open(favorites_file, 'r', encoding='utf-8') as f:
+            original_favorites_content = f.read()
+    if os.path.exists(custom_monsters_file):
+        with open(custom_monsters_file, 'r', encoding='utf-8') as f:
+            original_custom_monsters_content = f.read()
+
     print("--- Running PathMonsterDB Verification Test Suite ---")
     
     # 1. Static Assets Verification
@@ -183,27 +204,6 @@ def run_tests():
     time.sleep(0.3)
 
     base_url = f"http://127.0.0.1:{PORT}"
-
-    users_file = os.path.join(BASE_DIR, 'data', 'users.json')
-    sessions_file = os.path.join(BASE_DIR, 'data', 'sessions.json')
-    favorites_file = os.path.join(BASE_DIR, 'data', 'favorites.json')
-    custom_monsters_file = os.path.join(BASE_DIR, 'data', 'custom_monsters.json')
-    original_users_content = None
-    original_sessions_content = None
-    original_favorites_content = None
-    original_custom_monsters_content = None
-    if os.path.exists(users_file):
-        with open(users_file, 'r', encoding='utf-8') as f:
-            original_users_content = f.read()
-    if os.path.exists(sessions_file):
-        with open(sessions_file, 'r', encoding='utf-8') as f:
-            original_sessions_content = f.read()
-    if os.path.exists(favorites_file):
-        with open(favorites_file, 'r', encoding='utf-8') as f:
-            original_favorites_content = f.read()
-    if os.path.exists(custom_monsters_file):
-        with open(custom_monsters_file, 'r', encoding='utf-8') as f:
-            original_custom_monsters_content = f.read()
 
     try:
         req = urllib.request.urlopen(f"{base_url}/html/index.html")
@@ -477,6 +477,105 @@ def run_tests():
                 with urllib.request.urlopen(user_a_del_pub_req) as del_pub_resp:
                     assert del_pub_resp.status == 200
                     print("  [OK] Author (User A) successfully deleted their Public custom monster.")
+
+        # --- Unlimited Monsters & Ownership & UUID Deletion Suite ---
+        print("\n  [UNLIMITED & OWNERSHIP] Testing Unlimited Monster Creation, Forking Protection, and UUID Deletion...")
+        
+        # 1. User A creates 8 custom monsters in a loop to verify unlimited creation
+        created_uuids = []
+        for b_i in range(1, 9):
+            beast_state = {
+                "basic": {
+                    "in-name": f"Batch Test Beast {b_i}",
+                    "in-cr": str(b_i),
+                    "in-hp": str(b_i * 15),
+                    "in-type": "Magical Beast",
+                    "in-visibility": "public"
+                }
+            }
+            save_beast_req = urllib.request.Request(
+                f"{base_url}/api/save",
+                data=json.dumps(beast_state).encode('utf-8'),
+                headers={'Content-Type': 'application/json', 'Authorization': f"Bearer {auth_token}"}
+            )
+            with urllib.request.urlopen(save_beast_req) as b_resp:
+                assert b_resp.status == 200
+                b_res_data = json.loads(b_resp.read().decode('utf-8'))
+                assert b_res_data["status"] == "ok"
+                assert b_res_data.get("id"), "Saved monster must have a persistent UUID"
+                created_uuids.append(b_res_data["id"])
+        
+        print(f"  [OK] User A created {len(created_uuids)} monsters in rapid succession (unlimited verified).")
+
+        # 2. Verify User B cannot delete User A's monster using UUID
+        target_uuid = created_uuids[0]
+        b_del_a_uuid_req = urllib.request.Request(
+            f"{base_url}/api/delete/{target_uuid}",
+            headers={'Authorization': f"Bearer {user_b_token}"},
+            method='DELETE'
+        )
+        try:
+            urllib.request.urlopen(b_del_a_uuid_req)
+            assert False, "User B should not be allowed to delete User A's monster by UUID"
+        except urllib.error.HTTPError as e:
+            assert e.code == 403, f"Expected 403 Forbidden, got {e.code}"
+            print("  [OK] Cross-user deletion by UUID strictly rejected with 403 Forbidden.")
+
+        # 3. Verify User B editing User A's monster automatically forks without modifying User A's monster
+        fork_state = {
+            "id": target_uuid,
+            "basic": {
+                "in-name": "Batch Test Beast 1 (User B Remix)",
+                "in-cr": "10",
+                "in-visibility": "public"
+            }
+        }
+        b_save_fork_req = urllib.request.Request(
+            f"{base_url}/api/save",
+            data=json.dumps(fork_state).encode('utf-8'),
+            headers={'Content-Type': 'application/json', 'Authorization': f"Bearer {user_b_token}"}
+        )
+        with urllib.request.urlopen(b_save_fork_req) as fork_resp:
+            assert fork_resp.status == 200
+            fork_data = json.loads(fork_resp.read().decode('utf-8'))
+            assert fork_data["id"] != target_uuid, "Forked monster must receive a NEW distinct UUID"
+            assert fork_data["author"] == user_b_name, "Forked monster author must be User B"
+            user_b_forked_uuid = fork_data["id"]
+            print("  [OK] Editing another user's monster safely forks into a new independent entry.")
+
+        # 4. User A deletes all 8 created monsters by UUID
+        for u_id in created_uuids:
+            del_u_req = urllib.request.Request(
+                f"{base_url}/api/delete/{u_id}",
+                headers={'Authorization': f"Bearer {auth_token}"},
+                method='DELETE'
+            )
+            with urllib.request.urlopen(del_u_req) as del_resp:
+                assert del_resp.status == 200
+        print("  [OK] User A successfully deleted all created monsters by UUID.")
+
+        # 5. User B deletes their forked monster by UUID
+        del_fork_req = urllib.request.Request(
+            f"{base_url}/api/delete/{user_b_forked_uuid}",
+            headers={'Authorization': f"Bearer {user_b_token}"},
+            method='DELETE'
+        )
+        with urllib.request.urlopen(del_fork_req) as del_f_resp:
+            assert del_f_resp.status == 200
+        print("  [OK] User B successfully deleted their forked monster by UUID.")
+
+        # 6. Official monster deletion attempt rejected with 400 Bad Request
+        del_official_req = urllib.request.Request(
+            f"{base_url}/api/delete/0",
+            headers={'Authorization': f"Bearer {auth_token}"},
+            method='DELETE'
+        )
+        try:
+            urllib.request.urlopen(del_official_req)
+            assert False, "Official monster deletion must be rejected"
+        except urllib.error.HTTPError as e:
+            assert e.code == 400
+            print("  [OK] Official monster deletion correctly rejected with 400 Bad Request.")
 
         # --- Per-Account Favorites & Private->Public Favorite Retention Test Suite ---
         print("\n  [FAVORITES] Testing Per-Account Favorites & Private->Public Favorite Retention...")

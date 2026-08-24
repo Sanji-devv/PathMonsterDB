@@ -27,92 +27,86 @@
     </script>
     <style>
         body {
-            padding: 20px;
+            padding: 0;
+            margin: 0;
             overflow-y: auto;
-        }
-
-        .database-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .database-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .tab-btn {
-            padding: 10px 20px;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--border-color);
-            color: #fff;
-            cursor: pointer;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-
-        .tab-btn.active {
-            background: var(--sb-red);
-            border-color: var(--sb-red);
+            overflow-x: hidden;
+            background: var(--bg-workspace);
+            min-height: 100vh;
+            min-height: 100dvh;
         }
 
         .database-main-container {
-            width: 95%;
-            margin: 20px auto 40px auto;
+            width: 100%;
+            max-width: 1720px;
+            margin: 0 auto;
+            padding: 24px 28px 60px 28px;
             box-sizing: border-box;
         }
 
         .filters {
             display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
-            background: rgba(0, 0, 0, 0.35);
-            padding: 14px 18px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
+            gap: 14px;
+            margin-bottom: 24px;
+            background: rgba(18, 20, 29, 0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 18px 24px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             flex-wrap: wrap;
             width: 100%;
             box-sizing: border-box;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
         }
 
         .filters input,
         .filters select {
-            padding: 9px 12px;
-            border-radius: 6px;
-            background: rgba(0, 0, 0, 0.55);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            color: white;
-            font-size: 13.5px;
+            padding: 11px 16px;
+            border-radius: 8px;
+            background: rgba(10, 12, 18, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            color: #ffffff;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        .filters input:focus,
+        .filters select:focus {
+            outline: none;
+            border-color: var(--primary, #d4af37);
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.25);
+            background: rgba(15, 18, 26, 0.95);
         }
 
         .filters input {
-            flex: 2;
-            min-width: 220px;
+            flex: 2 1 260px;
+            min-width: 200px;
         }
 
         .filters select {
-            flex: 1;
-            min-width: 110px;
+            flex: 1 1 150px;
+            min-width: 130px;
+            cursor: pointer;
         }
 
         .monster-list {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 14px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
             width: 100%;
             box-sizing: border-box;
         }
 
-        @media (max-width: 1450px) {
+        @media (max-width: 1399px) {
             .monster-list {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 880px) {
             .monster-list {
                 grid-template-columns: 1fr;
             }
@@ -122,21 +116,23 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(0, 0, 0, 0.45);
-            padding: 14px 18px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            transition: all 0.2s ease;
-            gap: 14px;
-            min-height: 74px;
+            background: rgba(18, 20, 29, 0.82);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 16px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+            gap: 16px;
+            min-height: 82px;
             box-sizing: border-box;
         }
 
         .monster-card:hover {
-            border-color: var(--sb-red);
-            background: rgba(0, 0, 0, 0.65);
+            border-color: rgba(212, 175, 55, 0.45);
+            background: rgba(24, 27, 38, 0.95);
             transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
         }
 
         .monster-info {
@@ -147,23 +143,25 @@
 
         .monster-info h3 {
             margin: 0 0 6px 0;
-            color: #fff;
-            font-size: 1.08rem;
+            color: #ffffff;
+            font-size: 1.15rem;
             font-weight: 700;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             line-height: 1.25;
+            letter-spacing: -0.01em;
         }
 
         .monster-info p {
             margin: 0;
             color: #94a3b8;
-            font-size: 0.84rem;
+            font-size: 0.88rem;
+            font-weight: 500;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            line-height: 1.3;
+            line-height: 1.35;
         }
 
         .monster-actions {
@@ -177,7 +175,7 @@
         .actions-grid-2x2 {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 6px;
             align-items: flex-end;
         }
 
@@ -185,7 +183,7 @@
         .actions-bottom-tier {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
             justify-content: flex-end;
         }
 
@@ -193,154 +191,34 @@
         .actions-top-tier .badge-spacer,
         .actions-bottom-tier .btn,
         .actions-bottom-tier .badge-spacer {
-            width: 82px !important;
-            min-width: 82px !important;
-            max-width: 82px !important;
-            height: 30px !important;
-            min-height: 30px !important;
-            max-height: 30px !important;
-            padding: 0 4px !important;
-            margin: 0 !important;
-            border-radius: 6px !important;
-            font-size: 11.5px !important;
-            font-weight: 800 !important;
-            letter-spacing: 0.5px !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            text-align: center !important;
-            box-sizing: border-box !important;
-            line-height: 1 !important;
-            white-space: nowrap !important;
+            width: 86px;
+            min-width: 86px;
+            max-width: 86px;
+            height: 32px;
+            min-height: 32px;
+            max-height: 32px;
+            padding: 0 6px;
+            margin: 0;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-sizing: border-box;
+            line-height: 1;
+            white-space: nowrap;
         }
 
         .actions-bottom-tier .btn {
-            cursor: pointer !important;
+            cursor: pointer;
         }
 
         .badge-spacer {
             visibility: hidden;
             display: block;
-        }
-
-        .monster-card.custom-card {
-            background: linear-gradient(135deg, rgba(28, 23, 18, 0.82) 0%, rgba(18, 14, 10, 0.94) 100%) !important;
-            border: 1px solid rgba(217, 119, 6, 0.35) !important;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(251, 191, 36, 0.08);
-        }
-
-        .monster-card.custom-card:hover {
-            border-color: rgba(245, 158, 11, 0.75) !important;
-            background: linear-gradient(135deg, rgba(38, 30, 22, 0.92) 0%, rgba(24, 18, 12, 0.98) 100%) !important;
-            box-shadow: 0 8px 24px rgba(217, 119, 6, 0.22), 0 0 12px rgba(245, 158, 11, 0.15) !important;
-            transform: translateY(-2px);
-        }
-
-        .badge-tag {
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-sizing: border-box;
-            font-weight: 800;
-        }
-
-        .badge-custom {
-            background: linear-gradient(135deg, rgba(217, 119, 6, 0.22) 0%, rgba(180, 83, 9, 0.32) 100%) !important;
-            color: #fcd34d !important;
-            border: 1px solid rgba(245, 158, 11, 0.45) !important;
-            text-shadow: 0 0 8px rgba(245, 158, 11, 0.35) !important;
-        }
-
-        .badge-public {
-            background: rgba(16, 185, 129, 0.18) !important;
-            color: #34d399 !important;
-            border: 1px solid rgba(52, 211, 153, 0.45) !important;
-            text-shadow: 0 0 8px rgba(52, 211, 153, 0.25) !important;
-        }
-
-        .badge-private {
-            background: rgba(100, 116, 139, 0.22) !important;
-            color: #cbd5e1 !important;
-            border: 1px solid rgba(148, 163, 184, 0.38) !important;
-        }
-
-        .badge-npc {
-            background: rgba(244, 63, 94, 0.2) !important;
-            color: #fda4af !important;
-            border: 1px solid rgba(251, 113, 133, 0.45) !important;
-        }
-
-        .btn-load {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
-            color: #ffffff !important;
-            border: none !important;
-            box-shadow: 0 3px 8px rgba(16, 185, 129, 0.35) !important;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
-            cursor: pointer !important;
-        }
-
-        .btn-load:hover {
-            box-shadow: 0 5px 14px rgba(16, 185, 129, 0.5) !important;
-            transform: translateY(-1px);
-        }
-
-        .btn-load-custom {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
-            color: #ffffff !important;
-            border: none !important;
-            box-shadow: 0 3px 8px rgba(37, 99, 235, 0.35) !important;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
-            cursor: pointer !important;
-        }
-
-        .btn-load-custom:hover {
-            box-shadow: 0 5px 14px rgba(37, 99, 235, 0.5) !important;
-            transform: translateY(-1px);
-        }
-
-        .btn-delete-custom {
-            background: rgba(239, 68, 68, 0.12) !important;
-            color: #f87171 !important;
-            border: 1px solid rgba(239, 68, 68, 0.4) !important;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
-            cursor: pointer !important;
-        }
-
-        .btn-delete-custom:hover {
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
-            color: #ffffff !important;
-            border-color: #ef4444 !important;
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.45) !important;
-            transform: translateY(-1px);
-        }
-
-        .star-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            opacity: 0.35;
-            transition: all 0.2s ease;
-            filter: grayscale(100%);
-            padding: 0 4px;
-            margin: 0;
-            line-height: 1;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            align-self: center;
-        }
-
-        .star-btn:hover {
-            opacity: 0.9;
-            transform: scale(1.18);
-            filter: grayscale(0%);
-        }
-
-        .star-btn.active {
-            opacity: 1;
-            filter: grayscale(0%);
-            transform: scale(1.18);
-            text-shadow: 0 0 14px rgba(250, 204, 21, 0.85);
         }
 
         .badge-author {
@@ -353,20 +231,21 @@
             display: flex;
             justify-content: center;
             gap: 16px;
-            margin-top: 30px;
+            margin-top: 32px;
             margin-bottom: 25px;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .pagination button {
             padding: 10px 24px;
             height: 44px;
             min-width: 130px;
-            font-size: 15px;
+            font-size: 14.5px;
             font-weight: 700;
             letter-spacing: 0.5px;
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            border: 1px solid #60a5fa;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            border: 1px solid #3b82f6;
             color: #ffffff;
             cursor: pointer;
             border-radius: 8px;
@@ -380,7 +259,7 @@
         }
 
         .pagination button:hover:not(:disabled) {
-            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
             transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(59, 130, 246, 0.5);
         }
@@ -396,10 +275,10 @@
         }
 
         #page-info {
-            font-size: 15px;
+            font-size: 14.5px;
             font-weight: 700;
             color: #fef08a;
-            background: rgba(15, 23, 42, 0.8);
+            background: rgba(15, 23, 42, 0.85);
             padding: 10px 22px;
             border-radius: 20px;
             border: 1px solid rgba(234, 179, 8, 0.4);
@@ -419,8 +298,10 @@
             </a>
 
             <nav class="header-nav">
-                <a href="index.html?new=1" class="nav-pill" style="background: rgba(16, 185, 129, 0.18); border-color: rgba(16, 185, 129, 0.4); color: #34d399;" title="Create a brand new monster from scratch">
-                    <span>➕ New Monster</span>
+                <a href="index.html?new=1" class="nav-pill"
+                    style="background: rgba(16, 185, 129, 0.18); border-color: rgba(16, 185, 129, 0.4); color: #34d399;"
+                    title="Create a brand new monster from scratch">
+                    <span>New Monster</span>
                 </a>
                 <a href="index.html" class="nav-pill" title="Open Monster Creator & Editor">
                     <span>Monster Creator</span>
@@ -432,13 +313,18 @@
         </div>
 
         <div class="header-right">
-            <button id="btn-export-db-json" class="btn-hdr btn-hdr-emerald" title="Export Monster Database as JSON file">Export All (JSON)</button>
-            <button id="btn-import-db-json" class="btn-hdr btn-hdr-blue" title="Import Monsters from JSON file into Database">Import All (JSON)</button>
-            <input type="file" id="file-import-db-json" accept=".json" style="display:none;" multiple>
-            <button id="btn-reset-filters" class="btn-hdr btn-hdr-subtle" title="Reset all search filters">🔄 Reset Filters</button>
-            <a href="index.html" class="btn-hdr btn-hdr-blue" title="Back to Monster Creator">⬅ Back to Editor</a>
+            <div class="header-actions">
+                <button id="btn-export-db-json" class="btn-hdr btn-hdr-emerald"
+                    title="Export Monster Database as JSON file">Export All (JSON)</button>
+                <button id="btn-import-db-json" class="btn-hdr btn-hdr-blue"
+                    title="Import Monsters from JSON file into Database">Import All (JSON)</button>
+                <input type="file" id="file-import-db-json" accept=".json" style="display:none;" multiple>
+                <button id="btn-reset-filters" class="btn-hdr btn-hdr-subtle" title="Reset all search filters">🔄 Reset
+                    Filters</button>
+                <a href="index.html" class="btn-hdr btn-hdr-blue" title="Back to Monster Creator">⬅ Back to Editor</a>
+            </div>
             <div class="user-profile-slot" id="user-profile-container"></div>
-            <a href="index.html" class="btn-hdr-icon" title="Panel Settings">⚙️</a>
+            <a href="index.html" id="btn-settings-panel" class="btn-hdr-icon" title="Panel Settings">⚙️</a>
 
             <!-- Mobile Hamburger Menu Button -->
             <button type="button" id="btn-mobile-menu" class="btn-mobile-menu" aria-label="Open Mobile Menu"
@@ -589,34 +475,45 @@
 
     <!-- Export Database Modal -->
     <div id="modal-export-database" class="info-modal-overlay" aria-hidden="true">
-        <div class="info-modal-content" style="max-width: 520px; background: rgba(15, 23, 42, 0.96); border: 1px solid rgba(242, 202, 80, 0.4); border-radius: 12px; box-shadow: 0 12px 36px rgba(0,0,0,0.85); backdrop-filter: blur(12px);">
-            <div class="info-modal-header" style="border-bottom: 1px solid rgba(255,255,255,0.12); padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;">
-                <h2 style="font-family: 'Cinzel', serif; font-size: 1.25rem; color: #fcd34d; margin: 0; display: flex; align-items: center; gap: 8px;">
+        <div class="info-modal-content"
+            style="max-width: 520px; background: rgba(15, 23, 42, 0.96); border: 1px solid rgba(242, 202, 80, 0.4); border-radius: 12px; box-shadow: 0 12px 36px rgba(0,0,0,0.85); backdrop-filter: blur(12px);">
+            <div class="info-modal-header"
+                style="border-bottom: 1px solid rgba(255,255,255,0.12); padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;">
+                <h2
+                    style="font-family: 'Cinzel', serif; font-size: 1.25rem; color: #fcd34d; margin: 0; display: flex; align-items: center; gap: 8px;">
                     Export Monster Database (JSON)
                 </h2>
-                <button type="button" id="btn-close-export-modal" class="info-modal-close" style="color: #94a3b8; font-size: 24px; background: none; border: none; cursor: pointer; line-height: 1;">&times;</button>
+                <button type="button" id="btn-close-export-modal" class="info-modal-close"
+                    style="color: #94a3b8; font-size: 24px; background: none; border: none; cursor: pointer; line-height: 1;">&times;</button>
             </div>
             <div class="info-modal-body" style="padding: 22px; color: #e2e8f0; font-size: 14px; line-height: 1.5;">
                 <p style="margin-top: 0; margin-bottom: 18px; color: #94a3b8;">
                     Select the scope of monster data you want to export as a formatted JSON file:
                 </p>
                 <div style="display: flex; flex-direction: column; gap: 12px;">
-                    <button type="button" id="btn-export-scope-all" class="btn-hdr btn-hdr-emerald" style="height: 52px; justify-content: flex-start; padding: 0 18px; font-size: 14.5px; border-radius: 8px;">
+                    <button type="button" id="btn-export-scope-all" class="btn-hdr btn-hdr-emerald"
+                        style="height: 52px; justify-content: flex-start; padding: 0 18px; font-size: 14.5px; border-radius: 8px;">
                         <div style="text-align: left;">
                             <div style="font-weight: 700; color: #fff;">Full Database (All ~6,500+ Monsters)</div>
-                            <div style="font-size: 11.5px; opacity: 0.85; font-weight: normal;">Export complete official bestiaries + your custom monsters</div>
+                            <div style="font-size: 11.5px; opacity: 0.85; font-weight: normal;">Export complete official
+                                bestiaries + your custom monsters</div>
                         </div>
                     </button>
-                    <button type="button" id="btn-export-scope-custom" class="btn-hdr btn-hdr-blue" style="height: 52px; justify-content: flex-start; padding: 0 18px; font-size: 14.5px; border-radius: 8px;">
+                    <button type="button" id="btn-export-scope-custom" class="btn-hdr btn-hdr-blue"
+                        style="height: 52px; justify-content: flex-start; padding: 0 18px; font-size: 14.5px; border-radius: 8px;">
                         <div style="text-align: left;">
                             <div style="font-weight: 700; color: #fff;">Custom Monsters Only</div>
-                            <div style="font-size: 11.5px; opacity: 0.85; font-weight: normal;">Export user-created and imported custom monsters</div>
+                            <div style="font-size: 11.5px; opacity: 0.85; font-weight: normal;">Export user-created and
+                                imported custom monsters</div>
                         </div>
                     </button>
-                    <button type="button" id="btn-export-scope-filtered" class="btn-hdr btn-hdr-subtle" style="height: 52px; justify-content: flex-start; padding: 0 18px; font-size: 14.5px; border: 1px solid rgba(255,255,255,0.22); border-radius: 8px;">
+                    <button type="button" id="btn-export-scope-filtered" class="btn-hdr btn-hdr-subtle"
+                        style="height: 52px; justify-content: flex-start; padding: 0 18px; font-size: 14.5px; border: 1px solid rgba(255,255,255,0.22); border-radius: 8px;">
                         <div style="text-align: left;">
-                            <div style="font-weight: 700; color: #fff;" id="export-filtered-title">Current Filter Results</div>
-                            <div style="font-size: 11.5px; opacity: 0.85; font-weight: normal;">Export monsters currently matching your search filters</div>
+                            <div style="font-weight: 700; color: #fff;" id="export-filtered-title">Current Filter
+                                Results</div>
+                            <div style="font-size: 11.5px; opacity: 0.85; font-weight: normal;">Export monsters
+                                currently matching your search filters</div>
                         </div>
                     </button>
                 </div>

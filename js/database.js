@@ -294,13 +294,17 @@ document.addEventListener('DOMContentLoaded', () => {
                             const headers = (auth && typeof auth.getAuthHeaders === 'function')
                                 ? auth.getAuthHeaders()
                                 : {};
-                            fetch(`/api/delete/${m._global_index}`, {
+                            const deleteTarget = m.id || m._global_index;
+                            fetch(`/api/delete/${deleteTarget}`, {
                                 method: 'DELETE',
                                 headers: headers
                             })
                                 .then(r => r.json())
                                 .then(res => {
                                     if (res.status === 'ok') {
+                                        if (auth && typeof auth.showToast === 'function') {
+                                            auth.showToast(`🗑️ "${m.Name}" deleted successfully.`, 'info');
+                                        }
                                         loadData();
                                     } else {
                                         alert('Delete failed: ' + (res.error || res.message || 'Unknown error'));
@@ -318,7 +322,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const headers = (auth && typeof auth.getAuthHeaders === 'function')
                     ? auth.getAuthHeaders()
                     : {};
-                fetch(`/api/favorite/${m._global_index}`, {
+                const favTarget = m.id || m._global_index;
+                fetch(`/api/favorite/${favTarget}`, {
                     method: 'POST',
                     headers: headers
                 })

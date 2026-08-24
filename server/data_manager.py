@@ -15,10 +15,37 @@ GLOBAL_MONSTERS = []
 GLOBAL_SPELLS = []
 SEARCH_CACHE = {}
 FAVORITES_CACHE = None
+CUSTOM_MONSTERS_MTIME = 0
+OFFICIAL_MONSTERS_MTIME = 0
 
 def clear_cache():
     global SEARCH_CACHE
     SEARCH_CACHE.clear()
+
+def check_and_reload_if_modified():
+    global CUSTOM_MONSTERS_MTIME, OFFICIAL_MONSTERS_MTIME, GLOBAL_MONSTERS
+    need_reload = False
+    
+    if not GLOBAL_MONSTERS:
+        need_reload = True
+    else:
+        if os.path.exists(CUSTOM_MONSTERS_FILE):
+            try:
+                mtime = os.path.getmtime(CUSTOM_MONSTERS_FILE)
+                if mtime != CUSTOM_MONSTERS_MTIME:
+                    need_reload = True
+            except OSError:
+                pass
+        if os.path.exists(MONSTERS_FILE):
+            try:
+                mtime = os.path.getmtime(MONSTERS_FILE)
+                if mtime != OFFICIAL_MONSTERS_MTIME:
+                    need_reload = True
+            except OSError:
+                pass
+                
+    if need_reload:
+        load_monsters()
 
 def _ensure_favorites_file():
     global FAVORITES_CACHE
@@ -169,13 +196,14 @@ def toggle_user_favorite(user_id_or_username, mon_key, monster=None):
         return True
 
 def load_monsters():
-    global GLOBAL_MONSTERS
+    global GLOBAL_MONSTERS, CUSTOM_MONSTERS_MTIME, OFFICIAL_MONSTERS_MTIME
     clear_cache()
     official_list = []
     custom_list = []
 
     if os.path.exists(MONSTERS_FILE):
         try:
+            OFFICIAL_MONSTERS_MTIME = os.path.getmtime(MONSTERS_FILE)
             with open(MONSTERS_FILE, 'r', encoding='utf-8') as f:
                 official_list = json.load(f)
         except Exception as e:
@@ -185,6 +213,7 @@ def load_monsters():
     custom_updated = False
     if os.path.exists(CUSTOM_MONSTERS_FILE):
         try:
+            CUSTOM_MONSTERS_MTIME = os.path.getmtime(CUSTOM_MONSTERS_FILE)
             with open(CUSTOM_MONSTERS_FILE, 'r', encoding='utf-8') as f:
                 custom_list = json.load(f)
             for cm in custom_list:
@@ -200,6 +229,7 @@ def load_monsters():
         try:
             with open(CUSTOM_MONSTERS_FILE, 'w', encoding='utf-8') as f:
                 json.dump([], f, ensure_ascii=False)
+            CUSTOM_MONSTERS_MTIME = os.path.getmtime(CUSTOM_MONSTERS_FILE)
         except Exception:
             pass
 
@@ -241,18 +271,24 @@ def load_spells():
     return GLOBAL_SPELLS
 
 def save_custom_monsters():
+    global CUSTOM_MONSTERS_MTIME
     try:
         custom_list = [m for m in GLOBAL_MONSTERS if m.get('IsUserCustom', False)]
         with open(CUSTOM_MONSTERS_FILE, 'w', encoding='utf-8') as f:
             json.dump(custom_list, f, ensure_ascii=False, indent=2)
+        if os.path.exists(CUSTOM_MONSTERS_FILE):
+            CUSTOM_MONSTERS_MTIME = os.path.getmtime(CUSTOM_MONSTERS_FILE)
     except Exception as e:
         print(f"Error saving custom_monsters.json: {e}")
 
 def save_official_monsters():
+    global OFFICIAL_MONSTERS_MTIME
     try:
         official_list = [m for m in GLOBAL_MONSTERS if not m.get('IsUserCustom', False)]
         with open(MONSTERS_FILE, 'w', encoding='utf-8') as f:
             json.dump(official_list, f, ensure_ascii=False)
+        if os.path.exists(MONSTERS_FILE):
+            OFFICIAL_MONSTERS_MTIME = os.path.getmtime(MONSTERS_FILE)
     except Exception as e:
         print(f"Error saving monsters.json: {e}")
 
@@ -263,8 +299,7 @@ def save_monsters():
 def search_monsters(query_string, user=None):
     global GLOBAL_MONSTERS, SEARCH_CACHE
 
-    if not GLOBAL_MONSTERS:
-        load_monsters()
+    check_and_reload_if_modified()
 
     params = parse_qs(query_string)
     # Strip timestamp / cache-busting parameters for reliable search caching
@@ -391,8 +426,7 @@ def search_monsters(query_string, user=None):
 
 def save_monster_from_json(raw_json_str, user=None):
     global GLOBAL_MONSTERS
-    if not GLOBAL_MONSTERS:
-        load_monsters()
+    check_and_reload_if_modified()
     if isinstance(raw_json_str, bytes):
         raw_json_str = raw_json_str.decode('utf-8')
     data = json.loads(raw_json_str)
@@ -447,7 +481,21 @@ def save_monster_from_json(raw_json_str, user=None):
                         updated_idx = idx
                         break
 
-    # Determine persistent ID
+    # Determine persistent ID and ownership
+    if existing_monster and not save_as_new:
+        m_auth_id = str(existing_monster.get('AuthorId', ''))
+        m_auth_name = str(existing_monster.get('AuthorName', '')).lower()
+        if m_auth_id or m_auth_name:
+            user_id = str(user.get('id', '')) if user else ''
+            user_name = str(user.get('username', '')).lower() if user else ''
+            is_own = bool(user_id and (m_auth_id == user_id or (not m_auth_id and m_auth_name == user_name)))
+            if not is_own:
+                # User is modifying another user's monster -> Fork as new monster for current user
+                save_as_new = True
+                existing_monster = None
+                updated_idx = None
+                target_id = None
+
     if existing_monster and not save_as_new:
         final_id = existing_monster.get('id') or target_id or str(uuid.uuid4())
     else:
@@ -484,42 +532,63 @@ def save_monster_from_json(raw_json_str, user=None):
         "author": monster_rec.get('AuthorName', '')
     }).encode('utf-8')
 
-def delete_monster(idx, user=None):
+def delete_monster(idx_or_id, user=None):
     global GLOBAL_MONSTERS
-    if not GLOBAL_MONSTERS:
-        load_monsters()
-    if 0 <= idx < len(GLOBAL_MONSTERS):
-        m = GLOBAL_MONSTERS[idx]
-        if m.get('IsUserCustom', False):
-            m_auth_id = str(m.get('AuthorId', ''))
-            m_auth_name = str(m.get('AuthorName', '')).lower()
-            if m_auth_id or m_auth_name:
-                user_id = str(user.get('id', '')) if user else ''
-                user_name = str(user.get('username', '')).lower() if user else ''
-                is_author = bool(user_id and (m_auth_id == user_id or (not m_auth_id and m_auth_name == user_name)))
-                if not is_author:
-                    return json.dumps({
-                        "status": "error",
-                        "error": "You do not have permission to delete this custom monster (Unauthorized)."
-                    }).encode('utf-8'), 403
+    check_and_reload_if_modified()
+    
+    target_idx = None
+    target_mon = None
+    
+    # 1. Try finding by UUID / ID string
+    if isinstance(idx_or_id, str):
+        for i, mon in enumerate(GLOBAL_MONSTERS):
+            if str(mon.get('id', '')) == str(idx_or_id) or str(mon.get('Id', '')) == str(idx_or_id):
+                target_idx = i
+                target_mon = mon
+                break
+                
+    # 2. Try finding by integer index
+    if target_idx is None:
+        try:
+            num_idx = int(idx_or_id)
+            if 0 <= num_idx < len(GLOBAL_MONSTERS):
+                target_idx = num_idx
+                target_mon = GLOBAL_MONSTERS[num_idx]
+        except (ValueError, TypeError):
+            pass
 
-            GLOBAL_MONSTERS.pop(idx)
-            for i, mon in enumerate(GLOBAL_MONSTERS):
-                mon['_global_index'] = i
-                if 'OriginalState' in mon and isinstance(mon['OriginalState'], dict):
-                    mon['OriginalState']['_global_index'] = i
-            save_custom_monsters()
-            clear_cache()
-            return json.dumps({"status": "ok"}).encode('utf-8'), 200
-        else:
-            return json.dumps({"status": "error", "error": "Cannot delete official monsters"}).encode('utf-8'), 400
-    else:
-        return json.dumps({"error": "Monster not found"}).encode('utf-8'), 404
+    if target_idx is None or target_mon is None:
+        return json.dumps({"status": "error", "error": "Monster not found"}).encode('utf-8'), 404
+
+    if not target_mon.get('IsUserCustom', False):
+        return json.dumps({"status": "error", "error": "Cannot delete official monsters"}).encode('utf-8'), 400
+
+    m_auth_id = str(target_mon.get('AuthorId', ''))
+    m_auth_name = str(target_mon.get('AuthorName', '')).lower()
+    
+    if m_auth_id or m_auth_name:
+        user_id = str(user.get('id', '')) if user else ''
+        user_name = str(user.get('username', '')).lower() if user else ''
+        is_author = bool(user_id and (m_auth_id == user_id or (not m_auth_id and m_auth_name == user_name)))
+        if not is_author:
+            return json.dumps({
+                "status": "error",
+                "error": "You do not have permission to delete this custom monster (Unauthorized)."
+            }).encode('utf-8'), 403
+
+    GLOBAL_MONSTERS.pop(target_idx)
+    for i, mon in enumerate(GLOBAL_MONSTERS):
+        mon['_global_index'] = i
+        if 'OriginalState' in mon and isinstance(mon['OriginalState'], dict):
+            mon['OriginalState']['_global_index'] = i
+            
+    save_custom_monsters()
+    clear_cache()
+    return json.dumps({"status": "ok"}).encode('utf-8'), 200
 
 def toggle_favorite(idx, user=None):
     global GLOBAL_MONSTERS
-    if not GLOBAL_MONSTERS:
-        load_monsters()
+    check_and_reload_if_modified()
     
     target_mon = None
     if isinstance(idx, int):
@@ -582,26 +651,16 @@ def get_scrape_status():
 
 def export_monsters_dataset(scope='all', user=None, query_string=''):
     global GLOBAL_MONSTERS
-    if not GLOBAL_MONSTERS:
-        load_monsters()
-
+    check_and_reload_if_modified()
     user_id = str(user.get('id', '')) if user else ''
     user_name = str(user.get('username', '')).lower() if user else ''
 
-    scope = str(scope).lower().strip()
     result_list = []
 
     if scope == 'filtered' and query_string:
-        # Export all matching items without pagination restriction
-        params = parse_qs(query_string)
-        # Force per_page to large number to grab all filtered results
-        filtered_params = {k: v[0] for k, v in params.items() if k not in ('page', 'per_page', '_t', 'timestamp')}
-        filtered_params['page'] = '1'
-        filtered_params['per_page'] = '50000'
-        new_query = urlencode(filtered_params)
-        raw_res = search_monsters(new_query, user=user)
         try:
-            res_json = json.loads(raw_res)
+            res_body = search_monsters(query_string + '&per_page=200&page=1', user=user)
+            res_json = json.loads(res_body.decode('utf-8'))
             raw_data = res_json.get('data', [])
             for m in raw_data:
                 clean_m = {k: v for k, v in m.items() if not k.startswith('_m_')}
@@ -639,8 +698,7 @@ def export_monsters_dataset(scope='all', user=None, query_string=''):
 
 def import_monsters_from_json(raw_json_str, user=None):
     global GLOBAL_MONSTERS
-    if not GLOBAL_MONSTERS:
-        load_monsters()
+    check_and_reload_if_modified()
 
     if isinstance(raw_json_str, bytes):
         raw_json_str = raw_json_str.decode('utf-8', errors='ignore')

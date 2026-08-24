@@ -81,10 +81,10 @@
             <!-- Action Buttons -->
             <div class="header-actions">
                 <button id="btn-new-sheet" class="btn-hdr btn-hdr-emerald" title="Clear and start fresh">New</button>
+                <button id="btn-save-as-new" class="btn-hdr btn-hdr-emerald"
+                    title="Save as a Brand New Creature (New Entry)">Save as New</button>
                 <button id="btn-save-database" class="btn-hdr btn-hdr-blue"
                     title="Save creature to local database">Save</button>
-                <button id="btn-save-as-new" class="btn-hdr btn-hdr-emerald"
-                    title="Save as a Brand New Creature (New Entry)">+ Save as New</button>
                 <button id="btn-export-png" class="btn-hdr btn-hdr-subtle"
                     title="Export statblock as high-res PNG image">PNG</button>
                 <button id="btn-export-pdf" class="btn-hdr btn-hdr-subtle"
@@ -188,8 +188,8 @@
                 <div class="mobile-drawer-heading">Sheet Actions</div>
                 <div class="mobile-actions-grid">
                     <button type="button" id="mob-btn-new-sheet" class="mob-btn mob-btn-emerald">New</button>
-                    <button type="button" id="mob-btn-save-database" class="mob-btn mob-btn-blue">Save DB</button>
-                    <button type="button" id="mob-btn-save-as-new" class="mob-btn mob-btn-emerald">+ Save as
+                    <button type="button" id="mob-btn-save-database" class="mob-btn mob-btn-blue">Save</button>
+                    <button type="button" id="mob-btn-save-as-new" class="mob-btn mob-btn-emerald">Save as
                         New</button>
                     <button type="button" id="mob-btn-export-png" class="mob-btn mob-btn-subtle">PNG</button>
                     <button type="button" id="mob-btn-export-pdf" class="mob-btn mob-btn-subtle">PDF</button>
@@ -447,38 +447,26 @@
                         </div>
 
                         <!-- Extra / Bonus HP with Stepper Controls -->
-                        <div class="form-group"
-                            style="background: rgba(0, 0, 0, 0.25); padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border-subtle); margin-bottom: 12px;">
-                            <div
-                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                                <label style="font-weight: 600; font-size: 0.85rem; color: #60a5fa; margin: 0;">Extra /
-                                    Bonus HP (±)</label>
-                                <small style="color: var(--text-muted); font-size: 0.75rem;">Adjusts total calculated
-                                    HP</small>
+                        <div class="form-group stepper-card-group hp-card-group">
+                            <div class="stepper-header-row">
+                                <label class="stepper-label text-blue">Extra / Bonus HP (±)</label>
+                                <small class="stepper-subtitle">Adjusts total calculated HP</small>
                             </div>
-                            <div style="display: flex; align-items: center; gap: 6px;">
-                                <button type="button" class="btn-hp-adjust" data-step="-10"
-                                    style="padding: 5px 8px; background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.5); color: #f87171; border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;"
+                            <div class="stepper-buttons-row">
+                                <button type="button" class="btn-hp-adjust stepper-btn stepper-btn-sub" data-step="-10"
                                     title="Subtract 10 HP">-10</button>
-                                <button type="button" class="btn-hp-adjust" data-step="-5"
-                                    style="padding: 5px 8px; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #f87171; border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;"
+                                <button type="button" class="btn-hp-adjust stepper-btn stepper-btn-sub" data-step="-5"
                                     title="Subtract 5 HP">-5</button>
-                                <button type="button" class="btn-hp-adjust" data-step="-1"
-                                    style="padding: 5px 8px; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.3); color: #f87171; border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;"
+                                <button type="button" class="btn-hp-adjust stepper-btn stepper-btn-sub" data-step="-1"
                                     title="Subtract 1 HP">-1</button>
-                                <input type="number" id="in-hp-extra" value="0" placeholder="+0"
-                                    style="text-align: center; font-weight: bold; font-size: 1rem; width: 65px; flex: 1; padding: 4px 6px;">
-                                <button type="button" class="btn-hp-adjust" data-step="1"
-                                    style="padding: 5px 8px; background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.3); color: #34d399; border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;"
+                                <input type="number" id="in-hp-extra" class="stepper-input" value="0" placeholder="+0">
+                                <button type="button" class="btn-hp-adjust stepper-btn stepper-btn-add" data-step="1"
                                     title="Add 1 HP">+1</button>
-                                <button type="button" class="btn-hp-adjust" data-step="5"
-                                    style="padding: 5px 8px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #34d399; border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;"
+                                <button type="button" class="btn-hp-adjust stepper-btn stepper-btn-add" data-step="5"
                                     title="Add 5 HP">+5</button>
-                                <button type="button" class="btn-hp-adjust" data-step="10"
-                                    style="padding: 5px 8px; background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.5); color: #34d399; border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;"
+                                <button type="button" class="btn-hp-adjust stepper-btn stepper-btn-add" data-step="10"
                                     title="Add 10 HP">+10</button>
-                                <button type="button" class="btn-hp-reset"
-                                    style="padding: 5px 8px; background: rgba(255, 255, 255, 0.08); border: 1px solid var(--border-subtle); color: var(--on-surface-variant); border-radius: 4px; font-size: 0.75rem; cursor: pointer;"
+                                <button type="button" class="btn-hp-reset stepper-btn stepper-btn-reset"
                                     title="Reset Extra HP to 0">↺ 0</button>
                             </div>
                         </div>
@@ -568,69 +556,49 @@
                         </div>
 
                         <!-- CMB Controls -->
-                        <div class="form-group"
-                            style="background: rgba(0, 0, 0, 0.25); padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border-subtle); margin-top: 8px;">
-                            <div
-                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                                <label style="font-weight: 600; font-size: 0.85rem; color: #a78bfa; margin: 0;">CMB
-                                    (Combat Maneuver Bonus)</label>
-                                <small style="color: var(--text-muted); font-size: 0.75rem;">Editable text /
-                                    Auto-calc</small>
+                        <div class="form-group stepper-card-group cmb-card-group">
+                            <div class="stepper-header-row">
+                                <label class="stepper-label text-purple">CMB (Combat Maneuver Bonus)</label>
+                                <small class="stepper-subtitle">Editable text / Auto-calc</small>
                             </div>
-                            <div style="display: flex; align-items: center; gap: 6px;">
-                                <input type="text" id="in-cmb" placeholder="+0" value="+0"
-                                    style="font-weight: bold; flex: 2; min-width: 80px;"
+                            <div class="stepper-buttons-row">
+                                <input type="text" id="in-cmb" class="stepper-input-wide" placeholder="+0" value="+0"
                                     title="CMB (Type directly or use modifier buttons)">
-                                <button type="button" class="btn-cmb-adjust" data-step="-2"
-                                    style="padding: 5px 8px; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #f87171; border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;"
+                                <button type="button" class="btn-cmb-adjust stepper-btn stepper-btn-sub" data-step="-2"
                                     title="Subtract 2 from CMB">-2</button>
-                                <button type="button" class="btn-cmb-adjust" data-step="-1"
-                                    style="padding: 5px 8px; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.3); color: #f87171; border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;"
+                                <button type="button" class="btn-cmb-adjust stepper-btn stepper-btn-sub" data-step="-1"
                                     title="Subtract 1 from CMB">-1</button>
                                 <input type="number" id="in-cmb-extra" value="0" placeholder="+0"
                                     style="display: none;">
-                                <button type="button" class="btn-cmb-adjust" data-step="1"
-                                    style="padding: 5px 8px; background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.3); color: #34d399; border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;"
+                                <button type="button" class="btn-cmb-adjust stepper-btn stepper-btn-add" data-step="1"
                                     title="Add 1 to CMB">+1</button>
-                                <button type="button" class="btn-cmb-adjust" data-step="2"
-                                    style="padding: 5px 8px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #34d399; border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;"
+                                <button type="button" class="btn-cmb-adjust stepper-btn stepper-btn-add" data-step="2"
                                     title="Add 2 to CMB">+2</button>
-                                <button type="button" class="btn-cmb-reset"
-                                    style="padding: 5px 8px; background: rgba(255, 255, 255, 0.08); border: 1px solid var(--border-subtle); color: var(--on-surface-variant); border-radius: 4px; font-size: 0.75rem; cursor: pointer;"
+                                <button type="button" class="btn-cmb-reset stepper-btn stepper-btn-reset"
                                     title="Recalculate CMB">↺ Reset</button>
                             </div>
                         </div>
 
                         <!-- CMD Controls -->
-                        <div class="form-group"
-                            style="background: rgba(0, 0, 0, 0.25); padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border-subtle); margin-top: 8px;">
-                            <div
-                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                                <label style="font-weight: 600; font-size: 0.85rem; color: #a78bfa; margin: 0;">CMD
-                                    (Combat Maneuver Defense)</label>
-                                <small style="color: var(--text-muted); font-size: 0.75rem;">Editable text /
-                                    Auto-calc</small>
+                        <div class="form-group stepper-card-group cmd-card-group">
+                            <div class="stepper-header-row">
+                                <label class="stepper-label text-purple">CMD (Combat Maneuver Defense)</label>
+                                <small class="stepper-subtitle">Editable text / Auto-calc</small>
                             </div>
-                            <div style="display: flex; align-items: center; gap: 6px;">
-                                <input type="text" id="in-cmd" placeholder="10" value="10"
-                                    style="font-weight: bold; flex: 2; min-width: 80px;"
+                            <div class="stepper-buttons-row">
+                                <input type="text" id="in-cmd" class="stepper-input-wide" placeholder="10" value="10"
                                     title="CMD (Type directly or use modifier buttons)">
-                                <button type="button" class="btn-cmd-adjust" data-step="-2"
-                                    style="padding: 5px 8px; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #f87171; border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;"
+                                <button type="button" class="btn-cmd-adjust stepper-btn stepper-btn-sub" data-step="-2"
                                     title="Subtract 2 from CMD">-2</button>
-                                <button type="button" class="btn-cmd-adjust" data-step="-1"
-                                    style="padding: 5px 8px; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.3); color: #f87171; border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;"
+                                <button type="button" class="btn-cmd-adjust stepper-btn stepper-btn-sub" data-step="-1"
                                     title="Subtract 1 from CMD">-1</button>
                                 <input type="number" id="in-cmd-extra" value="0" placeholder="+0"
                                     style="display: none;">
-                                <button type="button" class="btn-cmd-adjust" data-step="1"
-                                    style="padding: 5px 8px; background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.3); color: #34d399; border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;"
+                                <button type="button" class="btn-cmd-adjust stepper-btn stepper-btn-add" data-step="1"
                                     title="Add 1 to CMD">+1</button>
-                                <button type="button" class="btn-cmd-adjust" data-step="2"
-                                    style="padding: 5px 8px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #34d399; border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;"
+                                <button type="button" class="btn-cmd-adjust stepper-btn stepper-btn-add" data-step="2"
                                     title="Add 2 to CMD">+2</button>
-                                <button type="button" class="btn-cmd-reset"
-                                    style="padding: 5px 8px; background: rgba(255, 255, 255, 0.08); border: 1px solid var(--border-subtle); color: var(--on-surface-variant); border-radius: 4px; font-size: 0.75rem; cursor: pointer;"
+                                <button type="button" class="btn-cmd-reset stepper-btn stepper-btn-reset"
                                     title="Recalculate CMD">↺ Reset</button>
                             </div>
                         </div>
@@ -717,9 +685,8 @@
                         <div id="spells-container" style="margin-top: 8px;"></div>
                         <div id="spell-levels-container" style="margin-top: 8px;"></div>
 
-                        <div style="display: flex; gap: 8px; margin-top: 10px;">
-                            <select id="select-new-spell-level"
-                                style="flex: 1; padding: 7px; background: var(--bg-card); border: 1px solid var(--border-subtle); color: var(--on-surface); border-radius: 4px; font-weight: 600;">
+                        <div class="add-spell-level-row">
+                            <select id="select-new-spell-level" class="select-spell-level">
                                 <option value="0">Level 0 (Cantrips / Orisons / At Will)</option>
                                 <option value="1" selected>1st Level</option>
                                 <option value="2">2nd Level</option>
@@ -731,9 +698,8 @@
                                 <option value="8">8th Level</option>
                                 <option value="9">9th Level</option>
                             </select>
-                            <button type="button" id="btn-add-spell-level" class="btn-hdr btn-hdr-emerald"
-                                style="padding: 7px 16px; font-size: 12px; font-weight: bold; cursor: pointer;">+ Add
-                                Level</button>
+                            <button type="button" id="btn-add-spell-level"
+                                class="btn-hdr btn-hdr-emerald btn-add-level-action">+ Add Level</button>
                         </div>
                     </section>
 

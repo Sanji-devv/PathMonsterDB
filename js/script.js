@@ -1055,13 +1055,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const div = document.createElement('div');
-        div.className = 'dynamic-item-row';
-        div.style.cssText = 'display:flex; gap:8px; margin-bottom:6px; align-items:flex-start; flex-wrap:wrap;';
+        div.className = 'dynamic-item-row attack-dynamic-row';
+        div.style.cssText = 'display:flex; gap:8px; margin-bottom:8px; align-items:flex-start; width:100%; box-sizing:border-box;';
         div.innerHTML = buildFn(mode) +
-            `<button class="btn-remove-dynamic"
+            `<button type="button" class="btn-remove-dynamic" title="Remove attack"
                 style="background:linear-gradient(45deg,#ef4444,#f87171);color:white;border:none;
-                       border-radius:4px;padding:6px 12px;cursor:pointer;height:36px;font-weight:bold;
-                       box-shadow:0 2px 5px rgba(0,0,0,0.2);transition:all 0.2s;">✕</button>`;
+                       border-radius:6px;padding:0;width:38px;height:38px;cursor:pointer;font-weight:bold;
+                       box-shadow:0 2px 5px rgba(0,0,0,0.2);transition:all 0.2s;flex-shrink:0;display:flex;align-items:center;justify-content:center;">✕</button>`;
 
         attachListeners(div);
         container.appendChild(div);
@@ -3208,16 +3208,16 @@ document.addEventListener('DOMContentLoaded', () => {
         let lvlLabel = lvl === '0' || lvl === 0 ? 'Cantrips / Level 0' : `Level ${lvl}`;
 
         div.innerHTML = `
-            <div style="display: flex; gap: 8px; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <span class="tag-badge" style="font-size: 12px; font-weight: bold; background: rgba(242, 202, 80, 0.15); color: var(--primary); border: 1px solid rgba(242, 202, 80, 0.3);">${lvlLabel}</span>
-                    <input type="text" class="spell-slots" placeholder="Slots (e.g. 4/day or 3)" value="${data.slots || ''}" style="width: 140px; padding: 4px 8px; background: rgba(0, 0, 0, 0.3); color: #fff; border: 1px solid var(--border-subtle); border-radius: 4px; font-size: 12px;">
+            <div class="spell-level-header">
+                <div class="spell-level-info">
+                    <span class="tag-badge spell-level-tag">${lvlLabel}</span>
+                    <input type="text" class="spell-slots" placeholder="Slots (e.g. 4/day)" value="${data.slots || ''}">
                 </div>
-                <button type="button" class="btn-remove-level btn-remove-row" title="Delete this spell level" style="width: 28px; height: 28px; font-size: 12px;">✕</button>
+                <button type="button" class="btn-remove-level btn-remove-row" title="Delete this spell level">✕</button>
             </div>
             <div class="spell-tags-container selected-tags-container" style="min-height: 24px; margin-bottom: 8px;"></div>
             <div style="position: relative;">
-                <input type="text" class="spell-search" placeholder="Search from 2,900+ spells to add... ▼" autocomplete="off" style="width: 100%; padding: 6px 10px; background: rgba(0, 0, 0, 0.4); color: #fff; border: 1px solid var(--border-subtle); border-radius: 4px; font-size: 12px;">
+                <input type="text" class="spell-search" placeholder="Search from 2,900+ spells to add... ▼" autocomplete="off">
                 <ul class="spell-autocomplete autocomplete-list" style="display: none;"></ul>
             </div>
         `;
@@ -3585,13 +3585,13 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                             <button type="button" id="btn-close-skill-calc" class="settings-modal-close" title="Close">&times;</button>
                         </div>
-                        <div style="padding: 10px 16px; border-bottom: 1px solid var(--border-subtle); display: flex; gap: 10px; align-items: center; flex-shrink: 0; background: rgba(0,0,0,0.2);">
-                            <input type="text" id="skill-calc-search" placeholder="Search skills (e.g. Perception, Stealth)..." style="flex: 1; padding: 7px 12px; border-radius: 6px; background: rgba(0,0,0,0.4); border: 1px solid var(--border-subtle); color: #fff; font-size: 13px;">
-                            <button type="button" id="btn-skill-calc-clear-all" class="btn-hdr btn-hdr-subtle" style="padding: 6px 12px; font-size: 12px;">Clear All</button>
+                        <div class="skill-calc-search-row">
+                            <input type="text" id="skill-calc-search" placeholder="Search skills (e.g. Perception, Stealth)...">
+                            <button type="button" id="btn-skill-calc-clear-all" class="btn-hdr btn-hdr-subtle">Clear All</button>
                         </div>
-                        <div id="skill-calc-body" style="overflow-y: auto; flex: 1; padding: 12px 16px;"></div>
-                        <div class="settings-modal-footer" style="flex-shrink: 0; display: flex; justify-content: space-between; align-items: center;">
-                            <span id="skill-calc-ranks-summary" style="font-size: 12px; color: var(--text-muted);">Total Ranks: 0</span>
+                        <div id="skill-calc-body" class="skill-calc-body"></div>
+                        <div class="settings-modal-footer">
+                            <span id="skill-calc-ranks-summary" class="skill-calc-ranks-summary">Total Ranks: 0</span>
                             <div style="display: flex; gap: 8px;">
                                 <button type="button" id="btn-cancel-skill-calc" class="btn-settings-reset">Cancel</button>
                                 <button type="button" id="btn-apply-skill-calc" class="btn-settings-apply">✓ Apply to Sheet</button>
@@ -3670,12 +3670,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const calcBody = document.getElementById('skill-calc-body');
             let rowsHtml = `
-            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 8px; font-weight: bold; font-size: 11px; color: var(--text-muted); text-transform: uppercase; padding: 4px 8px; border-bottom: 1px solid var(--border-subtle); margin-bottom: 6px;">
-                <span>Skill Name (Stat)</span>
-                <span style="text-align: center;">Ranks</span>
-                <span style="text-align: center;" title="Class skill bonus: +3 if ranks >= 1">Class (+3)</span>
-                <span style="text-align: center;">Misc ±</span>
-                <span style="text-align: right;">Total Mod</span>
+            <div class="skill-calc-header-row">
+                <span class="skill-calc-th-name">Skill Name (Stat)</span>
+                <span class="skill-calc-th-ranks">Ranks</span>
+                <span class="skill-calc-th-class" title="Class skill bonus: +3 if ranks >= 1">Class (+3)</span>
+                <span class="skill-calc-th-misc">Misc ±</span>
+                <span class="skill-calc-th-total">Total Mod</span>
             </div>
             `;
 
@@ -3699,22 +3699,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 rowsHtml += `
-                <div class="skill-calc-row" data-skill-name="${sk.name}" data-stat="${sk.stat}" data-stat-mod="${statMod}" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 8px; align-items: center; padding: 6px 8px; border-radius: 4px; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 13px;">
-                    <div>
-                        <strong style="color: #f1f5f9;">${sk.name}</strong>
-                        <small style="color: var(--primary); font-size: 11px; margin-left: 4px;">(${sk.stat.toUpperCase()} ${statMod >= 0 ? '+' + statMod : statMod})</small>
+                <div class="skill-calc-row" data-skill-name="${sk.name}" data-stat="${sk.stat}" data-stat-mod="${statMod}">
+                    <div class="skill-calc-name-col">
+                        <strong class="skill-calc-name-text">${sk.name}</strong>
+                        <small class="skill-calc-stat-text">(${sk.stat.toUpperCase()} ${statMod >= 0 ? '+' + statMod : statMod})</small>
                     </div>
-                    <div style="text-align: center;">
-                        <input type="number" class="skill-calc-ranks" min="0" max="99" value="${initRanks}" style="width: 50px; text-align: center; padding: 4px; border-radius: 4px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-subtle); color: #fff; font-size: 12px;">
+                    <div class="skill-calc-ranks-col">
+                        <input type="number" class="skill-calc-ranks" min="0" max="99" value="${initRanks}">
                     </div>
-                    <div style="text-align: center;">
-                        <input type="checkbox" class="skill-calc-class-chk" ${initClass ? 'checked' : ''} style="cursor: pointer; transform: scale(1.15);">
+                    <div class="skill-calc-class-col">
+                        <input type="checkbox" class="skill-calc-class-chk" ${initClass ? 'checked' : ''}>
                     </div>
-                    <div style="text-align: center;">
-                        <input type="number" class="skill-calc-misc" value="${initMisc}" style="width: 50px; text-align: center; padding: 4px; border-radius: 4px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-subtle); color: #fff; font-size: 12px;">
+                    <div class="skill-calc-misc-col">
+                        <input type="number" class="skill-calc-misc" value="${initMisc}">
                     </div>
-                    <div style="text-align: right;">
-                        <span class="skill-calc-total" style="font-weight: bold; color: #38bdf8; font-size: 13px;">+0</span>
+                    <div class="skill-calc-total-col">
+                        <span class="skill-calc-total">+0</span>
                     </div>
                 </div>
                 `;
