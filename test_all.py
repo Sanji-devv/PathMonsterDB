@@ -813,6 +813,8 @@ def run_tests():
         idx_html_content = f.read()
     assert 'id="btn-save-json"' in idx_html_content, "index.html must have btn-save-json"
     assert 'id="btn-load-json"' in idx_html_content, "index.html must have btn-load-json"
+    assert 'id="btn-save-as-new"' in idx_html_content, "index.html must have btn-save-as-new"
+    assert 'id="mob-btn-save-as-new"' in idx_html_content, "index.html must have mob-btn-save-as-new"
     assert 'id="mob-btn-save-json"' in idx_html_content, "index.html must have mob-btn-save-json"
     assert 'id="mob-btn-load-json"' in idx_html_content, "index.html must have mob-btn-load-json"
 
@@ -828,6 +830,7 @@ def run_tests():
         ui_js_content = f.read()
     assert 'mob-btn-export-db-json' in ui_js_content, "ui.js must delegate mob-btn-export-db-json"
     assert 'mob-btn-import-db-json' in ui_js_content, "ui.js must delegate mob-btn-import-db-json"
+    assert 'mob-btn-save-as-new' in ui_js_content, "ui.js must delegate mob-btn-save-as-new"
 
     print("  [OK] JSON download and upload buttons, mobile drawer actions, and export modals verified across all pages.")
 

@@ -132,6 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     delegateClick('mob-btn-new-sheet', 'btn-new-sheet');
     delegateClick('mob-btn-save-database', 'btn-save-database');
+    delegateClick('mob-btn-save-as-new', 'btn-save-as-new');
     delegateClick('mob-btn-export-png', 'btn-export-png');
     delegateClick('mob-btn-export-pdf', 'btn-export-pdf');
     delegateClick('mob-btn-save-json', 'btn-save-json');

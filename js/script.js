@@ -1414,14 +1414,47 @@ document.addEventListener('DOMContentLoaded', () => {
     // -------------------------
     let currentEditingIndex = null;
     let currentEditingMonsterId = null;
+    let originalLoadedName = '';
 
-    function serializeState() {
-        let state = { basic: {}, html: {}, dynamic: {} };
-        if (currentEditingIndex !== null && currentEditingIndex !== undefined) {
-            state._global_index = currentEditingIndex;
+    function updateSaveButtonLabels() {
+        const btnSave = document.getElementById('btn-save-database');
+        const mobBtnSave = document.getElementById('mob-btn-save-database');
+        const inNameEl = document.getElementById('in-name');
+        const currentName = inNameEl ? inNameEl.value.trim() : '';
+
+        let text = 'Save DB';
+        let title = 'Save creature to database';
+
+        if (currentEditingMonsterId && originalLoadedName) {
+            if (currentName && currentName.toLowerCase() !== originalLoadedName.toLowerCase()) {
+                text = '💾 Save DB';
+                title = `Save changes (Original was: "${originalLoadedName}")`;
+            } else {
+                text = '💾 Update DB';
+                title = `Update "${originalLoadedName}" in database`;
+            }
         }
-        if (currentEditingMonsterId) {
-            state.id = currentEditingMonsterId;
+        if (btnSave) {
+            btnSave.textContent = text;
+            btnSave.title = title;
+        }
+        if (mobBtnSave) {
+            mobBtnSave.textContent = text;
+        }
+    }
+    window.updateSaveButtonLabels = updateSaveButtonLabels;
+
+    function serializeState(saveAsNew = false) {
+        let state = { basic: {}, html: {}, dynamic: {} };
+        if (!saveAsNew) {
+            if (currentEditingIndex !== null && currentEditingIndex !== undefined) {
+                state._global_index = currentEditingIndex;
+            }
+            if (currentEditingMonsterId) {
+                state.id = currentEditingMonsterId;
+            }
+        } else {
+            state.save_as_new = true;
         }
         // Basic inputs
         document.querySelectorAll('input[id^="in-"], select[id^="in-"], textarea[id^="in-"]').forEach(el => {
@@ -2021,7 +2054,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (typeof updateStatBadges === 'function') updateStatBadges();
             if (typeof updateGearDisplay === 'function') updateGearDisplay();
 
-            // 8. Trigger Full Paper Update
+            // 8. Capture Original Loaded Name & Update Button Labels
+            originalLoadedName = (document.getElementById('in-name')?.value || '').trim();
+            updateSaveButtonLabels();
+
+            // 9. Trigger Full Paper Update
             updatePreview();
         } catch (e) {
             console.error("Error loading state", e);
@@ -2043,6 +2080,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function resetToBlankSheet() {
         currentEditingIndex = null;
         currentEditingMonsterId = null;
+        originalLoadedName = '';
+        updateSaveButtonLabels();
 
         // Reset Basic Inputs to Clean Default
         const defaultValues = {
@@ -2184,27 +2223,37 @@ document.addEventListener('DOMContentLoaded', () => {
     editorFormContainer.addEventListener('change', autoSave);
 
     // Load on start (used for receiving monsters from Database page or restoring active draft)
-    const saved = localStorage.getItem('pf_monster_creator_save');
-    const activeDraft = localStorage.getItem('pf_monster_creator_current_draft');
-    if (saved) {
-        deserializeState(saved);
-        localStorage.removeItem('pf_monster_creator_save');
-        localStorage.setItem('pf_monster_creator_current_draft', saved);
-    } else if (activeDraft) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const isExplicitNew = urlParams.get('new') === '1' || urlParams.get('new') === 'true' || localStorage.getItem('pf_monster_creator_new');
+    if (isExplicitNew) {
+        localStorage.removeItem('pf_monster_creator_new');
         try {
-            const draftObj = JSON.parse(activeDraft);
-            // If previous draft was legacy sample Orchid Giant Mantis, discard and start clean
-            if (draftObj && draftObj.basic && draftObj.basic['in-name'] === 'Orchid Giant Mantis') {
-                localStorage.removeItem('pf_monster_creator_current_draft');
+            window.history.replaceState({}, document.title, window.location.pathname);
+        } catch (e) { }
+        resetToBlankSheet();
+    } else {
+        const saved = localStorage.getItem('pf_monster_creator_save');
+        const activeDraft = localStorage.getItem('pf_monster_creator_current_draft');
+        if (saved) {
+            deserializeState(saved);
+            localStorage.removeItem('pf_monster_creator_save');
+            localStorage.setItem('pf_monster_creator_current_draft', saved);
+        } else if (activeDraft) {
+            try {
+                const draftObj = JSON.parse(activeDraft);
+                // If previous draft was legacy sample Orchid Giant Mantis, discard and start clean
+                if (draftObj && draftObj.basic && draftObj.basic['in-name'] === 'Orchid Giant Mantis') {
+                    localStorage.removeItem('pf_monster_creator_current_draft');
+                    resetToBlankSheet();
+                } else {
+                    deserializeState(activeDraft);
+                }
+            } catch (e) {
                 resetToBlankSheet();
-            } else {
-                deserializeState(activeDraft);
             }
-        } catch (e) {
+        } else {
             resetToBlankSheet();
         }
-    } else {
-        resetToBlankSheet();
     }
 
     // New Sheet
@@ -2343,66 +2392,99 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Save to Database (monsters.json via API)
+    function saveMonsterToDB(forceSaveAsNew = false) {
+        const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+        const isAuth = auth && typeof auth.isAuthenticated === 'function' && auth.isAuthenticated();
+        const inVis = document.getElementById('in-visibility');
+        const visValue = inVis ? inVis.value : 'public';
+
+        if (visValue === 'private' && !isAuth) {
+            if (confirm('🔒 You must be signed in to save a Private monster. Would you like to sign in or create an account now?\n\n(Click Cancel to save as Public)')) {
+                if (auth && typeof auth.openModal === 'function') {
+                    auth.openModal('login');
+                }
+                return;
+            } else {
+                if (inVis) inVis.value = 'public';
+            }
+        }
+
+        const monsterName = (document.getElementById('in-name')?.value || '').trim() || 'Unnamed Monster';
+        let isSavingNew = forceSaveAsNew;
+
+        // If user loaded an existing creature and modified its name, prompt whether to create new or overwrite
+        if (!isSavingNew && currentEditingMonsterId && originalLoadedName && monsterName.toLowerCase() !== originalLoadedName.toLowerCase()) {
+            const choice = confirm(`You changed the creature name from "${originalLoadedName}" to "${monsterName}".\n\n• Click [OK] to save "${monsterName}" as a BRAND NEW creature entry.\n• Click [Cancel] to rename and update the existing "${originalLoadedName}".`);
+            if (choice) {
+                isSavingNew = true;
+            }
+        }
+
+        const dataStr = serializeState(isSavingNew);
+        const stateObj = JSON.parse(dataStr);
+        if (isSavingNew) {
+            stateObj.save_as_new = true;
+            delete stateObj.id;
+            delete stateObj._global_index;
+        }
+
+        const headers = (auth && typeof auth.getAuthHeaders === 'function')
+            ? auth.getAuthHeaders()
+            : { 'Content-Type': 'application/json' };
+
+        fetch('/api/save', {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(stateObj)
+        })
+            .then(r => r.json())
+            .then(res => {
+                if (res.status === 'ok') {
+                    if (res.global_index !== undefined) {
+                        currentEditingIndex = res.global_index;
+                    }
+                    if (res.id) {
+                        currentEditingMonsterId = res.id;
+                    }
+                    originalLoadedName = monsterName;
+                    updateSaveButtonLabels();
+
+                    const freshState = serializeState();
+                    localStorage.setItem('pf_monster_creator_current_draft', freshState);
+
+                    const user = (auth && auth.getUser()) || null;
+                    const authorName = res.author || (user ? (user.username || user.name) : 'Anonymous');
+                    const isPriv = (res.visibility === 'private' || visValue === 'private');
+                    const visBadge = isPriv ? '🔒 Private' : '🌐 Public';
+                    const customCountInfo = res.total_custom ? ` (Total Custom: ${res.total_custom})` : '';
+                    const actionType = (isSavingNew || res.is_new) ? 'created as a NEW creature' : 'updated';
+                    const msg = `✅ "${monsterName}" ${actionType} successfully!${customCountInfo}\n[${visBadge} | Creator: ${authorName}]`;
+
+                    if (auth && typeof auth.showToast === 'function') {
+                        auth.showToast(`✅ "${monsterName}" ${actionType}!${customCountInfo}`, 'success');
+                    } else {
+                        alert(msg);
+                    }
+                } else {
+                    alert('Failed to save: ' + (res.message || res.error || 'Unknown error'));
+                }
+            })
+            .catch(err => alert('Failed to save: ' + err.message));
+    }
+    window.saveMonsterToDB = saveMonsterToDB;
+
     const btnSaveDatabase = document.getElementById('btn-save-database');
     if (btnSaveDatabase) {
-        btnSaveDatabase.addEventListener('click', () => {
-            const auth = window.PathMonsterDBAuth || window.PathGMAuth;
-            const isAuth = auth && typeof auth.isAuthenticated === 'function' && auth.isAuthenticated();
-            const inVis = document.getElementById('in-visibility');
-            const visValue = inVis ? inVis.value : 'public';
+        btnSaveDatabase.addEventListener('click', () => saveMonsterToDB(false));
+    }
+    const btnSaveAsNew = document.getElementById('btn-save-as-new');
+    if (btnSaveAsNew) {
+        btnSaveAsNew.addEventListener('click', () => saveMonsterToDB(true));
+    }
 
-            if (visValue === 'private' && !isAuth) {
-                if (confirm('🔒 You must be signed in to save a Private monster. Would you like to sign in or create an account now?\n\n(Click Cancel to save as Public)')) {
-                    if (auth && typeof auth.openModal === 'function') {
-                        auth.openModal('login');
-                    }
-                    return;
-                } else {
-                    if (inVis) inVis.value = 'public';
-                }
-            }
-
-            const dataStr = serializeState();
-            const stateObj = JSON.parse(dataStr);
-            const monsterName = document.getElementById('in-name').value || 'Unnamed Monster';
-
-            const headers = (auth && typeof auth.getAuthHeaders === 'function')
-                ? auth.getAuthHeaders()
-                : { 'Content-Type': 'application/json' };
-
-            fetch('/api/save', {
-                method: 'POST',
-                headers: headers,
-                body: JSON.stringify(stateObj)
-            })
-                .then(r => r.json())
-                .then(res => {
-                    if (res.status === 'ok') {
-                        if (res.global_index !== undefined) {
-                            currentEditingIndex = res.global_index;
-                        }
-                        if (res.id) {
-                            currentEditingMonsterId = res.id;
-                        }
-                        const freshState = serializeState();
-                        localStorage.setItem('pf_monster_creator_current_draft', freshState);
-                        const user = (auth && auth.getUser()) || null;
-                        const authorName = res.author || (user ? (user.username || user.name) : 'Anonymous');
-                        const isPriv = (res.visibility === 'private' || visValue === 'private');
-                        const visBadge = isPriv ? '🔒 Private (My Account Only)' : '🌐 Public (All Users)';
-                        const msg = `✅ "${monsterName}" saved successfully!\n[${visBadge} | Creator: ${authorName}]`;
-
-                        if (auth && typeof auth.showToast === 'function') {
-                            auth.showToast(`✅ "${monsterName}" saved! (${visBadge})`, 'success');
-                        } else {
-                            alert(msg);
-                        }
-                    } else {
-                        alert('Failed to save: ' + (res.message || res.error || 'Unknown error'));
-                    }
-                })
-                .catch(err => alert('Failed to save: ' + err.message));
-        });
+    const inNameInput = document.getElementById('in-name');
+    if (inNameInput) {
+        inNameInput.addEventListener('input', updateSaveButtonLabels);
     }
 
     // Auto-Calculate XP from CR & Validation

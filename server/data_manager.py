@@ -213,7 +213,7 @@ def load_monsters():
         m['_m_type'] = str(m.get('Type', '')).lower()
         m['_m_align'] = str(m.get('Alignment', '')).lower()
         m['_m_env'] = str(m.get('Environment', '')).lower()
-        m['_m_source'] = str(m.get('Source', '')).lower()
+        m['_m_source'] = str(m.get('Source') or ('custom' if m.get('IsUserCustom') else '')).lower()
         m['_global_index'] = idx
         if 'OriginalState' in m and isinstance(m['OriginalState'], dict):
             m['OriginalState']['_global_index'] = idx
@@ -404,11 +404,8 @@ def save_monster_from_json(raw_json_str, user=None):
     else:
         state = {'basic': data, 'dynamic': {}}
 
-    target_idx = state.get('_global_index')
-    if target_idx is None and '_global_index' in data:
-        target_idx = data['_global_index']
-    
-    target_id = state.get('id') or data.get('id') or (data.get('OriginalState', {}).get('id') if isinstance(data.get('OriginalState'), dict) else None)
+    save_as_new = bool(data.get('save_as_new') or state.get('save_as_new'))
+    target_id = None if save_as_new else (state.get('id') or data.get('id') or (data.get('OriginalState', {}).get('id') if isinstance(data.get('OriginalState'), dict) else None))
         
     monster_rec = format_monster_from_state(state)
 
@@ -427,43 +424,34 @@ def save_monster_from_json(raw_json_str, user=None):
     updated_idx = None
     existing_monster = None
 
-    # 1. Match by persistent ID
-    if target_id:
-        for idx, m in enumerate(GLOBAL_MONSTERS):
-            if m.get('IsUserCustom', False) and m.get('id') == target_id:
-                existing_monster = m
-                updated_idx = idx
-                break
-
-    # 2. Match by target_idx
-    if updated_idx is None and target_idx is not None:
-        try:
-            idx = int(target_idx)
-            if 0 <= idx < len(GLOBAL_MONSTERS) and GLOBAL_MONSTERS[idx].get('IsUserCustom', False):
-                existing_monster = GLOBAL_MONSTERS[idx]
-                updated_idx = idx
-        except ValueError:
-            pass
-    
-    # 3. Match by Name + Author
-    if updated_idx is None:
-        name_lower = monster_rec['_m_name']
-        user_id = str(user.get('id', '')) if user else ''
-        user_name = str(user.get('username', '')).lower() if user else ''
-        for idx, m in enumerate(GLOBAL_MONSTERS):
-            if m.get('IsUserCustom', False) and m.get('_m_name') == name_lower:
-                m_auth_id = str(m.get('AuthorId', ''))
-                m_auth_name = str(m.get('AuthorName', '')).lower()
-                if (user_id and m_auth_id == user_id) or (user_name and m_auth_name == user_name) or (not m_auth_id and not user_id):
+    if not save_as_new:
+        # 1. Match by persistent unique ID
+        if target_id:
+            for idx, m in enumerate(GLOBAL_MONSTERS):
+                if m.get('IsUserCustom', False) and str(m.get('id', '')) == str(target_id):
                     existing_monster = m
                     updated_idx = idx
                     break
 
-    # Determine ID
-    if existing_monster:
+        # 2. Match by exact Name + Author only if no ID was provided
+        if updated_idx is None and not target_id:
+            name_lower = monster_rec['_m_name']
+            user_id = str(user.get('id', '')) if user else ''
+            user_name = str(user.get('username', '')).lower() if user else ''
+            for idx, m in enumerate(GLOBAL_MONSTERS):
+                if m.get('IsUserCustom', False) and m.get('_m_name') == name_lower:
+                    m_auth_id = str(m.get('AuthorId', ''))
+                    m_auth_name = str(m.get('AuthorName', '')).lower()
+                    if (user_id and m_auth_id == user_id) or (user_name and m_auth_name == user_name) or (not m_auth_id and not user_id):
+                        existing_monster = m
+                        updated_idx = idx
+                        break
+
+    # Determine persistent ID
+    if existing_monster and not save_as_new:
         final_id = existing_monster.get('id') or target_id or str(uuid.uuid4())
     else:
-        final_id = target_id or str(uuid.uuid4())
+        final_id = str(uuid.uuid4())
 
     monster_rec['id'] = final_id
     if 'OriginalState' in monster_rec and isinstance(monster_rec['OriginalState'], dict):
@@ -485,10 +473,13 @@ def save_monster_from_json(raw_json_str, user=None):
     save_custom_monsters()
     clear_cache()
     
+    total_custom = len([m for m in GLOBAL_MONSTERS if m.get('IsUserCustom', False)])
     return json.dumps({
         "status": "ok",
         "global_index": updated_idx,
         "id": final_id,
+        "is_new": (existing_monster is None or save_as_new),
+        "total_custom": total_custom,
         "visibility": monster_rec.get('Visibility', 'public'),
         "author": monster_rec.get('AuthorName', '')
     }).encode('utf-8')
