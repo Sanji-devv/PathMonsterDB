@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // -------------------------
     const basicFields = [
         'name', 'xp', 'type-full', 'alignment',
-        'aura', 'fort', 'ref', 'will', 'def-abilities',
+        'fort', 'ref', 'will', 'def-abilities',
         'speed', 'melee', 'ranged',
-        'feats', 'languages', 'sq',
+        'feats', 'languages',
         'environment', 'organization', 'treasure',
         'dr', 'immune', 'resist', 'weaknesses', 'sr'
     ];
@@ -551,6 +551,46 @@ document.addEventListener('DOMContentLoaded', () => {
             wrapDefExtras.style.display = defExtras.length > 0 ? 'block' : 'none';
         }
 
+        // Format Aura
+        const inAura = document.getElementById('in-aura');
+        const outAura = document.getElementById('out-aura');
+        const wrapAura = document.getElementById('wrap-aura');
+        const auraVal = inAura ? inAura.value.trim() : '';
+        if (outAura) {
+            if (auraVal) {
+                const auraTokens = auraVal.split(/,(?![^\(]*\))/).map(t => t.trim()).filter(Boolean);
+                outAura.innerHTML = auraTokens.map(tok => {
+                    const safeName = tok.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    return `<a href="#" onclick="if(window.showInfoModal) window.showInfoModal('${safeName}', '', 'Aura'); return false;" style="color: inherit; text-decoration: underline dotted;">${sanitizeText(tok)}</a>`;
+                }).join(', ');
+            } else {
+                outAura.innerHTML = '';
+            }
+        }
+        if (wrapAura) {
+            wrapAura.style.display = auraVal ? 'block' : 'none';
+        }
+
+        // Format Special Qualities (SQ)
+        const inSQ = document.getElementById('in-sq');
+        const outSQ = document.getElementById('out-sq');
+        const wrapSQ = document.getElementById('wrap-sq');
+        const sqVal = inSQ ? inSQ.value.trim() : '';
+        if (outSQ) {
+            if (sqVal) {
+                const sqTokens = sqVal.split(/,(?![^\(]*\))/).map(t => t.trim()).filter(Boolean);
+                outSQ.innerHTML = sqTokens.map(tok => {
+                    const safeName = tok.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    return `<a href="#" onclick="if(window.showInfoModal) window.showInfoModal('${safeName}', '', 'Special Quality'); return false;" style="color: inherit; text-decoration: underline dotted;">${sanitizeText(tok)}</a>`;
+                }).join(', ');
+            } else {
+                outSQ.innerHTML = '';
+            }
+        }
+        if (wrapSQ) {
+            wrapSQ.style.display = sqVal ? 'block' : 'none';
+        }
+
         // Hide/Show Wrappers
         const hides = ['aura', 'melee', 'ranged', 'special-attacks', 'feats', 'languages', 'sq'];
         hides.forEach(h => checkVisibility(h, true));
@@ -614,27 +654,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof renderSpellsPreview === 'function') renderSpellsPreview();
         if (typeof updateGearDisplay === 'function') updateGearDisplay();
         if (typeof updateStatBadges === 'function') updateStatBadges();
-
-        // INTERACTIVE ABILITIES INJECTION
-        const makeInteractive = (arr, outId, category) => {
-            const el = document.getElementById(outId);
-            if (el && window[arr] && window[arr].length > 0) {
-                el.innerHTML = window[arr].filter(Boolean).map(item => {
-                    const name = (item && typeof item === 'object' ? item.name : item) || '';
-                    const desc = (item && typeof item === 'object' && item.description)
-                        ? item.description.replace(/"/g, '&quot;').replace(/'/g, "\\'").replace(/\n/g, '<br>')
-                        : "Description not available.";
-                    const safeName = String(name).replace(/'/g, "\\'");
-                    return `<a href="#" onclick="if(window.showInfoModal) window.showInfoModal('${safeName}', '${desc}', '${category}'); return false;" style="color: inherit; text-decoration: underline dotted;">${name}</a>`;
-                }).join(', ');
-            }
-        };
-        makeInteractive('activeImmune', 'out-immune', 'Immunity');
-        makeInteractive('activeResist', 'out-resist', 'Resistance');
-        makeInteractive('activeWeakness', 'out-weakness', 'Weakness');
-        makeInteractive('activeDef', 'out-defensive', 'Defensive');
-        makeInteractive('activeAura', 'out-aura', 'Aura');
-        makeInteractive('activeSQ', 'out-sq', 'Special Quality');
 
         if (typeof window.applyMechanics === 'function') window.applyMechanics();
 
@@ -965,60 +984,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    setupTagSystem({
-        activeArray: 'activeAura',
-        dbUrl: 'data/auras.json',
-        searchInputId: 'in-aura-search',
-        listId: 'aura-autocomplete-list',
-        containerId: 'selected-aura-container',
-        hiddenInputId: 'in-aura',
-        renderFunc: 'renderAuraTags',
-        bgColor: '#6a1b9a'
-    });
-
-    setupTagSystem({
-        activeArray: 'activeDef',
-        dbUrl: 'data/special_abilities.json',
-        searchInputId: 'in-def-search',
-        listId: 'def-autocomplete-list',
-        containerId: 'selected-def-container',
-        hiddenInputId: 'in-def-abilities',
-        renderFunc: 'renderDefTags',
-        bgColor: '#1565c0'
-    });
-
-    setupTagSystem({
-        activeArray: 'activeImmune',
-        dbUrl: 'data/immunities.json',
-        searchInputId: 'in-immune-search',
-        listId: 'immune-autocomplete-list',
-        containerId: 'selected-immune-container',
-        hiddenInputId: 'in-immune',
-        renderFunc: 'renderImmuneTags',
-        bgColor: '#b71c1c'
-    });
-
-    setupTagSystem({
-        activeArray: 'activeResist',
-        dbUrl: 'data/resistances.json',
-        searchInputId: 'in-resist-search',
-        listId: 'resist-autocomplete-list',
-        containerId: 'selected-resist-container',
-        hiddenInputId: 'in-resist',
-        renderFunc: 'renderResistTags',
-        bgColor: '#e65100'
-    });
-
-    setupTagSystem({
-        activeArray: 'activeWeakness',
-        dbUrl: 'data/weaknesses.json',
-        searchInputId: 'in-weakness-search',
-        listId: 'weakness-autocomplete-list',
-        containerId: 'selected-weakness-container',
-        hiddenInputId: 'in-weaknesses',
-        renderFunc: 'renderWeaknessTags',
-        bgColor: '#37474f'
-    });
+    // Reference Databases Loading for Interactive Tooltips & Modals
+    fetch('data/auras.json').then(r => r.json()).then(d => { window.allAurasDB = d; if (typeof updatePreview === 'function') updatePreview(); }).catch(e => console.warn('Could not load auras.json:', e));
+    fetch('data/special_abilities.json').then(r => r.json()).then(d => { window.allSpecialAbilitiesDB = d; if (typeof updatePreview === 'function') updatePreview(); }).catch(e => console.warn('Could not load special_abilities.json:', e));
+    fetch('data/immunities.json').then(r => r.json()).then(d => { window.allImmunitiesDB = d; if (typeof updatePreview === 'function') updatePreview(); }).catch(e => console.warn('Could not load immunities.json:', e));
+    fetch('data/resistances.json').then(r => r.json()).then(d => { window.allResistancesDB = d; if (typeof updatePreview === 'function') updatePreview(); }).catch(e => console.warn('Could not load resistances.json:', e));
+    fetch('data/weaknesses.json').then(r => r.json()).then(d => { window.allWeaknessesDB = d; if (typeof updatePreview === 'function') updatePreview(); }).catch(e => console.warn('Could not load weaknesses.json:', e));
 
     // =========================================================
     // ATTACK SYSTEM
@@ -1692,8 +1663,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function deserializeState(jsonStr) {
         try {
-            const state = typeof jsonStr === 'string' ? JSON.parse(jsonStr) : jsonStr;
+            let state = typeof jsonStr === 'string' ? JSON.parse(jsonStr) : jsonStr;
             if (!state) return;
+            if (Array.isArray(state) && state.length > 0) {
+                state = state[0];
+            } else if (state && state.data && Array.isArray(state.data) && state.data.length > 0) {
+                state = state.data[0];
+            }
+            if (state && state.OriginalState && typeof state.OriginalState === 'object') {
+                const innerIndex = state._global_index;
+                const innerId = state.id || state.Id;
+                state = state.OriginalState;
+                if (innerIndex !== undefined && state._global_index === undefined) state._global_index = innerIndex;
+                if (innerId && !state.id) state.id = innerId;
+            }
+            if (!state) return;
+
             if (state._global_index !== undefined) {
                 currentEditingIndex = state._global_index;
             }
@@ -2009,7 +1994,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => { renderAttacks(); updatePreview(); }, 0);
             }
 
-            // Sync Interactive Tag Arrays
+            // Sync Interactive Feats Tag Array
             const syncArray = (arrName, inputId) => {
                 const el = document.getElementById(inputId);
                 if (el && el.value) {
@@ -2029,20 +2014,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             };
             syncArray('activeFeats', 'in-feats');
-            syncArray('activeSQ', 'in-sq');
-            syncArray('activeAura', 'in-aura');
-            syncArray('activeDef', 'in-def-abilities');
-            syncArray('activeImmune', 'in-immune');
-            syncArray('activeResist', 'in-resist');
-            syncArray('activeWeakness', 'in-weaknesses');
-
             if (typeof window.renderFeatTags === 'function') window.renderFeatTags();
-            if (typeof window.renderSQTags === 'function') window.renderSQTags();
-            if (typeof window.renderAuraTags === 'function') window.renderAuraTags();
-            if (typeof window.renderDefTags === 'function') window.renderDefTags();
-            if (typeof window.renderImmuneTags === 'function') window.renderImmuneTags();
-            if (typeof window.renderResistTags === 'function') window.renderResistTags();
-            if (typeof window.renderWeaknessTags === 'function') window.renderWeaknessTags();
 
             if (typeof renderAbilities === 'function') renderAbilities();
             if (typeof renderSpellsPreview === 'function') renderSpellsPreview();
@@ -2173,6 +2145,9 @@ document.addEventListener('DOMContentLoaded', () => {
             window.CharacterState.activeFeats = [];
             window.CharacterState.activeBuffs = [];
         }
+        window.activeFeats = [];
+        window.activeAura = [];
+        window.activeSQ = [];
         window.lastFeatsRaw = '';
 
         // Reset Author UI
@@ -2242,7 +2217,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // JSON Export (Robust Blob & ObjectURL download)
+    // JSON Export (Active Single Creature Sheet JSON download)
     const btnSaveJson = document.getElementById('btn-save-json');
     if (btnSaveJson) {
         btnSaveJson.addEventListener('click', () => {
@@ -2251,8 +2226,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const stateObj = JSON.parse(stateStr);
                 const prettyJson = JSON.stringify(stateObj, null, 2);
                 const blob = new Blob([prettyJson], { type: 'application/json;charset=utf-8' });
-                const rawName = document.getElementById('in-name')?.value || 'Monster';
-                const safeName = rawName.trim().replace(/[/\\?%*:|"<>]/g, '_') || 'Monster';
+                const rawName = document.getElementById('in-name')?.value?.trim() || 'Monster';
+                const safeName = rawName.replace(/[/\\?%*:|"<>]/g, '_') || 'Monster';
 
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
@@ -2262,6 +2237,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 a.click();
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
+
+                const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+                if (auth && typeof auth.showToast === 'function') {
+                    auth.showToast(`📥 Creature "${rawName}" exported as JSON!`, 'success');
+                }
             } catch (err) {
                 console.error('Error exporting JSON:', err);
                 alert('JSON export error: ' + err.message);
@@ -2269,7 +2249,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // JSON Import
+    // JSON Import (Single Creature Sheet loader)
     const fileLoadBtn = document.getElementById('btn-load-json');
     const fileLoadInput = document.getElementById('file-load-json');
     if (fileLoadBtn) fileLoadBtn.addEventListener('click', () => fileLoadInput.click());
@@ -2277,14 +2257,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const file = e.target.files[0];
         if (!file) return;
         const reader = new FileReader();
-        reader.onload = (e) => deserializeState(e.target.result);
+        reader.onload = (re) => {
+            try {
+                deserializeState(re.target.result);
+                const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+                const loadedName = document.getElementById('in-name')?.value || 'Monster';
+                if (auth && typeof auth.showToast === 'function') {
+                    auth.showToast(`✅ Creature "${loadedName}" loaded into editor!`, 'success');
+                }
+            } catch (err) {
+                console.error('Failed to import JSON file:', err);
+                alert('Failed to load JSON file: ' + err.message);
+            }
+            fileLoadInput.value = '';
+        };
         reader.readAsText(file);
     });
 
     // Drag & Drop JSON Import
     document.body.addEventListener('dragover', (e) => {
         e.preventDefault();
-        document.body.style.opacity = '0.7';
+        document.body.style.opacity = '0.75';
     });
     document.body.addEventListener('dragleave', (e) => {
         e.preventDefault();
@@ -2297,7 +2290,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const file = e.dataTransfer.files[0];
             if (file.name.endsWith('.json')) {
                 const reader = new FileReader();
-                reader.onload = (e) => deserializeState(e.target.result);
+                reader.onload = (re) => {
+                    try {
+                        deserializeState(re.target.result);
+                        const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+                        const loadedName = document.getElementById('in-name')?.value || 'Monster';
+                        if (auth && typeof auth.showToast === 'function') {
+                            auth.showToast(`✅ Creature "${loadedName}" loaded into editor!`, 'success');
+                        }
+                    } catch (err) {
+                        console.error('Failed to import JSON file:', err);
+                        alert('Failed to load JSON file: ' + err.message);
+                    }
+                };
                 reader.readAsText(file);
             } else {
                 alert("Please upload a valid JSON monster file.");
@@ -2540,7 +2545,45 @@ document.addEventListener('DOMContentLoaded', () => {
     // -------------------------------------------------------------------
     // FEAT UI AND AUTOCOMPLETE LOGIC
     // -------------------------------------------------------------------
-    // Generic Autocomplete and Editable Tags System
+    // Fast Levenshtein distance calculation for typo tolerance
+    function computeLevenshtein(s1, s2) {
+        const m = s1.length;
+        const n = s2.length;
+        if (m === 0) return n;
+        if (n === 0) return m;
+        if (Math.abs(m - n) > 6) return 99;
+
+        const d = [];
+        for (let i = 0; i <= m; i++) d[i] = [i];
+        for (let j = 0; j <= n; j++) d[0][j] = j;
+
+        for (let i = 1; i <= m; i++) {
+            const c1 = s1.charCodeAt(i - 1);
+            for (let j = 1; j <= n; j++) {
+                const c2 = s2.charCodeAt(j - 1);
+                const cost = c1 === c2 ? 0 : 1;
+                d[i][j] = Math.min(
+                    d[i - 1][j] + 1,
+                    d[i][j - 1] + 1,
+                    d[i - 1][j - 1] + cost
+                );
+            }
+        }
+        return d[m][n];
+    }
+
+    // Subsequence check
+    function isSubsequence(pattern, str) {
+        let pIdx = 0;
+        let sIdx = 0;
+        while (pIdx < pattern.length && sIdx < str.length) {
+            if (pattern[pIdx] === str[sIdx]) pIdx++;
+            sIdx++;
+        }
+        return pIdx === pattern.length;
+    }
+
+    // Generic Autocomplete and Editable Tags System with Intelligent Ranking & Closest Match
     function setupTagSystem(config) {
         if (!Array.isArray(window[config.activeArray])) {
             window[config.activeArray] = [];
@@ -2549,19 +2592,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (config.dbUrl) {
             fetch(config.dbUrl).then(r => r.json()).then(d => {
-                db = d;
+                db = Array.isArray(d) ? d : [];
                 if (config.activeArray === 'activeFeats') {
-                    window.allFeatsDB = d;
+                    window.allFeatsDB = db;
                 } else if (config.activeArray === 'activeAura') {
-                    window.allAurasDB = d;
+                    window.allAurasDB = db;
                 } else if (config.activeArray === 'activeDef' || config.activeArray === 'activeSQ') {
-                    window.allSpecialAbilitiesDB = d;
+                    window.allSpecialAbilitiesDB = db;
                 } else if (config.activeArray === 'activeImmune') {
-                    window.allImmunitiesDB = d;
+                    window.allImmunitiesDB = db;
                 } else if (config.activeArray === 'activeResist') {
-                    window.allResistancesDB = d;
+                    window.allResistancesDB = db;
                 } else if (config.activeArray === 'activeWeakness') {
-                    window.allWeaknessesDB = d;
+                    window.allWeaknessesDB = db;
                 }
                 if (typeof updatePreview === 'function') updatePreview();
             }).catch(e => console.error(e));
@@ -2642,77 +2685,261 @@ document.addEventListener('DOMContentLoaded', () => {
 
         render();
 
-        if (searchInput) {
+        // Intelligent closest-match ranking engine
+        function getRankedMatches(filterText, maxResults = 50) {
+            const rawQ = (filterText || '').trim();
+            if (!rawQ) {
+                return db.slice(0, maxResults);
+            }
+
+            const q = rawQ.toLowerCase();
+            const qTokens = q.split(/\s+/).filter(Boolean);
+            const scored = [];
+
+            for (let i = 0; i < db.length; i++) {
+                const item = db[i];
+                const name = (typeof item === 'object' && item !== null ? (item.name || '') : String(item || '')).trim();
+                if (!name) continue;
+                const nameLower = name.toLowerCase();
+
+                let score = -1;
+
+                // 1. Exact match
+                if (nameLower === q) {
+                    score = 0;
+                }
+                // 2. Starts with query (Prefix match)
+                else if (nameLower.startsWith(q)) {
+                    score = 10 + (name.length - q.length) * 0.05;
+                }
+                // 3. Word starts with query (e.g. "att" -> "Power Attack", "rap" -> "Weapon Focus (Rapier)")
+                else if (nameLower.includes(' ' + q) || nameLower.includes('(' + q) || nameLower.includes('-' + q)) {
+                    score = 25 + nameLower.indexOf(q) * 0.1 + (name.length - q.length) * 0.05;
+                }
+                // 4. Multi-token word prefix match (e.g. "wep foc" -> "Weapon Focus", "imp init" -> "Improved Initiative")
+                else if (qTokens.length > 1 && qTokens.every(tok => nameLower.includes(tok))) {
+                    const allWordStarts = qTokens.every(tok => {
+                        const idx = nameLower.indexOf(tok);
+                        return idx === 0 || nameLower[idx - 1] === ' ' || nameLower[idx - 1] === '(' || nameLower[idx - 1] === '-';
+                    });
+                    score = allWordStarts ? 35 + (name.length - q.length) * 0.05 : 55 + (name.length - q.length) * 0.05;
+                }
+                // 5. General Substring match
+                else if (nameLower.includes(q)) {
+                    score = 60 + nameLower.indexOf(q) + (name.length - q.length) * 0.1;
+                }
+                // 6. Subsequence match (e.g. "pwrattk" -> "Power Attack")
+                else if (q.length >= 3 && isSubsequence(q, nameLower)) {
+                    score = 90 + (name.length - q.length) * 0.2;
+                }
+                // 7. Fuzzy typo matching (Levenshtein distance)
+                else if (q.length >= 3) {
+                    const dist = computeLevenshtein(q, nameLower);
+                    const maxAllowedDist = Math.min(4, Math.max(1, Math.floor(q.length * 0.4)));
+                    if (dist <= maxAllowedDist) {
+                        score = 110 + dist * 10 + (name.length - q.length) * 0.05;
+                    } else {
+                        const words = nameLower.split(/[\s,()\-]+/).filter(Boolean);
+                        let bestWordDist = 99;
+                        for (const w of words) {
+                            if (Math.abs(w.length - q.length) <= 3) {
+                                const wDist = computeLevenshtein(q, w);
+                                if (wDist < bestWordDist) bestWordDist = wDist;
+                            }
+                        }
+                        if (bestWordDist <= Math.min(3, Math.max(1, Math.floor(q.length * 0.35)))) {
+                            score = 130 + bestWordDist * 10;
+                        }
+                    }
+                }
+
+                if (score >= 0) {
+                    scored.push({ item, score, name });
+                }
+            }
+
+            scored.sort((a, b) => {
+                if (a.score !== b.score) return a.score - b.score;
+                return a.name.localeCompare(b.name);
+            });
+
+            return scored.slice(0, maxResults).map(s => s.item);
+        }
+
+        function addTagItem(itemObjOrName) {
+            if (!itemObjOrName) return;
+            const matchName = (typeof itemObjOrName === 'object' && itemObjOrName !== null ? itemObjOrName.name : String(itemObjOrName)).trim();
+            if (!matchName) return;
+
+            // Prevent duplicates
+            const exists = (window[config.activeArray] || []).some(x => {
+                const xName = (typeof x === 'object' && x !== null ? x.name : String(x || '')).trim().toLowerCase();
+                return xName === matchName.toLowerCase();
+            });
+
+            if (!exists) {
+                const fullItem = (typeof itemObjOrName === 'object' && itemObjOrName !== null)
+                    ? itemObjOrName
+                    : (db.find(d => (d && typeof d === 'object' ? d.name.toLowerCase() === matchName.toLowerCase() : String(d).toLowerCase() === matchName.toLowerCase())) || { name: matchName, description: "Custom feat. No description provided." });
+
+                window[config.activeArray].push(fullItem);
+                sync();
+                render();
+            }
+
+            if (searchInput) {
+                searchInput.value = '';
+            }
+            if (listEl) {
+                listEl.style.display = 'none';
+                listEl.innerHTML = '';
+            }
+        }
+
+        if (searchInput && listEl) {
             let focusIdx = -1;
+
+            function updateHighlight(items) {
+                for (let i = 0; i < items.length; i++) {
+                    if (i === focusIdx) {
+                        items[i].style.background = 'rgba(96, 165, 250, 0.25)';
+                        items[i].style.borderLeft = '3px solid var(--primary, #f2ca50)';
+                        const nameEl = items[i].querySelector('.feat-opt-name');
+                        if (nameEl) nameEl.style.color = 'var(--primary, #f2ca50)';
+                    } else {
+                        items[i].style.background = 'transparent';
+                        items[i].style.borderLeft = '3px solid transparent';
+                        const nameEl = items[i].querySelector('.feat-opt-name');
+                        if (nameEl) nameEl.style.color = '#f8fafc';
+                    }
+                }
+            }
 
             function renderList(filter = '') {
                 listEl.innerHTML = '';
-                focusIdx = -1;
-                const matches = db.filter(f => {
-                    const name = (f && typeof f === 'object' ? f.name : f) || '';
-                    return String(name).toLowerCase().includes(filter.toLowerCase());
-                }).slice(0, 50);
+                const matches = getRankedMatches(filter, 40);
 
                 if (matches.length > 0) {
                     listEl.style.display = 'block';
-                    matches.forEach(m => {
+                    focusIdx = 0; // Automatically highlight the top/closest match!
+
+                    matches.forEach((m, idx) => {
                         const li = document.createElement('li');
-                        li.style.padding = '5px 10px';
+                        li.className = 'autocomplete-item';
+                        li.style.padding = '6px 10px';
                         li.style.cursor = 'pointer';
-                        li.style.borderBottom = '1px solid #333';
-                        const matchName = typeof m === 'object' ? m.name : m;
-                        li.innerText = matchName;
+                        li.style.borderBottom = '1px solid rgba(255, 255, 255, 0.05)';
+                        li.style.display = 'flex';
+                        li.style.flexDirection = 'column';
+                        li.style.gap = '2px';
+                        li.style.transition = 'background 0.12s ease';
+
+                        const matchName = typeof m === 'object' ? (m.name || '') : String(m);
+                        const matchDesc = (typeof m === 'object' && m.description) ? m.description : '';
+
+                        const nameSpan = document.createElement('span');
+                        nameSpan.className = 'feat-opt-name';
+                        nameSpan.style.fontWeight = '600';
+                        nameSpan.style.fontSize = '12px';
+                        nameSpan.style.color = idx === 0 ? 'var(--primary, #f2ca50)' : '#f8fafc';
+                        nameSpan.textContent = matchName;
+                        li.appendChild(nameSpan);
+
+                        if (matchDesc) {
+                            const descSpan = document.createElement('span');
+                            descSpan.style.fontSize = '11px';
+                            descSpan.style.color = 'var(--text-muted, #94a3b8)';
+                            descSpan.style.overflow = 'hidden';
+                            descSpan.style.textOverflow = 'ellipsis';
+                            descSpan.style.whiteSpace = 'nowrap';
+                            descSpan.textContent = matchDesc.length > 70 ? matchDesc.substring(0, 70) + '...' : matchDesc;
+                            li.appendChild(descSpan);
+                        }
+
+                        if (idx === 0) {
+                            li.style.background = 'rgba(96, 165, 250, 0.25)';
+                            li.style.borderLeft = '3px solid var(--primary, #f2ca50)';
+                        } else {
+                            li.style.borderLeft = '3px solid transparent';
+                        }
+
                         li.addEventListener('mouseover', () => {
-                            Array.from(listEl.children).forEach(c => c.style.background = 'transparent');
-                            li.style.background = '#005fcc';
+                            focusIdx = idx;
+                            const items = listEl.getElementsByTagName('li');
+                            updateHighlight(items);
                         });
+
                         li.addEventListener('mousedown', (e) => {
                             e.preventDefault();
-                            if (!window[config.activeArray].some(x => (typeof x === 'object' ? x.name : x) === matchName)) {
-                                window[config.activeArray].push(m);
-                                sync();
-                                render();
-                            }
-                            searchInput.value = '';
-                            listEl.style.display = 'none';
+                            addTagItem(m);
                         });
+
                         listEl.appendChild(li);
                     });
                 } else {
                     listEl.style.display = 'none';
+                    focusIdx = -1;
                 }
             }
 
             searchInput.addEventListener('focus', () => renderList(searchInput.value));
             searchInput.addEventListener('input', () => renderList(searchInput.value));
-            searchInput.addEventListener('blur', () => { setTimeout(() => listEl.style.display = 'none', 150); });
+            searchInput.addEventListener('blur', () => {
+                setTimeout(() => {
+                    listEl.style.display = 'none';
+                }, 200);
+            });
 
             searchInput.addEventListener('keydown', (e) => {
                 const items = listEl.getElementsByTagName('li');
                 if (e.key === 'ArrowDown') {
-                    focusIdx++;
-                    if (focusIdx >= items.length) focusIdx = 0;
-                    Array.from(items).forEach(c => c.style.background = 'transparent');
-                    if (items[focusIdx]) items[focusIdx].style.background = '#005fcc';
-                } else if (e.key === 'ArrowUp') {
-                    focusIdx--;
-                    if (focusIdx < 0) focusIdx = items.length - 1;
-                    Array.from(items).forEach(c => c.style.background = 'transparent');
-                    if (items[focusIdx]) items[focusIdx].style.background = '#005fcc';
-                } else if (e.key === 'Enter') {
                     e.preventDefault();
-                    if (focusIdx > -1 && items[focusIdx]) {
-                        items[focusIdx].dispatchEvent(new MouseEvent('mousedown'));
-                    } else if (searchInput.value.trim() !== '') {
-                        const raw = searchInput.value.trim();
-                        if (!window[config.activeArray].some(x => (typeof x === 'object' ? x.name : x) === raw)) {
-                            window[config.activeArray].push({ name: raw, description: "Custom ability. No description provided." });
-                            sync();
-                            render();
-                        }
-                        searchInput.value = '';
-                        listEl.style.display = 'none';
+                    if (items.length > 0) {
+                        focusIdx++;
+                        if (focusIdx >= items.length) focusIdx = 0;
+                        updateHighlight(items);
+                        items[focusIdx]?.scrollIntoView({ block: 'nearest' });
                     }
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    if (items.length > 0) {
+                        focusIdx--;
+                        if (focusIdx < 0) focusIdx = items.length - 1;
+                        updateHighlight(items);
+                        items[focusIdx]?.scrollIntoView({ block: 'nearest' });
+                    }
+                } else if (e.key === 'Enter' || e.key === 'Tab') {
+                    if (listEl.style.display !== 'none' && items.length > 0) {
+                        e.preventDefault();
+                        const chosenIdx = (focusIdx >= 0 && focusIdx < items.length) ? focusIdx : 0;
+                        items[chosenIdx]?.dispatchEvent(new MouseEvent('mousedown'));
+                    } else if (searchInput.value.trim() !== '') {
+                        e.preventDefault();
+                        const raw = searchInput.value.trim();
+                        // If multiple feats were pasted (comma-separated)
+                        if (raw.includes(',')) {
+                            const parts = raw.split(',').map(s => s.trim()).filter(Boolean);
+                            parts.forEach(p => {
+                                const closeMatches = getRankedMatches(p, 1);
+                                if (closeMatches.length > 0) {
+                                    addTagItem(closeMatches[0]);
+                                } else {
+                                    addTagItem({ name: p, description: "Custom ability. No description provided." });
+                                }
+                            });
+                        } else {
+                            // Find closest match in DB
+                            const closeMatches = getRankedMatches(raw, 1);
+                            if (closeMatches.length > 0) {
+                                addTagItem(closeMatches[0]);
+                            } else {
+                                addTagItem({ name: raw, description: "Custom ability. No description provided." });
+                            }
+                        }
+                    }
+                } else if (e.key === 'Escape') {
+                    listEl.style.display = 'none';
+                    focusIdx = -1;
                 }
             });
         }
@@ -2727,17 +2954,6 @@ document.addEventListener('DOMContentLoaded', () => {
         hiddenInputId: 'in-feats',
         renderFunc: 'renderFeatTags',
         bgColor: '#444'
-    });
-
-    setupTagSystem({
-        activeArray: 'activeSQ',
-        dbUrl: 'data/special_abilities.json',
-        searchInputId: 'in-sq-search',
-        listId: 'sq-autocomplete-list',
-        containerId: 'selected-sq-container',
-        hiddenInputId: 'in-sq',
-        renderFunc: 'renderSQTags',
-        bgColor: '#2a4a5a'
     });
 
 
@@ -3610,28 +3826,102 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add Gear Event Listeners
     function updateGearDisplay() {
-        const armorName = document.getElementById('in-armor-name')?.value.trim();
-        const shieldName = document.getElementById('in-shield-name')?.value.trim();
-        const gearArr = [];
-        if (armorName) {
-            gearArr.push(`<a href="#" class="interactive-gear" onclick="if(window.showInfoModal) window.showInfoModal('${armorName.replace(/'/g, "\\'")}', '', 'Armor'); return false;" style="color: inherit; text-decoration: underline dotted;">${armorName}</a>`);
-        }
-        if (shieldName) {
-            gearArr.push(`<a href="#" class="interactive-gear" onclick="if(window.showInfoModal) window.showInfoModal('${shieldName.replace(/'/g, "\\'")}', '', 'Shield'); return false;" style="color: inherit; text-decoration: underline dotted;">${shieldName}</a>`);
-        }
+        const armorName = document.getElementById('in-armor-name')?.value.trim() || '';
+        const shieldName = document.getElementById('in-shield-name')?.value.trim() || '';
+        const rawGear = document.getElementById('in-gear')?.value.trim() || '';
 
         const magicItems = (window.CharacterState && Array.isArray(window.CharacterState.inventory.magicItems))
             ? window.CharacterState.inventory.magicItems
             : [];
 
+        const gearArr = [];
+        const seen = new Set();
+
+        const addGearItem = (name, desc = '', type = '', isMagic = false) => {
+            if (!name || typeof name !== 'string') return;
+            const cleanName = name.trim();
+            if (!cleanName) return;
+            const norm = cleanName.toLowerCase();
+            if (seen.has(norm)) return;
+            seen.add(norm);
+
+            const safeName = cleanName.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+            const safeDesc = (desc || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+            const safeType = (type || 'Gear').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+
+            if (isMagic) {
+                gearArr.push(`<a href="#" class="interactive-gear" onclick="if(window.showInfoModal) window.showInfoModal('${safeName}', '${safeDesc}', '${safeType}'); return false;" style="color: #60a5fa; text-decoration: underline dotted;" title="${type || 'Magic Item'}">${cleanName}</a>`);
+            } else {
+                gearArr.push(`<a href="#" class="interactive-gear" onclick="if(window.showInfoModal) window.showInfoModal('${safeName}', '${safeDesc}', '${safeType}'); return false;" style="color: inherit; text-decoration: underline dotted;">${cleanName}</a>`);
+            }
+        };
+
+        // 1. Process Raw Gear Input (from Equipped Gear / Inventory field)
+        if (rawGear) {
+            const parts = rawGear.split(/[,;]\s*/).map(s => s.trim()).filter(Boolean);
+            parts.forEach(part => {
+                const pLower = part.toLowerCase();
+
+                // Check if part matches equipped armor or shield
+                if (armorName && (pLower === armorName.toLowerCase() || pLower.includes(armorName.toLowerCase()))) {
+                    addGearItem(armorName, '', 'Armor', false);
+                    return;
+                }
+                if (shieldName && (pLower === shieldName.toLowerCase() || pLower.includes(shieldName.toLowerCase()))) {
+                    addGearItem(shieldName, '', 'Shield', false);
+                    return;
+                }
+
+                // Check if part matches an equipped magic item
+                const eqMagic = magicItems.find(mi => mi && mi.name && mi.name.toLowerCase() === pLower);
+                if (eqMagic) {
+                    addGearItem(eqMagic.name, eqMagic.description || '', eqMagic.slot || 'Magic Item', true);
+                    return;
+                }
+
+                // Check if part exists in allMagicItemsDB
+                const dbMagic = (window.allMagicItemsDB || []).find(mi => mi && mi.name && pLower.includes(mi.name.toLowerCase()));
+                if (dbMagic) {
+                    addGearItem(part, dbMagic.description || '', dbMagic.slot || 'Magic Item', true);
+                    return;
+                }
+
+                // Check if part exists in allArmorsDB
+                const dbArmor = (window.allArmorsDB || []).find(a => a && a.name && pLower.includes(a.name.toLowerCase()));
+                if (dbArmor) {
+                    addGearItem(part, '', dbArmor.type || 'Armor', false);
+                    return;
+                }
+
+                // Check if part exists in allWeaponsDB
+                const dbWeapon = (window.allWeaponsDB || []).find(w => w && w.name && pLower.includes(w.name.toLowerCase()));
+                if (dbWeapon) {
+                    addGearItem(part, '', dbWeapon.type || 'Weapon', false);
+                    return;
+                }
+
+                // Custom / generic gear
+                addGearItem(part, '', 'Gear', false);
+            });
+        }
+
+        // 2. Add Equipped Armor if not already present
+        if (armorName) {
+            addGearItem(armorName, '', 'Armor', false);
+        }
+
+        // 3. Add Equipped Shield if not already present
+        if (shieldName) {
+            addGearItem(shieldName, '', 'Shield', false);
+        }
+
+        // 4. Add Equipped Magic Items if not already present
         magicItems.forEach(item => {
             if (!item || !item.name) return;
-            const safeName = item.name.replace(/'/g, "\\'");
-            const safeDesc = (item.description || 'Magic item description not available.').replace(/'/g, "\\'");
-            const safeSlot = (item.slot || 'Magic Item').replace(/'/g, "\\'");
-            gearArr.push(`<a href="#" class="interactive-gear" onclick="if(window.showInfoModal) window.showInfoModal('${safeName}', '${safeDesc}', '${safeSlot}'); return false;" style="color: #60a5fa; text-decoration: underline dotted;" title="${item.slot || 'Magic Item'}">${item.name}</a>`);
+            addGearItem(item.name, item.description || 'Magic item description not available.', item.slot || 'Magic Item', true);
         });
 
+        // 5. Update Statblock Output Element & Wrapper
         const wrapGear = document.getElementById('wrap-gear');
         const outGear = document.getElementById('out-gear');
         if (wrapGear && outGear) {
@@ -3639,11 +3929,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 outGear.innerHTML = gearArr.join(', ');
                 wrapGear.style.display = 'block';
             } else {
+                outGear.innerHTML = '';
                 wrapGear.style.display = 'none';
             }
         }
     }
+    window.updateGearDisplay = updateGearDisplay;
 
+    document.getElementById('in-gear')?.addEventListener('input', updateGearDisplay);
+    document.getElementById('in-gear')?.addEventListener('change', updateGearDisplay);
     document.getElementById('in-armor-name')?.addEventListener('input', updateGearDisplay);
     document.getElementById('in-armor-name')?.addEventListener('change', updateGearDisplay);
     document.getElementById('in-shield-name')?.addEventListener('input', updateGearDisplay);

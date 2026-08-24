@@ -136,6 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
     delegateClick('mob-btn-export-pdf', 'btn-export-pdf');
     delegateClick('mob-btn-save-json', 'btn-save-json');
     delegateClick('mob-btn-load-json', 'btn-load-json');
+    delegateClick('mob-btn-export-db-json', 'btn-export-db-json');
+    delegateClick('mob-btn-import-db-json', 'btn-import-db-json');
     delegateClick('mob-btn-settings', 'btn-settings-panel');
     delegateClick('mob-btn-reset-filters', 'btn-reset-filters');
 
@@ -176,13 +178,24 @@ document.addEventListener('DOMContentLoaded', () => {
                           findIn(window.allWeaknessesDB) ||
                           findIn(window.allFeatsDB) ||
                           findIn(window.allSpellsDB) ||
-                          findIn(window.allMagicItemsDB);
+                          findIn(window.allMagicItemsDB) ||
+                          findIn(window.allArmorsDB) ||
+                          findIn(window.allWeaponsDB);
             if (entry && typeof entry === 'object') {
-                const desc = entry.description || entry.short_description || entry.desc || '';
-                if (desc) {
-                    resolvedHTML = desc.replace(/\n/g, '<br>');
+                if (entry.dmg_m || entry.crit) {
+                    resolvedHTML = `<strong>Category:</strong> ${entry.type || 'Weapon'}<br><strong>Damage (M):</strong> ${entry.dmg_m || '—'}<br><strong>Critical:</strong> ${entry.crit || '20/x2'}${entry.dmg_type ? `<br><strong>Type:</strong> ${entry.dmg_type}` : ''}`;
+                } else if (entry.ac_bonus !== undefined || entry.acp !== undefined) {
+                    resolvedHTML = `<strong>Type:</strong> ${entry.type || 'Armor'}<br><strong>AC Bonus:</strong> +${entry.ac_bonus || entry.bonus || 0}<br><strong>Max Dex:</strong> ${entry.max_dex !== undefined ? entry.max_dex : '—'}<br><strong>Armor Check Penalty:</strong> ${entry.acp || 0}`;
                 } else {
-                    resolvedHTML = `<em>Pathfinder 1e reference for <strong>${title}</strong>.</em>`;
+                    const desc = entry.description || entry.short_description || entry.desc || '';
+                    if (desc) {
+                        resolvedHTML = desc.replace(/\n/g, '<br>');
+                        if (entry.slot) {
+                            resolvedHTML += `<br><br><strong>Slot:</strong> ${entry.slot}`;
+                        }
+                    } else {
+                        resolvedHTML = `<em>Pathfinder 1e reference for <strong>${title}</strong>.</em>`;
+                    }
                 }
             } else {
                 resolvedHTML = `<em>Pathfinder 1e reference for <strong>${title}</strong>.</em>`;

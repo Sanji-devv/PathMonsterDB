@@ -429,8 +429,10 @@
         </div>
 
         <div class="header-right">
-            <button id="btn-reset-filters" class="btn-hdr btn-hdr-subtle" title="Reset all search filters">🔄 Reset
-                Filters</button>
+            <button id="btn-export-db-json" class="btn-hdr btn-hdr-emerald" title="Export Monster Database as JSON file">Export All (JSON)</button>
+            <button id="btn-import-db-json" class="btn-hdr btn-hdr-blue" title="Import Monsters from JSON file into Database">Import All (JSON)</button>
+            <input type="file" id="file-import-db-json" accept=".json" style="display:none;" multiple>
+            <button id="btn-reset-filters" class="btn-hdr btn-hdr-subtle" title="Reset all search filters">🔄 Reset Filters</button>
             <a href="index.html" class="btn-hdr btn-hdr-blue" title="Back to Monster Creator">⬅ Back to Editor</a>
             <div class="user-profile-slot" id="user-profile-container"></div>
             <a href="index.html" class="btn-hdr-icon" title="Panel Settings">⚙️</a>
@@ -477,6 +479,10 @@
             <div class="mobile-drawer-section">
                 <div class="mobile-drawer-heading">Database Actions</div>
                 <div class="mobile-actions-grid" style="grid-template-columns: 1fr;">
+                    <button type="button" id="mob-btn-export-db-json" class="mob-btn mob-btn-emerald"
+                        style="justify-content: center;">Export All (JSON)</button>
+                    <button type="button" id="mob-btn-import-db-json" class="mob-btn mob-btn-blue"
+                        style="justify-content: center;">Import All (JSON)</button>
                     <a href="index.html" class="mob-btn mob-btn-blue"
                         style="justify-content: center; text-decoration: none;">⬅ Back to Monster Editor</a>
                     <button type="button" id="mob-btn-reset-filters" class="mob-btn mob-btn-subtle"
@@ -570,6 +576,43 @@
                 <button id="btn-prev">⬅ Previous</button>
                 <span id="page-info">Page 1 of ?</span>
                 <button id="btn-next">Next ➡</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export Database Modal -->
+    <div id="modal-export-database" class="info-modal-overlay" aria-hidden="true">
+        <div class="info-modal-content" style="max-width: 520px; background: rgba(15, 23, 42, 0.96); border: 1px solid rgba(242, 202, 80, 0.4); border-radius: 12px; box-shadow: 0 12px 36px rgba(0,0,0,0.85); backdrop-filter: blur(12px);">
+            <div class="info-modal-header" style="border-bottom: 1px solid rgba(255,255,255,0.12); padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;">
+                <h2 style="font-family: 'Cinzel', serif; font-size: 1.25rem; color: #fcd34d; margin: 0; display: flex; align-items: center; gap: 8px;">
+                    Export Monster Database (JSON)
+                </h2>
+                <button type="button" id="btn-close-export-modal" class="info-modal-close" style="color: #94a3b8; font-size: 24px; background: none; border: none; cursor: pointer; line-height: 1;">&times;</button>
+            </div>
+            <div class="info-modal-body" style="padding: 22px; color: #e2e8f0; font-size: 14px; line-height: 1.5;">
+                <p style="margin-top: 0; margin-bottom: 18px; color: #94a3b8;">
+                    Select the scope of monster data you want to export as a formatted JSON file:
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <button type="button" id="btn-export-scope-all" class="btn-hdr btn-hdr-emerald" style="height: 52px; justify-content: flex-start; padding: 0 18px; font-size: 14.5px; border-radius: 8px;">
+                        <div style="text-align: left;">
+                            <div style="font-weight: 700; color: #fff;">Full Database (All ~6,500+ Monsters)</div>
+                            <div style="font-size: 11.5px; opacity: 0.85; font-weight: normal;">Export complete official bestiaries + your custom monsters</div>
+                        </div>
+                    </button>
+                    <button type="button" id="btn-export-scope-custom" class="btn-hdr btn-hdr-blue" style="height: 52px; justify-content: flex-start; padding: 0 18px; font-size: 14.5px; border-radius: 8px;">
+                        <div style="text-align: left;">
+                            <div style="font-weight: 700; color: #fff;">Custom Monsters Only</div>
+                            <div style="font-size: 11.5px; opacity: 0.85; font-weight: normal;">Export user-created and imported custom monsters</div>
+                        </div>
+                    </button>
+                    <button type="button" id="btn-export-scope-filtered" class="btn-hdr btn-hdr-subtle" style="height: 52px; justify-content: flex-start; padding: 0 18px; font-size: 14.5px; border: 1px solid rgba(255,255,255,0.22); border-radius: 8px;">
+                        <div style="text-align: left;">
+                            <div style="font-weight: 700; color: #fff;" id="export-filtered-title">Current Filter Results</div>
+                            <div style="font-size: 11.5px; opacity: 0.85; font-weight: normal;">Export monsters currently matching your search filters</div>
+                        </div>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

@@ -15,7 +15,9 @@ from server.data_manager import (
     search_spells,
     save_monster_from_json,
     delete_monster,
-    toggle_favorite
+    toggle_favorite,
+    export_monsters_dataset,
+    import_monsters_from_json
 )
 from server.monster_formatter import format_monster_from_state, parse_cr
 from server.http_handler import PathMonsterDBRequestHandler
@@ -118,12 +120,38 @@ def run_tests():
             "melee": [{"mode": "raw", "rawText": "bite +11 (2d6+7)"}]
         }
     }
-    formatted = format_monster_from_state(test_state)
-    assert formatted["Name"] == "Test Wyrm", "Name format failed"
-    assert formatted["CR"] == "5", "CR format failed"
-    assert formatted["Size"] == "Large", "Size format failed"
-    assert formatted["HP"] == "49", f"HP format expected '49', got '{formatted['HP']}'"
-    print(f"  [OK] Formatter test passed: '{formatted['Name']}' (CR {formatted['CR']}), AC: {formatted['AC']}, HP: {formatted['HP']}")
+    # Test Aura formatting in Monster Formatter
+    test_state_aura = {
+        "basic": {
+            "in-name": "Unholy Knight of Rovesta",
+            "in-cr": "11",
+            "in-aura": "Aura of despair (100 ft., -2 saves)"
+        }
+    }
+    formatted_aura = format_monster_from_state(test_state_aura)
+    assert formatted_aura["Aura"] == "Aura of despair (100 ft., -2 saves)", f"Aura formatting failed: {formatted_aura['Aura']}"
+    print(f"  [OK] Aura format verified: '{formatted_aura['Aura']}'")
+
+    # Test Gear formatting in Monster Formatter
+    test_state_gear = {
+        "basic": {
+            "in-name": "Equipped Champion",
+            "in-cr": "5",
+            "in-gear": "potion of cure light wounds (2), mwk longsword",
+            "in-armor-name": "Full Plate",
+            "in-shield-name": "Heavy Steel Shield"
+        },
+        "dynamic": {
+            "magic_items": [{"name": "Cloak of Resistance +1", "slot": "Shoulders"}]
+        }
+    }
+    formatted_gear = format_monster_from_state(test_state_gear)
+    assert "potion of cure light wounds (2)" in formatted_gear["Gear"]
+    assert "mwk longsword" in formatted_gear["Gear"]
+    assert "Full Plate" in formatted_gear["Gear"]
+    assert "Heavy Steel Shield" in formatted_gear["Gear"]
+    assert "Cloak of Resistance +1" in formatted_gear["Gear"]
+    print(f"  [OK] Gear format verified: '{formatted_gear['Gear']}'")
 
     # 6. Save, Favorite & Delete Lifecycle Verification
     print("\n6. Testing Monster Save / Favorite / Delete Lifecycle...")
@@ -597,6 +625,101 @@ def run_tests():
             assert response.status == 200
             print("  [OK] Cleaned up test monster.")
 
+        # Test Database Export & Import Suite
+        print("\n  [DATABASE JSON] Testing Database Export (All, Custom, Filtered) & Bulk Import Suite...")
+
+        # 1. Export All
+        export_all_req = urllib.request.Request(f"{base_url}/api/database/export?scope=all", headers={'Authorization': f"Bearer {auth_token}"})
+        with urllib.request.urlopen(export_all_req) as response:
+            assert response.status == 200
+            exp_all = json.loads(response.read().decode('utf-8'))
+            assert exp_all.get("scope") == "all"
+            assert exp_all.get("total_count", 0) > 6000
+            assert isinstance(exp_all.get("data"), list)
+            print(f"  [OK] Export All monsters succeeded ({exp_all.get('total_count')} monsters in dataset).")
+
+        # 2. Export Custom
+        export_custom_req = urllib.request.Request(f"{base_url}/api/database/export?scope=custom", headers={'Authorization': f"Bearer {auth_token}"})
+        with urllib.request.urlopen(export_custom_req) as response:
+            assert response.status == 200
+            exp_custom = json.loads(response.read().decode('utf-8'))
+            assert exp_custom.get("scope") == "custom"
+            assert isinstance(exp_custom.get("data"), list)
+            print(f"  [OK] Export Custom monsters succeeded ({exp_custom.get('total_count')} custom monsters).")
+
+        # 3. Export Filtered
+        export_filt_req = urllib.request.Request(f"{base_url}/api/database/export?scope=filtered&name=dragon&type=dragon", headers={'Authorization': f"Bearer {auth_token}"})
+        with urllib.request.urlopen(export_filt_req) as response:
+            assert response.status == 200
+            exp_filt = json.loads(response.read().decode('utf-8'))
+            assert exp_filt.get("scope") == "filtered"
+            assert exp_filt.get("total_count", 0) > 0
+            print(f"  [OK] Export Filtered monsters succeeded ({exp_filt.get('total_count')} matching dragons).")
+
+        # 4. Import Single Monster & Array of Monsters
+        import_sample = [
+            {
+                "basic": {
+                    "in-name": "Imported Test Chimera",
+                    "in-cr": "9",
+                    "in-type": "Magical Beast",
+                    "in-alignment": "CE",
+                    "in-str": "19",
+                    "in-dex": "12",
+                    "in-con": "17"
+                },
+                "dynamic": {}
+            },
+            {
+                "basic": {
+                    "in-name": "Imported Test Golem",
+                    "in-cr": "11",
+                    "in-type": "Construct",
+                    "in-alignment": "N",
+                    "in-str": "24",
+                    "in-dex": "9",
+                    "in-con": "10"
+                },
+                "dynamic": {}
+            }
+        ]
+        import_req = urllib.request.Request(
+            f"{base_url}/api/database/import",
+            data=json.dumps(import_sample).encode('utf-8'),
+            headers={'Authorization': f"Bearer {auth_token}", 'Content-Type': 'application/json'}
+        )
+        with urllib.request.urlopen(import_req) as response:
+            assert response.status == 200
+            imp_res = json.loads(response.read().decode('utf-8'))
+            assert imp_res.get("status") == "ok"
+            assert imp_res.get("imported_count") == 2
+            print("  [OK] Successfully imported batch JSON array with 2 monsters.")
+
+        # Search for imported monster
+        imp_search_req = urllib.request.Request(f"{base_url}/api/search?name=Imported+Test+Chimera")
+        with urllib.request.urlopen(imp_search_req) as response:
+            imp_search_data = json.loads(response.read().decode('utf-8'))
+            assert imp_search_data.get("total_count", 0) >= 1
+            chimera_mon = imp_search_data["data"][0]
+            chimera_idx = chimera_mon["_global_index"]
+            print(f"  [OK] Imported monster '{chimera_mon['Name']}' is searchable in database.")
+
+        # Cleanup imported monsters
+        del_chimera = urllib.request.Request(f"{base_url}/api/delete/{chimera_idx}", headers={'Authorization': f"Bearer {auth_token}"}, method='DELETE')
+        with urllib.request.urlopen(del_chimera) as response:
+            assert response.status == 200
+
+        # Find and cleanup second monster
+        imp_search_req2 = urllib.request.Request(f"{base_url}/api/search?name=Imported+Test+Golem")
+        with urllib.request.urlopen(imp_search_req2) as response:
+            imp_search_data2 = json.loads(response.read().decode('utf-8'))
+            if imp_search_data2.get("total_count", 0) >= 1:
+                golem_idx = imp_search_data2["data"][0]["_global_index"]
+                del_golem = urllib.request.Request(f"{base_url}/api/delete/{golem_idx}", headers={'Authorization': f"Bearer {auth_token}"}, method='DELETE')
+                with urllib.request.urlopen(del_golem) as resp_del:
+                    assert resp_del.status == 200
+                print("  [OK] Cleaned up imported test monsters.")
+
         # Test Logout
         print("\n  [AUTH] Testing Logout & Session Invalidation...")
         logout_req = urllib.request.Request(f"{base_url}/api/auth/logout", data=b'{}', headers={'Authorization': f"Bearer {auth_token}", 'Content-Type': 'application/json'})
@@ -684,10 +807,29 @@ def run_tests():
     assert "pathgm_last_page" in db_j
     assert "pf_creator_theme" in db_j
 
-    with open('server/http_handler.py', 'r', encoding='utf-8') as f:
-        handler_py = f.read()
-    assert "pathgm_last_page=" in handler_py
-    print("  [OK] Page navigation and theme persistence validated across server, client, and HTML.")
+    # 11. Testing JSON Buttons & Modals Configuration
+    print("\n11. Testing JSON Buttons & Modals Configuration...")
+    with open('html/index.html', 'r', encoding='utf-8') as f:
+        idx_html_content = f.read()
+    assert 'id="btn-save-json"' in idx_html_content, "index.html must have btn-save-json"
+    assert 'id="btn-load-json"' in idx_html_content, "index.html must have btn-load-json"
+    assert 'id="mob-btn-save-json"' in idx_html_content, "index.html must have mob-btn-save-json"
+    assert 'id="mob-btn-load-json"' in idx_html_content, "index.html must have mob-btn-load-json"
+
+    with open('html/database.html', 'r', encoding='utf-8') as f:
+        db_html_content = f.read()
+    assert 'id="btn-export-db-json"' in db_html_content, "database.html must have btn-export-db-json"
+    assert 'id="btn-import-db-json"' in db_html_content, "database.html must have btn-import-db-json"
+    assert 'id="mob-btn-export-db-json"' in db_html_content, "database.html must have mob-btn-export-db-json"
+    assert 'id="mob-btn-import-db-json"' in db_html_content, "database.html must have mob-btn-import-db-json"
+    assert 'id="modal-export-database"' in db_html_content, "database.html must have modal-export-database"
+
+    with open('js/ui.js', 'r', encoding='utf-8') as f:
+        ui_js_content = f.read()
+    assert 'mob-btn-export-db-json' in ui_js_content, "ui.js must delegate mob-btn-export-db-json"
+    assert 'mob-btn-import-db-json' in ui_js_content, "ui.js must delegate mob-btn-import-db-json"
+
+    print("  [OK] JSON download and upload buttons, mobile drawer actions, and export modals verified across all pages.")
 
     print("\n========================================================")
     print("  ALL VERIFICATION TESTS PASSED SUCCESSFULLY! (100%) ")

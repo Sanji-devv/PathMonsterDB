@@ -254,6 +254,27 @@ def format_monster_from_state(state):
         st1 = ''
         st2 = ''
 
+    gear_raw = get_val('in-gear', 'Gear', '')
+    armor_val = get_val('in-armor-name', '', '')
+    shield_val = get_val('in-shield-name', '', '')
+    magic_items_val = [mi.get('name', mi) if isinstance(mi, dict) else str(mi) for mi in dynamic.get('magic_items', [])]
+
+    all_gear_items = []
+    seen_gear = set()
+
+    if gear_raw:
+        for item in [p.strip() for p in gear_raw.split(',') if p.strip()]:
+            if item.lower() not in seen_gear:
+                seen_gear.add(item.lower())
+                all_gear_items.append(item)
+
+    for extra in [armor_val, shield_val] + magic_items_val:
+        if extra and extra.strip() and extra.strip().lower() not in seen_gear:
+            seen_gear.add(extra.strip().lower())
+            all_gear_items.append(extra.strip())
+
+    gear_final = ', '.join(all_gear_items)
+
     rec = {
         "Name": name,
         "CR": str(cr),
@@ -302,7 +323,7 @@ def format_monster_from_state(state):
         "SR": get_val('in-sr', 'SR', ''),
         "Environment": get_val('in-environment', 'Environment', ''),
         "Treasure": get_val('in-treasure', 'Treasure', ''),
-        "Gear": get_val('in-gear', 'Gear', '') or ', '.join([x for x in [get_val('in-armor-name', '', ''), get_val('in-shield-name', '', '')] + [mi.get('name', mi) if isinstance(mi, dict) else str(mi) for mi in dynamic.get('magic_items', [])] if x]),
+        "Gear": gear_final,
         "Class1": get_val('Class1', 'Class1', ''),
         "Class1_Lvl": get_val('Class1_Lvl', 'Class1_Lvl', ''),
         "Visibility": str(get_val('in-visibility', 'Visibility', 'public')).lower() if str(get_val('in-visibility', 'Visibility', 'public')).lower() in ('public', 'private') else 'public',

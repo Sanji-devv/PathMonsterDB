@@ -8,7 +8,9 @@ from server.data_manager import (
     get_scrape_status,
     save_monster_from_json,
     delete_monster,
-    toggle_favorite
+    toggle_favorite,
+    export_monsters_dataset,
+    import_monsters_from_json
 )
 from server.auth import (
     register_user,
@@ -113,6 +115,8 @@ class PathMonsterDBRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self._handle_scrape_status()
             elif parsed_url.path == '/api/auth/me':
                 self._handle_auth_me()
+            elif parsed_url.path in ('/api/database/export', '/api/export/database', '/api/export'):
+                self._handle_database_export(parsed_url.query)
             else:
                 super().do_GET()
         except (ConnectionAbortedError, ConnectionResetError, BrokenPipeError):
@@ -186,6 +190,8 @@ class PathMonsterDBRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.flush()
             elif parsed_url.path == '/api/save':
                 self._handle_save()
+            elif parsed_url.path in ('/api/database/import', '/api/import'):
+                self._handle_database_import()
             else:
                 self.send_error(404)
         except ValueError:
@@ -298,6 +304,38 @@ class PathMonsterDBRequestHandler(http.server.SimpleHTTPRequestHandler):
             print(f"Error handling spell search: {e}")
             self.send_response(500)
             self.end_headers()
+    def _handle_database_export(self, query_string):
+        try:
+            user = get_authenticated_user_from_headers(self.headers)
+            qs = parse_qs(query_string)
+            scope = qs.get('scope', ['all'])[0]
+            body = export_monsters_dataset(scope=scope, user=user, query_string=query_string)
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Content-Length', str(len(body)))
+            self.send_header('Content-Disposition', f'attachment; filename="pathmonsterdb_{scope}_monsters.json"')
+            self.end_headers()
+            self.wfile.write(body)
+            self.wfile.flush()
+        except Exception as e:
+            print(f"Error handling database export: {e}")
+            self.send_error(500, str(e))
+
+    def _handle_database_import(self):
+        try:
+            user = get_authenticated_user_from_headers(self.headers)
+            length = int(self.headers.get('Content-Length', 0))
+            raw = self.rfile.read(length)
+            body, status_code = import_monsters_from_json(raw, user=user)
+            self.send_response(status_code)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Content-Length', str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+            self.wfile.flush()
+        except Exception as e:
+            print(f"Error handling database import: {e}")
+            self.send_error(500, str(e))
 
     def log_request(self, code='-', size='-'):
         pass

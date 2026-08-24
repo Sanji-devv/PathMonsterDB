@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentPage = 1;
     let maxPage = 1;
+    let lastTotalCount = 0;
     const itemsPerPage = 50;
 
     // Load Magic Items DB for gear resolution
@@ -157,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Render Main List
     function renderList(pageData, totalCount, page, perPage) {
         mainList.innerHTML = '';
+        lastTotalCount = totalCount;
         maxPage = Math.ceil(totalCount / perPage) || 1;
         pageInfo.textContent = `Page ${page} of ${maxPage} (${totalCount} total)`;
 
@@ -218,9 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             ${npcBadge}
                         </div>
                         <div class="actions-bottom-tier">
-                            <button class="btn btn-load">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> LOAD
-                            </button>
+                            <button class="btn btn-load">LOAD</button>
                         </div>
                     </div>
                 `;
@@ -244,19 +244,28 @@ document.addEventListener('DOMContentLoaded', () => {
                             ${customBadgeHtml}
                         </div>
                         <div class="actions-bottom-tier">
-                            <button class="btn btn-load-custom">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> LOAD
-                            </button>
+                            <button class="btn btn-load-custom">LOAD</button>
                             ${deleteBtnHtml}
                         </div>
                     </div>
                 `;
             }
 
+            const typeTokens = [];
+            if (m.Alignment) typeTokens.push(m.Alignment);
+            if (m.Size) typeTokens.push(m.Size);
+            if (m.Type) typeTokens.push(m.Type);
+
+            const metaParts = [`CR: ${m.CR || '-'}`];
+            if (typeTokens.length > 0) {
+                metaParts.push(typeTokens.join(' '));
+            }
+            const subtitleText = metaParts.join(' | ');
+
             card.innerHTML = `
                 <div class="monster-info">
                     <h3>${m.Name}</h3>
-                    <p>CR: ${m.CR || '-'} | HP: ${m.HP || '-'} | AC: ${m.AC || '-'} | Type: ${m.Type || '-'} | Alignment: ${m.Alignment || '-'} | Size: ${m.Size || '-'}</p>
+                    <p>${subtitleText}</p>
                 </div>
                 <div class="monster-actions">
                     ${actionsHtml}
@@ -331,8 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadData();
 
     // Mapping Function (Database Row -> Our Form State)
-    // Mapping Function (Database Row -> Our Form State)
-    function loadToEditor(m) {
+    function buildEditorStateFromMonster(m) {
         // Create a clean, full state object matching our structure
         const state = {
             basic: {
@@ -790,10 +798,211 @@ document.addEventListener('DOMContentLoaded', () => {
             state.basic['in-spell-conc'] = m.OriginalState.basic?.['in-spell-conc'] || '';
         }
 
-        // 19. Save to LocalStorage and redirect directly to editor
-        state._global_index = m._global_index;
-        if (m.id) state.id = m.id;
-        localStorage.setItem('pf_monster_creator_save', JSON.stringify(state));
-        window.location.href = 'index.html';
+        return state;
     }
+
+    function loadToEditor(m) {
+        if (m.OriginalState) {
+            const stateToSave = JSON.parse(JSON.stringify(m.OriginalState));
+            stateToSave._global_index = m._global_index;
+            if (m.id) stateToSave.id = m.id;
+            localStorage.setItem('pf_monster_creator_save', JSON.stringify(stateToSave));
+            window.location.href = 'index.html';
+        } else {
+            const state = buildEditorStateFromMonster(m);
+            state._global_index = m._global_index;
+            if (m.id) state.id = m.id;
+            localStorage.setItem('pf_monster_creator_save', JSON.stringify(state));
+            window.location.href = 'index.html';
+        }
+    }
+
+    function downloadSingleMonsterJson(m) {
+        try {
+            let exportData = null;
+            if (m.OriginalState) {
+                exportData = JSON.parse(JSON.stringify(m.OriginalState));
+            } else {
+                exportData = buildEditorStateFromMonster(m);
+            }
+            if (m.id) exportData.id = m.id;
+            if (m._global_index !== undefined) exportData._global_index = m._global_index;
+
+            const rawName = m.Name || exportData.basic?.['in-name'] || 'Monster';
+            const safeName = rawName.trim().replace(/[/\\?%*:|"<>]/g, '_') || 'Monster';
+            const prettyJson = JSON.stringify(exportData, null, 2);
+            const blob = new Blob([prettyJson], { type: 'application/json;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${safeName}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+            if (auth && typeof auth.showToast === 'function') {
+                auth.showToast(`📥 Monster "${rawName}" downloaded as JSON!`, 'success');
+            }
+        } catch (err) {
+            console.error('Error downloading single monster JSON:', err);
+            alert('Download error: ' + err.message);
+        }
+    }
+
+    // Database Export Modal Controls
+    const btnExportDbJson = document.getElementById('btn-export-db-json');
+    const modalExportDb = document.getElementById('modal-export-database');
+    const btnCloseExportModal = document.getElementById('btn-close-export-modal');
+    const btnExportScopeAll = document.getElementById('btn-export-scope-all');
+    const btnExportScopeCustom = document.getElementById('btn-export-scope-custom');
+    const btnExportScopeFiltered = document.getElementById('btn-export-scope-filtered');
+    const exportFilteredTitle = document.getElementById('export-filtered-title');
+
+    function openExportModal() {
+        if (!modalExportDb) return;
+        if (exportFilteredTitle) {
+            exportFilteredTitle.textContent = `Current Filter Results (${lastTotalCount || 0} monsters)`;
+        }
+        modalExportDb.classList.add('active');
+    }
+
+    function closeExportModal() {
+        if (modalExportDb) modalExportDb.classList.remove('active');
+    }
+
+    if (btnExportDbJson) {
+        btnExportDbJson.addEventListener('click', openExportModal);
+    }
+    if (btnCloseExportModal) {
+        btnCloseExportModal.addEventListener('click', closeExportModal);
+    }
+    if (modalExportDb) {
+        modalExportDb.addEventListener('click', (e) => {
+            if (e.target === modalExportDb) closeExportModal();
+        });
+    }
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modalExportDb && modalExportDb.classList.contains('active')) {
+            closeExportModal();
+        }
+    });
+
+    async function triggerDatabaseExport(scope) {
+        closeExportModal();
+        const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+        const headers = (auth && typeof auth.getAuthHeaders === 'function') ? auth.getAuthHeaders() : {};
+
+        let url = `/api/database/export?scope=${scope}`;
+        if (scope === 'filtered') {
+            const nameVal = encodeURIComponent(filterName.value);
+            const crVal = encodeURIComponent(filterCr.value);
+            const typeVal = encodeURIComponent(filterType.value);
+            const alignVal = encodeURIComponent(filterAlignment.value);
+            const envVal = encodeURIComponent(filterEnvironment.value);
+            const catVal = encodeURIComponent(filterCategory.value);
+            const sortVal = encodeURIComponent(filterSort.value);
+            url += `&name=${nameVal}&cr=${crVal}&type=${typeVal}&alignment=${alignVal}&environment=${envVal}&category=${catVal}&sort=${sortVal}`;
+        }
+
+        try {
+            if (auth && typeof auth.showToast === 'function') {
+                auth.showToast(`⏳ Generating ${scope} database export...`, 'info');
+            }
+            const res = await fetch(url, { headers });
+            if (!res.ok) {
+                throw new Error(`Export failed with status ${res.status}`);
+            }
+            const blob = await res.blob();
+            const blobUrl = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = blobUrl;
+            let filename = `PathMonsterDB_${scope.charAt(0).toUpperCase() + scope.slice(1)}_Monsters.json`;
+            if (scope === 'all') filename = 'PathMonsterDB_All_Monsters.json';
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(blobUrl);
+
+            if (auth && typeof auth.showToast === 'function') {
+                auth.showToast(`📥 Successfully exported ${filename}!`, 'success');
+            }
+        } catch (err) {
+            console.error('Export failed:', err);
+            alert('Database Export Error: ' + err.message);
+        }
+    }
+
+    if (btnExportScopeAll) btnExportScopeAll.addEventListener('click', () => triggerDatabaseExport('all'));
+    if (btnExportScopeCustom) btnExportScopeCustom.addEventListener('click', () => triggerDatabaseExport('custom'));
+    if (btnExportScopeFiltered) btnExportScopeFiltered.addEventListener('click', () => triggerDatabaseExport('filtered'));
+
+    // Database Import (Bulk or Single JSON)
+    const btnImportDbJson = document.getElementById('btn-import-db-json');
+    const fileImportDbJson = document.getElementById('file-import-db-json');
+
+    if (btnImportDbJson && fileImportDbJson) {
+        btnImportDbJson.addEventListener('click', () => fileImportDbJson.click());
+        fileImportDbJson.addEventListener('change', async (e) => {
+            const files = Array.from(e.target.files || []);
+            if (!files.length) return;
+            for (const file of files) {
+                await processJsonImportFile(file);
+            }
+            fileImportDbJson.value = '';
+        });
+    }
+
+    async function processJsonImportFile(file) {
+        const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+        try {
+            const text = await file.text();
+            const headers = (auth && typeof auth.getAuthHeaders === 'function') ? auth.getAuthHeaders() : {};
+            headers['Content-Type'] = 'application/json';
+
+            const res = await fetch('/api/database/import', {
+                method: 'POST',
+                headers,
+                body: text
+            });
+            const data = await res.json();
+            if (res.ok && data.status === 'ok') {
+                if (auth && typeof auth.showToast === 'function') {
+                    auth.showToast(`✅ Successfully imported ${data.imported_count} monster(s) from "${file.name}"!`, 'success');
+                }
+                loadData();
+            } else {
+                alert(`Import failed: ${data.error || 'Unknown error'}`);
+            }
+        } catch (err) {
+            console.error('Import error:', err);
+            alert(`Error reading import file: ${err.message}`);
+        }
+    }
+
+    // Drag & Drop JSON Import on Database Page
+    document.body.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        document.body.style.opacity = '0.75';
+    });
+    document.body.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        document.body.style.opacity = '1';
+    });
+    document.body.addEventListener('drop', async (e) => {
+        e.preventDefault();
+        document.body.style.opacity = '1';
+        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+            const jsonFiles = Array.from(e.dataTransfer.files).filter(f => f.name.endsWith('.json'));
+            if (jsonFiles.length > 0) {
+                for (const file of jsonFiles) {
+                    await processJsonImportFile(file);
+                }
+            } else {
+                alert('Please drop a valid .json file.');
+            }
+        }
+    });
 });

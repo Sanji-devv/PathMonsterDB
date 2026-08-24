@@ -1,6 +1,7 @@
 import os
 import json
 import uuid
+import time
 from urllib.parse import parse_qs, urlencode
 from server.monster_formatter import parse_cr, format_monster_from_state
 
@@ -587,3 +588,149 @@ def get_scrape_status():
     else:
         data = json.dumps({"status": "idle", "percentage": 0})
     return data.encode('utf-8')
+
+def export_monsters_dataset(scope='all', user=None, query_string=''):
+    global GLOBAL_MONSTERS
+    if not GLOBAL_MONSTERS:
+        load_monsters()
+
+    user_id = str(user.get('id', '')) if user else ''
+    user_name = str(user.get('username', '')).lower() if user else ''
+
+    scope = str(scope).lower().strip()
+    result_list = []
+
+    if scope == 'filtered' and query_string:
+        # Export all matching items without pagination restriction
+        params = parse_qs(query_string)
+        # Force per_page to large number to grab all filtered results
+        filtered_params = {k: v[0] for k, v in params.items() if k not in ('page', 'per_page', '_t', 'timestamp')}
+        filtered_params['page'] = '1'
+        filtered_params['per_page'] = '50000'
+        new_query = urlencode(filtered_params)
+        raw_res = search_monsters(new_query, user=user)
+        try:
+            res_json = json.loads(raw_res)
+            raw_data = res_json.get('data', [])
+            for m in raw_data:
+                clean_m = {k: v for k, v in m.items() if not k.startswith('_m_')}
+                result_list.append(clean_m)
+        except Exception as e:
+            print(f"Error in export_monsters_dataset filtered search: {e}")
+            result_list = []
+    else:
+        for idx, m in enumerate(GLOBAL_MONSTERS):
+            is_custom = m.get('IsUserCustom', False)
+            m_vis = str(m.get('Visibility', 'public')).lower()
+            m_auth_id = str(m.get('AuthorId', ''))
+            m_auth_name = str(m.get('AuthorName', '')).lower()
+            is_own = bool(user_id and (m_auth_id == user_id or (not m_auth_id and m_auth_name == user_name)))
+
+            # Privacy rule: exclude private custom monsters unless author
+            if is_custom and m_vis == 'private' and not is_own:
+                continue
+
+            if scope == 'custom' and not is_custom:
+                continue
+
+            clean_m = {k: v for k, v in m.items() if not k.startswith('_m_')}
+            result_list.append(clean_m)
+
+    export_payload = {
+        "version": "1.0",
+        "app": "PathMonsterDB",
+        "scope": scope,
+        "total_count": len(result_list),
+        "exported_at": time.strftime('%Y-%m-%d %H:%M:%S'),
+        "data": result_list
+    }
+    return json.dumps(export_payload, ensure_ascii=False, indent=2).encode('utf-8')
+
+def import_monsters_from_json(raw_json_str, user=None):
+    global GLOBAL_MONSTERS
+    if not GLOBAL_MONSTERS:
+        load_monsters()
+
+    if isinstance(raw_json_str, bytes):
+        raw_json_str = raw_json_str.decode('utf-8', errors='ignore')
+
+    try:
+        parsed = json.loads(raw_json_str)
+    except Exception as e:
+        return json.dumps({"status": "error", "error": f"Invalid JSON format: {str(e)}"}).encode('utf-8'), 400
+
+    items_to_import = []
+    if isinstance(parsed, list):
+        items_to_import = parsed
+    elif isinstance(parsed, dict):
+        if 'data' in parsed and isinstance(parsed['data'], list):
+            items_to_import = parsed['data']
+        elif 'monsters' in parsed and isinstance(parsed['monsters'], list):
+            items_to_import = parsed['monsters']
+        else:
+            items_to_import = [parsed]
+
+    if not items_to_import:
+        return json.dumps({"status": "error", "error": "No monster records found in JSON."}).encode('utf-8'), 400
+
+    imported_count = 0
+    errors = []
+
+    user_id = user.get('id') if user else None
+    user_name = (user.get('username') or user.get('name')) if user else None
+
+    for item_idx, raw_item in enumerate(items_to_import):
+        try:
+            if not isinstance(raw_item, dict):
+                continue
+
+            if 'basic' in raw_item:
+                state = raw_item
+            elif 'OriginalState' in raw_item and isinstance(raw_item['OriginalState'], dict):
+                state = raw_item['OriginalState']
+            else:
+                state = {'basic': raw_item, 'dynamic': {}}
+
+            monster_rec = format_monster_from_state(state)
+            monster_rec['IsUserCustom'] = True
+
+            if user:
+                monster_rec['AuthorId'] = user_id
+                monster_rec['AuthorName'] = user_name
+                if 'OriginalState' in monster_rec and isinstance(monster_rec['OriginalState'], dict):
+                    monster_rec['OriginalState']['AuthorId'] = user_id
+                    monster_rec['OriginalState']['AuthorName'] = user_name
+            else:
+                if monster_rec.get('Visibility') == 'private':
+                    monster_rec['Visibility'] = 'public'
+                    if 'OriginalState' in monster_rec and isinstance(monster_rec['OriginalState'], dict):
+                        monster_rec['OriginalState']['Visibility'] = 'public'
+
+            # Assign fresh UUID for imported record
+            m_id = str(uuid.uuid4())
+            monster_rec['id'] = m_id
+            if 'OriginalState' in monster_rec and isinstance(monster_rec['OriginalState'], dict):
+                monster_rec['OriginalState']['id'] = m_id
+
+            new_idx = len(GLOBAL_MONSTERS)
+            monster_rec['_global_index'] = new_idx
+            if 'OriginalState' in monster_rec and isinstance(monster_rec['OriginalState'], dict):
+                monster_rec['OriginalState']['_global_index'] = new_idx
+
+            GLOBAL_MONSTERS.append(monster_rec)
+            imported_count += 1
+        except Exception as item_err:
+            errors.append(f"Item #{item_idx + 1}: {str(item_err)}")
+
+    if imported_count > 0:
+        save_custom_monsters()
+        clear_cache()
+
+    response = {
+        "status": "ok" if imported_count > 0 else "error",
+        "imported_count": imported_count,
+        "total_monsters": len(GLOBAL_MONSTERS),
+        "errors": errors if errors else None
+    }
+    return json.dumps(response, ensure_ascii=False).encode('utf-8'), (200 if imported_count > 0 else 400)
+
