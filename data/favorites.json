@@ -1,12 +1,6 @@
 {
   "erdem": [
-    "custom:b7d911f5-921d-49c8-a82d-dda27ef38789",
-    "custom:4771284f-fdb9-4c5f-a2b2-31205abf6459",
-    "custom:1a78dcec-8f15-4a0c-bba5-3b6d9820820a",
-    "custom:e08d27a1-9f35-46a5-909c-2cc41c275219",
     "custom:f47a8dd2-a626-4af5-8bf4-0f2e7fdcca00",
-    "custom:914592a9-8c70-4b30-baf6-fdb9407efe75",
-    "custom:0ae78249-243e-4b79-a2f9-c94e4450670b",
     "custom:422a8b85-cbd7-4e60-b0be-fa7856072479",
     "custom:a2e1f1ec-4b8b-4fd0-a41d-3c748a42dfc2",
     "custom:3c3f42a2-d996-408f-be94-936888fed88f",
@@ -19,17 +13,8 @@
     "custom:4023db47-f590-4af9-8e75-f7b0f991c5a2",
     "custom:c6c83d77-5a82-4db2-9e12-e7bf0922d7a0",
     "custom:2791d2a5-9d17-41c2-9d8a-927f2af30c54",
-    "custom:cdfad59f-ca10-4a9e-8c35-930dd61904f0",
-    "custom:7ade0ed1-b444-4746-a485-fca359c4a906",
-    "custom:e95c9a51-30fc-44f1-b5ba-96612296c3e3",
-    "custom:cbf54ade-c067-4178-a491-287f0a96df3b",
-    "custom:5922097b-f7d8-40c6-acb2-83a003fdb245",
-    "custom:6b4e3b52-286a-4cef-9b19-76c612c49ee4",
-    "custom:4922bcf5-6619-42d8-9e28-02385f0910cb",
-    "custom:3d08b8e8-3223-405f-a050-13468cba91b5",
     "custom:5444bf56-c901-4a33-a598-095d33397652",
     "custom:3a15000c-640e-4fd6-8294-7976b3c5b6c9",
-    "custom:4e10a87c-966e-4466-b53d-0b1b9dd6cdb2",
     "custom:d97d75f1-281c-441c-9def-d5f65bea7065",
     "custom:7136e2c0-cba6-4368-8e5f-bb4d5e94a473",
     "custom:1461b24a-97b5-4ff4-a2ef-5888cabd4430",
@@ -37,8 +22,7 @@
     "custom:fc767c09-e4f7-4718-adff-56e81ce13d5e",
     "custom:d976a817-7cc7-4221-97a5-2caf6d390c05",
     "custom:672f843f-814e-4dc5-b80e-3f2b785ee603",
-    "custom:996f6011-061d-4d70-8e82-bd4728b5226f",
-    "custom:1595f3e0-f819-41a9-820a-826b4dbaa6fa"
+    "custom:f339e07b-a26e-4b10-81ee-dece0d0e79fc"
   ],
   "anon": [
     "custom:3457b42e-40c3-4a82-ab62-23c79c444fd7",
