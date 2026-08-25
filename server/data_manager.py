@@ -348,25 +348,20 @@ def search_monsters(query_string, user=None):
         is_fav = is_monster_favorited(m, user_favs)
         if category == 'favorites' and not is_fav:
             continue
-        if category == 'official_monster' and (is_custom or is_npc):
-            continue
-        if category == 'official_npc' and (is_custom or not is_npc):
-            continue
-        if category == 'custom' and not is_custom:
-            continue
-        if category in ('my_monsters', 'my_custom') and (not is_custom or not is_own):
-            continue
-        if category in ('my_private', 'private') and (not is_custom or not is_own or m_vis != 'private'):
-            continue
-        if category == 'public_custom' and (not is_custom or m_vis != 'public'):
-            continue
-        
         m_source = str(m.get('_m_source') or m.get('Source') or '').lower()
-        if category == 'unique_monster' and 'unique monsters' not in m_source:
+        m_name_raw = str(m.get('Name') or '').lower()
+        m_is_3pp = (str(m.get('Is3pp', '0')) == '1' or 
+                    '3pp' in m_source or 'tome of horrors' in m_source or 'tohc' in m_source or 
+                    'frog god' in m_source or 'necromancer games' in m_source or 'kobold press' in m_source or 
+                    'rite publishing' in m_source or 'super genius' in m_source or 'rogue genius' in m_source or 
+                    'dreamscarred' in m_source or 'open design' in m_source or '[3pp]' in m_name_raw or '(3pp)' in m_name_raw)
+
+        if category == 'official_monster' and (is_custom or is_npc or m_is_3pp):
             continue
-        if category == '3pp_monster':
-            if 'tome of horrors' not in m_source and 'toh' not in m_source and 'misfit monsters' not in m_source:
-                continue
+        if category == 'official_npc' and (is_custom or not is_npc or m_is_3pp):
+            continue
+        if category == '3pp_monster' and not m_is_3pp:
+            continue
 
         m_name = str(m.get('_m_name') or m.get('Name') or '').lower()
         m_cr = str(m.get('_m_cr') or m.get('CR') or '').lower()

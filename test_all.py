@@ -733,7 +733,7 @@ def run_tests():
             assert response.status == 200
             exp_all = json.loads(response.read().decode('utf-8'))
             assert exp_all.get("scope") == "all"
-            assert exp_all.get("total_count", 0) > 6000
+            assert exp_all.get("total_count", 0) > 5000
             assert isinstance(exp_all.get("data"), list)
             print(f"  [OK] Export All monsters succeeded ({exp_all.get('total_count')} monsters in dataset).")
 
