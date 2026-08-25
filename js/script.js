@@ -1422,15 +1422,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const inNameEl = document.getElementById('in-name');
         const currentName = inNameEl ? inNameEl.value.trim() : '';
 
-        let text = 'Save DB';
+        let text = 'Save';
         let title = 'Save creature to database';
 
         if (currentEditingMonsterId && originalLoadedName) {
             if (currentName && currentName.toLowerCase() !== originalLoadedName.toLowerCase()) {
-                text = '💾 Save DB';
+                text = 'Save';
                 title = `Save changes (Original was: "${originalLoadedName}")`;
             } else {
-                text = '💾 Update DB';
+                text = 'Update';
                 title = `Update "${originalLoadedName}" in database`;
             }
         }
@@ -1712,6 +1712,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (!state) return;
 
+            // If raw monster format without state.basic, convert using buildEditorStateFromMonster
+            if (!state.basic && (state.Name || state.name || state.CR || state.cr || state.HP || state.hp || state.Str || state.str)) {
+                if (typeof window.buildEditorStateFromMonster === 'function') {
+                    const converted = window.buildEditorStateFromMonster(state);
+                    if (state._global_index !== undefined) converted._global_index = state._global_index;
+                    if (state.id || state.Id) converted.id = state.id || state.Id;
+                    state = converted;
+                }
+            }
+            if (!state) return;
+
             if (state._global_index !== undefined) {
                 currentEditingIndex = state._global_index;
             }
@@ -1968,14 +1979,54 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            // Spells Database Deserialization
+            // Spells Database Deserialization (Universal Normalizer)
             const spellsDataRaw = (state.basic && state.basic['in-spells-data']) || state.dynamic.spells || (state.basic && state.basic['in-spells']);
             window.activeSpells = {};
             if (spellsDataRaw) {
                 try {
-                    const parsed = typeof spellsDataRaw === 'string' ? JSON.parse(spellsDataRaw) : spellsDataRaw;
-                    if (typeof parsed === 'object' && parsed !== null) {
-                        window.activeSpells = parsed;
+                    let parsed = typeof spellsDataRaw === 'string' ? JSON.parse(spellsDataRaw) : spellsDataRaw;
+                    if (typeof parsed === 'string') {
+                        try { parsed = JSON.parse(parsed); } catch(e) {}
+                    }
+                    const normalized = {};
+                    if (Array.isArray(parsed)) {
+                        parsed.forEach(item => {
+                            if (!item) return;
+                            const lvl = item.level !== undefined ? item.level : 0;
+                            let spellArr = [];
+                            if (Array.isArray(item.spells)) {
+                                spellArr = item.spells;
+                            } else if (typeof item.list === 'string' && item.list.trim()) {
+                                spellArr = item.list.split(',').map(s => s.trim()).filter(Boolean);
+                            } else if (typeof item.spells === 'string' && item.spells.trim()) {
+                                spellArr = item.spells.split(',').map(s => s.trim()).filter(Boolean);
+                            }
+                            normalized[lvl] = {
+                                slots: item.slots || item.per_day || item.frequency || '',
+                                spells: spellArr
+                            };
+                        });
+                        window.activeSpells = normalized;
+                    } else if (typeof parsed === 'object' && parsed !== null) {
+                        Object.keys(parsed).forEach(lvlKey => {
+                            const item = parsed[lvlKey];
+                            if (!item) return;
+                            let spellArr = [];
+                            if (Array.isArray(item.spells)) {
+                                spellArr = item.spells;
+                            } else if (typeof item.list === 'string' && item.list.trim()) {
+                                spellArr = item.list.split(',').map(s => s.trim()).filter(Boolean);
+                            } else if (typeof item.spells === 'string' && item.spells.trim()) {
+                                spellArr = item.spells.split(',').map(s => s.trim()).filter(Boolean);
+                            } else if (Array.isArray(item)) {
+                                spellArr = item;
+                            }
+                            normalized[lvlKey] = {
+                                slots: item.slots || item.per_day || item.frequency || '',
+                                spells: spellArr
+                            };
+                        });
+                        window.activeSpells = normalized;
                     }
                 } catch(e) {
                     console.warn('Error parsing spells data:', e);
@@ -2232,11 +2283,12 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (e) { }
         resetToBlankSheet();
     } else {
-        const saved = localStorage.getItem('pf_monster_creator_save');
+        const saved = localStorage.getItem('pf_monster_creator_save') || sessionStorage.getItem('pf_monster_creator_save');
         const activeDraft = localStorage.getItem('pf_monster_creator_current_draft');
         if (saved) {
             deserializeState(saved);
             localStorage.removeItem('pf_monster_creator_save');
+            sessionStorage.removeItem('pf_monster_creator_save');
             localStorage.setItem('pf_monster_creator_current_draft', saved);
         } else if (activeDraft) {
             try {
@@ -2514,40 +2566,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnExportPdf = document.getElementById('btn-export-pdf');
     const statblockPaper = document.getElementById('statblock-paper');
 
-    // Theme Selector
-    const themeSelector = document.getElementById('theme-selector');
+    // Theme Application (Controlled via Settings Modal & Persistence)
     const mobThemeSelect = document.getElementById('mobile-theme-selector');
-    if (themeSelector && statblockPaper) {
-        let savedTheme = localStorage.getItem('pf_creator_theme');
-        if (!savedTheme || savedTheme === 'theme-default') {
-            savedTheme = 'theme-parchment';
-        }
-        themeSelector.value = savedTheme;
-        if (mobThemeSelect) mobThemeSelect.value = savedTheme;
+    function applyStatblockTheme(theme) {
+        if (!theme || theme === 'theme-default') theme = 'theme-parchment';
+        if (statblockPaper) statblockPaper.className = `statblock-paper ${theme}`;
+        document.body.classList.forEach(cls => {
+            if (cls.startsWith('theme-')) document.body.classList.remove(cls);
+        });
+        document.body.classList.add(theme);
+        document.documentElement.className = theme;
+        const settingThemeSelect = document.getElementById('setting-panel-theme');
+        if (settingThemeSelect && settingThemeSelect.value !== theme) settingThemeSelect.value = theme;
+        if (mobThemeSelect && mobThemeSelect.value !== theme) mobThemeSelect.value = theme;
+        localStorage.setItem('pf_creator_theme', theme);
+        document.cookie = `pf_creator_theme=${theme}; path=/; max-age=31536000; SameSite=Lax`;
+    }
+    window.applyStatblockTheme = applyStatblockTheme;
 
-        const updateTheme = () => {
-            const theme = themeSelector.value || 'theme-parchment';
-            statblockPaper.className = `statblock-paper ${theme}`;
-            document.body.classList.forEach(cls => {
-                if (cls.startsWith('theme-')) document.body.classList.remove(cls);
-            });
-            document.body.classList.add(theme);
-            document.documentElement.className = theme;
-            if (mobThemeSelect && mobThemeSelect.value !== theme) {
-                mobThemeSelect.value = theme;
-            }
-            localStorage.setItem('pf_creator_theme', theme);
-            document.cookie = `pf_creator_theme=${theme}; path=/; max-age=31536000; SameSite=Lax`;
-        };
+    let savedTheme = localStorage.getItem('pf_creator_theme') || 'theme-parchment';
+    applyStatblockTheme(savedTheme);
 
-        themeSelector.addEventListener('change', updateTheme);
-        if (mobThemeSelect) {
-            mobThemeSelect.addEventListener('change', (e) => {
-                themeSelector.value = e.target.value;
-                updateTheme();
-            });
-        }
-        updateTheme();
+    if (mobThemeSelect) {
+        mobThemeSelect.addEventListener('change', (e) => {
+            applyStatblockTheme(e.target.value);
+        });
     }
 
     const getThemeBgColor = () => {
@@ -2767,21 +2810,90 @@ document.addEventListener('DOMContentLoaded', () => {
 
         render();
 
-        // Intelligent closest-match ranking engine
+        // Intelligent closest-match ranking engine with Smart Acronyms & Focus Feats
+        const FEAT_SHORTCUTS = {
+            'wf': 'weapon focus',
+            'gwf': 'greater weapon focus',
+            'ws': 'weapon specialization',
+            'gws': 'greater weapon specialization',
+            'pa': 'power attack',
+            'ii': 'improved initiative',
+            'imp init': 'improved initiative',
+            'tg': 'toughness',
+            'twf': 'two-weapon fighting',
+            'itwf': 'improved two-weapon fighting',
+            'gtwf': 'greater two-weapon fighting',
+            'pbs': 'point-blank shot',
+            'ps': 'precise shot',
+            'ips': 'improved precise shot',
+            'sf': 'spell focus',
+            'gsf': 'greater spell focus',
+            'skf': 'skill focus',
+            'ic': 'improved critical',
+            'dstr': 'dazzling display',
+            'cleave': 'cleave',
+            'gcleave': 'great cleave',
+            'dodge': 'dodge',
+            'mob': 'mobility',
+            'spring': 'spring attack',
+            'combat ref': 'combat reflexes',
+            'vital': 'vital strike',
+            'ivital': 'improved vital strike',
+            'gvital': 'greater vital strike',
+            'iron will': 'iron will',
+            'light ref': 'lightning reflexes',
+            'great fort': 'great fortitude'
+        };
+
+        function getActiveCreatureAttacks() {
+            const list = [];
+            document.querySelectorAll('.atk-type').forEach(el => {
+                const val = (el.value || '').trim();
+                if (val && !list.includes(val)) list.push(val);
+            });
+            return list;
+        }
+
         function getRankedMatches(filterText, maxResults = 50) {
-            const rawQ = (filterText || '').trim();
+            let rawQ = (filterText || '').trim();
             if (!rawQ) {
                 return db.slice(0, maxResults);
             }
 
-            const q = rawQ.toLowerCase();
+            let q = rawQ.toLowerCase();
+            if (FEAT_SHORTCUTS[q]) {
+                q = FEAT_SHORTCUTS[q];
+            }
+
             const qTokens = q.split(/\s+/).filter(Boolean);
             const scored = [];
+            const addedNames = new Set();
+
+            // Check if user is searching for Weapon Focus, Weapon Specialization, Improved Critical, etc.
+            const isWeaponFocus = q.includes('weapon focus') || q === 'wf' || q === 'gwf';
+            const isCrit = q.includes('improved critical') || q === 'ic';
+            const isWeaponSpec = q.includes('weapon specialization') || q === 'ws' || q === 'gws';
+
+            if (isWeaponFocus || isCrit || isWeaponSpec) {
+                const attacks = getActiveCreatureAttacks();
+                attacks.forEach((atk, aIdx) => {
+                    let featPrefix = 'Weapon Focus';
+                    if (isCrit) featPrefix = 'Improved Critical';
+                    else if (isWeaponSpec) featPrefix = 'Weapon Specialization';
+                    const customFocusName = `${featPrefix} (${atk.charAt(0).toUpperCase() + atk.slice(1)})`;
+                    const customObj = {
+                        name: customFocusName,
+                        description: `You gain a +1 bonus on all attack rolls you make using the selected weapon (${atk}).`
+                    };
+                    scored.push({ item: customObj, score: -100 + aIdx, name: customFocusName });
+                    addedNames.add(customFocusName.toLowerCase());
+                });
+            }
 
             for (let i = 0; i < db.length; i++) {
                 const item = db[i];
                 const name = (typeof item === 'object' && item !== null ? (item.name || '') : String(item || '')).trim();
-                if (!name) continue;
+                if (!name || addedNames.has(name.toLowerCase())) continue;
                 const nameLower = name.toLowerCase();
 
                 let score = -1;
@@ -3206,12 +3318,13 @@ document.addEventListener('DOMContentLoaded', () => {
         div.style.marginBottom = '10px';
 
         let lvlLabel = lvl === '0' || lvl === 0 ? 'Cantrips / Level 0' : `Level ${lvl}`;
+        const slotsVal = data.slots || data.per_day || data.frequency || '';
 
         div.innerHTML = `
             <div class="spell-level-header">
                 <div class="spell-level-info">
                     <span class="tag-badge spell-level-tag">${lvlLabel}</span>
-                    <input type="text" class="spell-slots" placeholder="Slots (e.g. 4/day)" value="${data.slots || ''}">
+                    <input type="text" class="spell-slots" placeholder="Slots (e.g. 4/day)" value="${slotsVal}">
                 </div>
                 <button type="button" class="btn-remove-level btn-remove-row" title="Delete this spell level">✕</button>
             </div>
@@ -3244,7 +3357,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function renderTags() {
             tagsContainer.innerHTML = '';
-            if (!window.activeSpells[lvl] || !Array.isArray(window.activeSpells[lvl].spells)) return;
+            if (!window.activeSpells[lvl]) return;
+            if (!Array.isArray(window.activeSpells[lvl].spells)) {
+                if (typeof window.activeSpells[lvl].list === 'string' && window.activeSpells[lvl].list.trim()) {
+                    window.activeSpells[lvl].spells = window.activeSpells[lvl].list.split(',').map(s => s.trim()).filter(Boolean);
+                } else {
+                    window.activeSpells[lvl].spells = [];
+                }
+            }
 
             window.activeSpells[lvl].spells.forEach((spell, idx) => {
                 const sName = typeof spell === 'object' && spell !== null ? (spell.name || spell.spell || '') : String(spell);
@@ -3392,141 +3512,6 @@ document.addEventListener('DOMContentLoaded', () => {
         renderSpellsPreview();
     }, 250);
 
-    // -------------------------------------------------------------------
-    // Panel Settings (Font Family & Font Size Customizer)
-    // -------------------------------------------------------------------
-    const settingsBtn = document.getElementById('btn-settings-panel');
-    const settingsModal = document.getElementById('panel-settings-modal');
-    const closeSettingsBtn = document.getElementById('btn-close-settings');
-    const applySettingsBtn = document.getElementById('btn-apply-panel-settings');
-    const resetSettingsBtn = document.getElementById('btn-reset-panel-settings');
-    const fontSelect = document.getElementById('setting-panel-font');
-    const sizeSlider = document.getElementById('setting-panel-size');
-    const sizeBadge = document.getElementById('setting-font-size-badge');
-    const previewSample = document.getElementById('setting-preview-sample');
-    const sizePresetBtns = document.querySelectorAll('.btn-size-preset');
-    const panelEl = document.getElementById('controls-panel');
-
-    const DEFAULT_SETTINGS = {
-        fontFamily: "'Inter', sans-serif",
-        fontSize: '14'
-    };
-
-    function loadPanelSettings() {
-        try {
-            const saved = localStorage.getItem('pf_panel_settings');
-            if (saved) {
-                return { ...DEFAULT_SETTINGS, ...JSON.parse(saved) };
-            }
-        } catch (e) {
-            console.error('Failed to load panel settings:', e);
-        }
-        return { ...DEFAULT_SETTINGS };
-    }
-
-    function savePanelSettings(settings) {
-        try {
-            localStorage.setItem('pf_panel_settings', JSON.stringify(settings));
-        } catch (e) {
-            console.error('Failed to save panel settings:', e);
-        }
-    }
-
-    function applyPanelStyles(fontFamily, fontSize) {
-        if (panelEl) {
-            panelEl.style.setProperty('--panel-font-family', fontFamily);
-            panelEl.style.setProperty('--panel-base-size', `${fontSize}px`);
-        }
-        if (previewSample) {
-            previewSample.style.fontFamily = fontFamily;
-            previewSample.style.fontSize = `${fontSize}px`;
-        }
-        if (sizeBadge) {
-            sizeBadge.textContent = `${fontSize} px`;
-        }
-        if (sizePresetBtns) {
-            sizePresetBtns.forEach(btn => {
-                if (btn.getAttribute('data-size') === String(fontSize)) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
-        }
-    }
-
-    // Initial setup on page load
-    const currentSettings = loadPanelSettings();
-    applyPanelStyles(currentSettings.fontFamily, currentSettings.fontSize);
-
-    if (fontSelect) fontSelect.value = currentSettings.fontFamily;
-    if (sizeSlider) sizeSlider.value = currentSettings.fontSize;
-
-    if (settingsBtn && settingsModal) {
-        settingsBtn.addEventListener('click', () => {
-            const current = loadPanelSettings();
-            if (fontSelect) fontSelect.value = current.fontFamily;
-            if (sizeSlider) sizeSlider.value = current.fontSize;
-            applyPanelStyles(current.fontFamily, current.fontSize);
-            settingsModal.classList.add('active');
-        });
-
-        const closeModal = () => {
-            settingsModal.classList.remove('active');
-        };
-
-        if (closeSettingsBtn) closeSettingsBtn.addEventListener('click', closeModal);
-        if (applySettingsBtn) applySettingsBtn.addEventListener('click', closeModal);
-
-        settingsModal.addEventListener('click', (e) => {
-            if (e.target === settingsModal) closeModal();
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && settingsModal.classList.contains('active')) {
-                closeModal();
-            }
-        });
-
-        if (fontSelect) {
-            fontSelect.addEventListener('change', () => {
-                const f = fontSelect.value;
-                const s = sizeSlider ? sizeSlider.value : '14';
-                applyPanelStyles(f, s);
-                savePanelSettings({ fontFamily: f, fontSize: s });
-            });
-        }
-
-        if (sizeSlider) {
-            sizeSlider.addEventListener('input', () => {
-                const s = sizeSlider.value;
-                const f = fontSelect ? fontSelect.value : DEFAULT_SETTINGS.fontFamily;
-                applyPanelStyles(f, s);
-                savePanelSettings({ fontFamily: f, fontSize: s });
-            });
-        }
-
-        if (sizePresetBtns) {
-            sizePresetBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const s = btn.getAttribute('data-size');
-                    if (sizeSlider) sizeSlider.value = s;
-                    const f = fontSelect ? fontSelect.value : DEFAULT_SETTINGS.fontFamily;
-                    applyPanelStyles(f, s);
-                    savePanelSettings({ fontFamily: f, fontSize: s });
-                });
-            });
-        }
-
-        if (resetSettingsBtn) {
-            resetSettingsBtn.addEventListener('click', () => {
-                if (fontSelect) fontSelect.value = DEFAULT_SETTINGS.fontFamily;
-                if (sizeSlider) sizeSlider.value = DEFAULT_SETTINGS.fontSize;
-                applyPanelStyles(DEFAULT_SETTINGS.fontFamily, DEFAULT_SETTINGS.fontSize);
-                savePanelSettings(DEFAULT_SETTINGS);
-            });
-        }
-    }
     // -------------------------------------------------------------------
     // Interactive Skill Calculator Modal
     // -------------------------------------------------------------------
@@ -4071,4 +4056,282 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ensure gear and stat badges are initialized
     updateStatBadges();
     updateGearDisplay();
+
+    // =========================================================================
+    // APPEARANCE & DISPLAY SETTINGS MODAL CONTROLLER
+    // =========================================================================
+    const settingsModal = document.getElementById('panel-settings-modal');
+    const btnOpenSettings = document.getElementById('btn-open-settings');
+    const btnCloseSettings = document.getElementById('btn-close-settings');
+    const btnApplySettings = document.getElementById('btn-apply-panel-settings');
+    const btnResetSettings = document.getElementById('btn-reset-panel-settings');
+
+    const settingThemeSelect = document.getElementById('setting-panel-theme');
+    const settingFontSelect = document.getElementById('setting-panel-font');
+    const settingSizeInput = document.getElementById('setting-panel-size');
+    const settingSizeBadge = document.getElementById('setting-font-size-badge');
+    const settingScaleInput = document.getElementById('setting-panel-scale');
+    const settingScaleBadge = document.getElementById('setting-scale-badge');
+    const settingPreviewSample = document.getElementById('setting-preview-sample');
+    const swatchContainer = document.getElementById('theme-swatch-container');
+
+    const btnUiModeDark = document.getElementById('btn-ui-mode-dark');
+    const btnUiModeLight = document.getElementById('btn-ui-mode-light');
+
+    // UI Theme (Dark vs Light)
+    function applyAppUiTheme(theme) {
+        const isLight = (theme === 'ui-light');
+        document.body.classList.toggle('ui-light', isLight);
+        localStorage.setItem('pf_app_ui_theme', isLight ? 'ui-light' : 'ui-dark');
+        if (btnUiModeDark) btnUiModeDark.classList.toggle('active', !isLight);
+        if (btnUiModeLight) btnUiModeLight.classList.toggle('active', isLight);
+    }
+
+    const savedUiTheme = localStorage.getItem('pf_app_ui_theme') || 'ui-dark';
+    applyAppUiTheme(savedUiTheme);
+
+    if (btnUiModeDark) {
+        btnUiModeDark.addEventListener('click', () => applyAppUiTheme('ui-dark'));
+    }
+    if (btnUiModeLight) {
+        btnUiModeLight.addEventListener('click', () => applyAppUiTheme('ui-light'));
+    }
+
+    // Theme metadata for filters and visual swatches
+    const THEMES_METADATA = [
+        { id: 'theme-parchment', name: 'Classic Parchment', type: 'light', bg: '#f4ebd9', fg: '#2b1d0c', accent: '#8b0000' },
+        { id: 'theme-classic', name: 'Classic Vellum', type: 'light', bg: '#faf6eb', fg: '#1c1917', accent: '#78350f' },
+        { id: 'theme-scroll', name: 'Ancient Scroll', type: 'light', bg: '#ede0c8', fg: '#38220f', accent: '#9a3412' },
+        { id: 'theme-clean-slate', name: 'Clean Slate', type: 'light', bg: '#ffffff', fg: '#0f172a', accent: '#2563eb' },
+        { id: 'theme-tome', name: "Wizard's Tome", type: 'light', bg: '#f5efe6', fg: '#292524', accent: '#d97706' },
+        { id: 'theme-modern-dark', name: 'Modern Dark', type: 'dark', bg: '#0f172a', fg: '#f8fafc', accent: '#38bdf8' },
+        { id: 'theme-obsidian', name: 'Obsidian Glass', type: 'dark', bg: '#030712', fg: '#f3f4f6', accent: '#9ca3af' },
+        { id: 'theme-midnight', name: 'Midnight Arcana', type: 'dark', bg: '#020617', fg: '#e2e8f0', accent: '#818cf8' },
+        { id: 'theme-crimson', name: 'Crimson Blood', type: 'dark', bg: '#1c0707', fg: '#fecaca', accent: '#ef4444' },
+        { id: 'theme-infernal', name: 'Infernal Abyss', type: 'dark', bg: '#180a0a', fg: '#fed7aa', accent: '#f97316' },
+        { id: 'theme-emerald', name: 'Emerald Forest', type: 'dark', bg: '#051a0f', fg: '#d1fae5', accent: '#10b981' },
+        { id: 'theme-cyberpunk', name: 'Cyber Neon', type: 'dark', bg: '#09090b', fg: '#00ffff', accent: '#ff007f' },
+        { id: 'theme-royal', name: 'Royal Purple', type: 'dark', bg: '#150a21', fg: '#fae8ff', accent: '#d946ef' },
+        { id: 'theme-abyssal', name: 'Abyssal Void', type: 'dark', bg: '#0a0a14', fg: '#c7d2fe', accent: '#6366f1' },
+        { id: 'theme-celestial', name: 'Celestial Gold', type: 'dark', bg: '#17120a', fg: '#fef08a', accent: '#eab308' },
+        { id: 'theme-draconic', name: 'Draconic Scale', type: 'dark', bg: '#140c0c', fg: '#fed7aa', accent: '#dc2626' },
+        { id: 'theme-underdark', name: 'Underdark Cavern', type: 'dark', bg: '#0f0f12', fg: '#e2e8f0', accent: '#a855f7' },
+        { id: 'theme-frostburn', name: 'Frostburn Glacier', type: 'dark', bg: '#06151f', fg: '#e0f2fe', accent: '#38bdf8' },
+        { id: 'theme-shadowfell', name: 'Shadowfell Mist', type: 'dark', bg: '#121316', fg: '#cbd5e1', accent: '#64748b' },
+        { id: 'theme-solar', name: 'Solar Radiance', type: 'dark', bg: '#1c1507', fg: '#fef9c3', accent: '#f59e0b' },
+        { id: 'theme-runic', name: 'Runic Stone', type: 'dark', bg: '#18181b', fg: '#e4e4e7', accent: '#a1a1aa' }
+    ];
+
+    function renderThemeSwatches(filter = 'all') {
+        if (!swatchContainer) return;
+        swatchContainer.innerHTML = '';
+        const currentTheme = settingThemeSelect ? settingThemeSelect.value : (localStorage.getItem('pf_creator_theme') || 'theme-parchment');
+
+        const filtered = THEMES_METADATA.filter(t => filter === 'all' || t.type === filter);
+        filtered.forEach(t => {
+            const item = document.createElement('div');
+            item.className = 'theme-swatch-item' + (t.id === currentTheme ? ' active' : '');
+            item.dataset.theme = t.id;
+            item.innerHTML = `
+                <div class="theme-swatch-dots">
+                    <span class="theme-dot" style="background: ${t.bg};" title="Background"></span>
+                    <span class="theme-dot" style="background: ${t.accent};" title="Accent"></span>
+                </div>
+                <span>${t.name}</span>
+            `;
+            item.addEventListener('click', () => {
+                if (settingThemeSelect) {
+                    settingThemeSelect.value = t.id;
+                    settingThemeSelect.dispatchEvent(new Event('change'));
+                }
+            });
+            swatchContainer.appendChild(item);
+        });
+    }
+
+    // Filter pill buttons
+    document.querySelectorAll('.btn-theme-filter').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.btn-theme-filter').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderThemeSwatches(btn.dataset.filter);
+        });
+    });
+
+    // Live Sample Preview updater
+    function updateSamplePreview() {
+        if (!settingPreviewSample) return;
+        const font = settingFontSelect ? settingFontSelect.value : "'Inter', sans-serif";
+        const size = settingSizeInput ? settingSizeInput.value : "14";
+        const themeId = settingThemeSelect ? settingThemeSelect.value : (localStorage.getItem('pf_creator_theme') || 'theme-parchment');
+
+        settingPreviewSample.style.fontFamily = font;
+        settingPreviewSample.style.fontSize = `${size}px`;
+
+        const tMeta = THEMES_METADATA.find(t => t.id === themeId);
+        if (tMeta) {
+            settingPreviewSample.style.background = tMeta.bg;
+            settingPreviewSample.style.color = tMeta.fg;
+            settingPreviewSample.style.borderColor = tMeta.accent;
+        }
+
+        if (settingSizeBadge) settingSizeBadge.textContent = `${size} px`;
+        if (settingScaleBadge && settingScaleInput) settingScaleBadge.textContent = `${settingScaleInput.value}%`;
+
+        // Update active swatch highlight
+        document.querySelectorAll('.theme-swatch-item').forEach(el => {
+            el.classList.toggle('active', el.dataset.theme === themeId);
+        });
+    }
+
+    if (settingThemeSelect) {
+        settingThemeSelect.addEventListener('change', () => {
+            updateSamplePreview();
+            const chosenTheme = settingThemeSelect.value;
+            applyStatblockTheme(chosenTheme);
+        });
+    }
+
+    if (settingFontSelect) {
+        settingFontSelect.addEventListener('change', () => {
+            updateSamplePreview();
+            const font = settingFontSelect.value;
+            if (statblockPaper) statblockPaper.style.fontFamily = font;
+            localStorage.setItem('pf_creator_font', font);
+        });
+    }
+
+    if (settingSizeInput) {
+        settingSizeInput.addEventListener('input', () => {
+            updateSamplePreview();
+            const size = settingSizeInput.value;
+            if (statblockPaper) {
+                statblockPaper.style.fontSize = `${size}px`;
+                statblockPaper.style.setProperty('--sb-base-font-size', `${size}px`);
+            }
+            localStorage.setItem('pf_creator_font_size', size);
+            document.querySelectorAll('.btn-size-preset').forEach(b => {
+                b.classList.toggle('active', parseFloat(b.dataset.size) === parseFloat(size));
+            });
+        });
+    }
+
+    // Size preset buttons
+    document.querySelectorAll('.btn-size-preset').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.btn-size-preset').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const size = btn.dataset.size;
+            if (settingSizeInput) {
+                settingSizeInput.value = size;
+                settingSizeInput.dispatchEvent(new Event('input'));
+            }
+        });
+    });
+
+    if (settingScaleInput) {
+        settingScaleInput.addEventListener('input', () => {
+            updateSamplePreview();
+            const scale = settingScaleInput.value;
+            applyZoom(parseInt(scale));
+            localStorage.setItem('pf_creator_scale', scale);
+        });
+    }
+
+    // Open & Close Modal
+    function openSettingsModal() {
+        const modal = settingsModal || document.getElementById('panel-settings-modal');
+        if (!modal) return;
+        const currentTheme = localStorage.getItem('pf_creator_theme') || 'theme-parchment';
+        const currentFont = localStorage.getItem('pf_creator_font') || "'Inter', sans-serif";
+        const currentSize = localStorage.getItem('pf_creator_font_size') || "14";
+        const currentScale = localStorage.getItem('pf_creator_scale') || "100";
+
+        const sTheme = settingThemeSelect || document.getElementById('setting-panel-theme');
+        const sFont = settingFontSelect || document.getElementById('setting-panel-font');
+        const sSize = settingSizeInput || document.getElementById('setting-panel-size');
+        const sScale = settingScaleInput || document.getElementById('setting-panel-scale');
+
+        if (sTheme) sTheme.value = currentTheme;
+        if (sFont) sFont.value = currentFont;
+        if (sSize) sSize.value = currentSize;
+        if (sScale) sScale.value = currentScale;
+
+        renderThemeSwatches('all');
+        updateSamplePreview();
+        modal.classList.add('active');
+    }
+    window.openSettingsModal = openSettingsModal;
+
+    function closeSettingsModal() {
+        const modal = settingsModal || document.getElementById('panel-settings-modal');
+        if (modal) modal.classList.remove('active');
+    }
+    window.closeSettingsModal = closeSettingsModal;
+
+    const allSettingsBtns = [
+        document.getElementById('btn-settings-panel'),
+        document.getElementById('btn-open-settings'),
+        document.getElementById('mob-btn-settings')
+    ].filter(Boolean);
+
+    allSettingsBtns.forEach(btn => {
+        btn.addEventListener('click', openSettingsModal);
+    });
+
+    if (btnCloseSettings) btnCloseSettings.addEventListener('click', closeSettingsModal);
+    if (settingsModal) {
+        settingsModal.addEventListener('click', (e) => {
+            if (e.target === settingsModal) closeSettingsModal();
+        });
+    }
+
+    if (btnApplySettings) {
+        btnApplySettings.addEventListener('click', () => {
+            closeSettingsModal();
+            if (window.PathMonsterDBAuth && typeof window.PathMonsterDBAuth.showToast === 'function') {
+                window.PathMonsterDBAuth.showToast('Display settings applied!', 'success');
+            }
+        });
+    }
+
+    if (btnResetSettings) {
+        btnResetSettings.addEventListener('click', () => {
+            if (confirm('Reset all appearance and font settings to default?')) {
+                applyAppUiTheme('ui-dark');
+                applyStatblockTheme('theme-parchment');
+                if (settingFontSelect) settingFontSelect.value = "'Inter', sans-serif";
+                if (settingSizeInput) settingSizeInput.value = '14';
+                if (settingScaleInput) settingScaleInput.value = '100';
+
+                localStorage.removeItem('pf_app_ui_theme');
+                localStorage.removeItem('pf_creator_theme');
+                localStorage.removeItem('pf_creator_font');
+                localStorage.removeItem('pf_creator_font_size');
+                localStorage.removeItem('pf_creator_scale');
+
+                if (statblockPaper) {
+                    statblockPaper.style.fontFamily = "'Inter', sans-serif";
+                    statblockPaper.style.fontSize = "14px";
+                    statblockPaper.style.setProperty('--sb-base-font-size', '14px');
+                }
+                applyZoom(100);
+                updateSamplePreview();
+                renderThemeSwatches('all');
+            }
+        });
+    }
+
+    // Restore saved font & size on page load
+    try {
+        const savedFont = localStorage.getItem('pf_creator_font');
+        if (savedFont && statblockPaper) statblockPaper.style.fontFamily = savedFont;
+        const savedSize = localStorage.getItem('pf_creator_font_size');
+        if (savedSize && statblockPaper) {
+            statblockPaper.style.fontSize = `${savedSize}px`;
+            statblockPaper.style.setProperty('--sb-base-font-size', `${savedSize}px`);
+        }
+        const savedScale = localStorage.getItem('pf_creator_scale');
+        if (savedScale) applyZoom(parseInt(savedScale));
+    } catch (e) { }
 });

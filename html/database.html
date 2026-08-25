@@ -23,6 +23,10 @@
             if (savedTheme && savedTheme !== 'theme-default') {
                 document.documentElement.className = savedTheme;
             }
+            const savedUiTheme = localStorage.getItem('pf_app_ui_theme');
+            if (savedUiTheme === 'ui-light') {
+                document.addEventListener('DOMContentLoaded', () => document.body.classList.add('ui-light'));
+            }
         } catch (e) { }
     </script>
     <style>
@@ -40,31 +44,119 @@
             width: 100%;
             max-width: 1720px;
             margin: 0 auto;
-            padding: 24px 28px 60px 28px;
+            padding: 24px 28px 48px;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .db-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .db-header-titles h1 {
+            margin: 0 0 4px 0;
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+        }
+
+        .db-header-titles p {
+            margin: 0;
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        .db-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-bar {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            background: rgba(18, 20, 29, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 16px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .search-box-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-box-container input {
+            width: 100%;
+            padding: 12px 18px 12px 42px;
+            background: rgba(10, 11, 16, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 1rem;
+            box-sizing: border-box;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .search-box-container input:focus {
+            border-color: rgba(212, 175, 55, 0.7);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
+        }
+
+        .search-icon-inside {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            font-size: 1.1rem;
+            pointer-events: none;
         }
 
         .filters {
             display: flex;
             gap: 14px;
-            margin-bottom: 24px;
-            background: rgba(18, 20, 29, 0.88);
+            flex-wrap: wrap;
+            margin-bottom: 26px;
+            background: rgba(18, 20, 29, 0.65);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            padding: 18px 24px;
+            padding: 18px 20px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            flex-wrap: wrap;
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .filters input#filter-name {
+            flex: 1 1 100%;
             width: 100%;
-            box-sizing: border-box;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            margin-bottom: 4px;
+            padding: 12px 18px;
+            font-size: 14.5px;
+            border-radius: 8px;
+            background: rgba(10, 12, 18, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.16);
         }
 
         .filters input,
         .filters select {
             padding: 11px 16px;
             border-radius: 8px;
-            background: rgba(10, 12, 18, 0.75);
+            background: rgba(10, 12, 18, 0.85);
             border: 1px solid rgba(255, 255, 255, 0.16);
             color: #ffffff;
             font-size: 14px;
@@ -81,32 +173,29 @@
             background: rgba(15, 18, 26, 0.95);
         }
 
-        .filters input {
-            flex: 2 1 260px;
-            min-width: 200px;
-        }
-
         .filters select {
-            flex: 1 1 150px;
-            min-width: 130px;
+            flex: 1 1 160px;
+            min-width: 135px;
             cursor: pointer;
         }
 
         .monster-list {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 16px;
             width: 100%;
             box-sizing: border-box;
+            margin-top: 4px;
+            margin-bottom: 28px;
         }
 
-        @media (max-width: 1399px) {
+        @media (max-width: 1550px) {
             .monster-list {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
 
-        @media (max-width: 880px) {
+        @media (max-width: 900px) {
             .monster-list {
                 grid-template-columns: 1fr;
             }
@@ -119,13 +208,15 @@
             background: rgba(18, 20, 29, 0.82);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            padding: 16px 20px;
+            padding: 14px 18px;
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.09);
             transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-            gap: 16px;
+            gap: 12px;
             min-height: 82px;
+            min-width: 0;
             box-sizing: border-box;
+            overflow: hidden;
         }
 
         .monster-card:hover {
@@ -167,7 +258,7 @@
         .monster-actions {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             flex-shrink: 0;
             justify-content: flex-end;
         }
@@ -191,16 +282,16 @@
         .actions-top-tier .badge-spacer,
         .actions-bottom-tier .btn,
         .actions-bottom-tier .badge-spacer {
-            width: 86px;
-            min-width: 86px;
-            max-width: 86px;
-            height: 32px;
-            min-height: 32px;
-            max-height: 32px;
-            padding: 0 6px;
+            width: 78px;
+            min-width: 78px;
+            max-width: 78px;
+            height: 30px;
+            min-height: 30px;
+            max-height: 30px;
+            padding: 0 4px;
             margin: 0;
             border-radius: 6px;
-            font-size: 12px;
+            font-size: 11.5px;
             font-weight: 800;
             letter-spacing: 0.5px;
             display: inline-flex;
@@ -324,7 +415,7 @@
                 <a href="index.html" class="btn-hdr btn-hdr-blue" title="Back to Monster Creator">⬅ Back to Editor</a>
             </div>
             <div class="user-profile-slot" id="user-profile-container"></div>
-            <a href="index.html" id="btn-settings-panel" class="btn-hdr-icon" title="Panel Settings">⚙️</a>
+            <button type="button" id="btn-settings-panel" class="btn-hdr-icon" title="Appearance & Display Settings" onclick="if(window.openSettingsModal) window.openSettingsModal();">⚙️</button>
 
             <!-- Mobile Hamburger Menu Button -->
             <button type="button" id="btn-mobile-menu" class="btn-mobile-menu" aria-label="Open Mobile Menu"
@@ -376,8 +467,8 @@
                         style="justify-content: center;">Export All (JSON)</button>
                     <button type="button" id="mob-btn-import-db-json" class="mob-btn mob-btn-blue"
                         style="justify-content: center;">Import All (JSON)</button>
-                    <a href="index.html" class="mob-btn mob-btn-blue"
-                        style="justify-content: center; text-decoration: none;">⬅ Back to Monster Editor</a>
+                    <button type="button" id="mob-btn-settings" class="mob-btn mob-btn-subtle"
+                        style="justify-content: center;" onclick="if(window.openSettingsModal) window.openSettingsModal();">⚙️ Settings</button>
                     <button type="button" id="mob-btn-reset-filters" class="mob-btn mob-btn-subtle"
                         style="justify-content: center;">🔄 Reset All Filters</button>
                 </div>
@@ -521,6 +612,119 @@
         </div>
     </div>
 
+    <!-- Panel Settings Modal (Font & Size Customizer) -->
+    <div id="panel-settings-modal" class="settings-modal-overlay">
+        <div class="settings-modal-card" style="max-width: 520px;">
+            <div class="settings-modal-header">
+                <div class="settings-modal-title">
+                    <h3>Appearance & Display Settings</h3>
+                </div>
+                <button type="button" id="btn-close-settings" class="settings-modal-close"
+                    title="Close" onclick="if(window.closeSettingsModal) window.closeSettingsModal();">&times;</button>
+            </div>
+
+            <div class="settings-modal-body" style="max-height: 75vh; overflow-y: auto;">
+                <!-- SECTION 0: APP UI THEME (Dark / Light) -->
+                <div class="form-group" style="margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                    <label style="font-weight: 700; color: var(--primary); margin-bottom: 8px; display: block;">Application UI Mode</label>
+                    <div style="display: flex; gap: 8px;">
+                        <button type="button" id="btn-ui-mode-dark" class="btn-ui-mode active">Dark UI</button>
+                        <button type="button" id="btn-ui-mode-light" class="btn-ui-mode">Light UI</button>
+                    </div>
+                </div>
+
+                <!-- SECTION 1: STATBLOCK PAPER THEME -->
+                <div class="form-group" style="margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <label style="font-weight: 700; color: var(--primary);">Statblock Paper Theme</label>
+                        <div style="display: flex; gap: 4px;">
+                            <button type="button" class="btn-theme-filter active" data-filter="all">All (21)</button>
+                            <button type="button" class="btn-theme-filter" data-filter="light">Light (5)</button>
+                            <button type="button" class="btn-theme-filter" data-filter="dark">Dark (16)</button>
+                        </div>
+                    </div>
+                    <select id="setting-panel-theme" style="margin-bottom: 8px;">
+                        <optgroup label="Classic & Light Parchments">
+                            <option value="theme-parchment">Classic Parchment (Default)</option>
+                            <option value="theme-classic">Classic Vellum</option>
+                            <option value="theme-scroll">Ancient Scroll</option>
+                            <option value="theme-clean-slate">Clean Slate (Print Friendly)</option>
+                            <option value="theme-tome">Wizard's Tome</option>
+                        </optgroup>
+                        <optgroup label="Dark & RPG Themes">
+                            <option value="theme-modern-dark">Modern Dark (Clean Slate)</option>
+                            <option value="theme-obsidian">Obsidian Glass</option>
+                            <option value="theme-midnight">Midnight Arcana</option>
+                            <option value="theme-crimson">Crimson Blood</option>
+                            <option value="theme-infernal">Infernal Abyss</option>
+                            <option value="theme-emerald">Emerald Forest</option>
+                            <option value="theme-cyberpunk">Cyber Neon</option>
+                            <option value="theme-royal">Royal Purple</option>
+                            <option value="theme-abyssal">Abyssal Void</option>
+                            <option value="theme-celestial">Celestial Gold</option>
+                            <option value="theme-draconic">Draconic Scale</option>
+                            <option value="theme-underdark">Underdark Cavern</option>
+                            <option value="theme-frostburn">Frostburn Glacier</option>
+                            <option value="theme-shadowfell">Shadowfell Mist</option>
+                            <option value="theme-solar">Solar Radiance</option>
+                            <option value="theme-runic">Runic Stone</option>
+                        </optgroup>
+                    </select>
+                    <!-- Visual Theme Swatches Grid -->
+                    <div id="theme-swatch-container" class="theme-swatch-grid"></div>
+                </div>
+
+                <!-- SECTION 2: TYPOGRAPHY -->
+                <div class="form-group" style="margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                    <label style="font-weight: 700; color: var(--primary); margin-bottom: 6px; display: block;">Typography (Font Type)</label>
+                    <select id="setting-panel-font">
+                        <option value="'Inter', sans-serif">Inter (Modern Clean - Default)</option>
+                        <option value="'EB Garamond', serif">EB Garamond (Classic RPG Serif)</option>
+                        <option value="'Cinzel', serif">Cinzel (Epic Gold RPG)</option>
+                        <option value="'Roboto', sans-serif">Roboto (Clean Sans)</option>
+                        <option value="'Montserrat', sans-serif">Montserrat (Geometric Sans)</option>
+                        <option value="'Poppins', sans-serif">Poppins (Soft & Rounded)</option>
+                        <option value="'Fira Sans', sans-serif">Fira Sans (High Readability)</option>
+                        <option value="'JetBrains Mono', monospace">JetBrains Mono (Monospace / Code)</option>
+                        <option value="'Lora', serif">Lora (Classic Book Serif)</option>
+                    </select>
+                </div>
+
+                <!-- SECTION 3: FONT SIZE & PRESETS -->
+                <div class="form-group" style="margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <label style="font-weight: 700; color: var(--primary);">Base Font Size</label>
+                        <span id="setting-font-size-badge" style="color: var(--primary); font-weight: 800; font-size: 13px; background: rgba(242,202,80,0.15); padding: 2px 8px; border-radius: 4px;">14 px</span>
+                    </div>
+                    <div style="display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap;">
+                        <button type="button" class="btn-size-preset" data-size="12">Compact (12px)</button>
+                        <button type="button" class="btn-size-preset active" data-size="14">Normal (14px)</button>
+                        <button type="button" class="btn-size-preset" data-size="18">Medium (18px)</button>
+                        <button type="button" class="btn-size-preset" data-size="24">Large (24px)</button>
+                        <button type="button" class="btn-size-preset" data-size="30">Max (30px)</button>
+                    </div>
+                    <input type="range" id="setting-panel-size" min="11" max="30" step="0.5" value="14" style="width: 100%;">
+                </div>
+
+                <!-- SECTION 4: LIVE SAMPLE PREVIEW -->
+                <div class="form-group" style="margin-bottom: 6px;">
+                    <label style="font-weight: 700; color: var(--primary); margin-bottom: 6px; display: block;">Live Preview Sample</label>
+                    <div id="setting-preview-sample" style="padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border-subtle); background: var(--surface); transition: all 0.2s ease;">
+                        <div style="font-weight: 800; font-size: 1.1em; color: inherit; margin-bottom: 2px;">Ancient Red Dragon</div>
+                        <div style="font-style: italic; opacity: 0.8; font-size: 0.9em; margin-bottom: 6px;">CR 19 | Gargantuan dragon (fire) | CE</div>
+                        <div style="font-size: 0.88em; line-height: 1.4;"><strong>AC</strong> 39, touch 6, flat-footed 39 (+33 natural, -4 size) | <strong>HP</strong> 377 (26d12+208)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-modal-footer">
+                <button type="button" id="btn-reset-panel-settings" class="btn-settings-reset">Reset All</button>
+                <button type="button" id="btn-apply-panel-settings" class="btn-settings-apply">Save & Apply</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/state.js?v=6"></script>
     <script src="../js/auth.js?v=6"></script>
     <script src="../js/ui.js?v=6"></script>
     <script src="../js/database.js?v=6"></script>

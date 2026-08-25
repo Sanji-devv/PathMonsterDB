@@ -206,7 +206,17 @@ document.addEventListener('DOMContentLoaded', () => {
             let actionsHtml = '';
             let starBtnHtml = `<button class="star-btn ${m.IsFavorite ? 'active' : ''}" title="Toggle Favorite">⭐</button>`;
 
-            const isAuthor = isOriginal || !m.AuthorId || (currentUser && (String(currentUser.id) === String(m.AuthorId) || String(currentUser.username).toLowerCase() === String(m.AuthorName).toLowerCase()));
+            const uId = currentUser?.id ? String(currentUser.id).toLowerCase() : '';
+            const uName = currentUser?.username ? String(currentUser.username).toLowerCase() : '';
+            const mAuthId = m.AuthorId ? String(m.AuthorId).toLowerCase() : '';
+            const mAuthName = m.AuthorName ? String(m.AuthorName).toLowerCase() : '';
+
+            const isAuthor = isOriginal || !m.AuthorId || (currentUser && (
+                (uId && mAuthId && uId === mAuthId) ||
+                (uName && mAuthName && uName === mAuthName) ||
+                (uId && mAuthName && uId === mAuthName) ||
+                (uName && mAuthId && uName === mAuthId)
+            ));
 
             if (isOriginal) {
                 const npcBadge = (m.CharacterFlag === "1")
@@ -256,6 +266,16 @@ document.addEventListener('DOMContentLoaded', () => {
             if (m.Size) typeTokens.push(m.Size);
             if (m.Type) typeTokens.push(m.Type);
 
+            // If Type/Size were empty (common for official Bestiary NPCs), infer from name parentheses or CharacterFlag
+            if (typeTokens.length === (m.Alignment ? 1 : 0)) {
+                const match = (m.Name || '').match(/\(([^)]+)\)/);
+                if (match) {
+                    typeTokens.push(match[1]);
+                } else if (m.CharacterFlag === "1" || m.CharacterFlag === 1) {
+                    typeTokens.push('Humanoid');
+                }
+            }
+
             const metaParts = [`CR: ${m.CR || '-'}`];
             if (typeTokens.length > 0) {
                 metaParts.push(typeTokens.join(' '));
@@ -272,24 +292,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
 
+            const infoEl = card.querySelector('.monster-info');
+            if (infoEl) {
+                infoEl.style.cursor = 'pointer';
+                infoEl.title = `Click to load ${m.Name} into Monster Creator`;
+                infoEl.addEventListener('click', () => loadToEditor(m));
+            }
+
             if (isOriginal) {
-                card.querySelector('.btn-load').addEventListener('click', () => loadToEditor(m));
-            } else {
-                card.querySelector('.btn-load-custom').addEventListener('click', () => {
-                    if (m.OriginalState) {
-                        const stateToSave = JSON.parse(JSON.stringify(m.OriginalState));
-                        stateToSave._global_index = m._global_index;
-                        if (m.id) stateToSave.id = m.id;
-                        localStorage.setItem('pf_monster_creator_save', JSON.stringify(stateToSave));
-                        window.location.href = 'index.html';
-                    } else {
+                const btnLoad = card.querySelector('.btn-load');
+                if (btnLoad) {
+                    btnLoad.addEventListener('click', (e) => {
+                        e.stopPropagation();
                         loadToEditor(m);
-                    }
-                });
+                    });
+                }
+            } else {
+                const btnLoadCustom = card.querySelector('.btn-load-custom');
+                if (btnLoadCustom) {
+                    btnLoadCustom.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        loadToEditor(m);
+                    });
+                }
 
                 const delBtn = card.querySelector('.btn-delete-custom');
                 if (delBtn) {
-                    delBtn.addEventListener('click', () => {
+                    delBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
                         if (confirm(`Are you sure you want to delete "${m.Name}"?`)) {
                             const headers = (auth && typeof auth.getAuthHeaders === 'function')
                                 ? auth.getAuthHeaders()
@@ -343,6 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     restoreFiltersFromStorage();
     loadData();
+    window.addEventListener('pathgm:auth', () => loadData());
 
     // Mapping Function (Database Row -> Our Form State)
     function buildEditorStateFromMonster(m) {
@@ -743,16 +774,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // 16. Monster vs NPC Flag
+        const nameMatch = (m.Name || '').match(/^(.*?)\s*\(([^)]+)\)$/);
+        const parsedCleanName = nameMatch ? nameMatch[1].trim() : (m.Name || 'Unknown Creature');
+        const parsedRaceClass = nameMatch ? nameMatch[2].trim() : '';
+
         const isNpc = m.CharacterFlag === "1" || m.CharacterFlag === 1 ||
             (m.URL && m.URL.includes('/npc-s/')) ||
-            Boolean(m.Class1) || Boolean(m.Class) ||
+            Boolean(m.Class1) || Boolean(m.Class) || Boolean(parsedRaceClass) ||
             /cleric|wizard|fighter|rogue|paladin|ranger|bard|druid|sorcerer|monk|necromancer|alchemist|inquisitor|magus|cavalier|gunslinger|witch|oracle|summoner|aristocrat|adept|expert|warrior/i.test(m.Name || '');
 
         if (isNpc) {
             state.basic.stat_type = 'npc';
             const cls = m.Class1 || m.Class || '';
             const lvl = m.Class1_Lvl || '';
-            state.basic['in-type-full'] = cls ? (lvl ? `${cls} ${lvl}` : cls) : m.Name;
+            if (cls) {
+                state.basic['in-type-full'] = lvl ? `${cls} ${lvl}` : cls;
+            } else if (parsedRaceClass) {
+                state.basic['in-type-full'] = parsedRaceClass;
+            } else {
+                state.basic['in-type-full'] = m.Race || 'Humanoid';
+            }
+            if (nameMatch) {
+                state.basic['in-name'] = parsedCleanName;
+            }
         } else {
             state.basic.stat_type = 'monster';
             state.basic['in-type-full'] = '';
@@ -807,19 +851,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loadToEditor(m) {
+        if (!m) return;
+        let stateToSave = null;
         if (m.OriginalState) {
-            const stateToSave = JSON.parse(JSON.stringify(m.OriginalState));
-            stateToSave._global_index = m._global_index;
-            if (m.id) stateToSave.id = m.id;
-            localStorage.setItem('pf_monster_creator_save', JSON.stringify(stateToSave));
-            window.location.href = 'index.html';
+            stateToSave = JSON.parse(JSON.stringify(m.OriginalState));
         } else {
-            const state = buildEditorStateFromMonster(m);
-            state._global_index = m._global_index;
-            if (m.id) state.id = m.id;
-            localStorage.setItem('pf_monster_creator_save', JSON.stringify(state));
-            window.location.href = 'index.html';
+            const converter = window.buildEditorStateFromMonster || buildEditorStateFromMonster;
+            stateToSave = converter(m);
         }
+        if (!stateToSave) return;
+        if (m._global_index !== undefined) stateToSave._global_index = m._global_index;
+        if (m.id) stateToSave.id = m.id;
+        const str = JSON.stringify(stateToSave);
+        localStorage.setItem('pf_monster_creator_save', str);
+        sessionStorage.setItem('pf_monster_creator_save', str);
+        localStorage.setItem('pf_monster_creator_current_draft', str);
+        window.location.href = 'index.html';
     }
 
     function downloadSingleMonsterJson(m) {
@@ -1010,4 +1057,245 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    // -------------------------------------------------------------------
+    // Database Page Appearance & Display Settings Modal Controller
+    // -------------------------------------------------------------------
+    const settingsModal = document.getElementById('panel-settings-modal');
+    const btnCloseSettings = document.getElementById('btn-close-settings');
+    const btnApplySettings = document.getElementById('btn-apply-panel-settings');
+    const btnResetSettings = document.getElementById('btn-reset-panel-settings');
+
+    const settingThemeSelect = document.getElementById('setting-panel-theme');
+    const settingFontSelect = document.getElementById('setting-panel-font');
+    const settingSizeInput = document.getElementById('setting-panel-size');
+    const settingSizeBadge = document.getElementById('setting-font-size-badge');
+    const settingScaleInput = document.getElementById('setting-panel-scale');
+    const settingScaleBadge = document.getElementById('setting-scale-badge');
+    const settingPreviewSample = document.getElementById('setting-preview-sample');
+    const swatchContainer = document.getElementById('theme-swatch-container');
+
+    const btnUiModeDark = document.getElementById('btn-ui-mode-dark');
+    const btnUiModeLight = document.getElementById('btn-ui-mode-light');
+
+    function applyAppUiTheme(theme) {
+        const isLight = (theme === 'ui-light');
+        document.body.classList.toggle('ui-light', isLight);
+        localStorage.setItem('pf_app_ui_theme', isLight ? 'ui-light' : 'ui-dark');
+        if (btnUiModeDark) btnUiModeDark.classList.toggle('active', !isLight);
+        if (btnUiModeLight) btnUiModeLight.classList.toggle('active', isLight);
+    }
+
+    const savedUiTheme = localStorage.getItem('pf_app_ui_theme') || 'ui-dark';
+    applyAppUiTheme(savedUiTheme);
+
+    if (btnUiModeDark) btnUiModeDark.addEventListener('click', () => applyAppUiTheme('ui-dark'));
+    if (btnUiModeLight) btnUiModeLight.addEventListener('click', () => applyAppUiTheme('ui-light'));
+
+    const THEMES_METADATA = [
+        { id: 'theme-parchment', name: 'Classic Parchment', type: 'light', bg: '#f4ebd9', fg: '#2b1d0c', accent: '#8b0000' },
+        { id: 'theme-classic', name: 'Classic Vellum', type: 'light', bg: '#faf6eb', fg: '#1c1917', accent: '#78350f' },
+        { id: 'theme-scroll', name: 'Ancient Scroll', type: 'light', bg: '#ede0c8', fg: '#38220f', accent: '#9a3412' },
+        { id: 'theme-clean-slate', name: 'Clean Slate', type: 'light', bg: '#ffffff', fg: '#0f172a', accent: '#2563eb' },
+        { id: 'theme-tome', name: "Wizard's Tome", type: 'light', bg: '#f5efe6', fg: '#292524', accent: '#d97706' },
+        { id: 'theme-modern-dark', name: 'Modern Dark', type: 'dark', bg: '#0f172a', fg: '#f8fafc', accent: '#38bdf8' },
+        { id: 'theme-obsidian', name: 'Obsidian Glass', type: 'dark', bg: '#030712', fg: '#f3f4f6', accent: '#9ca3af' },
+        { id: 'theme-midnight', name: 'Midnight Arcana', type: 'dark', bg: '#020617', fg: '#e2e8f0', accent: '#818cf8' },
+        { id: 'theme-crimson', name: 'Crimson Blood', type: 'dark', bg: '#1c0707', fg: '#fecaca', accent: '#ef4444' },
+        { id: 'theme-infernal', name: 'Infernal Abyss', type: 'dark', bg: '#180a0a', fg: '#fed7aa', accent: '#f97316' },
+        { id: 'theme-emerald', name: 'Emerald Forest', type: 'dark', bg: '#051a0f', fg: '#d1fae5', accent: '#10b981' },
+        { id: 'theme-cyberpunk', name: 'Cyber Neon', type: 'dark', bg: '#09090b', fg: '#00ffff', accent: '#ff007f' },
+        { id: 'theme-royal', name: 'Royal Purple', type: 'dark', bg: '#150a21', fg: '#fae8ff', accent: '#d946ef' },
+        { id: 'theme-abyssal', name: 'Abyssal Void', type: 'dark', bg: '#0a0a14', fg: '#c7d2fe', accent: '#6366f1' },
+        { id: 'theme-celestial', name: 'Celestial Gold', type: 'dark', bg: '#17120a', fg: '#fef08a', accent: '#eab308' },
+        { id: 'theme-draconic', name: 'Draconic Scale', type: 'dark', bg: '#140c0c', fg: '#fed7aa', accent: '#dc2626' },
+        { id: 'theme-underdark', name: 'Underdark Cavern', type: 'dark', bg: '#0f0f12', fg: '#e2e8f0', accent: '#a855f7' },
+        { id: 'theme-frostburn', name: 'Frostburn Glacier', type: 'dark', bg: '#06151f', fg: '#e0f2fe', accent: '#38bdf8' },
+        { id: 'theme-shadowfell', name: 'Shadowfell Mist', type: 'dark', bg: '#121316', fg: '#cbd5e1', accent: '#64748b' },
+        { id: 'theme-solar', name: 'Solar Radiance', type: 'dark', bg: '#1c1507', fg: '#fef9c3', accent: '#f59e0b' },
+        { id: 'theme-runic', name: 'Runic Stone', type: 'dark', bg: '#18181b', fg: '#e4e4e7', accent: '#a1a1aa' }
+    ];
+
+    function renderThemeSwatches(filter = 'all') {
+        if (!swatchContainer) return;
+        swatchContainer.innerHTML = '';
+        const currentTheme = settingThemeSelect ? settingThemeSelect.value : (localStorage.getItem('pf_creator_theme') || 'theme-parchment');
+
+        const filtered = THEMES_METADATA.filter(t => filter === 'all' || t.type === filter);
+        filtered.forEach(t => {
+            const item = document.createElement('div');
+            item.className = 'theme-swatch-item' + (t.id === currentTheme ? ' active' : '');
+            item.dataset.theme = t.id;
+            item.innerHTML = `
+                <div class="theme-swatch-dots">
+                    <span class="theme-dot" style="background: ${t.bg};" title="Background"></span>
+                    <span class="theme-dot" style="background: ${t.accent};" title="Accent"></span>
+                </div>
+                <span>${t.name}</span>
+            `;
+            item.addEventListener('click', () => {
+                if (settingThemeSelect) {
+                    settingThemeSelect.value = t.id;
+                    settingThemeSelect.dispatchEvent(new Event('change'));
+                }
+            });
+            swatchContainer.appendChild(item);
+        });
+    }
+
+    document.querySelectorAll('.btn-theme-filter').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.btn-theme-filter').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderThemeSwatches(btn.dataset.filter);
+        });
+    });
+
+    function updateSamplePreview() {
+        if (!settingPreviewSample) return;
+        const font = settingFontSelect ? settingFontSelect.value : "'Inter', sans-serif";
+        const size = settingSizeInput ? settingSizeInput.value : "14";
+        const themeId = settingThemeSelect ? settingThemeSelect.value : (localStorage.getItem('pf_creator_theme') || 'theme-parchment');
+
+        settingPreviewSample.style.fontFamily = font;
+        settingPreviewSample.style.fontSize = `${size}px`;
+
+        const tMeta = THEMES_METADATA.find(t => t.id === themeId);
+        if (tMeta) {
+            settingPreviewSample.style.background = tMeta.bg;
+            settingPreviewSample.style.color = tMeta.fg;
+            settingPreviewSample.style.borderColor = tMeta.accent;
+        }
+
+        if (settingSizeBadge) settingSizeBadge.textContent = `${size} px`;
+        if (settingScaleBadge && settingScaleInput) settingScaleBadge.textContent = `${settingScaleInput.value}%`;
+
+        document.querySelectorAll('.theme-swatch-item').forEach(el => {
+            el.classList.toggle('active', el.dataset.theme === themeId);
+        });
+    }
+
+    if (settingThemeSelect) {
+        settingThemeSelect.addEventListener('change', () => {
+            updateSamplePreview();
+            const chosenTheme = settingThemeSelect.value;
+            localStorage.setItem('pf_creator_theme', chosenTheme);
+            document.documentElement.className = chosenTheme;
+        });
+    }
+
+    if (settingFontSelect) {
+        settingFontSelect.addEventListener('change', () => {
+            updateSamplePreview();
+            localStorage.setItem('pf_creator_font', settingFontSelect.value);
+        });
+    }
+
+    if (settingSizeInput) {
+        settingSizeInput.addEventListener('input', () => {
+            updateSamplePreview();
+            const size = settingSizeInput.value;
+            localStorage.setItem('pf_creator_font_size', size);
+            document.querySelectorAll('.btn-size-preset').forEach(b => {
+                b.classList.toggle('active', parseFloat(b.dataset.size) === parseFloat(size));
+            });
+        });
+    }
+
+    document.querySelectorAll('.btn-size-preset').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.btn-size-preset').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const size = btn.dataset.size;
+            if (settingSizeInput) {
+                settingSizeInput.value = size;
+                settingSizeInput.dispatchEvent(new Event('input'));
+            }
+        });
+    });
+
+    if (settingScaleInput) {
+        settingScaleInput.addEventListener('input', () => {
+            updateSamplePreview();
+            localStorage.setItem('pf_creator_scale', settingScaleInput.value);
+        });
+    }
+
+    function openSettingsModal() {
+        const modal = settingsModal || document.getElementById('panel-settings-modal');
+        if (!modal) return;
+        const currentTheme = localStorage.getItem('pf_creator_theme') || 'theme-parchment';
+        const currentFont = localStorage.getItem('pf_creator_font') || "'Inter', sans-serif";
+        const currentSize = localStorage.getItem('pf_creator_font_size') || "14";
+        const currentScale = localStorage.getItem('pf_creator_scale') || "100";
+
+        const sTheme = settingThemeSelect || document.getElementById('setting-panel-theme');
+        const sFont = settingFontSelect || document.getElementById('setting-panel-font');
+        const sSize = settingSizeInput || document.getElementById('setting-panel-size');
+        const sScale = settingScaleInput || document.getElementById('setting-panel-scale');
+
+        if (sTheme) sTheme.value = currentTheme;
+        if (sFont) sFont.value = currentFont;
+        if (sSize) sSize.value = currentSize;
+        if (sScale) sScale.value = currentScale;
+
+        renderThemeSwatches('all');
+        updateSamplePreview();
+        modal.classList.add('active');
+    }
+    window.openSettingsModal = openSettingsModal;
+
+    function closeSettingsModal() {
+        const modal = settingsModal || document.getElementById('panel-settings-modal');
+        if (modal) modal.classList.remove('active');
+    }
+    window.closeSettingsModal = closeSettingsModal;
+
+    const allSettingsBtns = [
+        document.getElementById('btn-settings-panel'),
+        document.getElementById('mob-btn-settings')
+    ].filter(Boolean);
+
+    allSettingsBtns.forEach(btn => {
+        btn.addEventListener('click', openSettingsModal);
+    });
+
+    if (btnCloseSettings) btnCloseSettings.addEventListener('click', closeSettingsModal);
+    if (settingsModal) {
+        settingsModal.addEventListener('click', (e) => {
+            if (e.target === settingsModal) closeSettingsModal();
+        });
+    }
+
+    if (btnApplySettings) {
+        btnApplySettings.addEventListener('click', () => {
+            closeSettingsModal();
+            const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+            if (auth && typeof auth.showToast === 'function') {
+                auth.showToast('Display settings applied!', 'success');
+            }
+        });
+    }
+
+    if (btnResetSettings) {
+        btnResetSettings.addEventListener('click', () => {
+            if (confirm('Reset all appearance and font settings to default?')) {
+                applyAppUiTheme('ui-dark');
+                if (settingThemeSelect) settingThemeSelect.value = 'theme-parchment';
+                if (settingFontSelect) settingFontSelect.value = "'Inter', sans-serif";
+                if (settingSizeInput) settingSizeInput.value = '14';
+                if (settingScaleInput) settingScaleInput.value = '100';
+
+                localStorage.removeItem('pf_app_ui_theme');
+                localStorage.removeItem('pf_creator_theme');
+                localStorage.removeItem('pf_creator_font');
+                localStorage.removeItem('pf_creator_font_size');
+                localStorage.removeItem('pf_creator_scale');
+                document.documentElement.className = 'theme-parchment';
+
+                updateSamplePreview();
+                renderThemeSwatches('all');
+            }
+        });
+    }
 });

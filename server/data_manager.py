@@ -483,12 +483,17 @@ def save_monster_from_json(raw_json_str, user=None):
 
     # Determine persistent ID and ownership
     if existing_monster and not save_as_new:
-        m_auth_id = str(existing_monster.get('AuthorId', ''))
+        m_auth_id = str(existing_monster.get('AuthorId', '')).lower()
         m_auth_name = str(existing_monster.get('AuthorName', '')).lower()
         if m_auth_id or m_auth_name:
-            user_id = str(user.get('id', '')) if user else ''
+            user_id = str(user.get('id', '')).lower() if user else ''
             user_name = str(user.get('username', '')).lower() if user else ''
-            is_own = bool(user_id and (m_auth_id == user_id or (not m_auth_id and m_auth_name == user_name)))
+            is_own = bool(user and (
+                (user_id and user_id == m_auth_id) or
+                (user_name and user_name == m_auth_name) or
+                (user_id and user_id == m_auth_name) or
+                (user_name and user_name == m_auth_id)
+            ))
             if not is_own:
                 # User is modifying another user's monster -> Fork as new monster for current user
                 save_as_new = True
@@ -563,13 +568,18 @@ def delete_monster(idx_or_id, user=None):
     if not target_mon.get('IsUserCustom', False):
         return json.dumps({"status": "error", "error": "Cannot delete official monsters"}).encode('utf-8'), 400
 
-    m_auth_id = str(target_mon.get('AuthorId', ''))
+    m_auth_id = str(target_mon.get('AuthorId', '')).lower()
     m_auth_name = str(target_mon.get('AuthorName', '')).lower()
     
     if m_auth_id or m_auth_name:
-        user_id = str(user.get('id', '')) if user else ''
+        user_id = str(user.get('id', '')).lower() if user else ''
         user_name = str(user.get('username', '')).lower() if user else ''
-        is_author = bool(user_id and (m_auth_id == user_id or (not m_auth_id and m_auth_name == user_name)))
+        is_author = bool(user and (
+            (user_id and user_id == m_auth_id) or
+            (user_name and user_name == m_auth_name) or
+            (user_id and user_id == m_auth_name) or
+            (user_name and user_name == m_auth_id)
+        ))
         if not is_author:
             return json.dumps({
                 "status": "error",

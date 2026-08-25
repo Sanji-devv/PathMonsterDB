@@ -24,6 +24,23 @@
             if (savedTheme && savedTheme !== 'theme-default') {
                 document.documentElement.className = savedTheme;
             }
+            const savedUiTheme = localStorage.getItem('pf_app_ui_theme');
+            if (savedUiTheme === 'ui-light') {
+                document.addEventListener('DOMContentLoaded', () => document.body.classList.add('ui-light'));
+            }
+            document.addEventListener('DOMContentLoaded', () => {
+                const paper = document.getElementById('statblock-paper');
+                if (paper && savedTheme && savedTheme !== 'theme-default') {
+                    paper.className = `statblock-paper ${savedTheme}`;
+                }
+                const savedFont = localStorage.getItem('pf_creator_font');
+                if (savedFont && paper) paper.style.fontFamily = savedFont;
+                const savedSize = localStorage.getItem('pf_creator_font_size');
+                if (savedSize && paper) {
+                    paper.style.fontSize = `${savedSize}px`;
+                    paper.style.setProperty('--sb-base-font-size', `${savedSize}px`);
+                }
+            });
         } catch (e) { }
     </script>
 
@@ -51,33 +68,6 @@
         </div>
 
         <div class="header-right">
-            <!-- Theme / Color Selector Dropdown -->
-            <div class="theme-selector-wrapper" title="Select Visual Theme">
-                <select id="theme-selector" class="theme-select">
-                    <option value="theme-parchment" selected>Classic Parchment (Default)</option>
-                    <option value="theme-abyssal">Abyssal Red</option>
-                    <option value="theme-necromancer">Necromancer Green</option>
-                    <option value="theme-celestial">Celestial Cyan</option>
-                    <option value="theme-ink">High-Contrast Ink</option>
-                    <option value="theme-obsidian">Obsidian Amber</option>
-                    <option value="theme-astral">Astral Sky</option>
-                    <option value="theme-feywild">Feywild Emerald</option>
-                    <option value="theme-amethyst">Amethyst Purple</option>
-                    <option value="theme-clockwork">Clockwork Bronze</option>
-                    <option value="theme-ancient">Ancient Sandstone</option>
-                    <option value="theme-fey-mirage">Mirage Pink</option>
-                    <option value="theme-crimson">Crimson Blood</option>
-                    <option value="theme-vampiric">Vampiric Velvet</option>
-                    <option value="theme-abyssal-depths">Oceanic Depths</option>
-                    <option value="theme-golden-hour">Golden Hour</option>
-                    <option value="theme-toxic">Toxic Slime</option>
-                    <option value="theme-frozen">Frozen Glade</option>
-                    <option value="theme-volcanic">Volcanic Core</option>
-                    <option value="theme-eldritch">Eldritch Void</option>
-                    <option value="theme-desert">Desert Dune</option>
-                </select>
-            </div>
-
             <!-- Action Buttons -->
             <div class="header-actions">
                 <button id="btn-new-sheet" class="btn-hdr btn-hdr-emerald" title="Clear and start fresh">New</button>
@@ -101,7 +91,7 @@
 
             <!-- Settings Icon Button -->
             <button type="button" id="btn-settings-panel" class="btn-hdr-icon"
-                title="Panel Settings (Font & Scale)">⚙️</button>
+                title="Panel Settings (Font & Scale)" onclick="if(window.openSettingsModal) window.openSettingsModal();">⚙️</button>
 
             <!-- Mobile Hamburger Menu Button -->
             <button type="button" id="btn-mobile-menu" class="btn-mobile-menu" aria-label="Open Mobile Menu"
@@ -610,7 +600,7 @@
                             <label>Feats</label>
                             <input type="hidden" id="in-feats" value="">
                             <div id="selected-feats-container" class="selected-tags-container"></div>
-                            <input type="text" id="in-feat-search" placeholder="Select or search feats... ▼"
+                            <input type="text" id="in-feat-search" placeholder="Type feat name or prefix (e.g. Weapon Focus, wf, pa, ii)... ▼"
                                 autocomplete="off">
                             <ul id="feat-autocomplete-list" class="autocomplete-list" style="display: none;"></ul>
                         </div>
@@ -896,19 +886,69 @@
 
     <!-- Panel Settings Modal (Font & Size Customizer) -->
     <div id="panel-settings-modal" class="settings-modal-overlay">
-        <div class="settings-modal-card">
+        <div class="settings-modal-card" style="max-width: 520px;">
             <div class="settings-modal-header">
                 <div class="settings-modal-title">
-                    <h3>⚙️ Panel Settings</h3>
+                    <h3>Appearance & Display Settings</h3>
                 </div>
                 <button type="button" id="btn-close-settings" class="settings-modal-close"
-                    title="Close">&times;</button>
+                    title="Close" onclick="if(window.closeSettingsModal) window.closeSettingsModal();">&times;</button>
             </div>
 
-            <div class="settings-modal-body">
-                <!-- Font Family Selection -->
-                <div class="form-group" style="margin-bottom: 14px;">
-                    <label>Font Family</label>
+            <div class="settings-modal-body" style="max-height: 75vh; overflow-y: auto;">
+                <!-- SECTION 0: APP UI THEME (Dark / Light) -->
+                <div class="form-group" style="margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                    <label style="font-weight: 700; color: var(--primary); margin-bottom: 8px; display: block;">Application UI Mode</label>
+                    <div style="display: flex; gap: 8px;">
+                        <button type="button" id="btn-ui-mode-dark" class="btn-ui-mode active">Dark UI</button>
+                        <button type="button" id="btn-ui-mode-light" class="btn-ui-mode">Light UI</button>
+                    </div>
+                </div>
+
+                <!-- SECTION 1: STATBLOCK PAPER THEME -->
+                <div class="form-group" style="margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <label style="font-weight: 700; color: var(--primary);">Statblock Paper Theme</label>
+                        <div style="display: flex; gap: 4px;">
+                            <button type="button" class="btn-theme-filter active" data-filter="all">All (21)</button>
+                            <button type="button" class="btn-theme-filter" data-filter="light">Light (5)</button>
+                            <button type="button" class="btn-theme-filter" data-filter="dark">Dark (16)</button>
+                        </div>
+                    </div>
+                    <select id="setting-panel-theme" style="margin-bottom: 8px;">
+                        <optgroup label="Classic & Light Parchments">
+                            <option value="theme-parchment">Classic Parchment (Default)</option>
+                            <option value="theme-classic">Classic Vellum</option>
+                            <option value="theme-scroll">Ancient Scroll</option>
+                            <option value="theme-clean-slate">Clean Slate (Print Friendly)</option>
+                            <option value="theme-tome">Wizard's Tome</option>
+                        </optgroup>
+                        <optgroup label="Dark & RPG Themes">
+                            <option value="theme-modern-dark">Modern Dark (Clean Slate)</option>
+                            <option value="theme-obsidian">Obsidian Glass</option>
+                            <option value="theme-midnight">Midnight Arcana</option>
+                            <option value="theme-crimson">Crimson Blood</option>
+                            <option value="theme-infernal">Infernal Abyss</option>
+                            <option value="theme-emerald">Emerald Forest</option>
+                            <option value="theme-cyberpunk">Cyber Neon</option>
+                            <option value="theme-royal">Royal Purple</option>
+                            <option value="theme-abyssal">Abyssal Void</option>
+                            <option value="theme-celestial">Celestial Gold</option>
+                            <option value="theme-draconic">Draconic Scale</option>
+                            <option value="theme-underdark">Underdark Cavern</option>
+                            <option value="theme-frostburn">Frostburn Glacier</option>
+                            <option value="theme-shadowfell">Shadowfell Mist</option>
+                            <option value="theme-solar">Solar Radiance</option>
+                            <option value="theme-runic">Runic Stone</option>
+                        </optgroup>
+                    </select>
+                    <!-- Visual Theme Swatches Grid -->
+                    <div id="theme-swatch-container" class="theme-swatch-grid"></div>
+                </div>
+
+                <!-- SECTION 2: TYPOGRAPHY -->
+                <div class="form-group" style="margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                    <label style="font-weight: 700; color: var(--primary); margin-bottom: 6px; display: block;">Typography (Font Type)</label>
                     <select id="setting-panel-font">
                         <option value="'Inter', sans-serif">Inter (Modern Clean - Default)</option>
                         <option value="'EB Garamond', serif">EB Garamond (Classic RPG Serif)</option>
@@ -922,21 +962,36 @@
                     </select>
                 </div>
 
-                <!-- Font Size Slider -->
-                <div class="form-group">
-                    <div
-                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-                        <label>Font Size</label>
-                        <span id="setting-font-size-badge"
-                            style="color: var(--primary); font-weight: bold; font-size: 12px;">14 px</span>
+                <!-- SECTION 3: FONT SIZE & PRESETS -->
+                <div class="form-group" style="margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <label style="font-weight: 700; color: var(--primary);">Base Font Size</label>
+                        <span id="setting-font-size-badge" style="color: var(--primary); font-weight: 800; font-size: 13px; background: rgba(242,202,80,0.15); padding: 2px 8px; border-radius: 4px;">14 px</span>
                     </div>
-                    <input type="range" id="setting-panel-size" min="11" max="20" step="0.5" value="14">
+                    <div style="display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap;">
+                        <button type="button" class="btn-size-preset" data-size="12">Compact (12px)</button>
+                        <button type="button" class="btn-size-preset active" data-size="14">Normal (14px)</button>
+                        <button type="button" class="btn-size-preset" data-size="18">Medium (18px)</button>
+                        <button type="button" class="btn-size-preset" data-size="24">Large (24px)</button>
+                        <button type="button" class="btn-size-preset" data-size="30">Max (30px)</button>
+                    </div>
+                    <input type="range" id="setting-panel-size" min="11" max="30" step="0.5" value="14" style="width: 100%;">
+                </div>
+
+                <!-- SECTION 4: LIVE SAMPLE PREVIEW -->
+                <div class="form-group" style="margin-bottom: 6px;">
+                    <label style="font-weight: 700; color: var(--primary); margin-bottom: 6px; display: block;">Live Preview Sample</label>
+                    <div id="setting-preview-sample" style="padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border-subtle); background: var(--surface); transition: all 0.2s ease;">
+                        <div style="font-weight: 800; font-size: 1.1em; color: inherit; margin-bottom: 2px;">Ancient Red Dragon</div>
+                        <div style="font-style: italic; opacity: 0.8; font-size: 0.9em; margin-bottom: 6px;">CR 19 | Gargantuan dragon (fire) | CE</div>
+                        <div style="font-size: 0.88em; line-height: 1.4;"><strong>AC</strong> 39, touch 6, flat-footed 39 (+33 natural, -4 size) | <strong>HP</strong> 377 (26d12+208)</div>
+                    </div>
                 </div>
             </div>
 
             <div class="settings-modal-footer">
-                <button type="button" id="btn-reset-panel-settings" class="btn-settings-reset">↺ Reset</button>
-                <button type="button" id="btn-apply-panel-settings" class="btn-settings-apply">✓ Apply</button>
+                <button type="button" id="btn-reset-panel-settings" class="btn-settings-reset">Reset All</button>
+                <button type="button" id="btn-apply-panel-settings" class="btn-settings-apply">Save & Apply</button>
             </div>
         </div>
     </div>

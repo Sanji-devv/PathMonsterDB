@@ -143,19 +143,19 @@ document.addEventListener('DOMContentLoaded', () => {
     delegateClick('mob-btn-reset-filters', 'btn-reset-filters');
 
     // 6. Mobile Theme Selector Synchronization
-    const mainThemeSelect = document.getElementById('theme-selector');
     const mobThemeSelect = document.getElementById('mobile-theme-selector');
-
-    if (mainThemeSelect && mobThemeSelect) {
-        mobThemeSelect.value = mainThemeSelect.value;
-
+    if (mobThemeSelect) {
+        const savedTheme = localStorage.getItem('pf_creator_theme') || 'theme-parchment';
+        mobThemeSelect.value = savedTheme;
         mobThemeSelect.addEventListener('change', (e) => {
-            mainThemeSelect.value = e.target.value;
-            mainThemeSelect.dispatchEvent(new Event('change'));
-        });
-
-        mainThemeSelect.addEventListener('change', (e) => {
-            mobThemeSelect.value = e.target.value;
+            if (typeof window.applyStatblockTheme === 'function') {
+                window.applyStatblockTheme(e.target.value);
+            } else {
+                localStorage.setItem('pf_creator_theme', e.target.value);
+                const paper = document.getElementById('statblock-paper');
+                if (paper) paper.className = `statblock-paper ${e.target.value}`;
+                document.documentElement.className = e.target.value;
+            }
         });
     }
 

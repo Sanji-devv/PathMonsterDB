@@ -10,29 +10,48 @@ if hasattr(sys.stdout, 'reconfigure'):
         sys.stdout.reconfigure(encoding='utf-8')
     except Exception:
         pass
+if hasattr(sys.stderr, 'reconfigure'):
+    try:
+        sys.stderr.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
 
 from server.data_manager import BASE_DIR, load_monsters, load_spells
 from server.http_handler import PathMonsterDBRequestHandler
 
 PORT = int(os.environ.get("PORT", 8000))
+for idx_arg, arg in enumerate(sys.argv[1:], 1):
+    if arg.isdigit():
+        PORT = int(arg)
+    elif arg.startswith('--port='):
+        try:
+            PORT = int(arg.split('=')[1])
+        except ValueError:
+            pass
+    elif arg in ('--port', '-p') and idx_arg < len(sys.argv) - 1:
+        try:
+            PORT = int(sys.argv[idx_arg + 1])
+        except ValueError:
+            pass
+
+HTTP_SERVER = None
 
 def start_server(ready_event):
-    global PORT
+    global PORT, HTTP_SERVER
     os.chdir(BASE_DIR)
     socketserver.ThreadingTCPServer.allow_reuse_address = True
     socketserver.ThreadingTCPServer.daemon_threads = True
     
-    httpd = None
-    for _ in range(10):
+    for _ in range(20):
         try:
-            httpd = socketserver.ThreadingTCPServer(("", PORT), PathMonsterDBRequestHandler)
+            HTTP_SERVER = socketserver.ThreadingTCPServer(("", PORT), PathMonsterDBRequestHandler)
             break
         except OSError:
             PORT += 1
             
     ready_event.set()
-    if httpd:
-        httpd.serve_forever()
+    if HTTP_SERVER:
+        HTTP_SERVER.serve_forever()
 
 if __name__ == "__main__":
     monsters = load_monsters()
@@ -43,11 +62,16 @@ if __name__ == "__main__":
     server_thread.start()
     ready_event.wait()
     
+    if not HTTP_SERVER:
+        print("[ERROR] Could not bind server to any available port. Exiting.")
+        sys.exit(1)
+        
     url = f"http://localhost:{PORT}"
-    try:
-        webbrowser.open(url)
-    except Exception:
-        pass
+    if "--no-browser" not in sys.argv and not os.environ.get("NO_BROWSER"):
+        try:
+            webbrowser.open(url)
+        except Exception:
+            pass
     
     official_count = len([m for m in monsters if not m.get('IsUserCustom')])
     custom_count = len([m for m in monsters if m.get('IsUserCustom')])
@@ -63,3 +87,9 @@ if __name__ == "__main__":
             time.sleep(1)
     except KeyboardInterrupt:
         print("\nServer is shutting down. Goodbye!")
+        if HTTP_SERVER:
+            try:
+                HTTP_SERVER.shutdown()
+                HTTP_SERVER.server_close()
+            except Exception:
+                pass

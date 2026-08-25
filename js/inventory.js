@@ -439,6 +439,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Initial render
+    // Initial render & global exports
+    window.renderEquippedMagicItems = renderEquippedMagicItems;
+    window.equipMagicItemByName = equipItemByName;
     renderEquippedMagicItems();
 });

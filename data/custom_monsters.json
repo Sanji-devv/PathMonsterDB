@@ -212,7 +212,7 @@
         ],
         "spells": []
       },
-      "_global_index": 6526,
+      "_global_index": 6516,
       "id": "5922097b-f7d8-40c6-acb2-83a003fdb245",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -224,7 +224,8 @@
     "_m_align": "le",
     "_m_env": "any",
     "_m_source": "custom",
-    "id": "5922097b-f7d8-40c6-acb2-83a003fdb245"
+    "id": "5922097b-f7d8-40c6-acb2-83a003fdb245",
+    "_global_index": 6516
   },
   {
     "Name": "(Magnum Opus) Citrinitas",
@@ -456,7 +457,7 @@
         ],
         "spells": []
       },
-      "_global_index": 6527,
+      "_global_index": 6517,
       "id": "6b4e3b52-286a-4cef-9b19-76c612c49ee4",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -468,7 +469,8 @@
     "_m_align": "ne",
     "_m_env": "alchemical laboratories, urban courts, ancient academies",
     "_m_source": "custom",
-    "id": "6b4e3b52-286a-4cef-9b19-76c612c49ee4"
+    "id": "6b4e3b52-286a-4cef-9b19-76c612c49ee4",
+    "_global_index": 6517
   },
   {
     "Name": "(Magnum Opus) Nigredo",
@@ -687,7 +689,7 @@
         ],
         "spells": []
       },
-      "_global_index": 6529,
+      "_global_index": 6518,
       "id": "3d08b8e8-3223-405f-a050-13468cba91b5",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -699,7 +701,8 @@
     "_m_align": "ne",
     "_m_env": "any volcanic peaks, void temples, cataclysmic ruins, or scorched arcane laboratories",
     "_m_source": "custom",
-    "id": "3d08b8e8-3223-405f-a050-13468cba91b5"
+    "id": "3d08b8e8-3223-405f-a050-13468cba91b5",
+    "_global_index": 6518
   },
   {
     "Name": "(Magnum Opus) Rubedo",
@@ -932,7 +935,7 @@
         ],
         "spells": []
       },
-      "_global_index": 6528,
+      "_global_index": 6519,
       "id": "4922bcf5-6619-42d8-9e28-02385f0910cb",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -944,7 +947,8 @@
     "_m_align": "ce",
     "_m_env": "any urban courts, opulent salons, dueling grounds",
     "_m_source": "custom",
-    "id": "4922bcf5-6619-42d8-9e28-02385f0910cb"
+    "id": "4922bcf5-6619-42d8-9e28-02385f0910cb",
+    "_global_index": 6519
   },
   {
     "Name": "Black Ox Beetle",
@@ -1115,7 +1119,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6538,
+      "_global_index": 6520,
       "id": "5d40e10f-112b-4466-b53d-0b1b9dd6cd04",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -1127,7 +1131,8 @@
     "_m_align": "n",
     "_m_env": "temperate or warm forests, volcanic hills, charred plains",
     "_m_source": "custom",
-    "id": "5d40e10f-112b-4466-b53d-0b1b9dd6cd04"
+    "id": "5d40e10f-112b-4466-b53d-0b1b9dd6cd04",
+    "_global_index": 6520
   },
   {
     "Name": "Boggard Champion",
@@ -1331,7 +1336,7 @@
         ],
         "spells": []
       },
-      "_global_index": 6545,
+      "_global_index": 6521,
       "id": "3c12f77e-889f-4466-b53d-0b1b9dd6cd11",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -1343,7 +1348,8 @@
     "_m_align": "ce",
     "_m_env": "temperate or warm marshes and swamps",
     "_m_source": "custom",
-    "id": "3c12f77e-889f-4466-b53d-0b1b9dd6cd11"
+    "id": "3c12f77e-889f-4466-b53d-0b1b9dd6cd11",
+    "_global_index": 6521
   },
   {
     "Name": "Canopy Leech",
@@ -1527,7 +1533,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6544,
+      "_global_index": 6522,
       "id": "2b01f66f-778f-4466-b53d-0b1b9dd6cd10",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -1539,7 +1545,8 @@
     "_m_align": "ne",
     "_m_env": "temperate or warm dense forests, ancient canopies, rain forests",
     "_m_source": "custom",
-    "id": "2b01f66f-778f-4466-b53d-0b1b9dd6cd10"
+    "id": "2b01f66f-778f-4466-b53d-0b1b9dd6cd10",
+    "_global_index": 6522
   },
   {
     "Name": "Catromancer",
@@ -1742,7 +1749,8 @@
     "_m_align": "ne",
     "_m_env": "any ruins, crypts, or ancient feline tombs",
     "_m_source": "custom",
-    "id": "cdfad59f-ca10-4a9e-8c35-930dd61904f0"
+    "id": "cdfad59f-ca10-4a9e-8c35-930dd61904f0",
+    "_global_index": 6523
   },
   {
     "Name": "Chef Dire Ape",
@@ -1915,7 +1923,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6530,
+      "_global_index": 6524,
       "id": "1595f3e0-f819-41a9-820a-826b4dbaa6fa",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -1927,7 +1935,8 @@
     "_m_align": "cn",
     "_m_env": "warm forests, deep jungles, and ruined ancient temples",
     "_m_source": "custom",
-    "id": "1595f3e0-f819-41a9-820a-826b4dbaa6fa"
+    "id": "1595f3e0-f819-41a9-820a-826b4dbaa6fa",
+    "_global_index": 6524
   },
   {
     "Name": "Frost Roc",
@@ -2116,7 +2125,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6529,
+      "_global_index": 6525,
       "id": "996f6011-061d-4d70-8e82-bd4728b5226f",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -2128,7 +2137,8 @@
     "_m_align": "n",
     "_m_env": "cold mountains and glacial tundras",
     "_m_source": "custom",
-    "id": "996f6011-061d-4d70-8e82-bd4728b5226f"
+    "id": "996f6011-061d-4d70-8e82-bd4728b5226f",
+    "_global_index": 6525
   },
   {
     "Name": "Horned Peryton",
@@ -2320,7 +2330,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6542,
+      "_global_index": 6526,
       "id": "9b80f54d-556f-4466-b53d-0b1b9dd6cd08",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -2332,7 +2342,8 @@
     "_m_align": "ne",
     "_m_env": "temperate or cold dense forests, mountain pine canopies",
     "_m_source": "custom",
-    "id": "9b80f54d-556f-4466-b53d-0b1b9dd6cd08"
+    "id": "9b80f54d-556f-4466-b53d-0b1b9dd6cd08",
+    "_global_index": 6526
   },
   {
     "Name": "Kaelit, The Red Dragon",
@@ -2523,7 +2534,7 @@
           }
         ]
       },
-      "_global_index": 6522,
+      "_global_index": 6527,
       "id": "0ae78249-243e-4b79-a2f9-c94e4450670b",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -2535,7 +2546,8 @@
     "_m_align": "ln",
     "_m_env": "warm mountains",
     "_m_source": "custom",
-    "id": "0ae78249-243e-4b79-a2f9-c94e4450670b"
+    "id": "0ae78249-243e-4b79-a2f9-c94e4450670b",
+    "_global_index": 6527
   },
   {
     "Name": "Knight of Rovesta",
@@ -2764,7 +2776,7 @@
         ],
         "spells": []
       },
-      "_global_index": 6525,
+      "_global_index": 6528,
       "id": "cbf54ade-c067-4178-a491-287f0a96df3b",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -2776,7 +2788,8 @@
     "_m_align": "ce",
     "_m_env": "any ruins, cursed battlefields, unholy shrines",
     "_m_source": "custom",
-    "id": "cbf54ade-c067-4178-a491-287f0a96df3b"
+    "id": "cbf54ade-c067-4178-a491-287f0a96df3b",
+    "_global_index": 6528
   },
   {
     "Name": "Necrotic Basilisk",
@@ -2951,7 +2964,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6524,
+      "_global_index": 6529,
       "id": "7ade0ed1-b444-4746-a485-fca359c4a906",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -2963,7 +2976,8 @@
     "_m_align": "ne",
     "_m_env": "ancient catacombs, corrupted caverns, and desolate petrified forests",
     "_m_source": "custom",
-    "id": "7ade0ed1-b444-4746-a485-fca359c4a906"
+    "id": "7ade0ed1-b444-4746-a485-fca359c4a906",
+    "_global_index": 6529
   },
   {
     "Name": "Necrotic Dire Boar",
@@ -3138,7 +3152,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6517,
+      "_global_index": 6530,
       "id": "4771284f-fdb9-4c5f-a2b2-31205abf6459",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -3150,7 +3164,8 @@
     "_m_align": "ne",
     "_m_env": "desolated forests, haunted battlefields, cursed barrows",
     "_m_source": "custom",
-    "id": "4771284f-fdb9-4c5f-a2b2-31205abf6459"
+    "id": "4771284f-fdb9-4c5f-a2b2-31205abf6459",
+    "_global_index": 6530
   },
   {
     "Name": "Necrotic Wolf Spider",
@@ -3330,7 +3345,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6518,
+      "_global_index": 6531,
       "id": "1a78dcec-8f15-4a0c-bba5-3b6d9820820a",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -3342,7 +3357,8 @@
     "_m_align": "ne",
     "_m_env": "corrupted forests, abyssal crypts, and shadow caverns",
     "_m_source": "custom",
-    "id": "1a78dcec-8f15-4a0c-bba5-3b6d9820820a"
+    "id": "1a78dcec-8f15-4a0c-bba5-3b6d9820820a",
+    "_global_index": 6531
   },
   {
     "Name": "Orchid Giant Mantis",
@@ -3517,7 +3533,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6531,
+      "_global_index": 6532,
       "id": "4e10a87c-966e-4466-b53d-0b1b9dd6cdb2",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -3529,7 +3545,8 @@
     "_m_align": "n",
     "_m_env": "warm forests or tropical jungles",
     "_m_source": "custom",
-    "id": "4e10a87c-966e-4466-b53d-0b1b9dd6cdb2"
+    "id": "4e10a87c-966e-4466-b53d-0b1b9dd6cdb2",
+    "_global_index": 6532
   },
   {
     "Name": "Owlbear Alchemic Mutant, Armored",
@@ -3704,7 +3721,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6524,
+      "_global_index": 6533,
       "id": "a11b2c33-40fa-44f1-b5ba-111122223333",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -3716,7 +3733,8 @@
     "_m_align": "ne",
     "_m_env": "alchemical laboratories, subterranean dungeons, vanguard formations",
     "_m_source": "custom",
-    "id": "a11b2c33-40fa-44f1-b5ba-111122223333"
+    "id": "a11b2c33-40fa-44f1-b5ba-111122223333",
+    "_global_index": 6533
   },
   {
     "Name": "Owlbear Alchemic Mutant",
@@ -3890,7 +3908,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6519,
+      "_global_index": 6534,
       "id": "e08d27a1-9f35-46a5-909c-2cc41c275219",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -3902,7 +3920,8 @@
     "_m_align": "ne",
     "_m_env": "alchemical laboratories, subterranean dungeons, ruined fortresses",
     "_m_source": "custom",
-    "id": "e08d27a1-9f35-46a5-909c-2cc41c275219"
+    "id": "e08d27a1-9f35-46a5-909c-2cc41c275219",
+    "_global_index": 6534
   },
   {
     "Name": "Owlbear Alchemic Siege Mutant",
@@ -4090,7 +4109,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6525,
+      "_global_index": 6535,
       "id": "e95c9a51-30fc-44f1-b5ba-96612296c3e3",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -4102,7 +4121,8 @@
     "_m_align": "ne",
     "_m_env": "siege battlefields, ruined fortresses, rovesta breach points",
     "_m_source": "custom",
-    "id": "e95c9a51-30fc-44f1-b5ba-96612296c3e3"
+    "id": "e95c9a51-30fc-44f1-b5ba-96612296c3e3",
+    "_global_index": 6535
   },
   {
     "Name": "Petalwing Drake",
@@ -4281,7 +4301,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6539,
+      "_global_index": 6536,
       "id": "6e50f21a-223c-4466-b53d-0b1b9dd6cd05",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -4293,7 +4313,8 @@
     "_m_align": "n",
     "_m_env": "warm forests, tropical jungles, giant blossom canopies",
     "_m_source": "custom",
-    "id": "6e50f21a-223c-4466-b53d-0b1b9dd6cd05"
+    "id": "6e50f21a-223c-4466-b53d-0b1b9dd6cd05",
+    "_global_index": 6536
   },
   {
     "Name": "Rovesta Guard",
@@ -4462,7 +4483,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6516,
+      "_global_index": 6537,
       "id": "b7d911f5-921d-49c8-a82d-dda27ef38789",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -4474,7 +4495,8 @@
     "_m_align": "cg",
     "_m_env": "warm forests",
     "_m_source": "custom",
-    "id": "b7d911f5-921d-49c8-a82d-dda27ef38789"
+    "id": "b7d911f5-921d-49c8-a82d-dda27ef38789",
+    "_global_index": 6537
   },
   {
     "Name": "Sand Worm",
@@ -4650,7 +4672,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6521,
+      "_global_index": 6538,
       "id": "914592a9-8c70-4b30-baf6-fdb9407efe75",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -4662,7 +4684,8 @@
     "_m_align": "n",
     "_m_env": "warm deserts, arid badlands, or shifting sands",
     "_m_source": "custom",
-    "id": "914592a9-8c70-4b30-baf6-fdb9407efe75"
+    "id": "914592a9-8c70-4b30-baf6-fdb9407efe75",
+    "_global_index": 6538
   },
   {
     "Name": "Thorn Lion",
@@ -4841,7 +4864,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6541,
+      "_global_index": 6539,
       "id": "8a70e43c-445e-4466-b53d-0b1b9dd6cd07",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -4853,7 +4876,8 @@
     "_m_align": "n",
     "_m_env": "dense forests, overgrown jungles, thorny plains",
     "_m_source": "custom",
-    "id": "8a70e43c-445e-4466-b53d-0b1b9dd6cd07"
+    "id": "8a70e43c-445e-4466-b53d-0b1b9dd6cd07",
+    "_global_index": 6539
   },
   {
     "Name": "Tree Viper",
@@ -5028,7 +5052,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6543,
+      "_global_index": 6540,
       "id": "1a90e55e-667f-4466-b53d-0b1b9dd6cd09",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -5040,6 +5064,7 @@
     "_m_align": "n",
     "_m_env": "temperate or warm dense forests, overgrown jungles",
     "_m_source": "custom",
-    "id": "1a90e55e-667f-4466-b53d-0b1b9dd6cd09"
+    "id": "1a90e55e-667f-4466-b53d-0b1b9dd6cd09",
+    "_global_index": 6540
   }
 ]

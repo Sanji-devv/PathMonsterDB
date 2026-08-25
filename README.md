@@ -1,76 +1,74 @@
-# 🐉 PathMonsterDB - Pathfinder 1e Monster Creator
+# 🐉 PathMonsterDB - Pathfinder 1e Monster Creator & Bestiary Database
 
-Welcome to **PathMonsterDB** — a fast, offline-first, browser-based statblock generator and monster management suite created specifically for Game Masters and players of the **Pathfinder 1st Edition Roleplaying Game**.
+Welcome to **PathMonsterDB** — a fast, offline-first, browser-based statblock generator, interactive bestiary, and monster management suite created specifically for Game Masters and players of the **Pathfinder 1st Edition Roleplaying Game**.
 
 ---
 
 ## 📖 What is PathMonsterDB?
 
-**PathMonsterDB** is a comprehensive, standalone tool designed to create, customize, browse, and export Pathfinder 1e monsters and NPCs in real time. It replicates the classic Paizo gold-bordered statblock format with live math automation, built-in database lookups, and instant desktop export capabilities.
+**PathMonsterDB** is a standalone, full-featured application designed to create, customize, browse, and export Pathfinder 1e monsters and NPCs in real time. It faithfully replicates the classic Paizo gold-bordered statblock format with live math automation, built-in database lookups, and instant desktop export capabilities.
 
 ---
 
-## 🎯 Why Was It Built?
+## 🎯 Key Features & Capabilities
 
-Pathfinder 1st Edition is celebrated for its deep character customization and strategic combat, but preparing monsters and NPCs as a Game Master often involves:
-- Flipping across six different Bestiary books and countless sourcebooks.
-- Manually calculating complex modifier math (BAB, size modifiers, ability bonuses, AC breakdowns, saving throws, CMB/CMD).
-- Formatting statblocks manually for printing or digital session prep.
-
-**PathMonsterDB was created to solve these challenges:**
-- **Zero Prep Friction:** Access thousands of official monsters, spells, feats, and rules in one unified offline interface.
-- **Automated Math Engine:** Ability score adjustments instantly recalculate HP, AC, Saves, Attack bonuses, and CMB/CMD without manual math errors.
-- **Session-Ready Output:** Generate polished, print-ready A4 statblocks and high-resolution PNG images in a single click.
-
----
-
-## ✨ What Can You Do?
-
-- **⚔️ Dual-Mode Attack Builder:**
+### ⚔️ 1. Monster Creator & Real-Time Math Engine
+- **Universal Monster Loader:** Load any of the 6,500+ official bestiary creatures or user-created custom monsters into the editor with all stats, attacks, defenses, feats, and spells populated instantly.
+- **Automated Math Engine:** Ability score adjustments instantly recalculate HP (Con/Cha + Toughness scaling), AC (Touch & Flat-Footed), Fort/Ref/Will Saves, BAB, CMB, and CMD without manual math errors.
+- **Dual-Mode Attack Builder:**
   - **RAW Mode:** Edit melee and ranged attacks freely using standard Paizo notation (e.g., `+13 mwk rapier (1d6+11/18-20)`).
-  - **CALC Mode:** Select weapons from the embedded gear library to auto-compute attack rolls, damage dice, critical threats, and strength multipliers.
-- **🧮 Real-Time Math & Mechanics Engine:**
-  - Dynamic calculations for HP, Initiative, AC (Touch & Flat-Footed), Fort/Ref/Will Saves, BAB, CMB, and CMD.
-  - Automatic parsing for Spell-Like Abilities (`At will—...`, `3/day—...`, `1/day—...`).
-- **🔍 Comprehensive Database Search & Filter:**
-  - Search and filter creatures by Name, CR (Challenge Rating), Creature Type, Alignment, and Environment.
-  - Toggle between Official Monsters, Custom Community Creations, NPCs, and Favorites with 1-click loading into the editor.
-- **🔒 Multi-User & Privacy System:**
-  - Save custom creations as **Public** (shared with all users) or **Private** (exclusive to your account).
-  - Toggle and persist per-account favorites.
-- **📸 High-Resolution Desktop Export:**
-  - Export beautiful gold-bordered statblocks directly as high-res PNG images or printable PDFs.
-  - Save and load individual creature files in portable `.json` format.
-- **🎨 Custom Visual Themes:**
-  - Choose from **+20 built-in themes** (Parchment, Arcane Obsidian, Dark Fantasy, High Contrast, Cyber Slate, and more).
-  - Collapsible sidebar mode for full-screen centered statblock viewing.
+  - **CALC Mode:** Select weapons from the embedded gear catalog to auto-compute attack rolls, damage dice, critical threats, and strength multipliers.
+- **Fast Feat Prefix & Acronym Engine:** Direct shorthand matching (`wf` -> Weapon Focus, `gwf` -> Greater Weapon Focus, `pa` -> Power Attack, `twf` -> Two-Weapon Fighting, `pbs` -> Point-Blank Shot) and creature attack mapping (`Weapon Focus (Bite)`).
+- **Interactive Tooltip Modals (`window.showInfoModal`):** Instant rule lookups for spells, feats, special abilities, auras, immunities, resistances, and equipment.
+- **Stepper Controls:** Touch-friendly `[-10]...[+10]` HP adjustments and custom CMB/CMD notation modifiers.
+
+### 📚 2. Monster Database & Search Engine
+- **Spacious 3-Column Grid:** Fixed 3-column layout on desktop (`repeat(3, minmax(0, 1fr))`), 2 columns on tablet, and 1 column on mobile with zero text clipping.
+- **Multi-Faceted Search & Filtering:** Filter by Name, CR (Challenge Rating), Creature Type, Alignment, Environment, and Category (Official Monsters, NPCs, Custom Community, My Monsters, Private, Favorites, 3PP).
+- **Optimized Layout Spacing:** Row separation between search bar and filter selects with generous spacing to monster cards.
+- **One-Click Loading & Forking:** Load any monster into the editor or modify public community creations safely with automatic ownership forking.
+
+### ⚙️ 3. Appearance & Display Customizer
+- **Application UI Mode:** Toggle between **🌙 Dark UI** and **☀️ Light UI** for the entire workspace.
+- **21 Statblock Paper Themes:** Classic Parchment, Obsidian Glass, Ancient Scroll, Midnight Arcana, Crimson Blood, Emerald Forest, Cyber Neon, Wizard's Tome, and more.
+- **Typography & Font Options:** Choose from 9 premium fonts (*Inter, EB Garamond, Cinzel, Roboto, Montserrat, Poppins, Fira Sans, Lora, JetBrains Mono*).
+- **Font Size & Scale Controls:** 11–20px slider with one-click presets (`12px`, `14px`, `16px`, `18px`) and 80–150% statblock zoom scaling.
+- **Zero-Flash Theme Persistence:** Saved themes, fonts, and modes apply instantly upon page load.
+
+### 🔒 4. Authentication, Privacy & Ownership
+- **Pure Username & Password Auth:** Secure PBKDF2 SHA-256 password hashing with bearer tokens.
+- **Public & Private Visibility:** Choose whether your custom creations are public for the community or strictly private to your account.
+- **Case-Insensitive Ownership Protection:** Authors maintain full edit and delete control over their monsters across sessions.
+- **Per-Account Favorites:** Persist favorite monsters independently across accounts and privacy updates.
+- **Bulk Database Export & Import:** Export filtered or full monster datasets as JSON and import batch custom monster arrays in one click.
 
 ---
 
-## 📚 1. Comprehensive Embedded Library
+## 📚 Embedded Pathfinder 1e Datasets (`/data`)
 
-The application includes an extensive, offline database:
+The application includes an extensive, offline-first database:
 
-- **+6,500 Monsters & NPCs:** Full Bestiary 1–6, NPC Codex, Unique Paizo Creatures, 3rd Party (3PP) monsters, and custom community entries.
-- **+2,900 Spells:** Searchable by spell level, school, and class, integrated with direct Archives of Nethys rule modals.
-- **+3,100 Feats:** Autocomplete tags, description popups, and automatic stat bonus calculations.
-- **+300 Special Abilities & Universal Monster Rules:** Paizo RAW mechanics, save DC formulas, and Bestiary traits.
-- **+70 Monster & Spell Auras:** Detailed mechanical descriptions for fear auras, elemental halos, holy/unholy shields, and planar emanations.
-- **+140 Class Features:** Class mechanics covering Core, Base, Hybrid, and Occult classes.
-- **Official Rules & Conditions Database:** Comprehensive rules covering **+30 Combat Conditions** and **+10 Combat Maneuvers**.
-- **+20 Armors & Shields:** Automatic calculation of AC bonuses, Max DEX limits, and Armor Check Penalties (ACP).
-- **+40 Weapons:** Autocompleting weapon library with damage dice, critical ranges, and weapon types.
-- **+40 Immunities, +30 Resistances & +20 Weaknesses:** Complete defensive profiles and vulnerability tags.
+| Dataset | Entries | Description |
+|---|---|---|
+| **Monsters & NPCs** | 6,516+ | Official Bestiaries 1–6, NPC Codex, Unique Paizo Creatures, 3PP, and custom creations. |
+| **Spells** | 2,909 | Full Pathfinder 1e spell database with schools, class spell lists, CL, and descriptions. |
+| **Feats** | 3,188 | Feats with prerequisite trees, RAW descriptions, and automatic stat modifiers. |
+| **Special Abilities & UMR** | 325 | Universal Monster Rules (UMR), special attacks, defenses, and DC formulas. |
+| **Auras** | 75 | Monster and spell auras with radius and saving throw mechanics. |
+| **Class Features** | 141 | Core, Base, Hybrid, and Occult class mechanics. |
+| **Rules & Conditions** | 4 sets | 32 Combat Conditions, 11 Combat Maneuvers, Modifiers, and Hazards. |
+| **Armors & Shields** | 21 | Armor stats with AC bonuses, Max DEX, ACP, and Spell Failure. |
+| **Weapons** | 41 | Weapons with damage dice, crit ranges, damage types, and categories. |
+| **Magic Items** | 58 | Big Six and wondrous items with slot mapping and attribute modifiers. |
+| **Immunities / Resistances / Weaknesses** | 104 | Complete defensive profiles and vulnerability tags. |
 
 ---
 
-## Live Web Application
-
-Access the application directly in your browser:
+Access the hosted application directly in your browser:
 👉 **[https://158.51.78.172](https://158.51.78.172)**
 
 ---
 
 ## 📜 License & Credits
 
-Built for the Pathfinder 1E tabletop roleplaying community. Pathfinder is a registered trademark of Paizo Inc. Game rules and data are sourced under the Open Game License (OGL).
+Built with for the Pathfinder 1E tabletop roleplaying community. Pathfinder is a registered trademark of Paizo Inc. Game rules, mechanics, and data are sourced under the Open Game License (OGL).
