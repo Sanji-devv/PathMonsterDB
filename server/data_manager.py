@@ -18,6 +18,21 @@ FAVORITES_CACHE = None
 CUSTOM_MONSTERS_MTIME = 0
 OFFICIAL_MONSTERS_MTIME = 0
 
+ENV_KEYWORDS = {
+    'aquatic': ['aquatic', 'water', 'ocean', 'oceans', 'sea', 'seas', 'lake', 'lakes', 'river', 'rivers', 'coast', 'coastlines', 'marine'],
+    'swamp': ['swamp', 'swamps', 'marsh', 'marshes', 'bog', 'bogs', 'mire', 'fen'],
+    'forest': ['forest', 'forests', 'jungle', 'jungles', 'wood', 'woods'],
+    'desert': ['desert', 'deserts', 'sand', 'waste', 'badland', 'badlands'],
+    'hills': ['hill', 'hills'],
+    'mountains': ['mountain', 'mountains'],
+    'plains': ['plain', 'plains', 'savanna', 'savannas', 'steppe', 'grassland', 'grasslands'],
+    'underground': ['underground', 'cave', 'caves', 'cavern', 'caverns', 'subterranean', 'darklands'],
+    'urban': ['urban', 'city', 'cities', 'town', 'towns', 'settlement', 'settlements'],
+    'cold': ['cold', 'arctic', 'tundra', 'ice', 'snow', 'glacier'],
+    'planar': ['plane', 'planes', 'planar', 'extraplanar', 'abyss', 'hell', 'astral', 'elysium', 'heaven', 'nirvana', 'purgatory', 'shadow plane', 'ethereal', 'elemental', 'boneyard', 'axis', 'maelstrom', 'outer'],
+    'ruins': ['ruin', 'ruins']
+}
+
 def clear_cache():
     global SEARCH_CACHE
     SEARCH_CACHE.clear()
@@ -241,9 +256,14 @@ def load_monsters():
         m['_m_name'] = str(m.get('Name', '')).lower()
         m['_m_cr'] = str(m.get('CR', '')).lower()
         m['_m_type'] = str(m.get('Type', '')).lower()
+        m['_m_size'] = str(m.get('Size', '')).lower()
         m['_m_align'] = str(m.get('Alignment', '')).lower()
         m['_m_env'] = str(m.get('Environment', '')).lower()
         m['_m_source'] = str(m.get('Source') or ('custom' if m.get('IsUserCustom') else '')).lower()
+        subtypes = [str(m.get(f'subtype{k}', '')).lower() for k in range(1, 7) if m.get(f'subtype{k}')]
+        race = str(m.get('Race', '')).lower()
+        alt = str(m.get('AlternateNameForm', '')).lower()
+        m['_m_search_text'] = f"{m['_m_name']} {race} {' '.join(subtypes)} {alt} {m['_m_source']}".strip()
         m['_global_index'] = idx
         if 'OriginalState' in m and isinstance(m['OriginalState'], dict):
             m['OriginalState']['_global_index'] = idx
@@ -296,6 +316,160 @@ def save_monsters():
     save_custom_monsters()
     save_official_monsters()
 
+def get_filtered_monsters(query_string, user=None):
+    check_and_reload_if_modified()
+    params = parse_qs(query_string)
+    user_id = str(user.get('id', '')) if user else ''
+    user_name = str(user.get('username', '')).lower() if user else ''
+    user_fav_key = user_id if user_id else (user_name if user_name else 'anon')
+    user_favs = get_user_favorites(user_fav_key)
+
+    name = params.get('name', [''])[0].lower().strip()
+    cr = params.get('cr', [''])[0].lower().strip()
+    mtype = params.get('type', [''])[0].lower().strip()
+    size = params.get('size', [''])[0].lower().strip()
+    alignment = params.get('alignment', [''])[0].lower().strip()
+    environment = params.get('environment', [''])[0].lower().strip()
+    category = params.get('category', ['all'])[0].lower().strip()
+
+    filtered = []
+    for i, m in enumerate(GLOBAL_MONSTERS):
+        is_custom = m.get('IsUserCustom', False)
+        is_npc = str(m.get('CharacterFlag', '0')) == '1'
+        m_vis = str(m.get('Visibility', 'public')).lower()
+        m_auth_id = str(m.get('AuthorId', ''))
+        m_auth_name = str(m.get('AuthorName', '')).lower()
+
+        if user_id:
+            is_own = bool(m_auth_id == user_id or (not m_auth_id and m_auth_name == user_name))
+        else:
+            is_own = bool(not m_auth_id and (not m_auth_name or m_auth_name in ('anon', 'anonymous')))
+
+        # Privacy rule: Private custom monsters are ONLY visible to their author!
+        if is_custom and m_vis == 'private' and not is_own:
+            continue
+
+        is_fav = is_monster_favorited(m, user_favs)
+
+        m_source = str(m.get('_m_source') or m.get('Source') or '').lower()
+        m_name_raw = str(m.get('Name') or '').lower()
+        m_is_3pp = (str(m.get('Is3pp', '0')) == '1' or 
+                    '3pp' in m_source or 'tome of horrors' in m_source or 'tohc' in m_source or 
+                    'frog god' in m_source or 'necromancer games' in m_source or 'kobold press' in m_source or 
+                    'rite publishing' in m_source or 'super genius' in m_source or 'rogue genius' in m_source or 
+                    'dreamscarred' in m_source or 'open design' in m_source or '[3pp]' in m_name_raw or '(3pp)' in m_name_raw)
+
+        # Category filter
+        if category and category not in ('all', ''):
+            if category == 'favorites':
+                if not is_fav:
+                    continue
+            elif category == 'custom':
+                if not is_custom:
+                    continue
+            elif category == 'my_monsters':
+                if not (is_custom and is_own):
+                    continue
+            elif category == 'my_private':
+                if not (is_custom and is_own and m_vis == 'private'):
+                    continue
+            elif category == 'public_custom':
+                if not (is_custom and m_vis != 'private'):
+                    continue
+            elif category == 'official_monster':
+                if is_custom or is_npc or m_is_3pp:
+                    continue
+            elif category == 'official_npc':
+                if is_custom or not is_npc or m_is_3pp:
+                    continue
+            elif category == 'unique_monster':
+                is_unique = (str(m.get('UniqueMonster', '0')) in ('1', 'true', 'True') or m.get('UniqueMonster') is True)
+                if not is_unique:
+                    continue
+            elif category == 'mythic_monster':
+                mr_val = m.get('MR')
+                has_mr = mr_val not in (None, '', '0', 0, 'None')
+                is_mythic = (str(m.get('Mythic', '0')) in ('1', 'true', 'True') or has_mr or 'mythic' in m_name_raw)
+                if not is_mythic:
+                    continue
+            elif category == '3pp_monster':
+                if is_custom or not m_is_3pp:
+                    continue
+
+        m_name = str(m.get('_m_name') or m.get('Name') or '').lower()
+        m_cr = str(m.get('_m_cr') or m.get('CR') or '').lower()
+        m_type = str(m.get('_m_type') or m.get('Type') or '').lower()
+        m_size = str(m.get('_m_size') or m.get('Size') or '').lower()
+        m_align = str(m.get('_m_align') or m.get('Alignment') or '').lower()
+        m_env = str(m.get('_m_env') or m.get('Environment') or '').lower()
+
+        # Name / Keyword filter (tokenized)
+        if name:
+            name_tokens = [t for t in name.split() if t]
+            search_text = m.get('_m_search_text', f"{m_name} {m_source}")
+            if not all(tok in search_text for tok in name_tokens):
+                continue
+
+        # CR filter
+        if cr and cr not in ('any', ''):
+            t_cr = parse_cr(cr)
+            m_cr_val = parse_cr(m_cr)
+            if t_cr >= 0 and m_cr_val >= 0:
+                if abs(t_cr - m_cr_val) > 0.02:
+                    continue
+            elif cr != m_cr and cr not in m_cr:
+                continue
+
+        # Creature Type filter (strictly isolate Humanoid vs Monstrous Humanoid)
+        if mtype and mtype not in ('any', ''):
+            main_type = m_type.split('(')[0].strip()
+            if mtype == 'humanoid':
+                if main_type != 'humanoid':
+                    continue
+            elif mtype == 'monstrous humanoid':
+                if main_type != 'monstrous humanoid':
+                    continue
+            else:
+                if main_type != mtype and mtype not in m_type:
+                    continue
+
+        # Size filter
+        if size and size not in ('any', ''):
+            if size != m_size and size not in m_size:
+                continue
+
+        # Alignment filter
+        if alignment and alignment not in ('any', ''):
+            align_clean = m_align.replace('/', ' ').replace('or', ' ')
+            align_tokens = [a.strip() for a in align_clean.split() if a.strip()]
+            if alignment not in align_tokens and alignment != m_align and m_align != 'any alignment':
+                continue
+
+        # Environment filter (smart synonym expansion)
+        if environment and environment not in ('any', ''):
+            env_keys = ENV_KEYWORDS.get(environment, [environment])
+            if not any(k in m_env for k in env_keys):
+                continue
+
+        m_copy = dict(m)
+        m_copy['IsFavorite'] = is_fav
+        m_copy['_global_index'] = i
+        filtered.append(m_copy)
+
+    sort_by = params.get('sort', ['default'])[0].lower()
+    if sort_by == 'default' or sort_by == 'name_asc':
+        filtered.sort(key=lambda x: str(x.get('Name') or '').lower())
+    elif sort_by == 'newest':
+        filtered.reverse()
+    elif sort_by == 'cr_desc':
+        filtered.sort(key=lambda x: parse_cr(x.get('CR', '')), reverse=True)
+    elif sort_by == 'cr_asc':
+        filtered.sort(key=lambda x: (parse_cr(x.get('CR', '')) if parse_cr(x.get('CR', '')) >= 0 else 9999))
+    elif sort_by == 'name_desc':
+        filtered.sort(key=lambda x: str(x.get('Name') or '').lower(), reverse=True)
+
+    return filtered
+
 def search_monsters(query_string, user=None):
     global GLOBAL_MONSTERS, SEARCH_CACHE
 
@@ -311,14 +485,9 @@ def search_monsters(query_string, user=None):
 
     if cache_key in SEARCH_CACHE:
         return SEARCH_CACHE[cache_key]
-    
-    name = params.get('name', [''])[0].lower()
-    cr = params.get('cr', [''])[0].lower()
-    mtype = params.get('type', [''])[0].lower()
-    alignment = params.get('alignment', [''])[0].lower()
-    environment = params.get('environment', [''])[0].lower()
-    category = params.get('category', ['all'])[0].lower()
-    
+
+    filtered = get_filtered_monsters(query_string, user=user)
+
     try:
         page = max(1, int(params.get('page', ['1'])[0]))
     except (ValueError, TypeError):
@@ -328,93 +497,19 @@ def search_monsters(query_string, user=None):
         per_page = max(1, min(200, int(params.get('per_page', ['50'])[0])))
     except (ValueError, TypeError):
         per_page = 50
-    
-    user_favs = get_user_favorites(user_fav_key)
 
-    filtered = []
-    for i, m in enumerate(GLOBAL_MONSTERS):
-        is_custom = m.get('IsUserCustom', False)
-        is_npc = str(m.get('CharacterFlag', '0')) == '1'
-        m_vis = str(m.get('Visibility', 'public')).lower()
-        m_auth_id = str(m.get('AuthorId', ''))
-        m_auth_name = str(m.get('AuthorName', '')).lower()
-
-        is_own = bool(user_id and (m_auth_id == user_id or (not m_auth_id and m_auth_name == user_name)))
-
-        # Privacy rule: Private custom monsters are ONLY visible to their author!
-        if is_custom and m_vis == 'private' and not is_own:
-            continue
-        
-        is_fav = is_monster_favorited(m, user_favs)
-        if category == 'favorites' and not is_fav:
-            continue
-        m_source = str(m.get('_m_source') or m.get('Source') or '').lower()
-        m_name_raw = str(m.get('Name') or '').lower()
-        m_is_3pp = (str(m.get('Is3pp', '0')) == '1' or 
-                    '3pp' in m_source or 'tome of horrors' in m_source or 'tohc' in m_source or 
-                    'frog god' in m_source or 'necromancer games' in m_source or 'kobold press' in m_source or 
-                    'rite publishing' in m_source or 'super genius' in m_source or 'rogue genius' in m_source or 
-                    'dreamscarred' in m_source or 'open design' in m_source or '[3pp]' in m_name_raw or '(3pp)' in m_name_raw)
-
-        if category == 'official_monster' and (is_custom or is_npc or m_is_3pp):
-            continue
-        if category == 'official_npc' and (is_custom or not is_npc or m_is_3pp):
-            continue
-        if category == '3pp_monster' and not m_is_3pp:
-            continue
-
-        m_name = str(m.get('_m_name') or m.get('Name') or '').lower()
-        m_cr = str(m.get('_m_cr') or m.get('CR') or '').lower()
-        m_type = str(m.get('_m_type') or m.get('Type') or '').lower()
-        m_align = str(m.get('_m_align') or m.get('Alignment') or '').lower()
-        m_env = str(m.get('_m_env') or m.get('Environment') or '').lower()
-        
-        if name and name not in m_name:
-            continue
-        if cr and cr != "any":
-            t_cr = parse_cr(cr)
-            m_cr_val = parse_cr(m_cr)
-            if t_cr >= 0 and m_cr_val >= 0:
-                if abs(t_cr - m_cr_val) > 0.01:
-                    continue
-            elif cr != m_cr:
-                continue
-        if mtype and mtype != "any" and mtype not in m_type:
-            continue
-        if alignment and alignment != m_align:
-            continue
-        if environment and environment not in m_env:
-            continue
-            
-        m_copy = dict(m)
-        m_copy['IsFavorite'] = is_fav
-        m_copy['_global_index'] = i
-        filtered.append(m_copy)
-        
-    sort_by = params.get('sort', ['default'])[0].lower()
-    if sort_by == 'default' or sort_by == 'name_asc':
-        filtered.sort(key=lambda x: str(x.get('Name') or '').lower())
-    elif sort_by == 'newest':
-        filtered.reverse()
-    elif sort_by == 'cr_desc':
-        filtered.sort(key=lambda x: parse_cr(x.get('CR', '')), reverse=True)
-    elif sort_by == 'cr_asc':
-        filtered.sort(key=lambda x: (parse_cr(x.get('CR', '')) if parse_cr(x.get('CR', '')) >= 0 else 9999))
-    elif sort_by == 'name_desc':
-        filtered.sort(key=lambda x: str(x.get('Name') or '').lower(), reverse=True)
-        
     total_count = len(filtered)
     start = (page - 1) * per_page
     end = start + per_page
     page_data = filtered[start:end]
-    
+
     response = {
         "total_count": total_count,
         "page": page,
         "per_page": per_page,
         "data": page_data
     }
-    
+
     body = json.dumps(response).encode('utf-8')
     SEARCH_CACHE[cache_key] = body
     return body
@@ -664,10 +759,8 @@ def export_monsters_dataset(scope='all', user=None, query_string=''):
 
     if scope == 'filtered' and query_string:
         try:
-            res_body = search_monsters(query_string + '&per_page=200&page=1', user=user)
-            res_json = json.loads(res_body.decode('utf-8'))
-            raw_data = res_json.get('data', [])
-            for m in raw_data:
+            filtered_monsters = get_filtered_monsters(query_string, user=user)
+            for m in filtered_monsters:
                 clean_m = {k: v for k, v in m.items() if not k.startswith('_m_')}
                 result_list.append(clean_m)
         except Exception as e:
@@ -679,7 +772,11 @@ def export_monsters_dataset(scope='all', user=None, query_string=''):
             m_vis = str(m.get('Visibility', 'public')).lower()
             m_auth_id = str(m.get('AuthorId', ''))
             m_auth_name = str(m.get('AuthorName', '')).lower()
-            is_own = bool(user_id and (m_auth_id == user_id or (not m_auth_id and m_auth_name == user_name)))
+            
+            if user_id:
+                is_own = bool(m_auth_id == user_id or (not m_auth_id and m_auth_name == user_name))
+            else:
+                is_own = bool(not m_auth_id and (not m_auth_name or m_auth_name in ('anon', 'anonymous')))
 
             # Privacy rule: exclude private custom monsters unless author
             if is_custom and m_vis == 'private' and not is_own:

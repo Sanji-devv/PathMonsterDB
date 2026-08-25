@@ -19,16 +19,31 @@ def clean_tag_val(val):
     return str(val)
 
 def parse_cr(cr_str):
-    if not cr_str or cr_str == '-' or str(cr_str).lower() == 'any': 
+    if cr_str is None or cr_str == '':
         return -1.0
-    try:
-        s = str(cr_str).strip()
-        if '/' in s:
-            num, den = s.split('/')
-            return float(num) / float(den)
-        return float(s)
-    except Exception:
+    s = str(cr_str).strip().lower()
+    if s in ('-', 'any', 'n/a', 'none', '?'):
         return -1.0
+    # Remove leading "cr" prefix
+    s = re.sub(r'^cr\s*', '', s)
+    # Check for fraction like 1/2, 1/3, 1/4, 1/6, 1/8
+    frac_match = re.search(r'(\d+)\s*/\s*(\d+)', s)
+    if frac_match:
+        try:
+            num = float(frac_match.group(1))
+            den = float(frac_match.group(2))
+            if den != 0:
+                return num / den
+        except Exception:
+            pass
+    # Check for decimal or integer e.g. 0.33, 0.5, 12, 10/MR
+    num_match = re.search(r'(\d+(?:\.\d+)?)', s)
+    if num_match:
+        try:
+            return float(num_match.group(1))
+        except Exception:
+            pass
+    return -1.0
 
 def format_monster_from_state(state):
     basic = state.get('basic', {})

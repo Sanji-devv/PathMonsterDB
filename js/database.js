@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterName = document.getElementById('filter-name');
     const filterCr = document.getElementById('filter-cr');
     const filterType = document.getElementById('filter-type');
+    const filterSize = document.getElementById('filter-size');
     const filterAlignment = document.getElementById('filter-alignment');
     const filterEnvironment = document.getElementById('filter-environment');
     const filterCategory = document.getElementById('filter-category');
@@ -35,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const pageInfo = document.getElementById('page-info');
 
     // Populate CR Filter Options
-    const crs = ["1/8", "1/6", "1/4", "1/3", "1/2", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"];
+    const crs = ["1/8", "1/6", "1/4", "1/3", "1/2", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "35", "37", "39"];
     crs.forEach(cr => {
         let opt = document.createElement('option');
         opt.value = cr;
@@ -47,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const nameVal = encodeURIComponent(filterName.value);
         const crVal = encodeURIComponent(filterCr.value);
         const typeVal = encodeURIComponent(filterType.value);
+        const sizeVal = filterSize ? encodeURIComponent(filterSize.value) : '';
         const alignVal = encodeURIComponent(filterAlignment.value);
         const envVal = encodeURIComponent(filterEnvironment.value);
         const catVal = encodeURIComponent(filterCategory.value);
@@ -59,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ? auth.getAuthHeaders()
             : {};
 
-        fetch(`/api/search?name=${nameVal}&cr=${crVal}&type=${typeVal}&alignment=${alignVal}&environment=${envVal}&category=${catVal}&sort=${sortVal}&page=${currentPage}&per_page=${itemsPerPage}&_t=${Date.now()}`, {
+        fetch(`/api/search?name=${nameVal}&cr=${crVal}&type=${typeVal}&size=${sizeVal}&alignment=${alignVal}&environment=${envVal}&category=${catVal}&sort=${sortVal}&page=${currentPage}&per_page=${itemsPerPage}&_t=${Date.now()}`, {
             headers: headers,
             cache: 'no-store'
         })
@@ -94,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
     filterName.addEventListener('input', applyFiltersDebounced);
     filterCr.addEventListener('change', applyFilters);
     filterType.addEventListener('change', applyFilters);
+    if (filterSize) filterSize.addEventListener('change', applyFilters);
     filterAlignment.addEventListener('change', applyFilters);
     filterEnvironment.addEventListener('change', applyFilters);
     filterCategory.addEventListener('change', applyFilters);
@@ -105,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: filterName.value,
             cr: filterCr.value,
             type: filterType.value,
+            size: filterSize ? filterSize.value : '',
             alignment: filterAlignment.value,
             environment: filterEnvironment.value,
             category: filterCategory.value,
@@ -121,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (f.name !== undefined) filterName.value = f.name;
                 if (f.cr !== undefined) filterCr.value = f.cr;
                 if (f.type !== undefined) filterType.value = f.type;
+                if (f.size !== undefined && filterSize) filterSize.value = f.size;
                 if (f.alignment !== undefined) filterAlignment.value = f.alignment;
                 if (f.environment !== undefined) filterEnvironment.value = f.environment;
                 if (f.category !== undefined) filterCategory.value = f.category;
@@ -137,6 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
             filterName.value = '';
             filterCr.value = '';
             filterType.value = '';
+            if (filterSize) filterSize.value = '';
             filterAlignment.value = '';
             filterEnvironment.value = '';
             filterCategory.value = '';
@@ -951,11 +957,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const nameVal = encodeURIComponent(filterName.value);
             const crVal = encodeURIComponent(filterCr.value);
             const typeVal = encodeURIComponent(filterType.value);
+            const sizeVal = filterSize ? encodeURIComponent(filterSize.value) : '';
             const alignVal = encodeURIComponent(filterAlignment.value);
             const envVal = encodeURIComponent(filterEnvironment.value);
             const catVal = encodeURIComponent(filterCategory.value);
             const sortVal = encodeURIComponent(filterSort.value);
-            url += `&name=${nameVal}&cr=${crVal}&type=${typeVal}&alignment=${alignVal}&environment=${envVal}&category=${catVal}&sort=${sortVal}`;
+            url += `&name=${nameVal}&cr=${crVal}&type=${typeVal}&size=${sizeVal}&alignment=${alignVal}&environment=${envVal}&category=${catVal}&sort=${sortVal}`;
         }
 
         try {

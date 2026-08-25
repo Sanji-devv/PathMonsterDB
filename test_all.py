@@ -819,6 +819,86 @@ def run_tests():
                     assert resp_del.status == 200
                 print("  [OK] Cleaned up imported test monsters.")
 
+        # --- Database Filter Verification Suite ---
+        print("\n  [FILTERS] Testing Full Database Filter Suite (Categories, Types, Sizes, Environments, CR, Alignments)...")
+        
+        # 1. Category Filters
+        cat_tests = [
+            ("custom", lambda d: all(m.get("IsUserCustom") for m in d["data"]) and d["total_count"] > 0),
+            ("official_monster", lambda d: all(not m.get("IsUserCustom") and str(m.get("CharacterFlag", "0")) == "0" for m in d["data"]) and d["total_count"] > 3000),
+            ("official_npc", lambda d: all(not m.get("IsUserCustom") and str(m.get("CharacterFlag", "0")) == "1" for m in d["data"]) and d["total_count"] > 1000),
+            ("unique_monster", lambda d: all(str(m.get("UniqueMonster", "0")) == "1" for m in d["data"]) and d["total_count"] > 300),
+            ("mythic_monster", lambda d: d["total_count"] >= 40),
+            ("3pp_monster", lambda d: d["total_count"] >= 800),
+        ]
+        for cat_name, validator in cat_tests:
+            c_req = urllib.request.Request(f"{base_url}/api/search?category={cat_name}&per_page=20")
+            with urllib.request.urlopen(c_req) as resp:
+                c_data = json.loads(resp.read().decode('utf-8'))
+                assert validator(c_data), f"Category filter failed for {cat_name}: {c_data['total_count']} results"
+                print(f"  [OK] Category filter '{cat_name}' verified ({c_data['total_count']} monsters).")
+
+        # 2. Type Filter Isolation (Humanoid vs Monstrous Humanoid)
+        h_req = urllib.request.Request(f"{base_url}/api/search?type=humanoid&per_page=50")
+        with urllib.request.urlopen(h_req) as resp:
+            h_data = json.loads(resp.read().decode('utf-8'))
+            for m in h_data["data"]:
+                m_type = str(m.get("Type", "")).lower()
+                assert "monstrous humanoid" not in m_type, f"Humanoid filter incorrectly included Monstrous Humanoid: {m['Name']}"
+            print(f"  [OK] Creature Type 'humanoid' strictly isolated from monstrous humanoid ({h_data['total_count']} monsters).")
+
+        mh_req = urllib.request.Request(f"{base_url}/api/search?type=monstrous+humanoid&per_page=50")
+        with urllib.request.urlopen(mh_req) as resp:
+            mh_data = json.loads(resp.read().decode('utf-8'))
+            assert mh_data["total_count"] >= 39
+            print(f"  [OK] Creature Type 'monstrous humanoid' verified ({mh_data['total_count']} monsters).")
+
+        # 3. Size Filter
+        sz_req = urllib.request.Request(f"{base_url}/api/search?size=colossal&per_page=20")
+        with urllib.request.urlopen(sz_req) as resp:
+            sz_data = json.loads(resp.read().decode('utf-8'))
+            assert sz_data["total_count"] >= 80
+            assert all(str(m.get("Size", "")).lower() == "colossal" for m in sz_data["data"])
+            print(f"  [OK] Size filter 'colossal' verified ({sz_data['total_count']} monsters).")
+
+        # 4. Environment Synonyms & Expanded Environments
+        env_tests = [
+            ("aquatic", lambda count: count >= 240),
+            ("swamp", lambda count: count >= 80),
+            ("cold", lambda count: count >= 100),
+            ("planar", lambda count: count >= 380),
+            ("underground", lambda count: count >= 170),
+        ]
+        for env_name, validator in env_tests:
+            e_req = urllib.request.Request(f"{base_url}/api/search?environment={env_name}&per_page=10")
+            with urllib.request.urlopen(e_req) as resp:
+                e_data = json.loads(resp.read().decode('utf-8'))
+                assert validator(e_data["total_count"]), f"Environment {env_name} count unexpected: {e_data['total_count']}"
+                print(f"  [OK] Environment filter '{env_name}' with synonyms verified ({e_data['total_count']} monsters).")
+
+        # 5. Fractional & High CR Filter
+        cr_tests = [("1/2", 0.5), ("0.33", 0.33), ("35", 35.0), ("39", 39.0)]
+        for cr_val, num_cr in cr_tests:
+            cr_req = urllib.request.Request(f"{base_url}/api/search?cr={cr_val}")
+            with urllib.request.urlopen(cr_req) as resp:
+                cr_data = json.loads(resp.read().decode('utf-8'))
+                assert cr_data["total_count"] >= 1, f"CR filter failed for {cr_val}"
+                print(f"  [OK] CR filter '{cr_val}' verified ({cr_data['total_count']} monsters).")
+
+        # 6. Multi-term Tokenized Name Search
+        n_req = urllib.request.Request(f"{base_url}/api/search?name=dragon+red")
+        with urllib.request.urlopen(n_req) as resp:
+            n_data = json.loads(resp.read().decode('utf-8'))
+            assert n_data["total_count"] >= 10
+            print(f"  [OK] Multi-term search 'dragon red' verified ({n_data['total_count']} matching monsters).")
+
+        # 7. Alignment Filter (with compound alignment support)
+        al_req = urllib.request.Request(f"{base_url}/api/search?alignment=ng")
+        with urllib.request.urlopen(al_req) as resp:
+            al_data = json.loads(resp.read().decode('utf-8'))
+            assert al_data["total_count"] >= 120
+            print(f"  [OK] Alignment filter 'NG' verified ({al_data['total_count']} monsters).")
+
         # Test Logout
         print("\n  [AUTH] Testing Logout & Session Invalidation...")
         logout_req = urllib.request.Request(f"{base_url}/api/auth/logout", data=b'{}', headers={'Authorization': f"Bearer {auth_token}", 'Content-Type': 'application/json'})
