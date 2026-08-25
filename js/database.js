@@ -136,21 +136,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    const btnResetFilters = document.getElementById('btn-reset-filters');
-    if (btnResetFilters) {
-        btnResetFilters.addEventListener('click', () => {
-            filterName.value = '';
-            filterCr.value = '';
-            filterType.value = '';
-            if (filterSize) filterSize.value = '';
-            filterAlignment.value = '';
-            filterEnvironment.value = '';
-            filterCategory.value = '';
-            filterSort.value = 'default';
-            localStorage.removeItem('pf_db_filters');
-            applyFilters();
-        });
+    function resetAllFilters() {
+        filterName.value = '';
+        filterCr.value = '';
+        filterType.value = '';
+        if (filterSize) filterSize.value = '';
+        filterAlignment.value = '';
+        filterEnvironment.value = '';
+        filterCategory.value = '';
+        filterSort.value = 'default';
+        localStorage.removeItem('pf_db_filters');
+        applyFilters();
     }
+
+    const resetButtons = [
+        document.getElementById('btn-reset-filters'),
+        document.getElementById('btn-reset-filters-bar'),
+        document.getElementById('mob-btn-reset-filters')
+    ].filter(Boolean);
+
+    resetButtons.forEach(btn => {
+        btn.addEventListener('click', resetAllFilters);
+    });
 
 
     // Pagination

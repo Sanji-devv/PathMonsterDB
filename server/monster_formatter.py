@@ -353,9 +353,11 @@ def format_monster_from_state(state):
         "_m_name": name.lower(),
         "_m_cr": str(cr).lower(),
         "_m_type": mtype.lower(),
+        "_m_size": size.lower(),
         "_m_align": alignment.lower(),
         "_m_env": get_val('in-environment', 'Environment', '').lower(),
-        "_m_source": "custom"
+        "_m_source": "custom",
+        "_m_search_text": f"{name.lower()} {st1.lower()} {st2.lower()} custom".strip()
     }
     m_id = state.get('id') or state.get('Id') or state.get('_id') or (basic.get('id') if isinstance(basic, dict) else None)
     if m_id:
