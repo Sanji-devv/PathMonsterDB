@@ -212,7 +212,7 @@
         ],
         "spells": []
       },
-      "_global_index": 6516,
+      "_global_index": 5541,
       "id": "5922097b-f7d8-40c6-acb2-83a003fdb245",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -225,7 +225,9 @@
     "_m_env": "any",
     "_m_source": "custom",
     "id": "5922097b-f7d8-40c6-acb2-83a003fdb245",
-    "_global_index": 6516
+    "_global_index": 5541,
+    "_m_size": "medium",
+    "_m_search_text": "(magnum opus) albedo    custom"
   },
   {
     "Name": "(Magnum Opus) Citrinitas",
@@ -457,7 +459,7 @@
         ],
         "spells": []
       },
-      "_global_index": 6517,
+      "_global_index": 5542,
       "id": "6b4e3b52-286a-4cef-9b19-76c612c49ee4",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -470,7 +472,9 @@
     "_m_env": "alchemical laboratories, urban courts, ancient academies",
     "_m_source": "custom",
     "id": "6b4e3b52-286a-4cef-9b19-76c612c49ee4",
-    "_global_index": 6517
+    "_global_index": 5542,
+    "_m_size": "medium",
+    "_m_search_text": "(magnum opus) citrinitas  elf  custom"
   },
   {
     "Name": "(Magnum Opus) Nigredo",
@@ -689,7 +693,7 @@
         ],
         "spells": []
       },
-      "_global_index": 6518,
+      "_global_index": 5543,
       "id": "3d08b8e8-3223-405f-a050-13468cba91b5",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -702,7 +706,9 @@
     "_m_env": "any volcanic peaks, void temples, cataclysmic ruins, or scorched arcane laboratories",
     "_m_source": "custom",
     "id": "3d08b8e8-3223-405f-a050-13468cba91b5",
-    "_global_index": 6518
+    "_global_index": 5543,
+    "_m_size": "medium",
+    "_m_search_text": "(magnum opus) nigredo    custom"
   },
   {
     "Name": "(Magnum Opus) Rubedo",
@@ -935,7 +941,7 @@
         ],
         "spells": []
       },
-      "_global_index": 6519,
+      "_global_index": 5544,
       "id": "4922bcf5-6619-42d8-9e28-02385f0910cb",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -948,7 +954,9 @@
     "_m_env": "any urban courts, opulent salons, dueling grounds",
     "_m_source": "custom",
     "id": "4922bcf5-6619-42d8-9e28-02385f0910cb",
-    "_global_index": 6519
+    "_global_index": 5544,
+    "_m_size": "medium",
+    "_m_search_text": "(magnum opus) rubedo    custom"
   },
   {
     "Name": "Black Ox Beetle",
@@ -1119,7 +1127,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6520,
+      "_global_index": 5545,
       "id": "5d40e10f-112b-4466-b53d-0b1b9dd6cd04",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -1132,7 +1140,9 @@
     "_m_env": "temperate or warm forests, volcanic hills, charred plains",
     "_m_source": "custom",
     "id": "5d40e10f-112b-4466-b53d-0b1b9dd6cd04",
-    "_global_index": 6520
+    "_global_index": 5545,
+    "_m_size": "medium",
+    "_m_search_text": "black ox beetle    custom"
   },
   {
     "Name": "Boggard Champion",
@@ -1336,7 +1346,7 @@
         ],
         "spells": []
       },
-      "_global_index": 6521,
+      "_global_index": 5546,
       "id": "3c12f77e-889f-4466-b53d-0b1b9dd6cd11",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -1349,7 +1359,9 @@
     "_m_env": "temperate or warm marshes and swamps",
     "_m_source": "custom",
     "id": "3c12f77e-889f-4466-b53d-0b1b9dd6cd11",
-    "_global_index": 6521
+    "_global_index": 5546,
+    "_m_size": "medium",
+    "_m_search_text": "boggard champion  boggard  custom"
   },
   {
     "Name": "Canopy Leech",
@@ -1533,7 +1545,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6522,
+      "_global_index": 5547,
       "id": "2b01f66f-778f-4466-b53d-0b1b9dd6cd10",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -1546,7 +1558,9 @@
     "_m_env": "temperate or warm dense forests, ancient canopies, rain forests",
     "_m_source": "custom",
     "id": "2b01f66f-778f-4466-b53d-0b1b9dd6cd10",
-    "_global_index": 6522
+    "_global_index": 5547,
+    "_m_size": "medium",
+    "_m_search_text": "canopy leech    custom"
   },
   {
     "Name": "Catromancer",
@@ -1737,7 +1751,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6523,
+      "_global_index": 5548,
       "id": "cdfad59f-ca10-4a9e-8c35-930dd61904f0",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -1750,7 +1764,9 @@
     "_m_env": "any ruins, crypts, or ancient feline tombs",
     "_m_source": "custom",
     "id": "cdfad59f-ca10-4a9e-8c35-930dd61904f0",
-    "_global_index": 6523
+    "_global_index": 5548,
+    "_m_size": "medium",
+    "_m_search_text": "catromancer    custom"
   },
   {
     "Name": "Chef Dire Ape",
@@ -1923,7 +1939,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6524,
+      "_global_index": 5549,
       "id": "1595f3e0-f819-41a9-820a-826b4dbaa6fa",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -1936,7 +1952,9 @@
     "_m_env": "warm forests, deep jungles, and ruined ancient temples",
     "_m_source": "custom",
     "id": "1595f3e0-f819-41a9-820a-826b4dbaa6fa",
-    "_global_index": 6524
+    "_global_index": 5549,
+    "_m_size": "large",
+    "_m_search_text": "chef dire ape    custom"
   },
   {
     "Name": "Frost Roc",
@@ -2125,7 +2143,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6525,
+      "_global_index": 5550,
       "id": "996f6011-061d-4d70-8e82-bd4728b5226f",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -2138,7 +2156,9 @@
     "_m_env": "cold mountains and glacial tundras",
     "_m_source": "custom",
     "id": "996f6011-061d-4d70-8e82-bd4728b5226f",
-    "_global_index": 6525
+    "_global_index": 5550,
+    "_m_size": "gargantuan",
+    "_m_search_text": "frost roc  cold  custom"
   },
   {
     "Name": "Horned Peryton",
@@ -2330,7 +2350,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6526,
+      "_global_index": 5551,
       "id": "9b80f54d-556f-4466-b53d-0b1b9dd6cd08",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -2343,7 +2363,9 @@
     "_m_env": "temperate or cold dense forests, mountain pine canopies",
     "_m_source": "custom",
     "id": "9b80f54d-556f-4466-b53d-0b1b9dd6cd08",
-    "_global_index": 6526
+    "_global_index": 5551,
+    "_m_size": "medium",
+    "_m_search_text": "horned peryton    custom"
   },
   {
     "Name": "Kaelit, The Red Dragon",
@@ -2534,7 +2556,7 @@
           }
         ]
       },
-      "_global_index": 6527,
+      "_global_index": 5552,
       "id": "0ae78249-243e-4b79-a2f9-c94e4450670b",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -2547,7 +2569,9 @@
     "_m_env": "warm mountains",
     "_m_source": "custom",
     "id": "0ae78249-243e-4b79-a2f9-c94e4450670b",
-    "_global_index": 6527
+    "_global_index": 5552,
+    "_m_size": "huge",
+    "_m_search_text": "kaelit, the red dragon  fire  custom"
   },
   {
     "Name": "Knight of Rovesta",
@@ -2776,7 +2800,7 @@
         ],
         "spells": []
       },
-      "_global_index": 6528,
+      "_global_index": 5553,
       "id": "cbf54ade-c067-4178-a491-287f0a96df3b",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -2789,7 +2813,9 @@
     "_m_env": "any ruins, cursed battlefields, unholy shrines",
     "_m_source": "custom",
     "id": "cbf54ade-c067-4178-a491-287f0a96df3b",
-    "_global_index": 6528
+    "_global_index": 5553,
+    "_m_size": "medium",
+    "_m_search_text": "knight of rovesta    custom"
   },
   {
     "Name": "Necrotic Basilisk",
@@ -2964,7 +2990,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6529,
+      "_global_index": 5554,
       "id": "7ade0ed1-b444-4746-a485-fca359c4a906",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -2977,7 +3003,9 @@
     "_m_env": "ancient catacombs, corrupted caverns, and desolate petrified forests",
     "_m_source": "custom",
     "id": "7ade0ed1-b444-4746-a485-fca359c4a906",
-    "_global_index": 6529
+    "_global_index": 5554,
+    "_m_size": "medium",
+    "_m_search_text": "necrotic basilisk    custom"
   },
   {
     "Name": "Necrotic Dire Boar",
@@ -3152,7 +3180,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6530,
+      "_global_index": 5555,
       "id": "4771284f-fdb9-4c5f-a2b2-31205abf6459",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -3165,7 +3193,9 @@
     "_m_env": "desolated forests, haunted battlefields, cursed barrows",
     "_m_source": "custom",
     "id": "4771284f-fdb9-4c5f-a2b2-31205abf6459",
-    "_global_index": 6530
+    "_global_index": 5555,
+    "_m_size": "large",
+    "_m_search_text": "necrotic dire boar    custom"
   },
   {
     "Name": "Necrotic Wolf Spider",
@@ -3345,7 +3375,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6531,
+      "_global_index": 5556,
       "id": "1a78dcec-8f15-4a0c-bba5-3b6d9820820a",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -3358,7 +3388,9 @@
     "_m_env": "corrupted forests, abyssal crypts, and shadow caverns",
     "_m_source": "custom",
     "id": "1a78dcec-8f15-4a0c-bba5-3b6d9820820a",
-    "_global_index": 6531
+    "_global_index": 5556,
+    "_m_size": "large",
+    "_m_search_text": "necrotic wolf spider    custom"
   },
   {
     "Name": "Orchid Giant Mantis",
@@ -3533,7 +3565,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6532,
+      "_global_index": 5557,
       "id": "4e10a87c-966e-4466-b53d-0b1b9dd6cdb2",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -3546,7 +3578,9 @@
     "_m_env": "warm forests or tropical jungles",
     "_m_source": "custom",
     "id": "4e10a87c-966e-4466-b53d-0b1b9dd6cdb2",
-    "_global_index": 6532
+    "_global_index": 5557,
+    "_m_size": "large",
+    "_m_search_text": "orchid giant mantis    custom"
   },
   {
     "Name": "Owlbear Alchemic Mutant, Armored",
@@ -3721,7 +3755,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6533,
+      "_global_index": 5558,
       "id": "a11b2c33-40fa-44f1-b5ba-111122223333",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -3734,7 +3768,9 @@
     "_m_env": "alchemical laboratories, subterranean dungeons, vanguard formations",
     "_m_source": "custom",
     "id": "a11b2c33-40fa-44f1-b5ba-111122223333",
-    "_global_index": 6533
+    "_global_index": 5558,
+    "_m_size": "large",
+    "_m_search_text": "owlbear alchemic mutant, armored    custom"
   },
   {
     "Name": "Owlbear Alchemic Mutant",
@@ -3908,7 +3944,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6534,
+      "_global_index": 5559,
       "id": "e08d27a1-9f35-46a5-909c-2cc41c275219",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -3921,7 +3957,9 @@
     "_m_env": "alchemical laboratories, subterranean dungeons, ruined fortresses",
     "_m_source": "custom",
     "id": "e08d27a1-9f35-46a5-909c-2cc41c275219",
-    "_global_index": 6534
+    "_global_index": 5559,
+    "_m_size": "large",
+    "_m_search_text": "owlbear alchemic mutant    custom"
   },
   {
     "Name": "Owlbear Alchemic Siege Mutant",
@@ -4109,7 +4147,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6535,
+      "_global_index": 5560,
       "id": "e95c9a51-30fc-44f1-b5ba-96612296c3e3",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -4122,7 +4160,9 @@
     "_m_env": "siege battlefields, ruined fortresses, rovesta breach points",
     "_m_source": "custom",
     "id": "e95c9a51-30fc-44f1-b5ba-96612296c3e3",
-    "_global_index": 6535
+    "_global_index": 5560,
+    "_m_size": "huge",
+    "_m_search_text": "owlbear alchemic siege mutant    custom"
   },
   {
     "Name": "Petalwing Drake",
@@ -4301,7 +4341,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6536,
+      "_global_index": 5561,
       "id": "6e50f21a-223c-4466-b53d-0b1b9dd6cd05",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -4314,7 +4354,9 @@
     "_m_env": "warm forests, tropical jungles, giant blossom canopies",
     "_m_source": "custom",
     "id": "6e50f21a-223c-4466-b53d-0b1b9dd6cd05",
-    "_global_index": 6536
+    "_global_index": 5561,
+    "_m_size": "medium",
+    "_m_search_text": "petalwing drake    custom"
   },
   {
     "Name": "Rovesta Guard",
@@ -4483,7 +4525,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6537,
+      "_global_index": 5562,
       "id": "b7d911f5-921d-49c8-a82d-dda27ef38789",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -4496,7 +4538,9 @@
     "_m_env": "warm forests",
     "_m_source": "custom",
     "id": "b7d911f5-921d-49c8-a82d-dda27ef38789",
-    "_global_index": 6537
+    "_global_index": 5562,
+    "_m_size": "medium",
+    "_m_search_text": "rovesta guard    custom"
   },
   {
     "Name": "Sand Worm",
@@ -4672,7 +4716,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6538,
+      "_global_index": 5563,
       "id": "914592a9-8c70-4b30-baf6-fdb9407efe75",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -4685,7 +4729,9 @@
     "_m_env": "warm deserts, arid badlands, or shifting sands",
     "_m_source": "custom",
     "id": "914592a9-8c70-4b30-baf6-fdb9407efe75",
-    "_global_index": 6538
+    "_global_index": 5563,
+    "_m_size": "large",
+    "_m_search_text": "sand worm    custom"
   },
   {
     "Name": "Thorn Lion",
@@ -4864,7 +4910,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6539,
+      "_global_index": 5564,
       "id": "8a70e43c-445e-4466-b53d-0b1b9dd6cd07",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -4877,7 +4923,9 @@
     "_m_env": "dense forests, overgrown jungles, thorny plains",
     "_m_source": "custom",
     "id": "8a70e43c-445e-4466-b53d-0b1b9dd6cd07",
-    "_global_index": 6539
+    "_global_index": 5564,
+    "_m_size": "large",
+    "_m_search_text": "thorn lion    custom"
   },
   {
     "Name": "Tree Viper",
@@ -5052,7 +5100,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 6540,
+      "_global_index": 5565,
       "id": "1a90e55e-667f-4466-b53d-0b1b9dd6cd09",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -5065,6 +5113,627 @@
     "_m_env": "temperate or warm dense forests, overgrown jungles",
     "_m_source": "custom",
     "id": "1a90e55e-667f-4466-b53d-0b1b9dd6cd09",
-    "_global_index": 6540
+    "_global_index": 5565,
+    "_m_size": "large",
+    "_m_search_text": "tree viper    custom"
+  },
+  {
+    "Name": "Gloomfeather Vulture",
+    "CR": "5",
+    "XP": "1600",
+    "Alignment": "NE",
+    "Size": "Large",
+    "Type": "Magical Beast",
+    "subtype1": "",
+    "subtype2": "",
+    "Init": "+2",
+    "Senses": "darkvision 60 ft., low-light vision, scent",
+    "Aura": "Stench (DC 17, 10 rounds)",
+    "AC": "18",
+    "AC_Touch": "11",
+    "AC_Flat-footed": "16",
+    "HP": "87",
+    "HD": "6d10",
+    "Fort": "+9",
+    "Ref": "+7",
+    "Will": "+4",
+    "Speed": "20 ft., fly 60 ft. (average)",
+    "Melee": "bite +11 (2d6+6 plus grab and rot bite), 2 talons +11 (1d8+6 plus grab), 2 wings +6 (1d6+3)",
+    "Ranged": "",
+    "Space": "10 ft.",
+    "Reach": "10 ft.",
+    "SpecialAttacks": "carrion frenzy, feast on the fallen, grab, rend (2 talons, 1d8+9), rot bite",
+    "DefensiveAbilities": "",
+    "Weaknesses": "",
+    "Organization": "solitary, pair, or wake (3-8)",
+    "Str": "22",
+    "Dex": "15",
+    "Con": "18",
+    "Int": "6",
+    "Wis": "15",
+    "Cha": "9",
+    "BaseAtk": "6",
+    "CMB": "+13 (+17 grapple)",
+    "CMD": "25",
+    "Feats": "Flyby Attack, Multiattack, Power Attack",
+    "Skills": "Fly +9, Perception +11, Stealth +3",
+    "Languages": "Aklo (cannot speak)",
+    "SQ": "carrion scent, corpse gorging",
+    "DR": "5/magic",
+    "Immune": "disease, poison",
+    "Resist": "cold 5, fire 5",
+    "SR": "",
+    "Environment": "warm or temperate hills, deserts, and battlefields",
+    "Treasure": "incidental",
+    "Gear": "",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "public",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": false,
+    "IsUserCustom": true,
+    "CharacterFlag": "0",
+    "SpellLikeAbilities": "(6)",
+    "Special Abilities": "Rot Bite (Ex) Bite—injury; save Fort DC 17; onset immediate; frequency 1/round for 4 rounds; effect 1d3 Con damage; cure 1 save. The save DC is Constitution-based.\nCarrion Frenzy (Ex) When attacking a creature that is bleeding, dying (below 0 HP), or suffering from a disease or poison, the vulture gains a +2 morale bonus on attack and damage rolls.\nFeast on the Fallen (Su) As a standard action, the vulture can feed on an adjacent dead or helpless creature. It instantly heals 2d8+6 hit points and gains the benefits of haste for 1 round. It can use this ability once per carcass.\nRend (Ex) If a gloomfeather vulture hits with both talon attacks in a single round, it latches onto the foe's flesh and tears, dealing an additional 1d8+9 points of damage.\nCarrion Scent (Su) A gloomfeather vulture can pinpoint the location of dead bodies, open wounds, or decaying matter within 1 mile by scent.",
+    "OriginalState": {
+      "basic": {
+        "in-name": "Gloomfeather Vulture",
+        "in-cr": "5",
+        "in-xp": "1600",
+        "in-visibility": "public",
+        "in-author": "erdem",
+        "in-alignment": "NE",
+        "in-size": "Large",
+        "in-type": "Magical Beast",
+        "in-type-full": "Large magical beast",
+        "in-init-extra": "0",
+        "in-aura": "Stench (DC 17, 10 rounds)",
+        "in-str": "22",
+        "in-dex": "15",
+        "in-con": "18",
+        "in-int": "6",
+        "in-wis": "15",
+        "in-cha": "9",
+        "in-armor-name": "",
+        "in-ac-armor": "0",
+        "in-shield-name": "",
+        "in-ac-shield": "0",
+        "in-ac-natural": "7",
+        "in-ac-deflection": "0",
+        "in-ac-dodge": "0",
+        "in-hd-amount": "6",
+        "in-hd-size": "10",
+        "in-hp-extra": "30",
+        "in-fort": "+9",
+        "in-ref": "+7",
+        "in-will": "+4",
+        "in-def-abilities": "",
+        "in-dr": "5/magic",
+        "in-immune": "disease, poison",
+        "in-resist": "cold 5, fire 5",
+        "in-weaknesses": "",
+        "in-sr": "",
+        "in-speed": "20 ft., fly 60 ft. (average)",
+        "in-space": "10 ft.",
+        "in-reach": "10 ft.",
+        "in-special-attacks": "carrion frenzy, feast on the fallen, grab, rend (2 talons, 1d8+9), rot bite",
+        "in-sla-cl": "6",
+        "in-bab": "6",
+        "in-cmb": "+13 (+17 grapple)",
+        "in-cmb-extra": "0",
+        "in-cmd": "25",
+        "in-cmd-extra": "0",
+        "in-feats": "Flyby Attack, Multiattack, Power Attack",
+        "in-feat-search": "",
+        "in-skills": "Fly +9, Perception +11, Stealth +3",
+        "in-languages": "Aklo (cannot speak)",
+        "in-sq": "carrion scent, corpse gorging",
+        "in-gear": "",
+        "in-spell-class": "",
+        "in-spell-cl": "1",
+        "in-spell-stat": "int",
+        "in-spell-conc": "",
+        "in-spells-data": "{}",
+        "in-spells": "{}",
+        "in-environment": "warm or temperate hills, deserts, and battlefields",
+        "in-organization": "solitary, pair, or wake (3-8)",
+        "in-treasure": "incidental",
+        "in-hp": "87 (6d10+54)",
+        "in-init": "+2",
+        "in-ac": "18, touch 11, flat-footed 16 (+2 Dex, -1 size, +7 natural)"
+      },
+      "html": {},
+      "dynamic": {
+        "subtypes": [],
+        "senses": [
+          {
+            "name": "darkvision 60 ft.",
+            "dist": ""
+          },
+          {
+            "name": "low-light vision",
+            "dist": ""
+          },
+          {
+            "name": "scent",
+            "dist": ""
+          }
+        ],
+        "skills": [],
+        "slas": [],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "bite +11 (2d6+6 plus grab and rot bite)"
+          },
+          {
+            "mode": "raw",
+            "rawText": "2 talons +11 (1d8+6 plus grab)"
+          },
+          {
+            "mode": "raw",
+            "rawText": "2 wings +6 (1d6+3)"
+          }
+        ],
+        "ranged": [],
+        "abilities": [
+          {
+            "name": "Rot Bite (Ex)",
+            "desc": "Bite—injury; save Fort DC 17; onset immediate; frequency 1/round for 4 rounds; effect 1d3 Con damage; cure 1 save. The save DC is Constitution-based."
+          },
+          {
+            "name": "Carrion Frenzy (Ex)",
+            "desc": "When attacking a creature that is bleeding, dying (below 0 HP), or suffering from a disease or poison, the vulture gains a +2 morale bonus on attack and damage rolls."
+          },
+          {
+            "name": "Feast on the Fallen (Su)",
+            "desc": "As a standard action, the vulture can feed on an adjacent dead or helpless creature. It instantly heals 2d8+6 hit points and gains the benefits of haste for 1 round. It can use this ability once per carcass."
+          },
+          {
+            "name": "Rend (Ex)",
+            "desc": "If a gloomfeather vulture hits with both talon attacks in a single round, it latches onto the foe's flesh and tears, dealing an additional 1d8+9 points of damage."
+          },
+          {
+            "name": "Carrion Scent (Su)",
+            "desc": "A gloomfeather vulture can pinpoint the location of dead bodies, open wounds, or decaying matter within 1 mile by scent."
+          }
+        ],
+        "magic_items": [],
+        "spells": []
+      },
+      "_global_index": 5566,
+      "id": "475cb01c-04d6-4517-9bd0-69d7ae8386f7",
+      "AuthorId": "erdem",
+      "AuthorName": "erdem"
+    },
+    "_m_name": "gloomfeather vulture",
+    "_m_cr": "5",
+    "_m_type": "magical beast",
+    "_m_size": "large",
+    "_m_align": "ne",
+    "_m_env": "warm or temperate hills, deserts, and battlefields",
+    "_m_source": "custom",
+    "_m_search_text": "gloomfeather vulture   custom",
+    "id": "475cb01c-04d6-4517-9bd0-69d7ae8386f7",
+    "_global_index": 5566
+  },
+  {
+    "Name": "Quartz-Chitin Cavitation Mantis",
+    "CR": "7",
+    "XP": "3200",
+    "Alignment": "N",
+    "Size": "Huge",
+    "Type": "Magical Beast",
+    "subtype1": "",
+    "subtype2": "",
+    "Init": "+2",
+    "Senses": "darkvision 60 ft., tremorsense (in water) 60 ft., low-light vision",
+    "Aura": "Prismatic Quartz Glare (10 ft., DC 17 Will or dazzled 1d4 rounds)",
+    "AC": "20",
+    "AC_Touch": "10",
+    "AC_Flat-footed": "18",
+    "HP": "124",
+    "HD": "8d10",
+    "Fort": "+11",
+    "Ref": "+8",
+    "Will": "+3",
+    "Speed": "30 ft., swim 60 ft., jet 180 ft.",
+    "Melee": "2 pincers +13 (2d6+7/19-20 plus grab and piezoelectric shock), bite +8 (1d8+3)",
+    "Ranged": "cavitation bubble +8 touch (3d6 bludgeoning + 3d6 sonic, range 30 ft.)",
+    "Space": "15 ft.",
+    "Reach": "15 ft.",
+    "SpecialAttacks": "cavitation blast, constrict (pincers, 2d6+10), grab, piezoelectric shock, quartz rend (2 pincers, 2d6+10 plus 1d8 sonic)",
+    "DefensiveAbilities": "quartz refraction",
+    "Weaknesses": "",
+    "Organization": "solitary or mated pair",
+    "Str": "24",
+    "Dex": "14",
+    "Con": "20",
+    "Int": "4",
+    "Wis": "13",
+    "Cha": "7",
+    "BaseAtk": "8",
+    "CMB": "+17 (+21 grapple)",
+    "CMD": "29 (37 vs. trip)",
+    "Feats": "Combat Reflexes, Great Fortitude, Improved Critical (pincer), Power Attack",
+    "Skills": "Fly +0, Perception +12, Stealth +6, Swim +15",
+    "Languages": "",
+    "SQ": "amphibious, hexachromatic vision, piezoelectric resonance",
+    "DR": "5/bludgeoning",
+    "Immune": "cold, sonic",
+    "Resist": "electricity 10, fire 10",
+    "SR": "",
+    "Environment": "quartz-veined sea caves, flooded meteor craters, hydrothermal trenches",
+    "Treasure": "standard (raw quartz crystals, irradiated geodes)",
+    "Gear": "",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "public",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": false,
+    "IsUserCustom": true,
+    "CharacterFlag": "0",
+    "SpellLikeAbilities": "(8)",
+    "Special Abilities": "Quartz Refraction (Su) The thick crystal clusters embedded in its carapace refract light and energy. Ray attacks and magical beams (such as scorching ray or disintegrate) have a 20% miss chance against the creature. It gains DR 5/bludgeoning as crushing blows shatter its quartz shell, whereas slashing and piercing weapons scrape harmlessly against crystalline facets.\nPiezoelectric Shock (Su) Whenever the creature hits with a pincer melee attack, the extreme physical pressure compressed through its quartz claws generates intense piezoelectric voltage and sonic reverberation. The target takes an additional 1d6 electricity and 1d6 sonic damage and must succeed at a DC 19 Fortitude save or be deafened and staggered for 1 round. The save DC is Strength-based.\nCavitation Blast (Su) Underwater only, as a standard action, the mantis snaps its quartz pincers with hypersonic speed, producing a superheated sonic shockwave in a 30-ft. cone. All creatures in the area take 4d6 bludgeoning damage and 4d6 sonic damage (Reflex DC 19 half). Creatures that fail are also pushed back 10 feet. Usable once every 1d4 rounds. The save DC is Strength-based.\nPiezoelectric Resonance (Su) Within 500 feet of dense quartz veins or the meteor's crystallized impact core, the creature constantly absorbs crystal harmonics. It gains fast healing 3 and a +2 insight bonus on saving throws and attack rolls while in the crystal-laden waters.\nHexachromatic Vision (Ex) Its specialized stalked eyes can perceive light spectrums, invisible creatures, and crystal resonance underwater, granting it the continuous benefits of see invisibility.",
+    "OriginalState": {
+      "basic": {
+        "in-name": "Quartz-Chitin Cavitation Mantis",
+        "in-cr": "7",
+        "in-xp": "3200",
+        "in-visibility": "public",
+        "in-author": "erdem",
+        "in-alignment": "N",
+        "in-size": "Huge",
+        "in-type": "Magical Beast",
+        "in-type-full": "Huge magical beast (aquatic)",
+        "in-init-extra": "0",
+        "in-aura": "Prismatic Quartz Glare (10 ft., DC 17 Will or dazzled 1d4 rounds)",
+        "in-str": "24",
+        "in-dex": "14",
+        "in-con": "20",
+        "in-int": "4",
+        "in-wis": "13",
+        "in-cha": "7",
+        "in-armor-name": "",
+        "in-ac-armor": "0",
+        "in-shield-name": "",
+        "in-ac-shield": "0",
+        "in-ac-natural": "10",
+        "in-ac-deflection": "0",
+        "in-ac-dodge": "0",
+        "in-hd-amount": "8",
+        "in-hd-size": "10",
+        "in-hp-extra": "40",
+        "in-fort": "+11",
+        "in-ref": "+8",
+        "in-will": "+3",
+        "in-def-abilities": "quartz refraction",
+        "in-dr": "5/bludgeoning",
+        "in-immune": "cold, sonic",
+        "in-resist": "electricity 10, fire 10",
+        "in-weaknesses": "",
+        "in-sr": "",
+        "in-speed": "30 ft., swim 60 ft., jet 180 ft.",
+        "in-space": "15 ft.",
+        "in-reach": "15 ft.",
+        "in-special-attacks": "cavitation blast, constrict (pincers, 2d6+10), grab, piezoelectric shock, quartz rend (2 pincers, 2d6+10 plus 1d8 sonic)",
+        "in-sla-cl": "8",
+        "in-bab": "8",
+        "in-cmb": "+17 (+21 grapple)",
+        "in-cmb-extra": "0",
+        "in-cmd": "29 (37 vs. trip)",
+        "in-cmd-extra": "0",
+        "in-feats": "Combat Reflexes, Great Fortitude, Improved Critical (pincer), Power Attack",
+        "in-feat-search": "",
+        "in-skills": "Fly +0, Perception +12, Stealth +6, Swim +15",
+        "in-languages": "",
+        "in-sq": "amphibious, hexachromatic vision, piezoelectric resonance",
+        "in-gear": "",
+        "in-spell-class": "",
+        "in-spell-cl": "1",
+        "in-spell-stat": "int",
+        "in-spell-conc": "",
+        "in-spells-data": "{}",
+        "in-spells": "{}",
+        "in-environment": "quartz-veined sea caves, flooded meteor craters, hydrothermal trenches",
+        "in-organization": "solitary or mated pair",
+        "in-treasure": "standard (raw quartz crystals, irradiated geodes)",
+        "in-hp": "124 (8d10+80)",
+        "in-init": "+2",
+        "in-ac": "20, touch 10, flat-footed 18 (+2 Dex, -2 size, +10 natural)"
+      },
+      "html": {},
+      "dynamic": {
+        "subtypes": [
+          ""
+        ],
+        "senses": [
+          {
+            "name": "darkvision 60 ft.",
+            "dist": ""
+          },
+          {
+            "name": "tremorsense (in water) 60 ft.",
+            "dist": ""
+          },
+          {
+            "name": "low-light vision",
+            "dist": ""
+          }
+        ],
+        "skills": [],
+        "slas": [],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "2 pincers +13 (2d6+7/19-20 plus grab and piezoelectric shock)"
+          },
+          {
+            "mode": "raw",
+            "rawText": "bite +8 (1d8+3)"
+          }
+        ],
+        "ranged": [
+          {
+            "mode": "raw",
+            "rawText": "cavitation bubble +8 touch (3d6 bludgeoning + 3d6 sonic, range 30 ft.)"
+          }
+        ],
+        "abilities": [
+          {
+            "name": "Quartz Refraction (Su)",
+            "desc": "The thick crystal clusters embedded in its carapace refract light and energy. Ray attacks and magical beams (such as scorching ray or disintegrate) have a 20% miss chance against the creature. It gains DR 5/bludgeoning as crushing blows shatter its quartz shell, whereas slashing and piercing weapons scrape harmlessly against crystalline facets."
+          },
+          {
+            "name": "Piezoelectric Shock (Su)",
+            "desc": "Whenever the creature hits with a pincer melee attack, the extreme physical pressure compressed through its quartz claws generates intense piezoelectric voltage and sonic reverberation. The target takes an additional 1d6 electricity and 1d6 sonic damage and must succeed at a DC 19 Fortitude save or be deafened and staggered for 1 round. The save DC is Strength-based."
+          },
+          {
+            "name": "Cavitation Blast (Su)",
+            "desc": "Underwater only, as a standard action, the mantis snaps its quartz pincers with hypersonic speed, producing a superheated sonic shockwave in a 30-ft. cone. All creatures in the area take 4d6 bludgeoning damage and 4d6 sonic damage (Reflex DC 19 half). Creatures that fail are also pushed back 10 feet. Usable once every 1d4 rounds. The save DC is Strength-based."
+          },
+          {
+            "name": "Piezoelectric Resonance (Su)",
+            "desc": "Within 500 feet of dense quartz veins or the meteor's crystallized impact core, the creature constantly absorbs crystal harmonics. It gains fast healing 3 and a +2 insight bonus on saving throws and attack rolls while in the crystal-laden waters."
+          },
+          {
+            "name": "Hexachromatic Vision (Ex)",
+            "desc": "Its specialized stalked eyes can perceive light spectrums, invisible creatures, and crystal resonance underwater, granting it the continuous benefits of see invisibility."
+          }
+        ],
+        "magic_items": [],
+        "spells": []
+      },
+      "_global_index": 5567,
+      "id": "741423d9-473a-43cc-97f1-54eb60baaf54",
+      "AuthorId": "erdem",
+      "AuthorName": "erdem"
+    },
+    "_m_name": "quartz-chitin cavitation mantis",
+    "_m_cr": "7",
+    "_m_type": "magical beast",
+    "_m_size": "huge",
+    "_m_align": "n",
+    "_m_env": "quartz-veined sea caves, flooded meteor craters, hydrothermal trenches",
+    "_m_source": "custom",
+    "_m_search_text": "quartz-chitin cavitation mantis   custom",
+    "id": "741423d9-473a-43cc-97f1-54eb60baaf54",
+    "_global_index": 5567
+  },
+  {
+    "Name": "Emiliano Spadachiara (Possessed)",
+    "CR": "12",
+    "XP": "19200",
+    "Alignment": "CE",
+    "Size": "Medium",
+    "Type": "Magical Beast",
+    "subtype1": "",
+    "subtype2": "extraplanar",
+    "Init": "+7",
+    "Senses": "Darkvision 60 ft., Perception +16",
+    "Aura": "",
+    "AC": "22",
+    "AC_Touch": "17",
+    "AC_Flat-footed": "15",
+    "HP": "91",
+    "HD": "11d10",
+    "Fort": "+15",
+    "Ref": "+18",
+    "Will": "+15",
+    "Speed": "30 ft., fly 40 ft. (good, demon form only)",
+    "Melee": "+1 unholy rapier +17/+12 (1d6+16+2d6 vs good/18–20 x2), if crit(2d6+25+4d6 vs good), unarmed strike +15/+10 (1d6+6/20)",
+    "Ranged": "",
+    "Space": "5 ft.",
+    "Reach": "5 ft.",
+    "SpecialAttacks": "spell-like abilities, unarmed strike (1d6)",
+    "DefensiveAbilities": "evasion, nimble +2, crane wing, osyluth guile (+5 dodge vs 1 target), cut from the air, smash from the air",
+    "Weaknesses": "",
+    "Organization": "solitary",
+    "Str": "13",
+    "Dex": "20",
+    "Con": "14",
+    "Int": "17",
+    "Wis": "14",
+    "Cha": "20",
+    "BaseAtk": "10",
+    "CMB": "+11",
+    "CMD": "26",
+    "Feats": "Combat Reflexes, Crane Riposte, Crane Style, Crane Wing, Cut from the Air, Dodge, Fencing Grace, Improved Unarmed Strike, Osyluth Guile, Smash from the Air, Weapon Finesse, Weapon Focus (Rapier), Improved Critical",
+    "Skills": "Acrobatics +13, Bluff +16, Intimidate +8, Perception +16, Sense Motive +10",
+    "Languages": "Abyssal, Celestial, Common, Draconic, Ignan, telepathy 100 ft.",
+    "SQ": "false resurrection vessel, scaled fist charisma to AC, unarmored defense",
+    "DR": "DR 10/cold iron and good",
+    "Immune": "cold, electricity, poison",
+    "Resist": "acid 10, fire 10",
+    "SR": "SR 17",
+    "Environment": "urban or dungeon",
+    "Treasure": "NPC gear (+1 unholy rapier)",
+    "Gear": "+1 unholy rapier, Monk",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "private",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": false,
+    "IsUserCustom": true,
+    "CharacterFlag": "0",
+    "SpellLikeAbilities": "(10)\nAt will—deeper darkness, fear (DC 18), greater teleport (self only) telekinesis (DC 19)\n3/day—shadow conjuration (DC 18), shadow evocation (DC 19)\n1/day—magic jar (DC 19), summon (level 3, 1 shadow demon 50%)",
+    "Special Abilities": "False Resurrection Vessel (Su): The creature's physical shell is Emiliano Spadachiara, but the soul and mind belong to an Advanced Shadow Demon summoned via False Resurrection. The demon retains the host's physical attributes, BAB, and combat feats, while suppressing the original soul's class features that rely on alignment and divine spirit (Panache pool, Ki pool, Lay on Hands, Smite Evil, Divine Grace).\nScaled Fist Draconic Mettle (Ex): When unarmored or wearing light armor, the host adds their Charisma modifier (+5) as a dodge/insight bonus to AC and CMD due to the Scaled Fist monk discipline embedded into the host's muscle memory.\nCrane Style & Osyluth Guile Defense (Ex): When fighting defensively, the creature takes only a -1 penalty on attack rolls and gains a +4 dodge bonus to AC (+8 total with Crane Wing against a single melee attack). Additionally, via Osyluth Guile, it adds its Charisma bonus (+5) as a dodge bonus to AC against melee attacks from a chosen opponent.\nCut / Smash from the Air (Ex): Whenever a ranged physical attack, ranged siege weapon, thrown boulder, ranged spell (such as scorching ray), or ranged spell-like ability would hit the creature or an adjacent ally, it can use an Attack of Opportunity with its rapier to deflect the attack by making a melee attack roll opposed to the ranged attack roll.\nDemon Resistances (Ex): While inhabiting the mortal frame, the entity retains its immunity to poison and resistance to cold 10, electricity 10, and fire 10.",
+    "OriginalState": {
+      "basic": {
+        "in-name": "Emiliano Spadachiara (Possessed)",
+        "in-cr": "12",
+        "in-xp": "19200",
+        "in-visibility": "private",
+        "in-author": "erdem",
+        "in-alignment": "CE",
+        "in-size": "Medium",
+        "in-type": "",
+        "in-type-full": "Human Swashbuckler (Inspired Blade) 5 / Paladin (Virtuous Bravo) 4 / Monk (Scaled Fist) 2",
+        "in-init-extra": "2",
+        "in-aura": "",
+        "in-str": "13",
+        "in-dex": "20",
+        "in-con": "14",
+        "in-int": "17",
+        "in-wis": "14",
+        "in-cha": "20",
+        "in-armor-name": "Monk",
+        "in-ac-armor": "5",
+        "in-shield-name": "",
+        "in-ac-shield": "0",
+        "in-ac-natural": "0",
+        "in-ac-deflection": "0",
+        "in-ac-dodge": "2",
+        "in-hd-amount": "11",
+        "in-hd-size": "10",
+        "in-hp-extra": "9",
+        "in-fort": "+15",
+        "in-ref": "+18",
+        "in-will": "+15",
+        "in-def-abilities": "evasion, nimble +2, crane wing, osyluth guile (+5 dodge vs 1 target), cut from the air, smash from the air",
+        "in-dr": "DR 10/cold iron and good",
+        "in-immune": "cold, electricity, poison",
+        "in-resist": "acid 10, fire 10",
+        "in-weaknesses": "",
+        "in-sr": "SR 17",
+        "in-speed": "30 ft., fly 40 ft. (good, demon form only)",
+        "in-space": "5 ft.",
+        "in-reach": "5 ft.",
+        "in-special-attacks": "spell-like abilities, unarmed strike (1d6)",
+        "in-sla-cl": "10",
+        "in-bab": "10",
+        "in-cmb": "+11",
+        "in-cmb-extra": "0",
+        "in-cmd": "26",
+        "in-cmd-extra": "-3",
+        "in-feats": "Combat Reflexes, Crane Riposte, Crane Style, Crane Wing, Cut from the Air, Dodge, Fencing Grace, Improved Unarmed Strike, Osyluth Guile, Smash from the Air, Weapon Finesse, Weapon Focus (Rapier), Improved Critical",
+        "in-feat-search": "",
+        "in-skills": "Acrobatics +13, Bluff +16, Intimidate +8, Perception +16, Sense Motive +10",
+        "in-languages": "Abyssal, Celestial, Common, Draconic, Ignan, telepathy 100 ft.",
+        "in-sq": "false resurrection vessel, scaled fist charisma to AC, unarmored defense",
+        "in-gear": "+1 unholy rapier",
+        "in-spell-class": "",
+        "in-spell-cl": "10",
+        "in-spell-stat": "cha",
+        "in-spell-conc": "+15",
+        "in-spells-data": "{}",
+        "in-spells": "{}",
+        "in-environment": "urban or dungeon",
+        "in-organization": "solitary",
+        "in-treasure": "NPC gear (+1 unholy rapier)",
+        "in-hp": "91 (11d10+31)",
+        "in-init": "+7",
+        "in-ac": "23, touch 18, flat-footed 15 (+5 armor, +5 Dex, +3 dodge)"
+      },
+      "html": {},
+      "dynamic": {
+        "subtypes": [
+          "",
+          "extraplanar",
+          ""
+        ],
+        "senses": [
+          {
+            "name": "Darkvision",
+            "dist": "60 ft."
+          },
+          {
+            "name": "Perception",
+            "dist": "+16"
+          }
+        ],
+        "skills": [],
+        "slas": [
+          {
+            "freq": "At will",
+            "spells": "deeper darkness, fear (DC 18), greater teleport (self only) telekinesis (DC 19)"
+          },
+          {
+            "freq": "3/day",
+            "spells": "shadow conjuration (DC 18), shadow evocation (DC 19)"
+          },
+          {
+            "freq": "1/day",
+            "spells": "magic jar (DC 19), summon (level 3, 1 shadow demon 50%)"
+          }
+        ],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "+1 unholy rapier +17/+12 (1d6+16+2d6 vs good/18–20 x2)"
+          },
+          {
+            "mode": "raw",
+            "rawText": "if crit(2d6+25+4d6 vs good)"
+          },
+          {
+            "mode": "raw",
+            "rawText": "unarmed strike +15/+10 (1d6+6/20)"
+          }
+        ],
+        "ranged": [],
+        "abilities": [
+          {
+            "name": "False Resurrection Vessel (Su):",
+            "desc": "The creature's physical shell is Emiliano Spadachiara, but the soul and mind belong to an Advanced Shadow Demon summoned via <i>False Resurrection</i>. The demon retains the host's physical attributes, BAB, and combat feats, while suppressing the original soul's class features that rely on alignment and divine spirit (Panache pool, Ki pool, Lay on Hands, Smite Evil, Divine Grace)."
+          },
+          {
+            "name": "Scaled Fist Draconic Mettle (Ex):",
+            "desc": "When unarmored or wearing light armor, the host adds their Charisma modifier (+5) as a dodge/insight bonus to AC and CMD due to the Scaled Fist monk discipline embedded into the host's muscle memory."
+          },
+          {
+            "name": "Crane Style & Osyluth Guile Defense (Ex):",
+            "desc": "When fighting defensively, the creature takes only a -1 penalty on attack rolls and gains a +4 dodge bonus to AC (+8 total with Crane Wing against a single melee attack). Additionally, via Osyluth Guile, it adds its Charisma bonus (+5) as a dodge bonus to AC against melee attacks from a chosen opponent."
+          },
+          {
+            "name": "Cut / Smash from the Air (Ex):",
+            "desc": "Whenever a ranged physical attack, ranged siege weapon, thrown boulder, ranged spell (such as <i>scorching ray</i>), or ranged spell-like ability would hit the creature or an adjacent ally, it can use an Attack of Opportunity with its rapier to deflect the attack by making a melee attack roll opposed to the ranged attack roll."
+          },
+          {
+            "name": "Demon Resistances (Ex):",
+            "desc": "While inhabiting the mortal frame, the entity retains its immunity to poison and resistance to cold 10, electricity 10, and fire 10."
+          }
+        ],
+        "magic_items": [],
+        "spells": []
+      },
+      "_global_index": 5568,
+      "id": "74cdd240-da1e-47ed-a1e7-cc44d1a22f1b",
+      "AuthorId": "erdem",
+      "AuthorName": "erdem"
+    },
+    "_m_name": "emiliano spadachiara (possessed)",
+    "_m_cr": "12",
+    "_m_type": "magical beast",
+    "_m_size": "medium",
+    "_m_align": "ce",
+    "_m_env": "urban or dungeon",
+    "_m_source": "custom",
+    "_m_search_text": "emiliano spadachiara (possessed)  extraplanar custom",
+    "id": "74cdd240-da1e-47ed-a1e7-cc44d1a22f1b",
+    "_global_index": 5568
   }
 ]
