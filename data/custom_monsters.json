@@ -2362,7 +2362,7 @@
     "_m_align": "ne",
     "_m_env": "temperate or cold dense forests, mountain pine canopies",
     "_m_source": "custom",
-    "_m_search_text": "horned peryton   custom",
+    "_m_search_text": "horned peryton    custom",
     "id": "9b80f54d-556f-4466-b53d-0b1b9dd6cd08",
     "_global_index": 5551
   },
@@ -2546,7 +2546,7 @@
     "_m_align": "ln",
     "_m_env": "warm mountains",
     "_m_source": "custom",
-    "_m_search_text": "kaelit, the red dragon fire  custom",
+    "_m_search_text": "kaelit, the red dragon  fire  custom",
     "id": "0ae78249-243e-4b79-a2f9-c94e4450670b",
     "_global_index": 5552
   },
@@ -5291,7 +5291,7 @@
     "_m_align": "ne",
     "_m_env": "warm or temperate hills, deserts, and battlefields",
     "_m_source": "custom",
-    "_m_search_text": "gloomfeather vulture   custom",
+    "_m_search_text": "gloomfeather vulture    custom",
     "id": "475cb01c-04d6-4517-9bd0-69d7ae8386f7",
     "_global_index": 5566
   },
@@ -5495,7 +5495,7 @@
     "_m_align": "n",
     "_m_env": "quartz-veined sea caves, flooded meteor craters, hydrothermal trenches",
     "_m_source": "custom",
-    "_m_search_text": "quartz-chitin cavitation mantis   custom",
+    "_m_search_text": "quartz-chitin cavitation mantis    custom",
     "id": "741423d9-473a-43cc-97f1-54eb60baaf54",
     "_global_index": 5567
   },
@@ -5709,7 +5709,7 @@
     "_m_align": "ce",
     "_m_env": "urban or dungeon",
     "_m_source": "custom",
-    "_m_search_text": "emiliano spadachiara (possessed) evil extraplanar custom",
+    "_m_search_text": "emiliano spadachiara (possessed)  evil extraplanar  custom",
     "id": "74cdd240-da1e-47ed-a1e7-cc44d1a22f1b",
     "_global_index": 5568
   },
@@ -5911,7 +5911,7 @@
     "_m_align": "n",
     "_m_env": "warm deserts, sand dunes",
     "_m_source": "custom",
-    "_m_search_text": "dune-stalker nomad   custom",
+    "_m_search_text": "dune-stalker nomad    custom",
     "id": "9b32055a-8bff-40b5-bc17-d17fa4011130",
     "_global_index": 5569
   },
@@ -6096,7 +6096,7 @@
     "_m_align": "n",
     "_m_env": "warm deserts, sand dunes",
     "_m_source": "custom",
-    "_m_search_text": "dune-ripper scythe-beetle   custom",
+    "_m_search_text": "dune-ripper scythe-beetle    custom",
     "id": "10394478-2b09-4749-b34c-8fe9d3da8656",
     "_global_index": 5570
   },
@@ -6289,7 +6289,7 @@
     "_m_align": "n",
     "_m_env": "warm deserts, glass wastes, sunbaked dunes",
     "_m_source": "custom",
-    "_m_search_text": "glass-scale dune serpent   custom",
+    "_m_search_text": "glass-scale dune serpent    custom",
     "id": "7ed413b3-8667-4d6c-a6ae-aed3f8aba8a0",
     "_global_index": 5571
   },
@@ -6484,7 +6484,7 @@
     "_m_align": "n",
     "_m_env": "cold plains, volcanic craters, geothermal valleys, sub-zero wastes",
     "_m_source": "custom",
-    "_m_search_text": "core eater mammoth fire  custom",
+    "_m_search_text": "core eater mammoth  fire  custom",
     "id": "7db305ad-f8d2-4ff1-9615-06a2bc60d51a",
     "_global_index": 5572
   },
@@ -6913,7 +6913,7 @@
     "_m_align": "ln",
     "_m_env": "haunted graveyards, desolate isles, ancient catacombs",
     "_m_source": "custom",
-    "_m_search_text": "shepherd of lost souls   custom",
+    "_m_search_text": "shepherd of lost souls    custom",
     "id": "94071a48-c3c0-429c-bc01-d4a2cac9985d",
     "_global_index": 5574
   },
@@ -7115,7 +7115,7 @@
     "_m_align": "le",
     "_m_env": "cursed keeps, ancient battlefields, sepulchers",
     "_m_source": "custom",
-    "_m_search_text": "iron revenant lord   custom",
+    "_m_search_text": "iron revenant lord    custom",
     "id": "b6489273-9990-40f4-a63f-808d9de5bda1",
     "_global_index": 5575
   },
@@ -7308,7 +7308,7 @@
     "_m_align": "ce",
     "_m_env": "haunted grain fields, abandoned farmsteads, stagnant bogs",
     "_m_source": "custom",
-    "_m_search_text": "effigy of the ancient terror   custom",
+    "_m_search_text": "effigy of the ancient terror    custom",
     "id": "2952824b-fb13-4019-bcdf-531b7c99bcd0",
     "_global_index": 5576
   },
@@ -7507,7 +7507,7 @@
     "_m_align": "ce",
     "_m_env": "polluted alleys, underground sewers, alchemical laboratories",
     "_m_source": "custom",
-    "_m_search_text": "alchemical werewolf mutant   custom",
+    "_m_search_text": "alchemical werewolf mutant    custom",
     "id": "8095942a-7a58-46f1-bbf6-540440b73b90",
     "_global_index": 5577
   },
@@ -7709,7 +7709,7 @@
     "_m_align": "ce",
     "_m_env": "ruined battlefields, scorched peaks, planar rifts",
     "_m_source": "custom",
-    "_m_search_text": "the devil blade chaotic evil custom",
+    "_m_search_text": "the devil blade  chaotic evil  custom",
     "id": "11a90116-62d9-412b-ace3-3d8ef3beaaf6",
     "_global_index": 5578
   },
@@ -7902,7 +7902,7 @@
     "_m_align": "n",
     "_m_env": "warm deserts, arid badlands, underground sand caves",
     "_m_source": "custom",
-    "_m_search_text": "sand-burrower queen   custom",
+    "_m_search_text": "sand-burrower queen    custom",
     "id": "9b710a92-c616-4244-a7b9-87e29e078cc4",
     "_global_index": 5579
   },
@@ -8093,7 +8093,7 @@
     "_m_align": "n",
     "_m_env": "deep subterranean caverns, crystal mines, arid rocky wastes",
     "_m_source": "custom",
-    "_m_search_text": "crystalline scorpion titan earth  custom",
+    "_m_search_text": "crystalline scorpion titan  earth  custom",
     "id": "6913a496-0801-40d4-93d0-01364dc48def",
     "_global_index": 5580
   },
@@ -8287,7 +8287,7 @@
     "_m_align": "n",
     "_m_env": "high mountain crags, deep stone rifts, elemental plane of earth",
     "_m_source": "custom",
-    "_m_search_text": "stone-shield mountain goliath earth  custom",
+    "_m_search_text": "stone-shield mountain goliath  earth  custom",
     "id": "b2602fd6-c957-4bc5-afe3-b95b59da7dcb",
     "_global_index": 5581
   },
@@ -8496,7 +8496,7 @@
     "_m_align": "cg",
     "_m_env": "ancient ruins, bustling city bazaars, arcane clocktowers",
     "_m_source": "custom",
-    "_m_search_text": "chronomancer prodigy   custom",
+    "_m_search_text": "chronomancer prodigy    custom",
     "id": "2b198e49-24db-4732-aa61-cb949f177618",
     "_global_index": 5582
   },
@@ -8697,7 +8697,7 @@
     "_m_align": "cg",
     "_m_env": "ruined battlefields, rocky mountain passes, frontier outposts",
     "_m_source": "custom",
-    "_m_search_text": "exile blade duelist   custom",
+    "_m_search_text": "exile blade duelist    custom",
     "id": "7e9499f2-fc34-427f-83ef-89afc9ea308a",
     "_global_index": 5583
   },
@@ -8895,7 +8895,7 @@
     "_m_align": "ln",
     "_m_env": "monasteries, pit fighting arenas, mountain hermitages",
     "_m_source": "custom",
-    "_m_search_text": "iron-fist bare-knuckle champion   custom",
+    "_m_search_text": "iron-fist bare-knuckle champion    custom",
     "id": "d3af285a-7220-48ef-b694-a73d10babb7a",
     "_global_index": 5584
   },
@@ -9100,7 +9100,7 @@
     "_m_align": "cn",
     "_m_env": "wind-swept plains, mountain roads, frontier crossings",
     "_m_source": "custom",
-    "_m_search_text": "wandering wind-blade duelist   custom",
+    "_m_search_text": "wandering wind-blade duelist    custom",
     "id": "9296abc9-94ca-421f-bc95-cf0d7bd533c7",
     "_global_index": 5585
   },
@@ -9316,7 +9316,7 @@
     "_m_align": "lg",
     "_m_env": "sacred mountain temples, holy shrines, embattled crusader fortresses",
     "_m_source": "custom",
-    "_m_search_text": "sun-blade templar   custom",
+    "_m_search_text": "sun-blade templar    custom",
     "id": "6e8927f6-2a92-4588-981a-c361ea00d4b7",
     "_global_index": 5586
   },
@@ -9530,7 +9530,7 @@
     "_m_align": "ln",
     "_m_env": "cursed city alleys, gothic keeps, haunted forests",
     "_m_source": "custom",
-    "_m_search_text": "night-hunter inquisitor   custom",
+    "_m_search_text": "night-hunter inquisitor    custom",
     "id": "86331861-1345-4cc7-a600-003aba644176",
     "_global_index": 5587
   },
@@ -9735,7 +9735,7 @@
     "_m_align": "le",
     "_m_env": "war camps, fortified battlements, conquered city bastions",
     "_m_source": "custom",
-    "_m_search_text": "hand of the iron empire   custom",
+    "_m_search_text": "hand of the iron empire    custom",
     "id": "a009d259-12f5-4b06-980f-5fc774815082",
     "_global_index": 5588
   },
@@ -9954,7 +9954,7 @@
     "_m_align": "cn",
     "_m_env": "dense tropical jungles, ancient deep forests, rocky river canyons",
     "_m_source": "custom",
-    "_m_search_text": "bone-spear huntress  shapechanger custom",
+    "_m_search_text": "bone-spear huntress  shapechanger  custom",
     "id": "bae19071-b306-4699-a27f-cac6c9269d25",
     "_global_index": 5589
   },
@@ -10164,7 +10164,7 @@
     "_m_align": "n",
     "_m_env": "desert trade routes, ancient tomb ruins, arid badlands",
     "_m_source": "custom",
-    "_m_search_text": "desert blade mercenary   custom",
+    "_m_search_text": "desert blade mercenary    custom",
     "id": "e7f8bcc8-5b03-4683-97e3-1ca80a9ce0c5",
     "_global_index": 5590
   },
@@ -10369,7 +10369,7 @@
     "_m_align": "n",
     "_m_env": "aristocratic dueling halls, palace courtyards, grand tourneys",
     "_m_source": "custom",
-    "_m_search_text": "grand duelist of the rose   custom",
+    "_m_search_text": "grand duelist of the rose    custom",
     "id": "c74d571a-bc0b-437c-8b0d-a337119c7711",
     "_global_index": 5591
   },
@@ -10579,7 +10579,7 @@
     "_m_align": "cg",
     "_m_env": "ancient tomb ruins, forgotten catacombs, bustling academic bazaars",
     "_m_source": "custom",
-    "_m_search_text": "arcane gauntlet explorer   custom",
+    "_m_search_text": "arcane gauntlet explorer    custom",
     "id": "b53e60c8-6522-4679-bad9-77350b1628d8",
     "_global_index": 5592
   },
@@ -10778,7 +10778,7 @@
     "_m_align": "n",
     "_m_env": "ocean trenches, submerged reefs, coastal sunken galleon graveyards",
     "_m_source": "custom",
-    "_m_search_text": "abyssal leviathan behemoth aquatic  custom",
+    "_m_search_text": "abyssal leviathan behemoth  aquatic  custom",
     "id": "5ec33617-1321-4ad1-86d8-59635a1c43a2",
     "_global_index": 5593
   },
@@ -10990,7 +10990,7 @@
     "_m_align": "ce",
     "_m_env": "ruined dark temples, underground crypts, bloodstained battlefields",
     "_m_source": "custom",
-    "_m_search_text": "possessed scythe-reaper chaotic  custom",
+    "_m_search_text": "possessed scythe-reaper  chaotic  custom",
     "id": "403540bf-0af4-46ad-80a2-a6297b743a8a",
     "_global_index": 5594
   },
@@ -11203,7 +11203,7 @@
     "_m_align": "ce",
     "_m_env": "cursed moorlands, foggy battlefields, spectral ruins",
     "_m_source": "custom",
-    "_m_search_text": "grave-knight centaur   custom",
+    "_m_search_text": "grave-knight centaur    custom",
     "id": "647500f3-2b6c-4e75-b0c7-36e703303fbf",
     "_global_index": 5595
   },
@@ -11397,7 +11397,7 @@
     "_m_align": "n",
     "_m_env": "",
     "_m_source": "custom",
-    "_m_search_text": "ore-mite   custom",
+    "_m_search_text": "ore-mite    custom",
     "id": "a5e9d412-2154-4661-849c-6033f3c27273",
     "_global_index": 5596
   }

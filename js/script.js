@@ -4042,6 +4042,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function applyZoom(zoom) {
         currentZoom = Math.min(180, Math.max(50, zoom));
         if (zoomPaper) {
+            zoomPaper.style.transformOrigin = 'top center';
             zoomPaper.style.transform = `scale(${currentZoom / 100})`;
         }
         if (zoomIndicator) {
