@@ -1,17 +1,55 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Tab switching logic
+    // 1. Tab switching logic with auto-scroll & step navigation
     const tabBtns = document.querySelectorAll('.tab-btn');
     const tabPanes = document.querySelectorAll('.tab-pane');
+    const tabsNav = document.querySelector('.tabs-nav');
+    const formContent = document.querySelector('.form-content');
+
+    function switchTab(targetId, shouldScrollToTop = true) {
+        if (!targetId) return;
+
+        tabBtns.forEach(b => {
+            const isTarget = b.getAttribute('data-tab') === targetId;
+            b.classList.toggle('active', isTarget);
+            if (isTarget && tabsNav) {
+                // Ensure active tab button is smoothly visible in horizontal scroller
+                try {
+                    b.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                } catch (e) {
+                    b.scrollIntoView(false);
+                }
+            }
+        });
+
+        tabPanes.forEach(p => {
+            if (p.id === targetId) {
+                p.style.display = 'block';
+            } else {
+                p.style.display = 'none';
+            }
+        });
+
+        if (shouldScrollToTop && formContent) {
+            formContent.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
 
     tabBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            tabBtns.forEach(b => b.classList.remove('active'));
-            tabPanes.forEach(p => p.style.display = 'none');
-            
-            btn.classList.add('active');
             const targetId = btn.getAttribute('data-tab');
-            document.getElementById(targetId).style.display = 'block';
+            switchTab(targetId, false);
         });
+    });
+
+    // Handle bottom step buttons (Next / Prev tab)
+    document.addEventListener('click', (e) => {
+        const stepBtn = e.target.closest('.btn-tab-step');
+        if (stepBtn && stepBtn.id !== 'btn-footer-view-preview') {
+            const targetId = stepBtn.getAttribute('data-target');
+            if (targetId) {
+                switchTab(targetId, true);
+            }
+        }
     });
 
     // 2. Interactive Modal System
@@ -20,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="info-modal-content">
             <div class="info-modal-header">
                 <h2 id="modal-title">Title</h2>
-                <button id="modal-close" class="info-modal-close">&times;</button>
+                <button id="modal-close" class="info-modal-close" aria-label="Close modal">&times;</button>
             </div>
             <div id="modal-body" class="info-modal-body">
                 Content goes here...
@@ -36,18 +74,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalTitle = document.getElementById('modal-title');
     const modalBody = document.getElementById('modal-body');
 
-    modalClose.addEventListener('click', () => {
-        modalOverlay.classList.remove('active');
-    });
-
-    modalOverlay.addEventListener('click', (e) => {
-        if (e.target === modalOverlay) {
+    if (modalClose) {
+        modalClose.addEventListener('click', () => {
             modalOverlay.classList.remove('active');
-        }
-    });
+        });
+    }
+
+    if (modalOverlay) {
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                modalOverlay.classList.remove('active');
+            }
+        });
+    }
 
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+        if (e.key === 'Escape' && modalOverlay && modalOverlay.classList.contains('active')) {
             modalOverlay.classList.remove('active');
         }
     });
@@ -55,6 +97,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Mobile View Switcher (Editor vs Statblock Preview)
     const btnViewEditor = document.getElementById('btn-view-editor');
     const btnViewPreview = document.getElementById('btn-view-preview');
+    const btnFooterViewPreview = document.getElementById('btn-footer-view-preview');
+    const btnPreviewBackEdit = document.getElementById('btn-preview-back-edit');
     const appWorkspace = document.getElementById('app-workspace');
 
     function setMobileView(viewMode) {
@@ -65,13 +109,24 @@ document.addEventListener('DOMContentLoaded', () => {
             if (btnViewEditor) btnViewEditor.classList.remove('active');
             if (btnViewPreview) btnViewPreview.classList.add('active');
             
-            // Scroll preview to top smoothly
+            // Scroll preview to top immediately
             const previewPanel = document.getElementById('preview-panel');
-            if (previewPanel) previewPanel.scrollTop = 0;
+            if (previewPanel) {
+                previewPanel.scrollTop = 0;
+                previewPanel.scrollLeft = 0;
+            }
+            window.scrollTo(0, 0);
+            if (typeof window.paginateStatblock === 'function') {
+                window.paginateStatblock();
+            }
         } else {
             appWorkspace.classList.remove('view-preview');
             if (btnViewEditor) btnViewEditor.classList.add('active');
             if (btnViewPreview) btnViewPreview.classList.remove('active');
+            if (formContent) {
+                formContent.scrollTop = 0;
+            }
+            window.scrollTo(0, 0);
         }
     }
 
@@ -81,10 +136,159 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnViewPreview) {
         btnViewPreview.addEventListener('click', () => setMobileView('preview'));
     }
+    if (btnFooterViewPreview) {
+        btnFooterViewPreview.addEventListener('click', () => setMobileView('preview'));
+    }
+    if (btnPreviewBackEdit) {
+        btnPreviewBackEdit.addEventListener('click', () => setMobileView('editor'));
+    }
 
     window.setMobileView = setMobileView;
 
-    // 4. Mobile Actions Slide-out Drawer
+    // 4. Copy Statblock Text Action
+    function copyStatblockText() {
+        const paper = document.getElementById('statblock-paper');
+        if (!paper) return;
+
+        const getText = (id) => {
+            const el = document.getElementById(id);
+            return el ? el.textContent.trim() : '';
+        };
+
+        const isVisible = (id) => {
+            const el = document.getElementById(id);
+            if (!el) return false;
+            return el.style.display !== 'none' && !el.classList.contains('hidden');
+        };
+
+        const name = getText('out-name') || 'Unnamed Creature';
+        const cr = getText('out-cr') || '1';
+        const xp = getText('out-xp');
+        const alignment = getText('out-alignment') || 'N';
+        const size = getText('out-size') || 'Medium';
+        const type = getText('out-type') || 'humanoid';
+        const typeFull = getText('out-type-full');
+        const init = getText('out-init') || '+0';
+        const senses = getText('out-senses') || 'Perception +0';
+        const aura = isVisible('wrap-aura') ? getText('out-aura') : '';
+
+        const ac = getText('out-ac');
+        const hp = getText('out-hp');
+        const fort = getText('out-fort') || '+0';
+        const ref = getText('out-ref') || '+0';
+        const will = getText('out-will') || '+0';
+        const defExtras = isVisible('wrap-def-extras') ? getText('out-def-extras') : '';
+
+        const speed = getText('out-speed') || '30 ft.';
+        const melee = isVisible('wrap-melee') ? getText('out-melee') : '';
+        const ranged = isVisible('wrap-ranged') ? getText('out-ranged') : '';
+        const spaceReach = isVisible('wrap-space-reach') ? getText('out-space-reach') : '';
+        const specialAttacks = isVisible('wrap-special-attacks') ? getText('out-special-attacks') : '';
+        const slaCl = isVisible('wrap-slas') ? getText('out-sla-cl') : '';
+        const slasList = isVisible('wrap-slas') ? Array.from(document.querySelectorAll('#out-slas-list > div')).map(d => d.textContent.trim()).filter(Boolean).join('\n') : '';
+
+        const str = getText('out-str') || '10';
+        const strMod = getText('out-str-mod') || '(+0)';
+        const dex = getText('out-dex') || '10';
+        const dexMod = getText('out-dex-mod') || '(+0)';
+        const con = getText('out-con') || '10';
+        const conMod = getText('out-con-mod') || '(+0)';
+        const intVal = getText('out-int') || '10';
+        const intMod = getText('out-int-mod') || '(+0)';
+        const wis = getText('out-wis') || '10';
+        const wisMod = getText('out-wis-mod') || '(+0)';
+        const cha = getText('out-cha') || '10';
+        const chaMod = getText('out-cha-mod') || '(+0)';
+
+        const bab = getText('out-bab') || '+1';
+        const cmb = getText('out-cmb') || '+0';
+        const cmd = getText('out-cmd') || '10';
+        const feats = isVisible('wrap-feats') ? getText('out-feats') : '';
+        const skills = isVisible('wrap-skills') ? getText('out-skills') : '';
+        const languages = isVisible('wrap-languages') ? getText('out-languages') : '';
+        const sq = isVisible('wrap-sq') ? getText('out-sq') : '';
+        const gear = isVisible('wrap-gear') ? getText('out-gear') : '';
+
+        const specialAbilities = isVisible('wrap-special-abilities') ? Array.from(document.querySelectorAll('#out-special-abilities-list > div')).map(d => d.textContent.trim()).filter(Boolean).join('\n\n') : '';
+
+        const env = isVisible('wrap-ecology') && isVisible('wrap-environment') ? getText('out-environment') : '';
+        const org = isVisible('wrap-ecology') && isVisible('wrap-organization') ? getText('out-organization') : '';
+        const treasure = isVisible('wrap-ecology') && isVisible('wrap-treasure') ? getText('out-treasure') : '';
+
+        let text = `${name.toUpperCase()} CR ${cr}\n`;
+        if (xp) text += `XP ${xp}\n`;
+        text += typeFull ? `${typeFull}\n` : `${alignment} ${size} ${type}\n`;
+        text += `Init ${init}; Senses ${senses}\n`;
+        if (aura) text += `Aura ${aura}\n`;
+
+        text += `\nDEFENSE\n`;
+        text += `AC ${ac}\n`;
+        text += `hp ${hp}\n`;
+        text += `Fort ${fort}, Ref ${ref}, Will ${will}\n`;
+        if (defExtras) text += `${defExtras}\n`;
+
+        text += `\nOFFENSE\n`;
+        text += `Speed ${speed}\n`;
+        if (melee) text += `Melee ${melee}\n`;
+        if (ranged) text += `Ranged ${ranged}\n`;
+        if (spaceReach) text += `${spaceReach}\n`;
+        if (specialAttacks) text += `Special Attacks ${specialAttacks}\n`;
+        if (slaCl) text += `Spell-Like Abilities ${slaCl}\n`;
+        if (slasList) text += `${slasList}\n`;
+
+        text += `\nSTATISTICS\n`;
+        text += `Str ${str} ${strMod}, Dex ${dex} ${dexMod}, Con ${con} ${conMod}, Int ${intVal} ${intMod}, Wis ${wis} ${wisMod}, Cha ${cha} ${chaMod}\n`;
+        text += `Base Atk ${bab}; CMB ${cmb}; CMD ${cmd}\n`;
+        if (feats) text += `Feats ${feats}\n`;
+        if (skills) text += `Skills ${skills}\n`;
+        if (languages) text += `Languages ${languages}\n`;
+        if (sq) text += `SQ ${sq}\n`;
+        if (gear) text += `Gear ${gear}\n`;
+
+        if (specialAbilities) {
+            text += `\nSPECIAL ABILITIES\n${specialAbilities}\n`;
+        }
+
+        if (env || org || treasure) {
+            text += `\nECOLOGY\n`;
+            if (env) text += `Environment ${env}\n`;
+            if (org) text += `Organization ${org}\n`;
+            if (treasure) text += `Treasure ${treasure}\n`;
+        }
+
+        if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+            navigator.clipboard.writeText(text).then(() => {
+                if (window.PathMonsterDBAuth && typeof window.PathMonsterDBAuth.showToast === 'function') {
+                    window.PathMonsterDBAuth.showToast(`📋 Statblock for "${name}" copied to clipboard!`, 'success');
+                } else {
+                    alert('Statblock copied to clipboard!');
+                }
+            }).catch(err => {
+                console.error('Clipboard copy failed:', err);
+            });
+        } else {
+            // Fallback for older browsers
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.top = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            if (window.PathMonsterDBAuth && typeof window.PathMonsterDBAuth.showToast === 'function') {
+                window.PathMonsterDBAuth.showToast(`📋 Statblock for "${name}" copied to clipboard!`, 'success');
+            }
+        }
+    }
+
+    const btnPreviewCopyText = document.getElementById('btn-preview-copy-text');
+    if (btnPreviewCopyText) {
+        btnPreviewCopyText.addEventListener('click', copyStatblockText);
+    }
+    window.copyStatblockText = copyStatblockText;
+
+    // 5. Mobile Actions Slide-out Drawer
     const btnMobileMenu = document.getElementById('btn-mobile-menu');
     const mobileDrawer = document.getElementById('mobile-drawer');
     const mobileDrawerOverlay = document.getElementById('mobile-drawer-overlay');
@@ -93,12 +297,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function openMobileDrawer() {
         if (mobileDrawer) mobileDrawer.classList.add('active');
         if (mobileDrawerOverlay) mobileDrawerOverlay.classList.add('active');
+        if (btnMobileMenu) btnMobileMenu.classList.add('is-active');
         document.body.classList.add('mobile-drawer-open');
     }
 
     function closeMobileDrawer() {
         if (mobileDrawer) mobileDrawer.classList.remove('active');
         if (mobileDrawerOverlay) mobileDrawerOverlay.classList.remove('active');
+        if (btnMobileMenu) btnMobileMenu.classList.remove('is-active');
         document.body.classList.remove('mobile-drawer-open');
     }
 
@@ -118,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 5. Drawer Quick Actions Event Delegation
+    // 6. Drawer Quick Actions Event Delegation
     const delegateClick = (drawerBtnId, targetBtnId) => {
         const dBtn = document.getElementById(drawerBtnId);
         const tBtn = document.getElementById(targetBtnId);
@@ -142,7 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
     delegateClick('mob-btn-settings', 'btn-settings-panel');
     delegateClick('mob-btn-reset-filters', 'btn-reset-filters');
 
-    // 6. Mobile Theme Selector Synchronization
+    // 7. Mobile Theme Selector Synchronization
     const mobThemeSelect = document.getElementById('mobile-theme-selector');
     if (mobThemeSelect) {
         const savedTheme = localStorage.getItem('pf_creator_theme') || 'theme-parchment';
@@ -159,7 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 7. Global Interactive Info Modal Method
+    // 8. Global Interactive Info Modal Method
     window.showInfoModal = function(title, bodyHTML, itemType = '') {
         modalTitle.textContent = title + (itemType ? ` (${itemType})` : '');
         let resolvedHTML = bodyHTML;

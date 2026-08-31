@@ -100,6 +100,11 @@ class PathMonsterDBRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_header('Location', f'/css{parsed_url.path}')
                 self.end_headers()
                 return
+            elif parsed_url.path.startswith('/html/data/'):
+                self.send_response(302)
+                self.send_header('Location', parsed_url.path.replace('/html/data/', '/data/'))
+                self.end_headers()
+                return
             elif parsed_url.path in ('/script.js', '/database.js'):
                 self.send_response(302)
                 self.send_header('Location', f'/js{parsed_url.path}')

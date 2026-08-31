@@ -656,6 +656,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof updateStatBadges === 'function') updateStatBadges();
 
         if (typeof window.applyMechanics === 'function') window.applyMechanics();
+        if (typeof paginateStatblock === 'function') paginateStatblock();
 
         autoSave();
     }
@@ -985,11 +986,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // Reference Databases Loading for Interactive Tooltips & Modals
-    fetch('data/auras.json').then(r => r.json()).then(d => { window.allAurasDB = d; if (typeof updatePreview === 'function') updatePreview(); }).catch(e => console.warn('Could not load auras.json:', e));
-    fetch('data/special_abilities.json').then(r => r.json()).then(d => { window.allSpecialAbilitiesDB = d; if (typeof updatePreview === 'function') updatePreview(); }).catch(e => console.warn('Could not load special_abilities.json:', e));
-    fetch('data/immunities.json').then(r => r.json()).then(d => { window.allImmunitiesDB = d; if (typeof updatePreview === 'function') updatePreview(); }).catch(e => console.warn('Could not load immunities.json:', e));
-    fetch('data/resistances.json').then(r => r.json()).then(d => { window.allResistancesDB = d; if (typeof updatePreview === 'function') updatePreview(); }).catch(e => console.warn('Could not load resistances.json:', e));
-    fetch('data/weaknesses.json').then(r => r.json()).then(d => { window.allWeaknessesDB = d; if (typeof updatePreview === 'function') updatePreview(); }).catch(e => console.warn('Could not load weaknesses.json:', e));
+    fetch('/data/auras.json').then(r => r.json()).then(d => { window.allAurasDB = d; if (typeof updatePreview === 'function') updatePreview(); }).catch(e => console.warn('Could not load auras.json:', e));
+    fetch('/data/special_abilities.json').then(r => r.json()).then(d => { window.allSpecialAbilitiesDB = d; if (typeof updatePreview === 'function') updatePreview(); }).catch(e => console.warn('Could not load special_abilities.json:', e));
+    fetch('/data/immunities.json').then(r => r.json()).then(d => { window.allImmunitiesDB = d; if (typeof updatePreview === 'function') updatePreview(); }).catch(e => console.warn('Could not load immunities.json:', e));
+    fetch('/data/resistances.json').then(r => r.json()).then(d => { window.allResistancesDB = d; if (typeof updatePreview === 'function') updatePreview(); }).catch(e => console.warn('Could not load resistances.json:', e));
+    fetch('/data/weaknesses.json').then(r => r.json()).then(d => { window.allWeaknessesDB = d; if (typeof updatePreview === 'function') updatePreview(); }).catch(e => console.warn('Could not load weaknesses.json:', e));
 
     // =========================================================
     // ATTACK SYSTEM
@@ -1522,10 +1523,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 extra: el.querySelector('.atk-extra') ? el.querySelector('.atk-extra').value : ''
             };
         });
-        state.dynamic.abilities = Array.from(document.querySelectorAll('.sa-item')).map(el => ({
+        const specialAbilitiesList = Array.from(document.querySelectorAll('.sa-item')).map(el => ({
             name: el.querySelector('.sa-name').value,
             desc: el.querySelector('.sa-desc').innerHTML
         }));
+        state.dynamic.abilities = specialAbilitiesList;
+        state.dynamic.special_abilities = specialAbilitiesList;
         state.dynamic.magic_items = (window.CharacterState && Array.isArray(window.CharacterState.inventory.magicItems))
             ? window.CharacterState.inventory.magicItems
             : [];
@@ -1951,11 +1954,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            // Special Abilities
-            if (state.dynamic.abilities && Array.isArray(state.dynamic.abilities)) {
+            // Special Abilities (Supports dynamic.special_abilities, dynamic.abilities, and top-level arrays)
+            const rawSaList = (state.dynamic && Array.isArray(state.dynamic.special_abilities))
+                ? state.dynamic.special_abilities
+                : ((state.dynamic && Array.isArray(state.dynamic.abilities))
+                    ? state.dynamic.abilities
+                    : (Array.isArray(state.special_abilities)
+                        ? state.special_abilities
+                        : (Array.isArray(state.SpecialAbilities) ? state.SpecialAbilities : [])));
+
+            if (rawSaList && rawSaList.length > 0) {
                 const btnAbility = document.getElementById('btn-add-ability');
                 if (btnAbility) {
-                    state.dynamic.abilities.forEach(val => {
+                    rawSaList.forEach(val => {
+                        if (!val) return;
                         btnAbility.click();
                         const items = document.querySelectorAll('.sa-item');
                         if (items.length > 0) {
@@ -1963,17 +1975,21 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (last) {
                                 const nameIn = last.querySelector('.sa-name');
                                 const descIn = last.querySelector('.sa-desc');
-                                if (nameIn) nameIn.value = val.name || '';
-                                if (descIn) descIn.innerHTML = val.desc || '';
+                                if (nameIn) nameIn.value = val.name || val.title || '';
+                                if (descIn) descIn.innerHTML = val.desc || val.description || val.text || '';
                             }
                         }
                     });
                 }
             }
 
-            // Magic Items
-            if (state.dynamic.magic_items && window.CharacterState) {
-                window.CharacterState.inventory.magicItems = state.dynamic.magic_items;
+            // Magic Items (Supports dynamic.magic_items and top-level magic_items)
+            const rawMagicItems = (state.dynamic && Array.isArray(state.dynamic.magic_items))
+                ? state.dynamic.magic_items
+                : (Array.isArray(state.magic_items) ? state.magic_items : []);
+
+            if (rawMagicItems && rawMagicItems.length > 0 && window.CharacterState) {
+                window.CharacterState.inventory.magicItems = rawMagicItems;
                 if (typeof window.renderEquippedMagicItems === 'function') {
                     window.renderEquippedMagicItems();
                 }
@@ -2115,6 +2131,10 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("Error loading state", e);
         }
     }
+    window.deserializeState = deserializeState;
+    window.updatePreview = updatePreview;
+    window.handleToggle = handleToggle;
+    window.serializeState = serializeState;
 
     let autoSaveTimeout = null;
     function autoSave() {
@@ -2320,40 +2340,59 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // JSON Export (Active Single Creature Sheet JSON download)
     const btnSaveJson = document.getElementById('btn-save-json');
-    if (btnSaveJson) {
-        btnSaveJson.addEventListener('click', () => {
-            try {
-                const stateStr = serializeState();
-                const stateObj = JSON.parse(stateStr);
-                const prettyJson = JSON.stringify(stateObj, null, 2);
-                const blob = new Blob([prettyJson], { type: 'application/json;charset=utf-8' });
-                const rawName = document.getElementById('in-name')?.value?.trim() || 'Monster';
-                const safeName = rawName.replace(/[/\\?%*:|"<>]/g, '_') || 'Monster';
+    const mobBtnSaveJson = document.getElementById('mob-btn-save-json');
 
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `${safeName}.json`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
+    function executeSaveJson() {
+        try {
+            const stateStr = serializeState();
+            const stateObj = JSON.parse(stateStr);
+            const prettyJson = JSON.stringify(stateObj, null, 2);
+            const blob = new Blob([prettyJson], { type: 'application/json;charset=utf-8' });
+            const rawName = document.getElementById('in-name')?.value?.trim() || 'Monster';
+            const safeName = rawName.replace(/[/\\?%*:|"<>]/g, '_') || 'Monster';
+
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = `${safeName}.json`;
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(() => {
+                if (a.parentNode) a.parentNode.removeChild(a);
                 URL.revokeObjectURL(url);
+            }, 2000);
 
-                const auth = window.PathMonsterDBAuth || window.PathGMAuth;
-                if (auth && typeof auth.showToast === 'function') {
-                    auth.showToast(`📥 Creature "${rawName}" exported as JSON!`, 'success');
-                }
-            } catch (err) {
-                console.error('Error exporting JSON:', err);
-                alert('JSON export error: ' + err.message);
+            const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+            if (auth && typeof auth.showToast === 'function') {
+                auth.showToast(`📥 Creature "${rawName}" exported as JSON!`, 'success');
             }
-        });
+        } catch (err) {
+            console.error('Error exporting JSON:', err);
+            alert('JSON export error: ' + err.message);
+        }
     }
+
+    window.executeSaveJson = executeSaveJson;
+    if (btnSaveJson) btnSaveJson.addEventListener('click', executeSaveJson);
+    if (mobBtnSaveJson) mobBtnSaveJson.addEventListener('click', executeSaveJson);
 
     // JSON Import (Single Creature Sheet loader)
     const fileLoadBtn = document.getElementById('btn-load-json');
+    const mobFileLoadBtn = document.getElementById('mob-btn-load-json');
     const fileLoadInput = document.getElementById('file-load-json');
-    if (fileLoadBtn) fileLoadBtn.addEventListener('click', () => fileLoadInput.click());
+
+    const triggerFileSelect = () => {
+        if (fileLoadInput) {
+            fileLoadInput.value = '';
+            fileLoadInput.click();
+        }
+    };
+
+    window.triggerFileSelect = triggerFileSelect;
+    if (fileLoadBtn) fileLoadBtn.addEventListener('click', triggerFileSelect);
+    if (mobFileLoadBtn) mobFileLoadBtn.addEventListener('click', triggerFileSelect);
+
     if (fileLoadInput) fileLoadInput.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (!file) return;
@@ -2561,7 +2600,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // PNG / PDF
+    // -------------------------------------------------------------------
+    // PNG / PDF & A4 STATBLOCK PAGINATION ENGINE
+    // -------------------------------------------------------------------
     const btnExportPng = document.getElementById('btn-export-png');
     const btnExportPdf = document.getElementById('btn-export-pdf');
     const statblockPaper = document.getElementById('statblock-paper');
@@ -2571,6 +2612,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function applyStatblockTheme(theme) {
         if (!theme || theme === 'theme-default') theme = 'theme-parchment';
         if (statblockPaper) statblockPaper.className = `statblock-paper ${theme}`;
+        document.querySelectorAll('.statblock-page').forEach(page => {
+            page.className = `statblock-page ${theme}`;
+        });
         document.body.classList.forEach(cls => {
             if (cls.startsWith('theme-')) document.body.classList.remove(cls);
         });
@@ -2581,6 +2625,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (mobThemeSelect && mobThemeSelect.value !== theme) mobThemeSelect.value = theme;
         localStorage.setItem('pf_creator_theme', theme);
         document.cookie = `pf_creator_theme=${theme}; path=/; max-age=31536000; SameSite=Lax`;
+        if (typeof paginateStatblock === 'function') paginateStatblock();
     }
     window.applyStatblockTheme = applyStatblockTheme;
 
@@ -2597,75 +2642,236 @@ document.addEventListener('DOMContentLoaded', () => {
         return getComputedStyle(document.body).getPropertyValue('--sb-bg').trim() || '#fdf6e2';
     };
 
-    async function captureStatblockCanvas() {
-        const previewPanel = document.querySelector('.preview-panel');
-        const isHidden = previewPanel && window.getComputedStyle(previewPanel).display === 'none';
+    // Unified Statblock Architecture
+    function paginateStatblock() {
+        // Natural single-page statblock layout
+    }
+    window.paginateStatblock = paginateStatblock;
 
-        if (isHidden && previewPanel) {
-            previewPanel.style.setProperty('display', 'flex', 'important');
-            previewPanel.style.setProperty('position', 'fixed', 'important');
-            previewPanel.style.setProperty('top', '0', 'important');
-            previewPanel.style.setProperty('left', '-9999px', 'important');
-            previewPanel.style.setProperty('width', '800px', 'important');
-            previewPanel.style.setProperty('opacity', '0', 'important');
-            previewPanel.style.setProperty('pointer-events', 'none', 'important');
+    function getJsPdfConstructor() {
+        if (window.jspdf && typeof window.jspdf.jsPDF === 'function') {
+            return window.jspdf.jsPDF;
+        }
+        if (typeof window.jsPDF === 'function') {
+            return window.jsPDF;
+        }
+        if (window.jspdf && typeof window.jspdf.default === 'function') {
+            return window.jspdf.default;
+        }
+        return null;
+    }
+
+    async function ensureLibrariesLoaded() {
+        if (typeof html2canvas !== 'function') {
+            await new Promise((resolve) => {
+                const s = document.createElement('script');
+                s.src = '../js/vendor/html2canvas.min.js';
+                s.onload = () => resolve(true);
+                s.onerror = () => {
+                    const cdn = document.createElement('script');
+                    cdn.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+                    cdn.onload = () => resolve(true);
+                    cdn.onerror = () => resolve(false);
+                    document.head.appendChild(cdn);
+                };
+                document.head.appendChild(s);
+            });
+        }
+        if (!getJsPdfConstructor()) {
+            await new Promise((resolve) => {
+                const s = document.createElement('script');
+                s.src = '../js/vendor/jspdf.umd.min.js';
+                s.onload = () => resolve(true);
+                s.onerror = () => {
+                    const cdn = document.createElement('script');
+                    cdn.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+                    cdn.onload = () => resolve(true);
+                    cdn.onerror = () => resolve(false);
+                    document.head.appendChild(cdn);
+                };
+                document.head.appendChild(s);
+            });
+        }
+    }
+
+    async function captureStatblockElement(paper) {
+        await ensureLibrariesLoaded();
+        const html2c = window.html2canvas || (typeof html2canvas === 'function' ? html2canvas : null);
+        if (!html2c) {
+            throw new Error('html2canvas library could not be loaded. Please refresh the page and try again.');
         }
 
+        const origTransform = paper.style.transform;
+        const previewPanel = document.getElementById('preview-panel');
+        const origPanelDisplay = previewPanel ? previewPanel.style.display : '';
+
         try {
-            const canvas = await html2canvas(statblockPaper, { 
-                scale: 2, 
-                backgroundColor: getThemeBgColor(),
+            paper.style.transform = 'none';
+            if (previewPanel && window.getComputedStyle(previewPanel).display === 'none') {
+                previewPanel.style.display = 'block';
+            }
+
+            const canvas = await html2c(paper, {
+                scale: 2,
                 useCORS: true,
-                logging: false
+                allowTaint: true,
+                logging: false,
+                backgroundColor: null,
+                scrollX: 0,
+                scrollY: 0
             });
             return canvas;
         } finally {
-            if (isHidden && previewPanel) {
-                previewPanel.style.removeProperty('display');
-                previewPanel.style.removeProperty('position');
-                previewPanel.style.removeProperty('top');
-                previewPanel.style.removeProperty('left');
-                previewPanel.style.removeProperty('width');
-                previewPanel.style.removeProperty('opacity');
-                previewPanel.style.removeProperty('pointer-events');
+            paper.style.transform = origTransform;
+            if (previewPanel) {
+                previewPanel.style.display = origPanelDisplay;
             }
         }
     }
 
-    btnExportPng.addEventListener('click', async () => {
-        const monsterName = document.getElementById('in-name')?.value || 'Monster';
-        try {
-            const canvas = await captureStatblockCanvas();
-            const link = document.createElement('a');
-            link.download = `${monsterName}.png`;
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-        } catch (err) {
-            console.error('PNG Export Error:', err);
-            alert('PNG export failed: ' + err.message);
-        }
-    });
+    function downloadBlob(blob, filename) {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+            if (a.parentNode) a.parentNode.removeChild(a);
+            URL.revokeObjectURL(url);
+        }, 3000);
+    }
 
-    btnExportPdf.addEventListener('click', async () => {
-        const jsPDFConstructor = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
-        if (!jsPDFConstructor) {
-            alert('jsPDF library is loading or unavailable. Please try again.');
+    let isExporting = false;
+
+    async function executeExportPng() {
+        if (isExporting) return;
+        isExporting = true;
+
+        const rawName = document.getElementById('in-name')?.value?.trim() || 'Monster';
+        const safeName = rawName.replace(/[/\\?%*:|"<>]/g, '_') || 'Monster';
+        const paper = document.getElementById('statblock-paper');
+        if (!paper) {
+            alert('No statblock found to export.');
+            isExporting = false;
             return;
         }
-        const monsterName = document.getElementById('in-name')?.value || 'Monster';
+
+        const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+        if (auth && typeof auth.showToast === 'function') {
+            auth.showToast(`⏳ Generating PNG export for "${rawName}"...`, 'info');
+        }
+
         try {
-            const canvas = await captureStatblockCanvas();
+            const canvas = await captureStatblockElement(paper);
+            if (canvas.toBlob) {
+                canvas.toBlob((blob) => {
+                    if (blob) {
+                        downloadBlob(blob, `${safeName}.png`);
+                    } else {
+                        const dataUrl = canvas.toDataURL('image/png');
+                        const link = document.createElement('a');
+                        link.download = `${safeName}.png`;
+                        link.href = dataUrl;
+                        document.body.appendChild(link);
+                        link.click();
+                        setTimeout(() => { if (link.parentNode) link.parentNode.removeChild(link); }, 1000);
+                    }
+                }, 'image/png');
+            } else {
+                const dataUrl = canvas.toDataURL('image/png');
+                const link = document.createElement('a');
+                link.download = `${safeName}.png`;
+                link.href = dataUrl;
+                document.body.appendChild(link);
+                link.click();
+                setTimeout(() => { if (link.parentNode) link.parentNode.removeChild(link); }, 1000);
+            }
+
+            if (auth && typeof auth.showToast === 'function') {
+                auth.showToast(`🖼️ Successfully exported PNG!`, 'success');
+            }
+        } catch (err) {
+            console.error('PNG Export Error:', err);
+            alert('PNG export error: ' + (err.message || err));
+        } finally {
+            setTimeout(() => { isExporting = false; }, 1500);
+        }
+    }
+
+    async function executeExportPdf() {
+        if (isExporting) return;
+        isExporting = true;
+
+        const rawName = document.getElementById('in-name')?.value?.trim() || 'Monster';
+        const safeName = rawName.replace(/[/\\?%*:|"<>]/g, '_') || 'Monster';
+        const paper = document.getElementById('statblock-paper');
+        if (!paper) {
+            alert('No statblock found to export.');
+            isExporting = false;
+            return;
+        }
+
+        const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+        if (auth && typeof auth.showToast === 'function') {
+            auth.showToast(`⏳ Generating PDF document for "${rawName}"...`, 'info');
+        }
+
+        try {
+            await ensureLibrariesLoaded();
+            const jsPdfConstructor = getJsPdfConstructor();
+            if (!jsPdfConstructor) {
+                alert('jsPDF library could not be loaded. Please try again.');
+                return;
+            }
+
+            const canvas = await captureStatblockElement(paper);
             const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDFConstructor({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-            pdf.save(`${monsterName}.pdf`);
+            const pdf = new jsPdfConstructor({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a4',
+                compress: true
+            });
+
+            const pdfWidth = 210;
+            const pdfPageHeight = 297;
+            const imgWidth = canvas.width;
+            const imgHeight = canvas.height;
+            const renderedHeight = (imgHeight * pdfWidth) / imgWidth;
+
+            let heightLeft = renderedHeight;
+            let position = 0;
+
+            pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, renderedHeight, undefined, 'FAST');
+            heightLeft -= pdfPageHeight;
+
+            while (heightLeft > 0) {
+                position = heightLeft - renderedHeight;
+                pdf.addPage('a4', 'portrait');
+                pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, renderedHeight, undefined, 'FAST');
+                heightLeft -= pdfPageHeight;
+            }
+
+            pdf.save(`${safeName}.pdf`);
+
+            if (auth && typeof auth.showToast === 'function') {
+                auth.showToast(`📄 Successfully exported PDF!`, 'success');
+            }
         } catch (err) {
             console.error('PDF Export Error:', err);
-            alert('PDF export failed: ' + err.message);
+            alert('PDF export error: ' + (err.message || err));
+        } finally {
+            setTimeout(() => { isExporting = false; }, 1500);
         }
-    });
+    }
+
+    window.executeExportPng = executeExportPng;
+    window.executeExportPdf = executeExportPdf;
+
+    if (btnExportPng) btnExportPng.addEventListener('click', executeExportPng);
+    if (btnExportPdf) btnExportPdf.addEventListener('click', executeExportPdf);
 
     // -------------------------------------------------------------------
     // FEAT UI AND AUTOCOMPLETE LOGIC
@@ -3826,7 +4032,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ARMOR & SHIELD AUTOCOMPLETE
     // -------------------------------------------------------------------
     window.allArmorsDB = [];
-    fetch('data/armor.json')
+    fetch('/data/armor.json')
         .then(res => res.json())
         .then(data => {
             window.allArmorsDB = data;
@@ -3851,7 +4057,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Also build weapon datalist for melee/ranged attack rows
     window.allWeaponsDB = [];
-    fetch('data/weapons.json')
+    fetch('/data/weapons.json')
         .then(res => res.json())
         .then(data => {
             window.allWeaponsDB = data;
@@ -4209,6 +4415,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (statblockPaper) {
                 statblockPaper.style.fontSize = `${size}px`;
                 statblockPaper.style.setProperty('--sb-base-font-size', `${size}px`);
+                if (typeof paginateStatblock === 'function') paginateStatblock();
             }
             localStorage.setItem('pf_creator_font_size', size);
             document.querySelectorAll('.btn-size-preset').forEach(b => {

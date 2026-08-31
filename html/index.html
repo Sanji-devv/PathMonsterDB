@@ -44,8 +44,8 @@
         } catch (e) { }
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="../js/vendor/html2canvas.min.js"></script>
+    <script src="../js/vendor/jspdf.umd.min.js"></script>
 </head>
 
 <body>
@@ -70,20 +70,20 @@
         <div class="header-right">
             <!-- Action Buttons -->
             <div class="header-actions">
-                <button id="btn-new-sheet" class="btn-hdr btn-hdr-emerald" title="Clear and start fresh">New</button>
-                <button id="btn-save-as-new" class="btn-hdr btn-hdr-emerald"
+                <button type="button" id="btn-new-sheet" class="btn-hdr btn-hdr-emerald" title="Clear and start fresh">New</button>
+                <button type="button" id="btn-save-as-new" class="btn-hdr btn-hdr-emerald"
                     title="Save as a Brand New Creature (New Entry)">Save as New</button>
-                <button id="btn-save-database" class="btn-hdr btn-hdr-blue"
+                <button type="button" id="btn-save-database" class="btn-hdr btn-hdr-blue"
                     title="Save creature to local database">Save</button>
-                <button id="btn-export-png" class="btn-hdr btn-hdr-subtle"
+                <button type="button" id="btn-export-png" class="btn-hdr btn-hdr-subtle"
                     title="Export statblock as high-res PNG image">PNG</button>
-                <button id="btn-export-pdf" class="btn-hdr btn-hdr-subtle"
+                <button type="button" id="btn-export-pdf" class="btn-hdr btn-hdr-subtle"
                     title="Export statblock as PDF document">PDF</button>
-                <button id="btn-save-json" class="btn-hdr btn-hdr-subtle"
+                <button type="button" id="btn-save-json" class="btn-hdr btn-hdr-subtle"
                     title="Download Active Creature Sheet as JSON">JSON</button>
-                <button id="btn-load-json" class="btn-hdr btn-hdr-subtle"
+                <button type="button" id="btn-load-json" class="btn-hdr btn-hdr-subtle"
                     title="Upload Creature Sheet from JSON File">LOAD</button>
-                <input type="file" id="file-load-json" accept=".json" style="display:none;">
+                <input type="file" id="file-load-json" accept=".json,application/json" style="position:fixed;top:-1000px;left:-1000px;opacity:0;width:1px;height:1px;pointer-events:none;">
             </div>
 
             <!-- User Profile Widget Slot -->
@@ -374,6 +374,14 @@
                             </div>
                         </div>
                     </section>
+
+                    <!-- Mobile Bottom Step Navigation Footer -->
+                    <div class="tab-nav-step-footer">
+                        <button type="button" class="btn-tab-step btn-tab-step-next" data-target="tab-defense" style="width: 100%;">
+                            <span>Next: Defense & HP 🛡️</span>
+                            <span class="step-arrow">➔</span>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- TAB 2: DEFENSE -->
@@ -488,6 +496,18 @@
                                     value=""></div>
                         </div>
                     </section>
+
+                    <!-- Mobile Bottom Step Navigation Footer -->
+                    <div class="tab-nav-step-footer">
+                        <button type="button" class="btn-tab-step btn-tab-step-prev" data-target="tab-core">
+                            <span class="step-arrow">⬅</span>
+                            <span>Core</span>
+                        </button>
+                        <button type="button" class="btn-tab-step btn-tab-step-next" data-target="tab-offense">
+                            <span>Next: Offense ⚔️</span>
+                            <span class="step-arrow">➔</span>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- TAB 3: OFFENSE -->
@@ -532,6 +552,18 @@
                             <button type="button" id="btn-add-sla" class="btn-dashed-add">+ Add SLA</button>
                         </div>
                     </section>
+
+                    <!-- Mobile Bottom Step Navigation Footer -->
+                    <div class="tab-nav-step-footer">
+                        <button type="button" class="btn-tab-step btn-tab-step-prev" data-target="tab-defense">
+                            <span class="step-arrow">⬅</span>
+                            <span>Defense</span>
+                        </button>
+                        <button type="button" class="btn-tab-step btn-tab-step-next" data-target="tab-stats">
+                            <span>Next: Stats & Feats 🧠</span>
+                            <span class="step-arrow">➔</span>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- TAB 4: STATS & FEATS -->
@@ -627,6 +659,18 @@
                             <input type="text" id="in-gear" placeholder="e.g. potion of cure light wounds (2)">
                         </div>
                     </section>
+
+                    <!-- Mobile Bottom Step Navigation Footer -->
+                    <div class="tab-nav-step-footer">
+                        <button type="button" class="btn-tab-step btn-tab-step-prev" data-target="tab-offense">
+                            <span class="step-arrow">⬅</span>
+                            <span>Offense</span>
+                        </button>
+                        <button type="button" class="btn-tab-step btn-tab-step-next" data-target="tab-details">
+                            <span>Next: Details & Spells 📜</span>
+                            <span class="step-arrow">➔</span>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- TAB 5: DETAILS & SPELLS -->
@@ -704,6 +748,18 @@
                                     placeholder="e.g. standard"></div>
                         </div>
                     </section>
+
+                    <!-- Mobile Bottom Step Navigation Footer -->
+                    <div class="tab-nav-step-footer">
+                        <button type="button" class="btn-tab-step btn-tab-step-prev" data-target="tab-stats">
+                            <span class="step-arrow">⬅</span>
+                            <span>Stats</span>
+                        </button>
+                        <button type="button" class="btn-tab-step btn-tab-step-preview" id="btn-footer-view-preview">
+                            <span>View Statblock Sheet 📜</span>
+                            <span class="step-arrow">➔</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </aside>
@@ -711,155 +767,162 @@
         <!-- Right Side Live Preview Panel -->
         <section class="preview-panel" id="preview-panel">
             <div id="statblock-paper" class="statblock-paper theme-parchment">
-                <!-- Title Header Row -->
-                <div class="pf-header-row">
-                    <h1 id="out-name">Unnamed Creature</h1>
-                    <div class="pf-cr-box">
-                        <div class="pf-cr-label">CR</div>
-                        <div id="out-cr" class="pf-cr-value">1</div>
+                <!-- Header Block -->
+                <div class="sb-block sb-block-header" id="sb-block-header">
+                    <div class="pf-header-row">
+                        <h1 id="out-name">Unnamed Creature</h1>
+                        <div class="pf-cr-box">
+                            <div class="pf-cr-label">CR</div>
+                            <div id="out-cr" class="pf-cr-value">1</div>
+                        </div>
                     </div>
-                </div>
 
-                <!-- XP & Alignment / Size / Type -->
-                <div class="pf-property-line pf-xp-row" id="wrap-xp">
-                    <span class="pf-label">XP</span> <span id="out-xp">400</span>
-                </div>
+                    <div class="pf-property-line pf-xp-row" id="wrap-xp">
+                        <span class="pf-label">XP</span> <span id="out-xp">400</span>
+                    </div>
 
-                <div class="pf-property-line pf-type-row" id="wrap-monster-type">
-                    <span id="out-alignment">N</span>
-                    <span id="out-size">Medium</span>
-                    <span id="out-type">humanoid</span>
-                </div>
+                    <div class="pf-property-line pf-type-row" id="wrap-monster-type">
+                        <span id="out-alignment">N</span>
+                        <span id="out-size">Medium</span>
+                        <span id="out-type">humanoid</span>
+                    </div>
 
-                <div class="pf-property-line pf-type-row" id="wrap-npc-type" style="display: none;">
-                    <i id="out-type-full"></i>
-                </div>
+                    <div class="pf-property-line pf-type-row" id="wrap-npc-type" style="display: none;">
+                        <i id="out-type-full"></i>
+                    </div>
 
-                <div class="pf-property-line">
-                    <span class="pf-label">Init</span> <span id="out-init">+0</span>;
-                    <span class="pf-label">Senses</span> <span id="out-senses">Perception +0</span>
-                </div>
-                <div class="pf-property-line" id="wrap-aura" style="display: none;">
-                    <span class="pf-label">Aura</span> <span id="out-aura"></span>
+                    <div class="pf-property-line" id="wrap-init-senses">
+                        <span class="pf-label">Init</span> <span id="out-init">+0</span>;
+                        <span class="pf-label">Senses</span> <span id="out-senses">Perception +0</span>
+                    </div>
+                    <div class="pf-property-line" id="wrap-aura" style="display: none;">
+                        <span class="pf-label">Aura</span> <span id="out-aura"></span>
+                    </div>
                 </div>
 
                 <!-- DEFENSE SECTION -->
-                <h2 class="pf-section-title">DEFENSE</h2>
-                <div class="pf-property-line">
-                    <span class="pf-label">AC</span> <span id="out-ac">10, touch 10, flat-footed 10</span>
-                </div>
-                <div class="pf-property-line">
-                    <span class="pf-label">hp</span> <span id="out-hp">8 (1d8)</span>
-                </div>
-                <div class="pf-property-line">
-                    <span class="pf-label">Fort</span> <span id="out-fort">+0</span>,
-                    <span class="pf-label">Ref</span> <span id="out-ref">+0</span>,
-                    <span class="pf-label">Will</span> <span id="out-will">+0</span>
-                </div>
-                <div class="pf-property-line" id="wrap-def-extras" style="display: none;">
-                    <span id="out-def-extras"></span>
+                <div class="sb-block sb-block-defense" id="sb-block-defense">
+                    <h2 class="pf-section-title">DEFENSE</h2>
+                    <div class="pf-property-line">
+                        <span class="pf-label">AC</span> <span id="out-ac">10, touch 10, flat-footed 10</span>
+                    </div>
+                    <div class="pf-property-line">
+                        <span class="pf-label">hp</span> <span id="out-hp">8 (1d8)</span>
+                    </div>
+                    <div class="pf-property-line">
+                        <span class="pf-label">Fort</span> <span id="out-fort">+0</span>,
+                        <span class="pf-label">Ref</span> <span id="out-ref">+0</span>,
+                        <span class="pf-label">Will</span> <span id="out-will">+0</span>
+                    </div>
+                    <div class="pf-property-line" id="wrap-def-extras" style="display: none;">
+                        <span id="out-def-extras"></span>
+                    </div>
                 </div>
 
                 <!-- OFFENSE SECTION -->
-                <h2 class="pf-section-title">OFFENSE</h2>
-                <div class="pf-property-line">
-                    <span class="pf-label">Speed</span> <span id="out-speed">30 ft.</span>
-                </div>
-                <div class="pf-property-line" id="wrap-melee" style="display: none;">
-                    <span class="pf-label">Melee</span> <span id="out-melee"></span>
-                </div>
-                <div class="pf-property-line" id="wrap-ranged" style="display: none;">
-                    <span class="pf-label">Ranged</span> <span id="out-ranged"></span>
-                </div>
-                <div class="pf-property-line" id="wrap-space-reach">
-                    <span id="out-space-reach"><span class="pf-label">Space</span> 5 ft.; <span
-                            class="pf-label">Reach</span> 5 ft.</span>
-                </div>
-                <div class="pf-property-line" id="wrap-special-attacks" style="display: none;">
-                    <span class="pf-label">Special Attacks</span> <span id="out-special-attacks"></span>
-                </div>
-
-                <div id="wrap-slas" style="display: none;">
+                <div class="sb-block sb-block-offense" id="sb-block-offense">
+                    <h2 class="pf-section-title">OFFENSE</h2>
                     <div class="pf-property-line">
-                        <span class="pf-label">Spell-Like Abilities</span> <span id="out-sla-cl"></span>
+                        <span class="pf-label">Speed</span> <span id="out-speed">30 ft.</span>
                     </div>
-                    <div id="out-slas-list"></div>
-                </div>
+                    <div class="pf-property-line" id="wrap-melee" style="display: none;">
+                        <span class="pf-label">Melee</span> <span id="out-melee"></span>
+                    </div>
+                    <div class="pf-property-line" id="wrap-ranged" style="display: none;">
+                        <span class="pf-label">Ranged</span> <span id="out-ranged"></span>
+                    </div>
+                    <div class="pf-property-line" id="wrap-space-reach">
+                        <span id="out-space-reach"><span class="pf-label">Space</span> 5 ft.; <span
+                                class="pf-label">Reach</span> 5 ft.</span>
+                    </div>
+                    <div class="pf-property-line" id="wrap-special-attacks" style="display: none;">
+                        <span class="pf-label">Special Attacks</span> <span id="out-special-attacks"></span>
+                    </div>
 
-                <div id="wrap-spells" style="display: none; margin-top: 4px;">
-                    <div class="pf-property-line" style="margin-bottom: 2px;">
-                        <span class="pf-label" id="out-spell-class">Spells Prepared</span> <span
-                            style="font-weight: normal; color: var(--sb-text);">(CL <span id="out-spell-cl">1st</span>;
-                            concentration <span id="out-spell-conc">+0</span>)</span>
+                    <div id="wrap-slas" style="display: none;">
+                        <div class="pf-property-line">
+                            <span class="pf-label">Spell-Like Abilities</span> <span id="out-sla-cl"></span>
+                        </div>
+                        <div id="out-slas-list"></div>
                     </div>
-                    <div id="out-spells-list"></div>
+
+                    <div id="wrap-spells" style="display: none; margin-top: 4px;">
+                        <div class="pf-property-line" style="margin-bottom: 2px;">
+                            <span class="pf-label" id="out-spell-class">Spells Prepared</span> <span
+                                style="font-weight: normal; color: var(--sb-text);">(CL <span id="out-spell-cl">1st</span>;
+                                concentration <span id="out-spell-conc">+0</span>)</span>
+                        </div>
+                        <div id="out-spells-list"></div>
+                    </div>
                 </div>
 
                 <!-- STATISTICS SECTION -->
-                <h2 class="pf-section-title">STATISTICS</h2>
+                <div class="sb-block sb-block-statistics" id="sb-block-statistics">
+                    <h2 class="pf-section-title">STATISTICS</h2>
 
-                <div class="pf-stats-table">
-                    <div class="pf-stat-col">
-                        <div class="pf-label">STR</div>
-                        <div class="pf-stat-val" id="out-str">10</div>
-                        <div class="pf-stat-mod" id="out-str-mod">(+0)</div>
+                    <div class="pf-stats-table">
+                        <div class="pf-stat-col">
+                            <div class="pf-label">STR</div>
+                            <div class="pf-stat-val" id="out-str">10</div>
+                            <div class="pf-stat-mod" id="out-str-mod">(+0)</div>
+                        </div>
+                        <div class="pf-stat-col">
+                            <div class="pf-label">DEX</div>
+                            <div class="pf-stat-val" id="out-dex">10</div>
+                            <div class="pf-stat-mod" id="out-dex-mod">(+0)</div>
+                        </div>
+                        <div class="pf-stat-col">
+                            <div class="pf-label">CON</div>
+                            <div class="pf-stat-val" id="out-con">10</div>
+                            <div class="pf-stat-mod" id="out-con-mod">(+0)</div>
+                        </div>
+                        <div class="pf-stat-col">
+                            <div class="pf-label">INT</div>
+                            <div class="pf-stat-val" id="out-int">10</div>
+                            <div class="pf-stat-mod" id="out-int-mod">(+0)</div>
+                        </div>
+                        <div class="pf-stat-col">
+                            <div class="pf-label">WIS</div>
+                            <div class="pf-stat-val" id="out-wis">10</div>
+                            <div class="pf-stat-mod" id="out-wis-mod">(+0)</div>
+                        </div>
+                        <div class="pf-stat-col">
+                            <div class="pf-label">CHA</div>
+                            <div class="pf-stat-val" id="out-cha">10</div>
+                            <div class="pf-stat-mod" id="out-cha-mod">(+0)</div>
+                        </div>
                     </div>
-                    <div class="pf-stat-col">
-                        <div class="pf-label">DEX</div>
-                        <div class="pf-stat-val" id="out-dex">10</div>
-                        <div class="pf-stat-mod" id="out-dex-mod">(+0)</div>
-                    </div>
-                    <div class="pf-stat-col">
-                        <div class="pf-label">CON</div>
-                        <div class="pf-stat-val" id="out-con">10</div>
-                        <div class="pf-stat-mod" id="out-con-mod">(+0)</div>
-                    </div>
-                    <div class="pf-stat-col">
-                        <div class="pf-label">INT</div>
-                        <div class="pf-stat-val" id="out-int">10</div>
-                        <div class="pf-stat-mod" id="out-int-mod">(+0)</div>
-                    </div>
-                    <div class="pf-stat-col">
-                        <div class="pf-label">WIS</div>
-                        <div class="pf-stat-val" id="out-wis">10</div>
-                        <div class="pf-stat-mod" id="out-wis-mod">(+0)</div>
-                    </div>
-                    <div class="pf-stat-col">
-                        <div class="pf-label">CHA</div>
-                        <div class="pf-stat-val" id="out-cha">10</div>
-                        <div class="pf-stat-mod" id="out-cha-mod">(+0)</div>
-                    </div>
-                </div>
 
-                <div class="pf-property-line">
-                    <span class="pf-label">Base Atk</span> <span id="out-bab">+1</span>;
-                    <span class="pf-label">CMB</span> <span id="out-cmb">+0</span>;
-                    <span class="pf-label">CMD</span> <span id="out-cmd">10</span>
-                </div>
-                <div class="pf-property-line" id="wrap-feats" style="display: none;">
-                    <span class="pf-label">Feats</span> <span id="out-feats"></span>
-                </div>
-                <div class="pf-property-line" id="wrap-skills" style="display: none;">
-                    <span class="pf-label">Skills</span> <span id="out-skills"></span>
-                </div>
-                <div class="pf-property-line" id="wrap-languages" style="display: none;">
-                    <span class="pf-label">Languages</span> <span id="out-languages"></span>
-                </div>
-                <div class="pf-property-line" id="wrap-sq" style="display: none;">
-                    <span class="pf-label">SQ</span> <span id="out-sq"></span>
-                </div>
-                <div class="pf-property-line" id="wrap-gear" style="display: none;">
-                    <span class="pf-label">Gear</span> <span id="out-gear"></span>
+                    <div class="pf-property-line">
+                        <span class="pf-label">Base Atk</span> <span id="out-bab">+1</span>;
+                        <span class="pf-label">CMB</span> <span id="out-cmb">+0</span>;
+                        <span class="pf-label">CMD</span> <span id="out-cmd">10</span>
+                    </div>
+                    <div class="pf-property-line" id="wrap-feats" style="display: none;">
+                        <span class="pf-label">Feats</span> <span id="out-feats"></span>
+                    </div>
+                    <div class="pf-property-line" id="wrap-skills" style="display: none;">
+                        <span class="pf-label">Skills</span> <span id="out-skills"></span>
+                    </div>
+                    <div class="pf-property-line" id="wrap-languages" style="display: none;">
+                        <span class="pf-label">Languages</span> <span id="out-languages"></span>
+                    </div>
+                    <div class="pf-property-line" id="wrap-sq" style="display: none;">
+                        <span class="pf-label">SQ</span> <span id="out-sq"></span>
+                    </div>
+                    <div class="pf-property-line" id="wrap-gear" style="display: none;">
+                        <span class="pf-label">Gear</span> <span id="out-gear"></span>
+                    </div>
                 </div>
 
                 <!-- SPECIAL ABILITIES SECTION -->
-                <div id="wrap-special-abilities" style="display: none;">
+                <div class="sb-block sb-block-special-abilities" id="wrap-special-abilities" style="display: none;">
                     <h2 class="pf-section-title">SPECIAL ABILITIES</h2>
                     <div id="out-special-abilities-list"></div>
                 </div>
 
                 <!-- ECOLOGY SECTION -->
-                <div id="wrap-ecology" style="display: none;">
+                <div class="sb-block sb-block-ecology" id="wrap-ecology" style="display: none;">
                     <h2 class="pf-section-title">ECOLOGY</h2>
                     <div class="pf-property-line" id="wrap-environment">
                         <span class="pf-label">Environment</span> <span id="out-environment"></span>
@@ -874,13 +937,17 @@
             </div>
         </section>
 
-        <!-- Floating Zoom & Reset Tool Controls in Bottom Right -->
-        <div class="preview-tools">
+        <!-- Floating Zoom, Copy & Edit Tool Controls in Bottom Right -->
+        <div class="preview-tools" id="preview-tools">
+            <button type="button" id="btn-preview-back-edit" class="btn-tool-accent" title="Back to Form Editor">✏️ Edit</button>
+            <div class="tool-divider"></div>
             <button type="button" id="btn-zoom-out" class="btn-tool" title="Zoom Out Preview">➖</button>
             <span id="zoom-indicator" class="zoom-indicator">100%</span>
             <button type="button" id="btn-zoom-in" class="btn-tool" title="Zoom In Preview">➕</button>
             <div class="tool-divider"></div>
             <button type="button" id="btn-zoom-reset" class="btn-tool-reset" title="Reset Zoom">↺ Reset</button>
+            <div class="tool-divider"></div>
+            <button type="button" id="btn-preview-copy-text" class="btn-tool-action" title="Copy Statblock as Text to Clipboard">📋 Copy Text</button>
         </div>
     </main>
 
@@ -1001,8 +1068,7 @@
     <datalist id="shield-list"></datalist>
     <datalist id="weapon-list"></datalist>
     <datalist id="melee-weapons-list"></datalist>
-    <datalist id="ranged-weapons-list"></datalist>
-
+    <!-- Application Scripts -->
     <script src="../js/state.js?v=6"></script>
     <script src="../js/ui.js?v=6"></script>
     <script src="../js/mechanics.js?v=6"></script>
