@@ -913,7 +913,74 @@ def run_tests():
             assert False, "Should fail after logout"
         except urllib.error.HTTPError as e:
             assert e.code == 401
-            print("  [OK] Revoked token correctly rejected with 401 Unauthorized.")
+        # --- Folder System Live Endpoints Verification ---
+        print("\n  [FOLDERS] Testing Live Folder Endpoints (Create, Add, List, Monsters, Filter, Remove, Delete)...")
+        create_payload = json.dumps({"name": "Test Goblin Lair", "description": "Lair encounters"}).encode('utf-8')
+        req = urllib.request.Request(f"{base_url}/api/folders", data=create_payload, headers={'Content-Type': 'application/json'}, method='POST')
+        with urllib.request.urlopen(req) as resp:
+            assert resp.status == 200
+            res_data = json.loads(resp.read().decode('utf-8'))
+            assert res_data.get('status') == 'ok'
+            folder_obj = res_data.get('folder', {})
+            test_folder_id = folder_obj.get('id')
+            assert test_folder_id, "Folder ID must be returned on creation"
+            assert folder_obj.get('name') == "Test Goblin Lair"
+        print(f"  [OK] Created folder '{folder_obj.get('name')}' (id: {test_folder_id}).")
+
+        # Add monster to folder
+        add_payload = json.dumps({"folder_id": test_folder_id, "monster_key": "official:bugbear:paizo inc. - pathfinder rpg bestiary"}).encode('utf-8')
+        req = urllib.request.Request(f"{base_url}/api/folders/add", data=add_payload, headers={'Content-Type': 'application/json'}, method='POST')
+        with urllib.request.urlopen(req) as resp:
+            assert resp.status == 200
+            res_data = json.loads(resp.read().decode('utf-8'))
+            assert res_data.get('status') == 'ok'
+            keys = res_data.get('folder', {}).get('monster_keys', [])
+            assert "official:bugbear:paizo inc. - pathfinder rpg bestiary" in keys
+        print("  [OK] Added monster 'Bugbear' to folder.")
+
+        # Query folder monsters
+        with urllib.request.urlopen(f"{base_url}/api/folders/{test_folder_id}/monsters") as resp:
+            assert resp.status == 200
+            res_data = json.loads(resp.read().decode('utf-8'))
+            monsters = res_data.get('monsters', [])
+            assert len(monsters) == 1, f"Expected 1 monster in folder, got {len(monsters)}"
+            assert monsters[0].get('Name') == "Bugbear"
+        print("  [OK] /api/folders/<id>/monsters returned correct monster dataset.")
+
+        # Search with folder filter
+        with urllib.request.urlopen(f"{base_url}/api/search?folder={test_folder_id}") as resp:
+            assert resp.status == 200
+            res_data = json.loads(resp.read().decode('utf-8'))
+            assert res_data.get('total_count') == 1
+            assert res_data['data'][0].get('Name') == "Bugbear"
+        print("  [OK] /api/search?folder=<id> successfully filtered results to folder.")
+
+        # Remove monster from folder
+        rem_payload = json.dumps({"folder_id": test_folder_id, "monster_key": "official:bugbear:paizo inc. - pathfinder rpg bestiary"}).encode('utf-8')
+        req = urllib.request.Request(f"{base_url}/api/folders/remove", data=rem_payload, headers={'Content-Type': 'application/json'}, method='POST')
+        with urllib.request.urlopen(req) as resp:
+            assert resp.status == 200
+            res_data = json.loads(resp.read().decode('utf-8'))
+            assert res_data.get('status') == 'ok'
+            keys = res_data.get('folder', {}).get('monster_keys', [])
+            assert "official:bugbear:paizo inc. - pathfinder rpg bestiary" not in keys
+        print("  [OK] Removed monster from folder.")
+
+        # Delete folder
+        req = urllib.request.Request(f"{base_url}/api/folders/{test_folder_id}", method='DELETE')
+        with urllib.request.urlopen(req) as resp:
+            assert resp.status == 200
+            res_data = json.loads(resp.read().decode('utf-8'))
+            assert res_data.get('status') == 'ok'
+        print("  [OK] Deleted test folder.")
+
+        # Verify folder is deleted
+        with urllib.request.urlopen(f"{base_url}/api/folders") as resp:
+            assert resp.status == 200
+            res_data = json.loads(resp.read().decode('utf-8'))
+            ids = [f.get('id') for f in res_data.get('folders', [])]
+            assert test_folder_id not in ids
+        print("  [OK] Folder deletion verified across user folder list.")
 
         print("  [OK] All HTTP endpoints & Authentication & Privacy Suite verified successfully.")
     finally:
@@ -1012,6 +1079,31 @@ def run_tests():
     assert 'mob-btn-save-as-new' in ui_js_content, "ui.js must delegate mob-btn-save-as-new"
 
     print("  [OK] JSON download and upload buttons, mobile drawer actions, and export modals verified across all pages.")
+
+    # 12. Testing Folder Management, Filtering, and Multi-Page PDF & PNG Infrastructure
+    print("\n12. Testing Folder Management, Filtering, and Multi-Page PDF & PNG Infrastructure...")
+    with open('html/database.html', 'r', encoding='utf-8') as f:
+        db_html_content = f.read()
+    assert 'id="select-active-folder"' in db_html_content, "database.html must have select-active-folder"
+    assert 'id="btn-create-folder"' in db_html_content, "database.html must have btn-create-folder"
+    assert 'id="btn-folder-export-pdf"' in db_html_content, "database.html must have btn-folder-export-pdf"
+    assert 'id="btn-folder-export-png"' in db_html_content, "database.html must have btn-folder-export-png"
+    assert 'id="btn-folder-export-json"' in db_html_content, "database.html must have btn-folder-export-json"
+    assert 'id="modal-folder-editor"' in db_html_content, "database.html must have modal-folder-editor"
+    assert 'id="modal-assign-folder"' in db_html_content, "database.html must have modal-assign-folder"
+    assert 'id="modal-pdf-progress"' in db_html_content, "database.html must have modal-pdf-progress"
+    assert 'id="folder-pdf-stage"' in db_html_content, "database.html must have folder-pdf-stage"
+    assert 'jspdf.umd.min.js' in db_html_content, "database.html must include jspdf vendor library"
+    assert 'html2canvas.min.js' in db_html_content, "database.html must include html2canvas vendor library"
+
+    with open('js/database.js', 'r', encoding='utf-8') as f:
+        db_js_content = f.read()
+    assert 'function loadFolders()' in db_js_content, "database.js must have loadFolders"
+    assert 'function exportFolderToPdf(' in db_js_content, "database.js must have exportFolderToPdf"
+    assert 'function exportFolderToPng(' in db_js_content, "database.js must have exportFolderToPng"
+    assert 'function renderMonsterStatblockHTML(' in db_js_content, "database.js must have renderMonsterStatblockHTML"
+    assert 'function openAssignFolderModal(' in db_js_content, "database.js must have openAssignFolderModal"
+    print("  [OK] Folder dropdown, export options (PDF, PNG, JSON), modals, and JS engines verified.")
 
     print("\n========================================================")
     print("  ALL VERIFICATION TESTS PASSED SUCCESSFULLY! (100%) ")

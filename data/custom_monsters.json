@@ -8870,7 +8870,7 @@
     "_m_align": "ne",
     "_m_env": "urban / lower bayside",
     "_m_source": "custom",
-    "_m_search_text": "kancar   custom",
+    "_m_search_text": "kancar    custom",
     "id": "62f8d7e2-adab-4572-99aa-189a6d2f10ed",
     "_global_index": 5584
   },
@@ -9047,7 +9047,7 @@
     "_m_align": "ne",
     "_m_env": "urban / lower bayside",
     "_m_source": "custom",
-    "_m_search_text": "m-pickpocket human  custom",
+    "_m_search_text": "m-pickpocket  human  custom",
     "id": "46d50b74-ba8e-4b6a-a8f1-2995a7dabf16",
     "_global_index": 5585
   },
@@ -9220,7 +9220,7 @@
     "_m_align": "ne",
     "_m_env": "urban / lower bayside",
     "_m_source": "custom",
-    "_m_search_text": "m-human alchemist   custom",
+    "_m_search_text": "m-human alchemist    custom",
     "id": "17af915b-2274-45f9-9f40-6455eae20cd8",
     "_global_index": 5586
   }

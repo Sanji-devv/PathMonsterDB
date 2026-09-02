@@ -1,0 +1,27 @@
+{
+  "anon": [
+    {
+      "id": "folder_1788376367_50b6e6",
+      "name": "Test Goblin Lair",
+      "description": "Lair encounters",
+      "created_at": 1788376367,
+      "monster_keys": [
+        "official:bugbear:paizo inc. - pathfinder rpg bestiary"
+      ]
+    }
+  ],
+  "erdem": [
+    {
+      "id": "folder_1788378528_4746c5",
+      "name": "MAGNUM OPUS",
+      "description": "",
+      "created_at": 1788378528,
+      "monster_keys": [
+        "custom:5922097b-f7d8-40c6-acb2-83a003fdb245",
+        "custom:6b4e3b52-286a-4cef-9b19-76c612c49ee4",
+        "custom:3d08b8e8-3223-405f-a050-13468cba91b5",
+        "custom:4922bcf5-6619-42d8-9e28-02385f0910cb"
+      ]
+    }
+  ]
+}

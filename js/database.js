@@ -35,6 +35,46 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnNext = document.getElementById('btn-next');
     const pageInfo = document.getElementById('page-info');
 
+    // Folder System State & Elements
+    window.allUserFolders = [];
+    let activeFolderId = '';
+
+    const selectActiveFolder = document.getElementById('select-active-folder');
+    const btnCreateFolder = document.getElementById('btn-create-folder');
+    const folderActiveActions = document.getElementById('folder-active-actions');
+    const activeFolderNameText = document.getElementById('active-folder-name-text');
+    const activeFolderCountText = document.getElementById('active-folder-count-text');
+    const btnFolderExportPdf = document.getElementById('btn-folder-export-pdf');
+    const btnFolderExportPng = document.getElementById('btn-folder-export-png');
+    const btnFolderExportJson = document.getElementById('btn-folder-export-json');
+    const btnFolderRename = document.getElementById('btn-folder-rename');
+    const btnFolderDelete = document.getElementById('btn-folder-delete');
+    const btnFolderClear = document.getElementById('btn-folder-clear');
+
+    const modalFolderEditor = document.getElementById('modal-folder-editor');
+    const modalFolderTitle = document.getElementById('modal-folder-title');
+    const folderEditId = document.getElementById('folder-edit-id');
+    const folderNameInput = document.getElementById('folder-name-input');
+    const folderDescInput = document.getElementById('folder-desc-input');
+    const btnCloseFolderModal = document.getElementById('btn-close-folder-modal');
+    const btnCancelFolder = document.getElementById('btn-cancel-folder');
+    const btnSaveFolder = document.getElementById('btn-save-folder');
+
+    const modalAssignFolder = document.getElementById('modal-assign-folder');
+    const assignMonsterName = document.getElementById('assign-monster-name');
+    const assignFoldersList = document.getElementById('assign-folders-list');
+    const btnCloseAssignModal = document.getElementById('btn-close-assign-modal');
+    const btnAssignDone = document.getElementById('btn-assign-done');
+    const btnAssignNewFolder = document.getElementById('btn-assign-new-folder');
+
+    const modalPdfProgress = document.getElementById('modal-pdf-progress');
+    const pdfProgressFolderTitle = document.getElementById('pdf-progress-folder-title');
+    const pdfProgressStatus = document.getElementById('pdf-progress-status');
+    const pdfProgressBar = document.getElementById('pdf-progress-bar');
+    const folderPdfStage = document.getElementById('folder-pdf-stage');
+
+    let currentAssignMonster = null;
+
     // Populate CR Filter Options
     const crs = ["1/8", "1/6", "1/4", "1/3", "1/2", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "35", "37", "39"];
     crs.forEach(cr => {
@@ -53,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const envVal = encodeURIComponent(filterEnvironment.value);
         const catVal = encodeURIComponent(filterCategory.value);
         const sortVal = encodeURIComponent(filterSort.value);
+        const folderVal = activeFolderId ? encodeURIComponent(activeFolderId) : '';
 
         mainList.innerHTML = `<div style="text-align: center; color: #aaa; padding: 20px;">Loading database...</div>`;
 
@@ -61,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ? auth.getAuthHeaders()
             : {};
 
-        fetch(`/api/search?name=${nameVal}&cr=${crVal}&type=${typeVal}&size=${sizeVal}&alignment=${alignVal}&environment=${envVal}&category=${catVal}&sort=${sortVal}&page=${currentPage}&per_page=${itemsPerPage}&_t=${Date.now()}`, {
+        fetch(`/api/search?name=${nameVal}&cr=${crVal}&type=${typeVal}&size=${sizeVal}&alignment=${alignVal}&environment=${envVal}&category=${catVal}&sort=${sortVal}&folder=${folderVal}&page=${currentPage}&per_page=${itemsPerPage}&_t=${Date.now()}`, {
             headers: headers,
             cache: 'no-store'
         })
@@ -217,7 +258,26 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             let actionsHtml = '';
-            let starBtnHtml = `<button class="star-btn ${m.IsFavorite ? 'active' : ''}" title="Toggle Favorite">⭐</button>`;
+            const starSvg = `<svg class="action-icon-svg" viewBox="0 0 24 24" width="14" height="14" fill="${m.IsFavorite ? '#fbbf24' : 'none'}" stroke="${m.IsFavorite ? '#fbbf24' : 'currentColor'}" stroke-width="2.2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`;
+            const starBtnHtml = `<button type="button" class="card-rail-btn star-btn ${m.IsFavorite ? 'active' : ''}" title="${m.IsFavorite ? 'Favorilerden Çıkar' : 'Favorilere Ekle'}">${starSvg}</button>`;
+
+            const mKey = m.monster_key || (m.IsUserCustom ? ('custom:' + (m.id || '')) : ('official:' + (m.Name || '').toLowerCase()));
+            const inFolders = (window.allUserFolders || []).filter(f => {
+                const keys = f.monster_keys || [];
+                return keys.includes(mKey) || (m.id && (keys.includes(m.id) || keys.includes('custom:' + m.id)));
+            });
+            const inAnyFolder = inFolders.length > 0;
+            const folderTooltip = inAnyFolder ? `In folders: ${inFolders.map(f => f.name).join(', ')}` : 'Add to Folder';
+            const folderSvg = `<svg class="action-icon-svg" viewBox="0 0 24 24" width="14" height="14" fill="${inAnyFolder ? '#fbbf24' : 'none'}" stroke="${inAnyFolder ? '#fbbf24' : 'currentColor'}" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>`;
+            const folderCountBadge = inFolders.length > 0 ? `<span class="card-folder-badge">${inFolders.length}</span>` : '';
+            const folderBtnHtml = `<button type="button" class="card-rail-btn folder-card-btn ${inAnyFolder ? 'in-folder' : ''}" title="${folderTooltip}">${folderSvg}${folderCountBadge}</button>`;
+
+            const leftIconsHtml = `
+                <div class="card-action-rail">
+                    ${starBtnHtml}
+                    ${folderBtnHtml}
+                </div>
+            `;
 
             const uId = currentUser?.id ? String(currentUser.id).toLowerCase() : '';
             const uName = currentUser?.username ? String(currentUser.username).toLowerCase() : '';
@@ -237,7 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     : `<span class="badge-spacer"></span>`;
 
                 actionsHtml = `
-                    ${starBtnHtml}
+                    ${leftIconsHtml}
                     <div class="actions-grid-2x2">
                         <div class="actions-top-tier">
                             ${npcBadge}
@@ -260,7 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     : `<span class="badge-spacer"></span>`;
 
                 actionsHtml = `
-                    ${starBtnHtml}
+                    ${leftIconsHtml}
                     <div class="actions-grid-2x2">
                         <div class="actions-top-tier">
                             ${visBadgeHtml}
@@ -380,13 +440,27 @@ document.addEventListener('DOMContentLoaded', () => {
                     .catch(err => console.error('Failed to toggle favorite:', err));
             });
 
+            const folderCardBtn = card.querySelector('.folder-card-btn');
+            if (folderCardBtn) {
+                folderCardBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openAssignFolderModal(m);
+                });
+            }
+
             mainList.appendChild(card);
         });
     }
 
     restoreFiltersFromStorage();
-    loadData();
-    window.addEventListener('pathgm:auth', () => loadData());
+    loadFolders().then(() => {
+        loadData();
+    });
+    window.addEventListener('pathgm:auth', () => {
+        loadFolders().then(() => {
+            loadData();
+        });
+    });
 
     // Mapping Function (Database Row -> Our Form State)
     function buildEditorStateFromMonster(m) {
@@ -1309,6 +1383,1032 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 updateSamplePreview();
                 renderThemeSwatches('all');
+            }
+        });
+    }
+
+    // =========================================================================
+    // FOLDER / COLLECTION MANAGEMENT & MULTI-PAGE PDF GENERATION ENGINE
+    // =========================================================================
+
+    function loadFolders() {
+        const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+        const headers = (auth && typeof auth.getAuthHeaders === 'function') ? auth.getAuthHeaders() : {};
+
+        return fetch('/api/folders?_t=' + Date.now(), { headers: headers, cache: 'no-store' })
+            .then(r => r.json())
+            .then(res => {
+                if (res.status === 'ok') {
+                    window.allUserFolders = res.folders || [];
+                    renderFolderSelectOptions();
+                    renderFolderPills();
+                    updateActiveFolderUI();
+                }
+            })
+            .catch(err => console.warn('Could not load folders:', err));
+    }
+
+    function renderFolderSelectOptions() {
+        if (!selectActiveFolder) return;
+        const prevVal = selectActiveFolder.value || activeFolderId;
+        selectActiveFolder.innerHTML = `<option value=""> All Monsters</option>`;
+        (window.allUserFolders || []).forEach(f => {
+            const count = Array.isArray(f.monster_keys) ? f.monster_keys.length : 0;
+            const opt = document.createElement('option');
+            opt.value = f.id;
+            opt.textContent = `📁 ${f.name} (${count})`;
+            if (f.id === prevVal) opt.selected = true;
+            selectActiveFolder.appendChild(opt);
+        });
+        if (prevVal && selectActiveFolder.value !== prevVal) {
+            selectActiveFolder.value = prevVal;
+        }
+    }
+
+    function renderFolderPills() {
+        const carousel = document.getElementById('folder-pills-carousel');
+        if (!carousel) return;
+        carousel.innerHTML = '';
+
+        // 1. "All Monsters" Pill
+        const allPill = document.createElement('button');
+        allPill.type = 'button';
+        allPill.className = `folder-pill ${!activeFolderId ? 'active' : ''}`;
+        allPill.innerHTML = `
+            <span class="pill-icon">🌐</span>
+            <span class="pill-name">All Monsters</span>
+            <span class="pill-count">${lastTotalCount ? lastTotalCount : 'All'}</span>
+        `;
+        allPill.addEventListener('click', () => {
+            if (activeFolderId) {
+                activeFolderId = '';
+                if (selectActiveFolder) selectActiveFolder.value = '';
+                updateActiveFolderUI();
+                currentPage = 1;
+                loadData();
+            }
+        });
+        carousel.appendChild(allPill);
+
+        // 2. Folder Pills
+        (window.allUserFolders || []).forEach(f => {
+            const count = Array.isArray(f.monster_keys) ? f.monster_keys.length : 0;
+            const pill = document.createElement('button');
+            pill.type = 'button';
+            pill.className = `folder-pill ${f.id === activeFolderId ? 'active' : ''}`;
+            pill.dataset.folderId = f.id;
+            pill.innerHTML = `
+                <span class="pill-icon">📁</span>
+                <span class="pill-name">${f.name}</span>
+                <span class="pill-count">${count}</span>
+            `;
+            pill.addEventListener('click', () => {
+                activeFolderId = f.id;
+                if (selectActiveFolder) selectActiveFolder.value = f.id;
+                updateActiveFolderUI();
+                currentPage = 1;
+                loadData();
+            });
+            carousel.appendChild(pill);
+        });
+    }
+
+    function updateActiveFolderUI() {
+        const currentFolder = (window.allUserFolders || []).find(f => f.id === activeFolderId);
+        if (currentFolder) {
+            if (folderActiveActions) folderActiveActions.style.display = 'flex';
+            if (activeFolderNameText) activeFolderNameText.textContent = currentFolder.name;
+            const count = Array.isArray(currentFolder.monster_keys) ? currentFolder.monster_keys.length : 0;
+            if (activeFolderCountText) activeFolderCountText.textContent = `(${count} monsters)`;
+            if (selectActiveFolder) selectActiveFolder.value = currentFolder.id;
+        } else {
+            if (folderActiveActions) folderActiveActions.style.display = 'none';
+            activeFolderId = '';
+            if (selectActiveFolder) selectActiveFolder.value = '';
+        }
+
+        // Sync pill buttons active highlight
+        const pills = document.querySelectorAll('.folder-pill');
+        pills.forEach(pill => {
+            if (!activeFolderId) {
+                pill.classList.toggle('active', !pill.dataset.folderId);
+            } else {
+                pill.classList.toggle('active', pill.dataset.folderId === activeFolderId);
+            }
+        });
+    }
+
+    if (selectActiveFolder) {
+        selectActiveFolder.addEventListener('change', (e) => {
+            activeFolderId = e.target.value;
+            updateActiveFolderUI();
+            currentPage = 1;
+            loadData();
+        });
+    }
+
+    if (btnFolderClear) {
+        btnFolderClear.addEventListener('click', () => {
+            activeFolderId = '';
+            if (selectActiveFolder) selectActiveFolder.value = '';
+            updateActiveFolderUI();
+            currentPage = 1;
+            loadData();
+        });
+    }
+
+    if (btnCreateFolder) {
+        btnCreateFolder.addEventListener('click', () => {
+            openFolderEditor();
+        });
+    }
+
+    if (btnFolderRename) {
+        btnFolderRename.addEventListener('click', () => {
+            const currentFolder = (window.allUserFolders || []).find(f => f.id === activeFolderId);
+            if (currentFolder) {
+                openFolderEditor(currentFolder);
+            }
+        });
+    }
+
+    if (btnFolderDelete) {
+        btnFolderDelete.addEventListener('click', () => {
+            const currentFolder = (window.allUserFolders || []).find(f => f.id === activeFolderId);
+            if (!currentFolder) return;
+            if (confirm(`Are you sure you want to delete folder "${currentFolder.name}"? (Monsters will remain in the database).`)) {
+                const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+                const headers = (auth && typeof auth.getAuthHeaders === 'function') ? auth.getAuthHeaders() : {};
+                fetch(`/api/folders/${currentFolder.id}`, { method: 'DELETE', headers: headers })
+                    .then(r => r.json())
+                    .then(res => {
+                        if (res.status === 'ok') {
+                            if (auth && typeof auth.showToast === 'function') {
+                                auth.showToast(`🗑️ Folder "${currentFolder.name}" deleted.`, 'info');
+                            }
+                            activeFolderId = '';
+                            loadFolders().then(() => {
+                                currentPage = 1;
+                                loadData();
+                            });
+                        } else {
+                            alert('Failed to delete folder: ' + (res.message || 'Error'));
+                        }
+                    })
+                    .catch(err => alert('Delete error: ' + err.message));
+            }
+        });
+    }
+
+    function openFolderEditor(folder = null) {
+        if (!modalFolderEditor) return;
+        if (folder) {
+            modalFolderTitle.textContent = '✏️ Rename Folder / Klasörü Düzenle';
+            folderEditId.value = folder.id;
+            folderNameInput.value = folder.name || '';
+            folderDescInput.value = folder.description || '';
+        } else {
+            modalFolderTitle.textContent = '📁 New Folder / Yeni Klasör';
+            folderEditId.value = '';
+            folderNameInput.value = '';
+            folderDescInput.value = '';
+        }
+        modalFolderEditor.classList.add('active');
+        setTimeout(() => folderNameInput.focus(), 50);
+    }
+
+    function closeFolderEditor() {
+        if (modalFolderEditor) modalFolderEditor.classList.remove('active');
+    }
+
+    if (btnCloseFolderModal) btnCloseFolderModal.addEventListener('click', closeFolderEditor);
+    if (btnCancelFolder) btnCancelFolder.addEventListener('click', closeFolderEditor);
+
+    if (btnSaveFolder) {
+        btnSaveFolder.addEventListener('click', () => {
+            const name = folderNameInput.value.trim();
+            if (!name) {
+                alert('Please enter a folder name.');
+                return;
+            }
+            const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+            const headers = (auth && typeof auth.getAuthHeaders === 'function') ? auth.getAuthHeaders() : {};
+            headers['Content-Type'] = 'application/json';
+
+            const payload = {
+                name: name,
+                description: folderDescInput.value.trim()
+            };
+            if (folderEditId.value) {
+                payload.id = folderEditId.value;
+            }
+
+            fetch('/api/folders', {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(payload)
+            })
+                .then(r => r.json())
+                .then(res => {
+                    if (res.status === 'ok' && res.folder) {
+                        closeFolderEditor();
+                        if (auth && typeof auth.showToast === 'function') {
+                            auth.showToast(`📁 Folder "${res.folder.name}" saved!`, 'success');
+                        }
+                        activeFolderId = res.folder.id;
+                        loadFolders().then(() => {
+                            currentPage = 1;
+                            loadData();
+                        });
+                    } else {
+                        alert('Could not save folder: ' + (res.message || 'Error'));
+                    }
+                })
+                .catch(err => alert('Save folder error: ' + err.message));
+        });
+    }
+
+    // Modal Assign Monster to Folder
+    function openAssignFolderModal(monster) {
+        currentAssignMonster = monster;
+        if (!modalAssignFolder) return;
+        assignMonsterName.textContent = `Monster: ${monster.Name || 'Creature'} (CR ${monster.CR || '-'})`;
+        renderAssignFolderList();
+        modalAssignFolder.classList.add('active');
+    }
+
+    function closeAssignFolderModal() {
+        if (modalAssignFolder) modalAssignFolder.classList.remove('active');
+        currentAssignMonster = null;
+    }
+
+    if (btnCloseAssignModal) btnCloseAssignModal.addEventListener('click', closeAssignFolderModal);
+    if (btnAssignDone) btnAssignDone.addEventListener('click', closeAssignFolderModal);
+
+    if (btnAssignNewFolder) {
+        btnAssignNewFolder.addEventListener('click', () => {
+            const m = currentAssignMonster;
+            if (!m) return;
+            const name = prompt('Enter name for the new folder / Yeni klasör adı:');
+            if (name && name.trim()) {
+                const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+                const headers = (auth && typeof auth.getAuthHeaders === 'function') ? auth.getAuthHeaders() : {};
+                headers['Content-Type'] = 'application/json';
+                const mKey = m.monster_key || (m.IsUserCustom ? ('custom:' + (m.id || '')) : ('official:' + (m.Name || '').toLowerCase()));
+                fetch('/api/folders', {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify({ name: name.trim(), monster_keys: [mKey] })
+                })
+                    .then(r => r.json())
+                    .then(res => {
+                        if (res.status === 'ok') {
+                            if (auth && typeof auth.showToast === 'function') {
+                                auth.showToast(`📁 Created folder "${res.folder.name}" and added "${m.Name}"!`, 'success');
+                            }
+                            loadFolders().then(() => {
+                                renderAssignFolderList();
+                                renderFolderSelectOptions();
+                                loadData();
+                            });
+                        }
+                    })
+                    .catch(err => alert('Error creating folder: ' + err.message));
+            }
+        });
+    }
+
+    function renderAssignFolderList() {
+        if (!assignFoldersList || !currentAssignMonster) return;
+        const m = currentAssignMonster;
+        const mKey = m.monster_key || (m.IsUserCustom ? ('custom:' + (m.id || '')) : ('official:' + (m.Name || '').toLowerCase()));
+        assignFoldersList.innerHTML = '';
+
+        if (!window.allUserFolders || window.allUserFolders.length === 0) {
+            assignFoldersList.innerHTML = `<div style="color: #94a3b8; font-style: italic; padding: 12px; text-align: center;">No folders created yet. Click "➕ New Folder" below to create one!</div>`;
+            return;
+        }
+
+        window.allUserFolders.forEach(folder => {
+            const item = document.createElement('div');
+            item.className = 'assign-folder-item';
+
+            const keys = folder.monster_keys || [];
+            const isChecked = keys.includes(mKey) || (m.id && keys.includes(m.id)) || (m.id && keys.includes('custom:' + m.id));
+
+            item.innerHTML = `
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; flex: 1;">
+                    <input type="checkbox" ${isChecked ? 'checked' : ''}>
+                    <span>📁 <strong>${folder.name}</strong> <span style="font-size: 11.5px; opacity: 0.7;">(${keys.length} canavar)</span></span>
+                </label>
+            `;
+
+            const cb = item.querySelector('input[type="checkbox"]');
+            cb.addEventListener('change', (e) => {
+                const add = e.target.checked;
+                const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+                const headers = (auth && typeof auth.getAuthHeaders === 'function') ? auth.getAuthHeaders() : {};
+                headers['Content-Type'] = 'application/json';
+                const endpoint = add ? '/api/folders/add' : '/api/folders/remove';
+                fetch(endpoint, {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify({ folder_id: folder.id, monster_key: mKey })
+                })
+                    .then(r => r.json())
+                    .then(res => {
+                        if (res.status === 'ok') {
+                            if (auth && typeof auth.showToast === 'function') {
+                                auth.showToast(add ? `➕ "${m.Name}" "${folder.name}" klasörüne eklendi.` : `➖ "${m.Name}" "${folder.name}" klasöründen çıkarıldı.`, 'info');
+                            }
+                            loadFolders().then(() => {
+                                renderAssignFolderList();
+                                if (activeFolderId) loadData();
+                            });
+                        }
+                    })
+                    .catch(err => console.error('Folder toggle error:', err));
+            });
+
+            assignFoldersList.appendChild(item);
+        });
+    }
+
+    // Export Entire Folder as JSON
+    if (btnFolderExportJson) {
+        btnFolderExportJson.addEventListener('click', () => {
+            if (!activeFolderId) return;
+            const currentFolder = (window.allUserFolders || []).find(f => f.id === activeFolderId);
+            const folderName = currentFolder ? currentFolder.name : 'Folder';
+            const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+            const headers = (auth && typeof auth.getAuthHeaders === 'function') ? auth.getAuthHeaders() : {};
+
+            fetch(`/api/folders/${activeFolderId}/monsters?_t=${Date.now()}`, { headers: headers })
+                .then(r => r.json())
+                .then(res => {
+                    if (res.status === 'ok') {
+                        const monsters = res.monsters || [];
+                        if (monsters.length === 0) {
+                            alert('Bu klasörde henüz canavar yok.');
+                            return;
+                        }
+                        const safeName = folderName.replace(/[/\\?%*:|"<>]/g, '_') || 'Folder';
+                        const prettyJson = JSON.stringify(monsters, null, 2);
+                        const blob = new Blob([prettyJson], { type: 'application/json;charset=utf-8' });
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `${safeName}_monsters.json`;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url);
+                        if (auth && typeof auth.showToast === 'function') {
+                            auth.showToast(`📥 "${folderName}" klasörü JSON olarak indirildi (${monsters.length} canavar).`, 'success');
+                        }
+                    }
+                })
+                .catch(err => alert('JSON Export error: ' + err.message));
+        });
+    }
+
+    // =========================================================================
+    // MULTI-PAGE PDF GENERATION ENGINE
+    // =========================================================================
+
+    function getJsPdfConstructor() {
+        if (window.jspdf && typeof window.jspdf.jsPDF === 'function') {
+            return window.jspdf.jsPDF;
+        }
+        if (typeof window.jsPDF === 'function') {
+            return window.jsPDF;
+        }
+        if (window.jspdf && typeof window.jspdf.default === 'function') {
+            return window.jspdf.default;
+        }
+        return null;
+    }
+
+    async function ensureLibrariesLoaded() {
+        if (typeof html2canvas !== 'function') {
+            await new Promise((resolve) => {
+                const s = document.createElement('script');
+                s.src = '../js/vendor/html2canvas.min.js';
+                s.onload = () => resolve(true);
+                s.onerror = () => {
+                    const cdn = document.createElement('script');
+                    cdn.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+                    cdn.onload = () => resolve(true);
+                    cdn.onerror = () => resolve(false);
+                    document.head.appendChild(cdn);
+                };
+                document.head.appendChild(s);
+            });
+        }
+        if (!getJsPdfConstructor()) {
+            await new Promise((resolve) => {
+                const s = document.createElement('script');
+                s.src = '../js/vendor/jspdf.umd.min.js';
+                s.onload = () => resolve(true);
+                s.onerror = () => {
+                    const cdn = document.createElement('script');
+                    cdn.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+                    cdn.onload = () => resolve(true);
+                    cdn.onerror = () => resolve(false);
+                    document.head.appendChild(cdn);
+                };
+                document.head.appendChild(s);
+            });
+        }
+    }
+
+    function formatStatMod(val) {
+        const n = parseInt(val);
+        if (isNaN(n)) return '(+0)';
+        const mod = Math.floor((n - 10) / 2);
+        return mod >= 0 ? `(+${mod})` : `(${mod})`;
+    }
+
+    function renderMonsterStatblockHTML(m, theme) {
+        if (!theme) theme = localStorage.getItem('pf_creator_theme') || 'theme-parchment';
+        const s = m.OriginalState || (typeof buildEditorStateFromMonster === 'function' ? buildEditorStateFromMonster(m) : { basic: {}, dynamic: {} });
+        const b = s.basic || {};
+        const d = s.dynamic || {};
+
+        const name = m.Name || b['in-name'] || 'Unnamed Creature';
+        const cr = m.CR || b['in-cr'] || '1';
+        const xp = m.XP || b['in-xp'] || '';
+        const align = b['in-alignment'] || m.Alignment || 'N';
+        const size = b['in-size'] || m.Size || 'Medium';
+        const type = b['in-type'] || m.Type || 'Humanoid';
+        const typeFull = b['in-type-full'] || '';
+
+        const initVal = m.Init ? String(m.Init) : '+0';
+        const init = (initVal.startsWith('+') || initVal.startsWith('-')) ? initVal : `+${initVal}`;
+        const senses = m.Senses || 'Perception +0';
+        const aura = m.Aura || b['in-aura'] || '';
+
+        // Defense
+        const acTotal = m.AC || b['in-ac-natural'] || '10';
+        const acMods = m.AC_Mods ? ` (${m.AC_Mods})` : '';
+        const hp = m.HP || '10';
+        const hd = m.HD ? ` (${m.HD})` : '';
+
+        const formatS = (val) => {
+            if (val === undefined || val === null || val === '') return '+0';
+            const strVal = String(val).trim();
+            if (strVal.startsWith('+') || strVal.startsWith('-')) return strVal;
+            return (parseFloat(strVal) >= 0 ? "+" : "") + strVal;
+        };
+
+        const fort = formatS(m.Fort || b['in-fort']);
+        const ref = formatS(m.Ref || b['in-ref']);
+        const will = formatS(m.Will || b['in-will']);
+
+        const defExtrasParts = [];
+        if (m.DefensiveAbilities || b['in-def-abilities']) defExtrasParts.push(`<strong>Defensive Abilities</strong> ${m.DefensiveAbilities || b['in-def-abilities']}`);
+        if (m.DR || b['in-dr']) defExtrasParts.push(`<strong>DR</strong> ${m.DR || b['in-dr']}`);
+        if (m.Immune || b['in-immune']) defExtrasParts.push(`<strong>Immune</strong> ${m.Immune || b['in-immune']}`);
+        if (m.Resist || b['in-resist']) defExtrasParts.push(`<strong>Resist</strong> ${m.Resist || b['in-resist']}`);
+        if (m.SR || b['in-sr']) defExtrasParts.push(`<strong>SR</strong> ${m.SR || b['in-sr']}`);
+        if (m.Weaknesses || b['in-weaknesses']) defExtrasParts.push(`<strong>Weaknesses</strong> ${m.Weaknesses || b['in-weaknesses']}`);
+        const defExtras = defExtrasParts.join('; ');
+
+        // Offense
+        const speed = m.Speed || b['in-speed'] || '30 ft.';
+        const melee = m.Melee || (Array.isArray(d.melee) ? d.melee.map(a => a.rawText || '').filter(Boolean).join(', ') : '');
+        const ranged = m.Ranged || (Array.isArray(d.ranged) ? d.ranged.map(a => a.rawText || '').filter(Boolean).join(', ') : '');
+        const space = b['in-space'] || m.Space || '5 ft.';
+        const reach = b['in-reach'] || m.Reach || '5 ft.';
+        const specialAttacks = m.SpecialAttacks || b['in-special-attacks'] || '';
+
+        // Spell-Like Abilities & Spells
+        const slas = m.SpellLikeAbilities || '';
+        let spells = m.SpellsPrepared || m.SpellsKnown || m.Spells || '';
+        if (!spells && b['in-spells-data']) {
+            try {
+                const sObj = typeof b['in-spells-data'] === 'string' ? JSON.parse(b['in-spells-data']) : b['in-spells-data'];
+                if (typeof sObj === 'object' && sObj !== null) {
+                    const lines = [];
+                    Object.keys(sObj).map(Number).sort((x, y) => y - x).forEach(lvl => {
+                        const lData = sObj[lvl];
+                        if (lData && Array.isArray(lData.spells) && lData.spells.length > 0) {
+                            const lName = lvl === 0 ? '0 (at will)' : `${lvl}th`;
+                            const names = lData.spells.map(s => typeof s === 'object' && s !== null ? (s.name || s.spell || '') : String(s)).filter(Boolean);
+                            if (names.length > 0) lines.push(`${lName}—${names.join(', ')}`);
+                        }
+                    });
+                    if (lines.length > 0) spells = lines.join('\n');
+                }
+            } catch (e) { }
+        }
+
+        // Stats
+        const str = m.Str || b['in-str'] || '10';
+        const dex = m.Dex || b['in-dex'] || '10';
+        const con = m.Con || b['in-con'] || '10';
+        const intVal = m.Int || b['in-int'] || '10';
+        const wis = m.Wis || b['in-wis'] || '10';
+        const cha = m.Cha || b['in-cha'] || '10';
+
+        const bab = m.BaseAtk ? (String(m.BaseAtk).startsWith('+') ? m.BaseAtk : `+${m.BaseAtk}`) : '+1';
+        const cmb = m.CMB ? (String(m.CMB).startsWith('+') || String(m.CMB).startsWith('-') ? m.CMB : `+${m.CMB}`) : '+0';
+        const cmd = m.CMD || '10';
+        const feats = m.Feats || b['in-feats'] || '';
+        const skills = m.Skills || b['in-skills'] || '';
+        const languages = m.Languages || b['in-languages'] || '';
+        const sq = m.SQ || b['in-sq'] || '';
+        const gear = m.Gear || m.OtherGear || b['in-gear'] || '';
+
+        // Special Abilities
+        const specialAbilities = [];
+        if (Array.isArray(d.abilities) && d.abilities.length > 0) {
+            d.abilities.forEach(ab => {
+                if (ab.name || ab.desc) specialAbilities.push({ name: ab.name || 'Special Ability', desc: ab.desc || '' });
+            });
+        } else if (m.SpecialAbilities || m['Special Abilities']) {
+            const lines = String(m.SpecialAbilities || m['Special Abilities']).split('\n');
+            let currentName = '';
+            let currentDesc = [];
+            lines.forEach(line => {
+                line = line.trim();
+                if (!line) return;
+                const match = line.match(/^([A-Za-z0-9\s\-\'\’]+?\s*\((?:Su|Ex|Sp)\))\s*(.*)/i);
+                if (match) {
+                    if (currentName) specialAbilities.push({ name: currentName, desc: currentDesc.join(' ') });
+                    currentName = match[1].trim();
+                    currentDesc = match[2] ? [match[2].trim()] : [];
+                } else {
+                    if (!currentName) currentName = 'Special Ability';
+                    currentDesc.push(line);
+                }
+            });
+            if (currentName) specialAbilities.push({ name: currentName, desc: currentDesc.join(' ') });
+        }
+
+        // Ecology
+        const env = m.Environment || b['in-environment'] || '';
+        const org = m.Organization || b['in-organization'] || '';
+        const treasure = m.Treasure || b['in-treasure'] || '';
+
+        return `
+        <div class="statblock-paper ${theme}" style="max-width: 794px; width: 794px; margin: 0 auto; box-shadow: none; box-sizing: border-box;">
+            <div class="sb-block sb-block-header">
+                <div class="pf-header-row">
+                    <h1>${name}</h1>
+                    <div class="pf-cr-box">
+                        <div class="pf-cr-label">CR</div>
+                        <div class="pf-cr-value">${cr}</div>
+                    </div>
+                </div>
+                ${xp ? `<div class="pf-property-line pf-xp-row"><span class="pf-label">XP</span> <span>${xp}</span></div>` : ''}
+                <div class="pf-property-line pf-type-row">
+                    ${typeFull ? `<i>${typeFull}</i>` : `<span>${align}</span> <span>${size}</span> <span>${type}</span>`}
+                </div>
+                <div class="pf-property-line">
+                    <span class="pf-label">Init</span> <span>${init}</span>;
+                    <span class="pf-label">Senses</span> <span>${senses}</span>
+                </div>
+                ${aura ? `<div class="pf-property-line"><span class="pf-label">Aura</span> <span>${aura}</span></div>` : ''}
+            </div>
+
+            <div class="sb-block sb-block-defense">
+                <h2 class="pf-section-title">DEFENSE</h2>
+                <div class="pf-property-line"><span class="pf-label">AC</span> <span>${acTotal}${acMods}</span></div>
+                <div class="pf-property-line"><span class="pf-label">hp</span> <span>${hp}${hd}</span></div>
+                <div class="pf-property-line"><span class="pf-label">Fort</span> <span>${fort}</span>, <span class="pf-label">Ref</span> <span>${ref}</span>, <span class="pf-label">Will</span> <span>${will}</span></div>
+                ${defExtras ? `<div class="pf-property-line">${defExtras}</div>` : ''}
+            </div>
+
+            <div class="sb-block sb-block-offense">
+                <h2 class="pf-section-title">OFFENSE</h2>
+                <div class="pf-property-line"><span class="pf-label">Speed</span> <span>${speed}</span></div>
+                ${melee ? `<div class="pf-property-line"><span class="pf-label">Melee</span> <span>${melee}</span></div>` : ''}
+                ${ranged ? `<div class="pf-property-line"><span class="pf-label">Ranged</span> <span>${ranged}</span></div>` : ''}
+                <div class="pf-property-line"><span class="pf-label">Space</span> <span>${space}</span>; <span class="pf-label">Reach</span> <span>${reach}</span></div>
+                ${specialAttacks ? `<div class="pf-property-line"><span class="pf-label">Special Attacks</span> <span>${specialAttacks}</span></div>` : ''}
+                ${slas ? `<div class="pf-property-line" style="margin-top: 4px;"><span class="pf-label">Spell-Like Abilities</span><div style="white-space: pre-wrap; font-size: 0.95em; margin-top: 2px;">${slas}</div></div>` : ''}
+                ${spells ? `<div class="pf-property-line" style="margin-top: 4px;"><span class="pf-label">Spells</span><div style="white-space: pre-wrap; font-size: 0.95em; margin-top: 2px;">${spells}</div></div>` : ''}
+            </div>
+
+            <div class="sb-block sb-block-statistics">
+                <h2 class="pf-section-title">STATISTICS</h2>
+                <div class="pf-stats-table">
+                    <div class="pf-stat-col"><div class="pf-label">STR</div><div class="pf-stat-val">${str}</div><div class="pf-stat-mod">${formatStatMod(str)}</div></div>
+                    <div class="pf-stat-col"><div class="pf-label">DEX</div><div class="pf-stat-val">${dex}</div><div class="pf-stat-mod">${formatStatMod(dex)}</div></div>
+                    <div class="pf-stat-col"><div class="pf-label">CON</div><div class="pf-stat-val">${con}</div><div class="pf-stat-mod">${formatStatMod(con)}</div></div>
+                    <div class="pf-stat-col"><div class="pf-label">INT</div><div class="pf-stat-val">${intVal}</div><div class="pf-stat-mod">${formatStatMod(intVal)}</div></div>
+                    <div class="pf-stat-col"><div class="pf-label">WIS</div><div class="pf-stat-val">${wis}</div><div class="pf-stat-mod">${formatStatMod(wis)}</div></div>
+                    <div class="pf-stat-col"><div class="pf-label">CHA</div><div class="pf-stat-val">${cha}</div><div class="pf-stat-mod">${formatStatMod(cha)}</div></div>
+                </div>
+                <div class="pf-property-line"><span class="pf-label">Base Atk</span> <span>${bab}</span>; <span class="pf-label">CMB</span> <span>${cmb}</span>; <span class="pf-label">CMD</span> <span>${cmd}</span></div>
+                ${feats ? `<div class="pf-property-line"><span class="pf-label">Feats</span> <span>${feats}</span></div>` : ''}
+                ${skills ? `<div class="pf-property-line"><span class="pf-label">Skills</span> <span>${skills}</span></div>` : ''}
+                ${languages ? `<div class="pf-property-line"><span class="pf-label">Languages</span> <span>${languages}</span></div>` : ''}
+                ${sq ? `<div class="pf-property-line"><span class="pf-label">SQ</span> <span>${sq}</span></div>` : ''}
+                ${gear ? `<div class="pf-property-line"><span class="pf-label">Gear</span> <span>${gear}</span></div>` : ''}
+            </div>
+
+            ${specialAbilities.length > 0 ? `
+            <div class="sb-block sb-block-special-abilities">
+                <h2 class="pf-section-title">SPECIAL ABILITIES</h2>
+                <div>
+                    ${specialAbilities.map(sa => `
+                        <div style="margin-bottom: 5px;">
+                            ${sa.name ? `<strong>${sa.name}</strong>: ` : ''}
+                            <span>${sa.desc}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>` : ''}
+
+            ${(env || org || treasure) ? `
+            <div class="sb-block sb-block-ecology">
+                <h2 class="pf-section-title">ECOLOGY</h2>
+                ${env ? `<div class="pf-property-line"><span class="pf-label">Environment</span> <span>${env}</span></div>` : ''}
+                ${org ? `<div class="pf-property-line"><span class="pf-label">Organization</span> <span>${org}</span></div>` : ''}
+                ${treasure ? `<div class="pf-property-line"><span class="pf-label">Treasure</span> <span>${treasure}</span></div>` : ''}
+            </div>` : ''}
+        </div>
+        `;
+    }
+
+    async function exportFolderToPdf(folderId) {
+        if (!folderId) return;
+        const currentFolder = (window.allUserFolders || []).find(f => f.id === folderId);
+        const folderName = currentFolder ? currentFolder.name : 'Folder';
+        const safeFolderName = folderName.replace(/[/\\?%*:|"<>]/g, '_') || 'Bestiary';
+
+        const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+        const headers = (auth && typeof auth.getAuthHeaders === 'function') ? auth.getAuthHeaders() : {};
+
+        let monsters = [];
+        try {
+            const res = await fetch(`/api/folders/${folderId}/monsters?_t=${Date.now()}`, { headers: headers });
+            const data = await res.json();
+            monsters = data.monsters || [];
+        } catch (e) {
+            alert('Klasör canavarları alınamadı: ' + e.message);
+            return;
+        }
+
+        if (monsters.length === 0) {
+            alert(`"${folderName}" klasöründe henüz canavar bulunmuyor. Lütfen önce canavar kartlarındaki 📁 butonuna basarak bu klasöre canavar ekleyiniz.`);
+            return;
+        }
+
+        await ensureLibrariesLoaded();
+        const jsPdfConstructor = getJsPdfConstructor();
+        const html2c = window.html2canvas || (typeof html2canvas === 'function' ? html2canvas : null);
+        if (!jsPdfConstructor || !html2c) {
+            alert('PDF motoru kütüphaneleri (jsPDF / html2canvas) yüklenemedi. Lütfen sayfayı yenileyiniz.');
+            return;
+        }
+
+        // Open Progress Modal
+        if (pdfProgressFolderTitle) pdfProgressFolderTitle.textContent = `📁 ${folderName} (${monsters.length} Canavar)`;
+        if (pdfProgressStatus) pdfProgressStatus.textContent = 'Kapak ve İçindekiler tablosu hazırlanıyor...';
+        if (pdfProgressBar) pdfProgressBar.style.width = '0%';
+        if (modalPdfProgress) modalPdfProgress.classList.add('active');
+
+        const activeTheme = localStorage.getItem('pf_creator_theme') || 'theme-parchment';
+
+        try {
+            const pdf = new jsPdfConstructor({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a4',
+                compress: true
+            });
+
+            const pdfWidth = 210;
+            const pdfPageHeight = 297;
+
+            // 1. Render Cover & Table of Contents Page
+            if (folderPdfStage) {
+                folderPdfStage.innerHTML = `
+                <div class="statblock-paper ${activeTheme}" style="width: 794px; min-height: 1123px; padding: 50px 48px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; border: 3px solid #c9ad6a; margin: 0 auto; background: var(--sb-bg, #fdf6e2); color: var(--sb-text, #1c1514);">
+                    <div>
+                        <div style="text-align: center; border-bottom: 3px double #7a200d; padding-bottom: 24px; margin-bottom: 28px;">
+                            <h1 style="font-family: 'Cinzel', serif; font-size: 32px; color: #7a200d; margin: 0 0 8px 0; letter-spacing: 1px;">${folderName.toUpperCase()}</h1>
+                            <div style="font-family: 'Cinzel', serif; font-size: 15px; color: #b45309; font-weight: 700; letter-spacing: 2px;">PATHFINDER 1e BESTIARY COMPENDIUM</div>
+                            <div style="font-size: 13px; color: #64748b; margin-top: 8px;">PathMonsterDB &bull; ${monsters.length} Creature${monsters.length > 1 ? 's' : ''} &bull; ${new Date().toLocaleDateString()}</div>
+                        </div>
+
+                        <div>
+                            <h2 style="font-family: 'Cinzel', serif; font-size: 17px; color: #7a200d; border-bottom: 1px solid #c9ad6a; padding-bottom: 6px; margin-bottom: 14px;">TABLE OF CONTENTS / İÇİNDEKİLER</h2>
+                            <div style="display: flex; flex-direction: column; gap: 7px;">
+                                ${monsters.map((m, idx) => `
+                                    <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 13.5px; border-bottom: 1px dotted rgba(122, 32, 13, 0.25); padding-bottom: 3px;">
+                                        <div style="display: flex; gap: 8px;">
+                                            <strong style="color: #7a200d; min-width: 22px;">${idx + 1}.</strong>
+                                            <span style="font-weight: 700;">${m.Name || 'Unnamed'}</span>
+                                            <span style="color: #64748b; font-style: italic;">(${m.Alignment || ''} ${m.Size || ''} ${m.Type || ''})</span>
+                                        </div>
+                                        <div>
+                                            <span style="font-weight: 700; color: #b45309;">CR ${m.CR || '-'}</span>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; font-size: 11px; color: #94a3b8; border-top: 1px solid #c9ad6a; padding-top: 12px; margin-top: 30px;">
+                        Generated by PathMonsterDB &bull; Official Pathfinder 1e Open Gaming License (OGL) Compliant
+                    </div>
+                </div>`;
+
+                await new Promise(r => setTimeout(r, 40));
+                const coverCanvas = await html2c(folderPdfStage.firstElementChild, {
+                    scale: 2,
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: null
+                });
+                const coverImgData = coverCanvas.toDataURL('image/png');
+                const coverRenderedHeight = (coverCanvas.height * pdfWidth) / coverCanvas.width;
+                pdf.addImage(coverImgData, 'PNG', 0, 0, pdfWidth, Math.min(pdfPageHeight, coverRenderedHeight), undefined, 'FAST');
+            }
+
+            // 2. Render each monster page by page
+            for (let i = 0; i < monsters.length; i++) {
+                const m = monsters[i];
+                const pct = Math.round(((i + 1) / (monsters.length + 1)) * 100);
+                if (pdfProgressStatus) pdfProgressStatus.textContent = `İşleniyor (${i + 1} / ${monsters.length}): ${m.Name || 'Creature'}...`;
+                if (pdfProgressBar) pdfProgressBar.style.width = pct + '%';
+
+                if (folderPdfStage) {
+                    folderPdfStage.innerHTML = renderMonsterStatblockHTML(m, activeTheme);
+                    await new Promise(r => setTimeout(r, 50));
+
+                    const canvas = await html2c(folderPdfStage.firstElementChild, {
+                        scale: 2,
+                        useCORS: true,
+                        allowTaint: true,
+                        backgroundColor: null
+                    });
+
+                    const imgData = canvas.toDataURL('image/png');
+                    const renderedHeight = (canvas.height * pdfWidth) / canvas.width;
+
+                    // Each monster starts on a brand new A4 page!
+                    pdf.addPage('a4', 'portrait');
+
+                    if (renderedHeight <= pdfPageHeight) {
+                        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, renderedHeight, undefined, 'FAST');
+                    } else {
+                        // Overflow: slice across multiple pages
+                        let heightLeft = renderedHeight;
+                        let position = 0;
+                        pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, renderedHeight, undefined, 'FAST');
+                        heightLeft -= pdfPageHeight;
+
+                        while (heightLeft > 0) {
+                            position = heightLeft - renderedHeight;
+                            pdf.addPage('a4', 'portrait');
+                            pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, renderedHeight, undefined, 'FAST');
+                            heightLeft -= pdfPageHeight;
+                        }
+                    }
+                }
+            }
+
+            if (pdfProgressBar) pdfProgressBar.style.width = '100%';
+            if (pdfProgressStatus) pdfProgressStatus.textContent = 'PDF hazırlandı! Dosya indiriliyor...';
+
+            pdf.save(`${safeFolderName}_Bestiary.pdf`);
+
+            if (auth && typeof auth.showToast === 'function') {
+                auth.showToast(`🎉 "${folderName}" klasörü sayfalı PDF olarak indirildi!`, 'success');
+            }
+        } catch (err) {
+            console.error('PDF Export Error:', err);
+            alert('PDF oluşturma hatası: ' + (err.message || err));
+        } finally {
+            setTimeout(() => {
+                if (modalPdfProgress) modalPdfProgress.classList.remove('active');
+            }, 1000);
+        }
+    }
+
+    async function exportFolderToPng(folderId) {
+        if (!folderId) return;
+        const currentFolder = (window.allUserFolders || []).find(f => f.id === folderId);
+        const folderName = currentFolder ? currentFolder.name : 'Folder';
+        const safeFolderName = folderName.replace(/[/\\?%*:|"<>]/g, '_') || 'Bestiary';
+
+        const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+        const headers = (auth && typeof auth.getAuthHeaders === 'function') ? auth.getAuthHeaders() : {};
+
+        let monsters = [];
+        try {
+            const res = await fetch(`/api/folders/${folderId}/monsters?_t=${Date.now()}`, { headers: headers });
+            const data = await res.json();
+            monsters = data.monsters || [];
+        } catch (e) {
+            alert('Klasör canavarları alınamadı: ' + e.message);
+            return;
+        }
+
+        if (monsters.length === 0) {
+            alert(`"${folderName}" klasöründe henüz canavar bulunmuyor. Lütfen önce canavar kartlarındaki 📁 butonuna basarak bu klasöre canavar ekleyiniz.`);
+            return;
+        }
+
+        await ensureLibrariesLoaded();
+        const html2c = window.html2canvas || (typeof html2canvas === 'function' ? html2canvas : null);
+        if (!html2c) {
+            alert('Görsel motoru (html2canvas) yüklenemedi. Lütfen sayfayı yenileyiniz.');
+            return;
+        }
+
+        // Open Progress Modal
+        if (pdfProgressFolderTitle) pdfProgressFolderTitle.textContent = `📁 ${folderName} (${monsters.length} Canavar)`;
+        if (pdfProgressStatus) pdfProgressStatus.textContent = 'Kapak ve statblock görselleri oluşturuluyor...';
+        if (pdfProgressBar) pdfProgressBar.style.width = '0%';
+        if (modalPdfProgress) modalPdfProgress.classList.add('active');
+
+        const activeTheme = localStorage.getItem('pf_creator_theme') || 'theme-parchment';
+
+        try {
+            const canvases = [];
+
+            // 1. Capture Cover Page Canvas
+            if (folderPdfStage) {
+                folderPdfStage.innerHTML = `
+                <div class="statblock-paper ${activeTheme}" style="width: 794px; min-height: 1080px; padding: 50px 48px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; border: 3px solid #c9ad6a; margin: 0 auto; background: var(--sb-bg, #fdf6e2); color: var(--sb-text, #1c1514);">
+                    <div>
+                        <div style="text-align: center; border-bottom: 3px double #7a200d; padding-bottom: 24px; margin-bottom: 28px;">
+                            <h1 style="font-family: 'Cinzel', serif; font-size: 32px; color: #7a200d; margin: 0 0 8px 0; letter-spacing: 1px;">${folderName.toUpperCase()}</h1>
+                            <div style="font-family: 'Cinzel', serif; font-size: 15px; color: #b45309; font-weight: 700; letter-spacing: 2px;">PATHFINDER 1e BESTIARY COMPENDIUM</div>
+                            <div style="font-size: 13px; color: #64748b; margin-top: 8px;">PathMonsterDB &bull; ${monsters.length} Creature${monsters.length > 1 ? 's' : ''} &bull; ${new Date().toLocaleDateString()}</div>
+                        </div>
+
+                        <div>
+                            <h2 style="font-family: 'Cinzel', serif; font-size: 17px; color: #7a200d; border-bottom: 1px solid #c9ad6a; padding-bottom: 6px; margin-bottom: 14px;">TABLE OF CONTENTS / İÇİNDEKİLER</h2>
+                            <div style="display: flex; flex-direction: column; gap: 7px;">
+                                ${monsters.map((m, idx) => `
+                                    <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 13.5px; border-bottom: 1px dotted rgba(122, 32, 13, 0.25); padding-bottom: 3px;">
+                                        <div style="display: flex; gap: 8px;">
+                                            <strong style="color: #7a200d; min-width: 22px;">${idx + 1}.</strong>
+                                            <span style="font-weight: 700;">${m.Name || 'Unnamed'}</span>
+                                            <span style="color: #64748b; font-style: italic;">(${m.Alignment || ''} ${m.Size || ''} ${m.Type || ''})</span>
+                                        </div>
+                                        <div>
+                                            <span style="font-weight: 700; color: #b45309;">CR ${m.CR || '-'}</span>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; font-size: 11px; color: #94a3b8; border-top: 1px solid #c9ad6a; padding-top: 12px; margin-top: 30px;">
+                        Generated by PathMonsterDB &bull; Official Pathfinder 1e Open Gaming License (OGL) Compliant
+                    </div>
+                </div>`;
+
+                await new Promise(r => setTimeout(r, 40));
+                const coverCanvas = await html2c(folderPdfStage.firstElementChild, {
+                    scale: 1.5,
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: null
+                });
+                canvases.push(coverCanvas);
+            }
+
+            // 2. Capture Each Monster Statblock Canvas
+            for (let i = 0; i < monsters.length; i++) {
+                const m = monsters[i];
+                const pct = Math.round(((i + 1) / (monsters.length + 1)) * 90);
+                if (pdfProgressStatus) pdfProgressStatus.textContent = `Görsel oluşturuluyor (${i + 1} / ${monsters.length}): ${m.Name || 'Creature'}...`;
+                if (pdfProgressBar) pdfProgressBar.style.width = pct + '%';
+
+                if (folderPdfStage) {
+                    folderPdfStage.innerHTML = renderMonsterStatblockHTML(m, activeTheme);
+                    await new Promise(r => setTimeout(r, 50));
+
+                    const monCanvas = await html2c(folderPdfStage.firstElementChild, {
+                        scale: 1.5,
+                        useCORS: true,
+                        allowTaint: true,
+                        backgroundColor: null
+                    });
+                    canvases.push(monCanvas);
+                }
+            }
+
+            if (pdfProgressStatus) pdfProgressStatus.textContent = 'Sayfalar tek bir yüksek çözünürlüklü PNG görselinde birleştiriliyor...';
+            if (pdfProgressBar) pdfProgressBar.style.width = '95%';
+
+            // 3. Stitch Canvases Vertically with Page Separators
+            const spacing = 30;
+            let maxWidth = 0;
+            let totalHeight = 0;
+
+            canvases.forEach(c => {
+                if (c.width > maxWidth) maxWidth = c.width;
+                totalHeight += c.height;
+            });
+            totalHeight += spacing * (canvases.length - 1);
+
+            const masterCanvas = document.createElement('canvas');
+            masterCanvas.width = maxWidth;
+            masterCanvas.height = totalHeight;
+            const ctx = masterCanvas.getContext('2d');
+
+            // Dark slate background for unified visual compendium
+            ctx.fillStyle = '#0f172a';
+            ctx.fillRect(0, 0, maxWidth, totalHeight);
+
+            let currentY = 0;
+            canvases.forEach((c, idx) => {
+                const xOffset = Math.floor((maxWidth - c.width) / 2);
+                ctx.drawImage(c, xOffset, currentY);
+
+                if (idx < canvases.length - 1) {
+                    const dividerY = currentY + c.height + Math.floor(spacing / 2);
+                    ctx.strokeStyle = 'rgba(212, 175, 55, 0.35)';
+                    ctx.lineWidth = 2;
+                    ctx.setLineDash([8, 6]);
+                    ctx.beginPath();
+                    ctx.moveTo(xOffset + 20, dividerY);
+                    ctx.lineTo(xOffset + c.width - 20, dividerY);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                }
+
+                currentY += c.height + spacing;
+            });
+
+            // 4. Download as single unified PNG
+            const handleDownloadBlob = (blob) => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${safeFolderName}_Bestiary.png`;
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(() => {
+                    if (a.parentNode) a.parentNode.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }, 2000);
+            };
+
+            if (masterCanvas.toBlob) {
+                masterCanvas.toBlob((blob) => {
+                    if (blob) {
+                        handleDownloadBlob(blob);
+                    } else {
+                        const dataUrl = masterCanvas.toDataURL('image/png');
+                        const link = document.createElement('a');
+                        link.download = `${safeFolderName}_Bestiary.png`;
+                        link.href = dataUrl;
+                        document.body.appendChild(link);
+                        link.click();
+                        setTimeout(() => { if (link.parentNode) link.parentNode.removeChild(link); }, 1000);
+                    }
+                }, 'image/png');
+            } else {
+                const dataUrl = masterCanvas.toDataURL('image/png');
+                const link = document.createElement('a');
+                link.download = `${safeFolderName}_Bestiary.png`;
+                link.href = dataUrl;
+                document.body.appendChild(link);
+                link.click();
+                setTimeout(() => { if (link.parentNode) link.parentNode.removeChild(link); }, 1000);
+            }
+
+            if (pdfProgressBar) pdfProgressBar.style.width = '100%';
+            if (pdfProgressStatus) pdfProgressStatus.textContent = 'PNG başarıyla indirildi!';
+
+            if (auth && typeof auth.showToast === 'function') {
+                auth.showToast(`🖼️ "${folderName}" klasörü birleşik PNG olarak indirildi!`, 'success');
+            }
+        } catch (err) {
+            console.error('PNG Export Error:', err);
+            alert('PNG oluşturma hatası: ' + (err.message || err));
+        } finally {
+            setTimeout(() => {
+                if (modalPdfProgress) modalPdfProgress.classList.remove('active');
+            }, 1000);
+        }
+    }
+
+    if (btnFolderExportPdf) {
+        btnFolderExportPdf.addEventListener('click', () => {
+            if (activeFolderId) {
+                exportFolderToPdf(activeFolderId);
+            }
+        });
+    }
+
+    if (btnFolderExportPng) {
+        btnFolderExportPng.addEventListener('click', () => {
+            if (activeFolderId) {
+                exportFolderToPng(activeFolderId);
             }
         });
     }

@@ -210,6 +210,26 @@ def format_monster_from_state(state):
         sla_str = ''
     else:
         sla_str = state.get('SpellLikeAbilities', '')
+
+    spells_prepared_parts = []
+    spells_raw = basic.get('in-spells-data') or dynamic.get('spells')
+    if spells_raw:
+        try:
+            spells_dict = json.loads(spells_raw) if isinstance(spells_raw, str) else spells_raw
+            if isinstance(spells_dict, dict):
+                for lvl in sorted(spells_dict.keys(), key=lambda x: int(x) if str(x).isdigit() else 999, reverse=True):
+                    lvl_obj = spells_dict[lvl]
+                    if isinstance(lvl_obj, dict) and lvl_obj.get('spells'):
+                        sp_list = lvl_obj['spells']
+                        sp_names = [s.get('name') if isinstance(s, dict) else str(s) for s in sp_list if s]
+                        if sp_names:
+                            lvl_str = "0 (at will)" if str(lvl) == "0" else f"{lvl}th"
+                            spells_prepared_parts.append(f"{lvl_str}—{', '.join(sp_names)}")
+        except Exception:
+            pass
+    if not spells_prepared_parts and basic.get('in-spells'):
+        spells_prepared_parts.append(str(basic.get('in-spells')))
+    spells_prepared_str = "\n".join(spells_prepared_parts) if spells_prepared_parts else state.get('SpellsPrepared', '')
     
     def safe_int(val, default=0):
         try:
@@ -348,6 +368,7 @@ def format_monster_from_state(state):
         "IsUserCustom": True,
         "CharacterFlag": "1" if (basic.get('stat_type') == 'npc' or str(state.get('CharacterFlag', '')) == '1') else "0",
         "SpellLikeAbilities": sla_str,
+        "SpellsPrepared": spells_prepared_str,
         "Special Abilities": sa_str,
         "OriginalState": state,
         "_m_name": name.lower(),

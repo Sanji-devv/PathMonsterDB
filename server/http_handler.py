@@ -3,6 +3,7 @@ import json
 import urllib.request
 from urllib.parse import urlparse, parse_qs
 from server.data_manager import (
+    BASE_DIR,
     search_monsters,
     search_spells,
     get_scrape_status,
@@ -10,7 +11,13 @@ from server.data_manager import (
     delete_monster,
     toggle_favorite,
     export_monsters_dataset,
-    import_monsters_from_json
+    import_monsters_from_json,
+    get_user_folders,
+    create_or_update_folder,
+    delete_folder,
+    add_monster_to_folder,
+    remove_monster_from_folder,
+    get_folder_monsters
 )
 from server.auth import (
     register_user,
@@ -22,6 +29,9 @@ from server.auth import (
 
 class PathMonsterDBRequestHandler(http.server.SimpleHTTPRequestHandler):
     protocol_version = "HTTP/1.0"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, directory=BASE_DIR, **kwargs)
     extensions_map = {
         **http.server.SimpleHTTPRequestHandler.extensions_map,
         '.js': 'application/javascript',
@@ -51,6 +61,13 @@ class PathMonsterDBRequestHandler(http.server.SimpleHTTPRequestHandler):
 
     def do_OPTIONS(self):
         self.send_response(200)
+        self.send_header('Content-Length', '0')
+        self.end_headers()
+
+    def _send_redirect(self, location, status_code=302):
+        self.send_response(status_code)
+        self.send_header('Location', location)
+        self.send_header('Content-Length', '0')
         self.end_headers()
 
     def _send_json(self, data, status_code=200):
@@ -81,34 +98,22 @@ class PathMonsterDBRequestHandler(http.server.SimpleHTTPRequestHandler):
                             if val in ('/html/index.html', '/html/database.html', 'index.html', 'database.html'):
                                 last_page = val if val.startswith('/html/') else f'/html/{val}'
                                 break
-                self.send_response(302)
-                self.send_header('Location', last_page)
-                self.end_headers()
+                self._send_redirect(last_page)
                 return
             elif parsed_url.path == '/index.html':
-                self.send_response(302)
-                self.send_header('Location', '/html/index.html')
-                self.end_headers()
+                self._send_redirect('/html/index.html')
                 return
             elif parsed_url.path == '/database.html':
-                self.send_response(302)
-                self.send_header('Location', '/html/database.html')
-                self.end_headers()
+                self._send_redirect('/html/database.html')
                 return
             elif parsed_url.path in ('/style.css', '/themes.css'):
-                self.send_response(302)
-                self.send_header('Location', f'/css{parsed_url.path}')
-                self.end_headers()
+                self._send_redirect(f'/css{parsed_url.path}')
                 return
             elif parsed_url.path.startswith('/html/data/'):
-                self.send_response(302)
-                self.send_header('Location', parsed_url.path.replace('/html/data/', '/data/'))
-                self.end_headers()
+                self._send_redirect(parsed_url.path.replace('/html/data/', '/data/'))
                 return
             elif parsed_url.path in ('/script.js', '/database.js'):
-                self.send_response(302)
-                self.send_header('Location', f'/js{parsed_url.path}')
-                self.end_headers()
+                self._send_redirect(f'/js{parsed_url.path}')
                 return
             elif parsed_url.path == '/api/search':
                 self._handle_search(parsed_url.query)
@@ -122,6 +127,10 @@ class PathMonsterDBRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self._handle_auth_me()
             elif parsed_url.path in ('/api/database/export', '/api/export/database', '/api/export'):
                 self._handle_database_export(parsed_url.query)
+            elif parsed_url.path == '/api/folders':
+                self._handle_get_folders()
+            elif parsed_url.path.startswith('/api/folders/') and parsed_url.path.endswith('/monsters'):
+                self._handle_get_folder_monsters(parsed_url.path)
             else:
                 super().do_GET()
         except (ConnectionAbortedError, ConnectionResetError, BrokenPipeError):
@@ -197,6 +206,12 @@ class PathMonsterDBRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self._handle_save()
             elif parsed_url.path in ('/api/database/import', '/api/import'):
                 self._handle_database_import()
+            elif parsed_url.path == '/api/folders':
+                self._handle_save_folder()
+            elif parsed_url.path == '/api/folders/add':
+                self._handle_add_to_folder()
+            elif parsed_url.path == '/api/folders/remove':
+                self._handle_remove_from_folder()
             else:
                 self.send_error(404)
         except ValueError:
@@ -263,6 +278,8 @@ class PathMonsterDBRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.end_headers()
                 self.wfile.write(body)
                 self.wfile.flush()
+            elif parsed_url.path.startswith('/api/folders/'):
+                self._handle_delete_folder(parsed_url.path)
             else:
                 self.send_error(404)
         except Exception as e:
@@ -342,6 +359,90 @@ class PathMonsterDBRequestHandler(http.server.SimpleHTTPRequestHandler):
         except Exception as e:
             print(f"Error handling database import: {e}")
             self.send_error(500, str(e))
+
+    def _handle_get_folders(self):
+        try:
+            user = get_authenticated_user_from_headers(self.headers)
+            folders = get_user_folders(user)
+            self._send_json({"status": "ok", "folders": folders}, 200)
+        except Exception as e:
+            self._send_json({"status": "error", "message": str(e)}, 500)
+
+    def _handle_get_folder_monsters(self, path):
+        try:
+            user = get_authenticated_user_from_headers(self.headers)
+            parts = path.strip('/').split('/')
+            if len(parts) >= 3:
+                folder_id = parts[2]
+                monsters = get_folder_monsters(folder_id, user)
+                self._send_json({"status": "ok", "monsters": monsters}, 200)
+            else:
+                self._send_json({"status": "error", "message": "Invalid folder path"}, 400)
+        except Exception as e:
+            self._send_json({"status": "error", "message": str(e)}, 500)
+
+    def _handle_save_folder(self):
+        try:
+            user = get_authenticated_user_from_headers(self.headers)
+            length = int(self.headers.get('Content-Length', 0))
+            raw = self.rfile.read(length).decode('utf-8') if length > 0 else "{}"
+            data = json.loads(raw)
+            folder = create_or_update_folder(data, user)
+            self._send_json({"status": "ok", "folder": folder}, 200)
+        except json.JSONDecodeError:
+            self._send_json({"status": "error", "message": "Invalid JSON"}, 400)
+        except Exception as e:
+            self._send_json({"status": "error", "message": str(e)}, 500)
+
+    def _handle_add_to_folder(self):
+        try:
+            user = get_authenticated_user_from_headers(self.headers)
+            length = int(self.headers.get('Content-Length', 0))
+            raw = self.rfile.read(length).decode('utf-8') if length > 0 else "{}"
+            data = json.loads(raw)
+            folder_id = data.get('folder_id')
+            monster_key = data.get('monster_key')
+            if not folder_id or not monster_key:
+                self._send_json({"status": "error", "message": "folder_id and monster_key are required"}, 400)
+                return
+            folder = add_monster_to_folder(folder_id, monster_key, user)
+            if folder:
+                self._send_json({"status": "ok", "folder": folder}, 200)
+            else:
+                self._send_json({"status": "error", "message": "Folder not found"}, 404)
+        except Exception as e:
+            self._send_json({"status": "error", "message": str(e)}, 500)
+
+    def _handle_remove_from_folder(self):
+        try:
+            user = get_authenticated_user_from_headers(self.headers)
+            length = int(self.headers.get('Content-Length', 0))
+            raw = self.rfile.read(length).decode('utf-8') if length > 0 else "{}"
+            data = json.loads(raw)
+            folder_id = data.get('folder_id')
+            monster_key = data.get('monster_key')
+            if not folder_id or not monster_key:
+                self._send_json({"status": "error", "message": "folder_id and monster_key are required"}, 400)
+                return
+            folder = remove_monster_from_folder(folder_id, monster_key, user)
+            if folder:
+                self._send_json({"status": "ok", "folder": folder}, 200)
+            else:
+                self._send_json({"status": "error", "message": "Folder not found"}, 404)
+        except Exception as e:
+            self._send_json({"status": "error", "message": str(e)}, 500)
+
+    def _handle_delete_folder(self, path):
+        try:
+            user = get_authenticated_user_from_headers(self.headers)
+            folder_id = path.rstrip('/').split('/')[-1]
+            success = delete_folder(folder_id, user)
+            if success:
+                self._send_json({"status": "ok"}, 200)
+            else:
+                self._send_json({"status": "error", "message": "Folder not found"}, 404)
+        except Exception as e:
+            self._send_json({"status": "error", "message": str(e)}, 500)
 
     def log_request(self, code='-', size='-'):
         pass

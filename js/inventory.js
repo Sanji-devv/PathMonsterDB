@@ -3,17 +3,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let allWeapons = [];
     let allMagicItems = [];
     
-    // Inject datalists into the DOM if they don't exist
-    if (!document.getElementById('armor-list')) {
-        document.body.insertAdjacentHTML('beforeend', `
-            <datalist id="armor-list"></datalist>
-            <datalist id="shield-list"></datalist>
-            <datalist id="weapon-list"></datalist>
-            <datalist id="melee-weapons-list"></datalist>
-            <datalist id="ranged-weapons-list"></datalist>
-            <datalist id="magic-items-list"></datalist>
-        `);
-    }
+    // Ensure all inventory datalists exist in the DOM
+    ['armor-list', 'shield-list', 'weapon-list', 'melee-weapons-list', 'ranged-weapons-list', 'magic-items-list'].forEach(id => {
+        if (!document.getElementById(id)) {
+            const dl = document.createElement('datalist');
+            dl.id = id;
+            document.body.appendChild(dl);
+        }
+    });
 
     const armorList = document.getElementById('armor-list');
     const shieldList = document.getElementById('shield-list');

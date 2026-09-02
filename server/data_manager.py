@@ -9,12 +9,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MONSTERS_FILE = os.path.join(BASE_DIR, 'data', 'monsters.json')
 CUSTOM_MONSTERS_FILE = os.path.join(BASE_DIR, 'data', 'custom_monsters.json')
 FAVORITES_FILE = os.path.join(BASE_DIR, 'data', 'favorites.json')
+FOLDERS_FILE = os.path.join(BASE_DIR, 'data', 'folders.json')
 SPELLS_FILE = os.path.join(BASE_DIR, 'data', 'spells.json')
 
 GLOBAL_MONSTERS = []
 GLOBAL_SPELLS = []
 SEARCH_CACHE = {}
 FAVORITES_CACHE = None
+FOLDERS_CACHE = None
 CUSTOM_MONSTERS_MTIME = 0
 OFFICIAL_MONSTERS_MTIME = 0
 
@@ -158,8 +160,11 @@ def is_monster_favorited(m, user_fav_set):
             return True
     name = str(m.get('_m_name') or m.get('Name', '')).lower()
     if not m.get('IsUserCustom', False):
-        if f"official:{name}" in user_fav_set:
+        if f"official:{name}" in user_fav_set or name in user_fav_set:
             return True
+        for fk in user_fav_set:
+            if fk.startswith(f"official:{name}:") or fk == f"official:{name}":
+                return True
     else:
         auth_id = str(m.get('AuthorId', ''))
         auth_name = str(m.get('AuthorName', '')).lower()
@@ -167,6 +172,9 @@ def is_monster_favorited(m, user_fav_set):
             return True
         if auth_name and f"custom:{auth_name}:{name}" in user_fav_set:
             return True
+        for fk in user_fav_set:
+            if fk.startswith(f"custom:{auth_id}:{name}") or (auth_name and fk.startswith(f"custom:{auth_name}:{name}")):
+                return True
     return False
 
 def toggle_user_favorite(user_id_or_username, mon_key, monster=None):
@@ -209,6 +217,178 @@ def toggle_user_favorite(user_id_or_username, mon_key, monster=None):
             favs[user_key].append(mon_key)
         _save_favorites()
         return True
+
+def is_monster_in_folder_keys(m, folder_keys):
+    if not folder_keys or not isinstance(m, dict):
+        return False
+    key = get_monster_key(m)
+    if key in folder_keys:
+        return True
+    if m.get('id'):
+        if f"custom:{m['id']}" in folder_keys or str(m['id']) in folder_keys:
+            return True
+    name = str(m.get('_m_name') or m.get('Name', '')).lower()
+    if not m.get('IsUserCustom', False):
+        if f"official:{name}" in folder_keys or name in folder_keys:
+            return True
+        for fk in folder_keys:
+            if fk.startswith(f"official:{name}:") or fk == f"official:{name}":
+                return True
+    else:
+        auth_id = str(m.get('AuthorId', ''))
+        auth_name = str(m.get('AuthorName', '')).lower()
+        if auth_id and f"custom:{auth_id}:{name}" in folder_keys:
+            return True
+        if auth_name and f"custom:{auth_name}:{name}" in folder_keys:
+            return True
+        for fk in folder_keys:
+            if fk.startswith(f"custom:{auth_id}:{name}") or (auth_name and fk.startswith(f"custom:{auth_name}:{name}")):
+                return True
+    return False
+
+def _load_folders():
+    global FOLDERS_CACHE
+    if FOLDERS_CACHE is not None:
+        return FOLDERS_CACHE
+    try:
+        if os.path.exists(FOLDERS_FILE):
+            with open(FOLDERS_FILE, 'r', encoding='utf-8') as f:
+                FOLDERS_CACHE = json.load(f)
+                if not isinstance(FOLDERS_CACHE, dict):
+                    FOLDERS_CACHE = {}
+        else:
+            FOLDERS_CACHE = {}
+    except Exception as e:
+        print(f"Error loading folders.json: {e}")
+        FOLDERS_CACHE = {}
+    return FOLDERS_CACHE
+
+def _save_folders():
+    global FOLDERS_CACHE
+    if FOLDERS_CACHE is None:
+        return
+    try:
+        temp_file = FOLDERS_FILE + '.tmp'
+        with open(temp_file, 'w', encoding='utf-8') as f:
+            json.dump(FOLDERS_CACHE, f, ensure_ascii=False, indent=2)
+        if os.path.exists(FOLDERS_FILE):
+            os.replace(temp_file, FOLDERS_FILE)
+        else:
+            os.rename(temp_file, FOLDERS_FILE)
+    except Exception as e:
+        print(f"Error saving folders.json: {e}")
+
+def _get_user_folder_key(user):
+    if not user:
+        return 'anon'
+    user_id = str(user.get('id', ''))
+    user_name = str(user.get('username', '')).lower()
+    return user_id if user_id else (user_name if user_name else 'anon')
+
+def get_user_folders(user=None):
+    all_folders = _load_folders()
+    user_key = _get_user_folder_key(user)
+    return all_folders.get(user_key, [])
+
+def get_folder_by_id(folder_id, user=None):
+    folders = get_user_folders(user)
+    for f in folders:
+        if f.get('id') == folder_id:
+            return f
+    return None
+
+def create_or_update_folder(data, user=None):
+    all_folders = _load_folders()
+    user_key = _get_user_folder_key(user)
+    if user_key not in all_folders:
+        all_folders[user_key] = []
+
+    folder_id = data.get('id')
+    folder_name = str(data.get('name', '')).strip()
+    if not folder_name:
+        folder_name = 'New Folder'
+
+    target = None
+    if folder_id:
+        for f in all_folders[user_key]:
+            if f.get('id') == folder_id:
+                target = f
+                break
+
+    if target:
+        target['name'] = folder_name
+        if 'description' in data:
+            target['description'] = str(data.get('description', '')).strip()
+        if 'monster_keys' in data and isinstance(data['monster_keys'], list):
+            target['monster_keys'] = data['monster_keys']
+    else:
+        new_id = folder_id or f"folder_{int(time.time())}_{uuid.uuid4().hex[:6]}"
+        target = {
+            "id": new_id,
+            "name": folder_name,
+            "description": str(data.get('description', '')).strip(),
+            "created_at": int(time.time()),
+            "monster_keys": data.get('monster_keys', []) if isinstance(data.get('monster_keys'), list) else []
+        }
+        all_folders[user_key].append(target)
+
+    _save_folders()
+    clear_cache()
+    return target
+
+def delete_folder(folder_id, user=None):
+    all_folders = _load_folders()
+    user_key = _get_user_folder_key(user)
+    if user_key in all_folders:
+        initial_len = len(all_folders[user_key])
+        all_folders[user_key] = [f for f in all_folders[user_key] if f.get('id') != folder_id]
+        if len(all_folders[user_key]) < initial_len:
+            _save_folders()
+            clear_cache()
+            return True
+    return False
+
+def add_monster_to_folder(folder_id, monster_key, user=None):
+    all_folders = _load_folders()
+    user_key = _get_user_folder_key(user)
+    if user_key in all_folders:
+        for f in all_folders[user_key]:
+            if f.get('id') == folder_id:
+                keys = f.setdefault('monster_keys', [])
+                if monster_key not in keys:
+                    keys.append(monster_key)
+                    _save_folders()
+                    clear_cache()
+                return f
+    return None
+
+def remove_monster_from_folder(folder_id, monster_key, user=None):
+    all_folders = _load_folders()
+    user_key = _get_user_folder_key(user)
+    if user_key in all_folders:
+        for f in all_folders[user_key]:
+            if f.get('id') == folder_id:
+                keys = f.setdefault('monster_keys', [])
+                keys_to_remove = {monster_key}
+                f['monster_keys'] = [k for k in keys if k not in keys_to_remove]
+                _save_folders()
+                clear_cache()
+                return f
+    return None
+
+def get_folder_monsters(folder_id, user=None):
+    check_and_reload_if_modified()
+    folder = get_folder_by_id(folder_id, user)
+    if not folder:
+        return []
+    folder_keys = set(folder.get('monster_keys', []))
+    if not folder_keys:
+        return []
+    result = []
+    for m in GLOBAL_MONSTERS:
+        if is_monster_in_folder_keys(m, folder_keys):
+            result.append(dict(m))
+    return result
 
 def load_monsters():
     global GLOBAL_MONSTERS, CUSTOM_MONSTERS_MTIME, OFFICIAL_MONSTERS_MTIME
@@ -331,6 +511,13 @@ def get_filtered_monsters(query_string, user=None):
     alignment = params.get('alignment', [''])[0].lower().strip()
     environment = params.get('environment', [''])[0].lower().strip()
     category = params.get('category', ['all'])[0].lower().strip()
+    folder_id = params.get('folder', [''])[0].strip()
+
+    folder_keys = set()
+    if folder_id:
+        target_folder = get_folder_by_id(folder_id, user)
+        if target_folder:
+            folder_keys = set(target_folder.get('monster_keys', []))
 
     filtered = []
     for i, m in enumerate(GLOBAL_MONSTERS):
@@ -348,6 +535,11 @@ def get_filtered_monsters(query_string, user=None):
         # Privacy rule: Private custom monsters are ONLY visible to their author!
         if is_custom and m_vis == 'private' and not is_own:
             continue
+
+        # Folder filter: only include monsters in the chosen folder
+        if folder_id:
+            if not is_monster_in_folder_keys(m, folder_keys):
+                continue
 
         is_fav = is_monster_favorited(m, user_favs)
 
@@ -454,6 +646,7 @@ def get_filtered_monsters(query_string, user=None):
         m_copy = dict(m)
         m_copy['IsFavorite'] = is_fav
         m_copy['_global_index'] = i
+        m_copy['monster_key'] = get_monster_key(m)
         filtered.append(m_copy)
 
     sort_by = params.get('sort', ['default'])[0].lower()

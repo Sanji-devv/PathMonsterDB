@@ -20,19 +20,24 @@ from server.data_manager import BASE_DIR, load_monsters, load_spells
 from server.http_handler import PathMonsterDBRequestHandler
 
 PORT = int(os.environ.get("PORT", 8000))
+skip_next = False
 for idx_arg, arg in enumerate(sys.argv[1:], 1):
-    if arg.isdigit():
-        PORT = int(arg)
-    elif arg.startswith('--port='):
+    if skip_next:
+        skip_next = False
+        continue
+    if arg.startswith('--port='):
         try:
-            PORT = int(arg.split('=')[1])
+            PORT = int(arg.split('=', 1)[1])
         except ValueError:
             pass
     elif arg in ('--port', '-p') and idx_arg < len(sys.argv) - 1:
         try:
             PORT = int(sys.argv[idx_arg + 1])
+            skip_next = True
         except ValueError:
             pass
+    elif arg.isdigit():
+        PORT = int(arg)
 
 HTTP_SERVER = None
 
@@ -54,6 +59,7 @@ def start_server(ready_event):
         HTTP_SERVER.serve_forever()
 
 if __name__ == "__main__":
+    os.chdir(BASE_DIR)
     monsters = load_monsters()
     spells = load_spells()
     

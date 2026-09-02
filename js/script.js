@@ -1465,6 +1465,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 state.basic[el.id] = el.value;
             }
         });
+        const checkedStatType = document.querySelector('input[name="stat_type"]:checked');
+        if (checkedStatType) {
+            state.basic['stat_type'] = checkedStatType.value;
+        }
         // Rich text
         document.querySelectorAll('.rich-text-editor[id^="in-"]').forEach(el => {
             state.html[el.id] = el.innerHTML;
@@ -1745,6 +1749,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     }
                 }
+
+                const isNpcMonster = (state.basic && state.basic.stat_type === 'npc') ||
+                    state.CharacterFlag === "1" || state.CharacterFlag === 1 ||
+                    (state.basic && (state.basic.Class1 || state.basic['in-type-full']));
+                const targetRadioId = isNpcMonster ? 'type-npc' : 'type-monster';
+                const targetRadio = document.getElementById(targetRadioId);
+                if (targetRadio) targetRadio.checked = true;
 
                 const inCmb = document.getElementById('in-cmb');
                 if (inCmb && state.basic['in-cmb'] !== undefined) {
