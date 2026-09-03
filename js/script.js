@@ -1114,11 +1114,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         paBonus = (-paPenalty) * 1;
                     }
 
-                    // Furious Focus (User requested to apply to ALL attacks, overriding RAW PF rules)
+                    // Furious Focus: Removes Power Attack negative attack penalty completely while keeping damage bonus
                     if (isMelee && featList.some(f => f.includes('furious focus'))) {
-                        if (isTwoHanded || paBonus === (-paPenalty) * 3) {
-                            currentPenalty = 0;
-                        }
+                        currentPenalty = 0;
                     }
                 }
 
@@ -1200,8 +1198,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 else if (strMult <= 0.5 || isSecondary) paBonus = (-basePenalty) * 1;
                 else paBonus = (-basePenalty) * 2;
                 paPenalty = basePenalty;
-                // Furious Focus
-                if (featList.some(f => f.includes('furious focus')) && (strMult >= 1.5 || paBonus === (-basePenalty) * 3)) {
+                // Furious Focus: Removes Power Attack negative attack penalty completely while keeping damage bonus
+                if (featList.some(f => f.includes('furious focus'))) {
                     paPenalty = 0;
                 }
             } else if (!isMelee && featList.some(f => f.includes('deadly aim'))) {
@@ -1303,8 +1301,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let iteratives = [total];
             if (!isSecondary && !isNatural && bab > 5) {
                 for (let i = 1; i <= Math.floor((bab - 1) / 5); i++) {
-                    let iterPenalty = (isMelee && featList.some(f => f.includes('power attack')) && paPenalty === 0) ? (-1 - Math.floor(bab / 4)) : paPenalty;
-                    let iterTotal = bab - (i * 5) + atkMod + sizeData.ac_atk + secPenalty + iterPenalty + featAtkBonus;
+                    let iterTotal = bab - (i * 5) + atkMod + sizeData.ac_atk + secPenalty + paPenalty + featAtkBonus;
                     iteratives.push(iterTotal);
                 }
             }
@@ -4322,22 +4319,34 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'theme-scroll', name: 'Ancient Scroll', type: 'light', bg: '#ede0c8', fg: '#38220f', accent: '#9a3412' },
         { id: 'theme-clean-slate', name: 'Clean Slate', type: 'light', bg: '#ffffff', fg: '#0f172a', accent: '#2563eb' },
         { id: 'theme-tome', name: "Wizard's Tome", type: 'light', bg: '#f5efe6', fg: '#292524', accent: '#d97706' },
+        { id: 'theme-astral-silver', name: 'Astral Silver', type: 'light', bg: '#f0f4f9', fg: '#0f172a', accent: '#1d4ed8' },
+        { id: 'theme-elven-grove', name: 'Elven Grove', type: 'light', bg: '#f4f8f3', fg: '#142918', accent: '#15803d' },
+        { id: 'theme-sunken-pearl', name: 'Sunken Pearl', type: 'light', bg: '#f0fdfa', fg: '#042f2e', accent: '#0f766e' },
+        { id: 'theme-mythic-rose', name: 'Mythic Rose', type: 'light', bg: '#fff1f2', fg: '#4c0519', accent: '#be123c' },
         { id: 'theme-modern-dark', name: 'Modern Dark', type: 'dark', bg: '#0f172a', fg: '#f8fafc', accent: '#38bdf8' },
-        { id: 'theme-obsidian', name: 'Obsidian Glass', type: 'dark', bg: '#030712', fg: '#f3f4f6', accent: '#9ca3af' },
+        { id: 'theme-obsidian', name: 'Obsidian Amber', type: 'dark', bg: '#18181b', fg: '#fafafa', accent: '#eab308' },
+        { id: 'theme-golden-hour', name: 'Golden Hour', type: 'dark', bg: '#161922', fg: '#fef08a', accent: '#f59e0b' },
         { id: 'theme-midnight', name: 'Midnight Arcana', type: 'dark', bg: '#020617', fg: '#e2e8f0', accent: '#818cf8' },
         { id: 'theme-crimson', name: 'Crimson Blood', type: 'dark', bg: '#1c0707', fg: '#fecaca', accent: '#ef4444' },
         { id: 'theme-infernal', name: 'Infernal Abyss', type: 'dark', bg: '#180a0a', fg: '#fed7aa', accent: '#f97316' },
         { id: 'theme-emerald', name: 'Emerald Forest', type: 'dark', bg: '#051a0f', fg: '#d1fae5', accent: '#10b981' },
-        { id: 'theme-cyberpunk', name: 'Cyber Neon', type: 'dark', bg: '#09090b', fg: '#00ffff', accent: '#ff007f' },
+        { id: 'theme-cyberpunk', name: 'Cyber Neon', type: 'dark', bg: '#060813', fg: '#00f0ff', accent: '#ff007f' },
         { id: 'theme-royal', name: 'Royal Purple', type: 'dark', bg: '#150a21', fg: '#fae8ff', accent: '#d946ef' },
-        { id: 'theme-abyssal', name: 'Abyssal Void', type: 'dark', bg: '#0a0a14', fg: '#c7d2fe', accent: '#6366f1' },
+        { id: 'theme-abyssal', name: 'Abyssal Void', type: 'dark', bg: '#080808', fg: '#f5d0d0', accent: '#dc2626' },
         { id: 'theme-celestial', name: 'Celestial Gold', type: 'dark', bg: '#17120a', fg: '#fef08a', accent: '#eab308' },
         { id: 'theme-draconic', name: 'Draconic Scale', type: 'dark', bg: '#140c0c', fg: '#fed7aa', accent: '#dc2626' },
         { id: 'theme-underdark', name: 'Underdark Cavern', type: 'dark', bg: '#0f0f12', fg: '#e2e8f0', accent: '#a855f7' },
         { id: 'theme-frostburn', name: 'Frostburn Glacier', type: 'dark', bg: '#06151f', fg: '#e0f2fe', accent: '#38bdf8' },
         { id: 'theme-shadowfell', name: 'Shadowfell Mist', type: 'dark', bg: '#121316', fg: '#cbd5e1', accent: '#64748b' },
         { id: 'theme-solar', name: 'Solar Radiance', type: 'dark', bg: '#1c1507', fg: '#fef9c3', accent: '#f59e0b' },
-        { id: 'theme-runic', name: 'Runic Stone', type: 'dark', bg: '#18181b', fg: '#e4e4e7', accent: '#a1a1aa' }
+        { id: 'theme-runic', name: 'Runic Stone', type: 'dark', bg: '#1c1917', fg: '#e7e5e4', accent: '#06b6d4' },
+        { id: 'theme-leviathan', name: 'Leviathan Trench', type: 'dark', bg: '#03111b', fg: '#ecfeff', accent: '#06b6d4' },
+        { id: 'theme-blood-moon', name: 'Blood Moon', type: 'dark', bg: '#140206', fg: '#ffe4e6', accent: '#e11d48' },
+        { id: 'theme-spectral', name: 'Spectral Necropolis', type: 'dark', bg: '#04120e', fg: '#d1fae5', accent: '#10b981' },
+        { id: 'theme-molten-forge', name: 'Molten Forge', type: 'dark', bg: '#160803', fg: '#ffedd5', accent: '#f97316' },
+        { id: 'theme-tempest', name: 'Tempest Storm', type: 'dark', bg: '#080d1a', fg: '#e0e7ff', accent: '#6366f1' },
+        { id: 'theme-eldritch-void', name: 'Eldritch Void', type: 'dark', bg: '#0d0417', fg: '#f5d0fe', accent: '#c026d3' },
+        { id: 'theme-toxic-hive', name: 'Toxic Hive', type: 'dark', bg: '#0e1404', fg: '#ecfccb', accent: '#84cc16' }
     ];
 
     function renderThemeSwatches(filter = 'all') {

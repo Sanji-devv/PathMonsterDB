@@ -1,5 +1,5 @@
 /* ===================================================================
-   PathMonsterDB Master Theme System (21 Curated Statblock Themes)
+   PathMonsterDB Master Theme System (32 Curated Statblock Themes)
    =================================================================== */
 
 /* 1. Classic Parchment (Default) */
@@ -83,8 +83,9 @@
     --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
 }
 
-/* 7. Obsidian Glass */
-.theme-obsidian {
+/* 7. Obsidian Amber / Obsidian Glass */
+.theme-obsidian,
+.theme-obsidian-amber {
     --sb-bg: #18181b;
     --sb-text: #fafafa;
     --sb-subtext: #a1a1aa;
@@ -152,10 +153,64 @@
     --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
 }
 
-/* 12. Cyber Neon */
+/* 12. Cyber Neon (High-Voltage Electric Cyan & Laser Magenta) */
 .theme-cyberpunk,
+.theme-cyber-neon {
+    --sb-bg: #060813;
+    --sb-text: #f1f5f9;
+    --sb-subtext: #38bdf8;
+    --sb-modtext: #ff007f;
+    --sb-red: #00f0ff;
+    --sb-border: #ff007f;
+    --sb-border-outer: #00f0ff;
+    --sb-border-top: #ff007f;
+    --sb-font-serif: 'Cinzel', 'Inter', sans-serif;
+}
+
+/* Enhanced Cyber Neon Glow & HUD Effects */
+.theme-cyberpunk .statblock-paper,
+.statblock-paper.theme-cyberpunk,
+.theme-cyber-neon .statblock-paper,
+.statblock-paper.theme-cyber-neon {
+    box-shadow: 0 0 35px rgba(0, 240, 255, 0.2), 0 0 12px rgba(255, 0, 127, 0.25), 0 20px 50px rgba(0, 0, 0, 0.85);
+}
+
+.theme-cyberpunk .pf-header-row h1,
+.statblock-paper.theme-cyberpunk .pf-header-row h1,
+.theme-cyber-neon .pf-header-row h1,
+.statblock-paper.theme-cyber-neon .pf-header-row h1 {
+    text-shadow: 0 0 12px rgba(0, 240, 255, 0.55), 0 0 24px rgba(0, 240, 255, 0.25);
+    letter-spacing: 0.02em;
+}
+
+.theme-cyberpunk .pf-cr-value,
+.statblock-paper.theme-cyberpunk .pf-cr-value,
+.theme-cyber-neon .pf-cr-value,
+.statblock-paper.theme-cyber-neon .pf-cr-value {
+    text-shadow: 0 0 12px rgba(0, 240, 255, 0.65);
+}
+
+.theme-cyberpunk .pf-section-title,
+.statblock-paper.theme-cyberpunk .pf-section-title,
+.theme-cyber-neon .pf-section-title,
+.statblock-paper.theme-cyber-neon .pf-section-title {
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.45);
+    border-top: 2px solid #ff007f !important;
+    box-shadow: 0 -1px 8px rgba(255, 0, 127, 0.35);
+}
+
+.theme-cyberpunk .pf-stats-table,
+.statblock-paper.theme-cyberpunk .pf-stats-table,
+.theme-cyber-neon .pf-stats-table,
+.statblock-paper.theme-cyber-neon .pf-stats-table {
+    border-top: 2px solid #ff007f !important;
+    border-bottom: 2px solid #ff007f !important;
+    box-shadow: 0 0 10px rgba(255, 0, 127, 0.28);
+}
+
+/* Fey Mirage (Ethereal Pastel Fey Pink) */
 .theme-fey-mirage {
-    --sb-bg: #0d0221;
+    --sb-bg: #1a0826;
     --sb-text: #fdf4ff;
     --sb-subtext: #f5d0fe;
     --sb-modtext: #f5d0fe;
@@ -285,6 +340,149 @@
     --sb-border: #0891b2;
     --sb-border-outer: #0e7490;
     --sb-border-top: #22d3ee;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+/* 22. Astral Silver (Light) */
+.theme-astral-silver {
+    --sb-bg: #f0f4f9;
+    --sb-text: #0f172a;
+    --sb-subtext: #334155;
+    --sb-modtext: #475569;
+    --sb-red: #1d4ed8;
+    --sb-border: #2563eb;
+    --sb-border-outer: #60a5fa;
+    --sb-border-top: #3b82f6;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+/* 23. Elven Grove (Light) */
+.theme-elven-grove {
+    --sb-bg: #f4f8f3;
+    --sb-text: #142918;
+    --sb-subtext: #2d4f33;
+    --sb-modtext: #2d4f33;
+    --sb-red: #15803d;
+    --sb-border: #166534;
+    --sb-border-outer: #4ade80;
+    --sb-border-top: #22c55e;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+/* 24. Sunken Pearl (Light) */
+.theme-sunken-pearl {
+    --sb-bg: #f0fdfa;
+    --sb-text: #042f2e;
+    --sb-subtext: #115e59;
+    --sb-modtext: #115e59;
+    --sb-red: #0f766e;
+    --sb-border: #0d9488;
+    --sb-border-outer: #2dd4bf;
+    --sb-border-top: #14b8a6;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+/* 25. Mythic Rose (Light) */
+.theme-mythic-rose {
+    --sb-bg: #fff1f2;
+    --sb-text: #4c0519;
+    --sb-subtext: #881337;
+    --sb-modtext: #881337;
+    --sb-red: #be123c;
+    --sb-border: #9f1239;
+    --sb-border-outer: #fb7185;
+    --sb-border-top: #e11d48;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+/* 26. Leviathan Trench (Dark) */
+.theme-leviathan {
+    --sb-bg: #03111b;
+    --sb-text: #ecfeff;
+    --sb-subtext: #a5f3fc;
+    --sb-modtext: #67e8f9;
+    --sb-red: #06b6d4;
+    --sb-border: #0891b2;
+    --sb-border-outer: #0e7490;
+    --sb-border-top: #22d3ee;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+/* 27. Blood Moon (Dark) */
+.theme-blood-moon {
+    --sb-bg: #140206;
+    --sb-text: #ffe4e6;
+    --sb-subtext: #fda4af;
+    --sb-modtext: #f43f5e;
+    --sb-red: #e11d48;
+    --sb-border: #be123c;
+    --sb-border-outer: #881337;
+    --sb-border-top: #fb7185;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+/* 28. Spectral Necropolis (Dark) */
+.theme-spectral {
+    --sb-bg: #04120e;
+    --sb-text: #d1fae5;
+    --sb-subtext: #a7f3d0;
+    --sb-modtext: #6ee7b7;
+    --sb-red: #10b981;
+    --sb-border: #059669;
+    --sb-border-outer: #047857;
+    --sb-border-top: #34d399;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+/* 29. Molten Forge (Dark) */
+.theme-molten-forge {
+    --sb-bg: #160803;
+    --sb-text: #ffedd5;
+    --sb-subtext: #fed7aa;
+    --sb-modtext: #fdba74;
+    --sb-red: #f97316;
+    --sb-border: #ea580c;
+    --sb-border-outer: #c2410c;
+    --sb-border-top: #fb923c;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+/* 30. Tempest Storm (Dark) */
+.theme-tempest {
+    --sb-bg: #080d1a;
+    --sb-text: #e0e7ff;
+    --sb-subtext: #c7d2fe;
+    --sb-modtext: #a5b4fc;
+    --sb-red: #6366f1;
+    --sb-border: #4f46e5;
+    --sb-border-outer: #3730a3;
+    --sb-border-top: #38bdf8;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+/* 31. Eldritch Void (Dark) */
+.theme-eldritch-void {
+    --sb-bg: #0d0417;
+    --sb-text: #f5d0fe;
+    --sb-subtext: #e879f9;
+    --sb-modtext: #c084fc;
+    --sb-red: #c026d3;
+    --sb-border: #a21caf;
+    --sb-border-outer: #701a75;
+    --sb-border-top: #e879f9;
+    --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
+}
+
+/* 32. Toxic Hive (Dark) */
+.theme-toxic-hive {
+    --sb-bg: #0e1404;
+    --sb-text: #ecfccb;
+    --sb-subtext: #d9f99d;
+    --sb-modtext: #bef264;
+    --sb-red: #84cc16;
+    --sb-border: #65a30d;
+    --sb-border-outer: #4d7c0f;
+    --sb-border-top: #a3e635;
     --sb-font-serif: 'EB Garamond', 'Cinzel', serif;
 }
 

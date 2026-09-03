@@ -5574,7 +5574,7 @@
     "_m_align": "ce",
     "_m_env": "urban or dungeon",
     "_m_source": "custom",
-    "_m_search_text": "emiliano spadachiara(possessed) evil extraplanar custom",
+    "_m_search_text": "emiliano spadachiara(possessed)  evil extraplanar  custom",
     "id": "74cdd240-da1e-47ed-a1e7-cc44d1a22f1b",
     "_global_index": 5567
   },
@@ -9285,7 +9285,7 @@
     "_m_align": "ce",
     "_m_env": "urban or dungeon",
     "_m_source": "custom",
-    "_m_search_text": "emiliano spadachiara(possessed and reborned) evil extraplanar custom",
+    "_m_search_text": "emiliano spadachiara(possessed and reborned)  evil extraplanar  custom",
     "id": "40de8ee0-d363-439d-bf3e-66d29da1fb37",
     "_global_index": 5586
   },
@@ -9301,16 +9301,16 @@
     "Init": "+1",
     "Senses": "",
     "Aura": "aura of chaos, aura of good",
-    "AC": "18",
+    "AC": "22",
     "AC_Touch": "11",
-    "AC_Flat-footed": "17",
+    "AC_Flat-footed": "21",
     "HP": "105",
     "HD": "10d8",
     "Fort": "+10",
     "Ref": "+4",
     "Will": "+5",
     "Speed": "20 ft. (30 ft. base)",
-    "Melee": "scimitar +10/+5 (1d6+3/15–20)",
+    "Melee": "scimitar +10/+5 (1d6+3/18–20)",
     "Ranged": "",
     "Space": "5 ft.",
     "Reach": "5 ft.",
@@ -9327,7 +9327,7 @@
     "BaseAtk": "7",
     "CMB": "+10",
     "CMD": "21",
-    "Feats": "Weapon Focus",
+    "Feats": "Weapon Focus, Power Attack, Furious Focus, Armor Proficiency, Heavy, Extra Mercy, Extra Lay On Hands, Ranged Lay on Hands, Improved Lay on Hands, Iron Will, Improved Iron Will, Lightning Reflexes, Combat Reflexes, Armor Focus, Improved Critical",
     "Skills": "Acrobatics +6, Diplomacy +19, Intimidate +19, Knowledge (religion) +14, Sense Motive +11",
     "Languages": "Common, Celestial",
     "SQ": "divine touch, lay on hands 13/day (5d6, fatigued, diseased, restorative)",
@@ -9337,7 +9337,7 @@
     "SR": "",
     "Environment": "warm forests",
     "Treasure": "standard",
-    "Gear": "breastplate, Scimitar, Buckler",
+    "Gear": "breastplate, Scimitar, Full Plate, Buckler",
     "Class1": "",
     "Class1_Lvl": "",
     "Visibility": "public",
@@ -9368,8 +9368,8 @@
         "in-int": "12",
         "in-wis": "6",
         "in-cha": "22",
-        "in-armor-name": "Breastplate",
-        "in-ac-armor": "6",
+        "in-armor-name": "Full Plate",
+        "in-ac-armor": "10",
         "in-shield-name": "Buckler",
         "in-ac-shield": "1",
         "in-ac-natural": "0",
@@ -9397,7 +9397,7 @@
         "in-cmb-extra": "0",
         "in-cmd": "21",
         "in-cmd-extra": "0",
-        "in-feats": "Weapon Focus",
+        "in-feats": "Weapon Focus, Power Attack, Furious Focus, Armor Proficiency, Heavy, Extra Mercy, Extra Lay On Hands, Ranged Lay on Hands, Improved Lay on Hands, Iron Will, Improved Iron Will, Lightning Reflexes, Combat Reflexes, Armor Focus, Improved Critical",
         "in-feat-search": "",
         "in-skills": "Acrobatics +6, Diplomacy +19, Intimidate +19, Knowledge (religion) +14, Sense Motive +11",
         "in-languages": "Common, Celestial",
@@ -9415,7 +9415,7 @@
         "stat_type": "npc",
         "in-hp": "105 (10d8+60)",
         "in-init": "+1",
-        "in-ac": "18, touch 11, flat-footed 17 (+6 armor, +1 shield, +1 Dex)"
+        "in-ac": "22, touch 11, flat-footed 21 (+10 armor, +1 shield, +1 Dex)"
       },
       "html": {},
       "dynamic": {
@@ -9428,7 +9428,7 @@
         "melee": [
           {
             "mode": "raw",
-            "rawText": "scimitar +10/+5 (1d6+3/15–20)"
+            "rawText": "scimitar +10/+5 (1d6+3/18–20)"
           }
         ],
         "ranged": [],
@@ -9486,5 +9486,208 @@
     "_m_search_text": "noelle spadachiara   custom",
     "id": "7bf3b846-11ff-496f-9a29-610ab490ecef",
     "_global_index": 5587
+  },
+  {
+    "Name": "Rovesta Guard",
+    "CR": "4",
+    "XP": "1200",
+    "Alignment": "CG",
+    "Size": "Medium",
+    "Type": "Humanoid",
+    "subtype1": "",
+    "subtype2": "",
+    "Init": "+7",
+    "Senses": "Perception +8",
+    "Aura": "",
+    "AC": "21",
+    "AC_Touch": "16",
+    "AC_Flat-footed": "15",
+    "HP": "37",
+    "HD": "5d10",
+    "Fort": "+3",
+    "Ref": "+9",
+    "Will": "+2",
+    "Speed": "30 ft., climb 30 ft., fly 40 ft. (poor)",
+    "Melee": "mwk rapier +12 (1d6+10/18–20 plus)",
+    "Ranged": "",
+    "Space": "5 ft.",
+    "Reach": "5 ft.",
+    "SpecialAttacks": "panache (2 points), precise strike (+5 damage), swashbuckler weapon training +1",
+    "DefensiveAbilities": "charmed life 3/day, nimble +1",
+    "Weaknesses": "",
+    "Organization": "solitary, pair, or garden (3-6)",
+    "Str": "10",
+    "Dex": "20",
+    "Con": "14",
+    "Int": "10",
+    "Wis": "12",
+    "Cha": "14",
+    "BaseAtk": "5",
+    "CMB": "+5",
+    "CMD": "20",
+    "Feats": "Weapon Focus, Fencing Grace, Weapon Finesse, Weapon Specialization, Improved Critical",
+    "Skills": "Acrobatics +13, Bluff +10",
+    "Languages": "Common",
+    "SQ": "",
+    "DR": "",
+    "Immune": "",
+    "Resist": "",
+    "SR": "",
+    "Environment": "warm forests",
+    "Treasure": "none",
+    "Gear": "Mithral Chain Shirt, Buckler",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "public",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": false,
+    "IsUserCustom": true,
+    "CharacterFlag": "1",
+    "SpellLikeAbilities": "",
+    "SpellsPrepared": "{}",
+    "Special Abilities": "Precise Strike (Ex): As long as the guard has at least 1 panache point, they gain the ability to strike with pinpoint accuracy. When making a melee attack with a light or one-handed piercing weapon (such as their rapier), they deal an extra 5 points of precision damage (equal to their swashbuckler level). This bonus damage is not multiplied on a critical hit and does not apply against creatures immune to sneak attacks.\nPanache (Ex): The guard begins each day with 2 panache points. They regain 1 panache point each time they confirm a critical hit with a rapier or reduce a creature to 0 or fewer hit points with a rapier attack.\nCharmed Life (Ex): Three times per day as an immediate action before attempting a saving throw, the guard can add their Charisma modifier (+2) to the result of that saving throw.\nNimble +1 (Ex): The guard gains a +1 dodge bonus to AC while wearing light or no armor.",
+    "OriginalState": {
+      "basic": {
+        "in-name": "Rovesta Guard",
+        "in-cr": "4",
+        "in-xp": "1200",
+        "in-visibility": "public",
+        "in-author": "erdem",
+        "in-alignment": "CG",
+        "in-size": "Medium",
+        "in-type": "Humanoid",
+        "in-type-full": "Swashbuckler 5",
+        "in-init-extra": "2",
+        "in-aura": "",
+        "in-str": "10",
+        "in-dex": "20",
+        "in-con": "14",
+        "in-int": "10",
+        "in-wis": "12",
+        "in-cha": "14",
+        "in-armor-name": "Mithral Chain Shirt",
+        "in-ac-armor": "4",
+        "in-shield-name": "Buckler",
+        "in-ac-shield": "1",
+        "in-ac-natural": "0",
+        "in-ac-deflection": "0",
+        "in-ac-dodge": "1",
+        "in-hd-amount": "5",
+        "in-hd-size": "10",
+        "in-hp-extra": "0",
+        "in-fort": "+3",
+        "in-ref": "+9",
+        "in-will": "+2",
+        "in-def-abilities": "charmed life 3/day, nimble +1",
+        "in-dr": "",
+        "in-immune": "",
+        "in-resist": "",
+        "in-weaknesses": "",
+        "in-sr": "",
+        "in-speed": "30 ft., climb 30 ft., fly 40 ft. (poor)",
+        "in-space": "5 ft.",
+        "in-reach": "5 ft.",
+        "in-special-attacks": "panache (2 points), precise strike (+5 damage), swashbuckler weapon training +1",
+        "in-sla-cl": "",
+        "in-bab": "5",
+        "in-cmb": "+5",
+        "in-cmb-extra": "0",
+        "in-cmd": "20",
+        "in-cmd-extra": "-1",
+        "in-feats": "Weapon Focus, Fencing Grace, Weapon Finesse, Weapon Specialization, Improved Critical",
+        "in-feat-search": "",
+        "in-skills": "Acrobatics +13, Bluff +10",
+        "in-languages": "Common",
+        "in-sq": "",
+        "in-gear": "",
+        "in-spell-class": "",
+        "in-spell-cl": "1",
+        "in-spell-stat": "int",
+        "in-spell-conc": "",
+        "in-spells-data": "{}",
+        "in-spells": "{}",
+        "in-environment": "warm forests",
+        "in-organization": "solitary, pair, or garden (3-6)",
+        "in-treasure": "none",
+        "stat_type": "npc",
+        "in-hp": "37 (5d10+10)",
+        "in-init": "+7",
+        "in-ac": "21, touch 16, flat-footed 15 (+4 armor, +1 shield, +5 Dex, +1 dodge)"
+      },
+      "html": {},
+      "dynamic": {
+        "subtypes": [
+          ""
+        ],
+        "senses": [
+          {
+            "name": "Perception",
+            "dist": "+8"
+          }
+        ],
+        "skills": [],
+        "slas": [],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "mwk rapier +12 (1d6+10/18–20 plus)"
+          }
+        ],
+        "ranged": [],
+        "abilities": [
+          {
+            "name": "Precise Strike (Ex):",
+            "desc": "As long as the guard has at least 1 panache point, they gain the ability to strike with pinpoint accuracy. When making a melee attack with a light or one-handed piercing weapon (such as their rapier), they deal an extra <b data-path-to-node=\"30,1,0\" data-index-in-node=\"241\">5 points of precision damage</b> (equal to their swashbuckler level). This bonus damage is not multiplied on a critical hit and does not apply against creatures immune to sneak attacks."
+          },
+          {
+            "name": "Panache (Ex):",
+            "desc": "The guard begins each day with <b data-path-to-node=\"30,2,0\" data-index-in-node=\"45\">2 panache points</b>. They regain 1 panache point each time they confirm a critical hit with a rapier or reduce a creature to 0 or fewer hit points with a rapier attack."
+          },
+          {
+            "name": "Charmed Life (Ex):",
+            "desc": "Three times per day as an immediate action before attempting a saving throw, the guard can add their Charisma modifier (<b data-path-to-node=\"30,3,0\" data-index-in-node=\"139\">+2</b>) to the result of that saving throw."
+          },
+          {
+            "name": "Nimble +1 (Ex):",
+            "desc": "The guard gains a +1 dodge bonus to AC while wearing light or no armor."
+          }
+        ],
+        "special_abilities": [
+          {
+            "name": "Precise Strike (Ex):",
+            "desc": "As long as the guard has at least 1 panache point, they gain the ability to strike with pinpoint accuracy. When making a melee attack with a light or one-handed piercing weapon (such as their rapier), they deal an extra <b data-path-to-node=\"30,1,0\" data-index-in-node=\"241\">5 points of precision damage</b> (equal to their swashbuckler level). This bonus damage is not multiplied on a critical hit and does not apply against creatures immune to sneak attacks."
+          },
+          {
+            "name": "Panache (Ex):",
+            "desc": "The guard begins each day with <b data-path-to-node=\"30,2,0\" data-index-in-node=\"45\">2 panache points</b>. They regain 1 panache point each time they confirm a critical hit with a rapier or reduce a creature to 0 or fewer hit points with a rapier attack."
+          },
+          {
+            "name": "Charmed Life (Ex):",
+            "desc": "Three times per day as an immediate action before attempting a saving throw, the guard can add their Charisma modifier (<b data-path-to-node=\"30,3,0\" data-index-in-node=\"139\">+2</b>) to the result of that saving throw."
+          },
+          {
+            "name": "Nimble +1 (Ex):",
+            "desc": "The guard gains a +1 dodge bonus to AC while wearing light or no armor."
+          }
+        ],
+        "magic_items": [],
+        "spells": []
+      },
+      "_global_index": 5588,
+      "id": "06437bd3-56d5-4178-acc1-233a9c1819ce",
+      "AuthorId": "erdem",
+      "AuthorName": "erdem"
+    },
+    "_m_name": "rovesta guard",
+    "_m_cr": "4",
+    "_m_type": "humanoid",
+    "_m_size": "medium",
+    "_m_align": "cg",
+    "_m_env": "warm forests",
+    "_m_source": "custom",
+    "_m_search_text": "rovesta guard    custom",
+    "id": "06437bd3-56d5-4178-acc1-233a9c1819ce",
+    "_global_index": 5588
   }
 ]

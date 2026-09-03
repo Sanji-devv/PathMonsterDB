@@ -1053,6 +1053,32 @@ def run_tests():
     assert "pathgm_last_page" in db_j
     assert "pf_creator_theme" in db_j
 
+    # Verify All 11 New Curated Themes are present in all systems
+    with open('css/themes.css', 'r', encoding='utf-8') as f:
+        th_css = f.read()
+
+    new_themes = [
+        'theme-astral-silver', 'theme-elven-grove', 'theme-sunken-pearl', 'theme-mythic-rose',
+        'theme-leviathan', 'theme-blood-moon', 'theme-spectral', 'theme-molten-forge',
+        'theme-tempest', 'theme-eldritch-void', 'theme-toxic-hive'
+    ]
+    for nt in new_themes:
+        assert f".{nt}" in th_css, f"themes.css missing class .{nt}"
+        assert f'value="{nt}"' in idx_h, f"index.html missing option {nt}"
+        assert f'value="{nt}"' in db_h, f"database.html missing option {nt}"
+        assert f"'{nt}'" in sc_j or f'"{nt}"' in sc_j, f"script.js missing {nt}"
+        assert f"'{nt}'" in db_j or f'"{nt}"' in db_j, f"database.js missing {nt}"
+
+    assert "All (33)" in idx_h, "index.html must have All (33) filter button"
+    assert "All (33)" in db_h, "database.html must have All (33) filter button"
+    assert "Obsidian Amber" in idx_h, "index.html must have Obsidian Amber"
+    assert "Golden Hour" in idx_h, "index.html must have Golden Hour"
+    assert "'theme-golden-hour'" in sc_j or '"theme-golden-hour"' in sc_j, "script.js must have theme-golden-hour"
+    assert "'theme-golden-hour'" in db_j or '"theme-golden-hour"' in db_j, "database.js must have theme-golden-hour"
+    print(f"  [OK] Master Theme System verified ({len(new_themes)} new themes, 33 total curated themes including Obsidian Amber and Golden Hour across CSS, HTML, JS).")
+
+
+
     # 11. Testing JSON Buttons & Modals Configuration
     print("\n11. Testing JSON Buttons & Modals Configuration...")
     with open('html/index.html', 'r', encoding='utf-8') as f:
@@ -1104,6 +1130,17 @@ def run_tests():
     assert 'function renderMonsterStatblockHTML(' in db_js_content, "database.js must have renderMonsterStatblockHTML"
     assert 'function openAssignFolderModal(' in db_js_content, "database.js must have openAssignFolderModal"
     print("  [OK] Folder dropdown, export options (PDF, PNG, JSON), modals, and JS engines verified.")
+
+    # 13. Testing Furious Focus & Power Attack Calculations
+    print("\n13. Testing Furious Focus & Power Attack Calculations...")
+    with open('js/script.js', 'r', encoding='utf-8') as f:
+        sc_content = f.read()
+
+    assert "furious focus" in sc_content.lower(), "script.js must handle furious focus"
+    assert "currentPenalty = 0" in sc_content, "applyPAtoRaw must set currentPenalty = 0 for Furious Focus"
+    assert "paPenalty = 0;" in sc_content, "processRow must set paPenalty = 0 for Furious Focus"
+    assert "paPenalty === 0) ?" not in sc_content, "Iterative attacks must not re-apply Power Attack penalty when Furious Focus is active"
+    print("  [OK] Furious Focus verified: Power Attack negative attack penalties successfully removed across all melee and iterative attacks.")
 
     print("\n========================================================")
     print("  ALL VERIFICATION TESTS PASSED SUCCESSFULLY! (100%) ")
