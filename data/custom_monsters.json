@@ -4361,190 +4361,6 @@
     "_m_search_text": "petalwing drake    custom"
   },
   {
-    "Name": "Rovesta Guard",
-    "CR": "4",
-    "XP": "1200",
-    "Alignment": "CG",
-    "Size": "Medium",
-    "Type": "Humanoid",
-    "subtype1": "",
-    "subtype2": "",
-    "Init": "+7",
-    "Senses": "Perception +8",
-    "Aura": "",
-    "AC": "21",
-    "AC_Touch": "16",
-    "AC_Flat-footed": "15",
-    "HP": "37",
-    "HD": "5d10",
-    "Fort": "+3",
-    "Ref": "+9",
-    "Will": "+2",
-    "Speed": "30 ft., climb 30 ft., fly 40 ft. (poor)",
-    "Melee": "mwk rapier +12 (1d6+10/18–20 plus)",
-    "Ranged": "",
-    "Space": "5 ft.",
-    "Reach": "5 ft.",
-    "SpecialAttacks": "panache (2 points), precise strike (+5 damage), swashbuckler weapon training +1",
-    "DefensiveAbilities": "charmed life 3/day, nimble +1",
-    "Weaknesses": "",
-    "Organization": "solitary, pair, or garden (3-6)",
-    "Str": "10",
-    "Dex": "20",
-    "Con": "14",
-    "Int": "10",
-    "Wis": "12",
-    "Cha": "14",
-    "BaseAtk": "5",
-    "CMB": "+5",
-    "CMD": "20",
-    "Feats": "Weapon Focus, Fencing Grace, Weapon Finesse, Weapon Specialization, Improved Critical",
-    "Skills": "Acrobatics +13, Bluff +10",
-    "Languages": "Common",
-    "SQ": "",
-    "DR": "",
-    "Immune": "",
-    "Resist": "",
-    "SR": "",
-    "Environment": "warm forests",
-    "Treasure": "none",
-    "Gear": "Mithral Chain Shirt, Buckler",
-    "Class1": "",
-    "Class1_Lvl": "",
-    "Visibility": "public",
-    "AuthorId": "erdem",
-    "AuthorName": "erdem",
-    "IsFavorite": false,
-    "IsUserCustom": true,
-    "CharacterFlag": "0",
-    "SpellLikeAbilities": "",
-    "Special Abilities": "Precise Strike (Ex): As long as the guard has at least 1 panache point, they gain the ability to strike with pinpoint accuracy. When making a melee attack with a light or one-handed piercing weapon (such as their rapier), they deal an extra 5 points of precision damage (equal to their swashbuckler level). This bonus damage is not multiplied on a critical hit and does not apply against creatures immune to sneak attacks.\nPanache (Ex): The guard begins each day with 2 panache points. They regain 1 panache point each time they confirm a critical hit with a rapier or reduce a creature to 0 or fewer hit points with a rapier attack.\nCharmed Life (Ex): Three times per day as an immediate action before attempting a saving throw, the guard can add their Charisma modifier (+2) to the result of that saving throw.\nNimble +1 (Ex): The guard gains a +1 dodge bonus to AC while wearing light or no armor.",
-    "OriginalState": {
-      "basic": {
-        "in-name": "Rovesta Guard",
-        "in-cr": "4",
-        "in-xp": "1200",
-        "in-visibility": "public",
-        "in-author": "erdem",
-        "in-alignment": "CG",
-        "in-size": "Medium",
-        "in-type": "Humanoid",
-        "in-type-full": "Swashbuckler 5",
-        "in-init-extra": "2",
-        "in-aura": "",
-        "in-str": "10",
-        "in-dex": "20",
-        "in-con": "14",
-        "in-int": "10",
-        "in-wis": "12",
-        "in-cha": "14",
-        "in-armor-name": "Mithral Chain Shirt",
-        "in-ac-armor": "4",
-        "in-shield-name": "Buckler",
-        "in-ac-shield": "1",
-        "in-ac-natural": "0",
-        "in-ac-deflection": "0",
-        "in-ac-dodge": "1",
-        "in-hd-amount": "5",
-        "in-hd-size": "10",
-        "in-hp-extra": "0",
-        "in-fort": "+3",
-        "in-ref": "+9",
-        "in-will": "+2",
-        "in-def-abilities": "charmed life 3/day, nimble +1",
-        "in-dr": "",
-        "in-immune": "",
-        "in-resist": "",
-        "in-weaknesses": "",
-        "in-sr": "",
-        "in-speed": "30 ft., climb 30 ft., fly 40 ft. (poor)",
-        "in-space": "5 ft.",
-        "in-reach": "5 ft.",
-        "in-special-attacks": "panache (2 points), precise strike (+5 damage), swashbuckler weapon training +1",
-        "in-sla-cl": "",
-        "in-bab": "5",
-        "in-cmb": "+5",
-        "in-cmb-extra": "0",
-        "in-cmd": "20",
-        "in-cmd-extra": "-1",
-        "in-feats": "Weapon Focus, Fencing Grace, Weapon Finesse, Weapon Specialization, Improved Critical",
-        "in-feat-search": "",
-        "in-skills": "Acrobatics +13, Bluff +10",
-        "in-languages": "Common",
-        "in-sq": "",
-        "in-gear": "",
-        "in-spell-class": "",
-        "in-spell-cl": "1",
-        "in-spell-stat": "int",
-        "in-spell-conc": "",
-        "in-spells-data": "{}",
-        "in-spells": "{}",
-        "in-environment": "warm forests",
-        "in-organization": "solitary, pair, or garden (3-6)",
-        "in-treasure": "none",
-        "in-hp": "37 (5d10+10)",
-        "in-init": "+7",
-        "in-ac": "21, touch 16, flat-footed 15 (+4 armor, +1 shield, +5 Dex, +1 dodge)"
-      },
-      "html": {},
-      "dynamic": {
-        "subtypes": [
-          ""
-        ],
-        "senses": [
-          {
-            "name": "Perception",
-            "dist": "+8"
-          }
-        ],
-        "skills": [],
-        "slas": [],
-        "melee": [
-          {
-            "mode": "raw",
-            "rawText": "mwk rapier +12 (1d6+10/18–20 plus)"
-          }
-        ],
-        "ranged": [],
-        "abilities": [
-          {
-            "name": "Precise Strike (Ex):",
-            "desc": "As long as the guard has at least 1 panache point, they gain the ability to strike with pinpoint accuracy. When making a melee attack with a light or one-handed piercing weapon (such as their rapier), they deal an extra <b data-path-to-node=\"30,1,0\" data-index-in-node=\"241\">5 points of precision damage</b> (equal to their swashbuckler level). This bonus damage is not multiplied on a critical hit and does not apply against creatures immune to sneak attacks."
-          },
-          {
-            "name": "Panache (Ex):",
-            "desc": "The guard begins each day with <b data-path-to-node=\"30,2,0\" data-index-in-node=\"45\">2 panache points</b>. They regain 1 panache point each time they confirm a critical hit with a rapier or reduce a creature to 0 or fewer hit points with a rapier attack."
-          },
-          {
-            "name": "Charmed Life (Ex):",
-            "desc": "Three times per day as an immediate action before attempting a saving throw, the guard can add their Charisma modifier (<b data-path-to-node=\"30,3,0\" data-index-in-node=\"139\">+2</b>) to the result of that saving throw."
-          },
-          {
-            "name": "Nimble +1 (Ex):",
-            "desc": "The guard gains a +1 dodge bonus to AC while wearing light or no armor."
-          }
-        ],
-        "magic_items": [],
-        "spells": []
-      },
-      "_global_index": 5562,
-      "id": "b7d911f5-921d-49c8-a82d-dda27ef38789",
-      "AuthorId": "erdem",
-      "AuthorName": "erdem",
-      "Visibility": "public"
-    },
-    "_m_name": "rovesta guard",
-    "_m_cr": "4",
-    "_m_type": "humanoid",
-    "_m_align": "cg",
-    "_m_env": "warm forests",
-    "_m_source": "custom",
-    "id": "b7d911f5-921d-49c8-a82d-dda27ef38789",
-    "_global_index": 5562,
-    "_m_size": "medium",
-    "_m_search_text": "rovesta guard    custom"
-  },
-  {
     "Name": "Sand Worm",
     "CR": "5",
     "XP": "1600",
@@ -4718,7 +4534,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5563,
+      "_global_index": 5562,
       "id": "914592a9-8c70-4b30-baf6-fdb9407efe75",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -4731,7 +4547,7 @@
     "_m_env": "warm deserts, arid badlands, or shifting sands",
     "_m_source": "custom",
     "id": "914592a9-8c70-4b30-baf6-fdb9407efe75",
-    "_global_index": 5563,
+    "_global_index": 5562,
     "_m_size": "large",
     "_m_search_text": "sand worm    custom"
   },
@@ -4912,7 +4728,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5564,
+      "_global_index": 5563,
       "id": "8a70e43c-445e-4466-b53d-0b1b9dd6cd07",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -4925,7 +4741,7 @@
     "_m_env": "dense forests, overgrown jungles, thorny plains",
     "_m_source": "custom",
     "id": "8a70e43c-445e-4466-b53d-0b1b9dd6cd07",
-    "_global_index": 5564,
+    "_global_index": 5563,
     "_m_size": "large",
     "_m_search_text": "thorn lion    custom"
   },
@@ -5102,7 +4918,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5565,
+      "_global_index": 5564,
       "id": "1a90e55e-667f-4466-b53d-0b1b9dd6cd09",
       "AuthorId": "erdem",
       "AuthorName": "erdem",
@@ -5115,7 +4931,7 @@
     "_m_env": "temperate or warm dense forests, overgrown jungles",
     "_m_source": "custom",
     "id": "1a90e55e-667f-4466-b53d-0b1b9dd6cd09",
-    "_global_index": 5565,
+    "_global_index": 5564,
     "_m_size": "large",
     "_m_search_text": "tree viper    custom"
   },
@@ -5304,7 +5120,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5566,
+      "_global_index": 5565,
       "id": "475cb01c-04d6-4517-9bd0-69d7ae8386f7",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -5318,7 +5134,7 @@
     "_m_source": "custom",
     "_m_search_text": "gloomfeather vulture    custom",
     "id": "475cb01c-04d6-4517-9bd0-69d7ae8386f7",
-    "_global_index": 5566
+    "_global_index": 5565
   },
   {
     "Name": "Quartz-Chitin Cavitation Mantis",
@@ -5508,7 +5324,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5567,
+      "_global_index": 5566,
       "id": "741423d9-473a-43cc-97f1-54eb60baaf54",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -5522,7 +5338,7 @@
     "_m_source": "custom",
     "_m_search_text": "quartz-chitin cavitation mantis    custom",
     "id": "741423d9-473a-43cc-97f1-54eb60baaf54",
-    "_global_index": 5567
+    "_global_index": 5566
   },
   {
     "Name": "Emiliano Spadachiara(Possessed)",
@@ -5580,8 +5396,9 @@
     "AuthorName": "erdem",
     "IsFavorite": false,
     "IsUserCustom": true,
-    "CharacterFlag": "0",
+    "CharacterFlag": "1",
     "SpellLikeAbilities": "(10)\nAt will—deeper darkness, fear (DC 18), greater teleport (self only) telekinesis (DC 19)\n3/day—shadow conjuration (DC 18), shadow evocation (DC 19)\n1/day—magic jar (DC 19), summon (level 3, 1 shadow demon 50%)",
+    "SpellsPrepared": "{}",
     "Special Abilities": "False Resurrection Vessel (Su): The creature's physical shell is Emiliano Spadachiara, but the soul and mind belong to an Advanced Shadow Demon summoned via False Resurrection. The demon retains the host's physical attributes.\nScaled Fist Draconic Mettle (Ex): When unarmored or wearing light armor, the host adds their Charisma modifier (+5) as a dodge/insight bonus to AC and CMD due to the Scaled Fist monk discipline embedded into the host's muscle memory.\nCrane Style & Osyluth Guile Defense (Ex): When fighting defensively, the creature takes only a -1 penalty on attack rolls and gains a +4 dodge bonus to AC (+8 total with Crane Wing against a single melee attack). Additionally, via Osyluth Guile, it adds its Charisma bonus (+5) as a dodge bonus to AC against melee attacks from a chosen opponent.\nCut / Smash from the Air (Ex): Whenever a ranged physical attack, ranged siege weapon, thrown boulder, ranged spell (such as scorching ray), or ranged spell-like ability would hit the creature or an adjacent ally, it can use an Attack of Opportunity with its rapier to deflect the attack by making a melee attack roll opposed to the ranged attack roll.\nDemon Resistances (Ex): While inhabiting the mortal frame, the entity retains its immunity to poison and resistance to cold 10, electricity 10, and fire 10.",
     "OriginalState": {
       "basic": {
@@ -5646,6 +5463,7 @@
         "in-environment": "urban or dungeon",
         "in-organization": "solitary",
         "in-treasure": "NPC gear (+1 unholy rapier)",
+        "stat_type": "npc",
         "in-hp": "91 (11d10+31)",
         "in-init": "+7",
         "in-ac": "23, touch 18, flat-footed 15 (+5 armor, +5 Dex, +3 dodge)"
@@ -5744,7 +5562,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5568,
+      "_global_index": 5567,
       "id": "74cdd240-da1e-47ed-a1e7-cc44d1a22f1b",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -5756,9 +5574,9 @@
     "_m_align": "ce",
     "_m_env": "urban or dungeon",
     "_m_source": "custom",
-    "_m_search_text": "emiliano spadachiara(possessed)  evil extraplanar  custom",
+    "_m_search_text": "emiliano spadachiara(possessed) evil extraplanar custom",
     "id": "74cdd240-da1e-47ed-a1e7-cc44d1a22f1b",
-    "_global_index": 5568
+    "_global_index": 5567
   },
   {
     "Name": "Dune-Ripper Scythe-Beetle",
@@ -5929,7 +5747,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5569,
+      "_global_index": 5568,
       "id": "10394478-2b09-4749-b34c-8fe9d3da8656",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -5943,7 +5761,7 @@
     "_m_source": "custom",
     "_m_search_text": "dune-ripper scythe-beetle    custom",
     "id": "10394478-2b09-4749-b34c-8fe9d3da8656",
-    "_global_index": 5569
+    "_global_index": 5568
   },
   {
     "Name": "Glass-Scale Dune Serpent",
@@ -6122,7 +5940,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5570,
+      "_global_index": 5569,
       "id": "7ed413b3-8667-4d6c-a6ae-aed3f8aba8a0",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -6136,7 +5954,7 @@
     "_m_source": "custom",
     "_m_search_text": "glass-scale dune serpent    custom",
     "id": "7ed413b3-8667-4d6c-a6ae-aed3f8aba8a0",
-    "_global_index": 5570
+    "_global_index": 5569
   },
   {
     "Name": "Core Eater Mammoth",
@@ -6317,7 +6135,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5571,
+      "_global_index": 5570,
       "id": "7db305ad-f8d2-4ff1-9615-06a2bc60d51a",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -6331,7 +6149,7 @@
     "_m_source": "custom",
     "_m_search_text": "core eater mammoth  fire  custom",
     "id": "7db305ad-f8d2-4ff1-9615-06a2bc60d51a",
-    "_global_index": 5571
+    "_global_index": 5570
   },
   {
     "Name": "Tahm Kench(The River King)",
@@ -6531,7 +6349,7 @@
         ],
         "spells": []
       },
-      "_global_index": 5572,
+      "_global_index": 5571,
       "id": "ead7e373-f7df-45d2-99db-e9a682dc17e6",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -6545,7 +6363,7 @@
     "_m_source": "custom",
     "_m_search_text": "tahm kench(the river king)  aquatic evil  custom",
     "id": "ead7e373-f7df-45d2-99db-e9a682dc17e6",
-    "_global_index": 5572
+    "_global_index": 5571
   },
   {
     "Name": "Aatrox(The Darkin Blade)",
@@ -6737,7 +6555,7 @@
         ],
         "spells": []
       },
-      "_global_index": 5573,
+      "_global_index": 5572,
       "id": "11a90116-62d9-412b-ace3-3d8ef3beaaf6",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -6751,7 +6569,7 @@
     "_m_source": "custom",
     "_m_search_text": "aatrox(the darkin blade)  chaotic evil  custom",
     "id": "11a90116-62d9-412b-ace3-3d8ef3beaaf6",
-    "_global_index": 5573
+    "_global_index": 5572
   },
   {
     "Name": "Ore-Mite",
@@ -6931,7 +6749,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5574,
+      "_global_index": 5573,
       "id": "a5e9d412-2154-4661-849c-6033f3c27273",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -6945,7 +6763,7 @@
     "_m_source": "custom",
     "_m_search_text": "ore-mite    custom",
     "id": "a5e9d412-2154-4661-849c-6033f3c27273",
-    "_global_index": 5574
+    "_global_index": 5573
   },
   {
     "Name": "Maokai(The Twisted Treant)",
@@ -7121,7 +6939,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5575,
+      "_global_index": 5574,
       "id": "3ff94bda-17b6-46b3-a937-1087d38b0dd5",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -7135,7 +6953,7 @@
     "_m_source": "custom",
     "_m_search_text": "maokai(the twisted treant)    custom",
     "id": "3ff94bda-17b6-46b3-a937-1087d38b0dd5",
-    "_global_index": 5575
+    "_global_index": 5574
   },
   {
     "Name": "Renekton(The Butcher of the Sands)",
@@ -7316,7 +7134,7 @@
         ],
         "spells": []
       },
-      "_global_index": 5576,
+      "_global_index": 5575,
       "id": "bcb3f088-5a86-4c4f-8dc1-bba21fa1ed6f",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -7330,7 +7148,7 @@
     "_m_source": "custom",
     "_m_search_text": "renekton(the butcher of the sands)    custom",
     "id": "bcb3f088-5a86-4c4f-8dc1-bba21fa1ed6f",
-    "_global_index": 5576
+    "_global_index": 5575
   },
   {
     "Name": "Gnar(The Missing Link)",
@@ -7512,7 +7330,7 @@
         ],
         "spells": []
       },
-      "_global_index": 5577,
+      "_global_index": 5576,
       "id": "c39f982c-ae7f-4a11-b9f3-fefe740ae183",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -7526,7 +7344,7 @@
     "_m_source": "custom",
     "_m_search_text": "gnar(the missing link)  shapechanger  custom",
     "id": "c39f982c-ae7f-4a11-b9f3-fefe740ae183",
-    "_global_index": 5577
+    "_global_index": 5576
   },
   {
     "Name": "Mega Gnar(The Missing Link)",
@@ -7704,7 +7522,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5578,
+      "_global_index": 5577,
       "id": "cb0ac3df-c223-484a-9002-6e2ff13a01af",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -7718,7 +7536,7 @@
     "_m_source": "custom",
     "_m_search_text": "mega gnar(the missing link)  shapechanger  custom",
     "id": "cb0ac3df-c223-484a-9002-6e2ff13a01af",
-    "_global_index": 5578
+    "_global_index": 5577
   },
   {
     "Name": "Cho'Gath(The Terror of the Void)",
@@ -7897,7 +7715,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5579,
+      "_global_index": 5578,
       "id": "02c50882-5baa-4ac0-8dbf-59e68e6bd7b2",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -7911,7 +7729,7 @@
     "_m_source": "custom",
     "_m_search_text": "cho'gath(the terror of the void)  chaotic evil  custom",
     "id": "02c50882-5baa-4ac0-8dbf-59e68e6bd7b2",
-    "_global_index": 5579
+    "_global_index": 5578
   },
   {
     "Name": "Rek'Sai(The Void Burrower)",
@@ -8095,7 +7913,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5580,
+      "_global_index": 5579,
       "id": "21eab4a3-5176-47d4-9f1b-5e74042a0394",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -8109,7 +7927,7 @@
     "_m_source": "custom",
     "_m_search_text": "rek'sai(the void burrower)  chaotic evil  custom",
     "id": "21eab4a3-5176-47d4-9f1b-5e74042a0394",
-    "_global_index": 5580
+    "_global_index": 5579
   },
   {
     "Name": "Trundle(The Troll King)",
@@ -8291,7 +8109,7 @@
         ],
         "spells": []
       },
-      "_global_index": 5581,
+      "_global_index": 5580,
       "id": "451430f0-5510-4764-9f43-84850993d3d3",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -8305,7 +8123,7 @@
     "_m_source": "custom",
     "_m_search_text": "trundle(the troll king)  cold  custom",
     "id": "451430f0-5510-4764-9f43-84850993d3d3",
-    "_global_index": 5581
+    "_global_index": 5580
   },
   {
     "Name": "Dr. Mundo(The Mad Chemist)",
@@ -8484,7 +8302,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5582,
+      "_global_index": 5581,
       "id": "a8bf695b-bc28-45ca-a55a-5de8196529a8",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -8498,7 +8316,7 @@
     "_m_source": "custom",
     "_m_search_text": "dr. mundo(the mad chemist)    custom",
     "id": "a8bf695b-bc28-45ca-a55a-5de8196529a8",
-    "_global_index": 5582
+    "_global_index": 5581
   },
   {
     "Name": "Alistar(The Minotaur)",
@@ -8685,7 +8503,7 @@
         ],
         "spells": []
       },
-      "_global_index": 5583,
+      "_global_index": 5582,
       "id": "9c47b0b2-f69e-4c94-a5ff-e50d88aea480",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -8699,7 +8517,7 @@
     "_m_source": "custom",
     "_m_search_text": "alistar(the minotaur)    custom",
     "id": "9c47b0b2-f69e-4c94-a5ff-e50d88aea480",
-    "_global_index": 5583
+    "_global_index": 5582
   },
   {
     "Name": "Kancar",
@@ -8861,7 +8679,7 @@
       "AuthorId": "Mart",
       "AuthorName": "Mart",
       "id": "62f8d7e2-adab-4572-99aa-189a6d2f10ed",
-      "_global_index": 5584
+      "_global_index": 5583
     },
     "_m_name": "kancar",
     "_m_cr": "3",
@@ -8872,7 +8690,7 @@
     "_m_source": "custom",
     "_m_search_text": "kancar    custom",
     "id": "62f8d7e2-adab-4572-99aa-189a6d2f10ed",
-    "_global_index": 5584
+    "_global_index": 5583
   },
   {
     "Name": "M-Pickpocket",
@@ -9035,7 +8853,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5585,
+      "_global_index": 5584,
       "id": "46d50b74-ba8e-4b6a-a8f1-2995a7dabf16",
       "AuthorId": "Mart",
       "AuthorName": "Mart"
@@ -9049,7 +8867,7 @@
     "_m_source": "custom",
     "_m_search_text": "m-pickpocket  human  custom",
     "id": "46d50b74-ba8e-4b6a-a8f1-2995a7dabf16",
-    "_global_index": 5585
+    "_global_index": 5584
   },
   {
     "Name": "M-Human Alchemist",
@@ -9211,7 +9029,7 @@
       "AuthorId": "Mart",
       "AuthorName": "Mart",
       "id": "17af915b-2274-45f9-9f40-6455eae20cd8",
-      "_global_index": 5586
+      "_global_index": 5585
     },
     "_m_name": "m-human alchemist",
     "_m_cr": "2",
@@ -9222,6 +9040,451 @@
     "_m_source": "custom",
     "_m_search_text": "m-human alchemist    custom",
     "id": "17af915b-2274-45f9-9f40-6455eae20cd8",
+    "_global_index": 5585
+  },
+  {
+    "Name": "Emiliano Spadachiara(Possessed and Reborned)",
+    "CR": "12",
+    "XP": "19200",
+    "Alignment": "CE",
+    "Size": "Medium",
+    "Type": "Magical Beast",
+    "subtype1": "evil",
+    "subtype2": "extraplanar",
+    "Init": "+7",
+    "Senses": "Darkvision 60 ft., Perception +16",
+    "Aura": "",
+    "AC": "26",
+    "AC_Touch": "17",
+    "AC_Flat-footed": "19",
+    "HP": "124",
+    "HD": "11d10",
+    "Fort": "+17",
+    "Ref": "+20",
+    "Will": "+17",
+    "Speed": "30 ft., fly 40 ft. (good, demon form only)",
+    "Melee": "+1 unholy rapier +17/+12 (1d6+16+Sneak's Venom+2d6 vs good/18–20 x2), if crit(2d6+25+2d6 vs good), unarmed strike +15/+10 (1d6+6/20)",
+    "Ranged": "",
+    "Space": "5 ft.",
+    "Reach": "5 ft.",
+    "SpecialAttacks": "spell-like abilities, unarmed strike (1d6)",
+    "DefensiveAbilities": "concealment %20, evasion, nimble +2, crane wing, osyluth guile (+5 dodge vs 1 target), cut from the air, smash from the air",
+    "Weaknesses": "",
+    "Organization": "solitary",
+    "Str": "13",
+    "Dex": "20",
+    "Con": "20",
+    "Int": "17",
+    "Wis": "14",
+    "Cha": "20",
+    "BaseAtk": "10",
+    "CMB": "+11",
+    "CMD": "26",
+    "Feats": "Combat Reflexes, Crane Riposte, Crane Style, Crane Wing, Cut from the Air, Dodge, Fencing Grace, Improved Unarmed Strike, Osyluth Guile, Smash from the Air, Weapon Finesse, Weapon Focus (Rapier), Improved Critical",
+    "Skills": "Acrobatics +13, Bluff +16, Intimidate +8, Perception +16, Sense Motive +10",
+    "Languages": "Abyssal, Celestial, Common, Draconic, Ignan, telepathy 100 ft.",
+    "SQ": "false resurrection vessel, scaled fist charisma to AC, unarmored defense",
+    "DR": "DR 10/cold iron and good",
+    "Immune": "cold, electricity, poison",
+    "Resist": "acid 10, fire 10",
+    "SR": "SR 17",
+    "Environment": "urban or dungeon",
+    "Treasure": "NPC gear (+1 unholy rapier)",
+    "Gear": "+1 unholy rapier, Monk",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "private",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": false,
+    "IsUserCustom": true,
+    "CharacterFlag": "1",
+    "SpellLikeAbilities": "(10)\nAt will—deeper darkness, fear (DC 18), greater teleport (self only) telekinesis (DC 19)\n3/day—shadow conjuration (DC 18), shadow evocation (DC 19)\n1/day—magic jar (DC 19), summon (level 3, 1 shadow demon 50%)",
+    "SpellsPrepared": "{}",
+    "Special Abilities": "False Resurrection Vessel (Su): The creature's physical shell is Emiliano Spadachiara, but the soul and mind belong to an Advanced Shadow Demon summoned via False Resurrection. The demon retains the host's physical attributes.\nScaled Fist Draconic Mettle (Ex): When unarmored or wearing light armor, the host adds their Charisma modifier (+5) as a dodge/insight bonus to AC and CMD due to the Scaled Fist monk discipline embedded into the host's muscle memory.\nCrane Style & Osyluth Guile Defense (Ex): When fighting defensively, the creature takes only a -1 penalty on attack rolls and gains a +4 dodge bonus to AC (+8 total with Crane Wing against a single melee attack). Additionally, via Osyluth Guile, it adds its Charisma bonus (+5) as a dodge bonus to AC against melee attacks from a chosen opponent.\nCut / Smash from the Air (Ex): Whenever a ranged physical attack, ranged siege weapon, thrown boulder, ranged spell (such as scorching ray), or ranged spell-like ability would hit the creature or an adjacent ally, it can use an Attack of Opportunity with its rapier to deflect the attack by making a melee attack roll opposed to the ranged attack roll.\nDemon Resistances (Ex): While inhabiting the mortal frame, the entity retains its immunity to poison and resistance to cold 10, electricity 10, and fire 10.\nSneak's Venom Bite--injury; save Fort 17; frequency for 6 rounds; effect 1d2 Con; cure 1 save",
+    "OriginalState": {
+      "basic": {
+        "in-name": "Emiliano Spadachiara(Possessed and Reborned)",
+        "in-cr": "12",
+        "in-xp": "19200",
+        "in-visibility": "private",
+        "in-author": "erdem",
+        "in-alignment": "CE",
+        "in-size": "Medium",
+        "in-type": "",
+        "in-type-full": "Human Swashbuckler (Inspired Blade) 5 / Paladin (Virtuous Bravo) 4 / Monk (Scaled Fist) 2",
+        "in-init-extra": "2",
+        "in-aura": "",
+        "in-str": "13",
+        "in-dex": "20",
+        "in-con": "20",
+        "in-int": "17",
+        "in-wis": "14",
+        "in-cha": "20",
+        "in-armor-name": "Monk",
+        "in-ac-armor": "5",
+        "in-shield-name": "",
+        "in-ac-shield": "0",
+        "in-ac-natural": "4",
+        "in-ac-deflection": "0",
+        "in-ac-dodge": "2",
+        "in-hd-amount": "11",
+        "in-hd-size": "10",
+        "in-hp-extra": "9",
+        "in-fort": "+17",
+        "in-ref": "+20",
+        "in-will": "+17",
+        "in-def-abilities": "concealment %20, evasion, nimble +2, crane wing, osyluth guile (+5 dodge vs 1 target), cut from the air, smash from the air",
+        "in-dr": "DR 10/cold iron and good",
+        "in-immune": "cold, electricity, poison",
+        "in-resist": "acid 10, fire 10",
+        "in-weaknesses": "",
+        "in-sr": "SR 17",
+        "in-speed": "30 ft., fly 40 ft. (good, demon form only)",
+        "in-space": "5 ft.",
+        "in-reach": "5 ft.",
+        "in-special-attacks": "spell-like abilities, unarmed strike (1d6)",
+        "in-sla-cl": "10",
+        "in-bab": "10",
+        "in-cmb": "+11",
+        "in-cmb-extra": "0",
+        "in-cmd": "26",
+        "in-cmd-extra": "-3",
+        "in-feats": "Combat Reflexes, Crane Riposte, Crane Style, Crane Wing, Cut from the Air, Dodge, Fencing Grace, Improved Unarmed Strike, Osyluth Guile, Smash from the Air, Weapon Finesse, Weapon Focus (Rapier), Improved Critical",
+        "in-feat-search": "",
+        "in-skills": "Acrobatics +13, Bluff +16, Intimidate +8, Perception +16, Sense Motive +10",
+        "in-languages": "Abyssal, Celestial, Common, Draconic, Ignan, telepathy 100 ft.",
+        "in-sq": "false resurrection vessel, scaled fist charisma to AC, unarmored defense",
+        "in-gear": "+1 unholy rapier",
+        "in-spell-class": "",
+        "in-spell-cl": "10",
+        "in-spell-stat": "cha",
+        "in-spell-conc": "+15",
+        "in-spells-data": "{}",
+        "in-spells": "{}",
+        "in-environment": "urban or dungeon",
+        "in-organization": "solitary",
+        "in-treasure": "NPC gear (+1 unholy rapier)",
+        "stat_type": "npc",
+        "in-hp": "124 (11d10+64)",
+        "in-init": "+7",
+        "in-ac": "27, touch 18, flat-footed 19 (+5 armor, +5 Dex, +4 natural, +3 dodge)"
+      },
+      "html": {},
+      "dynamic": {
+        "subtypes": [
+          "evil",
+          "extraplanar",
+          ""
+        ],
+        "senses": [
+          {
+            "name": "Darkvision",
+            "dist": "60 ft."
+          },
+          {
+            "name": "Perception",
+            "dist": "+16"
+          }
+        ],
+        "skills": [],
+        "slas": [
+          {
+            "freq": "At will",
+            "spells": "deeper darkness, fear (DC 18), greater teleport (self only) telekinesis (DC 19)"
+          },
+          {
+            "freq": "3/day",
+            "spells": "shadow conjuration (DC 18), shadow evocation (DC 19)"
+          },
+          {
+            "freq": "1/day",
+            "spells": "magic jar (DC 19), summon (level 3, 1 shadow demon 50%)"
+          }
+        ],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "+1 unholy rapier +17/+12 (1d6+16+Sneak's Venom+2d6 vs good/18–20 x2)"
+          },
+          {
+            "mode": "raw",
+            "rawText": "if crit(2d6+25+2d6 vs good)"
+          },
+          {
+            "mode": "raw",
+            "rawText": "unarmed strike +15/+10 (1d6+6/20)"
+          }
+        ],
+        "ranged": [],
+        "abilities": [
+          {
+            "name": "False Resurrection Vessel (Su):",
+            "desc": "The creature's physical shell is Emiliano Spadachiara, but the soul and mind belong to an Advanced Shadow Demon summoned via <i>False Resurrection</i>. The demon retains the host's physical attributes."
+          },
+          {
+            "name": "Scaled Fist Draconic Mettle (Ex):",
+            "desc": "When unarmored or wearing light armor, the host adds their Charisma modifier (+5) as a dodge/insight bonus to AC and CMD due to the Scaled Fist monk discipline embedded into the host's muscle memory."
+          },
+          {
+            "name": "Crane Style & Osyluth Guile Defense (Ex):",
+            "desc": "When fighting defensively, the creature takes only a -1 penalty on attack rolls and gains a +4 dodge bonus to AC (+8 total with Crane Wing against a single melee attack). Additionally, via Osyluth Guile, it adds its Charisma bonus (+5) as a dodge bonus to AC against melee attacks from a chosen opponent."
+          },
+          {
+            "name": "Cut / Smash from the Air (Ex):",
+            "desc": "Whenever a ranged physical attack, ranged siege weapon, thrown boulder, ranged spell (such as <i>scorching ray</i>), or ranged spell-like ability would hit the creature or an adjacent ally, it can use an Attack of Opportunity with its rapier to deflect the attack by making a melee attack roll opposed to the ranged attack roll."
+          },
+          {
+            "name": "Demon Resistances (Ex):",
+            "desc": "While inhabiting the mortal frame, the entity retains its immunity to poison and resistance to cold 10, electricity 10, and fire 10."
+          },
+          {
+            "name": "Sneak's Venom",
+            "desc": "Bite--injury; save Fort 17; frequency for 6 rounds; effect 1d2 Con; cure 1 save"
+          }
+        ],
+        "special_abilities": [
+          {
+            "name": "False Resurrection Vessel (Su):",
+            "desc": "The creature's physical shell is Emiliano Spadachiara, but the soul and mind belong to an Advanced Shadow Demon summoned via <i>False Resurrection</i>. The demon retains the host's physical attributes."
+          },
+          {
+            "name": "Scaled Fist Draconic Mettle (Ex):",
+            "desc": "When unarmored or wearing light armor, the host adds their Charisma modifier (+5) as a dodge/insight bonus to AC and CMD due to the Scaled Fist monk discipline embedded into the host's muscle memory."
+          },
+          {
+            "name": "Crane Style & Osyluth Guile Defense (Ex):",
+            "desc": "When fighting defensively, the creature takes only a -1 penalty on attack rolls and gains a +4 dodge bonus to AC (+8 total with Crane Wing against a single melee attack). Additionally, via Osyluth Guile, it adds its Charisma bonus (+5) as a dodge bonus to AC against melee attacks from a chosen opponent."
+          },
+          {
+            "name": "Cut / Smash from the Air (Ex):",
+            "desc": "Whenever a ranged physical attack, ranged siege weapon, thrown boulder, ranged spell (such as <i>scorching ray</i>), or ranged spell-like ability would hit the creature or an adjacent ally, it can use an Attack of Opportunity with its rapier to deflect the attack by making a melee attack roll opposed to the ranged attack roll."
+          },
+          {
+            "name": "Demon Resistances (Ex):",
+            "desc": "While inhabiting the mortal frame, the entity retains its immunity to poison and resistance to cold 10, electricity 10, and fire 10."
+          },
+          {
+            "name": "Sneak's Venom",
+            "desc": "Bite--injury; save Fort 17; frequency for 6 rounds; effect 1d2 Con; cure 1 save"
+          }
+        ],
+        "magic_items": [],
+        "spells": []
+      },
+      "save_as_new": true,
+      "AuthorId": "erdem",
+      "AuthorName": "erdem",
+      "id": "40de8ee0-d363-439d-bf3e-66d29da1fb37",
+      "_global_index": 5586
+    },
+    "_m_name": "emiliano spadachiara(possessed and reborned)",
+    "_m_cr": "12",
+    "_m_type": "magical beast",
+    "_m_size": "medium",
+    "_m_align": "ce",
+    "_m_env": "urban or dungeon",
+    "_m_source": "custom",
+    "_m_search_text": "emiliano spadachiara(possessed and reborned) evil extraplanar custom",
+    "id": "40de8ee0-d363-439d-bf3e-66d29da1fb37",
     "_global_index": 5586
+  },
+  {
+    "Name": "Noelle Spadachiara",
+    "CR": "9",
+    "XP": "6400",
+    "Alignment": "CG",
+    "Size": "Medium",
+    "Type": "Humanoid",
+    "subtype1": "",
+    "subtype2": "",
+    "Init": "+1",
+    "Senses": "",
+    "Aura": "aura of chaos, aura of good",
+    "AC": "18",
+    "AC_Touch": "11",
+    "AC_Flat-footed": "17",
+    "HP": "105",
+    "HD": "10d8",
+    "Fort": "+10",
+    "Ref": "+4",
+    "Will": "+5",
+    "Speed": "20 ft. (30 ft. base)",
+    "Melee": "scimitar +10/+5 (1d6+3/15–20)",
+    "Ranged": "",
+    "Space": "5 ft.",
+    "Reach": "5 ft.",
+    "SpecialAttacks": "smite 3/day (+6 attack, +10 damage, +20 vs outsiders/evil dragons/undead), invocations 10 rounds/day (2 simultaneous), divine infusion 14/day (+2 enhancement/special abilities)",
+    "DefensiveAbilities": "deflection bonus vs. smited target (+6 AC)",
+    "Weaknesses": "",
+    "Organization": "solitary, pair, or patrol (3-6)",
+    "Str": "16",
+    "Dex": "13",
+    "Con": "16",
+    "Int": "12",
+    "Wis": "6",
+    "Cha": "22",
+    "BaseAtk": "7",
+    "CMB": "+10",
+    "CMD": "21",
+    "Feats": "Weapon Focus",
+    "Skills": "Acrobatics +6, Diplomacy +19, Intimidate +19, Knowledge (religion) +14, Sense Motive +11",
+    "Languages": "Common, Celestial",
+    "SQ": "divine touch, lay on hands 13/day (5d6, fatigued, diseased, restorative)",
+    "DR": "",
+    "Immune": "",
+    "Resist": "",
+    "SR": "",
+    "Environment": "warm forests",
+    "Treasure": "standard",
+    "Gear": "breastplate, Scimitar, Buckler",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "public",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": false,
+    "IsUserCustom": true,
+    "CharacterFlag": "1",
+    "SpellLikeAbilities": "",
+    "SpellsPrepared": "4th—holy sword, divine power\n3th—dispel magic, magic vestment, prayer, wrathful mantle\n2th—bull's strength, grace, lesser restoration, shield other, weapon of awe\n1th—bless, divine favor, knight's calling, protection from evil, shield of faith\n0 (at will)—detect magic, guidance, light, resistance, stabilize, virtue",
+    "Special Abilities": "Smite (Su): Three times per day as a swift action, the guard chooses one target of opposing alignment to smite. The guard adds Charisma bonus (+6) to attack rolls and class level (+10) to damage rolls (+20 on the first hit against outsiders, evil dragons, or undead). The guard also gains a +6 deflection bonus to AC against attacks made by the target.\nDivine Infusion (Su): 14 times per day as a standard action, the guard can touch a weapon, suit of armor, or shield to grant it a +2 enhancement bonus or equivalent special abilities (flaming, defending, fortification, etc.) for 10 minutes.\nInvocations (Su): As a swift action, the guard can call upon divine power for up to 10 rounds per day. The guard can maintain two active invocations simultaneously (e.g., Destruction for +3 weapon damage and Justice for +2 attack rolls), affecting all allies within 30 feet.\nLay on Hands (Su): 13 times per day as a standard action (or swift action on self), the guard can heal 5d6 hit points to a living target or deal 5d6 damage to undead via touch attack. Healing also removes the Fatigued and Diseased conditions.",
+    "OriginalState": {
+      "basic": {
+        "in-name": "Noelle Spadachiara",
+        "in-cr": "9",
+        "in-xp": "6400",
+        "in-visibility": "public",
+        "in-author": "erdem",
+        "in-alignment": "CG",
+        "in-size": "Medium",
+        "in-type": "Humanoid",
+        "in-type-full": "Human Omdura 10",
+        "in-init-extra": "0",
+        "in-aura": "aura of chaos, aura of good",
+        "in-str": "16",
+        "in-dex": "13",
+        "in-con": "16",
+        "in-int": "12",
+        "in-wis": "6",
+        "in-cha": "22",
+        "in-armor-name": "Breastplate",
+        "in-ac-armor": "6",
+        "in-shield-name": "Buckler",
+        "in-ac-shield": "1",
+        "in-ac-natural": "0",
+        "in-ac-deflection": "0",
+        "in-ac-dodge": "0",
+        "in-hd-amount": "10",
+        "in-hd-size": "8",
+        "in-hp-extra": "30",
+        "in-fort": "+10",
+        "in-ref": "+4",
+        "in-will": "+5",
+        "in-def-abilities": "deflection bonus vs. smited target (+6 AC)",
+        "in-dr": "",
+        "in-immune": "",
+        "in-resist": "",
+        "in-weaknesses": "",
+        "in-sr": "",
+        "in-speed": "20 ft. (30 ft. base)",
+        "in-space": "5 ft.",
+        "in-reach": "5 ft.",
+        "in-special-attacks": "smite 3/day (+6 attack, +10 damage, +20 vs outsiders/evil dragons/undead), invocations 10 rounds/day (2 simultaneous), divine infusion 14/day (+2 enhancement/special abilities)",
+        "in-sla-cl": "",
+        "in-bab": "7",
+        "in-cmb": "+10",
+        "in-cmb-extra": "0",
+        "in-cmd": "21",
+        "in-cmd-extra": "0",
+        "in-feats": "Weapon Focus",
+        "in-feat-search": "",
+        "in-skills": "Acrobatics +6, Diplomacy +19, Intimidate +19, Knowledge (religion) +14, Sense Motive +11",
+        "in-languages": "Common, Celestial",
+        "in-sq": "divine touch, lay on hands 13/day (5d6, fatigued, diseased, restorative)",
+        "in-gear": "breastplate, Scimitar",
+        "in-spell-class": "Omdura",
+        "in-spell-cl": "10",
+        "in-spell-stat": "cha",
+        "in-spell-conc": "+16",
+        "in-spells-data": "{\"0\":{\"slots\":\"\",\"spells\":[\"detect magic\",\"guidance\",\"light\",\"resistance\",\"stabilize\",\"virtue\"]},\"1\":{\"slots\":\"\",\"spells\":[\"bless\",\"divine favor\",\"knight's calling\",\"protection from evil\",\"shield of faith\"]},\"2\":{\"slots\":\"\",\"spells\":[\"bull's strength\",\"grace\",\"lesser restoration\",\"shield other\",\"weapon of awe\"]},\"3\":{\"slots\":\"\",\"spells\":[\"dispel magic\",\"magic vestment\",\"prayer\",\"wrathful mantle\"]},\"4\":{\"slots\":\"\",\"spells\":[\"holy sword\",\"divine power\"]}}",
+        "in-spells": "{\"0\":{\"slots\":\"\",\"spells\":[\"detect magic\",\"guidance\",\"light\",\"resistance\",\"stabilize\",\"virtue\"]},\"1\":{\"slots\":\"\",\"spells\":[\"bless\",\"divine favor\",\"knight's calling\",\"protection from evil\",\"shield of faith\"]},\"2\":{\"slots\":\"\",\"spells\":[\"bull's strength\",\"grace\",\"lesser restoration\",\"shield other\",\"weapon of awe\"]},\"3\":{\"slots\":\"\",\"spells\":[\"dispel magic\",\"magic vestment\",\"prayer\",\"wrathful mantle\"]},\"4\":{\"slots\":\"\",\"spells\":[\"holy sword\",\"divine power\"]}}",
+        "in-environment": "warm forests",
+        "in-organization": "solitary, pair, or patrol (3-6)",
+        "in-treasure": "standard",
+        "stat_type": "npc",
+        "in-hp": "105 (10d8+60)",
+        "in-init": "+1",
+        "in-ac": "18, touch 11, flat-footed 17 (+6 armor, +1 shield, +1 Dex)"
+      },
+      "html": {},
+      "dynamic": {
+        "subtypes": [
+          ""
+        ],
+        "senses": [],
+        "skills": [],
+        "slas": [],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "scimitar +10/+5 (1d6+3/15–20)"
+          }
+        ],
+        "ranged": [],
+        "abilities": [
+          {
+            "name": "Smite (Su):",
+            "desc": "Three times per day as a swift action, the guard chooses one target of opposing alignment to smite. The guard adds Charisma bonus (+6) to attack rolls and class level (+10) to damage rolls (+20 on the first hit against outsiders, evil dragons, or undead). The guard also gains a +6 deflection bonus to AC against attacks made by the target."
+          },
+          {
+            "name": "Divine Infusion (Su):",
+            "desc": "14 times per day as a standard action, the guard can touch a weapon, suit of armor, or shield to grant it a +2 enhancement bonus or equivalent special abilities (flaming, defending, fortification, etc.) for 10 minutes."
+          },
+          {
+            "name": "Invocations (Su):",
+            "desc": "As a swift action, the guard can call upon divine power for up to 10 rounds per day. The guard can maintain two active invocations simultaneously (e.g., Destruction for +3 weapon damage and Justice for +2 attack rolls), affecting all allies within 30 feet."
+          },
+          {
+            "name": "Lay on Hands (Su):",
+            "desc": "13 times per day as a standard action (or swift action on self), the guard can heal 5d6 hit points to a living target or deal 5d6 damage to undead via touch attack. Healing also removes the Fatigued and Diseased conditions."
+          }
+        ],
+        "special_abilities": [
+          {
+            "name": "Smite (Su):",
+            "desc": "Three times per day as a swift action, the guard chooses one target of opposing alignment to smite. The guard adds Charisma bonus (+6) to attack rolls and class level (+10) to damage rolls (+20 on the first hit against outsiders, evil dragons, or undead). The guard also gains a +6 deflection bonus to AC against attacks made by the target."
+          },
+          {
+            "name": "Divine Infusion (Su):",
+            "desc": "14 times per day as a standard action, the guard can touch a weapon, suit of armor, or shield to grant it a +2 enhancement bonus or equivalent special abilities (flaming, defending, fortification, etc.) for 10 minutes."
+          },
+          {
+            "name": "Invocations (Su):",
+            "desc": "As a swift action, the guard can call upon divine power for up to 10 rounds per day. The guard can maintain two active invocations simultaneously (e.g., Destruction for +3 weapon damage and Justice for +2 attack rolls), affecting all allies within 30 feet."
+          },
+          {
+            "name": "Lay on Hands (Su):",
+            "desc": "13 times per day as a standard action (or swift action on self), the guard can heal 5d6 hit points to a living target or deal 5d6 damage to undead via touch attack. Healing also removes the Fatigued and Diseased conditions."
+          }
+        ],
+        "magic_items": [],
+        "spells": []
+      },
+      "_global_index": 5587,
+      "id": "7bf3b846-11ff-496f-9a29-610ab490ecef",
+      "AuthorId": "erdem",
+      "AuthorName": "erdem"
+    },
+    "_m_name": "noelle spadachiara",
+    "_m_cr": "9",
+    "_m_type": "humanoid",
+    "_m_size": "medium",
+    "_m_align": "cg",
+    "_m_env": "warm forests",
+    "_m_source": "custom",
+    "_m_search_text": "noelle spadachiara   custom",
+    "id": "7bf3b846-11ff-496f-9a29-610ab490ecef",
+    "_global_index": 5587
   }
 ]
