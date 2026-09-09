@@ -6153,53 +6153,53 @@
   },
   {
     "Name": "Tahm Kench(The River King)",
-    "CR": "10",
-    "XP": "9600",
+    "CR": "12",
+    "XP": "19200",
     "Alignment": "NE",
     "Size": "Large",
     "Type": "Outsider",
     "subtype1": "aquatic",
     "subtype2": "evil",
     "Init": "+1",
-    "Senses": "darkvision 60 ft., low-light vision, Perception +16",
-    "Aura": "unctuous presence (20 ft., DC 20)",
-    "AC": "23",
-    "AC_Touch": "10",
-    "AC_Flat-footed": "22",
-    "HP": "137",
-    "HD": "11d10",
-    "Fort": "+14",
-    "Ref": "+8",
-    "Will": "+9",
-    "Speed": "30 ft., swim 50 ft.",
-    "Melee": "bite +17 (2d6+7 plus grab)",
-    "Ranged": "prehensile tongue lash +11 ranged touch (1d8+7 plus grab and pull [range 30 ft.]), regurgitate bile +11 ranged touch (3d6+7 bludgeoning plus 2d6 acid [range 30 ft.])",
+    "Senses": "darkvision 60 ft., low-light vision, tremorsense (in water or mud) 60 ft., Perception +20",
+    "Aura": "unctuous presence (30 ft., DC 22)",
+    "AC": "25",
+    "AC_Touch": "12",
+    "AC_Flat-footed": "24",
+    "HP": "189",
+    "HD": "14d10",
+    "Fort": "+17",
+    "Ref": "+10",
+    "Will": "+12",
+    "Speed": "30 ft., burrow (mud/sludge) 20 ft., swim 60 ft.",
+    "Melee": "bite +21 (2d8+12/19-20 plus grab), 2 slams +21 (1d8+8)",
+    "Ranged": "prehensile tongue lash +14 ranged touch (1d8+8 bludgeoning plus grab and pull [range 30 ft.])",
     "Space": "10 ft.",
-    "Reach": "10 ft.",
-    "SpecialAttacks": "abyssal dive, prehensile tongue lash, regurgitate bile (30 ft.), swallow whole (2d8+7 bludgeoning plus 2d6 acid, AC 15, 13 HP)",
-    "DefensiveAbilities": "amphibious",
+    "Reach": "10 ft. (20 ft. with tongue)",
+    "SpecialAttacks": "abyssal breach, caustic regurgitation (30 ft., DC 25), crushing maw, dimensional gullet (swallow whole, 3d8+12 bludgeoning plus 3d6 acid, AC 18, 28 HP), prehensile tongue lash",
+    "DefensiveAbilities": "amorphous gullet, amphibious, heavy blubber (DR 10/cold iron and good)",
     "Weaknesses": "",
     "Organization": "solitary",
-    "Str": "24",
+    "Str": "26",
     "Dex": "12",
-    "Con": "24",
+    "Con": "26",
     "Int": "16",
-    "Wis": "15",
-    "Cha": "20",
-    "BaseAtk": "11",
-    "CMB": "+19",
-    "CMD": "30",
-    "Feats": "Combat Reflexes, Great Fortitude, Improved Grapple, Improved Unarmed Strike, Power Attack, Vital Strike",
-    "Skills": "Bluff +19, Diplomacy +19, Intimidate +19, Knowledge (local) +17, Perception +16, Sense Motive +16, Stealth +11, Swim +29",
-    "Languages": "Aquan, Common, Infernal; telepathy 100 ft.",
-    "SQ": "bargain of despair, hold breath, water dependency (partial)",
-    "DR": "10/cold iron or good",
+    "Wis": "16",
+    "Cha": "22",
+    "BaseAtk": "14",
+    "CMB": "+23",
+    "CMD": "36",
+    "Feats": "Combat Reflexes, Great Fortitude, Greater Grapple, Improved Grapple, Improved Natural Armor, Power Attack, Vital Strike",
+    "Skills": "Bluff +23, Diplomacy +23, Intimidate +23, Knowledge (local) +20, Knowledge (planes) +20, Perception +20, Sense Motive +20, Stealth +14, Swim +33",
+    "Languages": "Abyssal, Aquan, Common, Infernal; telepathy 100 ft.",
+    "SQ": "bargain of despair, hold breath, planar sanctuary",
+    "DR": "10/cold iron and good",
     "Immune": "acid, poison",
-    "Resist": "cold 10, electricity 10",
-    "SR": "21",
+    "Resist": "cold 15, electricity 10",
+    "SR": "23",
     "Environment": "murky rivers, bayous, misty lakes, opulent city waterways",
     "Treasure": "double",
-    "Gear": "fine tailored waistcoat, silk top hat, brass signet ring",
+    "Gear": "brass signet ring of protection +2, silk top hat, Ring of Protection +2",
     "Class1": "",
     "Class1_Lvl": "",
     "Visibility": "private",
@@ -6208,82 +6208,83 @@
     "IsFavorite": false,
     "IsUserCustom": true,
     "CharacterFlag": "1",
-    "SpellLikeAbilities": "(10)",
+    "SpellLikeAbilities": "(12)",
     "SpellsPrepared": "{}",
-    "Special Abilities": "Prehensile Tongue Lash (Ex) The River-King can fire his adhesive tongue at a target up to 30 feet away as a ranged touch attack (+11). On a hit, it deals 1d8+7 bludgeoning damage and initiates a free pull combat maneuver (CMB +23). If successful, the target is dragged adjacent to the River-King and gains the grappled condition.\nSwallow Whole (Ex) If the River-King begins his turn grappling a Medium or smaller opponent, he can attempt a standard grapple check (CMB +23) to maintain the hold and swallow the creature whole. A swallowed creature takes 2d8+7 bludgeoning damage plus 2d6 acid damage at the start of each of the River-King's turns (gizzard AC 15, 13 HP). As a move action, he can swallow a willing ally, granting the ally total cover and full protection from outside attacks.\nAbyssal Dive (Su) Once every 1d4 rounds as a full-round action, the River-King submerges into water, mud, or deep swamp and instantly breaches at an unoccupied space within 80 feet. Swallowed allies travel with him. Upon emerging, adjacent creatures must succeed on a DC 22 Reflex save or be knocked prone.\nRegurgitate Bile / Debris (Ex) As a standard action, the River-King can spit acidic bile or a swallowed creature at a target within 30 feet (+11 ranged touch). The struck target takes 3d6+7 bludgeoning plus 2d6 acid damage and must make a DC 22 Reflex save or be knocked prone.\nUnctuous Presence (Su) Living creatures within 20 feet take a -2 penalty on Will saving throws against charm, compulsion, and mind-affecting effects unless they succeed on a DC 20 Will save.",
+    "Special Abilities": "Dimensional Gullet (Su) Tahm Kench's gullet is an extraplanar demiplane connected to the watery depths of the Abyss rather than a mundane digestive tract. He can swallow whole any creature up to Large size that he is currently grappling (standard action, or move action with Greater Grapple). The swallowed creature takes 3d8+12 points of bludgeoning damage plus 3d6 acid damage at the start of each of Tahm Kench's turns. While inside, the creature is in total darkness, completely cut off from planar travel and extradimensional transit (such as dimension door or teleport), and divine conduits are severed (divine spellcasters cannot prepare spells or channel energy). Escaping requires dealing 28 points of damage to the gullet lining (AC 18, DR 10/cold iron and good applies). He can swallow a willing ally as a move action; a willing passenger takes no damage, receives total cover from all attacks and effects outside, and gains fast healing 5 while enclosed.\nPrehensile Tongue Lash (Ex) Tahm Kench can fire his heavy, barbed tongue at a target up to 30 feet away as a ranged touch attack (+14). If he hits, he deals 1d8+8 bludgeoning damage and immediately initiates a pull combat maneuver check (CMB +27) as a free action without provoking attacks of opportunity. If the maneuver succeeds, the victim is dragged into an unoccupied square adjacent to Tahm Kench and is instantly grappled.\nCaustic Regurgitation (Ex) As a standard action, Tahm Kench can violently expel concentrated stomach bile or a swallowed enemy up to 30 feet as a ranged touch attack (+14). A struck target takes 4d6+8 bludgeoning damage plus 3d6 acid damage and must succeed on a DC 25 Reflex save or fall prone. If a swallowed creature was regurgitated, both it and the struck target take this damage and land prone adjacent to each other. The save DC is Constitution-based.\nAbyssal Breach (Su) Once every 1d4 rounds as a full-round action, Tahm Kench sinks effortlessly into any natural ground, mud, or water, instantly vanishing and breaching the surface at any unoccupied space within 120 feet (as per dimension door). Creatures swallowed within his dimensional gullet travel with him. Upon breaching, a tidal surge of vile marsh water bursts out in a 15-foot radius; all creatures in this area take 3d6 bludgeoning damage and must succeed on a DC 25 Reflex save or be knocked prone. The save DC is Constitution-based.\nUnctuous Presence (Su) Tahm Kench projects an aura of predatory social magnetism in a 30-foot radius. Living creatures in this aura take a -2 penalty on saving throws against charm, compulsion, and mind-affecting spells, and a -4 penalty on Sense Motive checks against Tahm Kench unless they succeed on a DC 22 Will save (negates the effect for 24 hours on a success). The save DC is Charisma-based.\nAmorphous Gullet (Ex) Tahm Kench's internal anatomy bends spatial laws. Attacks made from inside his stomach lining cannot deal critical hits, sneak attack damage, or precision-based damage.",
     "OriginalState": {
       "basic": {
         "in-name": "Tahm Kench(The River King)",
-        "in-cr": "10",
-        "in-xp": "9600",
+        "in-cr": "12",
+        "in-xp": "19200",
         "in-visibility": "private",
         "in-author": "erdem",
         "in-alignment": "NE",
         "in-size": "Large",
         "in-type": "Outsider",
-        "in-type-full": "Large outsider (aquatic, evil, native)",
+        "in-type-full": "Large outsider (aquatic, evil, extraplanar, native)",
         "in-init-extra": "0",
-        "in-aura": "unctuous presence (20 ft., DC 20)",
-        "in-str": "24",
+        "in-aura": "unctuous presence (30 ft., DC 22)",
+        "in-str": "26",
         "in-dex": "12",
-        "in-con": "24",
+        "in-con": "26",
         "in-int": "16",
-        "in-wis": "15",
-        "in-cha": "20",
-        "in-armor-name": "Fine Tailored Waistcoat",
-        "in-ac-armor": "2",
+        "in-wis": "16",
+        "in-cha": "22",
+        "in-armor-name": "",
+        "in-ac-armor": "0",
         "in-shield-name": "",
         "in-ac-shield": "0",
-        "in-ac-natural": "11",
-        "in-ac-deflection": "0",
+        "in-ac-natural": "13",
+        "in-ac-deflection": "2",
         "in-ac-dodge": "0",
-        "in-hd-amount": "11",
+        "in-hd-amount": "14",
         "in-hd-size": "10",
         "in-hp-extra": "0",
-        "in-fort": "+14",
-        "in-ref": "+8",
-        "in-will": "+9",
-        "in-def-abilities": "amphibious",
-        "in-dr": "10/cold iron or good",
+        "in-fort": "+17",
+        "in-ref": "+10",
+        "in-will": "+12",
+        "in-def-abilities": "amorphous gullet, amphibious, heavy blubber (DR 10/cold iron and good)",
+        "in-dr": "10/cold iron and good",
         "in-immune": "acid, poison",
-        "in-resist": "cold 10, electricity 10",
+        "in-resist": "cold 15, electricity 10",
         "in-weaknesses": "",
-        "in-sr": "21",
-        "in-speed": "30 ft., swim 50 ft.",
+        "in-sr": "23",
+        "in-speed": "30 ft., burrow (mud/sludge) 20 ft., swim 60 ft.",
         "in-space": "10 ft.",
-        "in-reach": "10 ft.",
-        "in-special-attacks": "abyssal dive, prehensile tongue lash, regurgitate bile (30 ft.), swallow whole (2d8+7 bludgeoning plus 2d6 acid, AC 15, 13 HP)",
-        "in-sla-cl": "10",
-        "in-bab": "11",
-        "in-cmb": "+19",
+        "in-reach": "10 ft. (20 ft. with tongue)",
+        "in-special-attacks": "abyssal breach, caustic regurgitation (30 ft., DC 25), crushing maw, dimensional gullet (swallow whole, 3d8+12 bludgeoning plus 3d6 acid, AC 18, 28 HP), prehensile tongue lash",
+        "in-sla-cl": "12",
+        "in-bab": "14",
+        "in-cmb": "+23",
         "in-cmb-extra": "",
-        "in-cmd": "30",
+        "in-cmd": "36",
         "in-cmd-extra": "",
-        "in-feats": "Combat Reflexes, Great Fortitude, Improved Grapple, Improved Unarmed Strike, Power Attack, Vital Strike",
+        "in-feats": "Combat Reflexes, Great Fortitude, Greater Grapple, Improved Grapple, Improved Natural Armor, Power Attack, Vital Strike",
         "in-feat-search": "",
-        "in-skills": "Bluff +19, Diplomacy +19, Intimidate +19, Knowledge (local) +17, Perception +16, Sense Motive +16, Stealth +11, Swim +29",
-        "in-languages": "Aquan, Common, Infernal; telepathy 100 ft.",
-        "in-sq": "bargain of despair, hold breath, water dependency (partial)",
-        "in-gear": "fine tailored waistcoat, silk top hat, brass signet ring",
+        "in-skills": "Bluff +23, Diplomacy +23, Intimidate +23, Knowledge (local) +20, Knowledge (planes) +20, Perception +20, Sense Motive +20, Stealth +14, Swim +33",
+        "in-languages": "Abyssal, Aquan, Common, Infernal; telepathy 100 ft.",
+        "in-sq": "bargain of despair, hold breath, planar sanctuary",
+        "in-gear": "brass signet ring of protection +2, silk top hat",
         "in-spell-class": "",
-        "in-spell-cl": "1",
+        "in-spell-cl": "12",
         "in-spell-stat": "cha",
-        "in-spell-conc": "0",
+        "in-spell-conc": "+18",
         "in-spells-data": "{}",
         "in-spells": "{}",
         "in-environment": "murky rivers, bayous, misty lakes, opulent city waterways",
         "in-organization": "solitary",
         "in-treasure": "double",
         "stat_type": "npc",
-        "in-hp": "137 (11d10+77)",
+        "in-hp": "189 (14d10+112)",
         "in-init": "+1",
-        "in-ac": "23, touch 10, flat-footed 22 (+2 armor, +1 Dex, -1 size, +11 natural)"
+        "in-ac": "27, touch 14, flat-footed 26 (+1 Dex, -1 size, +13 natural, +4 deflection)"
       },
       "html": {},
       "dynamic": {
         "subtypes": [
           "aquatic",
           "evil",
+          "extraplanar",
           "native"
         ],
         "senses": [
@@ -6296,8 +6297,12 @@
             "dist": ""
           },
           {
+            "name": "tremorsense (in water or mud)",
+            "dist": "60 ft."
+          },
+          {
             "name": "Perception",
-            "dist": "+16"
+            "dist": "+20"
           }
         ],
         "skills": [],
@@ -6305,69 +6310,73 @@
         "melee": [
           {
             "mode": "raw",
-            "rawText": "bite +17 (2d6+7 plus grab)"
+            "rawText": "bite +21 (2d8+12/19-20 plus grab), 2 slams +21 (1d8+8)"
           }
         ],
         "ranged": [
           {
             "mode": "raw",
-            "rawText": "prehensile tongue lash +11 ranged touch (1d8+7 plus grab and pull [range 30 ft.])"
-          },
-          {
-            "mode": "raw",
-            "rawText": "regurgitate bile +11 ranged touch (3d6+7 bludgeoning plus 2d6 acid [range 30 ft.])"
+            "rawText": "prehensile tongue lash +14 ranged touch (1d8+8 bludgeoning plus grab and pull [range 30 ft.])"
           }
         ],
         "abilities": [
           {
+            "name": "Dimensional Gullet (Su)",
+            "desc": "Tahm Kench's gullet is an extraplanar demiplane connected to the watery depths of the Abyss rather than a mundane digestive tract. He can swallow whole any creature up to Large size that he is currently grappling (standard action, or move action with Greater Grapple). The swallowed creature takes 3d8+12 points of bludgeoning damage plus 3d6 acid damage at the start of each of Tahm Kench's turns. While inside, the creature is in total darkness, completely cut off from planar travel and extradimensional transit (such as dimension door or teleport), and divine conduits are severed (divine spellcasters cannot prepare spells or channel energy). Escaping requires dealing 28 points of damage to the gullet lining (AC 18, DR 10/cold iron and good applies). He can swallow a willing ally as a move action; a willing passenger takes no damage, receives total cover from all attacks and effects outside, and gains fast healing 5 while enclosed."
+          },
+          {
             "name": "Prehensile Tongue Lash (Ex)",
-            "desc": "The River-King can fire his adhesive tongue at a target up to 30 feet away as a ranged touch attack (+11). On a hit, it deals 1d8+7 bludgeoning damage and initiates a free pull combat maneuver (CMB +23). If successful, the target is dragged adjacent to the River-King and gains the grappled condition."
+            "desc": "Tahm Kench can fire his heavy, barbed tongue at a target up to 30 feet away as a ranged touch attack (+14). If he hits, he deals 1d8+8 bludgeoning damage and immediately initiates a pull combat maneuver check (CMB +27) as a free action without provoking attacks of opportunity. If the maneuver succeeds, the victim is dragged into an unoccupied square adjacent to Tahm Kench and is instantly grappled."
           },
           {
-            "name": "Swallow Whole (Ex)",
-            "desc": "If the River-King begins his turn grappling a Medium or smaller opponent, he can attempt a standard grapple check (CMB +23) to maintain the hold and swallow the creature whole. A swallowed creature takes 2d8+7 bludgeoning damage plus 2d6 acid damage at the start of each of the River-King's turns (gizzard AC 15, 13 HP). As a move action, he can swallow a willing ally, granting the ally total cover and full protection from outside attacks."
+            "name": "Caustic Regurgitation (Ex)",
+            "desc": "As a standard action, Tahm Kench can violently expel concentrated stomach bile or a swallowed enemy up to 30 feet as a ranged touch attack (+14). A struck target takes 4d6+8 bludgeoning damage plus 3d6 acid damage and must succeed on a DC 25 Reflex save or fall prone. If a swallowed creature was regurgitated, both it and the struck target take this damage and land prone adjacent to each other. The save DC is Constitution-based."
           },
           {
-            "name": "Abyssal Dive (Su)",
-            "desc": "Once every 1d4 rounds as a full-round action, the River-King submerges into water, mud, or deep swamp and instantly breaches at an unoccupied space within 80 feet. Swallowed allies travel with him. Upon emerging, adjacent creatures must succeed on a DC 22 Reflex save or be knocked prone."
-          },
-          {
-            "name": "Regurgitate Bile / Debris (Ex)",
-            "desc": "As a standard action, the River-King can spit acidic bile or a swallowed creature at a target within 30 feet (+11 ranged touch). The struck target takes 3d6+7 bludgeoning plus 2d6 acid damage and must make a DC 22 Reflex save or be knocked prone."
+            "name": "Abyssal Breach (Su)",
+            "desc": "Once every 1d4 rounds as a full-round action, Tahm Kench sinks effortlessly into any natural ground, mud, or water, instantly vanishing and breaching the surface at any unoccupied space within 120 feet (as per dimension door). Creatures swallowed within his dimensional gullet travel with him. Upon breaching, a tidal surge of vile marsh water bursts out in a 15-foot radius; all creatures in this area take 3d6 bludgeoning damage and must succeed on a DC 25 Reflex save or be knocked prone. The save DC is Constitution-based."
           },
           {
             "name": "Unctuous Presence (Su)",
-            "desc": "Living creatures within 20 feet take a -2 penalty on Will saving throws against charm, compulsion, and mind-affecting effects unless they succeed on a DC 20 Will save."
+            "desc": "Tahm Kench projects an aura of predatory social magnetism in a 30-foot radius. Living creatures in this aura take a -2 penalty on saving throws against charm, compulsion, and mind-affecting spells, and a -4 penalty on Sense Motive checks against Tahm Kench unless they succeed on a DC 22 Will save (negates the effect for 24 hours on a success). The save DC is Charisma-based."
+          },
+          {
+            "name": "Amorphous Gullet (Ex)",
+            "desc": "Tahm Kench's internal anatomy bends spatial laws. Attacks made from inside his stomach lining cannot deal critical hits, sneak attack damage, or precision-based damage."
           }
         ],
         "special_abilities": [
           {
+            "name": "Dimensional Gullet (Su)",
+            "desc": "Tahm Kench's gullet is an extraplanar demiplane connected to the watery depths of the Abyss rather than a mundane digestive tract. He can swallow whole any creature up to Large size that he is currently grappling (standard action, or move action with Greater Grapple). The swallowed creature takes 3d8+12 points of bludgeoning damage plus 3d6 acid damage at the start of each of Tahm Kench's turns. While inside, the creature is in total darkness, completely cut off from planar travel and extradimensional transit (such as dimension door or teleport), and divine conduits are severed (divine spellcasters cannot prepare spells or channel energy). Escaping requires dealing 28 points of damage to the gullet lining (AC 18, DR 10/cold iron and good applies). He can swallow a willing ally as a move action; a willing passenger takes no damage, receives total cover from all attacks and effects outside, and gains fast healing 5 while enclosed."
+          },
+          {
             "name": "Prehensile Tongue Lash (Ex)",
-            "desc": "The River-King can fire his adhesive tongue at a target up to 30 feet away as a ranged touch attack (+11). On a hit, it deals 1d8+7 bludgeoning damage and initiates a free pull combat maneuver (CMB +23). If successful, the target is dragged adjacent to the River-King and gains the grappled condition."
+            "desc": "Tahm Kench can fire his heavy, barbed tongue at a target up to 30 feet away as a ranged touch attack (+14). If he hits, he deals 1d8+8 bludgeoning damage and immediately initiates a pull combat maneuver check (CMB +27) as a free action without provoking attacks of opportunity. If the maneuver succeeds, the victim is dragged into an unoccupied square adjacent to Tahm Kench and is instantly grappled."
           },
           {
-            "name": "Swallow Whole (Ex)",
-            "desc": "If the River-King begins his turn grappling a Medium or smaller opponent, he can attempt a standard grapple check (CMB +23) to maintain the hold and swallow the creature whole. A swallowed creature takes 2d8+7 bludgeoning damage plus 2d6 acid damage at the start of each of the River-King's turns (gizzard AC 15, 13 HP). As a move action, he can swallow a willing ally, granting the ally total cover and full protection from outside attacks."
+            "name": "Caustic Regurgitation (Ex)",
+            "desc": "As a standard action, Tahm Kench can violently expel concentrated stomach bile or a swallowed enemy up to 30 feet as a ranged touch attack (+14). A struck target takes 4d6+8 bludgeoning damage plus 3d6 acid damage and must succeed on a DC 25 Reflex save or fall prone. If a swallowed creature was regurgitated, both it and the struck target take this damage and land prone adjacent to each other. The save DC is Constitution-based."
           },
           {
-            "name": "Abyssal Dive (Su)",
-            "desc": "Once every 1d4 rounds as a full-round action, the River-King submerges into water, mud, or deep swamp and instantly breaches at an unoccupied space within 80 feet. Swallowed allies travel with him. Upon emerging, adjacent creatures must succeed on a DC 22 Reflex save or be knocked prone."
-          },
-          {
-            "name": "Regurgitate Bile / Debris (Ex)",
-            "desc": "As a standard action, the River-King can spit acidic bile or a swallowed creature at a target within 30 feet (+11 ranged touch). The struck target takes 3d6+7 bludgeoning plus 2d6 acid damage and must make a DC 22 Reflex save or be knocked prone."
+            "name": "Abyssal Breach (Su)",
+            "desc": "Once every 1d4 rounds as a full-round action, Tahm Kench sinks effortlessly into any natural ground, mud, or water, instantly vanishing and breaching the surface at any unoccupied space within 120 feet (as per dimension door). Creatures swallowed within his dimensional gullet travel with him. Upon breaching, a tidal surge of vile marsh water bursts out in a 15-foot radius; all creatures in this area take 3d6 bludgeoning damage and must succeed on a DC 25 Reflex save or be knocked prone. The save DC is Constitution-based."
           },
           {
             "name": "Unctuous Presence (Su)",
-            "desc": "Living creatures within 20 feet take a -2 penalty on Will saving throws against charm, compulsion, and mind-affecting effects unless they succeed on a DC 20 Will save."
+            "desc": "Tahm Kench projects an aura of predatory social magnetism in a 30-foot radius. Living creatures in this aura take a -2 penalty on saving throws against charm, compulsion, and mind-affecting spells, and a -4 penalty on Sense Motive checks against Tahm Kench unless they succeed on a DC 22 Will save (negates the effect for 24 hours on a success). The save DC is Charisma-based."
+          },
+          {
+            "name": "Amorphous Gullet (Ex)",
+            "desc": "Tahm Kench's internal anatomy bends spatial laws. Attacks made from inside his stomach lining cannot deal critical hits, sneak attack damage, or precision-based damage."
           }
         ],
         "magic_items": [
           {
-            "name": "Fine Tailored Waistcoat",
-            "slot": "Armor",
+            "name": "Ring of Protection +2",
+            "slot": "Ring",
             "modifiers": {
-              "ac_armor": 2
+              "ac_deflection": 2
             }
           }
         ],
@@ -6379,7 +6388,7 @@
       "AuthorName": "erdem"
     },
     "_m_name": "tahm kench(the river king)",
-    "_m_cr": "10",
+    "_m_cr": "12",
     "_m_type": "outsider",
     "_m_size": "large",
     "_m_align": "ne",
@@ -6615,7 +6624,7 @@
     "_m_align": "ce",
     "_m_env": "ruined battlefields, scorched peaks, planar rifts",
     "_m_source": "custom",
-    "_m_search_text": "aatrox(the darkin blade) chaotic evil custom",
+    "_m_search_text": "aatrox(the darkin blade)  chaotic evil  custom",
     "id": "11a90116-62d9-412b-ace3-3d8ef3beaaf6",
     "_global_index": 5572
   },
@@ -7015,7 +7024,7 @@
     "_m_align": "n",
     "_m_env": "deep subterranean cisterns, petrified root vaults, forgotten subterranean crypts",
     "_m_source": "custom",
-    "_m_search_text": "maokai(the twisted treant)   custom",
+    "_m_search_text": "maokai(the twisted treant)    custom",
     "id": "3ff94bda-17b6-46b3-a937-1087d38b0dd5",
     "_global_index": 5574
   },
@@ -7226,7 +7235,7 @@
     "_m_align": "ce",
     "_m_env": "scorched deserts, ruined tombs, subterranean crypts",
     "_m_source": "custom",
-    "_m_search_text": "renekton(the butcher of the sands)   custom",
+    "_m_search_text": "renekton(the butcher of the sands)    custom",
     "id": "bcb3f088-5a86-4c4f-8dc1-bba21fa1ed6f",
     "_global_index": 5575
   },
@@ -7434,7 +7443,7 @@
     "_m_align": "cn",
     "_m_env": "frozen peaks, primal tundras, ancient caverns",
     "_m_source": "custom",
-    "_m_search_text": "gnar(the missing link) shapechanger  custom",
+    "_m_search_text": "gnar(the missing link)  shapechanger  custom",
     "id": "c39f982c-ae7f-4a11-b9f3-fefe740ae183",
     "_global_index": 5576
   },
@@ -7642,7 +7651,7 @@
     "_m_align": "cn",
     "_m_env": "frozen peaks, primal tundras, ancient caverns",
     "_m_source": "custom",
-    "_m_search_text": "mega gnar(the missing link) shapechanger  custom",
+    "_m_search_text": "mega gnar(the missing link)  shapechanger  custom",
     "id": "cb0ac3df-c223-484a-9002-6e2ff13a01af",
     "_global_index": 5577
   },
@@ -7855,7 +7864,7 @@
     "_m_align": "ce",
     "_m_env": "planar rifts, underground abysses, desolate ruins",
     "_m_source": "custom",
-    "_m_search_text": "cho'gath(the terror of the void) chaotic evil custom",
+    "_m_search_text": "cho'gath(the terror of the void)  chaotic evil  custom",
     "id": "02c50882-5baa-4ac0-8dbf-59e68e6bd7b2",
     "_global_index": 5578
   },
@@ -8073,7 +8082,7 @@
     "_m_align": "ce",
     "_m_env": "desolate wastes, scorching deserts, deep subterranean tunnels",
     "_m_source": "custom",
-    "_m_search_text": "rek'sai(the void burrower) chaotic evil custom",
+    "_m_search_text": "rek'sai(the void burrower)  chaotic evil  custom",
     "id": "21eab4a3-5176-47d4-9f1b-5e74042a0394",
     "_global_index": 5579
   },
@@ -8281,7 +8290,7 @@
     "_m_align": "ce",
     "_m_env": "frozen tundras, glacial peaks, icy caverns",
     "_m_source": "custom",
-    "_m_search_text": "trundle(the troll king) cold  custom",
+    "_m_search_text": "trundle(the troll king)  cold  custom",
     "id": "451430f0-5510-4764-9f43-84850993d3d3",
     "_global_index": 5580
   },
@@ -8490,7 +8499,7 @@
     "_m_align": "cn",
     "_m_env": "ruined laboratories, plague-ridden sewers, asylum dungeons",
     "_m_source": "custom",
-    "_m_search_text": "dr. mundo(the mad chemist)   custom",
+    "_m_search_text": "dr. mundo(the mad chemist)    custom",
     "id": "a8bf695b-bc28-45ca-a55a-5de8196529a8",
     "_global_index": 5581
   },
@@ -8711,7 +8720,7 @@
     "_m_align": "cg",
     "_m_env": "ruined arenas, mountain passes, subterranean labyrinths",
     "_m_source": "custom",
-    "_m_search_text": "alistar(the minotaur)   custom",
+    "_m_search_text": "alistar(the minotaur)    custom",
     "id": "9c47b0b2-f69e-4c94-a5ff-e50d88aea480",
     "_global_index": 5582
   },
@@ -9480,7 +9489,7 @@
     "_m_align": "ce",
     "_m_env": "urban or dungeon",
     "_m_source": "custom",
-    "_m_search_text": "emiliano spadachiara(possessed and reborned) evil extraplanar custom",
+    "_m_search_text": "emiliano spadachiara(possessed and reborned)  evil extraplanar  custom",
     "id": "40de8ee0-d363-439d-bf3e-66d29da1fb37",
     "_global_index": 5586
   },
@@ -10098,7 +10107,7 @@
     "_m_align": "lawful good",
     "_m_env": "-",
     "_m_source": "custom",
-    "_m_search_text": "slyvia bevoir   custom",
+    "_m_search_text": "slyvia bevoir    custom",
     "id": "cb8b474a-633d-41ad-8e67-4d06bf65e0fd",
     "_global_index": 5589
   },
@@ -10274,7 +10283,7 @@
     "_m_align": "lawful evil",
     "_m_env": "",
     "_m_source": "custom",
-    "_m_search_text": "garber twain   custom",
+    "_m_search_text": "garber twain    custom",
     "id": "82c3aa6b-88a7-4db9-9bfc-324427a74ac4",
     "_global_index": 5590
   }

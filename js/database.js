@@ -662,6 +662,18 @@ document.addEventListener('DOMContentLoaded', () => {
             else if (gearLower.includes('light steel shield')) state.basic['in-shield-name'] = 'Light Steel Shield';
             else if (gearLower.includes('light wooden shield')) state.basic['in-shield-name'] = 'Light Wooden Shield';
             else if (gearLower.includes('light shield')) state.basic['in-shield-name'] = 'Light Steel Shield';
+
+            if (state.basic['in-armor-name'] || state.basic['in-shield-name']) {
+                const parts = allGearStr.split(/[,;]\s*/).map(s => s.trim()).filter(Boolean);
+                const armLow = (state.basic['in-armor-name'] || '').toLowerCase();
+                const shLow = (state.basic['in-shield-name'] || '').toLowerCase();
+                state.basic['in-gear'] = parts.filter(p => {
+                    const pLow = p.toLowerCase();
+                    if (armLow && (pLow === armLow || pLow.includes(armLow) || armLow.includes(pLow))) return false;
+                    if (shLow && (pLow === shLow || pLow.includes(shLow) || shLow.includes(pLow))) return false;
+                    return true;
+                }).join(', ');
+            }
         }
 
         let acArmorBonus = 0;

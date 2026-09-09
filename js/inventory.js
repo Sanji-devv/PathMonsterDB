@@ -85,11 +85,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const inArmorName = document.getElementById('in-armor-name');
     const inAcArmor = document.getElementById('in-ac-armor');
     if (inArmorName && inAcArmor) {
-        inArmorName.addEventListener('change', (e) => {
-            const val = (e.target.value || '').trim().toLowerCase();
-            const match = allArmor.find(a => a.name.toLowerCase() === val && a.type !== 'Shield');
+        const handleArmorAutoFill = (e) => {
+            const rawVal = (e.target.value || '').trim();
+            if (!rawVal) {
+                inAcArmor.value = '0';
+                inAcArmor.removeAttribute('data-max-dex');
+                inAcArmor.removeAttribute('data-acp');
+                if (window.CharacterState && window.CharacterState.inventory) {
+                    window.CharacterState.inventory.armor = [];
+                    if (typeof window.removeArmorMagicItems === 'function') {
+                        window.removeArmorMagicItems();
+                    }
+                    window.CharacterState.notifyUpdate();
+                }
+                return;
+            }
+            const val = rawVal.toLowerCase();
+            const match = allArmor.find(a => (a.name.toLowerCase() === val || val.includes(a.name.toLowerCase())) && a.type !== 'Shield');
             if (match) {
-                const bonus = match.ac_bonus !== undefined ? match.ac_bonus : (match.bonus || 0);
+                let enhancement = 0;
+                const m = rawVal.match(/\+(\d+)/);
+                if (m) enhancement = parseInt(m[1]) || 0;
+                const bonus = (match.ac_bonus !== undefined ? match.ac_bonus : (match.bonus || 0)) + enhancement;
                 inAcArmor.value = bonus;
                 inAcArmor.setAttribute('data-max-dex', match.max_dex !== undefined ? match.max_dex : 99);
                 inAcArmor.setAttribute('data-acp', match.acp !== undefined ? match.acp : 0);
@@ -98,24 +115,40 @@ document.addEventListener('DOMContentLoaded', () => {
                     window.CharacterState.notifyUpdate();
                 }
             }
-        });
+        };
+        inArmorName.addEventListener('change', handleArmorAutoFill);
+        inArmorName.addEventListener('input', handleArmorAutoFill);
     }
 
     const inShieldName = document.getElementById('in-shield-name');
     const inAcShield = document.getElementById('in-ac-shield');
     if (inShieldName && inAcShield) {
-        inShieldName.addEventListener('change', (e) => {
-            const val = (e.target.value || '').trim().toLowerCase();
-            const match = allArmor.find(a => a.name.toLowerCase() === val && a.type === 'Shield');
+        const handleShieldAutoFill = (e) => {
+            const rawVal = (e.target.value || '').trim();
+            if (!rawVal) {
+                inAcShield.value = '0';
+                inAcShield.removeAttribute('data-acp');
+                if (window.CharacterState && typeof window.CharacterState.notifyUpdate === 'function') {
+                    window.CharacterState.notifyUpdate();
+                }
+                return;
+            }
+            const val = rawVal.toLowerCase();
+            const match = allArmor.find(a => (a.name.toLowerCase() === val || val.includes(a.name.toLowerCase())) && a.type === 'Shield');
             if (match) {
-                const bonus = match.ac_bonus !== undefined ? match.ac_bonus : (match.bonus || 0);
+                let enhancement = 0;
+                const m = rawVal.match(/\+(\d+)/);
+                if (m) enhancement = parseInt(m[1]) || 0;
+                const bonus = (match.ac_bonus !== undefined ? match.ac_bonus : (match.bonus || 0)) + enhancement;
                 inAcShield.value = bonus;
                 inAcShield.setAttribute('data-acp', match.acp !== undefined ? match.acp : 0);
                 if (window.CharacterState && typeof window.CharacterState.addGear === 'function') {
                     window.CharacterState.addGear(match, 'armor');
                 }
             }
-        });
+        };
+        inShieldName.addEventListener('change', handleShieldAutoFill);
+        inShieldName.addEventListener('input', handleShieldAutoFill);
     }
 
     // ----------------------------------------------------
@@ -224,6 +257,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (window.CharacterState && typeof window.CharacterState.equipMagicItem === 'function') {
             window.CharacterState.equipMagicItem(itemObj);
+        }
+
+        if (itemObj && itemObj.modifiers && itemObj.modifiers.ac_armor) {
+            if (inAcArmor) inAcArmor.value = itemObj.modifiers.ac_armor;
         }
 
         // Sync quick dropdowns if applicable
@@ -379,6 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setVal('select-quick-headband', headbandItem);
         setVal('select-quick-wrists', wristsItem);
     }
+    window.syncQuickSelects = syncQuickSelects;
 
     // Attach Event Listeners to Quick Select Dropdowns
     const quickSelectIds = [
@@ -406,7 +444,23 @@ document.addEventListener('DOMContentLoaded', () => {
                         else if (id === 'select-quick-cloak') slotToRemove = 'Shoulders';
                         else if (id === 'select-quick-belt') slotToRemove = 'Belt';
                         else if (id === 'select-quick-headband') slotToRemove = 'Headband';
-                        else if (id === 'select-quick-wrists') slotToRemove = 'Wrists';
+                        if (id === 'select-quick-wrists') {
+                            window.CharacterState.inventory.magicItems = window.CharacterState.inventory.magicItems.filter(i => 
+                                (i.slot || '') !== 'Wrists' && (i.slot || '') !== 'Armor' && !(i.modifiers && i.modifiers.ac_armor) && !(i.name || '').toLowerCase().includes('bracers of armor')
+                            );
+                            if (inAcArmor) inAcArmor.value = '0';
+                            const inArmor = document.getElementById('in-armor-name');
+                            if (inArmor && inArmor.value.toLowerCase().includes('bracers of armor')) {
+                                inArmor.value = '';
+                                inArmor.dataset.prevValue = '';
+                            }
+                            if (typeof window.removeGearItem === 'function') {
+                                window.removeGearItem('Bracers of Armor');
+                            }
+                            window.CharacterState.notifyUpdate();
+                            syncQuickSelects();
+                            return;
+                        }
 
                         if (slotToRemove) {
                             window.CharacterState.inventory.magicItems = window.CharacterState.inventory.magicItems.filter(i => (i.slot || '') !== slotToRemove);

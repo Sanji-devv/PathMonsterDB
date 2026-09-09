@@ -353,10 +353,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Armor Class (Auto Calc)
-        let acArmor = parseInt(document.getElementById('in-ac-armor').value) || 0;
-        if (itemMods.ac_armor && itemMods.ac_armor > acArmor) {
-            acArmor = itemMods.ac_armor;
-        }
+        const inAcArmorEl = document.getElementById('in-ac-armor');
+        let acArmor = inAcArmorEl ? (parseInt(inAcArmorEl.value) || 0) : (itemMods.ac_armor || 0);
         let acShield = parseInt(document.getElementById('in-ac-shield').value) || 0;
         let acNat = (parseInt(document.getElementById('in-ac-natural').value) || 0) + tempMods.natAc + (itemMods.ac_natural || 0);
         let acDef = (parseInt(document.getElementById('in-ac-deflection').value) || 0) + (itemMods.ac_deflection || 0);
@@ -1736,6 +1734,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // 1. Basic Fields
             if (state.basic) {
+                // If armor or shield is specified, sanitize in-gear so it's not duplicated
+                if (state.basic['in-armor-name'] && state.basic['in-gear']) {
+                    const armStr = state.basic['in-armor-name'].toLowerCase().trim();
+                    const gearParts = state.basic['in-gear'].split(/[,;]\s*/).map(s => s.trim()).filter(Boolean);
+                    state.basic['in-gear'] = gearParts.filter(p => {
+                        const pLow = p.toLowerCase();
+                        return pLow !== armStr && !pLow.includes(armStr) && !armStr.includes(pLow);
+                    }).join(', ');
+                }
+                if (state.basic['in-shield-name'] && state.basic['in-gear']) {
+                    const shStr = state.basic['in-shield-name'].toLowerCase().trim();
+                    const gearParts = state.basic['in-gear'].split(/[,;]\s*/).map(s => s.trim()).filter(Boolean);
+                    state.basic['in-gear'] = gearParts.filter(p => {
+                        const pLow = p.toLowerCase();
+                        return pLow !== shStr && !pLow.includes(shStr) && !shStr.includes(pLow);
+                    }).join(', ');
+                }
+
                 for (let id in state.basic) {
                     const el = document.getElementById(id) || document.querySelector(`input[name="${id}"][value="${state.basic[id]}"]`);
                     if (el) {
@@ -2080,18 +2096,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // 6. Armor / Shield AC metadata
             const armorEl = document.getElementById('in-armor-name');
-            if (armorEl && armorEl.value && window.allArmorsDB) {
-                const item = window.allArmorsDB.find(a => a.name.toLowerCase() === armorEl.value.toLowerCase());
-                if (item) {
-                    document.getElementById('in-ac-armor')?.setAttribute('data-max-dex', item.max_dex);
-                    document.getElementById('in-ac-armor')?.setAttribute('data-acp', item.acp);
+            if (armorEl) {
+                armorEl.dataset.prevValue = armorEl.value || '';
+                if (armorEl.value) {
+                    const parsed = (typeof parseArmorInfo === 'function') ? parseArmorInfo(armorEl.value, 'Armor') : null;
+                    if (parsed) {
+                        document.getElementById('in-ac-armor')?.setAttribute('data-max-dex', parsed.maxDex);
+                        document.getElementById('in-ac-armor')?.setAttribute('data-acp', parsed.acp);
+                    } else if (window.allArmorsDB) {
+                        const item = window.allArmorsDB.find(a => a.name.toLowerCase() === armorEl.value.toLowerCase());
+                        if (item) {
+                            document.getElementById('in-ac-armor')?.setAttribute('data-max-dex', item.max_dex);
+                            document.getElementById('in-ac-armor')?.setAttribute('data-acp', item.acp);
+                        }
+                    }
                 }
             }
             const shieldEl = document.getElementById('in-shield-name');
-            if (shieldEl && shieldEl.value && window.allArmorsDB) {
-                const item = window.allArmorsDB.find(a => a.name.toLowerCase() === shieldEl.value.toLowerCase());
-                if (item) {
-                    document.getElementById('in-ac-shield')?.setAttribute('data-acp', item.acp);
+            if (shieldEl) {
+                shieldEl.dataset.prevValue = shieldEl.value || '';
+                if (shieldEl.value) {
+                    const parsed = (typeof parseArmorInfo === 'function') ? parseArmorInfo(shieldEl.value, 'Shield') : null;
+                    if (parsed) {
+                        document.getElementById('in-ac-shield')?.setAttribute('data-acp', parsed.acp);
+                    } else if (window.allArmorsDB) {
+                        const item = window.allArmorsDB.find(a => a.name.toLowerCase() === shieldEl.value.toLowerCase());
+                        if (item) {
+                            document.getElementById('in-ac-shield')?.setAttribute('data-acp', item.acp);
+                        }
+                    }
                 }
             }
 
@@ -4080,30 +4113,244 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(err => console.error('Could not load weapons.json:', err));
 
-    function handleArmorShieldChange(e) {
-        if (e.target && (e.target.id === 'in-armor-name' || e.target.id === 'in-shield-name')) {
-            const val = e.target.value.toLowerCase().trim();
-            const item = window.allArmorsDB.find(a => a.name.toLowerCase() === val);
-            if (item) {
-                // armor.json uses ac_bonus (not bonus)
-                const bonus = item.ac_bonus !== undefined ? item.ac_bonus : (item.bonus || 0);
-                const maxDex = item.max_dex !== undefined ? item.max_dex : 99;
-                const acp = item.acp !== undefined ? item.acp : 0;
-                if (e.target.id === 'in-armor-name') {
-                    document.getElementById('in-ac-armor').value = bonus;
-                    document.getElementById('in-ac-armor').setAttribute('data-max-dex', maxDex);
-                    document.getElementById('in-ac-armor').setAttribute('data-acp', acp);
-                } else {
-                    document.getElementById('in-ac-shield').value = bonus;
-                    document.getElementById('in-ac-shield').setAttribute('data-acp', acp);
-                }
-                updatePreview();
+    function parseArmorInfo(rawVal, expectedType = 'Armor') {
+        if (!rawVal || typeof rawVal !== 'string') return null;
+        let str = rawVal.trim();
+        if (!str) return null;
+
+        let enhancement = 0;
+        const leadPlus = str.match(/^\+(\d+)\s+/);
+        const trailPlus = str.match(/\s+\+(\d+)$/);
+        if (leadPlus) {
+            enhancement = parseInt(leadPlus[1]) || 0;
+            str = str.replace(/^\+\d+\s+/, '').trim();
+        } else if (trailPlus) {
+            enhancement = parseInt(trailPlus[1]) || 0;
+            str = str.replace(/\s+\+\d+$/, '').trim();
+        }
+
+        const armors = window.allArmorsDB || [];
+        const lowerClean = str.toLowerCase();
+
+        let match = armors.find(a => {
+            if (expectedType === 'Shield' && a.type !== 'Shield') return false;
+            if (expectedType === 'Armor' && a.type === 'Shield') return false;
+            return a.name.toLowerCase() === lowerClean;
+        });
+
+        if (!match) {
+            match = armors.find(a => {
+                if (expectedType === 'Shield' && a.type !== 'Shield') return false;
+                if (expectedType === 'Armor' && a.type === 'Shield') return false;
+                const aName = a.name.toLowerCase();
+                return lowerClean.includes(aName) || aName.includes(lowerClean);
+            });
+        }
+
+        if (!match) {
+            match = armors.find(a => a.name.toLowerCase() === lowerClean || lowerClean.includes(a.name.toLowerCase()));
+        }
+
+        if (match) {
+            const baseBonus = match.ac_bonus !== undefined ? match.ac_bonus : (match.bonus || 0);
+            return {
+                item: match,
+                bonus: baseBonus + enhancement,
+                maxDex: match.max_dex !== undefined ? match.max_dex : 99,
+                acp: match.acp !== undefined ? match.acp : 0,
+                type: match.type || 'Armor'
+            };
+        }
+        return null;
+    }
+    window.parseArmorInfo = parseArmorInfo;
+
+    function removeGearItem(nameToRemove) {
+        if (!nameToRemove || typeof nameToRemove !== 'string') return;
+        const inGear = document.getElementById('in-gear');
+        if (!inGear || !inGear.value) return;
+
+        const targetLower = nameToRemove.toLowerCase().trim();
+        if (!targetLower) return;
+
+        const parts = inGear.value.split(/[,;]\s*/).map(s => s.trim()).filter(Boolean);
+        const filtered = parts.filter(p => {
+            const pLower = p.toLowerCase().replace(/^\+\d+\s+/, '').replace(/\s+\+\d+$/, '').trim();
+            const tLower = targetLower.replace(/^\+\d+\s+/, '').replace(/\s+\+\d+$/, '').trim();
+            if (pLower === tLower) return false;
+            if (p.toLowerCase() === targetLower) return false;
+            if (p.toLowerCase().includes(targetLower) || targetLower.includes(p.toLowerCase())) return false;
+            return true;
+        });
+
+        if (filtered.length !== parts.length) {
+            inGear.value = filtered.join(', ');
+        }
+    }
+    window.removeGearItem = removeGearItem;
+
+    function removeArmorMagicItems() {
+        if (window.CharacterState && Array.isArray(window.CharacterState.inventory.magicItems)) {
+            const armorMagic = window.CharacterState.inventory.magicItems.filter(i => 
+                i && (
+                    i.slot === 'Armor' ||
+                    i.slot === 'Wrists' ||
+                    (i.modifiers && i.modifiers.ac_armor) ||
+                    (i.name || '').toLowerCase().includes('bracers of armor')
+                )
+            );
+            armorMagic.forEach(i => {
+                if (i.name) removeGearItem(i.name);
+            });
+            window.CharacterState.inventory.magicItems = window.CharacterState.inventory.magicItems.filter(i => !armorMagic.includes(i));
+            if (typeof window.renderEquippedMagicItems === 'function') {
+                window.renderEquippedMagicItems();
+            }
+            if (typeof window.syncQuickSelects === 'function') {
+                window.syncQuickSelects();
             }
         }
     }
-    document.getElementById('in-armor-name')?.addEventListener('change', handleArmorShieldChange);
-    document.getElementById('in-shield-name')?.addEventListener('change', handleArmorShieldChange);
+    window.removeArmorMagicItems = removeArmorMagicItems;
 
+    function handleArmorShieldChange(e) {
+        if (!e || !e.target) return;
+        const id = e.target.id;
+        if (id !== 'in-armor-name' && id !== 'in-shield-name') return;
+
+        const rawVal = (e.target.value || '').trim();
+        const isArmor = id === 'in-armor-name';
+        const acInput = document.getElementById(isArmor ? 'in-ac-armor' : 'in-ac-shield');
+
+        if (!rawVal) {
+            if (acInput) {
+                acInput.value = '0';
+                if (isArmor) {
+                    acInput.removeAttribute('data-max-dex');
+                    acInput.removeAttribute('data-acp');
+                } else {
+                    acInput.removeAttribute('data-acp');
+                }
+            }
+            if (isArmor) {
+                if (window.CharacterState && window.CharacterState.inventory) {
+                    window.CharacterState.inventory.armor = [];
+                }
+                if (typeof removeArmorMagicItems === 'function') {
+                    removeArmorMagicItems();
+                }
+            }
+
+            const prevName = e.target.dataset.prevValue || '';
+            if (prevName) {
+                removeGearItem(prevName);
+            }
+            e.target.dataset.prevValue = '';
+
+            if (typeof updateGearDisplay === 'function') updateGearDisplay();
+            if (typeof updatePreview === 'function') updatePreview();
+            return;
+        }
+
+        const parsed = parseArmorInfo(rawVal, isArmor ? 'Armor' : 'Shield');
+        if (parsed) {
+            if (acInput) {
+                acInput.value = parsed.bonus;
+                if (isArmor) {
+                    acInput.setAttribute('data-max-dex', parsed.maxDex);
+                    acInput.setAttribute('data-acp', parsed.acp);
+                } else {
+                    acInput.setAttribute('data-acp', parsed.acp);
+                }
+            }
+            if (isArmor && window.CharacterState && window.CharacterState.inventory) {
+                window.CharacterState.inventory.armor = [parsed.item];
+            }
+
+            const prevName = e.target.dataset.prevValue || '';
+            if (prevName && prevName.toLowerCase() !== rawVal.toLowerCase()) {
+                removeGearItem(prevName);
+            }
+            removeGearItem(parsed.item.name);
+            removeGearItem(rawVal);
+            e.target.dataset.prevValue = rawVal;
+
+            if (typeof updateGearDisplay === 'function') updateGearDisplay();
+            if (typeof updatePreview === 'function') updatePreview();
+        } else {
+            e.target.dataset.prevValue = rawVal;
+            if (typeof updateGearDisplay === 'function') updateGearDisplay();
+            if (typeof updatePreview === 'function') updatePreview();
+        }
+    }
+
+    const armorInputEl = document.getElementById('in-armor-name');
+    if (armorInputEl) {
+        armorInputEl.addEventListener('input', handleArmorShieldChange);
+        armorInputEl.addEventListener('change', handleArmorShieldChange);
+        armorInputEl.addEventListener('focus', (e) => { e.target.dataset.prevValue = e.target.value; });
+    }
+    const shieldInputEl = document.getElementById('in-shield-name');
+    if (shieldInputEl) {
+        shieldInputEl.addEventListener('input', handleArmorShieldChange);
+        shieldInputEl.addEventListener('change', handleArmorShieldChange);
+        shieldInputEl.addEventListener('focus', (e) => { e.target.dataset.prevValue = e.target.value; });
+    }
+
+    const acArmorInputEl = document.getElementById('in-ac-armor');
+    if (acArmorInputEl) {
+        const handleAcArmorChange = (e) => {
+            const val = parseInt(e.target.value);
+            if (isNaN(val) || val === 0 || (e.target.value && e.target.value.trim() === '0') || e.target.value === '') {
+                removeArmorMagicItems();
+                const armorNameEl = document.getElementById('in-armor-name');
+                if (armorNameEl && armorNameEl.value) {
+                    const anLower = armorNameEl.value.toLowerCase();
+                    if (anLower.includes('bracers of armor')) {
+                        armorNameEl.value = '';
+                        armorNameEl.dataset.prevValue = '';
+                    }
+                }
+                if (typeof updateGearDisplay === 'function') updateGearDisplay();
+                if (typeof updatePreview === 'function') updatePreview();
+            }
+        };
+        acArmorInputEl.addEventListener('input', handleAcArmorChange);
+        acArmorInputEl.addEventListener('change', handleAcArmorChange);
+    }
+
+    const inGearFieldEl = document.getElementById('in-gear');
+    if (inGearFieldEl) {
+        const syncMagicItemsFromGear = () => {
+            const val = inGearFieldEl.value.toLowerCase();
+            if (window.CharacterState && Array.isArray(window.CharacterState.inventory.magicItems)) {
+                const removedItems = window.CharacterState.inventory.magicItems.filter(item => {
+                    if (!item || !item.name) return false;
+                    const nameLower = item.name.toLowerCase();
+                    if ((item.slot === 'Armor' || (item.modifiers && item.modifiers.ac_armor) || nameLower.includes('bracers of armor')) && !val.includes(nameLower)) {
+                        return true;
+                    }
+                    return false;
+                });
+                if (removedItems.length > 0) {
+                    window.CharacterState.inventory.magicItems = window.CharacterState.inventory.magicItems.filter(i => !removedItems.includes(i));
+                    const armorNameEl = document.getElementById('in-armor-name');
+                    if (armorNameEl && removedItems.some(r => r.name.toLowerCase() === armorNameEl.value.toLowerCase())) {
+                        armorNameEl.value = '';
+                        armorNameEl.dataset.prevValue = '';
+                        const inAcArmorEl = document.getElementById('in-ac-armor');
+                        if (inAcArmorEl) inAcArmorEl.value = '0';
+                    }
+                    if (typeof window.renderEquippedMagicItems === 'function') window.renderEquippedMagicItems();
+                    if (typeof window.syncQuickSelects === 'function') window.syncQuickSelects();
+                    if (typeof updateGearDisplay === 'function') updateGearDisplay();
+                    if (typeof updatePreview === 'function') updatePreview();
+                }
+            }
+        };
+        inGearFieldEl.addEventListener('input', syncMagicItemsFromGear);
+        inGearFieldEl.addEventListener('change', syncMagicItemsFromGear);
+    }
 
     // Add Gear Event Listeners
     function updateGearDisplay() {
@@ -4170,6 +4417,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Check if part exists in allArmorsDB
                 const dbArmor = (window.allArmorsDB || []).find(a => a && a.name && pLower.includes(a.name.toLowerCase()));
                 if (dbArmor) {
+                    // If armorName is empty, do not re-add this as equipped body armor if it was deleted
+                    if (dbArmor.type !== 'Shield' && !armorName) {
+                        return;
+                    }
+                    if (dbArmor.type === 'Shield' && !shieldName) {
+                        return;
+                    }
                     addGearItem(part, '', dbArmor.type || 'Armor', false);
                     return;
                 }
@@ -4219,10 +4473,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('in-gear')?.addEventListener('input', updateGearDisplay);
     document.getElementById('in-gear')?.addEventListener('change', updateGearDisplay);
-    document.getElementById('in-armor-name')?.addEventListener('input', updateGearDisplay);
-    document.getElementById('in-armor-name')?.addEventListener('change', updateGearDisplay);
-    document.getElementById('in-shield-name')?.addEventListener('input', updateGearDisplay);
-    document.getElementById('in-shield-name')?.addEventListener('change', updateGearDisplay);
 
     // Also attach it to updatePreview so it runs on load
     function updateStatBadges() {

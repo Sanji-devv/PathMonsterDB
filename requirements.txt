@@ -1,17 +1,5 @@
-# =====================================================================
-# PathMonsterDB - Dependencies & Requirements
-# =====================================================================
-# This project is designed to be lightweight, zero-dependency, and offline-first.
-# The core HTTP server, database engine, authentication, and test suite 
-# run entirely on Python's built-in Standard Library:
-#   - http.server / socketserver
-#   - urllib.request / urllib.parse
-#   - json, secrets, uuid, re, time, threading
-#
-# Minimum Python Version Required: Python 3.8+ (Supports Python 3.8 - 3.14+)
-# =====================================================================
+# PathMonsterDB - Zero External Dependencies
+# Runs 100% on Python Standard Library (Python 3.8+)
 
-# Optional Development, Scraping & Testing Libraries (if extending the project)
-# requests>=2.31.0
-# beautifulsoup4>=4.12.0
+# Optional Testing:
 # pytest>=7.4.0
