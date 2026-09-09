@@ -24,7 +24,6 @@
         "custom:7bf3b846-11ff-496f-9a29-610ab490ecef",
         "custom:cbf54ade-c067-4178-a491-287f0a96df3b",
         "custom:0ae78249-243e-4b79-a2f9-c94e4450670b",
-        "custom:4e10a87c-966e-4466-b53d-0b1b9dd6cdb2",
         "custom:40de8ee0-d363-439d-bf3e-66d29da1fb37",
         "custom:74cdd240-da1e-47ed-a1e7-cc44d1a22f1b",
         "custom:cdfad59f-ca10-4a9e-8c35-930dd61904f0",
@@ -32,6 +31,25 @@
         "custom:5922097b-f7d8-40c6-acb2-83a003fdb245",
         "custom:6b4e3b52-286a-4cef-9b19-76c612c49ee4",
         "custom:3d08b8e8-3223-405f-a050-13468cba91b5"
+      ]
+    },
+    {
+      "id": "folder_1788520835_900c58",
+      "name": "LOL",
+      "description": "",
+      "created_at": 1788520835,
+      "monster_keys": [
+        "custom:11a90116-62d9-412b-ace3-3d8ef3beaaf6",
+        "custom:9c47b0b2-f69e-4c94-a5ff-e50d88aea480",
+        "custom:02c50882-5baa-4ac0-8dbf-59e68e6bd7b2",
+        "custom:a8bf695b-bc28-45ca-a55a-5de8196529a8",
+        "custom:c39f982c-ae7f-4a11-b9f3-fefe740ae183",
+        "custom:cb0ac3df-c223-484a-9002-6e2ff13a01af",
+        "custom:3ff94bda-17b6-46b3-a937-1087d38b0dd5",
+        "custom:bcb3f088-5a86-4c4f-8dc1-bba21fa1ed6f",
+        "custom:21eab4a3-5176-47d4-9f1b-5e74042a0394",
+        "custom:ead7e373-f7df-45d2-99db-e9a682dc17e6",
+        "custom:451430f0-5510-4764-9f43-84850993d3d3"
       ]
     }
   ],
@@ -45,6 +63,18 @@
         "custom:62f8d7e2-adab-4572-99aa-189a6d2f10ed",
         "custom:17af915b-2274-45f9-9f40-6455eae20cd8",
         "custom:46d50b74-ba8e-4b6a-a8f1-2995a7dabf16"
+      ]
+    }
+  ],
+  "Blazelaze": [
+    {
+      "id": "folder_1788521985_e9e607",
+      "name": "Stone Archives",
+      "description": "",
+      "created_at": 1788521985,
+      "monster_keys": [
+        "custom:cb8b474a-633d-41ad-8e67-4d06bf65e0fd",
+        "custom:82c3aa6b-88a7-4db9-9bfc-324427a74ac4"
       ]
     }
   ]

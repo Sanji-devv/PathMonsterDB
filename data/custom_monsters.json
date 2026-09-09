@@ -6202,20 +6202,21 @@
     "Gear": "fine tailored waistcoat, silk top hat, brass signet ring",
     "Class1": "",
     "Class1_Lvl": "",
-    "Visibility": "public",
+    "Visibility": "private",
     "AuthorId": "erdem",
     "AuthorName": "erdem",
     "IsFavorite": false,
     "IsUserCustom": true,
-    "CharacterFlag": "0",
+    "CharacterFlag": "1",
     "SpellLikeAbilities": "(10)",
+    "SpellsPrepared": "{}",
     "Special Abilities": "Prehensile Tongue Lash (Ex) The River-King can fire his adhesive tongue at a target up to 30 feet away as a ranged touch attack (+11). On a hit, it deals 1d8+7 bludgeoning damage and initiates a free pull combat maneuver (CMB +23). If successful, the target is dragged adjacent to the River-King and gains the grappled condition.\nSwallow Whole (Ex) If the River-King begins his turn grappling a Medium or smaller opponent, he can attempt a standard grapple check (CMB +23) to maintain the hold and swallow the creature whole. A swallowed creature takes 2d8+7 bludgeoning damage plus 2d6 acid damage at the start of each of the River-King's turns (gizzard AC 15, 13 HP). As a move action, he can swallow a willing ally, granting the ally total cover and full protection from outside attacks.\nAbyssal Dive (Su) Once every 1d4 rounds as a full-round action, the River-King submerges into water, mud, or deep swamp and instantly breaches at an unoccupied space within 80 feet. Swallowed allies travel with him. Upon emerging, adjacent creatures must succeed on a DC 22 Reflex save or be knocked prone.\nRegurgitate Bile / Debris (Ex) As a standard action, the River-King can spit acidic bile or a swallowed creature at a target within 30 feet (+11 ranged touch). The struck target takes 3d6+7 bludgeoning plus 2d6 acid damage and must make a DC 22 Reflex save or be knocked prone.\nUnctuous Presence (Su) Living creatures within 20 feet take a -2 penalty on Will saving throws against charm, compulsion, and mind-affecting effects unless they succeed on a DC 20 Will save.",
     "OriginalState": {
       "basic": {
         "in-name": "Tahm Kench(The River King)",
         "in-cr": "10",
         "in-xp": "9600",
-        "in-visibility": "public",
+        "in-visibility": "private",
         "in-author": "erdem",
         "in-alignment": "NE",
         "in-size": "Large",
@@ -6273,6 +6274,7 @@
         "in-environment": "murky rivers, bayous, misty lakes, opulent city waterways",
         "in-organization": "solitary",
         "in-treasure": "double",
+        "stat_type": "npc",
         "in-hp": "137 (11d10+77)",
         "in-init": "+1",
         "in-ac": "23, touch 10, flat-footed 22 (+2 armor, +1 Dex, -1 size, +11 natural)"
@@ -6338,6 +6340,28 @@
             "desc": "Living creatures within 20 feet take a -2 penalty on Will saving throws against charm, compulsion, and mind-affecting effects unless they succeed on a DC 20 Will save."
           }
         ],
+        "special_abilities": [
+          {
+            "name": "Prehensile Tongue Lash (Ex)",
+            "desc": "The River-King can fire his adhesive tongue at a target up to 30 feet away as a ranged touch attack (+11). On a hit, it deals 1d8+7 bludgeoning damage and initiates a free pull combat maneuver (CMB +23). If successful, the target is dragged adjacent to the River-King and gains the grappled condition."
+          },
+          {
+            "name": "Swallow Whole (Ex)",
+            "desc": "If the River-King begins his turn grappling a Medium or smaller opponent, he can attempt a standard grapple check (CMB +23) to maintain the hold and swallow the creature whole. A swallowed creature takes 2d8+7 bludgeoning damage plus 2d6 acid damage at the start of each of the River-King's turns (gizzard AC 15, 13 HP). As a move action, he can swallow a willing ally, granting the ally total cover and full protection from outside attacks."
+          },
+          {
+            "name": "Abyssal Dive (Su)",
+            "desc": "Once every 1d4 rounds as a full-round action, the River-King submerges into water, mud, or deep swamp and instantly breaches at an unoccupied space within 80 feet. Swallowed allies travel with him. Upon emerging, adjacent creatures must succeed on a DC 22 Reflex save or be knocked prone."
+          },
+          {
+            "name": "Regurgitate Bile / Debris (Ex)",
+            "desc": "As a standard action, the River-King can spit acidic bile or a swallowed creature at a target within 30 feet (+11 ranged touch). The struck target takes 3d6+7 bludgeoning plus 2d6 acid damage and must make a DC 22 Reflex save or be knocked prone."
+          },
+          {
+            "name": "Unctuous Presence (Su)",
+            "desc": "Living creatures within 20 feet take a -2 penalty on Will saving throws against charm, compulsion, and mind-affecting effects unless they succeed on a DC 20 Will save."
+          }
+        ],
         "magic_items": [
           {
             "name": "Fine Tailored Waistcoat",
@@ -6361,7 +6385,7 @@
     "_m_align": "ne",
     "_m_env": "murky rivers, bayous, misty lakes, opulent city waterways",
     "_m_source": "custom",
-    "_m_search_text": "tahm kench(the river king)  aquatic evil  custom",
+    "_m_search_text": "tahm kench(the river king) aquatic evil custom",
     "id": "ead7e373-f7df-45d2-99db-e9a682dc17e6",
     "_global_index": 5571
   },
@@ -6416,20 +6440,21 @@
     "Gear": "+2 unholy greatsword, bone carapace",
     "Class1": "",
     "Class1_Lvl": "",
-    "Visibility": "public",
+    "Visibility": "private",
     "AuthorId": "erdem",
     "AuthorName": "erdem",
     "IsFavorite": false,
     "IsUserCustom": true,
-    "CharacterFlag": "0",
+    "CharacterFlag": "1",
     "SpellLikeAbilities": "(13)",
+    "SpellsPrepared": "{}",
     "Special Abilities": "Vampiric Strike (Su) Once per round when the Darkin Blade hits a living creature with his greatsword, the strike inflicts an additional 2d6 points of negative energy damage. The Darkin Blade heals hit points equal to the negative energy damage dealt by this strike. If the strike reduces the target to 0 or fewer hit points, he gains temporary hit points equal to the target's total Hit Dice for 1 hour instead.\nFell Cleave (Ex) When using the Cleave or Great Cleave feat, the Darkin Blade is not required to make attacks against adjacent targets, provided all subsequent targets are within his melee reach (15 feet with his greatsword).\nCleaving Leap (Ex) As a standard action, the Darkin Blade can leap or fly up to half his speed and make a single melee attack at the end of the movement with a +2 bonus on the attack roll. If the attack hits, the target takes damage normally and must succeed on a DC 25 Fortitude save or be knocked prone. The save DC is Strength-based.\nDarkin Endurance (Ex) The Darkin Blade rolls twice and takes the better result on all saving throws against mind-affecting effects and charm or compulsion spells. Additionally, he cannot be staggered while ferocity is active.\nSentient Blade Symbiosis (Ex) The creature's physical form is entirely sustained by the ancient sentient weapon grafted to its arm. He cannot be disarmed, and sunder attempts targeting his weapon treat it as having Hardness 20 and 60 HP. If destroyed, his physical form dissipates after 1d4 rounds unless he claims a new living host.",
     "OriginalState": {
       "basic": {
         "in-name": "Aatrox(The Darkin Blade)",
         "in-cr": "13",
         "in-xp": "25600",
-        "in-visibility": "public",
+        "in-visibility": "private",
         "in-author": "erdem",
         "in-alignment": "CE",
         "in-size": "Large",
@@ -6487,6 +6512,7 @@
         "in-environment": "ruined battlefields, scorched peaks, planar rifts",
         "in-organization": "solitary",
         "in-treasure": "double",
+        "stat_type": "npc",
         "in-hp": "175 (14d10+98)",
         "in-init": "+3",
         "in-ac": "31, touch 16, flat-footed 28 (+4 armor, +3 Dex, -1 size, +11 natural, +4 deflection)"
@@ -6544,6 +6570,28 @@
             "desc": "The creature's physical form is entirely sustained by the ancient sentient weapon grafted to its arm. He cannot be disarmed, and sunder attempts targeting his weapon treat it as having Hardness 20 and 60 HP. If destroyed, his physical form dissipates after 1d4 rounds unless he claims a new living host."
           }
         ],
+        "special_abilities": [
+          {
+            "name": "Vampiric Strike (Su)",
+            "desc": "Once per round when the Darkin Blade hits a living creature with his greatsword, the strike inflicts an additional 2d6 points of negative energy damage. The Darkin Blade heals hit points equal to the negative energy damage dealt by this strike. If the strike reduces the target to 0 or fewer hit points, he gains temporary hit points equal to the target's total Hit Dice for 1 hour instead."
+          },
+          {
+            "name": "Fell Cleave (Ex)",
+            "desc": "When using the Cleave or Great Cleave feat, the Darkin Blade is not required to make attacks against adjacent targets, provided all subsequent targets are within his melee reach (15 feet with his greatsword)."
+          },
+          {
+            "name": "Cleaving Leap (Ex)",
+            "desc": "As a standard action, the Darkin Blade can leap or fly up to half his speed and make a single melee attack at the end of the movement with a +2 bonus on the attack roll. If the attack hits, the target takes damage normally and must succeed on a DC 25 Fortitude save or be knocked prone. The save DC is Strength-based."
+          },
+          {
+            "name": "Darkin Endurance (Ex)",
+            "desc": "The Darkin Blade rolls twice and takes the better result on all saving throws against mind-affecting effects and charm or compulsion spells. Additionally, he cannot be staggered while ferocity is active."
+          },
+          {
+            "name": "Sentient Blade Symbiosis (Ex)",
+            "desc": "The creature's physical form is entirely sustained by the ancient sentient weapon grafted to its arm. He cannot be disarmed, and sunder attempts targeting his weapon treat it as having Hardness 20 and 60 HP. If destroyed, his physical form dissipates after 1d4 rounds unless he claims a new living host."
+          }
+        ],
         "magic_items": [
           {
             "name": "+2 Unholy Greatsword",
@@ -6567,7 +6615,7 @@
     "_m_align": "ce",
     "_m_env": "ruined battlefields, scorched peaks, planar rifts",
     "_m_source": "custom",
-    "_m_search_text": "aatrox(the darkin blade)  chaotic evil  custom",
+    "_m_search_text": "aatrox(the darkin blade) chaotic evil custom",
     "id": "11a90116-62d9-412b-ace3-3d8ef3beaaf6",
     "_global_index": 5572
   },
@@ -6816,20 +6864,21 @@
     "Gear": "",
     "Class1": "",
     "Class1_Lvl": "",
-    "Visibility": "public",
+    "Visibility": "private",
     "AuthorId": "erdem",
     "AuthorName": "erdem",
     "IsFavorite": false,
     "IsUserCustom": true,
-    "CharacterFlag": "0",
+    "CharacterFlag": "1",
     "SpellLikeAbilities": "(10)",
+    "SpellsPrepared": "{}",
     "Special Abilities": "Subsoil Rupture (Ex) Once every 1d4 rounds as a standard action, the treant drives its roots into the floor. Jagged mineralized root spurs burst from the ground in a 15-foot radius centered on the treant. Creatures standing on the ground take 3d6+4 piercing and entangle (Reflex DC 17 half damage and not entangled). The affected ground becomes difficult terrain until cleared . The save DC is Wisdom-based.\nSubterranean Anchor (Ex) As a move action while in contact with solid stone or soil, the treant anchors its central taproot. While anchored, it gains a +4 bonus to CMD against bull rush, reposition, and trip maneuvers, and cannot be forcibly moved. It can release this anchor as a free action.\nCalcified Ironwood Bark (Ex) The treant possesses DR 10/magic and slashing.",
     "OriginalState": {
       "basic": {
         "in-name": "Maokai(The Twisted Treant)",
         "in-cr": "10",
         "in-xp": "9600",
-        "in-visibility": "public",
+        "in-visibility": "private",
         "in-author": "erdem",
         "in-alignment": "N",
         "in-size": "Huge",
@@ -6887,6 +6936,7 @@
         "in-environment": "deep subterranean cisterns, petrified root vaults, forgotten subterranean crypts",
         "in-organization": "solitary or grove anchor (1 Ancient Treant plus 2-4 wood golems or cave crawlers)",
         "in-treasure": "standard",
+        "stat_type": "npc",
         "in-hp": "114 (12d8+60)",
         "in-init": "-1",
         "in-ac": "22, touch 7, flat-footed 22 (-1 Dex, -2 size, +15 natural)"
@@ -6936,6 +6986,20 @@
             "desc": "The treant possesses DR 10/magic and slashing."
           }
         ],
+        "special_abilities": [
+          {
+            "name": "Subsoil Rupture (Ex)",
+            "desc": "Once every 1d4 rounds as a standard action, the treant drives its roots into the floor. Jagged mineralized root spurs burst from the ground in a 15-foot radius centered on the treant. Creatures standing on the ground take 3d6+4 piercing and entangle (Reflex DC 17 half damage and not entangled). The affected ground becomes difficult terrain until cleared . The save DC is Wisdom-based."
+          },
+          {
+            "name": "Subterranean Anchor (Ex)",
+            "desc": "As a move action while in contact with solid stone or soil, the treant anchors its central taproot. While anchored, it gains a +4 bonus to CMD against bull rush, reposition, and trip maneuvers, and cannot be forcibly moved. It can release this anchor as a free action."
+          },
+          {
+            "name": "Calcified Ironwood Bark (Ex)",
+            "desc": "The treant possesses DR 10/magic and slashing."
+          }
+        ],
         "magic_items": [],
         "spells": []
       },
@@ -6951,7 +7015,7 @@
     "_m_align": "n",
     "_m_env": "deep subterranean cisterns, petrified root vaults, forgotten subterranean crypts",
     "_m_source": "custom",
-    "_m_search_text": "maokai(the twisted treant)    custom",
+    "_m_search_text": "maokai(the twisted treant)   custom",
     "id": "3ff94bda-17b6-46b3-a937-1087d38b0dd5",
     "_global_index": 5574
   },
@@ -7006,20 +7070,21 @@
     "Gear": "+2 vicious crescent glaive, ornate desert vambraces, Desert Scale Carapace",
     "Class1": "",
     "Class1_Lvl": "",
-    "Visibility": "public",
+    "Visibility": "private",
     "AuthorId": "erdem",
     "AuthorName": "erdem",
     "IsFavorite": false,
     "IsUserCustom": true,
-    "CharacterFlag": "0",
+    "CharacterFlag": "1",
     "SpellLikeAbilities": "(12)",
+    "SpellsPrepared": "{}",
     "Special Abilities": "Cull the Meek (Ex) As a standard action, Renekton swings his crescent blade in a sweeping circle. He makes a single melee attack roll and applies the result to all enemies within his melee reach (10 feet). For each living creature hit, he deals 4d6&nbsp;slashing damage.\nSlice and Dice (Ex) Once every 1d4 rounds as a full-round action, the creature can charge a single target without provoking an attack of opportunity from that specific target (it provokes normally from other creatures). At the end of the charge, it attempts an overrun combat maneuver check against the target as a free action. If the overrun succeeds, the target is knocked prone, immediately becomes grappled by the creature, and takes constrict damage.\nDominus Ascension (Su) Once per day as a swift action, Renekton taps into ancient shuriman wrath for 1 minute. He gains 30 temporary hit points, his size increases to Huge (adjusting reach to 15 ft.) The save DC is Constitution-based.",
     "OriginalState": {
       "basic": {
         "in-name": "Renekton(The Butcher of the Sands)",
         "in-cr": "12",
         "in-xp": "19200",
-        "in-visibility": "public",
+        "in-visibility": "private",
         "in-author": "erdem",
         "in-alignment": "CE",
         "in-size": "Large",
@@ -7077,6 +7142,7 @@
         "in-environment": "scorched deserts, ruined tombs, subterranean crypts",
         "in-organization": "solitary",
         "in-treasure": "standard",
+        "stat_type": "npc",
         "in-hp": "149 (13d10+78)",
         "in-init": "+2",
         "in-ac": "25, touch 11, flat-footed 23 (+4 armor, +2 Dex, -1 size, +10 natural)"
@@ -7123,6 +7189,20 @@
             "desc": "Once per day as a swift action, Renekton taps into ancient shuriman wrath for 1 minute. He gains 30 temporary hit points, his size increases to Huge (adjusting reach to 15 ft.) The save DC is Constitution-based."
           }
         ],
+        "special_abilities": [
+          {
+            "name": "Cull the Meek (Ex)",
+            "desc": "As a standard action, Renekton swings his crescent blade in a sweeping circle. He makes a single melee attack roll and applies the result to all enemies within his melee reach (10 feet). For each living creature hit, he deals 4d6&nbsp;<span style=\"color: rgb(250, 250, 250); font-family: Inter, sans-serif; font-size: 14.7px; background-color: rgb(24, 24, 27);\">slashing damage</span>."
+          },
+          {
+            "name": "Slice and Dice (Ex)",
+            "desc": "Once every 1d4 rounds as a full-round action, the creature can charge a single target without provoking an attack of opportunity from that specific target (it provokes normally from other creatures). At the end of the charge, it attempts an overrun combat maneuver check against the target as a free action. If the overrun succeeds, the target is knocked prone, immediately becomes grappled by the creature, and takes constrict damage."
+          },
+          {
+            "name": "Dominus Ascension (Su)",
+            "desc": "Once per day as a swift action, Renekton taps into ancient shuriman wrath for 1 minute. He gains 30 temporary hit points, his size increases to Huge (adjusting reach to 15 ft.) The save DC is Constitution-based."
+          }
+        ],
         "magic_items": [
           {
             "name": "+2 Vicious Crescent Glaive",
@@ -7146,7 +7226,7 @@
     "_m_align": "ce",
     "_m_env": "scorched deserts, ruined tombs, subterranean crypts",
     "_m_source": "custom",
-    "_m_search_text": "renekton(the butcher of the sands)    custom",
+    "_m_search_text": "renekton(the butcher of the sands)   custom",
     "id": "bcb3f088-5a86-4c4f-8dc1-bba21fa1ed6f",
     "_global_index": 5575
   },
@@ -7201,20 +7281,21 @@
     "Gear": "+2 returning bone boomerang",
     "Class1": "",
     "Class1_Lvl": "",
-    "Visibility": "public",
+    "Visibility": "private",
     "AuthorId": "erdem",
     "AuthorName": "erdem",
     "IsFavorite": false,
     "IsUserCustom": true,
-    "CharacterFlag": "0",
+    "CharacterFlag": "1",
     "SpellLikeAbilities": "(11)",
+    "SpellsPrepared": "{}",
     "Special Abilities": "Rage Gene (Ex/Su) At the start of combat or upon taking damage, Gnar can enter a Primal Rage as a free action (gaining a +4 morale bonus to Strength and Constitution, a +2 morale bonus on Will saves, and a -2 penalty to AC). If Gnar maintains this rage for 3 consecutive rounds—or immediately if reduced to below 50% of his maximum hit points (below 45 HP)—the ancient strain in his blood boils over. At the start of the following round, he automatically undergoes Change Shape into Mega Gnar as a free action (refer to the Mega Gnar stat block). He remains in Mega Gnar form for 4 rounds. When the transformation ends, Gnar reverts to his Small form, becomes fatigued for 2 rounds, and cannot enter Primal Rage again for 3 rounds.\nBoomerang Throw (Ex) As a standard action, Gnar hurls his bone boomerang in a 60-foot line. He makes a single ranged attack roll and compares the result against the AC of each creature within the line. Each creature hit takes 1d6+3 bludgeoning and piercing damage, has its base speed reduced by 10 feet for 1 round, and Gnar can attempt a free Trip combat maneuver against that target without provoking attacks of opportunity. The boomerang returns to Gnar's space at the start of his next turn as per the returning weapon special ability.",
     "OriginalState": {
       "basic": {
         "in-name": "Gnar(The Missing Link)",
         "in-cr": "11",
         "in-xp": "12800",
-        "in-visibility": "public",
+        "in-visibility": "private",
         "in-author": "erdem",
         "in-alignment": "CN",
         "in-size": "Small",
@@ -7272,6 +7353,7 @@
         "in-environment": "frozen peaks, primal tundras, ancient caverns",
         "in-organization": "solitary",
         "in-treasure": "standard",
+        "stat_type": "npc",
         "in-hp": "90 (12d8+36)",
         "in-init": "+6",
         "in-ac": "24, touch 20, flat-footed 15 (+6 Dex, +1 size, +4 natural, +3 dodge)"
@@ -7319,6 +7401,16 @@
             "desc": "As a standard action, Gnar hurls his bone boomerang in a 60-foot line. He makes a single ranged attack roll and compares the result against the AC of each creature within the line. Each creature hit takes 1d6+3 bludgeoning and piercing damage, has its base speed reduced by 10 feet for 1 round, and Gnar can attempt a free Trip combat maneuver against that target without provoking attacks of opportunity. The boomerang returns to Gnar's space at the start of his next turn as per the returning weapon special ability."
           }
         ],
+        "special_abilities": [
+          {
+            "name": "Rage Gene (Ex/Su)",
+            "desc": "At the start of combat or upon taking damage, Gnar can enter a Primal Rage as a free action (gaining a +4 morale bonus to Strength and Constitution, a +2 morale bonus on Will saves, and a -2 penalty to AC). If Gnar maintains this rage for 3 consecutive rounds—or immediately if reduced to below 50% of his maximum hit points (below 45 HP)—the ancient strain in his blood boils over. At the start of the following round, he automatically undergoes Change Shape into Mega Gnar as a free action (refer to the Mega Gnar stat block). He remains in Mega Gnar form for 4 rounds. When the transformation ends, Gnar reverts to his Small form, becomes fatigued for 2 rounds, and cannot enter Primal Rage again for 3 rounds."
+          },
+          {
+            "name": "Boomerang Throw (Ex)",
+            "desc": "As a standard action, Gnar hurls his bone boomerang in a 60-foot line. He makes a single ranged attack roll and compares the result against the AC of each creature within the line. Each creature hit takes 1d6+3 bludgeoning and piercing damage, has its base speed reduced by 10 feet for 1 round, and Gnar can attempt a free Trip combat maneuver against that target without provoking attacks of opportunity. The boomerang returns to Gnar's space at the start of his next turn as per the returning weapon special ability."
+          }
+        ],
         "magic_items": [
           {
             "name": "+2 Returning Bone Boomerang",
@@ -7342,7 +7434,7 @@
     "_m_align": "cn",
     "_m_env": "frozen peaks, primal tundras, ancient caverns",
     "_m_source": "custom",
-    "_m_search_text": "gnar(the missing link)  shapechanger  custom",
+    "_m_search_text": "gnar(the missing link) shapechanger  custom",
     "id": "c39f982c-ae7f-4a11-b9f3-fefe740ae183",
     "_global_index": 5576
   },
@@ -7397,20 +7489,21 @@
     "Gear": "",
     "Class1": "",
     "Class1_Lvl": "",
-    "Visibility": "public",
+    "Visibility": "private",
     "AuthorId": "erdem",
     "AuthorName": "erdem",
     "IsFavorite": false,
     "IsUserCustom": true,
-    "CharacterFlag": "0",
+    "CharacterFlag": "1",
     "SpellLikeAbilities": "(11)",
+    "SpellsPrepared": "{}",
     "Special Abilities": "Primal Duration (Ex) Mega Gnar remains in this behemoth form for 4 consecutive rounds. At the end of his turn on the 4th round, he automatically undergoes Change Shape to revert back into his Small form. Upon reverting, he becomes fatigued for 2 rounds and his primal strain is spent, preventing him from entering Primal Rage for 3 rounds.\nBoulder Toss (Ex) As a standard action, Mega Gnar can tear a chunk of earth or rock and hurl it at an enemy within a range increment of 40 feet (maximum range 120 feet). On a hit, the target takes 3d6+15 bludgeoning damage.\nWallop (Ex) As a standard action, Mega Gnar slams both fists onto the ground, releasing a destructive shockwave in a 15-foot cone. All creatures on the ground in the area take 4d6+10 bludgeoning damage and must succeed on a DC 26 Fortitude save. Creatures that succeed on this save take half damage.",
     "OriginalState": {
       "basic": {
         "in-name": "Mega Gnar(The Missing Link)",
         "in-cr": "11",
         "in-xp": "12800",
-        "in-visibility": "public",
+        "in-visibility": "private",
         "in-author": "erdem",
         "in-alignment": "CN",
         "in-size": "Huge",
@@ -7468,6 +7561,7 @@
         "in-environment": "frozen peaks, primal tundras, ancient caverns",
         "in-organization": "solitary",
         "in-treasure": "none",
+        "stat_type": "npc",
         "in-hp": "162 (12d10+96)",
         "in-init": "+0",
         "in-ac": "26, touch 8, flat-footed 26 (-2 size, +18 natural)"
@@ -7519,6 +7613,20 @@
             "desc": "As a standard action, Mega Gnar slams both fists onto the ground, releasing a destructive shockwave in a 15-foot cone. All creatures on the ground in the area take 4d6+10 bludgeoning damage and must succeed on a DC 26 Fortitude save. Creatures that succeed on this save take half damage."
           }
         ],
+        "special_abilities": [
+          {
+            "name": "Primal Duration (Ex)",
+            "desc": "Mega Gnar remains in this behemoth form for 4 consecutive rounds. At the end of his turn on the 4th round, he automatically undergoes Change Shape to revert back into his Small form. Upon reverting, he becomes fatigued for 2 rounds and his primal strain is spent, preventing him from entering Primal Rage for 3 rounds."
+          },
+          {
+            "name": "Boulder Toss (Ex)",
+            "desc": "As a standard action, Mega Gnar can tear a chunk of earth or rock and hurl it at an enemy within a range increment of 40 feet (maximum range 120 feet). On a hit, the target takes 3d6+15 bludgeoning damage."
+          },
+          {
+            "name": "Wallop (Ex)",
+            "desc": "As a standard action, Mega Gnar slams both fists onto the ground, releasing a destructive shockwave in a 15-foot cone. All creatures on the ground in the area take 4d6+10 bludgeoning damage and must succeed on a DC 26 Fortitude save. Creatures that succeed on this save take half damage."
+          }
+        ],
         "magic_items": [],
         "spells": []
       },
@@ -7534,7 +7642,7 @@
     "_m_align": "cn",
     "_m_env": "frozen peaks, primal tundras, ancient caverns",
     "_m_source": "custom",
-    "_m_search_text": "mega gnar(the missing link)  shapechanger  custom",
+    "_m_search_text": "mega gnar(the missing link) shapechanger  custom",
     "id": "cb0ac3df-c223-484a-9002-6e2ff13a01af",
     "_global_index": 5577
   },
@@ -7589,20 +7697,21 @@
     "Gear": "Chitinous Void Plating",
     "Class1": "",
     "Class1_Lvl": "",
-    "Visibility": "public",
+    "Visibility": "private",
     "AuthorId": "erdem",
     "AuthorName": "erdem",
     "IsFavorite": false,
     "IsUserCustom": true,
-    "CharacterFlag": "0",
+    "CharacterFlag": "1",
     "SpellLikeAbilities": "(14)",
+    "SpellsPrepared": "{}",
     "Special Abilities": "Rupture (Su) As a standard action, Cho'Gath stomps to cause razor-sharp earthen spikes to erupt in a 20-foot radius area within 100 feet. Creatures in the area take 6d6+7 points of piercing damage and must make a DC 24 Reflex save. On a failed save, creatures are knocked airborne, fall prone until the end of their next turn. A successful save halves damage and negates the prone and staggered conditions. The save DC is Constitution-based.\nFeral Scream (Su) As a standard action, Cho'Gath unleashes a deafening sonic wave in a 40-foot cone. All creatures in the cone take 8d6 points of sonic damage and must succeed on a DC 21 Will save. On a failed save, targets are deafened. A successful save halves damage. Cho'Gath can use this ability once every 1d4 rounds. The save DC is Charisma-based.\nFeast (Su) As a standard action, Cho'Gath can make a single melee bite attack against an adjacent target at his highest attack bonus (+18). If the attack hits, it deals 4d8+13 points of untyped damage that bypasses damage reduction and hardness. If this attack reduces a living creature to 0 or fewer hit points, or if Cho'Gath consumes a creature via swallow whole, he digests the creature's life essence and gains 1 growth stack. Each growth stack grants Cho'Gath 10 additional maximum hit points, a +1 enhancement bonus to his natural armor, and a +1 bonus on combat maneuver checks. These bonuses persist until Cho'Gath is slain.\nSwallow Whole (Ex) Huge size, AC 19, 17 HP. A swallowed creature takes 2d8+9 bludgeoning plus 2d6 acid damage per round inside Cho'Gath's digestive cavity.",
     "OriginalState": {
       "basic": {
         "in-name": "Cho'Gath(The Terror of the Void)",
         "in-cr": "14",
         "in-xp": "38400",
-        "in-visibility": "public",
+        "in-visibility": "private",
         "in-author": "erdem",
         "in-alignment": "CE",
         "in-size": "Huge",
@@ -7660,6 +7769,7 @@
         "in-environment": "planar rifts, underground abysses, desolate ruins",
         "in-organization": "solitary",
         "in-treasure": "standard",
+        "stat_type": "npc",
         "in-hp": "172 (15d8+105)",
         "in-init": "+0",
         "in-ac": "26, touch 8, flat-footed 26 (-2 size, +18 natural)"
@@ -7712,6 +7822,24 @@
             "desc": "Huge size, AC 19, 17 HP. A swallowed creature takes 2d8+9 bludgeoning plus 2d6 acid damage per round inside Cho'Gath's digestive cavity."
           }
         ],
+        "special_abilities": [
+          {
+            "name": "Rupture (Su)",
+            "desc": "As a standard action, Cho'Gath stomps to cause razor-sharp earthen spikes to erupt in a 20-foot radius area within 100 feet. Creatures in the area take 6d6+7 points of piercing damage and must make a DC 24 Reflex save. On a failed save, creatures are knocked airborne, fall prone until the end of their next turn. A successful save halves damage and negates the prone and staggered conditions. The save DC is Constitution-based."
+          },
+          {
+            "name": "Feral Scream (Su)",
+            "desc": "As a standard action, Cho'Gath unleashes a deafening sonic wave in a 40-foot cone. All creatures in the cone take 8d6 points of sonic damage and must succeed on a DC 21 Will save. On a failed save, targets are deafened. A successful save halves damage. Cho'Gath can use this ability once every 1d4 rounds. The save DC is Charisma-based."
+          },
+          {
+            "name": "Feast (Su)",
+            "desc": "<div>As a standard action, Cho'Gath can make a single melee bite attack against an adjacent target at his highest attack bonus (+18). If the attack hits, it deals 4d8+13 points of untyped damage that bypasses damage reduction and hardness. If this attack reduces a living creature to 0 or fewer hit points, or if Cho'Gath consumes a creature via swallow whole, he digests the creature's life essence and gains 1 growth stack. Each growth stack grants Cho'Gath 10 additional maximum hit points, a +1 enhancement bonus to his natural armor, and a +1 bonus on combat maneuver checks. These bonuses persist until Cho'Gath is slain.</div>"
+          },
+          {
+            "name": "Swallow Whole (Ex)",
+            "desc": "Huge size, AC 19, 17 HP. A swallowed creature takes 2d8+9 bludgeoning plus 2d6 acid damage per round inside Cho'Gath's digestive cavity."
+          }
+        ],
         "magic_items": [],
         "spells": []
       },
@@ -7727,7 +7855,7 @@
     "_m_align": "ce",
     "_m_env": "planar rifts, underground abysses, desolate ruins",
     "_m_source": "custom",
-    "_m_search_text": "cho'gath(the terror of the void)  chaotic evil  custom",
+    "_m_search_text": "cho'gath(the terror of the void) chaotic evil custom",
     "id": "02c50882-5baa-4ac0-8dbf-59e68e6bd7b2",
     "_global_index": 5578
   },
@@ -7782,20 +7910,21 @@
     "Gear": "",
     "Class1": "",
     "Class1_Lvl": "",
-    "Visibility": "public",
+    "Visibility": "private",
     "AuthorId": "erdem",
     "AuthorName": "erdem",
     "IsFavorite": false,
     "IsUserCustom": true,
-    "CharacterFlag": "0",
+    "CharacterFlag": "1",
     "SpellLikeAbilities": "(12)",
+    "SpellsPrepared": "{}",
     "Special Abilities": "Tremorsight and Blindness (Ex) Rek'Sai has no functional eyes and is blind beyond the range of her blindsight (30 ft.) and tremorsense (120 ft.). She is completely immune to gaze attacks, visual illusions, and blindness effects. Creatures flying, levitating, or not touching the ground outside her blindsight are treated as having total concealment.\nUnburrow Knockup (Ex) As a full-round action, Rek'Sai burrows into the earth, moves up to her burrow speed directly beneath a single target touching the ground, and violently erupts beneath them. Entering the ground and surfacing beneath the target both provoke attacks of opportunity normally. The targeted creature takes 3d8+12 points of bludgeoning damage and must succeed on a DC 25 Reflex save or be knocked 5 feet airborne and fall prone. A creature that succeeds on this saving throw takes half damage and is not knocked prone. A specific target cannot be knocked prone by this ability more than once every 1d4 rounds. The save DC is Strength-based.\nVoid Rush (Su) Once every 1d4 rounds as a full-round action, Rek'Sai targets a creature within 100 feet that she detects with tremorsense or that has been marked by her Void Prey Seeker. She burrows into the earth and instantly erupts beneath the target, making a single bite attack with a +4 circumstance bonus on the attack roll. If the attack hits, it deals an additional 4d6 piercing and force damage.\nFury of the Xer'Sai (Ex) While submerged beneath the ground (burrowed), Rek'Sai gains Fast Healing 5. This healing ceases as soon as she fully emerges above ground.",
     "OriginalState": {
       "basic": {
         "in-name": "Rek'Sai(The Void Burrower)",
         "in-cr": "12",
         "in-xp": "19200",
-        "in-visibility": "public",
+        "in-visibility": "private",
         "in-author": "erdem",
         "in-alignment": "CE",
         "in-size": "Huge",
@@ -7853,6 +7982,7 @@
         "in-environment": "desolate wastes, scorching deserts, deep subterranean tunnels",
         "in-organization": "solitary or queen (with 2-6 Xer'Sai hatchlings)",
         "in-treasure": "incidental",
+        "stat_type": "npc",
         "in-hp": "147 (14d8+84)",
         "in-init": "+3",
         "in-ac": "26, touch 11, flat-footed 23 (+3 Dex, -2 size, +15 natural)"
@@ -7910,6 +8040,24 @@
             "desc": "While submerged beneath the ground (burrowed), Rek'Sai gains Fast Healing 5. This healing ceases as soon as she fully emerges above ground."
           }
         ],
+        "special_abilities": [
+          {
+            "name": "Tremorsight and Blindness (Ex)",
+            "desc": "Rek'Sai has no functional eyes and is blind beyond the range of her blindsight (30 ft.) and tremorsense (120 ft.). She is completely immune to gaze attacks, visual illusions, and blindness effects. Creatures flying, levitating, or not touching the ground outside her blindsight are treated as having total concealment."
+          },
+          {
+            "name": "Unburrow Knockup (Ex)",
+            "desc": "<div>As a full-round action, Rek'Sai burrows into the earth, moves up to her burrow speed directly beneath a single target touching the ground, and violently erupts beneath them. Entering the ground and surfacing beneath the target both provoke attacks of opportunity normally. The targeted creature takes 3d8+12 points of bludgeoning damage and must succeed on a DC 25 Reflex save or be knocked 5 feet airborne and fall prone. A creature that succeeds on this saving throw takes half damage and is not knocked prone. A specific target cannot be knocked prone by this ability more than once every 1d4 rounds. The save DC is Strength-based.</div>"
+          },
+          {
+            "name": "Void Rush (Su)",
+            "desc": "Once every 1d4 rounds as a full-round action, Rek'Sai targets a creature within 100 feet that she detects with tremorsense or that has been marked by her Void Prey Seeker. She burrows into the earth and instantly erupts beneath the target, making a single bite attack with a +4 circumstance bonus on the attack roll. If the attack hits, it deals an additional 4d6 piercing and force damage."
+          },
+          {
+            "name": "Fury of the Xer'Sai (Ex)",
+            "desc": "While submerged beneath the ground (burrowed), Rek'Sai gains Fast Healing 5. This healing ceases as soon as she fully emerges above ground."
+          }
+        ],
         "magic_items": [],
         "spells": []
       },
@@ -7925,7 +8073,7 @@
     "_m_align": "ce",
     "_m_env": "desolate wastes, scorching deserts, deep subterranean tunnels",
     "_m_source": "custom",
-    "_m_search_text": "rek'sai(the void burrower)  chaotic evil  custom",
+    "_m_search_text": "rek'sai(the void burrower) chaotic evil custom",
     "id": "21eab4a3-5176-47d4-9f1b-5e74042a0394",
     "_global_index": 5579
   },
@@ -7980,20 +8128,21 @@
     "Gear": "+2 bone greatclub, Bones and Furs, +2 Icy Burst Bone Greatclub",
     "Class1": "",
     "Class1_Lvl": "",
-    "Visibility": "public",
+    "Visibility": "private",
     "AuthorId": "erdem",
     "AuthorName": "erdem",
     "IsFavorite": false,
     "IsUserCustom": true,
-    "CharacterFlag": "0",
+    "CharacterFlag": "1",
     "SpellLikeAbilities": "(11)",
+    "SpellsPrepared": "{}",
     "Special Abilities": "Chomp (Ex) Whenever Trundle hits a living creature with his bite attack, the target takes an additional 1d8+4 points of piercing and d6 cold damage.\nFrozen Domain (Su) As a swift action once every 1d4 rounds, Trundle coats the ground in a 30-foot radius centered on himself with slick rime and permafrost for 3 rounds. While within this domain, Trundle gains a +20-foot enhancement bonus to his base land speed, a +2 dodge bonus to AC.",
     "OriginalState": {
       "basic": {
         "in-name": "Trundle(The Troll King)",
         "in-cr": "11",
         "in-xp": "12800",
-        "in-visibility": "public",
+        "in-visibility": "private",
         "in-author": "erdem",
         "in-alignment": "CE",
         "in-size": "Large",
@@ -8051,6 +8200,7 @@
         "in-environment": "frozen tundras, glacial peaks, icy caverns",
         "in-organization": "solitary or warband (with 2-4 winter trolls)",
         "in-treasure": "standard",
+        "stat_type": "npc",
         "in-hp": "149 (13d8+91)",
         "in-init": "+2",
         "in-ac": "24, touch 11, flat-footed 22 (+4 armor, +2 Dex, -1 size, +9 natural)"
@@ -8098,6 +8248,16 @@
             "desc": "As a swift action once every 1d4 rounds, Trundle coats the ground in a 30-foot radius centered on himself with slick rime and permafrost for 3 rounds. While within this domain, Trundle gains a +20-foot enhancement bonus to his base land speed, a +2 dodge bonus to AC."
           }
         ],
+        "special_abilities": [
+          {
+            "name": "Chomp (Ex)",
+            "desc": "Whenever Trundle hits a living creature with his bite attack, the target takes an additional 1d8+4 points of piercing and d6 cold damage."
+          },
+          {
+            "name": "Frozen Domain (Su)",
+            "desc": "As a swift action once every 1d4 rounds, Trundle coats the ground in a 30-foot radius centered on himself with slick rime and permafrost for 3 rounds. While within this domain, Trundle gains a +20-foot enhancement bonus to his base land speed, a +2 dodge bonus to AC."
+          }
+        ],
         "magic_items": [
           {
             "name": "+2 Icy Burst Bone Greatclub",
@@ -8121,7 +8281,7 @@
     "_m_align": "ce",
     "_m_env": "frozen tundras, glacial peaks, icy caverns",
     "_m_source": "custom",
-    "_m_search_text": "trundle(the troll king)  cold  custom",
+    "_m_search_text": "trundle(the troll king) cold  custom",
     "id": "451430f0-5510-4764-9f43-84850993d3d3",
     "_global_index": 5580
   },
@@ -8176,20 +8336,21 @@
     "Gear": "large masterwork heavy cleavers (4), shattered shackles, Shredded Straightjacket & Plating",
     "Class1": "",
     "Class1_Lvl": "",
-    "Visibility": "public",
+    "Visibility": "private",
     "AuthorId": "erdem",
     "AuthorName": "erdem",
     "IsFavorite": false,
     "IsUserCustom": true,
-    "CharacterFlag": "0",
+    "CharacterFlag": "1",
     "SpellLikeAbilities": "(11)",
+    "SpellsPrepared": "{}",
     "Special Abilities": "Mutated Body (Ex) Dr. Mundo's altered physiology resists physical and magical impairment. Once per round as an immediate action, when targeted by an effect that would stun, paralyze, immobilize, slow, or knock him prone, he can make an immediate Fortitude save against the effect's DC to negate it entirely.\nSadism Overdrive (Ex) Once per day as a swift action, Dr. Mundo injects a hyper-potent adrenal mutagen into his veins. For 1 minute, he gains 30 temporary hit points.\nPermanent Mutagenic Vigor (Ex) Years of self-administered mutagens have permanently altered Dr. Mundo's anatomy, granting him a permanent +6 alchemical bonus to Strength and Constitution and total immunity to pain effects and poison.",
     "OriginalState": {
       "basic": {
         "in-name": "Dr. Mundo(The Mad Chemist)",
         "in-cr": "11",
         "in-xp": "12800",
-        "in-visibility": "public",
+        "in-visibility": "private",
         "in-author": "erdem",
         "in-alignment": "CN",
         "in-size": "Large",
@@ -8247,6 +8408,7 @@
         "in-environment": "ruined laboratories, plague-ridden sewers, asylum dungeons",
         "in-organization": "solitary",
         "in-treasure": "standard",
+        "stat_type": "npc",
         "in-hp": "150 (12d10+84)",
         "in-init": "+1",
         "in-ac": "24, touch 10, flat-footed 23 (+3 armor, +1 Dex, -1 size, +11 natural)"
@@ -8299,6 +8461,20 @@
             "desc": "Years of self-administered mutagens have permanently altered Dr. Mundo's anatomy, granting him a permanent +6 alchemical bonus to Strength and Constitution and total immunity to pain effects and poison."
           }
         ],
+        "special_abilities": [
+          {
+            "name": "Mutated Body (Ex)",
+            "desc": "Dr. Mundo's altered physiology resists physical and magical impairment. Once per round as an immediate action, when targeted by an effect that would stun, paralyze, immobilize, slow, or knock him prone, he can make an immediate Fortitude save against the effect's DC to negate it entirely."
+          },
+          {
+            "name": "Sadism Overdrive (Ex)",
+            "desc": "<div>Once per day as a swift action, Dr. Mundo injects a hyper-potent adrenal mutagen into his veins. For 1 minute, he gains 30 temporary hit points.</div>"
+          },
+          {
+            "name": "Permanent Mutagenic Vigor (Ex)",
+            "desc": "Years of self-administered mutagens have permanently altered Dr. Mundo's anatomy, granting him a permanent +6 alchemical bonus to Strength and Constitution and total immunity to pain effects and poison."
+          }
+        ],
         "magic_items": [],
         "spells": []
       },
@@ -8314,7 +8490,7 @@
     "_m_align": "cn",
     "_m_env": "ruined laboratories, plague-ridden sewers, asylum dungeons",
     "_m_source": "custom",
-    "_m_search_text": "dr. mundo(the mad chemist)    custom",
+    "_m_search_text": "dr. mundo(the mad chemist)   custom",
     "id": "a8bf695b-bc28-45ca-a55a-5de8196529a8",
     "_global_index": 5581
   },
@@ -8369,20 +8545,21 @@
     "Gear": "+1 breastplate, masterwork heavy flail, Gladiator's Breastplate",
     "Class1": "",
     "Class1_Lvl": "",
-    "Visibility": "public",
+    "Visibility": "private",
     "AuthorId": "erdem",
     "AuthorName": "erdem",
     "IsFavorite": false,
     "IsUserCustom": true,
-    "CharacterFlag": "0",
+    "CharacterFlag": "1",
     "SpellLikeAbilities": "(9)",
+    "SpellsPrepared": "{}",
     "Special Abilities": "Headbutt Charge (Ex) When Alistar performs a charge action, he can initiate a bull rush combat maneuver as a free action without provoking attacks of opportunity. If the bull rush succeeds, the target is pushed back and takes 2d6+10 bludgeoning damage. If the target collides with a solid barrier, they take an additional 2d6 points of damage and must make a DC 22 Fortitude save or become dazed for 1 round. The save DC is Strength-based.\nPulverize (Ex) As a standard action, Alistar slams the ground with immense force. All creatures standing on the ground within a 10-foot radius take 3d6+7 bludgeoning damage and must succeed on a DC 22 Reflex save or be knocked prone and airborne momentarily. The save DC is Strength-based.\nUnbreakable Will (Ex) Once per day as an immediate action, Alistar can break free from any non-instantaneous crowd control, instantly ending any ongoing stunned, paralyzed, staggered, or slowed conditions affecting him. For 1 round following this activation, his damage reduction increases to DR 10/-.\nNatural Cunning (Ex) Alistar possesses innate directional sense; he is never caught flat-footed, cannot become lost, and is immune to maze spells.",
     "OriginalState": {
       "basic": {
         "in-name": "Alistar(The Minotaur)",
         "in-cr": "9",
         "in-xp": "6400",
-        "in-visibility": "public",
+        "in-visibility": "private",
         "in-author": "erdem",
         "in-alignment": "CG",
         "in-size": "Large",
@@ -8440,6 +8617,7 @@
         "in-environment": "ruined arenas, mountain passes, subterranean labyrinths",
         "in-organization": "solitary or vanguard (with 2-4 gladiators)",
         "in-treasure": "standard",
+        "stat_type": "npc",
         "in-hp": "115 (10d10+60)",
         "in-init": "+1",
         "in-ac": "23, touch 10, flat-footed 22 (+6 armor, +1 Dex, -1 size, +7 natural)"
@@ -8492,6 +8670,24 @@
             "desc": "Alistar possesses innate directional sense; he is never caught flat-footed, cannot become lost, and is immune to maze spells."
           }
         ],
+        "special_abilities": [
+          {
+            "name": "Headbutt Charge (Ex)",
+            "desc": "When Alistar performs a charge action, he can initiate a bull rush combat maneuver as a free action without provoking attacks of opportunity. If the bull rush succeeds, the target is pushed back and takes 2d6+10 bludgeoning damage. If the target collides with a solid barrier, they take an additional 2d6 points of damage and must make a DC 22 Fortitude save or become dazed for 1 round. The save DC is Strength-based."
+          },
+          {
+            "name": "Pulverize (Ex)",
+            "desc": "As a standard action, Alistar slams the ground with immense force. All creatures standing on the ground within a 10-foot radius take 3d6+7 bludgeoning damage and must succeed on a DC 22 Reflex save or be knocked prone and airborne momentarily. The save DC is Strength-based."
+          },
+          {
+            "name": "Unbreakable Will (Ex)",
+            "desc": "Once per day as an immediate action, Alistar can break free from any non-instantaneous crowd control, instantly ending any ongoing stunned, paralyzed, staggered, or slowed conditions affecting him. For 1 round following this activation, his damage reduction increases to DR 10/-."
+          },
+          {
+            "name": "Natural Cunning (Ex)",
+            "desc": "Alistar possesses innate directional sense; he is never caught flat-footed, cannot become lost, and is immune to maze spells."
+          }
+        ],
         "magic_items": [
           {
             "name": "+1 Breastplate",
@@ -8515,7 +8711,7 @@
     "_m_align": "cg",
     "_m_env": "ruined arenas, mountain passes, subterranean labyrinths",
     "_m_source": "custom",
-    "_m_search_text": "alistar(the minotaur)    custom",
+    "_m_search_text": "alistar(the minotaur)   custom",
     "id": "9c47b0b2-f69e-4c94-a5ff-e50d88aea480",
     "_global_index": 5582
   },
@@ -9054,8 +9250,8 @@
     "Init": "+7",
     "Senses": "Darkvision 60 ft., Perception +16",
     "Aura": "",
-    "AC": "26",
-    "AC_Touch": "17",
+    "AC": "27",
+    "AC_Touch": "18",
     "AC_Flat-footed": "19",
     "HP": "124",
     "HD": "11d10",
@@ -9127,7 +9323,7 @@
         "in-ac-shield": "0",
         "in-ac-natural": "4",
         "in-ac-deflection": "0",
-        "in-ac-dodge": "2",
+        "in-ac-dodge": "3",
         "in-hd-amount": "11",
         "in-hd-size": "10",
         "in-hp-extra": "9",
@@ -9168,7 +9364,7 @@
         "stat_type": "npc",
         "in-hp": "124 (11d10+64)",
         "in-init": "+7",
-        "in-ac": "27, touch 18, flat-footed 19 (+5 armor, +5 Dex, +4 natural, +3 dodge)"
+        "in-ac": "28, touch 19, flat-footed 19 (+5 armor, +5 Dex, +4 natural, +4 dodge)"
       },
       "html": {},
       "dynamic": {
@@ -9272,11 +9468,10 @@
         "magic_items": [],
         "spells": []
       },
-      "save_as_new": true,
-      "AuthorId": "erdem",
-      "AuthorName": "erdem",
+      "_global_index": 5586,
       "id": "40de8ee0-d363-439d-bf3e-66d29da1fb37",
-      "_global_index": 5586
+      "AuthorId": "erdem",
+      "AuthorName": "erdem"
     },
     "_m_name": "emiliano spadachiara(possessed and reborned)",
     "_m_cr": "12",
@@ -9285,7 +9480,7 @@
     "_m_align": "ce",
     "_m_env": "urban or dungeon",
     "_m_source": "custom",
-    "_m_search_text": "emiliano spadachiara(possessed and reborned)  evil extraplanar  custom",
+    "_m_search_text": "emiliano spadachiara(possessed and reborned) evil extraplanar custom",
     "id": "40de8ee0-d363-439d-bf3e-66d29da1fb37",
     "_global_index": 5586
   },
@@ -9483,7 +9678,7 @@
     "_m_align": "cg",
     "_m_env": "warm forests",
     "_m_source": "custom",
-    "_m_search_text": "noelle spadachiara   custom",
+    "_m_search_text": "noelle spadachiara    custom",
     "id": "7bf3b846-11ff-496f-9a29-610ab490ecef",
     "_global_index": 5587
   },
@@ -9689,5 +9884,398 @@
     "_m_search_text": "rovesta guard    custom",
     "id": "06437bd3-56d5-4178-acc1-233a9c1819ce",
     "_global_index": 5588
+  },
+  {
+    "Name": "Slyvia Bevoir",
+    "CR": "8",
+    "XP": "4,800",
+    "Alignment": "Lawful Good",
+    "Size": "Medium",
+    "Type": "Humanoid",
+    "subtype1": "",
+    "subtype2": "",
+    "Init": "+5",
+    "Senses": "",
+    "Aura": "Aura of Lawful, Aura of Good.",
+    "AC": "26",
+    "AC_Touch": "11",
+    "AC_Flat-footed": "25",
+    "HP": "78",
+    "HD": "8d10",
+    "Fort": "+13",
+    "Ref": "+8",
+    "Will": "+12",
+    "Speed": "20 ft. (Base 30 ft.)",
+    "Melee": "Longsword, Holy +14/9 (1d8+1d6+6)",
+    "Ranged": "",
+    "Space": "5 ft.",
+    "Reach": "5 ft.",
+    "SpecialAttacks": "Smite 3/day (+4 to attack +8 to damage)",
+    "DefensiveAbilities": "deflection bonus vs. smited target (+4 AC)",
+    "Weaknesses": "",
+    "Organization": "Stone Archives",
+    "Str": "22",
+    "Dex": "12",
+    "Con": "16",
+    "Int": "11",
+    "Wis": "15",
+    "Cha": "18",
+    "BaseAtk": "8",
+    "CMB": "+14",
+    "CMD": "25",
+    "Feats": "Radiant Charge, Extra Lay On Hands, Tower Shield Proficiency, Armor Focus, Improved Lay on Hands, Improved Initiative, Extra Mercy, Word of Healing",
+    "Skills": "Diplomacy +10, Handle Animal +10, Heal +7, Intimidate +7, Linguistics +1, Ride +6, Sense Motive +7",
+    "Languages": "Common, Celestial",
+    "SQ": "Detect Evil,Lay On Hands 10/day (Shaken, Targeted, Enfeebled)",
+    "DR": "",
+    "Immune": "Fear, Disease",
+    "Resist": "",
+    "SR": "",
+    "Environment": "-",
+    "Treasure": "Standart",
+    "Gear": "+1 Holy Longsword, Madallion of The Enlightened, +1 Full Plate, Tower Shield",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "private",
+    "AuthorId": "Blazelaze",
+    "AuthorName": "Blazelaze",
+    "IsFavorite": false,
+    "IsUserCustom": true,
+    "CharacterFlag": "1",
+    "SpellLikeAbilities": "At will—Detect Evil.",
+    "SpellsPrepared": "2th—Ironskin, Zone of Truth\n1th—Bless Weapon, Detect Undead",
+    "Special Abilities": "Lay On Hands (Su) 10 times per day as a standart action (Swift action if it's used on herself) Slyvia can heal allies for 4d6(4d8 if it's someone else then her) hit points or damage any undead for 4d6 points via a touch attack by expanding one use of this ability. Her lay on hands removes the shakened status from her allies, removes one negative score effect and grant them 'Sanctuary', forcing any enemy that make an attack roll against her allies first exceed a DC 18 will save to bypass it.\nSmite Evil (Su) 3 times per day as a swift action, Slyvia chooses an enemy with the 'Evil' alligment to smite. She applies her charisma modifier (+4) to her attack rolls and her paladin level (+8) to her damage rolls. In addition, she also gains her charisma modifier (+4) as a deflection bonus to her ac against the smited creature.\nAura Of Courage (Su) Whenever an ally is close by (10ft. range), they gain a +4 morale bonus to all saving throws against fear effects. This aura only affects her allies and is only active whilst she is conscious&nbsp;&nbsp;\nAura Of Resolve (Su) Whenever an ally is close by (10ft. range), they gain a +4 morale bonus to all saving throws against charm effects. This aura only affects her allies and is only active whilst she is conscious&nbsp;&nbsp;\nChannel Positive Energy (Su) By using 2 Lay On Hands charges, Slyvia can channel her healing outwards. Changing her healing from targeting single indiviuals to effecting anyone close by (30 ft. ranging from her)\nDivine Bond (Sp) 8 minutes per day, Slyvia can call upon a angelic light from her god which projects itself as a divine halo. Any ally close by (20 ft. range) gains +4 to deflection armor bonus and +4 to saving throws against evil creatures. This halo also acts like a 'Contiunal Flame' spell, lighting the way forward as if she was a light source.&nbsp;",
+    "OriginalState": {
+      "basic": {
+        "in-name": "Slyvia Bevoir",
+        "in-cr": "8",
+        "in-xp": "4,800",
+        "in-visibility": "private",
+        "in-author": "Blazelaze",
+        "in-alignment": "Lawful Good",
+        "in-size": "Medium",
+        "in-type": "Humanoid",
+        "in-type-full": "Saphire Fist",
+        "in-init-extra": "0",
+        "in-aura": "Aura of Lawful, Aura of Good.",
+        "in-str": "22",
+        "in-dex": "12",
+        "in-con": "16",
+        "in-int": "11",
+        "in-wis": "15",
+        "in-cha": "18",
+        "in-armor-name": "+1 Full Plate",
+        "in-ac-armor": "11",
+        "in-shield-name": "Tower Shield",
+        "in-ac-shield": "4",
+        "in-ac-natural": "0",
+        "in-ac-deflection": "0",
+        "in-ac-dodge": "0",
+        "in-hd-amount": "8",
+        "in-hd-size": "10",
+        "in-hp-extra": "10",
+        "in-fort": "+13",
+        "in-ref": "+8",
+        "in-will": "+12",
+        "in-def-abilities": "deflection bonus vs. smited target (+4 AC)",
+        "in-dr": "",
+        "in-immune": "Fear, Disease",
+        "in-resist": "",
+        "in-weaknesses": "",
+        "in-sr": "",
+        "in-speed": "20 ft. (Base 30 ft.)",
+        "in-space": "5 ft.",
+        "in-reach": "5 ft.",
+        "in-special-attacks": "Smite 3/day (+4 to attack +8 to damage)",
+        "in-sla-cl": "",
+        "in-bab": "8",
+        "in-cmb": "+14",
+        "in-cmb-extra": "0",
+        "in-cmd": "25",
+        "in-cmd-extra": "0",
+        "in-feats": "Radiant Charge, Extra Lay On Hands, Tower Shield Proficiency, Armor Focus, Improved Lay on Hands, Improved Initiative, Extra Mercy, Word of Healing",
+        "in-feat-search": "",
+        "in-skills": "Diplomacy +10, Handle Animal +10, Heal +7, Intimidate +7, Linguistics +1, Ride +6, Sense Motive +7",
+        "in-languages": "Common, Celestial",
+        "in-sq": "Detect Evil,Lay On Hands 10/day (Shaken, Targeted, Enfeebled)",
+        "in-gear": "+1 Holy Longsword, Madallion of The Enlightened",
+        "in-spell-class": "Paladin",
+        "in-spell-cl": "5",
+        "in-spell-stat": "cha",
+        "in-spell-conc": "",
+        "in-spells-data": "{\"1\":{\"slots\":\"1\",\"spells\":[\"Bless Weapon\",\"Detect Undead\"]},\"2\":{\"slots\":\"1\",\"spells\":[\"Ironskin\",\"Zone of Truth\"]}}",
+        "in-spells": "{\"1\":{\"slots\":\"1\",\"spells\":[\"Bless Weapon\",\"Detect Undead\"]},\"2\":{\"slots\":\"1\",\"spells\":[\"Ironskin\",\"Zone of Truth\"]}}",
+        "in-environment": "-",
+        "in-organization": "Stone Archives",
+        "in-treasure": "Standart",
+        "stat_type": "npc",
+        "in-hp": "78 (8d10+34)",
+        "in-init": "+5",
+        "in-ac": "26, touch 11, flat-footed 25 (+11 armor, +4 shield, +1 Dex)"
+      },
+      "html": {},
+      "dynamic": {
+        "subtypes": [],
+        "senses": [],
+        "skills": [],
+        "slas": [
+          {
+            "freq": "At will",
+            "spells": "Detect Evil."
+          }
+        ],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "Longsword, Holy +14/9 (1d8+1d6+6)"
+          }
+        ],
+        "ranged": [],
+        "abilities": [
+          {
+            "name": "Lay On Hands (Su)",
+            "desc": "10 times per day as a standart action (Swift action if it's used on herself) Slyvia can heal allies for 4d6(4d8 if it's someone else then her) hit points or damage any undead for 4d6 points via a touch attack by expanding one use of this ability. Her lay on hands removes the shakened status from her allies, removes one negative score effect and grant them 'Sanctuary', forcing any enemy that make an attack roll against her allies first exceed a DC 18 will save to bypass it."
+          },
+          {
+            "name": "Smite Evil (Su)",
+            "desc": "3 times per day as a swift action, Slyvia chooses an enemy with the 'Evil' alligment to smite. She applies her charisma modifier (+4) to her attack rolls and her paladin level (+8) to her damage rolls. In addition, she also gains her charisma modifier (+4) as a deflection bonus to her ac against the smited creature."
+          },
+          {
+            "name": "Aura Of Courage (Su)",
+            "desc": "Whenever an ally is close by (10ft. range), they gain a +4 morale bonus to all saving throws against fear effects. This aura only affects her allies and is only active whilst she is conscious&nbsp;&nbsp;"
+          },
+          {
+            "name": "Aura Of Resolve (Su)",
+            "desc": "Whenever an ally is close by (10ft. range), they gain a +4 morale bonus to all saving throws against charm effects. This aura only affects her allies and is only active whilst she is conscious&nbsp;&nbsp;"
+          },
+          {
+            "name": "Channel Positive Energy (Su)",
+            "desc": "By using 2 Lay On Hands charges, Slyvia can channel her healing outwards. Changing her healing from targeting single indiviuals to effecting anyone close by (30 ft. ranging from her)"
+          },
+          {
+            "name": "Divine Bond (Sp)",
+            "desc": "8 minutes per day, Slyvia can call upon a angelic light from her god which projects itself as a divine halo. Any ally close by (20 ft. range) gains +4 to deflection armor bonus and +4 to saving throws against evil creatures. This halo also acts like a 'Contiunal Flame' spell, lighting the way forward as if she was a light source.&nbsp;"
+          }
+        ],
+        "special_abilities": [
+          {
+            "name": "Lay On Hands (Su)",
+            "desc": "10 times per day as a standart action (Swift action if it's used on herself) Slyvia can heal allies for 4d6(4d8 if it's someone else then her) hit points or damage any undead for 4d6 points via a touch attack by expanding one use of this ability. Her lay on hands removes the shakened status from her allies, removes one negative score effect and grant them 'Sanctuary', forcing any enemy that make an attack roll against her allies first exceed a DC 18 will save to bypass it."
+          },
+          {
+            "name": "Smite Evil (Su)",
+            "desc": "3 times per day as a swift action, Slyvia chooses an enemy with the 'Evil' alligment to smite. She applies her charisma modifier (+4) to her attack rolls and her paladin level (+8) to her damage rolls. In addition, she also gains her charisma modifier (+4) as a deflection bonus to her ac against the smited creature."
+          },
+          {
+            "name": "Aura Of Courage (Su)",
+            "desc": "Whenever an ally is close by (10ft. range), they gain a +4 morale bonus to all saving throws against fear effects. This aura only affects her allies and is only active whilst she is conscious&nbsp;&nbsp;"
+          },
+          {
+            "name": "Aura Of Resolve (Su)",
+            "desc": "Whenever an ally is close by (10ft. range), they gain a +4 morale bonus to all saving throws against charm effects. This aura only affects her allies and is only active whilst she is conscious&nbsp;&nbsp;"
+          },
+          {
+            "name": "Channel Positive Energy (Su)",
+            "desc": "By using 2 Lay On Hands charges, Slyvia can channel her healing outwards. Changing her healing from targeting single indiviuals to effecting anyone close by (30 ft. ranging from her)"
+          },
+          {
+            "name": "Divine Bond (Sp)",
+            "desc": "8 minutes per day, Slyvia can call upon a angelic light from her god which projects itself as a divine halo. Any ally close by (20 ft. range) gains +4 to deflection armor bonus and +4 to saving throws against evil creatures. This halo also acts like a 'Contiunal Flame' spell, lighting the way forward as if she was a light source.&nbsp;"
+          }
+        ],
+        "magic_items": [],
+        "spells": []
+      },
+      "_global_index": 5589,
+      "id": "cb8b474a-633d-41ad-8e67-4d06bf65e0fd",
+      "AuthorId": "Blazelaze",
+      "AuthorName": "Blazelaze"
+    },
+    "_m_name": "slyvia bevoir",
+    "_m_cr": "8",
+    "_m_type": "humanoid",
+    "_m_size": "medium",
+    "_m_align": "lawful good",
+    "_m_env": "-",
+    "_m_source": "custom",
+    "_m_search_text": "slyvia bevoir   custom",
+    "id": "cb8b474a-633d-41ad-8e67-4d06bf65e0fd",
+    "_global_index": 5589
+  },
+  {
+    "Name": "Garber Twain",
+    "CR": "5",
+    "XP": "1,600",
+    "Alignment": "Lawful Evil",
+    "Size": "Medium",
+    "Type": "Humanoid",
+    "subtype1": "",
+    "subtype2": "",
+    "Init": "+3",
+    "Senses": "Scent, Darkvision +60 feet.",
+    "Aura": "Aura of Evil.",
+    "AC": "21",
+    "AC_Touch": "13",
+    "AC_Flat-footed": "18",
+    "HP": "67",
+    "HD": "5d12",
+    "Fort": "+0",
+    "Ref": "+0",
+    "Will": "+0",
+    "Speed": "30 ft.",
+    "Melee": "",
+    "Ranged": "",
+    "Space": "5 ft.",
+    "Reach": "5 ft.",
+    "SpecialAttacks": "",
+    "DefensiveAbilities": "",
+    "Weaknesses": "",
+    "Organization": "",
+    "Str": "20",
+    "Dex": "16",
+    "Con": "18",
+    "Int": "13",
+    "Wis": "8",
+    "Cha": "8",
+    "BaseAtk": "1",
+    "CMB": "+6",
+    "CMD": "19",
+    "Feats": "Exotic Weapon Proficiency, Improved Unarmed Strike",
+    "Skills": "",
+    "Languages": "",
+    "SQ": "",
+    "DR": "10/Silver",
+    "Immune": "",
+    "Resist": "",
+    "SR": "",
+    "Environment": "",
+    "Treasure": "",
+    "Gear": "Breastplate",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "private",
+    "AuthorId": "Blazelaze",
+    "AuthorName": "Blazelaze",
+    "IsFavorite": false,
+    "IsUserCustom": true,
+    "CharacterFlag": "0",
+    "SpellLikeAbilities": "",
+    "SpellsPrepared": "",
+    "Special Abilities": "Change Shape As a lycantrophe, Garber can change his shape to that of a humanoid wolves whenever he expresses great amounts of any emotion.&nbsp;",
+    "OriginalState": {
+      "basic": {
+        "in-name": "Garber Twain",
+        "in-cr": "5",
+        "in-xp": "1,600",
+        "in-visibility": "private",
+        "in-author": "Blazelaze",
+        "in-alignment": "Lawful Evil",
+        "in-size": "Medium",
+        "in-type": "Humanoid",
+        "in-type-full": "",
+        "in-init-extra": "0",
+        "in-aura": "Aura of Evil.",
+        "in-str": "20",
+        "in-dex": "16",
+        "in-con": "18",
+        "in-int": "13",
+        "in-wis": "8",
+        "in-cha": "8",
+        "in-armor-name": "Breastplate",
+        "in-ac-armor": "6",
+        "in-shield-name": "",
+        "in-ac-shield": "0",
+        "in-ac-natural": "2",
+        "in-ac-deflection": "0",
+        "in-ac-dodge": "0",
+        "in-hd-amount": "5",
+        "in-hd-size": "12",
+        "in-hp-extra": "15",
+        "in-fort": "+0",
+        "in-ref": "+0",
+        "in-will": "+0",
+        "in-def-abilities": "",
+        "in-dr": "10/Silver",
+        "in-immune": "",
+        "in-resist": "",
+        "in-weaknesses": "",
+        "in-sr": "",
+        "in-speed": "30 ft.",
+        "in-space": "5 ft.",
+        "in-reach": "5 ft.",
+        "in-special-attacks": "",
+        "in-sla-cl": "",
+        "in-bab": "1",
+        "in-cmb": "+6",
+        "in-cmb-extra": "0",
+        "in-cmd": "19",
+        "in-cmd-extra": "0",
+        "in-feats": "Exotic Weapon Proficiency, Improved Unarmed Strike",
+        "in-feat-search": "",
+        "in-skills": "",
+        "in-languages": "",
+        "in-sq": "",
+        "in-gear": "",
+        "in-spell-class": "",
+        "in-spell-cl": "1",
+        "in-spell-stat": "int",
+        "in-spell-conc": "",
+        "in-spells-data": "",
+        "in-spells": "",
+        "in-environment": "",
+        "in-organization": "",
+        "in-treasure": "",
+        "stat_type": "monster",
+        "in-hp": "67 (5d12+35)",
+        "in-init": "+3",
+        "in-ac": "21, touch 13, flat-footed 18 (+6 armor, +3 Dex, +2 natural)"
+      },
+      "html": {},
+      "dynamic": {
+        "subtypes": [],
+        "senses": [
+          {
+            "name": "Scent",
+            "dist": ""
+          },
+          {
+            "name": "Darkvision",
+            "dist": "+60 feet."
+          }
+        ],
+        "skills": [],
+        "slas": [],
+        "melee": [],
+        "ranged": [],
+        "abilities": [
+          {
+            "name": "Change Shape",
+            "desc": "As a lycantrophe, Garber can change his shape to that of a humanoid wolves whenever he expresses great amounts of any emotion.&nbsp;"
+          }
+        ],
+        "special_abilities": [
+          {
+            "name": "Change Shape",
+            "desc": "As a lycantrophe, Garber can change his shape to that of a humanoid wolves whenever he expresses great amounts of any emotion.&nbsp;"
+          }
+        ],
+        "magic_items": [],
+        "spells": []
+      },
+      "AuthorId": "Blazelaze",
+      "AuthorName": "Blazelaze",
+      "id": "82c3aa6b-88a7-4db9-9bfc-324427a74ac4",
+      "_global_index": 5590
+    },
+    "_m_name": "garber twain",
+    "_m_cr": "5",
+    "_m_type": "humanoid",
+    "_m_size": "medium",
+    "_m_align": "lawful evil",
+    "_m_env": "",
+    "_m_source": "custom",
+    "_m_search_text": "garber twain   custom",
+    "id": "82c3aa6b-88a7-4db9-9bfc-324427a74ac4",
+    "_global_index": 5590
   }
 ]
