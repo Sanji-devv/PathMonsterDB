@@ -947,6 +947,15 @@ def run_tests():
             assert monsters[0].get('Name') == "Bugbear"
         print("  [OK] /api/folders/<id>/monsters returned correct monster dataset.")
 
+        # Query virtual 'all' / custom folder monsters
+        with urllib.request.urlopen(f"{base_url}/api/folders/all/monsters") as resp:
+            assert resp.status == 200
+            res_data = json.loads(resp.read().decode('utf-8'))
+            custom_monsters = res_data.get('monsters', [])
+            assert isinstance(custom_monsters, list)
+            assert len(custom_monsters) > 0, "Expected custom monsters in /api/folders/all/monsters"
+        print(f"  [OK] /api/folders/all/monsters returned {len(custom_monsters)} custom monsters.")
+
         # Search with folder filter
         with urllib.request.urlopen(f"{base_url}/api/search?folder={test_folder_id}") as resp:
             assert resp.status == 200
@@ -981,6 +990,15 @@ def run_tests():
             ids = [f.get('id') for f in res_data.get('folders', [])]
             assert test_folder_id not in ids
         print("  [OK] Folder deletion verified across user folder list.")
+
+        # Test proxy empty URL error handling
+        try:
+            with urllib.request.urlopen(f"{base_url}/api/proxy") as resp:
+                pass
+        except urllib.error.HTTPError as e:
+            assert e.code == 400
+            assert e.headers.get('Content-Length') == '0'
+        print("  [OK] /api/proxy error handling with Content-Length: 0 verified.")
 
         print("  [OK] All HTTP endpoints & Authentication & Privacy Suite verified successfully.")
     finally:
@@ -1118,6 +1136,7 @@ def run_tests():
     assert 'id="modal-folder-editor"' in db_html_content, "database.html must have modal-folder-editor"
     assert 'id="modal-assign-folder"' in db_html_content, "database.html must have modal-assign-folder"
     assert 'id="modal-pdf-progress"' in db_html_content, "database.html must have modal-pdf-progress"
+    assert 'id="pdf-progress-dir-badge"' in db_html_content, "database.html must have pdf-progress-dir-badge"
     assert 'id="folder-pdf-stage"' in db_html_content, "database.html must have folder-pdf-stage"
     assert 'jspdf.umd.min.js' in db_html_content, "database.html must include jspdf vendor library"
     assert 'html2canvas.min.js' in db_html_content, "database.html must include html2canvas vendor library"
@@ -1127,9 +1146,11 @@ def run_tests():
     assert 'function loadFolders()' in db_js_content, "database.js must have loadFolders"
     assert 'function exportFolderToPdf(' in db_js_content, "database.js must have exportFolderToPdf"
     assert 'function exportFolderToPng(' in db_js_content, "database.js must have exportFolderToPng"
+    assert 'function getExportDirectoryHandle(' in db_js_content, "database.js must have getExportDirectoryHandle"
+    assert 'function writeBlobToDirectory(' in db_js_content, "database.js must have writeBlobToDirectory"
     assert 'function renderMonsterStatblockHTML(' in db_js_content, "database.js must have renderMonsterStatblockHTML"
     assert 'function openAssignFolderModal(' in db_js_content, "database.js must have openAssignFolderModal"
-    print("  [OK] Folder dropdown, export options (PDF, PNG, JSON), modals, and JS engines verified.")
+    print("  [OK] Folder dropdown, export options (PDF, PNG, JSON), File System Directory Picker, modals, and JS engines verified.")
 
     # 13. Testing Furious Focus & Power Attack Calculations
     print("\n13. Testing Furious Focus & Power Attack Calculations...")

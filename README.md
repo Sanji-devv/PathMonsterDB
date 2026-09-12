@@ -23,7 +23,7 @@ Access live app: 👉 **[https://158.51.78.172](https://158.51.78.172)**
 4. **Feats, Spells & Rule Lookups:**
    - Use fast acronym matching (e.g. `wf` → Weapon Focus, `pa` → Power Attack). Click any spell, feat, aura, or ability for instant rule popups.
 5. **Organize & Export:**
-   - Save monsters to your account (Public/Private), organize them into **Encounter Folders**, and export as **multi-page PDF**, **PNG snapshot**, or **JSON**.
+   - Save monsters to your account (Public/Private), organize them into **Folders**, and export monsters individually as **PDF**, **PNG**, or **JSON**.
 
 ---
 

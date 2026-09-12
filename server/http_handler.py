@@ -157,6 +157,7 @@ class PathMonsterDBRequestHandler(http.server.SimpleHTTPRequestHandler):
         target_url = qs.get('url', [''])[0]
         if not target_url:
             self.send_response(400)
+            self.send_header('Content-Length', '0')
             self.end_headers()
             return
             
@@ -164,16 +165,20 @@ class PathMonsterDBRequestHandler(http.server.SimpleHTTPRequestHandler):
             req = urllib.request.Request(target_url, headers={'User-Agent': 'Mozilla/5.0'})
             with urllib.request.urlopen(req, timeout=10) as response:
                 html = response.read().decode('utf-8', errors='ignore')
+                html_bytes = html.encode('utf-8')
                 self.send_response(200)
                 self.send_header('Content-Type', 'text/html; charset=utf-8')
+                self.send_header('Content-Length', str(len(html_bytes)))
                 self.end_headers()
-                self.wfile.write(html.encode('utf-8'))
+                self.wfile.write(html_bytes)
                 self.wfile.flush()
         except Exception as e:
+            err_bytes = str(e).encode('utf-8')
             self.send_response(500)
             self.send_header('Content-Type', 'text/plain; charset=utf-8')
+            self.send_header('Content-Length', str(len(err_bytes)))
             self.end_headers()
-            self.wfile.write(str(e).encode('utf-8'))
+            self.wfile.write(err_bytes)
             self.wfile.flush()
 
     def do_POST(self):
@@ -364,7 +369,24 @@ class PathMonsterDBRequestHandler(http.server.SimpleHTTPRequestHandler):
         try:
             user = get_authenticated_user_from_headers(self.headers)
             folders = get_user_folders(user)
-            self._send_json({"status": "ok", "folders": folders}, 200)
+            from server import data_manager
+            data_manager.check_and_reload_if_modified()
+            user_id = str(user.get('id', '')) if user else ''
+            user_name = str(user.get('username', '')).lower() if user else ''
+            custom_count = 0
+            for m in data_manager.GLOBAL_MONSTERS:
+                if m.get('IsUserCustom', False):
+                    m_vis = str(m.get('Visibility', 'public')).lower()
+                    m_auth_id = str(m.get('AuthorId', ''))
+                    m_auth_name = str(m.get('AuthorName', '')).lower()
+                    if user_id:
+                        is_own = bool(m_auth_id == user_id or (not m_auth_id and m_auth_name == user_name))
+                    else:
+                        is_own = bool(not m_auth_id and (not m_auth_name or m_auth_name in ('anon', 'anonymous')))
+                    if m_vis == 'private' and not is_own:
+                        continue
+                    custom_count += 1
+            self._send_json({"status": "ok", "folders": folders, "total_custom": custom_count}, 200)
         except Exception as e:
             self._send_json({"status": "error", "message": str(e)}, 500)
 
@@ -373,8 +395,14 @@ class PathMonsterDBRequestHandler(http.server.SimpleHTTPRequestHandler):
             user = get_authenticated_user_from_headers(self.headers)
             parts = path.strip('/').split('/')
             if len(parts) >= 3:
-                folder_id = parts[2]
-                monsters = get_folder_monsters(folder_id, user)
+                import urllib.parse
+                folder_id = urllib.parse.unquote(parts[2])
+                if folder_id in ('all', 'custom', 'all_custom'):
+                    from server.data_manager import export_monsters_dataset
+                    data = json.loads(export_monsters_dataset(scope='custom', user=user))
+                    monsters = data.get('data', [])
+                else:
+                    monsters = get_folder_monsters(folder_id, user)
                 self._send_json({"status": "ok", "monsters": monsters}, 200)
             else:
                 self._send_json({"status": "error", "message": "Invalid folder path"}, 400)
@@ -435,7 +463,8 @@ class PathMonsterDBRequestHandler(http.server.SimpleHTTPRequestHandler):
     def _handle_delete_folder(self, path):
         try:
             user = get_authenticated_user_from_headers(self.headers)
-            folder_id = path.rstrip('/').split('/')[-1]
+            import urllib.parse
+            folder_id = urllib.parse.unquote(path.rstrip('/').split('/')[-1])
             success = delete_folder(folder_id, user)
             if success:
                 self._send_json({"status": "ok"}, 200)

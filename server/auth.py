@@ -20,14 +20,18 @@ def _ensure_data_files():
         os.makedirs(DATA_DIR, exist_ok=True)
     if not os.path.exists(USERS_FILE):
         try:
-            with open(USERS_FILE, 'w', encoding='utf-8') as f:
+            temp_file = USERS_FILE + '.tmp'
+            with open(temp_file, 'w', encoding='utf-8') as f:
                 json.dump([], f, ensure_ascii=False, indent=2)
+            os.replace(temp_file, USERS_FILE)
         except Exception as e:
             print(f"Error initializing users.json: {e}")
     if not os.path.exists(SESSIONS_FILE):
         try:
-            with open(SESSIONS_FILE, 'w', encoding='utf-8') as f:
+            temp_file = SESSIONS_FILE + '.tmp'
+            with open(temp_file, 'w', encoding='utf-8') as f:
                 json.dump({}, f, ensure_ascii=False, indent=2)
+            os.replace(temp_file, SESSIONS_FILE)
         except Exception as e:
             print(f"Error initializing sessions.json: {e}")
 

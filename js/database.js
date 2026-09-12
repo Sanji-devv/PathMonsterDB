@@ -69,6 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const modalPdfProgress = document.getElementById('modal-pdf-progress');
     const pdfProgressFolderTitle = document.getElementById('pdf-progress-folder-title');
+    const pdfProgressDirBadge = document.getElementById('pdf-progress-dir-badge');
+    const pdfProgressDirName = document.getElementById('pdf-progress-dir-name');
     const pdfProgressStatus = document.getElementById('pdf-progress-status');
     const pdfProgressBar = document.getElementById('pdf-progress-bar');
     const folderPdfStage = document.getElementById('folder-pdf-stage');
@@ -114,10 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 mainList.innerHTML = `<div style="color: red; text-align: center;">Error loading database: ${err.message}</div>`;
             });
     }
-
-    window.addEventListener('pathgm:auth', () => {
-        loadData();
-    });
 
     // Filters
     function applyFilters() {
@@ -409,6 +407,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                             auth.showToast(`🗑️ "${m.Name}" deleted successfully.`, 'info');
                                         }
                                         loadData();
+                                        loadFolders();
                                     } else {
                                         alert('Delete failed: ' + (res.error || res.message || 'Unknown error'));
                                     }
@@ -1125,6 +1124,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     auth.showToast(`✅ Successfully imported ${data.imported_count} monster(s) from "${file.name}"!`, 'success');
                 }
                 loadData();
+                loadFolders();
             } else {
                 alert(`Import failed: ${data.error || 'Unknown error'}`);
             }
@@ -1424,6 +1424,9 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(res => {
                 if (res.status === 'ok') {
                     window.allUserFolders = res.folders || [];
+                    if (res.total_custom !== undefined) {
+                        window.totalCustomMonstersCount = res.total_custom;
+                    }
                     renderFolderSelectOptions();
                     renderFolderPills();
                     updateActiveFolderUI();
@@ -1435,7 +1438,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderFolderSelectOptions() {
         if (!selectActiveFolder) return;
         const prevVal = selectActiveFolder.value || activeFolderId;
-        selectActiveFolder.innerHTML = `<option value=""> All Monsters</option>`;
+        const countCustom = (window.totalCustomMonstersCount !== undefined) ? ` (${window.totalCustomMonstersCount})` : '';
+        selectActiveFolder.innerHTML = `<option value="">🌐 All Monsters (Custom Collection)${countCustom}</option>`;
         (window.allUserFolders || []).forEach(f => {
             const count = Array.isArray(f.monster_keys) ? f.monster_keys.length : 0;
             const opt = document.createElement('option');
@@ -1458,10 +1462,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const allPill = document.createElement('button');
         allPill.type = 'button';
         allPill.className = `folder-pill ${!activeFolderId ? 'active' : ''}`;
+        const customDisplay = (window.totalCustomMonstersCount !== undefined) ? window.totalCustomMonstersCount : '...';
         allPill.innerHTML = `
             <span class="pill-icon">🌐</span>
             <span class="pill-name">All Monsters</span>
-            <span class="pill-count">${lastTotalCount ? lastTotalCount : 'All'}</span>
+            <span class="pill-count" title="${customDisplay} custom monsters">${customDisplay} Custom</span>
         `;
         allPill.addEventListener('click', () => {
             if (activeFolderId) {
@@ -1499,14 +1504,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateActiveFolderUI() {
         const currentFolder = (window.allUserFolders || []).find(f => f.id === activeFolderId);
+        const folderMgmtSuite = document.getElementById('folder-mgmt-suite');
+        const activeFolderBadgeIcon = document.getElementById('active-folder-badge-icon');
+        const activeFolderStatusTag = document.getElementById('active-folder-status-tag');
+
         if (currentFolder) {
             if (folderActiveActions) folderActiveActions.style.display = 'flex';
+            if (activeFolderBadgeIcon) activeFolderBadgeIcon.textContent = '📁';
             if (activeFolderNameText) activeFolderNameText.textContent = currentFolder.name;
             const count = Array.isArray(currentFolder.monster_keys) ? currentFolder.monster_keys.length : 0;
             if (activeFolderCountText) activeFolderCountText.textContent = `(${count} monsters)`;
+            if (activeFolderStatusTag) activeFolderStatusTag.textContent = 'ACTIVE COLLECTION VIEW';
+            if (folderMgmtSuite) folderMgmtSuite.style.display = 'flex';
             if (selectActiveFolder) selectActiveFolder.value = currentFolder.id;
         } else {
-            if (folderActiveActions) folderActiveActions.style.display = 'none';
+            // "All Monsters" Collection View -> Treat like a virtual folder for all custom monsters!
+            if (folderActiveActions) folderActiveActions.style.display = 'flex';
+            if (activeFolderBadgeIcon) activeFolderBadgeIcon.textContent = '🌐';
+            if (activeFolderNameText) activeFolderNameText.textContent = 'All Monsters (Custom)';
+            const count = window.totalCustomMonstersCount !== undefined ? window.totalCustomMonstersCount : 0;
+            if (activeFolderCountText) activeFolderCountText.textContent = `(${count} custom monsters)`;
+            if (activeFolderStatusTag) activeFolderStatusTag.textContent = 'ALL CUSTOM MONSTERS';
+            if (folderMgmtSuite) folderMgmtSuite.style.display = 'none';
             activeFolderId = '';
             if (selectActiveFolder) selectActiveFolder.value = '';
         }
@@ -1758,41 +1777,170 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Export Entire Folder as JSON
+    function sanitizeFileName(name, fallback = 'Monster') {
+        if (!name || typeof name !== 'string') return fallback;
+        const s = name.replace(/[/\\?%*:|"<>]/g, '_').trim();
+        return s || fallback;
+    }
+
+    async function getExportDirectoryHandle(folderName) {
+        if (!('showDirectoryPicker' in window)) {
+            return null;
+        }
+        try {
+            const dirHandle = await window.showDirectoryPicker({
+                mode: 'readwrite',
+                startIn: 'downloads'
+            });
+            return dirHandle;
+        } catch (err) {
+            if (err.name === 'AbortError') {
+                const useDefault = confirm(
+                    `Klasör seçimi iptal edildi.\n\nDosyaların tarayıcınızın varsayılan İndirilenler klasörüne tek tek indirilmesini ister misiniz?\n(İptal seçeneği indirme işlemini tamamen durdurur)`
+                );
+                return useDefault ? null : 'CANCELLED';
+            }
+            console.warn('showDirectoryPicker error or not allowed:', err);
+            return null;
+        }
+    }
+
+    async function writeBlobToDirectory(dirHandle, filename, blob) {
+        const fileHandle = await dirHandle.getFileHandle(filename, { create: true });
+        const writable = await fileHandle.createWritable();
+        await writable.write(blob);
+        await writable.close();
+    }
+
+    function triggerBlobDownload(blob, filename) {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+            if (a.parentNode) a.parentNode.removeChild(a);
+            URL.revokeObjectURL(url);
+        }, 4000);
+    }
+
+    // Export Folder Monsters as Individual JSON Files
     if (btnFolderExportJson) {
-        btnFolderExportJson.addEventListener('click', () => {
-            if (!activeFolderId) return;
-            const currentFolder = (window.allUserFolders || []).find(f => f.id === activeFolderId);
-            const folderName = currentFolder ? currentFolder.name : 'Folder';
+        btnFolderExportJson.addEventListener('click', async () => {
+            const isAll = !activeFolderId || activeFolderId === 'all';
+            const currentFolder = isAll ? null : (window.allUserFolders || []).find(f => f.id === activeFolderId);
+            const folderName = currentFolder ? currentFolder.name : 'All Custom Monsters';
+
+            if (!isAll && currentFolder && (!currentFolder.monster_keys || currentFolder.monster_keys.length === 0)) {
+                alert(`"${folderName}" klasöründe henüz canavar bulunmuyor.`);
+                return;
+            }
+
+            // Prompt target folder location once
+            let dirHandle = null;
+            if ('showDirectoryPicker' in window) {
+                dirHandle = await getExportDirectoryHandle(folderName);
+                if (dirHandle === 'CANCELLED') {
+                    return;
+                }
+            }
+
             const auth = window.PathMonsterDBAuth || window.PathGMAuth;
             const headers = (auth && typeof auth.getAuthHeaders === 'function') ? auth.getAuthHeaders() : {};
 
-            fetch(`/api/folders/${activeFolderId}/monsters?_t=${Date.now()}`, { headers: headers })
-                .then(r => r.json())
-                .then(res => {
-                    if (res.status === 'ok') {
-                        const monsters = res.monsters || [];
-                        if (monsters.length === 0) {
-                            alert('Bu klasörde henüz canavar yok.');
-                            return;
-                        }
-                        const safeName = folderName.replace(/[/\\?%*:|"<>]/g, '_') || 'Folder';
-                        const prettyJson = JSON.stringify(monsters, null, 2);
-                        const blob = new Blob([prettyJson], { type: 'application/json;charset=utf-8' });
-                        const url = URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = `${safeName}_monsters.json`;
-                        document.body.appendChild(a);
-                        a.click();
-                        document.body.removeChild(a);
-                        URL.revokeObjectURL(url);
-                        if (auth && typeof auth.showToast === 'function') {
-                            auth.showToast(`📥 "${folderName}" klasörü JSON olarak indirildi (${monsters.length} canavar).`, 'success');
+            let monsters = [];
+            try {
+                const endpoint = isAll ? `/api/folders/all/monsters?_t=${Date.now()}` : `/api/folders/${activeFolderId}/monsters?_t=${Date.now()}`;
+                const r = await fetch(endpoint, { headers: headers });
+                const res = await r.json();
+                if (res.status === 'ok') {
+                    monsters = res.monsters || [];
+                }
+            } catch (err) {
+                alert('JSON Export error: ' + err.message);
+                return;
+            }
+
+            if (monsters.length === 0) {
+                if (isAll) {
+                    alert('Henüz kayıtlı özel canavar (Custom Monster) bulunmuyor. Yeni bir canavar oluşturup kaydedebilirsiniz.');
+                } else {
+                    alert(`"${folderName}" klasöründe henüz canavar bulunmuyor.`);
+                }
+                return;
+            }
+
+            // Open Progress Modal
+            const modalTitle = document.getElementById('pdf-progress-modal-title');
+            if (modalTitle) modalTitle.innerHTML = '📥 Exporting Monster JSONs';
+            if (pdfProgressFolderTitle) {
+                const destText = dirHandle ? ` ➔ 📂 ${dirHandle.name}` : '';
+                pdfProgressFolderTitle.textContent = `📁 ${folderName} (${monsters.length} Canavar)${destText}`;
+            }
+            if (pdfProgressDirBadge && pdfProgressDirName) {
+                if (dirHandle) {
+                    pdfProgressDirName.textContent = dirHandle.name;
+                    pdfProgressDirBadge.style.display = 'block';
+                } else {
+                    pdfProgressDirBadge.style.display = 'none';
+                }
+            }
+            if (pdfProgressStatus) pdfProgressStatus.textContent = dirHandle ? `Seçilen "${dirHandle.name}" klasörüne kaydediliyor...` : 'JSON dosyaları hazırlanıyor...';
+            if (pdfProgressBar) pdfProgressBar.style.width = '0%';
+            if (modalPdfProgress) modalPdfProgress.classList.add('active');
+
+            try {
+                const seenNames = {};
+                for (let i = 0; i < monsters.length; i++) {
+                    const m = monsters[i];
+                    let baseName = sanitizeFileName(m.Name || `Monster_${i + 1}`);
+                    if (seenNames[baseName]) {
+                        seenNames[baseName]++;
+                        baseName = `${baseName}_${seenNames[baseName]}`;
+                    } else {
+                        seenNames[baseName] = 1;
+                    }
+                    const filename = `${baseName}.json`;
+
+                    const pct = Math.round(((i + 1) / monsters.length) * 100);
+                    if (pdfProgressStatus) pdfProgressStatus.textContent = dirHandle
+                        ? `[${dirHandle.name}] Kaydediliyor (${i + 1} / ${monsters.length}): ${filename}...`
+                        : `İndiriliyor (${i + 1} / ${monsters.length}): ${filename}...`;
+                    if (pdfProgressBar) pdfProgressBar.style.width = pct + '%';
+
+                    const prettyJson = JSON.stringify(m, null, 2);
+                    const blob = new Blob([prettyJson], { type: 'application/json;charset=utf-8' });
+
+                    if (dirHandle) {
+                        await writeBlobToDirectory(dirHandle, filename, blob);
+                    } else {
+                        triggerBlobDownload(blob, filename);
+                        if (i < monsters.length - 1) {
+                            await new Promise(r => setTimeout(r, 250));
                         }
                     }
-                })
-                .catch(err => alert('JSON Export error: ' + err.message));
+                }
+
+                if (pdfProgressBar) pdfProgressBar.style.width = '100%';
+                if (pdfProgressStatus) pdfProgressStatus.textContent = dirHandle
+                    ? `Tüm JSON dosyaları "${dirHandle.name}" klasörüne başarıyla kaydedildi! (${monsters.length} dosya)`
+                    : `Tüm JSON dosyaları başarıyla indirildi! (${monsters.length} dosya)`;
+                if (auth && typeof auth.showToast === 'function') {
+                    auth.showToast(dirHandle
+                        ? `📥 "${folderName}" (${monsters.length} canavar) "${dirHandle.name}" klasörüne kaydedildi!`
+                        : `📥 "${folderName}" (${monsters.length} canavar) ayrı ayrı JSON olarak indirildi.`, 'success');
+                }
+            } catch (err) {
+                console.error('JSON Export Error:', err);
+                alert('JSON indirme hatası: ' + (err.message || err));
+            } finally {
+                if (pdfProgressDirBadge) pdfProgressDirBadge.style.display = 'none';
+                setTimeout(() => {
+                    if (modalPdfProgress) modalPdfProgress.classList.remove('active');
+                }, 1200);
+            }
         });
     }
 
@@ -1847,8 +1995,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function formatStatMod(val) {
+        if (val === undefined || val === null || val === '' || val === '-' || val === '—') return '(-)';
         const n = parseInt(val);
-        if (isNaN(n)) return '(+0)';
+        if (isNaN(n)) return '(-)';
         const mod = Math.floor((n - 10) / 2);
         return mod >= 0 ? `(+${mod})` : `(${mod})`;
     }
@@ -2058,26 +2207,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function exportFolderToPdf(folderId) {
-        if (!folderId) return;
-        const currentFolder = (window.allUserFolders || []).find(f => f.id === folderId);
-        const folderName = currentFolder ? currentFolder.name : 'Folder';
-        const safeFolderName = folderName.replace(/[/\\?%*:|"<>]/g, '_') || 'Bestiary';
+        const isAll = !folderId || folderId === 'all';
+        const currentFolder = isAll ? null : (window.allUserFolders || []).find(f => f.id === folderId);
+        const folderName = currentFolder ? currentFolder.name : 'All Custom Monsters';
+
+        if (!isAll && currentFolder && (!currentFolder.monster_keys || currentFolder.monster_keys.length === 0)) {
+            alert(`"${folderName}" klasöründe henüz canavar bulunmuyor.`);
+            return;
+        }
+
+        // Ask for target directory if supported
+        let dirHandle = null;
+        if ('showDirectoryPicker' in window) {
+            dirHandle = await getExportDirectoryHandle(folderName);
+            if (dirHandle === 'CANCELLED') {
+                return;
+            }
+        }
 
         const auth = window.PathMonsterDBAuth || window.PathGMAuth;
         const headers = (auth && typeof auth.getAuthHeaders === 'function') ? auth.getAuthHeaders() : {};
 
         let monsters = [];
         try {
-            const res = await fetch(`/api/folders/${folderId}/monsters?_t=${Date.now()}`, { headers: headers });
+            const endpoint = isAll ? `/api/folders/all/monsters?_t=${Date.now()}` : `/api/folders/${folderId}/monsters?_t=${Date.now()}`;
+            const res = await fetch(endpoint, { headers: headers });
             const data = await res.json();
             monsters = data.monsters || [];
         } catch (e) {
-            alert('Klasör canavarları alınamadı: ' + e.message);
+            alert('Canavarlar alınamadı: ' + e.message);
             return;
         }
 
         if (monsters.length === 0) {
-            alert(`"${folderName}" klasöründe henüz canavar bulunmuyor. Lütfen önce canavar kartlarındaki 📁 butonuna basarak bu klasöre canavar ekleyiniz.`);
+            if (isAll) {
+                alert('Henüz kayıtlı özel canavar (Custom Monster) bulunmuyor. Yeni bir canavar oluşturup kaydedebilirsiniz.');
+            } else {
+                alert(`"${folderName}" klasöründe henüz canavar bulunmuyor. Lütfen önce canavar kartlarındaki 📁 butonuna basarak bu klasöre canavar ekleyiniz.`);
+            }
             return;
         }
 
@@ -2090,94 +2257,70 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Open Progress Modal
-        if (pdfProgressFolderTitle) pdfProgressFolderTitle.textContent = `📁 ${folderName} (${monsters.length} Canavar)`;
-        if (pdfProgressStatus) pdfProgressStatus.textContent = 'Kapak ve İçindekiler tablosu hazırlanıyor...';
+        const modalTitle = document.getElementById('pdf-progress-modal-title');
+        if (modalTitle) modalTitle.innerHTML = '📄 Exporting Monster PDFs';
+        if (pdfProgressFolderTitle) {
+            const destText = dirHandle ? ` ➔ 📂 ${dirHandle.name}` : '';
+            pdfProgressFolderTitle.textContent = `📁 ${folderName} (${monsters.length} Canavar)${destText}`;
+        }
+        if (pdfProgressDirBadge && pdfProgressDirName) {
+            if (dirHandle) {
+                pdfProgressDirName.textContent = dirHandle.name;
+                pdfProgressDirBadge.style.display = 'block';
+            } else {
+                pdfProgressDirBadge.style.display = 'none';
+            }
+        }
+        if (pdfProgressStatus) pdfProgressStatus.textContent = dirHandle ? `Seçilen "${dirHandle.name}" klasörüne PDF'ler hazırlanıyor...` : 'PDF motoru hazırlanıyor...';
         if (pdfProgressBar) pdfProgressBar.style.width = '0%';
         if (modalPdfProgress) modalPdfProgress.classList.add('active');
 
         const activeTheme = localStorage.getItem('pf_creator_theme') || 'theme-parchment';
+        const pdfWidth = 210;
+        const pdfPageHeight = 297;
 
         try {
-            const pdf = new jsPdfConstructor({
-                orientation: 'portrait',
-                unit: 'mm',
-                format: 'a4',
-                compress: true
-            });
-
-            const pdfWidth = 210;
-            const pdfPageHeight = 297;
-
-            // 1. Render Cover & Table of Contents Page
-            if (folderPdfStage) {
-                folderPdfStage.innerHTML = `
-                <div class="statblock-paper ${activeTheme}" style="width: 794px; min-height: 1123px; padding: 50px 48px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; border: 3px solid #c9ad6a; margin: 0 auto; background: var(--sb-bg, #fdf6e2); color: var(--sb-text, #1c1514);">
-                    <div>
-                        <div style="text-align: center; border-bottom: 3px double #7a200d; padding-bottom: 24px; margin-bottom: 28px;">
-                            <h1 style="font-family: 'Cinzel', serif; font-size: 32px; color: #7a200d; margin: 0 0 8px 0; letter-spacing: 1px;">${folderName.toUpperCase()}</h1>
-                            <div style="font-family: 'Cinzel', serif; font-size: 15px; color: #b45309; font-weight: 700; letter-spacing: 2px;">PATHFINDER 1e BESTIARY COMPENDIUM</div>
-                            <div style="font-size: 13px; color: #64748b; margin-top: 8px;">PathMonsterDB &bull; ${monsters.length} Creature${monsters.length > 1 ? 's' : ''} &bull; ${new Date().toLocaleDateString()}</div>
-                        </div>
-
-                        <div>
-                            <h2 style="font-family: 'Cinzel', serif; font-size: 17px; color: #7a200d; border-bottom: 1px solid #c9ad6a; padding-bottom: 6px; margin-bottom: 14px;">TABLE OF CONTENTS / İÇİNDEKİLER</h2>
-                            <div style="display: flex; flex-direction: column; gap: 7px;">
-                                ${monsters.map((m, idx) => `
-                                    <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 13.5px; border-bottom: 1px dotted rgba(122, 32, 13, 0.25); padding-bottom: 3px;">
-                                        <div style="display: flex; gap: 8px;">
-                                            <strong style="color: #7a200d; min-width: 22px;">${idx + 1}.</strong>
-                                            <span style="font-weight: 700;">${m.Name || 'Unnamed'}</span>
-                                            <span style="color: #64748b; font-style: italic;">(${m.Alignment || ''} ${m.Size || ''} ${m.Type || ''})</span>
-                                        </div>
-                                        <div>
-                                            <span style="font-weight: 700; color: #b45309;">CR ${m.CR || '-'}</span>
-                                        </div>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div style="text-align: center; font-size: 11px; color: #94a3b8; border-top: 1px solid #c9ad6a; padding-top: 12px; margin-top: 30px;">
-                        Generated by PathMonsterDB &bull; Official Pathfinder 1e Open Gaming License (OGL) Compliant
-                    </div>
-                </div>`;
-
-                await new Promise(r => setTimeout(r, 40));
-                const coverCanvas = await html2c(folderPdfStage.firstElementChild, {
-                    scale: 2,
-                    useCORS: true,
-                    allowTaint: true,
-                    backgroundColor: null
-                });
-                const coverImgData = coverCanvas.toDataURL('image/png');
-                const coverRenderedHeight = (coverCanvas.height * pdfWidth) / coverCanvas.width;
-                pdf.addImage(coverImgData, 'PNG', 0, 0, pdfWidth, Math.min(pdfPageHeight, coverRenderedHeight), undefined, 'FAST');
-            }
-
-            // 2. Render each monster page by page
+            const seenNames = {};
             for (let i = 0; i < monsters.length; i++) {
                 const m = monsters[i];
-                const pct = Math.round(((i + 1) / (monsters.length + 1)) * 100);
-                if (pdfProgressStatus) pdfProgressStatus.textContent = `İşleniyor (${i + 1} / ${monsters.length}): ${m.Name || 'Creature'}...`;
+                let baseName = sanitizeFileName(m.Name || `Monster_${i + 1}`);
+                if (seenNames[baseName]) {
+                    seenNames[baseName]++;
+                    baseName = `${baseName}_${seenNames[baseName]}`;
+                } else {
+                    seenNames[baseName] = 1;
+                }
+                const filename = `${baseName}.pdf`;
+
+                const pct = Math.round(((i + 1) / monsters.length) * 100);
+                if (pdfProgressStatus) pdfProgressStatus.textContent = dirHandle
+                    ? `[${dirHandle.name}] PDF oluşturuluyor (${i + 1} / ${monsters.length}): ${filename}...`
+                    : `PDF hazırlanıyor ve indiriliyor (${i + 1} / ${monsters.length}): ${filename}...`;
                 if (pdfProgressBar) pdfProgressBar.style.width = pct + '%';
 
                 if (folderPdfStage) {
                     folderPdfStage.innerHTML = renderMonsterStatblockHTML(m, activeTheme);
-                    await new Promise(r => setTimeout(r, 50));
+                    await new Promise(r => setTimeout(r, 60));
 
                     const canvas = await html2c(folderPdfStage.firstElementChild, {
                         scale: 2,
                         useCORS: true,
                         allowTaint: true,
+                        logging: false,
+                        scrollX: 0,
+                        scrollY: 0,
                         backgroundColor: null
                     });
 
                     const imgData = canvas.toDataURL('image/png');
                     const renderedHeight = (canvas.height * pdfWidth) / canvas.width;
 
-                    // Each monster starts on a brand new A4 page!
-                    pdf.addPage('a4', 'portrait');
+                    const pdf = new jsPdfConstructor({
+                        orientation: 'portrait',
+                        unit: 'mm',
+                        format: 'a4',
+                        compress: true
+                    });
 
                     if (renderedHeight <= pdfPageHeight) {
                         pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, renderedHeight, undefined, 'FAST');
@@ -2195,48 +2338,80 @@ document.addEventListener('DOMContentLoaded', () => {
                             heightLeft -= pdfPageHeight;
                         }
                     }
+
+                    if (dirHandle) {
+                        const pdfBlob = pdf.output('blob');
+                        await writeBlobToDirectory(dirHandle, filename, pdfBlob);
+                    } else {
+                        pdf.save(filename);
+                        if (i < monsters.length - 1) {
+                            await new Promise(r => setTimeout(r, 350));
+                        }
+                    }
                 }
             }
 
             if (pdfProgressBar) pdfProgressBar.style.width = '100%';
-            if (pdfProgressStatus) pdfProgressStatus.textContent = 'PDF hazırlandı! Dosya indiriliyor...';
-
-            pdf.save(`${safeFolderName}_Bestiary.pdf`);
+            if (pdfProgressStatus) pdfProgressStatus.textContent = dirHandle
+                ? `Tüm PDF'ler "${dirHandle.name}" klasörüne başarıyla kaydedildi! (${monsters.length} dosya)`
+                : `Tüm PDF'ler başarıyla indirildi! (${monsters.length} dosya)`;
 
             if (auth && typeof auth.showToast === 'function') {
-                auth.showToast(`🎉 "${folderName}" klasörü sayfalı PDF olarak indirildi!`, 'success');
+                auth.showToast(dirHandle
+                    ? `🎉 "${folderName}" (${monsters.length} canavar) "${dirHandle.name}" klasörüne kaydedildi!`
+                    : `🎉 "${folderName}" (${monsters.length} canavar) ayrı ayrı PDF olarak indirildi!`, 'success');
             }
         } catch (err) {
             console.error('PDF Export Error:', err);
             alert('PDF oluşturma hatası: ' + (err.message || err));
         } finally {
+            if (folderPdfStage) folderPdfStage.innerHTML = '';
+            if (pdfProgressDirBadge) pdfProgressDirBadge.style.display = 'none';
             setTimeout(() => {
                 if (modalPdfProgress) modalPdfProgress.classList.remove('active');
-            }, 1000);
+            }, 1200);
         }
     }
 
     async function exportFolderToPng(folderId) {
-        if (!folderId) return;
-        const currentFolder = (window.allUserFolders || []).find(f => f.id === folderId);
-        const folderName = currentFolder ? currentFolder.name : 'Folder';
-        const safeFolderName = folderName.replace(/[/\\?%*:|"<>]/g, '_') || 'Bestiary';
+        const isAll = !folderId || folderId === 'all';
+        const currentFolder = isAll ? null : (window.allUserFolders || []).find(f => f.id === folderId);
+        const folderName = currentFolder ? currentFolder.name : 'All Custom Monsters';
+
+        if (!isAll && currentFolder && (!currentFolder.monster_keys || currentFolder.monster_keys.length === 0)) {
+            alert(`"${folderName}" klasöründe henüz canavar bulunmuyor.`);
+            return;
+        }
+
+        // Ask for target directory if supported
+        let dirHandle = null;
+        if ('showDirectoryPicker' in window) {
+            dirHandle = await getExportDirectoryHandle(folderName);
+            if (dirHandle === 'CANCELLED') {
+                return;
+            }
+        }
 
         const auth = window.PathMonsterDBAuth || window.PathGMAuth;
         const headers = (auth && typeof auth.getAuthHeaders === 'function') ? auth.getAuthHeaders() : {};
 
         let monsters = [];
         try {
-            const res = await fetch(`/api/folders/${folderId}/monsters?_t=${Date.now()}`, { headers: headers });
+            const endpoint = isAll ? `/api/folders/all/monsters?_t=${Date.now()}` : `/api/folders/${folderId}/monsters?_t=${Date.now()}`;
+            const res = await fetch(endpoint, { headers: headers });
             const data = await res.json();
             monsters = data.monsters || [];
         } catch (e) {
-            alert('Klasör canavarları alınamadı: ' + e.message);
+            alert('Canavarlar alınamadı: ' + e.message);
             return;
         }
 
         if (monsters.length === 0) {
-            alert(`"${folderName}" klasöründe henüz canavar bulunmuyor. Lütfen önce canavar kartlarındaki 📁 butonuna basarak bu klasöre canavar ekleyiniz.`);
+            if (isAll) {
+                alert('Henüz kayıtlı özel canavar (Custom Monster) bulunmuyor. Yeni bir canavar oluşturup kaydedebilirsiniz.');
+            } else {
+                alert(`"${folderName}" klasöründe henüz canavar bulunmuyor. Lütfen önce canavar kartlarındaki 📁 butonuna basarak bu klasöre canavar ekleyiniz.`);
+            }
             return;
         }
 
@@ -2248,192 +2423,116 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Open Progress Modal
-        if (pdfProgressFolderTitle) pdfProgressFolderTitle.textContent = `📁 ${folderName} (${monsters.length} Canavar)`;
-        if (pdfProgressStatus) pdfProgressStatus.textContent = 'Kapak ve statblock görselleri oluşturuluyor...';
+        const modalTitle = document.getElementById('pdf-progress-modal-title');
+        if (modalTitle) modalTitle.innerHTML = '🖼️ Exporting Monster PNGs';
+        if (pdfProgressFolderTitle) {
+            const destText = dirHandle ? ` ➔ 📂 ${dirHandle.name}` : '';
+            pdfProgressFolderTitle.textContent = `📁 ${folderName} (${monsters.length} Canavar)${destText}`;
+        }
+        if (pdfProgressDirBadge && pdfProgressDirName) {
+            if (dirHandle) {
+                pdfProgressDirName.textContent = dirHandle.name;
+                pdfProgressDirBadge.style.display = 'block';
+            } else {
+                pdfProgressDirBadge.style.display = 'none';
+            }
+        }
+        if (pdfProgressStatus) pdfProgressStatus.textContent = dirHandle ? `Seçilen "${dirHandle.name}" klasörüne PNG'ler hazırlanıyor...` : 'Görsel motoru hazırlanıyor...';
         if (pdfProgressBar) pdfProgressBar.style.width = '0%';
         if (modalPdfProgress) modalPdfProgress.classList.add('active');
 
         const activeTheme = localStorage.getItem('pf_creator_theme') || 'theme-parchment';
 
         try {
-            const canvases = [];
-
-            // 1. Capture Cover Page Canvas
-            if (folderPdfStage) {
-                folderPdfStage.innerHTML = `
-                <div class="statblock-paper ${activeTheme}" style="width: 794px; min-height: 1080px; padding: 50px 48px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; border: 3px solid #c9ad6a; margin: 0 auto; background: var(--sb-bg, #fdf6e2); color: var(--sb-text, #1c1514);">
-                    <div>
-                        <div style="text-align: center; border-bottom: 3px double #7a200d; padding-bottom: 24px; margin-bottom: 28px;">
-                            <h1 style="font-family: 'Cinzel', serif; font-size: 32px; color: #7a200d; margin: 0 0 8px 0; letter-spacing: 1px;">${folderName.toUpperCase()}</h1>
-                            <div style="font-family: 'Cinzel', serif; font-size: 15px; color: #b45309; font-weight: 700; letter-spacing: 2px;">PATHFINDER 1e BESTIARY COMPENDIUM</div>
-                            <div style="font-size: 13px; color: #64748b; margin-top: 8px;">PathMonsterDB &bull; ${monsters.length} Creature${monsters.length > 1 ? 's' : ''} &bull; ${new Date().toLocaleDateString()}</div>
-                        </div>
-
-                        <div>
-                            <h2 style="font-family: 'Cinzel', serif; font-size: 17px; color: #7a200d; border-bottom: 1px solid #c9ad6a; padding-bottom: 6px; margin-bottom: 14px;">TABLE OF CONTENTS / İÇİNDEKİLER</h2>
-                            <div style="display: flex; flex-direction: column; gap: 7px;">
-                                ${monsters.map((m, idx) => `
-                                    <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 13.5px; border-bottom: 1px dotted rgba(122, 32, 13, 0.25); padding-bottom: 3px;">
-                                        <div style="display: flex; gap: 8px;">
-                                            <strong style="color: #7a200d; min-width: 22px;">${idx + 1}.</strong>
-                                            <span style="font-weight: 700;">${m.Name || 'Unnamed'}</span>
-                                            <span style="color: #64748b; font-style: italic;">(${m.Alignment || ''} ${m.Size || ''} ${m.Type || ''})</span>
-                                        </div>
-                                        <div>
-                                            <span style="font-weight: 700; color: #b45309;">CR ${m.CR || '-'}</span>
-                                        </div>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div style="text-align: center; font-size: 11px; color: #94a3b8; border-top: 1px solid #c9ad6a; padding-top: 12px; margin-top: 30px;">
-                        Generated by PathMonsterDB &bull; Official Pathfinder 1e Open Gaming License (OGL) Compliant
-                    </div>
-                </div>`;
-
-                await new Promise(r => setTimeout(r, 40));
-                const coverCanvas = await html2c(folderPdfStage.firstElementChild, {
-                    scale: 1.5,
-                    useCORS: true,
-                    allowTaint: true,
-                    backgroundColor: null
-                });
-                canvases.push(coverCanvas);
-            }
-
-            // 2. Capture Each Monster Statblock Canvas
+            const seenNames = {};
             for (let i = 0; i < monsters.length; i++) {
                 const m = monsters[i];
-                const pct = Math.round(((i + 1) / (monsters.length + 1)) * 90);
-                if (pdfProgressStatus) pdfProgressStatus.textContent = `Görsel oluşturuluyor (${i + 1} / ${monsters.length}): ${m.Name || 'Creature'}...`;
+                let baseName = sanitizeFileName(m.Name || `Monster_${i + 1}`);
+                if (seenNames[baseName]) {
+                    seenNames[baseName]++;
+                    baseName = `${baseName}_${seenNames[baseName]}`;
+                } else {
+                    seenNames[baseName] = 1;
+                }
+                const filename = `${baseName}.png`;
+
+                const pct = Math.round(((i + 1) / monsters.length) * 100);
+                if (pdfProgressStatus) pdfProgressStatus.textContent = dirHandle
+                    ? `[${dirHandle.name}] Görsel oluşturuluyor (${i + 1} / ${monsters.length}): ${filename}...`
+                    : `Görsel oluşturuluyor ve indiriliyor (${i + 1} / ${monsters.length}): ${filename}...`;
                 if (pdfProgressBar) pdfProgressBar.style.width = pct + '%';
 
                 if (folderPdfStage) {
                     folderPdfStage.innerHTML = renderMonsterStatblockHTML(m, activeTheme);
-                    await new Promise(r => setTimeout(r, 50));
+                    await new Promise(r => setTimeout(r, 60));
 
                     const monCanvas = await html2c(folderPdfStage.firstElementChild, {
-                        scale: 1.5,
+                        scale: 2,
                         useCORS: true,
                         allowTaint: true,
+                        logging: false,
+                        scrollX: 0,
+                        scrollY: 0,
                         backgroundColor: null
                     });
-                    canvases.push(monCanvas);
+
+                    await new Promise((resolve) => {
+                        monCanvas.toBlob(async (blob) => {
+                            if (blob) {
+                                if (dirHandle) {
+                                    await writeBlobToDirectory(dirHandle, filename, blob);
+                                    resolve();
+                                } else {
+                                    triggerBlobDownload(blob, filename);
+                                    setTimeout(resolve, 350);
+                                }
+                            } else {
+                                const link = document.createElement('a');
+                                link.download = filename;
+                                link.href = monCanvas.toDataURL('image/png');
+                                document.body.appendChild(link);
+                                link.click();
+                                setTimeout(() => {
+                                    if (link.parentNode) link.parentNode.removeChild(link);
+                                    resolve();
+                                }, 350);
+                            }
+                        }, 'image/png');
+                    });
                 }
-            }
-
-            if (pdfProgressStatus) pdfProgressStatus.textContent = 'Sayfalar tek bir yüksek çözünürlüklü PNG görselinde birleştiriliyor...';
-            if (pdfProgressBar) pdfProgressBar.style.width = '95%';
-
-            // 3. Stitch Canvases Vertically with Page Separators
-            const spacing = 30;
-            let maxWidth = 0;
-            let totalHeight = 0;
-
-            canvases.forEach(c => {
-                if (c.width > maxWidth) maxWidth = c.width;
-                totalHeight += c.height;
-            });
-            totalHeight += spacing * (canvases.length - 1);
-
-            const masterCanvas = document.createElement('canvas');
-            masterCanvas.width = maxWidth;
-            masterCanvas.height = totalHeight;
-            const ctx = masterCanvas.getContext('2d');
-
-            // Dark slate background for unified visual compendium
-            ctx.fillStyle = '#0f172a';
-            ctx.fillRect(0, 0, maxWidth, totalHeight);
-
-            let currentY = 0;
-            canvases.forEach((c, idx) => {
-                const xOffset = Math.floor((maxWidth - c.width) / 2);
-                ctx.drawImage(c, xOffset, currentY);
-
-                if (idx < canvases.length - 1) {
-                    const dividerY = currentY + c.height + Math.floor(spacing / 2);
-                    ctx.strokeStyle = 'rgba(212, 175, 55, 0.35)';
-                    ctx.lineWidth = 2;
-                    ctx.setLineDash([8, 6]);
-                    ctx.beginPath();
-                    ctx.moveTo(xOffset + 20, dividerY);
-                    ctx.lineTo(xOffset + c.width - 20, dividerY);
-                    ctx.stroke();
-                    ctx.setLineDash([]);
-                }
-
-                currentY += c.height + spacing;
-            });
-
-            // 4. Download as single unified PNG
-            const handleDownloadBlob = (blob) => {
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `${safeFolderName}_Bestiary.png`;
-                document.body.appendChild(a);
-                a.click();
-                setTimeout(() => {
-                    if (a.parentNode) a.parentNode.removeChild(a);
-                    URL.revokeObjectURL(url);
-                }, 2000);
-            };
-
-            if (masterCanvas.toBlob) {
-                masterCanvas.toBlob((blob) => {
-                    if (blob) {
-                        handleDownloadBlob(blob);
-                    } else {
-                        const dataUrl = masterCanvas.toDataURL('image/png');
-                        const link = document.createElement('a');
-                        link.download = `${safeFolderName}_Bestiary.png`;
-                        link.href = dataUrl;
-                        document.body.appendChild(link);
-                        link.click();
-                        setTimeout(() => { if (link.parentNode) link.parentNode.removeChild(link); }, 1000);
-                    }
-                }, 'image/png');
-            } else {
-                const dataUrl = masterCanvas.toDataURL('image/png');
-                const link = document.createElement('a');
-                link.download = `${safeFolderName}_Bestiary.png`;
-                link.href = dataUrl;
-                document.body.appendChild(link);
-                link.click();
-                setTimeout(() => { if (link.parentNode) link.parentNode.removeChild(link); }, 1000);
             }
 
             if (pdfProgressBar) pdfProgressBar.style.width = '100%';
-            if (pdfProgressStatus) pdfProgressStatus.textContent = 'PNG başarıyla indirildi!';
+            if (pdfProgressStatus) pdfProgressStatus.textContent = dirHandle
+                ? `Tüm PNG görselleri "${dirHandle.name}" klasörüne başarıyla kaydedildi! (${monsters.length} dosya)`
+                : `Tüm PNG görselleri başarıyla indirildi! (${monsters.length} dosya)`;
 
             if (auth && typeof auth.showToast === 'function') {
-                auth.showToast(`🖼️ "${folderName}" klasörü birleşik PNG olarak indirildi!`, 'success');
+                auth.showToast(dirHandle
+                    ? `🖼️ "${folderName}" (${monsters.length} canavar) "${dirHandle.name}" klasörüne kaydedildi!`
+                    : `🖼️ "${folderName}" (${monsters.length} canavar) ayrı ayrı PNG olarak indirildi!`, 'success');
             }
         } catch (err) {
             console.error('PNG Export Error:', err);
             alert('PNG oluşturma hatası: ' + (err.message || err));
         } finally {
+            if (folderPdfStage) folderPdfStage.innerHTML = '';
+            if (pdfProgressDirBadge) pdfProgressDirBadge.style.display = 'none';
             setTimeout(() => {
                 if (modalPdfProgress) modalPdfProgress.classList.remove('active');
-            }, 1000);
+            }, 1200);
         }
     }
 
     if (btnFolderExportPdf) {
         btnFolderExportPdf.addEventListener('click', () => {
-            if (activeFolderId) {
-                exportFolderToPdf(activeFolderId);
-            }
+            exportFolderToPdf(activeFolderId || 'all');
         });
     }
 
     if (btnFolderExportPng) {
         btnFolderExportPng.addEventListener('click', () => {
-            if (activeFolderId) {
-                exportFolderToPng(activeFolderId);
-            }
+            exportFolderToPng(activeFolderId || 'all');
         });
     }
 });

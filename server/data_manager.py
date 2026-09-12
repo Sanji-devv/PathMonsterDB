@@ -85,8 +85,10 @@ def _ensure_favorites_file():
             except Exception:
                 pass
         try:
-            with open(FAVORITES_FILE, 'w', encoding='utf-8') as f:
+            temp_file = FAVORITES_FILE + '.tmp'
+            with open(temp_file, 'w', encoding='utf-8') as f:
                 json.dump(initial_favs, f, ensure_ascii=False, indent=2)
+            os.replace(temp_file, FAVORITES_FILE)
             FAVORITES_CACHE = initial_favs
         except Exception as e:
             print(f"Error initializing favorites.json: {e}")
@@ -422,8 +424,10 @@ def load_monsters():
             custom_list = []
     else:
         try:
-            with open(CUSTOM_MONSTERS_FILE, 'w', encoding='utf-8') as f:
+            temp_file = CUSTOM_MONSTERS_FILE + '.tmp'
+            with open(temp_file, 'w', encoding='utf-8') as f:
                 json.dump([], f, ensure_ascii=False)
+            os.replace(temp_file, CUSTOM_MONSTERS_FILE)
             CUSTOM_MONSTERS_MTIME = os.path.getmtime(CUSTOM_MONSTERS_FILE)
         except Exception:
             pass
@@ -474,8 +478,13 @@ def save_custom_monsters():
     global CUSTOM_MONSTERS_MTIME
     try:
         custom_list = [m for m in GLOBAL_MONSTERS if m.get('IsUserCustom', False)]
-        with open(CUSTOM_MONSTERS_FILE, 'w', encoding='utf-8') as f:
+        temp_file = CUSTOM_MONSTERS_FILE + '.tmp'
+        with open(temp_file, 'w', encoding='utf-8') as f:
             json.dump(custom_list, f, ensure_ascii=False, indent=2)
+        if os.path.exists(CUSTOM_MONSTERS_FILE):
+            os.replace(temp_file, CUSTOM_MONSTERS_FILE)
+        else:
+            os.rename(temp_file, CUSTOM_MONSTERS_FILE)
         if os.path.exists(CUSTOM_MONSTERS_FILE):
             CUSTOM_MONSTERS_MTIME = os.path.getmtime(CUSTOM_MONSTERS_FILE)
     except Exception as e:
@@ -485,8 +494,13 @@ def save_official_monsters():
     global OFFICIAL_MONSTERS_MTIME
     try:
         official_list = [m for m in GLOBAL_MONSTERS if not m.get('IsUserCustom', False)]
-        with open(MONSTERS_FILE, 'w', encoding='utf-8') as f:
+        temp_file = MONSTERS_FILE + '.tmp'
+        with open(temp_file, 'w', encoding='utf-8') as f:
             json.dump(official_list, f, ensure_ascii=False)
+        if os.path.exists(MONSTERS_FILE):
+            os.replace(temp_file, MONSTERS_FILE)
+        else:
+            os.rename(temp_file, MONSTERS_FILE)
         if os.path.exists(MONSTERS_FILE):
             OFFICIAL_MONSTERS_MTIME = os.path.getmtime(MONSTERS_FILE)
     except Exception as e:
@@ -869,12 +883,46 @@ def delete_monster(idx_or_id, user=None):
                 "error": "You do not have permission to delete this custom monster (Unauthorized)."
             }).encode('utf-8'), 403
 
+    m_key = get_monster_key(target_mon)
+    m_id = str(target_mon.get('id', ''))
+    m_name = str(target_mon.get('Name', '')).lower()
+    keys_to_clean = {m_key, m_name}
+    if m_id:
+        keys_to_clean.add(m_id)
+        keys_to_clean.add(f"custom:{m_id}")
+
     GLOBAL_MONSTERS.pop(target_idx)
     for i, mon in enumerate(GLOBAL_MONSTERS):
         mon['_global_index'] = i
         if 'OriginalState' in mon and isinstance(mon['OriginalState'], dict):
             mon['OriginalState']['_global_index'] = i
-            
+
+    # Clean up references in folders
+    all_folders = _load_folders()
+    folders_changed = False
+    for u_key, f_list in all_folders.items():
+        if isinstance(f_list, list):
+            for f in f_list:
+                if isinstance(f, dict) and 'monster_keys' in f:
+                    old_len = len(f['monster_keys'])
+                    f['monster_keys'] = [k for k in f['monster_keys'] if k not in keys_to_clean]
+                    if len(f['monster_keys']) != old_len:
+                        folders_changed = True
+    if folders_changed:
+        _save_folders()
+
+    # Clean up references in favorites
+    all_favs = _load_favorites()
+    favs_changed = False
+    for u_key, fav_list in all_favs.items():
+        if isinstance(fav_list, list):
+            old_len = len(fav_list)
+            all_favs[u_key] = [k for k in fav_list if k not in keys_to_clean]
+            if len(all_favs[u_key]) != old_len:
+                favs_changed = True
+    if favs_changed:
+        _save_favorites()
+
     save_custom_monsters()
     clear_cache()
     return json.dumps({"status": "ok"}).encode('utf-8'), 200
