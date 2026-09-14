@@ -903,33 +903,82 @@
     </div>
 
     <!-- Assign Monster to Folder Modal -->
-    <div id="modal-assign-folder" class="info-modal-overlay" aria-hidden="true">
-        <div class="info-modal-content"
-            style="max-width: 440px; background: rgba(15, 23, 42, 0.96); border: 1px solid rgba(242, 202, 80, 0.4); border-radius: 12px; box-shadow: 0 12px 36px rgba(0,0,0,0.85); backdrop-filter: blur(12px);">
-            <div class="info-modal-header"
-                style="border-bottom: 1px solid rgba(255,255,255,0.12); padding: 14px 18px; display: flex; justify-content: space-between; align-items: center;">
-                <h3
-                    style="font-family: 'Cinzel', serif; font-size: 1.15rem; color: #fcd34d; margin: 0; display: flex; align-items: center; gap: 8px;">
-                    📁 Manage Folders for Monster
-                </h3>
-                <button type="button" id="btn-close-assign-modal" class="info-modal-close"
-                    style="color: #94a3b8; font-size: 24px; background: none; border: none; cursor: pointer; line-height: 1;">&times;</button>
-            </div>
-            <div class="info-modal-body" style="padding: 20px; color: #e2e8f0; font-size: 14px;">
-                <div style="font-weight: 700; color: #fff; font-size: 15px; margin-bottom: 12px;"
-                    id="assign-monster-name">Monster: ...</div>
-                <div style="font-size: 12.5px; color: #94a3b8; margin-bottom: 10px;">Select folders to include this
-                    monster:</div>
-                <div id="assign-folders-list"
-                    style="display: flex; flex-direction: column; gap: 8px; max-height: 240px; overflow-y: auto; margin-bottom: 16px; padding: 4px;">
-                    <!-- Populated dynamically with folder checkboxes -->
+    <div id="modal-assign-folder" class="info-modal-overlay assign-folder-modal-overlay" aria-hidden="true">
+        <div class="info-modal-content assign-folder-modal-card">
+            <!-- Modal Header -->
+            <div class="info-modal-header assign-modal-header">
+                <div class="assign-header-title-box">
+                    <span class="assign-header-icon">📁</span>
+                    <div>
+                        <h3 class="assign-header-title">Klasör Yönetimi</h3>
+                        <span class="assign-header-sub">Manage Folders for Monster</span>
+                    </div>
                 </div>
-                <div
-                    style="display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1);">
-                    <button type="button" id="btn-assign-new-folder" class="btn-hdr btn-hdr-blue"
-                        style="font-size: 12px; padding: 6px 12px;">➕ New Folder</button>
-                    <button type="button" id="btn-assign-done" class="btn-hdr btn-hdr-emerald"
-                        style="padding: 6px 18px; font-weight: 700;">Done</button>
+                <button type="button" id="btn-close-assign-modal" class="info-modal-close assign-modal-close" title="Kapat (Esc)">&times;</button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="info-modal-body assign-modal-body">
+                <!-- Monster Identity Hero Banner -->
+                <div id="assign-monster-header-card" class="assign-monster-hero">
+                    <div class="assign-monster-details">
+                        <div class="assign-monster-name-row">
+                            <span id="assign-monster-name" class="assign-monster-name">Monster: ...</span>
+                            <span id="assign-monster-cr-badge" class="assign-cr-pill">CR -</span>
+                        </div>
+                        <div class="assign-monster-submeta">
+                            <span id="assign-monster-type-badge" class="assign-type-pill">Canavar</span>
+                            <span id="assign-monster-folders-badge" class="assign-folders-pill">0 Klasörde Ekli</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Inline Quick Create Folder Bar (No Prompt!) -->
+                <div class="assign-quick-create-section">
+                    <label class="assign-section-label">⚡ Hızlı Yeni Klasör Oluştur & Ekle:</label>
+                    <form id="assign-quick-create-form" class="assign-quick-form" onsubmit="return false;">
+                        <div class="assign-input-group">
+                            <span class="assign-input-icon">📁</span>
+                            <input type="text" id="input-assign-new-folder" class="assign-quick-input"
+                                placeholder="Yeni klasör adı yazın... (Örn: Boss Canavarlar)" maxlength="50" autocomplete="off">
+                            <button type="button" id="btn-assign-quick-clear" class="assign-clear-search-btn" title="Temizle" style="display: none; margin-right: 8px;">&times;</button>
+                            <button type="submit" id="btn-assign-quick-add" class="btn-assign-add" title="Enter tuşuna basarak da ekleyebilirsiniz">
+                                <span>➕ Oluştur & Ata</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Search & Quick Selection Toolbar -->
+                <div class="assign-tools-bar">
+                    <div class="assign-search-box">
+                        <span class="assign-search-icon">🔍</span>
+                        <input type="text" id="assign-folder-search-input" class="assign-search-input"
+                            placeholder="Klasörlerde ara..." autocomplete="off">
+                        <button type="button" id="btn-assign-clear-search" class="assign-clear-search-btn" title="Aramayı temizle" style="display: none;">&times;</button>
+                    </div>
+                    <div class="assign-batch-actions">
+                        <span id="assign-selected-count-badge" class="assign-count-text">0 klasör seçili</span>
+                        <div class="assign-action-links">
+                            <button type="button" id="btn-assign-select-all" class="btn-assign-link" title="Görüntülenen tüm klasörlere ekle">Tümünü Seç</button>
+                            <span class="assign-link-sep">•</span>
+                            <button type="button" id="btn-assign-clear-all" class="btn-assign-link" title="Görüntülenen tüm klasörlerden çıkar">Temizle</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Folders List Container -->
+                <div id="assign-folders-list" class="assign-folders-list">
+                    <!-- Populated dynamically with interactive folder cards -->
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="assign-modal-footer">
+                    <!-- Keep btn-assign-new-folder accessible for backwards compatibility -->
+                    <button type="button" id="btn-assign-new-folder" class="btn-hdr btn-hdr-blue assign-legacy-btn" style="display: none;">➕ New Folder</button>
+                    <button type="button" id="btn-assign-done" class="btn-hdr btn-hdr-emerald assign-done-btn">
+                        <span>✓ Tamamlandı</span>
+                    </button>
                 </div>
             </div>
         </div>

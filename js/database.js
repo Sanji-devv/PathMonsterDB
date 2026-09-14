@@ -62,10 +62,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const modalAssignFolder = document.getElementById('modal-assign-folder');
     const assignMonsterName = document.getElementById('assign-monster-name');
+    const assignMonsterCrBadge = document.getElementById('assign-monster-cr-badge');
+    const assignMonsterTypeBadge = document.getElementById('assign-monster-type-badge');
+    const assignMonsterFoldersBadge = document.getElementById('assign-monster-folders-badge');
     const assignFoldersList = document.getElementById('assign-folders-list');
     const btnCloseAssignModal = document.getElementById('btn-close-assign-modal');
     const btnAssignDone = document.getElementById('btn-assign-done');
     const btnAssignNewFolder = document.getElementById('btn-assign-new-folder');
+    const assignQuickCreateForm = document.getElementById('assign-quick-create-form');
+    const inputAssignNewFolder = document.getElementById('input-assign-new-folder');
+    const btnAssignQuickAdd = document.getElementById('btn-assign-quick-add');
+    const btnAssignQuickClear = document.getElementById('btn-assign-quick-clear');
+    const assignFolderSearchInput = document.getElementById('assign-folder-search-input');
+    const btnAssignClearSearch = document.getElementById('btn-assign-clear-search');
+    const assignSelectedCountBadge = document.getElementById('assign-selected-count-badge');
+    const btnAssignSelectAll = document.getElementById('btn-assign-select-all');
+    const btnAssignClearAll = document.getElementById('btn-assign-clear-all');
 
     const modalPdfProgress = document.getElementById('modal-pdf-progress');
     const pdfProgressFolderTitle = document.getElementById('pdf-progress-folder-title');
@@ -260,6 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const starBtnHtml = `<button type="button" class="card-rail-btn star-btn ${m.IsFavorite ? 'active' : ''}" title="${m.IsFavorite ? 'Favorilerden Çıkar' : 'Favorilere Ekle'}">${starSvg}</button>`;
 
             const mKey = m.monster_key || (m.IsUserCustom ? ('custom:' + (m.id || '')) : ('official:' + (m.Name || '').toLowerCase()));
+            card.setAttribute('data-monster-key', mKey);
             const inFolders = (window.allUserFolders || []).filter(f => {
                 const keys = f.monster_keys || [];
                 return keys.includes(mKey) || (m.id && (keys.includes(m.id) || keys.includes('custom:' + m.id)));
@@ -1671,13 +1684,87 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Modal Assign Monster to Folder
+    // ==========================================================================
+    // REVAMPED MODAL ASSIGN MONSTER TO FOLDER SYSTEM
+    // ==========================================================================
+
+    let assignFolderSearchQuery = '';
+
+    function getMonsterKey(m) {
+        if (!m) return '';
+        return m.monster_key || (m.IsUserCustom ? ('custom:' + (m.id || '')) : ('official:' + (m.Name || '').toLowerCase()));
+    }
+
+    function isMonsterInFolder(folder, m) {
+        if (!folder || !m) return false;
+        const keys = folder.monster_keys || [];
+        const mKey = getMonsterKey(m);
+        return keys.includes(mKey) || (m.id && (keys.includes(m.id) || keys.includes('custom:' + m.id)));
+    }
+
+    function updateMainCardFolderStatus(monster) {
+        if (!monster) return;
+        const mKey = getMonsterKey(monster);
+        const inFolders = (window.allUserFolders || []).filter(f => isMonsterInFolder(f, monster));
+        const inAnyFolder = inFolders.length > 0;
+        const folderTooltip = inAnyFolder ? `In folders: ${inFolders.map(f => f.name).join(', ')}` : 'Add to Folder';
+
+        const cards = document.querySelectorAll(`.monster-card[data-monster-key="${CSS.escape(mKey)}"]`);
+        cards.forEach(card => {
+            const btn = card.querySelector('.folder-card-btn');
+            if (btn) {
+                btn.classList.toggle('in-folder', inAnyFolder);
+                btn.title = folderTooltip;
+                const folderSvg = `<svg class="action-icon-svg" viewBox="0 0 24 24" width="14" height="14" fill="${inAnyFolder ? '#fbbf24' : 'none'}" stroke="${inAnyFolder ? '#fbbf24' : 'currentColor'}" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>`;
+                const folderCountBadge = inFolders.length > 0 ? `<span class="card-folder-badge">${inFolders.length}</span>` : '';
+                btn.innerHTML = `${folderSvg}${folderCountBadge}`;
+            }
+        });
+    }
+
     function openAssignFolderModal(monster) {
         currentAssignMonster = monster;
         if (!modalAssignFolder) return;
-        assignMonsterName.textContent = `Monster: ${monster.Name || 'Creature'} (CR ${monster.CR || '-'})`;
+
+        // Reset search filter & quick input
+        assignFolderSearchQuery = '';
+        if (assignFolderSearchInput) assignFolderSearchInput.value = '';
+        if (btnAssignClearSearch) btnAssignClearSearch.style.display = 'none';
+        if (inputAssignNewFolder) inputAssignNewFolder.value = '';
+        if (btnAssignQuickClear) btnAssignQuickClear.style.display = 'none';
+
+        // Backdrop click to close
+        if (!modalAssignFolder._hasBackdropListener) {
+            modalAssignFolder.addEventListener('click', (e) => {
+                if (e.target === modalAssignFolder) closeAssignFolderModal();
+            });
+            modalAssignFolder._hasBackdropListener = true;
+        }
+
+        // Populate Monster Hero Banner
+        const mName = monster.Name || 'Creature';
+        const crVal = (monster.CR !== undefined && monster.CR !== null && monster.CR !== '') ? monster.CR : '-';
+        if (assignMonsterName) assignMonsterName.textContent = mName;
+        if (assignMonsterCrBadge) assignMonsterCrBadge.textContent = `CR ${crVal}`;
+
+        // Submeta / Creature Type & Alignment
+        if (assignMonsterTypeBadge) {
+            const metaTokens = [];
+            if (monster.Alignment) metaTokens.push(monster.Alignment);
+            if (monster.Size) metaTokens.push(monster.Size);
+            if (monster.Type) metaTokens.push(monster.Type);
+            assignMonsterTypeBadge.textContent = metaTokens.length > 0 
+                ? metaTokens.join(' ') 
+                : (monster.IsUserCustom ? 'Özel Canavar' : 'Pathfinder Canavar');
+        }
+
         renderAssignFolderList();
         modalAssignFolder.classList.add('active');
+
+        // Smooth focus on quick create input
+        setTimeout(() => {
+            if (inputAssignNewFolder) inputAssignNewFolder.focus();
+        }, 120);
     }
 
     function closeAssignFolderModal() {
@@ -1688,89 +1775,401 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnCloseAssignModal) btnCloseAssignModal.addEventListener('click', closeAssignFolderModal);
     if (btnAssignDone) btnAssignDone.addEventListener('click', closeAssignFolderModal);
 
-    if (btnAssignNewFolder) {
-        btnAssignNewFolder.addEventListener('click', () => {
-            const m = currentAssignMonster;
-            if (!m) return;
-            const name = prompt('Enter name for the new folder / Yeni klasör adı:');
-            if (name && name.trim()) {
-                const auth = window.PathMonsterDBAuth || window.PathGMAuth;
-                const headers = (auth && typeof auth.getAuthHeaders === 'function') ? auth.getAuthHeaders() : {};
-                headers['Content-Type'] = 'application/json';
-                const mKey = m.monster_key || (m.IsUserCustom ? ('custom:' + (m.id || '')) : ('official:' + (m.Name || '').toLowerCase()));
-                fetch('/api/folders', {
-                    method: 'POST',
-                    headers: headers,
-                    body: JSON.stringify({ name: name.trim(), monster_keys: [mKey] })
-                })
-                    .then(r => r.json())
-                    .then(res => {
-                        if (res.status === 'ok') {
-                            if (auth && typeof auth.showToast === 'function') {
-                                auth.showToast(`📁 Created folder "${res.folder.name}" and added "${m.Name}"!`, 'success');
-                            }
-                            loadFolders().then(() => {
-                                renderAssignFolderList();
-                                renderFolderSelectOptions();
-                                loadData();
-                            });
-                        }
-                    })
-                    .catch(err => alert('Error creating folder: ' + err.message));
+    // Escape key closes modal
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modalAssignFolder && modalAssignFolder.classList.contains('active')) {
+            closeAssignFolderModal();
+        }
+    });
+
+    // Quick clear for new folder input
+    if (inputAssignNewFolder) {
+        inputAssignNewFolder.addEventListener('input', () => {
+            if (btnAssignQuickClear) {
+                btnAssignQuickClear.style.display = inputAssignNewFolder.value ? 'block' : 'none';
             }
         });
+    }
+
+    if (btnAssignQuickClear) {
+        btnAssignQuickClear.addEventListener('click', () => {
+            if (inputAssignNewFolder) {
+                inputAssignNewFolder.value = '';
+                inputAssignNewFolder.focus();
+            }
+            btnAssignQuickClear.style.display = 'none';
+        });
+    }
+
+    // Inline Quick Create Folder Action with Smart Duplicate Detection
+    function handleQuickCreateFolder() {
+        const m = currentAssignMonster;
+        if (!m || !inputAssignNewFolder) return;
+        const name = (inputAssignNewFolder.value || '').trim();
+        if (!name) {
+            inputAssignNewFolder.focus();
+            return;
+        }
+
+        const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+        const headers = (auth && typeof auth.getAuthHeaders === 'function') ? auth.getAuthHeaders() : {};
+        headers['Content-Type'] = 'application/json';
+        const mKey = getMonsterKey(m);
+
+        // Check if folder already exists (smart handling)
+        const existing = (window.allUserFolders || []).find(f => (f.name || '').trim().toLowerCase() === name.toLowerCase());
+        if (existing) {
+            inputAssignNewFolder.value = '';
+            if (btnAssignQuickClear) btnAssignQuickClear.style.display = 'none';
+            const isAlreadyIn = isMonsterInFolder(existing, m);
+            if (!isAlreadyIn) {
+                const itemEl = assignFoldersList.querySelector(`[data-folder-id="${existing.id}"]`);
+                if (itemEl) toggleFolderAssignment(existing, itemEl, true);
+                if (auth && typeof auth.showToast === 'function') {
+                    auth.showToast(`📁 "${existing.name}" klasörü zaten mevcut, "${m.Name}" eklendi!`, 'info');
+                }
+            } else {
+                if (auth && typeof auth.showToast === 'function') {
+                    auth.showToast(`ℹ️ "${m.Name}" zaten "${existing.name}" klasöründe yer alıyor.`, 'info');
+                }
+            }
+            // Scroll to existing card & give it a subtle pulse
+            const targetCard = assignFoldersList.querySelector(`[data-folder-id="${existing.id}"]`);
+            if (targetCard) {
+                targetCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                targetCard.classList.add('highlight-pulse');
+                setTimeout(() => targetCard.classList.remove('highlight-pulse'), 1300);
+            }
+            return;
+        }
+
+        if (btnAssignQuickAdd) {
+            btnAssignQuickAdd.disabled = true;
+            btnAssignQuickAdd.innerHTML = '<span>⏳ Ekleniyor...</span>';
+        }
+
+        fetch('/api/folders', {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify({ name: name, monster_keys: [mKey] })
+        })
+            .then(r => r.json())
+            .then(res => {
+                if (res.status === 'ok') {
+                    inputAssignNewFolder.value = '';
+                    if (btnAssignQuickClear) btnAssignQuickClear.style.display = 'none';
+                    if (auth && typeof auth.showToast === 'function') {
+                        auth.showToast(`📁 "${res.folder.name}" oluşturuldu ve "${m.Name}" eklendi!`, 'success');
+                    }
+                    return loadFolders().then(() => {
+                        renderAssignFolderList();
+                        renderFolderSelectOptions();
+                        renderFolderPills();
+                        updateMainCardFolderStatus(m);
+                        if (activeFolderId) loadData();
+
+                        // Highlight newly created card
+                        const newCard = assignFoldersList.querySelector(`[data-folder-id="${res.folder.id}"]`);
+                        if (newCard) {
+                            newCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            newCard.classList.add('highlight-pulse');
+                            setTimeout(() => newCard.classList.remove('highlight-pulse'), 1300);
+                        }
+                    });
+                } else {
+                    alert('Klasör oluşturulamadı: ' + (res.message || 'Bilinmeyen hata'));
+                }
+            })
+            .catch(err => alert('Hata: ' + err.message))
+            .finally(() => {
+                if (btnAssignQuickAdd) {
+                    btnAssignQuickAdd.disabled = false;
+                    btnAssignQuickAdd.innerHTML = '<span>➕ Oluştur & Ata</span>';
+                }
+            });
+    }
+
+    if (assignQuickCreateForm) {
+        assignQuickCreateForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            handleQuickCreateFolder();
+        });
+    }
+
+    if (btnAssignQuickAdd) {
+        btnAssignQuickAdd.addEventListener('click', (e) => {
+            e.preventDefault();
+            handleQuickCreateFolder();
+        });
+    }
+
+    // Backward compatibility for legacy button
+    if (btnAssignNewFolder) {
+        btnAssignNewFolder.addEventListener('click', () => {
+            if (inputAssignNewFolder) {
+                inputAssignNewFolder.focus();
+                inputAssignNewFolder.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+    }
+
+    // Live Search Event Listeners
+    if (assignFolderSearchInput) {
+        assignFolderSearchInput.addEventListener('input', (e) => {
+            assignFolderSearchQuery = e.target.value || '';
+            if (btnAssignClearSearch) {
+                btnAssignClearSearch.style.display = assignFolderSearchQuery ? 'block' : 'none';
+            }
+            renderAssignFolderList();
+        });
+
+        // Pressing Enter in search toggles if single result
+        assignFolderSearchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const items = assignFoldersList.querySelectorAll('.assign-folder-item');
+                if (items.length === 1) {
+                    items[0].click();
+                }
+            }
+        });
+    }
+
+    if (btnAssignClearSearch) {
+        btnAssignClearSearch.addEventListener('click', () => {
+            assignFolderSearchQuery = '';
+            if (assignFolderSearchInput) {
+                assignFolderSearchInput.value = '';
+                assignFolderSearchInput.focus();
+            }
+            btnAssignClearSearch.style.display = 'none';
+            renderAssignFolderList();
+        });
+    }
+
+    // Batch Actions: Select All & Clear All
+    if (btnAssignSelectAll) {
+        btnAssignSelectAll.addEventListener('click', () => {
+            if (!currentAssignMonster || !assignFoldersList) return;
+            const items = assignFoldersList.querySelectorAll('.assign-folder-item:not(.selected)');
+            items.forEach(item => {
+                const fId = item.getAttribute('data-folder-id');
+                const folder = (window.allUserFolders || []).find(f => f.id === fId);
+                if (folder) toggleFolderAssignment(folder, item, true);
+            });
+        });
+    }
+
+    if (btnAssignClearAll) {
+        btnAssignClearAll.addEventListener('click', () => {
+            if (!currentAssignMonster || !assignFoldersList) return;
+            const items = assignFoldersList.querySelectorAll('.assign-folder-item.selected');
+            items.forEach(item => {
+                const fId = item.getAttribute('data-folder-id');
+                const folder = (window.allUserFolders || []).find(f => f.id === fId);
+                if (folder) toggleFolderAssignment(folder, item, false);
+            });
+        });
+    }
+
+    function toggleFolderAssignment(folder, itemEl, forceState) {
+        if (!currentAssignMonster || !folder) return;
+        const m = currentAssignMonster;
+        const mKey = getMonsterKey(m);
+        const cb = itemEl ? itemEl.querySelector('input[type="checkbox"]') : null;
+        const currentlyChecked = cb ? cb.checked : isMonsterInFolder(folder, m);
+        const nextState = forceState !== undefined ? forceState : !currentlyChecked;
+
+        if (currentlyChecked === nextState) return;
+
+        // Optimistic UI updates
+        if (cb) cb.checked = nextState;
+        if (itemEl) {
+            itemEl.classList.toggle('selected', nextState);
+            itemEl.setAttribute('aria-checked', nextState ? 'true' : 'false');
+            const checkBadge = itemEl.querySelector('.assign-custom-check');
+            if (checkBadge) checkBadge.textContent = nextState ? '✓' : '';
+            const statusTag = itemEl.querySelector('.assign-folder-status');
+            if (statusTag) statusTag.textContent = nextState ? '✓ Eklendi' : '+ Dahil Et';
+        }
+
+        if (!Array.isArray(folder.monster_keys)) folder.monster_keys = [];
+        if (nextState) {
+            if (!folder.monster_keys.includes(mKey)) folder.monster_keys.push(mKey);
+        } else {
+            folder.monster_keys = folder.monster_keys.filter(k => k !== mKey && k !== m.id && k !== ('custom:' + m.id));
+        }
+
+        if (itemEl) {
+            const countSpan = itemEl.querySelector('.assign-folder-count');
+            if (countSpan) countSpan.textContent = `${folder.monster_keys.length} canavar`;
+        }
+
+        // Update hero badge count & selection counter
+        const folders = window.allUserFolders || [];
+        const totalAssigned = folders.filter(f => isMonsterInFolder(f, m)).length;
+        if (assignMonsterFoldersBadge) {
+            assignMonsterFoldersBadge.textContent = totalAssigned === 0 
+                ? 'Henüz bir klasörde değil' 
+                : `${totalAssigned} Klasörde Ekli`;
+            assignMonsterFoldersBadge.style.color = totalAssigned > 0 ? '#6ee7b7' : '#94a3b8';
+            assignMonsterFoldersBadge.style.borderColor = totalAssigned > 0 ? 'rgba(16, 185, 129, 0.4)' : 'rgba(255, 255, 255, 0.1)';
+        }
+        if (assignSelectedCountBadge) {
+            assignSelectedCountBadge.textContent = `${totalAssigned} / ${folders.length} klasör seçili`;
+        }
+
+        // Live update on the main page card
+        updateMainCardFolderStatus(m);
+
+        // Send API request in background
+        const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+        const headers = (auth && typeof auth.getAuthHeaders === 'function') ? auth.getAuthHeaders() : {};
+        headers['Content-Type'] = 'application/json';
+        const endpoint = nextState ? '/api/folders/add' : '/api/folders/remove';
+
+        fetch(endpoint, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify({ folder_id: folder.id, monster_key: mKey })
+        })
+            .then(r => r.json())
+            .then(res => {
+                if (res.status === 'ok') {
+                    if (auth && typeof auth.showToast === 'function') {
+                        auth.showToast(nextState ? `➕ "${m.Name}" "${folder.name}" klasörüne eklendi.` : `➖ "${m.Name}" "${folder.name}" klasöründen çıkarıldı.`, 'info');
+                    }
+                    if (activeFolderId) {
+                        loadData();
+                    }
+                    renderFolderSelectOptions();
+                    renderFolderPills();
+                } else {
+                    throw new Error(res.message || 'Klasör işlemi başarısız');
+                }
+            })
+            .catch(err => {
+                console.error('Folder toggle error:', err);
+                if (auth && typeof auth.showToast === 'function') {
+                    auth.showToast('İşlem hatası: ' + err.message, 'error');
+                }
+                loadFolders().then(() => renderAssignFolderList());
+            });
     }
 
     function renderAssignFolderList() {
         if (!assignFoldersList || !currentAssignMonster) return;
         const m = currentAssignMonster;
-        const mKey = m.monster_key || (m.IsUserCustom ? ('custom:' + (m.id || '')) : ('official:' + (m.Name || '').toLowerCase()));
+        const mKey = getMonsterKey(m);
         assignFoldersList.innerHTML = '';
 
-        if (!window.allUserFolders || window.allUserFolders.length === 0) {
-            assignFoldersList.innerHTML = `<div style="color: #94a3b8; font-style: italic; padding: 12px; text-align: center;">No folders created yet. Click "➕ New Folder" below to create one!</div>`;
+        const folders = window.allUserFolders || [];
+        const assignedCount = folders.filter(f => isMonsterInFolder(f, m)).length;
+
+        // Update Hero status pill
+        if (assignMonsterFoldersBadge) {
+            assignMonsterFoldersBadge.textContent = assignedCount === 0 
+                ? 'Henüz bir klasörde değil' 
+                : `${assignedCount} Klasörde Ekli`;
+            assignMonsterFoldersBadge.style.color = assignedCount > 0 ? '#6ee7b7' : '#94a3b8';
+            assignMonsterFoldersBadge.style.borderColor = assignedCount > 0 ? 'rgba(16, 185, 129, 0.4)' : 'rgba(255, 255, 255, 0.1)';
+        }
+
+        // Update Selected count badge
+        if (assignSelectedCountBadge) {
+            assignSelectedCountBadge.textContent = `${assignedCount} / ${folders.length} klasör seçili`;
+        }
+
+        // Sort folders: folders containing the monster come first, then alphabetical
+        const sortedFolders = [...folders].sort((a, b) => {
+            const aIn = isMonsterInFolder(a, m) ? 0 : 1;
+            const bIn = isMonsterInFolder(b, m) ? 0 : 1;
+            if (aIn !== bIn) return aIn - bIn;
+            return (a.name || '').localeCompare(b.name || '');
+        });
+
+        // Filter folders by search query
+        const query = (assignFolderSearchQuery || '').trim().toLowerCase();
+        const filteredFolders = query 
+            ? sortedFolders.filter(f => (f.name || '').toLowerCase().includes(query))
+            : sortedFolders;
+
+        // Empty state when no folders exist at all
+        if (folders.length === 0) {
+            assignFoldersList.innerHTML = `
+                <div class="assign-empty-state">
+                    <div class="assign-empty-icon">📂</div>
+                    <div class="assign-empty-text">Henüz hiç klasör oluşturmadınız</div>
+                    <div class="assign-empty-subtext">Yukarıdaki kutucuğa bir isim yazıp <strong>Enter</strong>'a basarak hemen ilk klasörünüzü oluşturabilirsiniz!</div>
+                </div>
+            `;
             return;
         }
 
-        window.allUserFolders.forEach(folder => {
-            const item = document.createElement('div');
-            item.className = 'assign-folder-item';
+        // Empty state when search query matches nothing
+        if (filteredFolders.length === 0) {
+            assignFoldersList.innerHTML = `
+                <div class="assign-empty-state">
+                    <div class="assign-empty-icon">🔍</div>
+                    <div class="assign-empty-text">"${assignFolderSearchQuery}" ile eşleşen klasör bulunamadı</div>
+                    <div class="assign-empty-subtext">Yukarıdaki kutudan bu isimle anında yeni bir klasör oluşturabilirsiniz.</div>
+                </div>
+            `;
+            return;
+        }
 
+        // Render tactile interactive folder cards
+        filteredFolders.forEach(folder => {
+            const item = document.createElement('div');
             const keys = folder.monster_keys || [];
-            const isChecked = keys.includes(mKey) || (m.id && keys.includes(m.id)) || (m.id && keys.includes('custom:' + m.id));
+            const isChecked = isMonsterInFolder(folder, m);
+
+            item.className = `assign-folder-item ${isChecked ? 'selected' : ''}`;
+            item.setAttribute('data-folder-id', folder.id);
+            item.tabIndex = 0;
+            item.setAttribute('role', 'checkbox');
+            item.setAttribute('aria-checked', isChecked ? 'true' : 'false');
+
+            // Highlight matched search letters if any
+            let displayTitle = folder.name || 'Folder';
+            if (query) {
+                const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const qRegex = new RegExp(`(${escapedQuery})`, 'gi');
+                displayTitle = displayTitle.replace(qRegex, '<mark class="search-highlight">$1</mark>');
+            }
 
             item.innerHTML = `
-                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; flex: 1;">
-                    <input type="checkbox" ${isChecked ? 'checked' : ''}>
-                    <span>📁 <strong>${folder.name}</strong> <span style="font-size: 11.5px; opacity: 0.7;">(${keys.length} canavar)</span></span>
-                </label>
+                <div class="assign-folder-left">
+                    <div class="assign-custom-check">${isChecked ? '✓' : ''}</div>
+                    <input type="checkbox" ${isChecked ? 'checked' : ''} tabindex="-1">
+                    <div class="assign-folder-info">
+                        <span class="assign-folder-icon">📁</span>
+                        <span class="assign-folder-title" title="${folder.name}">${displayTitle}</span>
+                        <span class="assign-folder-count">${keys.length} canavar</span>
+                    </div>
+                </div>
+                <div class="assign-folder-status">${isChecked ? '✓ Eklendi' : '+ Dahil Et'}</div>
             `;
 
-            const cb = item.querySelector('input[type="checkbox"]');
-            cb.addEventListener('change', (e) => {
-                const add = e.target.checked;
-                const auth = window.PathMonsterDBAuth || window.PathGMAuth;
-                const headers = (auth && typeof auth.getAuthHeaders === 'function') ? auth.getAuthHeaders() : {};
-                headers['Content-Type'] = 'application/json';
-                const endpoint = add ? '/api/folders/add' : '/api/folders/remove';
-                fetch(endpoint, {
-                    method: 'POST',
-                    headers: headers,
-                    body: JSON.stringify({ folder_id: folder.id, monster_key: mKey })
-                })
-                    .then(r => r.json())
-                    .then(res => {
-                        if (res.status === 'ok') {
-                            if (auth && typeof auth.showToast === 'function') {
-                                auth.showToast(add ? `➕ "${m.Name}" "${folder.name}" klasörüne eklendi.` : `➖ "${m.Name}" "${folder.name}" klasöründen çıkarıldı.`, 'info');
-                            }
-                            loadFolders().then(() => {
-                                renderAssignFolderList();
-                                if (activeFolderId) loadData();
-                            });
-                        }
-                    })
-                    .catch(err => console.error('Folder toggle error:', err));
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                toggleFolderAssignment(folder, item);
+            });
+
+            // Keyboard navigation: Space/Enter toggles, ArrowUp/ArrowDown navigates
+            item.addEventListener('keydown', (e) => {
+                if (e.key === ' ' || e.key === 'Enter') {
+                    e.preventDefault();
+                    toggleFolderAssignment(folder, item);
+                } else if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    const next = item.nextElementSibling;
+                    if (next && next.classList.contains('assign-folder-item')) next.focus();
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    const prev = item.previousElementSibling;
+                    if (prev && prev.classList.contains('assign-folder-item')) prev.focus();
+                }
             });
 
             assignFoldersList.appendChild(item);

@@ -2181,7 +2181,7 @@
     "_m_align": "ne",
     "_m_env": "corrupted forests, abyssal crypts, and shadow caverns",
     "_m_source": "custom",
-    "_m_search_text": "necrotic wolf spider   custom",
+    "_m_search_text": "necrotic wolf spider    custom",
     "id": "1a78dcec-8f15-4a0c-bba5-3b6d9820820a",
     "_global_index": 5551
   },
@@ -2963,7 +2963,7 @@
     "_m_align": "n",
     "_m_env": "warm forests, tropical jungles, giant blossom canopies",
     "_m_source": "custom",
-    "_m_search_text": "petalwing drake   custom",
+    "_m_search_text": "petalwing drake    custom",
     "id": "6e50f21a-223c-4466-b53d-0b1b9dd6cd05",
     "_global_index": 5555
   },
@@ -3759,213 +3759,9 @@
     "_m_align": "ne",
     "_m_env": "warm or temperate hills, deserts, and battlefields",
     "_m_source": "custom",
-    "_m_search_text": "gloomfeather vulture   custom",
+    "_m_search_text": "gloomfeather vulture    custom",
     "id": "475cb01c-04d6-4517-9bd0-69d7ae8386f7",
     "_global_index": 5559
-  },
-  {
-    "Name": "Quartz-Chitin Cavitation Mantis",
-    "CR": "7",
-    "XP": "3200",
-    "Alignment": "N",
-    "Size": "Large",
-    "Type": "Magical Beast",
-    "subtype1": "",
-    "subtype2": "",
-    "Init": "+2",
-    "Senses": "darkvision 60 ft., tremorsense (in water) 60 ft., low-light vision",
-    "Aura": "Prismatic Quartz Glare (10 ft., DC 15 Will or dazzled 1d4 rounds)",
-    "AC": "20",
-    "AC_Touch": "11",
-    "AC_Flat-footed": "18",
-    "HP": "76",
-    "HD": "8d10",
-    "Fort": "+10",
-    "Ref": "+8",
-    "Will": "+3",
-    "Speed": "30 ft., swim 50 ft., jet 150 ft.",
-    "Melee": "2 pincers +13 (1d8+6/19-20 plus grab and piezoelectric shock), bite +8 (1d6+3)",
-    "Ranged": "cavitation bubble +9 touch (2d6 bludgeoning + 2d6 sonic, range 30 ft.)",
-    "Space": "10 ft.",
-    "Reach": "10 ft.",
-    "SpecialAttacks": "cavitation blast, constrict (pincers, 1d8+6), grab, piezoelectric shock, quartz rend (2 pincers, 1d8+9 plus 1d6 sonic)",
-    "DefensiveAbilities": "quartz refraction",
-    "Weaknesses": "vulnerable to sonic",
-    "Organization": "solitary or mated pair",
-    "Str": "22",
-    "Dex": "15",
-    "Con": "18",
-    "Int": "4",
-    "Wis": "13",
-    "Cha": "7",
-    "BaseAtk": "8",
-    "CMB": "+15 (+19 grapple)",
-    "CMD": "27 (35 vs. trip)",
-    "Feats": "Combat Reflexes, Great Fortitude, Improved Critical (pincer), Power Attack",
-    "Skills": "Fly +0, Perception +12, Stealth +7, Swim +14",
-    "Languages": "",
-    "SQ": "amphibious, hexachromatic vision, piezoelectric resonance",
-    "DR": "5/bludgeoning",
-    "Immune": "cold",
-    "Resist": "electricity 5, fire 5",
-    "SR": "",
-    "Environment": "quartz-veined sea caves, flooded meteor craters, hydrothermal trenches",
-    "Treasure": "standard (raw quartz crystals, irradiated geodes)",
-    "Gear": "",
-    "Class1": "",
-    "Class1_Lvl": "",
-    "Visibility": "public",
-    "AuthorId": "erdem",
-    "AuthorName": "erdem",
-    "IsFavorite": false,
-    "IsUserCustom": true,
-    "CharacterFlag": "0",
-    "SpellLikeAbilities": "(8)",
-    "Special Abilities": "Quartz Refraction (Su) The crystal clusters embedded in its carapace refract light and energy. Ray attacks and magical beams have a 20% miss chance against the creature. It gains DR 5/bludgeoning as crushing blows shatter its quartz shell, whereas slashing and piercing weapons scrape harmlessly against crystalline facets.\nPiezoelectric Shock (Su) Whenever the creature hits with a pincer melee attack, physical pressure generates piezoelectric voltage. The target takes an additional 1d6 electricity damage and must succeed at a DC 16 Fortitude save or be deafened for 1d4 rounds. If the creature successfully rends a target, the target is also staggered for 1 round on a failed save. The save DC is Constitution-based.\nCavitation Blast (Su) Underwater only, as a standard action, the mantis snaps its quartz pincers with hypersonic speed, producing a superheated shockwave in a 30-ft. cone. All creatures in the area take 3d6 bludgeoning damage and 3d6 sonic damage (Reflex DC 16 half). Creatures that fail are also pushed back 5 feet. Usable once every 1d4 rounds. The save DC is Constitution-based.\nPiezoelectric Resonance (Su) Within 500 feet of dense quartz veins or crystallized impact cores, the creature absorbs crystal harmonics, gaining fast healing 2 and a +1 insight bonus on saving throws and attack rolls while in the crystal-laden waters.\nHexachromatic Vision (Ex) Its specialized stalked eyes perceive light spectrums and crystal resonance underwater, granting it the continuous benefits of see invisibility.",
-    "OriginalState": {
-      "basic": {
-        "in-name": "Quartz-Chitin Cavitation Mantis",
-        "in-cr": "7",
-        "in-xp": "3200",
-        "in-visibility": "public",
-        "in-author": "erdem",
-        "in-alignment": "N",
-        "in-size": "Large",
-        "in-type": "Magical Beast",
-        "in-type-full": "Large magical beast (aquatic)",
-        "in-init-extra": "0",
-        "in-aura": "Prismatic Quartz Glare (10 ft., DC 15 Will or dazzled 1d4 rounds)",
-        "in-str": "22",
-        "in-dex": "15",
-        "in-con": "18",
-        "in-int": "4",
-        "in-wis": "13",
-        "in-cha": "7",
-        "in-armor-name": "",
-        "in-ac-armor": "0",
-        "in-shield-name": "",
-        "in-ac-shield": "0",
-        "in-ac-natural": "9",
-        "in-ac-deflection": "0",
-        "in-ac-dodge": "0",
-        "in-hd-amount": "8",
-        "in-hd-size": "10",
-        "in-hp-extra": "0",
-        "in-fort": "+10",
-        "in-ref": "+8",
-        "in-will": "+3",
-        "in-def-abilities": "quartz refraction",
-        "in-dr": "5/bludgeoning",
-        "in-immune": "cold",
-        "in-resist": "electricity 5, fire 5",
-        "in-weaknesses": "vulnerable to sonic",
-        "in-sr": "",
-        "in-speed": "30 ft., swim 50 ft., jet 150 ft.",
-        "in-space": "10 ft.",
-        "in-reach": "10 ft.",
-        "in-special-attacks": "cavitation blast, constrict (pincers, 1d8+6), grab, piezoelectric shock, quartz rend (2 pincers, 1d8+9 plus 1d6 sonic)",
-        "in-sla-cl": "8",
-        "in-bab": "8",
-        "in-cmb": "+15 (+19 grapple)",
-        "in-cmb-extra": "0",
-        "in-cmd": "27 (35 vs. trip)",
-        "in-cmd-extra": "0",
-        "in-feats": "Combat Reflexes, Great Fortitude, Improved Critical (pincer), Power Attack",
-        "in-feat-search": "",
-        "in-skills": "Fly +0, Perception +12, Stealth +7, Swim +14",
-        "in-languages": "",
-        "in-sq": "amphibious, hexachromatic vision, piezoelectric resonance",
-        "in-gear": "",
-        "in-spell-class": "",
-        "in-spell-cl": "1",
-        "in-spell-stat": "int",
-        "in-spell-conc": "",
-        "in-spells-data": "{}",
-        "in-spells": "{}",
-        "in-environment": "quartz-veined sea caves, flooded meteor craters, hydrothermal trenches",
-        "in-organization": "solitary or mated pair",
-        "in-treasure": "standard (raw quartz crystals, irradiated geodes)",
-        "in-hp": "76 (8d10+32)",
-        "in-init": "+2",
-        "in-ac": "20, touch 11, flat-footed 18 (+2 Dex, -1 size, +9 natural)"
-      },
-      "html": {},
-      "dynamic": {
-        "subtypes": [
-          ""
-        ],
-        "senses": [
-          {
-            "name": "darkvision 60 ft.",
-            "dist": ""
-          },
-          {
-            "name": "tremorsense (in water) 60 ft.",
-            "dist": ""
-          },
-          {
-            "name": "low-light vision",
-            "dist": ""
-          }
-        ],
-        "skills": [],
-        "slas": [],
-        "melee": [
-          {
-            "mode": "raw",
-            "rawText": "2 pincers +13 (1d8+6/19-20 plus grab and piezoelectric shock)"
-          },
-          {
-            "mode": "raw",
-            "rawText": "bite +8 (1d6+3)"
-          }
-        ],
-        "ranged": [
-          {
-            "mode": "raw",
-            "rawText": "cavitation bubble +9 touch (2d6 bludgeoning + 2d6 sonic, range 30 ft.)"
-          }
-        ],
-        "abilities": [
-          {
-            "name": "Quartz Refraction (Su)",
-            "desc": "The crystal clusters embedded in its carapace refract light and energy. Ray attacks and magical beams have a 20% miss chance against the creature. It gains DR 5/bludgeoning as crushing blows shatter its quartz shell, whereas slashing and piercing weapons scrape harmlessly against crystalline facets."
-          },
-          {
-            "name": "Piezoelectric Shock (Su)",
-            "desc": "Whenever the creature hits with a pincer melee attack, physical pressure generates piezoelectric voltage. The target takes an additional 1d6 electricity damage and must succeed at a DC 16 Fortitude save or be deafened for 1d4 rounds. If the creature successfully rends a target, the target is also staggered for 1 round on a failed save. The save DC is Constitution-based."
-          },
-          {
-            "name": "Cavitation Blast (Su)",
-            "desc": "Underwater only, as a standard action, the mantis snaps its quartz pincers with hypersonic speed, producing a superheated shockwave in a 30-ft. cone. All creatures in the area take 3d6 bludgeoning damage and 3d6 sonic damage (Reflex DC 16 half). Creatures that fail are also pushed back 5 feet. Usable once every 1d4 rounds. The save DC is Constitution-based."
-          },
-          {
-            "name": "Piezoelectric Resonance (Su)",
-            "desc": "Within 500 feet of dense quartz veins or crystallized impact cores, the creature absorbs crystal harmonics, gaining fast healing 2 and a +1 insight bonus on saving throws and attack rolls while in the crystal-laden waters."
-          },
-          {
-            "name": "Hexachromatic Vision (Ex)",
-            "desc": "Its specialized stalked eyes perceive light spectrums and crystal resonance underwater, granting it the continuous benefits of see invisibility."
-          }
-        ],
-        "magic_items": [],
-        "spells": []
-      },
-      "_global_index": 5560,
-      "id": "741423d9-473a-43cc-97f1-54eb60baaf54",
-      "AuthorId": "erdem",
-      "AuthorName": "erdem"
-    },
-    "_m_name": "quartz-chitin cavitation mantis",
-    "_m_cr": "7",
-    "_m_type": "magical beast",
-    "_m_size": "large",
-    "_m_align": "n",
-    "_m_env": "quartz-veined sea caves, flooded meteor craters, hydrothermal trenches",
-    "_m_source": "custom",
-    "_m_search_text": "quartz-chitin cavitation mantis    custom",
-    "id": "741423d9-473a-43cc-97f1-54eb60baaf54",
-    "_global_index": 5560
   },
   {
     "Name": "Emiliano Spadachiara(Possessed)",
@@ -4189,7 +3985,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5561,
+      "_global_index": 5560,
       "id": "74cdd240-da1e-47ed-a1e7-cc44d1a22f1b",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -4203,7 +3999,7 @@
     "_m_source": "custom",
     "_m_search_text": "emiliano spadachiara(possessed)  evil extraplanar  custom",
     "id": "74cdd240-da1e-47ed-a1e7-cc44d1a22f1b",
-    "_global_index": 5561
+    "_global_index": 5560
   },
   {
     "Name": "Dune-Ripper Scythe-Beetle",
@@ -4374,7 +4170,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5562,
+      "_global_index": 5561,
       "id": "10394478-2b09-4749-b34c-8fe9d3da8656",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -4388,7 +4184,7 @@
     "_m_source": "custom",
     "_m_search_text": "dune-ripper scythe-beetle    custom",
     "id": "10394478-2b09-4749-b34c-8fe9d3da8656",
-    "_global_index": 5562
+    "_global_index": 5561
   },
   {
     "Name": "Glass-Scale Dune Serpent",
@@ -4567,7 +4363,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5563,
+      "_global_index": 5562,
       "id": "7ed413b3-8667-4d6c-a6ae-aed3f8aba8a0",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -4581,7 +4377,7 @@
     "_m_source": "custom",
     "_m_search_text": "glass-scale dune serpent    custom",
     "id": "7ed413b3-8667-4d6c-a6ae-aed3f8aba8a0",
-    "_global_index": 5563
+    "_global_index": 5562
   },
   {
     "Name": "Core Eater Mammoth",
@@ -4762,7 +4558,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5564,
+      "_global_index": 5563,
       "id": "7db305ad-f8d2-4ff1-9615-06a2bc60d51a",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -4776,7 +4572,7 @@
     "_m_source": "custom",
     "_m_search_text": "core eater mammoth  fire  custom",
     "id": "7db305ad-f8d2-4ff1-9615-06a2bc60d51a",
-    "_global_index": 5564
+    "_global_index": 5563
   },
   {
     "Name": "Tahm Kench(The River King)",
@@ -5001,7 +4797,7 @@
         ],
         "spells": []
       },
-      "_global_index": 5565,
+      "_global_index": 5564,
       "id": "ead7e373-f7df-45d2-99db-e9a682dc17e6",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -5013,9 +4809,9 @@
     "_m_align": "ne",
     "_m_env": "murky rivers, bayous, misty lakes, opulent city waterways",
     "_m_source": "custom",
-    "_m_search_text": "tahm kench(the river king) aquatic evil custom",
+    "_m_search_text": "tahm kench(the river king)  aquatic evil  custom",
     "id": "ead7e373-f7df-45d2-99db-e9a682dc17e6",
-    "_global_index": 5565
+    "_global_index": 5564
   },
   {
     "Name": "Aatrox(The Darkin Blade)",
@@ -5231,7 +5027,7 @@
         ],
         "spells": []
       },
-      "_global_index": 5566,
+      "_global_index": 5565,
       "id": "11a90116-62d9-412b-ace3-3d8ef3beaaf6",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -5243,9 +5039,9 @@
     "_m_align": "ce",
     "_m_env": "ruined battlefields, scorched peaks, planar rifts",
     "_m_source": "custom",
-    "_m_search_text": "aatrox(the darkin blade) chaotic evil custom",
+    "_m_search_text": "aatrox(the darkin blade)  chaotic evil  custom",
     "id": "11a90116-62d9-412b-ace3-3d8ef3beaaf6",
-    "_global_index": 5566
+    "_global_index": 5565
   },
   {
     "Name": "Ore-Mite",
@@ -5425,7 +5221,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5567,
+      "_global_index": 5566,
       "id": "a5e9d412-2154-4661-849c-6033f3c27273",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -5439,7 +5235,7 @@
     "_m_source": "custom",
     "_m_search_text": "ore-mite    custom",
     "id": "a5e9d412-2154-4661-849c-6033f3c27273",
-    "_global_index": 5567
+    "_global_index": 5566
   },
   {
     "Name": "Maokai(The Twisted Treant)",
@@ -5631,7 +5427,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5568,
+      "_global_index": 5567,
       "id": "3ff94bda-17b6-46b3-a937-1087d38b0dd5",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -5645,7 +5441,7 @@
     "_m_source": "custom",
     "_m_search_text": "maokai(the twisted treant)    custom",
     "id": "3ff94bda-17b6-46b3-a937-1087d38b0dd5",
-    "_global_index": 5568
+    "_global_index": 5567
   },
   {
     "Name": "Renekton(The Butcher of the Sands)",
@@ -5842,7 +5638,7 @@
         ],
         "spells": []
       },
-      "_global_index": 5569,
+      "_global_index": 5568,
       "id": "bcb3f088-5a86-4c4f-8dc1-bba21fa1ed6f",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -5856,7 +5652,7 @@
     "_m_source": "custom",
     "_m_search_text": "renekton(the butcher of the sands)    custom",
     "id": "bcb3f088-5a86-4c4f-8dc1-bba21fa1ed6f",
-    "_global_index": 5569
+    "_global_index": 5568
   },
   {
     "Name": "Gnar(The Missing Link)",
@@ -6050,7 +5846,7 @@
         ],
         "spells": []
       },
-      "_global_index": 5570,
+      "_global_index": 5569,
       "id": "c39f982c-ae7f-4a11-b9f3-fefe740ae183",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -6064,7 +5860,7 @@
     "_m_source": "custom",
     "_m_search_text": "gnar(the missing link)  shapechanger  custom",
     "id": "c39f982c-ae7f-4a11-b9f3-fefe740ae183",
-    "_global_index": 5570
+    "_global_index": 5569
   },
   {
     "Name": "Mega Gnar(The Missing Link)",
@@ -6258,7 +6054,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5571,
+      "_global_index": 5570,
       "id": "cb0ac3df-c223-484a-9002-6e2ff13a01af",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -6272,7 +6068,7 @@
     "_m_source": "custom",
     "_m_search_text": "mega gnar(the missing link)  shapechanger  custom",
     "id": "cb0ac3df-c223-484a-9002-6e2ff13a01af",
-    "_global_index": 5571
+    "_global_index": 5570
   },
   {
     "Name": "Cho'Gath(The Terror of the Void)",
@@ -6471,7 +6267,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5572,
+      "_global_index": 5571,
       "id": "02c50882-5baa-4ac0-8dbf-59e68e6bd7b2",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -6485,7 +6281,7 @@
     "_m_source": "custom",
     "_m_search_text": "cho'gath(the terror of the void)  chaotic evil  custom",
     "id": "02c50882-5baa-4ac0-8dbf-59e68e6bd7b2",
-    "_global_index": 5572
+    "_global_index": 5571
   },
   {
     "Name": "Rek'Sai(The Void Burrower)",
@@ -6689,7 +6485,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5573,
+      "_global_index": 5572,
       "id": "21eab4a3-5176-47d4-9f1b-5e74042a0394",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -6703,7 +6499,7 @@
     "_m_source": "custom",
     "_m_search_text": "rek'sai(the void burrower)  chaotic evil  custom",
     "id": "21eab4a3-5176-47d4-9f1b-5e74042a0394",
-    "_global_index": 5573
+    "_global_index": 5572
   },
   {
     "Name": "Trundle(The Troll King)",
@@ -6897,7 +6693,7 @@
         ],
         "spells": []
       },
-      "_global_index": 5574,
+      "_global_index": 5573,
       "id": "451430f0-5510-4764-9f43-84850993d3d3",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -6911,7 +6707,7 @@
     "_m_source": "custom",
     "_m_search_text": "trundle(the troll king)  cold  custom",
     "id": "451430f0-5510-4764-9f43-84850993d3d3",
-    "_global_index": 5574
+    "_global_index": 5573
   },
   {
     "Name": "Dr. Mundo(The Mad Chemist)",
@@ -7106,7 +6902,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5575,
+      "_global_index": 5574,
       "id": "a8bf695b-bc28-45ca-a55a-5de8196529a8",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -7120,7 +6916,7 @@
     "_m_source": "custom",
     "_m_search_text": "dr. mundo(the mad chemist)    custom",
     "id": "a8bf695b-bc28-45ca-a55a-5de8196529a8",
-    "_global_index": 5575
+    "_global_index": 5574
   },
   {
     "Name": "Alistar(The Minotaur)",
@@ -7327,7 +7123,7 @@
         ],
         "spells": []
       },
-      "_global_index": 5576,
+      "_global_index": 5575,
       "id": "9c47b0b2-f69e-4c94-a5ff-e50d88aea480",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -7341,7 +7137,7 @@
     "_m_source": "custom",
     "_m_search_text": "alistar(the minotaur)    custom",
     "id": "9c47b0b2-f69e-4c94-a5ff-e50d88aea480",
-    "_global_index": 5576
+    "_global_index": 5575
   },
   {
     "Name": "Kancar",
@@ -7503,7 +7299,7 @@
       "AuthorId": "Mart",
       "AuthorName": "Mart",
       "id": "62f8d7e2-adab-4572-99aa-189a6d2f10ed",
-      "_global_index": 5577
+      "_global_index": 5576
     },
     "_m_name": "kancar",
     "_m_cr": "3",
@@ -7514,7 +7310,7 @@
     "_m_source": "custom",
     "_m_search_text": "kancar    custom",
     "id": "62f8d7e2-adab-4572-99aa-189a6d2f10ed",
-    "_global_index": 5577
+    "_global_index": 5576
   },
   {
     "Name": "M-Pickpocket",
@@ -7677,7 +7473,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5578,
+      "_global_index": 5577,
       "id": "46d50b74-ba8e-4b6a-a8f1-2995a7dabf16",
       "AuthorId": "Mart",
       "AuthorName": "Mart"
@@ -7691,7 +7487,7 @@
     "_m_source": "custom",
     "_m_search_text": "m-pickpocket  human  custom",
     "id": "46d50b74-ba8e-4b6a-a8f1-2995a7dabf16",
-    "_global_index": 5578
+    "_global_index": 5577
   },
   {
     "Name": "M-Human Alchemist",
@@ -7853,7 +7649,7 @@
       "AuthorId": "Mart",
       "AuthorName": "Mart",
       "id": "17af915b-2274-45f9-9f40-6455eae20cd8",
-      "_global_index": 5579
+      "_global_index": 5578
     },
     "_m_name": "m-human alchemist",
     "_m_cr": "2",
@@ -7864,7 +7660,7 @@
     "_m_source": "custom",
     "_m_search_text": "m-human alchemist    custom",
     "id": "17af915b-2274-45f9-9f40-6455eae20cd8",
-    "_global_index": 5579
+    "_global_index": 5578
   },
   {
     "Name": "Emiliano Spadachiara(Possessed and Reborned)",
@@ -8096,7 +7892,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5580,
+      "_global_index": 5579,
       "id": "40de8ee0-d363-439d-bf3e-66d29da1fb37",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -8110,7 +7906,7 @@
     "_m_source": "custom",
     "_m_search_text": "emiliano spadachiara(possessed and reborned)  evil extraplanar  custom",
     "id": "40de8ee0-d363-439d-bf3e-66d29da1fb37",
-    "_global_index": 5580
+    "_global_index": 5579
   },
   {
     "Name": "Noelle Spadachiara",
@@ -8294,7 +8090,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5581,
+      "_global_index": 5580,
       "id": "7bf3b846-11ff-496f-9a29-610ab490ecef",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -8308,7 +8104,7 @@
     "_m_source": "custom",
     "_m_search_text": "noelle spadachiara    custom",
     "id": "7bf3b846-11ff-496f-9a29-610ab490ecef",
-    "_global_index": 5581
+    "_global_index": 5580
   },
   {
     "Name": "Rovesta Guard",
@@ -8497,7 +8293,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5582,
+      "_global_index": 5581,
       "id": "06437bd3-56d5-4178-acc1-233a9c1819ce",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -8511,7 +8307,7 @@
     "_m_source": "custom",
     "_m_search_text": "rovesta guard    custom",
     "id": "06437bd3-56d5-4178-acc1-233a9c1819ce",
-    "_global_index": 5582
+    "_global_index": 5581
   },
   {
     "Name": "Slyvia Bevoir",
@@ -8714,7 +8510,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5583,
+      "_global_index": 5582,
       "id": "cb8b474a-633d-41ad-8e67-4d06bf65e0fd",
       "AuthorId": "Blazelaze",
       "AuthorName": "Blazelaze"
@@ -8728,7 +8524,7 @@
     "_m_source": "custom",
     "_m_search_text": "slyvia bevoir    custom",
     "id": "cb8b474a-633d-41ad-8e67-4d06bf65e0fd",
-    "_global_index": 5583
+    "_global_index": 5582
   },
   {
     "Name": "Garber Twain",
@@ -8893,7 +8689,7 @@
       "AuthorId": "Blazelaze",
       "AuthorName": "Blazelaze",
       "id": "82c3aa6b-88a7-4db9-9bfc-324427a74ac4",
-      "_global_index": 5584
+      "_global_index": 5583
     },
     "_m_name": "garber twain",
     "_m_cr": "5",
@@ -8904,7 +8700,7 @@
     "_m_source": "custom",
     "_m_search_text": "garber twain    custom",
     "id": "82c3aa6b-88a7-4db9-9bfc-324427a74ac4",
-    "_global_index": 5584
+    "_global_index": 5583
   },
   {
     "Name": "(Magnum Opus) Albedo",
@@ -9091,7 +8887,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5585,
+      "_global_index": 5584,
       "id": "17160659-0893-4a4b-bedb-99ee605dfb96",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -9103,9 +8899,9 @@
     "_m_align": "le",
     "_m_env": "any",
     "_m_source": "custom",
-    "_m_search_text": "(magnum opus) albedo   custom",
+    "_m_search_text": "(magnum opus) albedo    custom",
     "id": "17160659-0893-4a4b-bedb-99ee605dfb96",
-    "_global_index": 5585
+    "_global_index": 5584
   },
   {
     "Name": "(Magnum Opus) Citrinitas",
@@ -9311,7 +9107,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5586,
+      "_global_index": 5585,
       "id": "c353dc75-122e-460e-8b22-1d6b03d00f0d",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -9323,9 +9119,9 @@
     "_m_align": "ne",
     "_m_env": "alchemical laboratories, urban courts, ancient academies",
     "_m_source": "custom",
-    "_m_search_text": "(magnum opus) citrinitas   custom",
+    "_m_search_text": "(magnum opus) citrinitas    custom",
     "id": "c353dc75-122e-460e-8b22-1d6b03d00f0d",
-    "_global_index": 5586
+    "_global_index": 5585
   },
   {
     "Name": "(Magnum Opus) Nigredo",
@@ -9509,7 +9305,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5587,
+      "_global_index": 5586,
       "id": "aeef16f2-a89f-4ad7-80ee-1b0f694e81f5",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -9521,9 +9317,9 @@
     "_m_align": "ne",
     "_m_env": "any volcanic peaks, void temples, cataclysmic ruins, or scorched arcane laboratories",
     "_m_source": "custom",
-    "_m_search_text": "(magnum opus) nigredo   custom",
+    "_m_search_text": "(magnum opus) nigredo    custom",
     "id": "aeef16f2-a89f-4ad7-80ee-1b0f694e81f5",
-    "_global_index": 5587
+    "_global_index": 5586
   },
   {
     "Name": "(Magnum Opus) Rubedo",
@@ -9723,7 +9519,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5588,
+      "_global_index": 5587,
       "id": "6aabbb14-d94e-4279-8fdc-0f4cabf1b3f2",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -9735,9 +9531,9 @@
     "_m_align": "ce",
     "_m_env": "any urban courts, opulent salons, dueling grounds",
     "_m_source": "custom",
-    "_m_search_text": "(magnum opus) rubedo   custom",
+    "_m_search_text": "(magnum opus) rubedo    custom",
     "id": "6aabbb14-d94e-4279-8fdc-0f4cabf1b3f2",
-    "_global_index": 5588
+    "_global_index": 5587
   },
   {
     "Name": "Demir Zirhli Egitim Otomati",
@@ -9924,7 +9720,7 @@
       "AuthorId": "Mart",
       "AuthorName": "Mart",
       "id": "642d0438-ff70-4429-801e-9c14dac6a5bc",
-      "_global_index": 5589
+      "_global_index": 5588
     },
     "_m_name": "demir zirhli egitim otomati",
     "_m_cr": "3",
@@ -9933,9 +9729,9 @@
     "_m_align": "n",
     "_m_env": "greyshield training arena",
     "_m_source": "custom",
-    "_m_search_text": "demir zirhli egitim otomati   custom",
+    "_m_search_text": "demir zirhli egitim otomati    custom",
     "id": "642d0438-ff70-4429-801e-9c14dac6a5bc",
-    "_global_index": 5589
+    "_global_index": 5588
   },
   {
     "Name": "Knight of Rovesta",
@@ -10142,7 +9938,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5590,
+      "_global_index": 5589,
       "id": "130a4fc3-0d93-4a66-9716-529245d9d57d",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -10154,9 +9950,9 @@
     "_m_align": "ce",
     "_m_env": "any ruins, cursed battlefields, unholy shrines",
     "_m_source": "custom",
-    "_m_search_text": "knight of rovesta   custom",
+    "_m_search_text": "knight of rovesta    custom",
     "id": "130a4fc3-0d93-4a66-9716-529245d9d57d",
-    "_global_index": 5590
+    "_global_index": 5589
   },
   {
     "Name": "Krag",
@@ -10315,7 +10111,7 @@
       "AuthorId": "Mart",
       "AuthorName": "Mart",
       "id": "11095ab8-fe13-4005-a60c-8f8b58acf282",
-      "_global_index": 5591
+      "_global_index": 5590
     },
     "_m_name": "krag",
     "_m_cr": "1",
@@ -10324,9 +10120,9 @@
     "_m_align": "ln",
     "_m_env": "any",
     "_m_source": "custom",
-    "_m_search_text": "krag native  custom",
+    "_m_search_text": "krag  native  custom",
     "id": "11095ab8-fe13-4005-a60c-8f8b58acf282",
-    "_global_index": 5591
+    "_global_index": 5590
   },
   {
     "Name": "Andul Sakalsiz",
@@ -10497,7 +10293,7 @@
       "AuthorId": "Mart",
       "AuthorName": "Mart",
       "id": "29b7786a-49a3-4d08-9364-2a70e4a90842",
-      "_global_index": 5592
+      "_global_index": 5591
     },
     "_m_name": "andul sakalsiz",
     "_m_cr": "9",
@@ -10506,9 +10302,9 @@
     "_m_align": "ln",
     "_m_env": "greyshield barracks",
     "_m_source": "custom",
-    "_m_search_text": "andul sakalsiz native  custom",
+    "_m_search_text": "andul sakalsiz  native  custom",
     "id": "29b7786a-49a3-4d08-9364-2a70e4a90842",
-    "_global_index": 5592
+    "_global_index": 5591
   },
   {
     "Name": "Dorn",
@@ -10671,7 +10467,7 @@
       "AuthorId": "Mart",
       "AuthorName": "Mart",
       "id": "61b8ce58-9fde-4fbc-9c23-3fa86d7d283e",
-      "_global_index": 5593
+      "_global_index": 5592
     },
     "_m_name": "dorn",
     "_m_cr": "1",
@@ -10680,9 +10476,9 @@
     "_m_align": "ln",
     "_m_env": "any",
     "_m_source": "custom",
-    "_m_search_text": "dorn native  custom",
+    "_m_search_text": "dorn  native  custom",
     "id": "61b8ce58-9fde-4fbc-9c23-3fa86d7d283e",
-    "_global_index": 5593
+    "_global_index": 5592
   },
   {
     "Name": "Bram",
@@ -10845,7 +10641,7 @@
       "AuthorId": "Mart",
       "AuthorName": "Mart",
       "id": "8af4c890-3dce-48dd-8fa1-657cb34e4b52",
-      "_global_index": 5594
+      "_global_index": 5593
     },
     "_m_name": "bram",
     "_m_cr": "1",
@@ -10854,8 +10650,1777 @@
     "_m_align": "ln",
     "_m_env": "any",
     "_m_source": "custom",
-    "_m_search_text": "bram native  custom",
+    "_m_search_text": "bram  native  custom",
     "id": "8af4c890-3dce-48dd-8fa1-657cb34e4b52",
+    "_global_index": 5593
+  },
+  {
+    "Name": "Quartz Basilisk",
+    "CR": "6",
+    "XP": "2400",
+    "Alignment": "N",
+    "Size": "Medium",
+    "Type": "Magical Beast",
+    "subtype1": "earth",
+    "subtype2": "",
+    "Init": "-2",
+    "Senses": "darkvision 60 ft., low-light vision, Perception +10",
+    "Aura": "",
+    "AC": "19",
+    "AC_Touch": "9",
+    "AC_Flat-footed": "19",
+    "HP": "66",
+    "HD": "7d10",
+    "Fort": "+9",
+    "Ref": "+4",
+    "Will": "+5",
+    "Speed": "20 ft., burrow 10 ft.",
+    "Melee": "bite +11 (1d8+4 plus resonant shatter-bite)",
+    "Ranged": "",
+    "Space": "5 ft.",
+    "Reach": "5 ft.",
+    "SpecialAttacks": "cobalt quartz gaze (DC 15), resonant shatter-bite",
+    "DefensiveAbilities": "crystalline carapace, crystalline refraction",
+    "Weaknesses": "brittle resonance, vulnerability to sonic",
+    "Organization": "solitary, pair, or clutch (3-6)",
+    "Str": "17",
+    "Dex": "8",
+    "Con": "19",
+    "Int": "2",
+    "Wis": "13",
+    "Cha": "14",
+    "BaseAtk": "7",
+    "CMB": "+10",
+    "CMD": "19",
+    "Feats": "Blind-Fight, Great Fortitude, Iron Will, Skill Focus (Perception)",
+    "Skills": "Perception +10, Stealth +6 (+14 in blue mineral caverns)",
+    "Languages": "",
+    "SQ": "mineral camouflage",
+    "DR": "5/bludgeoning",
+    "Immune": "cold, petrification",
+    "Resist": "",
+    "SR": "",
+    "Environment": "deep subterranean grottos, sapphire-veined caverns, frozen mine shafts",
+    "Treasure": "standard (raw blue quartz crystals)",
+    "Gear": "",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "public",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": false,
+    "IsUserCustom": true,
+    "CharacterFlag": "1",
+    "SpellLikeAbilities": "(6)",
+    "SpellsPrepared": "{}",
+    "Special Abilities": "Cobalt Quartz Gaze (Su) Turn flesh to mineral, range 30 feet; Fortitude DC 15 negates. On a failed save, the creature takes 1d4 Dexterity damage as jagged blue quartz crystals erupt across its skin and joints, causing the target to become entangled for 1 round. If this reduces the creature's Dexterity to 0, it is permanently petrified into an inert statue of blue quartz (as flesh to stone). The save DC is Charisma-based.\nResonant Shatter-Bite (Ex) The basilisk's teeth are composed of serrated quartz facets. On a successful bite attack, the target takes 1d6 bleed damage and must succeed on a DC 17 Fortitude save or have micro-crystalline shards lodge in its armor and joints, imposing a -2 penalty to AC for 1 round. The save DC is Constitution-based.\nCrystalline Carapace (Ex) Whenever a melee attack against the basilisk misses by 5 or less, the attacker's weapon strikes the rigid crystalline facets and takes 1d6 points of damage, bypassing weapon hardness equal to or less than 10.\nCrystalline Refraction (Su) The translucent blue quartz crystals adorning its body scatter concentrated light and energy. Ray attacks and ranged touch spells suffer a 20% miss chance against the basilisk.\nBrittle Resonance (Ex) Due to its crystalline structure, the basilisk is vulnerable to sonic damage. Whenever it takes 15 or more sonic damage from a single attack, the harmonic reverberation fractures its shell, leaving it dazed for 1 round.",
+    "OriginalState": {
+      "basic": {
+        "in-name": "Quartz Basilisk",
+        "in-cr": "6",
+        "in-xp": "2400",
+        "in-visibility": "public",
+        "in-author": "erdem",
+        "in-alignment": "N",
+        "in-size": "Medium",
+        "in-type": "Magical Beast",
+        "in-type-full": "Medium magical beast (earth)",
+        "in-init-extra": "-1",
+        "in-aura": "",
+        "in-str": "17",
+        "in-dex": "8",
+        "in-con": "19",
+        "in-int": "2",
+        "in-wis": "13",
+        "in-cha": "14",
+        "in-armor-name": "",
+        "in-ac-armor": "0",
+        "in-shield-name": "",
+        "in-ac-shield": "0",
+        "in-ac-natural": "10",
+        "in-ac-deflection": "0",
+        "in-ac-dodge": "0",
+        "in-hd-amount": "7",
+        "in-hd-size": "10",
+        "in-hp-extra": "0",
+        "in-fort": "+9",
+        "in-ref": "+4",
+        "in-will": "+5",
+        "in-def-abilities": "crystalline carapace, crystalline refraction",
+        "in-dr": "5/bludgeoning",
+        "in-immune": "cold, petrification",
+        "in-resist": "",
+        "in-weaknesses": "brittle resonance, vulnerability to sonic",
+        "in-sr": "",
+        "in-speed": "20 ft., burrow 10 ft.",
+        "in-space": "5 ft.",
+        "in-reach": "5 ft.",
+        "in-special-attacks": "cobalt quartz gaze (DC 15), resonant shatter-bite",
+        "in-sla-cl": "6",
+        "in-bab": "7",
+        "in-cmb": "+10",
+        "in-cmb-extra": "",
+        "in-cmd": "19",
+        "in-cmd-extra": "",
+        "in-feats": "Blind-Fight, Great Fortitude, Iron Will, Skill Focus (Perception)",
+        "in-feat-search": "",
+        "in-skills": "Perception +10, Stealth +6 (+14 in blue mineral caverns)",
+        "in-languages": "",
+        "in-sq": "mineral camouflage",
+        "in-gear": "",
+        "in-spell-class": "",
+        "in-spell-cl": "1",
+        "in-spell-stat": "",
+        "in-spell-conc": "0",
+        "in-spells-data": "{}",
+        "in-spells": "{}",
+        "in-environment": "deep subterranean grottos, sapphire-veined caverns, frozen mine shafts",
+        "in-organization": "solitary, pair, or clutch (3-6)",
+        "in-treasure": "standard (raw blue quartz crystals)",
+        "stat_type": "npc",
+        "in-hp": "66 (7d10+28)",
+        "in-init": "-2",
+        "in-ac": "19, touch 9, flat-footed 19 (-1 Dex, +10 natural)"
+      },
+      "html": {},
+      "dynamic": {
+        "subtypes": [
+          "earth"
+        ],
+        "senses": [
+          {
+            "name": "darkvision",
+            "dist": "60 ft."
+          },
+          {
+            "name": "low-light vision",
+            "dist": ""
+          },
+          {
+            "name": "Perception",
+            "dist": "+10"
+          }
+        ],
+        "skills": [],
+        "slas": [],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "bite +11 (1d8+4 plus resonant shatter-bite)"
+          }
+        ],
+        "ranged": [],
+        "abilities": [
+          {
+            "name": "Cobalt Quartz Gaze (Su)",
+            "desc": "Turn flesh to mineral, range 30 feet; Fortitude DC 15 negates. On a failed save, the creature takes 1d4 Dexterity damage as jagged blue quartz crystals erupt across its skin and joints, causing the target to become entangled for 1 round. If this reduces the creature's Dexterity to 0, it is permanently petrified into an inert statue of blue quartz (as flesh to stone). The save DC is Charisma-based."
+          },
+          {
+            "name": "Resonant Shatter-Bite (Ex)",
+            "desc": "The basilisk's teeth are composed of serrated quartz facets. On a successful bite attack, the target takes 1d6 bleed damage and must succeed on a DC 17 Fortitude save or have micro-crystalline shards lodge in its armor and joints, imposing a -2 penalty to AC for 1 round. The save DC is Constitution-based."
+          },
+          {
+            "name": "Crystalline Carapace (Ex)",
+            "desc": "Whenever a melee attack against the basilisk misses by 5 or less, the attacker's weapon strikes the rigid crystalline facets and takes 1d6 points of damage, bypassing weapon hardness equal to or less than 10."
+          },
+          {
+            "name": "Crystalline Refraction (Su)",
+            "desc": "The translucent blue quartz crystals adorning its body scatter concentrated light and energy. Ray attacks and ranged touch spells suffer a 20% miss chance against the basilisk."
+          },
+          {
+            "name": "Brittle Resonance (Ex)",
+            "desc": "Due to its crystalline structure, the basilisk is vulnerable to sonic damage. Whenever it takes 15 or more sonic damage from a single attack, the harmonic reverberation fractures its shell, leaving it dazed for 1 round."
+          }
+        ],
+        "special_abilities": [
+          {
+            "name": "Cobalt Quartz Gaze (Su)",
+            "desc": "Turn flesh to mineral, range 30 feet; Fortitude DC 15 negates. On a failed save, the creature takes 1d4 Dexterity damage as jagged blue quartz crystals erupt across its skin and joints, causing the target to become entangled for 1 round. If this reduces the creature's Dexterity to 0, it is permanently petrified into an inert statue of blue quartz (as flesh to stone). The save DC is Charisma-based."
+          },
+          {
+            "name": "Resonant Shatter-Bite (Ex)",
+            "desc": "The basilisk's teeth are composed of serrated quartz facets. On a successful bite attack, the target takes 1d6 bleed damage and must succeed on a DC 17 Fortitude save or have micro-crystalline shards lodge in its armor and joints, imposing a -2 penalty to AC for 1 round. The save DC is Constitution-based."
+          },
+          {
+            "name": "Crystalline Carapace (Ex)",
+            "desc": "Whenever a melee attack against the basilisk misses by 5 or less, the attacker's weapon strikes the rigid crystalline facets and takes 1d6 points of damage, bypassing weapon hardness equal to or less than 10."
+          },
+          {
+            "name": "Crystalline Refraction (Su)",
+            "desc": "The translucent blue quartz crystals adorning its body scatter concentrated light and energy. Ray attacks and ranged touch spells suffer a 20% miss chance against the basilisk."
+          },
+          {
+            "name": "Brittle Resonance (Ex)",
+            "desc": "Due to its crystalline structure, the basilisk is vulnerable to sonic damage. Whenever it takes 15 or more sonic damage from a single attack, the harmonic reverberation fractures its shell, leaving it dazed for 1 round."
+          }
+        ],
+        "magic_items": [],
+        "spells": []
+      },
+      "_global_index": 5594,
+      "id": "5318eb09-187c-446b-88d1-5c3769b16a26",
+      "AuthorId": "erdem",
+      "AuthorName": "erdem"
+    },
+    "_m_name": "quartz basilisk",
+    "_m_cr": "6",
+    "_m_type": "magical beast",
+    "_m_size": "medium",
+    "_m_align": "n",
+    "_m_env": "deep subterranean grottos, sapphire-veined caverns, frozen mine shafts",
+    "_m_source": "custom",
+    "_m_search_text": "quartz basilisk earth  custom",
+    "id": "5318eb09-187c-446b-88d1-5c3769b16a26",
     "_global_index": 5594
+  },
+  {
+    "Name": "Quartz Cave Bear",
+    "CR": "6",
+    "XP": "2400",
+    "Alignment": "N",
+    "Size": "Large",
+    "Type": "Magical Beast",
+    "subtype1": "earth",
+    "subtype2": "",
+    "Init": "+2",
+    "Senses": "darkvision 60 ft., low-light vision, tremorsense 30 ft., scent, Perception +10",
+    "Aura": "",
+    "AC": "19",
+    "AC_Touch": "10",
+    "AC_Flat-footed": "18",
+    "HP": "73",
+    "HD": "7d10",
+    "Fort": "+10",
+    "Ref": "+6",
+    "Will": "+3",
+    "Speed": "40 ft., burrow (loose earth and gravel) 15 ft.",
+    "Melee": "bite +12 (1d8+6), 2 claws +12 (1d6+6 plus grab)",
+    "Ranged": "",
+    "Space": "10 ft.",
+    "Reach": "5 ft.",
+    "SpecialAttacks": "crystalline rend (1d8+9), grab (claws), mineral maul, seismic chest compression (2d6+9)",
+    "DefensiveAbilities": "calcified quartz hide",
+    "Weaknesses": "brittle resonance, vulnerability to sonic",
+    "Organization": "solitary, pair, or den (1-2 adults plus 1-3 cubs)",
+    "Str": "23",
+    "Dex": "13",
+    "Con": "21",
+    "Int": "2",
+    "Wis": "12",
+    "Cha": "6",
+    "BaseAtk": "7",
+    "CMB": "+14",
+    "CMD": "25",
+    "Feats": "Endurance, Great Fortitude, Intimidating Prowess, Power Attack",
+    "Skills": "Climb +14, Perception +10, Survival +7",
+    "Languages": "",
+    "SQ": "mineral scent, trackless stone",
+    "DR": "5/bludgeoning",
+    "Immune": "bleed",
+    "Resist": "",
+    "SR": "",
+    "Environment": "subterranean crystal caverns, deep quartz veins, rocky mountain caves",
+    "Treasure": "incidental (raw uncut quartz geodes)",
+    "Gear": "",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "public",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": false,
+    "IsUserCustom": true,
+    "CharacterFlag": "1",
+    "SpellLikeAbilities": "(6)",
+    "SpellsPrepared": "{}",
+    "Special Abilities": "Crystalline Rend (Ex) If the bear hits with both claw attacks in a single round, its jagged quartz talons tear opposing shear planes through the target's armor and flesh, dealing an additional 1d8+9 slashing and piercing damage. This ability replaces standard rend with mineral splintering.\nSeismic Chest Compression (Ex) Whenever the bear maintains a grapple against a pinned target, it crushes the victim against the dense, geode-encrusted plates of its chest. The target takes 2d6+9 bludgeoning damage and must succeed on a DC 18 Fortitude save or have its breath knocked out, leaving it staggered for 1 round. The save DC is Constitution-based.\nMineral Maul (Ex) The bear's claws and tooth crowns are dense aggregates of solid quartz. Its natural attacks bypass DR/magic and treat objects or constructs as having 5 less hardness.\nBrittle Resonance (Ex) Due to the rigid crystalline matrix of its skeleton and hide, the bear is vulnerable to sonic damage. If it takes 15 or more sonic damage from a single attack, the harmonic feedback fractures its outer plates, reducing its natural armor bonus by 2 for 1d4 rounds.",
+    "OriginalState": {
+      "basic": {
+        "in-name": "Quartz Cave Bear",
+        "in-cr": "6",
+        "in-xp": "2400",
+        "in-visibility": "public",
+        "in-author": "erdem",
+        "in-alignment": "N",
+        "in-size": "Large",
+        "in-type": "Magical Beast",
+        "in-type-full": "Large magical beast (earth)",
+        "in-init-extra": "1",
+        "in-aura": "",
+        "in-str": "23",
+        "in-dex": "13",
+        "in-con": "21",
+        "in-int": "2",
+        "in-wis": "12",
+        "in-cha": "6",
+        "in-armor-name": "",
+        "in-ac-armor": "0",
+        "in-shield-name": "",
+        "in-ac-shield": "0",
+        "in-ac-natural": "9",
+        "in-ac-deflection": "0",
+        "in-ac-dodge": "0",
+        "in-hd-amount": "7",
+        "in-hd-size": "10",
+        "in-hp-extra": "0",
+        "in-fort": "+10",
+        "in-ref": "+6",
+        "in-will": "+3",
+        "in-def-abilities": "calcified quartz hide",
+        "in-dr": "5/bludgeoning",
+        "in-immune": "bleed",
+        "in-resist": "",
+        "in-weaknesses": "brittle resonance, vulnerability to sonic",
+        "in-sr": "",
+        "in-speed": "40 ft., burrow (loose earth and gravel) 15 ft.",
+        "in-space": "10 ft.",
+        "in-reach": "5 ft.",
+        "in-special-attacks": "crystalline rend (1d8+9), grab (claws), mineral maul, seismic chest compression (2d6+9)",
+        "in-sla-cl": "6",
+        "in-bab": "7",
+        "in-cmb": "+14",
+        "in-cmb-extra": "",
+        "in-cmd": "25",
+        "in-cmd-extra": "",
+        "in-feats": "Endurance, Great Fortitude, Intimidating Prowess, Power Attack",
+        "in-feat-search": "",
+        "in-skills": "Climb +14, Perception +10, Survival +7",
+        "in-languages": "",
+        "in-sq": "mineral scent, trackless stone",
+        "in-gear": "",
+        "in-spell-class": "",
+        "in-spell-cl": "1",
+        "in-spell-stat": "",
+        "in-spell-conc": "0",
+        "in-spells-data": "{}",
+        "in-spells": "{}",
+        "in-environment": "subterranean crystal caverns, deep quartz veins, rocky mountain caves",
+        "in-organization": "solitary, pair, or den (1-2 adults plus 1-3 cubs)",
+        "in-treasure": "incidental (raw uncut quartz geodes)",
+        "stat_type": "npc",
+        "in-hp": "73 (7d10+35)",
+        "in-init": "+2",
+        "in-ac": "19, touch 10, flat-footed 18 (+1 Dex, -1 size, +9 natural)"
+      },
+      "html": {},
+      "dynamic": {
+        "subtypes": [
+          "earth"
+        ],
+        "senses": [
+          {
+            "name": "darkvision",
+            "dist": "60 ft."
+          },
+          {
+            "name": "low-light vision",
+            "dist": ""
+          },
+          {
+            "name": "tremorsense",
+            "dist": "30 ft."
+          },
+          {
+            "name": "scent",
+            "dist": ""
+          },
+          {
+            "name": "Perception",
+            "dist": "+10"
+          }
+        ],
+        "skills": [],
+        "slas": [],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "bite +12 (1d8+6), 2 claws +12 (1d6+6 plus grab)"
+          }
+        ],
+        "ranged": [],
+        "abilities": [
+          {
+            "name": "Crystalline Rend (Ex)",
+            "desc": "If the bear hits with both claw attacks in a single round, its jagged quartz talons tear opposing shear planes through the target's armor and flesh, dealing an additional 1d8+9 slashing and piercing damage. This ability replaces standard rend with mineral splintering."
+          },
+          {
+            "name": "Seismic Chest Compression (Ex)",
+            "desc": "Whenever the bear maintains a grapple against a pinned target, it crushes the victim against the dense, geode-encrusted plates of its chest. The target takes 2d6+9 bludgeoning damage and must succeed on a DC 18 Fortitude save or have its breath knocked out, leaving it staggered for 1 round. The save DC is Constitution-based."
+          },
+          {
+            "name": "Mineral Maul (Ex)",
+            "desc": "The bear's claws and tooth crowns are dense aggregates of solid quartz. Its natural attacks bypass DR/magic and treat objects or constructs as having 5 less hardness."
+          },
+          {
+            "name": "Brittle Resonance (Ex)",
+            "desc": "Due to the rigid crystalline matrix of its skeleton and hide, the bear is vulnerable to sonic damage. If it takes 15 or more sonic damage from a single attack, the harmonic feedback fractures its outer plates, reducing its natural armor bonus by 2 for 1d4 rounds."
+          }
+        ],
+        "special_abilities": [
+          {
+            "name": "Crystalline Rend (Ex)",
+            "desc": "If the bear hits with both claw attacks in a single round, its jagged quartz talons tear opposing shear planes through the target's armor and flesh, dealing an additional 1d8+9 slashing and piercing damage. This ability replaces standard rend with mineral splintering."
+          },
+          {
+            "name": "Seismic Chest Compression (Ex)",
+            "desc": "Whenever the bear maintains a grapple against a pinned target, it crushes the victim against the dense, geode-encrusted plates of its chest. The target takes 2d6+9 bludgeoning damage and must succeed on a DC 18 Fortitude save or have its breath knocked out, leaving it staggered for 1 round. The save DC is Constitution-based."
+          },
+          {
+            "name": "Mineral Maul (Ex)",
+            "desc": "The bear's claws and tooth crowns are dense aggregates of solid quartz. Its natural attacks bypass DR/magic and treat objects or constructs as having 5 less hardness."
+          },
+          {
+            "name": "Brittle Resonance (Ex)",
+            "desc": "Due to the rigid crystalline matrix of its skeleton and hide, the bear is vulnerable to sonic damage. If it takes 15 or more sonic damage from a single attack, the harmonic feedback fractures its outer plates, reducing its natural armor bonus by 2 for 1d4 rounds."
+          }
+        ],
+        "magic_items": [],
+        "spells": []
+      },
+      "_global_index": 5595,
+      "id": "f8473a05-05c8-48cf-9288-3249b291c11d",
+      "AuthorId": "erdem",
+      "AuthorName": "erdem"
+    },
+    "_m_name": "quartz cave bear",
+    "_m_cr": "6",
+    "_m_type": "magical beast",
+    "_m_size": "large",
+    "_m_align": "n",
+    "_m_env": "subterranean crystal caverns, deep quartz veins, rocky mountain caves",
+    "_m_source": "custom",
+    "_m_search_text": "quartz cave bear earth  custom",
+    "id": "f8473a05-05c8-48cf-9288-3249b291c11d",
+    "_global_index": 5595
+  },
+  {
+    "Name": "Quartz Dire Wolf",
+    "CR": "6",
+    "XP": "2400",
+    "Alignment": "N",
+    "Size": "Large",
+    "Type": "Magical Beast",
+    "subtype1": "earth",
+    "subtype2": "",
+    "Init": "+6",
+    "Senses": "darkvision 60 ft., low-light vision, tremorsense 30 ft., scent, Perception +15",
+    "Aura": "",
+    "AC": "20",
+    "AC_Touch": "13",
+    "AC_Flat-footed": "16",
+    "HP": "66",
+    "HD": "7d10",
+    "Fort": "+9",
+    "Ref": "+8",
+    "Will": "+4",
+    "Speed": "50 ft.",
+    "Melee": "bite +12 (2d6+7/19-20 plus trip and harmonic snap)",
+    "Ranged": "",
+    "Space": "10 ft.",
+    "Reach": "5 ft.",
+    "SpecialAttacks": "crystalline bite, drag down, harmonic snap (DC 17), trip",
+    "DefensiveAbilities": "vitrified quartz hide",
+    "Weaknesses": "brittle resonance, vulnerability to sonic",
+    "Organization": "solitary, pair, or pack (3-6)",
+    "Str": "21",
+    "Dex": "17",
+    "Con": "19",
+    "Int": "2",
+    "Wis": "14",
+    "Cha": "8",
+    "BaseAtk": "7",
+    "CMB": "+13",
+    "CMD": "27",
+    "Feats": "Combat Reflexes, Dodge, Mobility, Skill Focus (Perception)",
+    "Skills": "Perception +15, Stealth +7 (+15 in rocky or crystal caverns), Survival +6",
+    "Languages": "",
+    "SQ": "mineral scent, pack hunter",
+    "DR": "5/bludgeoning",
+    "Immune": "bleed",
+    "Resist": "electricity 5",
+    "SR": "",
+    "Environment": "subterranean crystal grottos, quartz ravines, rocky chasms",
+    "Treasure": "incidental (raw quartz crystals)",
+    "Gear": "",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "public",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": false,
+    "IsUserCustom": true,
+    "CharacterFlag": "1",
+    "SpellLikeAbilities": "(6)",
+    "SpellsPrepared": "{}",
+    "Special Abilities": "Harmonic Snap (Ex) The wolf's jaws are lined with jagged quartz formations that create an intense high-frequency grinding shock upon impact. Whenever the wolf confirms a critical hit with its bite or succeeds on a trip maneuver against a target, microscopic crystal splinters lodge into the wound. The target must succeed on a DC 17 Fortitude save or have its movement speed halved and suffer a -2 penalty on attack rolls for 1 round as agonizing mineral vibrations shoot through its limbs. The save DC is Constitution-based.\nDrag Down (Ex) Once per round as an immediate action, whenever the wolf successfully knocks a target prone using its trip ability, it can attempt a grapple combat maneuver (+13 bonus) against that target without provoking an attack of opportunity. If successful, both the wolf and target remain on the ground with the target grappled.\nCrystalline Bite (Ex) The wolf's fangs are sharpened crystalline stalagmites, giving its bite attack an expanded critical threat range of 19-20/x2 and allowing it to treat constructs and hard objects as having 5 less hardness[cite: 6].\nBrittle Resonance (Ex) Due to its crystalline skeletal frame, the wolf is vulnerable to sonic damage[cite: 6]. If it takes 15 or more sonic damage from a single attack, the harmonic reverberation fractures its outer crystal plates, reducing its natural armor bonus by 2 for 1d4 rounds[cite: 6].",
+    "OriginalState": {
+      "basic": {
+        "in-name": "Quartz Dire Wolf",
+        "in-cr": "6",
+        "in-xp": "2400",
+        "in-visibility": "public",
+        "in-author": "erdem",
+        "in-alignment": "N",
+        "in-size": "Large",
+        "in-type": "Magical Beast",
+        "in-type-full": "Large magical beast (earth)",
+        "in-init-extra": "3",
+        "in-aura": "",
+        "in-str": "21",
+        "in-dex": "17",
+        "in-con": "19",
+        "in-int": "2",
+        "in-wis": "14",
+        "in-cha": "8",
+        "in-armor-name": "",
+        "in-ac-armor": "0",
+        "in-shield-name": "",
+        "in-ac-shield": "0",
+        "in-ac-natural": "7",
+        "in-ac-deflection": "0",
+        "in-ac-dodge": "1",
+        "in-hd-amount": "7",
+        "in-hd-size": "10",
+        "in-hp-extra": "0",
+        "in-fort": "+9",
+        "in-ref": "+8",
+        "in-will": "+4",
+        "in-def-abilities": "vitrified quartz hide",
+        "in-dr": "5/bludgeoning",
+        "in-immune": "bleed",
+        "in-resist": "electricity 5",
+        "in-weaknesses": "brittle resonance, vulnerability to sonic",
+        "in-sr": "",
+        "in-speed": "50 ft.",
+        "in-space": "10 ft.",
+        "in-reach": "5 ft.",
+        "in-special-attacks": "crystalline bite, drag down, harmonic snap (DC 17), trip",
+        "in-sla-cl": "6",
+        "in-bab": "7",
+        "in-cmb": "+13",
+        "in-cmb-extra": "",
+        "in-cmd": "27",
+        "in-cmd-extra": "",
+        "in-feats": "Combat Reflexes, Dodge, Mobility, Skill Focus (Perception)",
+        "in-feat-search": "",
+        "in-skills": "Perception +15, Stealth +7 (+15 in rocky or crystal caverns), Survival +6",
+        "in-languages": "",
+        "in-sq": "mineral scent, pack hunter",
+        "in-gear": "",
+        "in-spell-class": "",
+        "in-spell-cl": "1",
+        "in-spell-stat": "",
+        "in-spell-conc": "0",
+        "in-spells-data": "{}",
+        "in-spells": "{}",
+        "in-environment": "subterranean crystal grottos, quartz ravines, rocky chasms",
+        "in-organization": "solitary, pair, or pack (3-6)",
+        "in-treasure": "incidental (raw quartz crystals)",
+        "stat_type": "npc",
+        "in-hp": "66 (7d10+28)",
+        "in-init": "+6",
+        "in-ac": "21, touch 14, flat-footed 16 (+3 Dex, -1 size, +7 natural, +2 dodge)"
+      },
+      "html": {},
+      "dynamic": {
+        "subtypes": [
+          "earth"
+        ],
+        "senses": [
+          {
+            "name": "darkvision",
+            "dist": "60 ft."
+          },
+          {
+            "name": "low-light vision",
+            "dist": ""
+          },
+          {
+            "name": "tremorsense",
+            "dist": "30 ft."
+          },
+          {
+            "name": "scent",
+            "dist": ""
+          },
+          {
+            "name": "Perception",
+            "dist": "+15"
+          }
+        ],
+        "skills": [],
+        "slas": [],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "bite +12 (2d6+7/19-20 plus trip and harmonic snap)"
+          }
+        ],
+        "ranged": [],
+        "abilities": [
+          {
+            "name": "Harmonic Snap (Ex)",
+            "desc": "The wolf's jaws are lined with jagged quartz formations that create an intense high-frequency grinding shock upon impact. Whenever the wolf confirms a critical hit with its bite or succeeds on a trip maneuver against a target, microscopic crystal splinters lodge into the wound. The target must succeed on a DC 17 Fortitude save or have its movement speed halved and suffer a -2 penalty on attack rolls for 1 round as agonizing mineral vibrations shoot through its limbs. The save DC is Constitution-based."
+          },
+          {
+            "name": "Drag Down (Ex)",
+            "desc": "Once per round as an immediate action, whenever the wolf successfully knocks a target prone using its trip ability, it can attempt a grapple combat maneuver (+13 bonus) against that target without provoking an attack of opportunity. If successful, both the wolf and target remain on the ground with the target grappled."
+          },
+          {
+            "name": "Crystalline Bite (Ex)",
+            "desc": "The wolf's fangs are sharpened crystalline stalagmites, giving its bite attack an expanded critical threat range of 19-20/x2 and allowing it to treat constructs and hard objects as having 5 less hardness[cite: 6]."
+          },
+          {
+            "name": "Brittle Resonance (Ex)",
+            "desc": "Due to its crystalline skeletal frame, the wolf is vulnerable to sonic damage[cite: 6]. If it takes 15 or more sonic damage from a single attack, the harmonic reverberation fractures its outer crystal plates, reducing its natural armor bonus by 2 for 1d4 rounds[cite: 6]."
+          }
+        ],
+        "special_abilities": [
+          {
+            "name": "Harmonic Snap (Ex)",
+            "desc": "The wolf's jaws are lined with jagged quartz formations that create an intense high-frequency grinding shock upon impact. Whenever the wolf confirms a critical hit with its bite or succeeds on a trip maneuver against a target, microscopic crystal splinters lodge into the wound. The target must succeed on a DC 17 Fortitude save or have its movement speed halved and suffer a -2 penalty on attack rolls for 1 round as agonizing mineral vibrations shoot through its limbs. The save DC is Constitution-based."
+          },
+          {
+            "name": "Drag Down (Ex)",
+            "desc": "Once per round as an immediate action, whenever the wolf successfully knocks a target prone using its trip ability, it can attempt a grapple combat maneuver (+13 bonus) against that target without provoking an attack of opportunity. If successful, both the wolf and target remain on the ground with the target grappled."
+          },
+          {
+            "name": "Crystalline Bite (Ex)",
+            "desc": "The wolf's fangs are sharpened crystalline stalagmites, giving its bite attack an expanded critical threat range of 19-20/x2 and allowing it to treat constructs and hard objects as having 5 less hardness[cite: 6]."
+          },
+          {
+            "name": "Brittle Resonance (Ex)",
+            "desc": "Due to its crystalline skeletal frame, the wolf is vulnerable to sonic damage[cite: 6]. If it takes 15 or more sonic damage from a single attack, the harmonic reverberation fractures its outer crystal plates, reducing its natural armor bonus by 2 for 1d4 rounds[cite: 6]."
+          }
+        ],
+        "magic_items": [],
+        "spells": []
+      },
+      "_global_index": 5596,
+      "id": "ab4d5da6-a3a1-4926-b282-785dff47bcbc",
+      "AuthorId": "erdem",
+      "AuthorName": "erdem"
+    },
+    "_m_name": "quartz dire wolf",
+    "_m_cr": "6",
+    "_m_type": "magical beast",
+    "_m_size": "large",
+    "_m_align": "n",
+    "_m_env": "subterranean crystal grottos, quartz ravines, rocky chasms",
+    "_m_source": "custom",
+    "_m_search_text": "quartz dire wolf earth  custom",
+    "id": "ab4d5da6-a3a1-4926-b282-785dff47bcbc",
+    "_global_index": 5596
+  },
+  {
+    "Name": "Quartz Mantis",
+    "CR": "7",
+    "XP": "3200",
+    "Alignment": "N",
+    "Size": "Large",
+    "Type": "Magical Beast",
+    "subtype1": "earth",
+    "subtype2": "",
+    "Init": "+4",
+    "Senses": "darkvision 60 ft., tremorsense 60 ft., low-light vision, Perception +13",
+    "Aura": "",
+    "AC": "20",
+    "AC_Touch": "11",
+    "AC_Flat-footed": "18",
+    "HP": "76",
+    "HD": "8d10",
+    "Fort": "+10",
+    "Ref": "+8",
+    "Will": "+4",
+    "Speed": "40 ft., climb 30 ft., fly 30 ft. (poor)",
+    "Melee": "2 claws +13 (1d8+6/19-20 plus grab and piezoelectric discharge), bite +8 (1d6+3)",
+    "Ranged": "",
+    "Space": "10 ft.",
+    "Reach": "10 ft.",
+    "SpecialAttacks": "crystalline rend (2 claws, 1d8+9), grab (claws), piezoelectric discharge (DC 18), sudden strike",
+    "DefensiveAbilities": "quartz refraction",
+    "Weaknesses": "brittle resonance, vulnerability to sonic",
+    "Organization": "solitary or mated pair",
+    "Str": "22",
+    "Dex": "15",
+    "Con": "18",
+    "Int": "3",
+    "Wis": "14",
+    "Cha": "7",
+    "BaseAtk": "8",
+    "CMB": "+15",
+    "CMD": "27",
+    "Feats": "Combat Reflexes, Great Fortitude, Improved Critical (claw), Power Attack",
+    "Skills": "Climb +14, Perception +13, Stealth +10 (+18 in crystal caverns)",
+    "Languages": "",
+    "SQ": "mineral mimicry, tremorsense",
+    "DR": "5/bludgeoning",
+    "Immune": "bleed",
+    "Resist": "electricity 10",
+    "SR": "",
+    "Environment": "deep quartz caverns, crystalline chasms, subterranean geode halls",
+    "Treasure": "standard (raw uncut quartz clusters)",
+    "Gear": "",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "public",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": false,
+    "IsUserCustom": true,
+    "CharacterFlag": "1",
+    "SpellLikeAbilities": "(7)",
+    "SpellsPrepared": "{}",
+    "Special Abilities": "Piezoelectric Discharge (Su) Quartz crystals naturally produce electric voltage under mechanical stress. Whenever the mantis strikes with its raptorial claws or maintains a grapple, the intense pressure discharges an electric arc, dealing an additional 1d6 electricity damage. Furthermore, the target must succeed on a DC 18 Fortitude save or be staggered for 1 round by involuntary muscle spasms. The save DC is Constitution-based.\nCrystalline Rend (Ex) If the mantis hits a single target with both claws in the same round, its serrated quartz blades shear inward along mineral cleave lines, dealing an additional 1d8+9 slashing damage.\nSudden Strike (Ex) During a surprise round, the mantis can take a full round's worth of actions. It strikes with blinding hydraulic speed from stillness, gaining a +2 bonus on attack rolls against flat-footed opponents.\nQuartz Refraction (Su) The translucent, multi-faceted quartz plates across its body bend incoming magical energy and light[cite: 7]. Ray attacks and ranged touch spells suffer a 20% miss chance against the mantis[cite: 7].\nMineral Mimicry (Ex) When remaining motionless among rocky walls or crystal clusters, the mantis can take 20 on Stealth checks to appear as an inanimate geode formation.\nBrittle Resonance (Ex) Due to its rigid crystalline composition, the mantis is vulnerable to sonic damage[cite: 7]. If it takes 15 or more sonic damage from a single attack, the harmonic vibration fractures its exoskeleton, reducing its natural armor bonus by 2 for 1d4 rounds.",
+    "OriginalState": {
+      "basic": {
+        "in-name": "Quartz Mantis",
+        "in-cr": "7",
+        "in-xp": "3200",
+        "in-visibility": "public",
+        "in-author": "erdem",
+        "in-alignment": "N",
+        "in-size": "Large",
+        "in-type": "Magical Beast",
+        "in-type-full": "Large magical beast (earth)",
+        "in-init-extra": "2",
+        "in-aura": "",
+        "in-str": "22",
+        "in-dex": "15",
+        "in-con": "18",
+        "in-int": "3",
+        "in-wis": "14",
+        "in-cha": "7",
+        "in-armor-name": "",
+        "in-ac-armor": "0",
+        "in-shield-name": "",
+        "in-ac-shield": "0",
+        "in-ac-natural": "9",
+        "in-ac-deflection": "0",
+        "in-ac-dodge": "0",
+        "in-hd-amount": "8",
+        "in-hd-size": "10",
+        "in-hp-extra": "0",
+        "in-fort": "+10",
+        "in-ref": "+8",
+        "in-will": "+4",
+        "in-def-abilities": "quartz refraction",
+        "in-dr": "5/bludgeoning",
+        "in-immune": "bleed",
+        "in-resist": "electricity 10",
+        "in-weaknesses": "brittle resonance, vulnerability to sonic",
+        "in-sr": "",
+        "in-speed": "40 ft., climb 30 ft., fly 30 ft. (poor)",
+        "in-space": "10 ft.",
+        "in-reach": "10 ft.",
+        "in-special-attacks": "crystalline rend (2 claws, 1d8+9), grab (claws), piezoelectric discharge (DC 18), sudden strike",
+        "in-sla-cl": "7",
+        "in-bab": "8",
+        "in-cmb": "+15",
+        "in-cmb-extra": "",
+        "in-cmd": "27",
+        "in-cmd-extra": "",
+        "in-feats": "Combat Reflexes, Great Fortitude, Improved Critical (claw), Power Attack",
+        "in-feat-search": "",
+        "in-skills": "Climb +14, Perception +13, Stealth +10 (+18 in crystal caverns)",
+        "in-languages": "",
+        "in-sq": "mineral mimicry, tremorsense",
+        "in-gear": "",
+        "in-spell-class": "",
+        "in-spell-cl": "1",
+        "in-spell-stat": "wis",
+        "in-spell-conc": "0",
+        "in-spells-data": "{}",
+        "in-spells": "{}",
+        "in-environment": "deep quartz caverns, crystalline chasms, subterranean geode halls",
+        "in-organization": "solitary or mated pair",
+        "in-treasure": "standard (raw uncut quartz clusters)",
+        "stat_type": "npc",
+        "in-hp": "76 (8d10+32)",
+        "in-init": "+4",
+        "in-ac": "20, touch 11, flat-footed 18 (+2 Dex, -1 size, +9 natural)"
+      },
+      "html": {},
+      "dynamic": {
+        "subtypes": [
+          "earth"
+        ],
+        "senses": [
+          {
+            "name": "darkvision",
+            "dist": "60 ft."
+          },
+          {
+            "name": "tremorsense",
+            "dist": "60 ft."
+          },
+          {
+            "name": "low-light vision",
+            "dist": ""
+          },
+          {
+            "name": "Perception",
+            "dist": "+13"
+          }
+        ],
+        "skills": [],
+        "slas": [],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "2 claws +13 (1d8+6/19-20 plus grab and piezoelectric discharge), bite +8 (1d6+3)"
+          }
+        ],
+        "ranged": [],
+        "abilities": [
+          {
+            "name": "Piezoelectric Discharge (Su)",
+            "desc": "Quartz crystals naturally produce electric voltage under mechanical stress. Whenever the mantis strikes with its raptorial claws or maintains a grapple, the intense pressure discharges an electric arc, dealing an additional 1d6 electricity damage. Furthermore, the target must succeed on a DC 18 Fortitude save or be staggered for 1 round by involuntary muscle spasms. The save DC is Constitution-based."
+          },
+          {
+            "name": "Crystalline Rend (Ex)",
+            "desc": "If the mantis hits a single target with both claws in the same round, its serrated quartz blades shear inward along mineral cleave lines, dealing an additional 1d8+9 slashing damage."
+          },
+          {
+            "name": "Sudden Strike (Ex)",
+            "desc": "During a surprise round, the mantis can take a full round's worth of actions. It strikes with blinding hydraulic speed from stillness, gaining a +2 bonus on attack rolls against flat-footed opponents."
+          },
+          {
+            "name": "Quartz Refraction (Su)",
+            "desc": "The translucent, multi-faceted quartz plates across its body bend incoming magical energy and light[cite: 7]. Ray attacks and ranged touch spells suffer a 20% miss chance against the mantis[cite: 7]."
+          },
+          {
+            "name": "Mineral Mimicry (Ex)",
+            "desc": "When remaining motionless among rocky walls or crystal clusters, the mantis can take 20 on Stealth checks to appear as an inanimate geode formation."
+          },
+          {
+            "name": "Brittle Resonance (Ex)",
+            "desc": "Due to its rigid crystalline composition, the mantis is vulnerable to sonic damage[cite: 7]. If it takes 15 or more sonic damage from a single attack, the harmonic vibration fractures its exoskeleton, reducing its natural armor bonus by 2 for 1d4 rounds."
+          }
+        ],
+        "special_abilities": [
+          {
+            "name": "Piezoelectric Discharge (Su)",
+            "desc": "Quartz crystals naturally produce electric voltage under mechanical stress. Whenever the mantis strikes with its raptorial claws or maintains a grapple, the intense pressure discharges an electric arc, dealing an additional 1d6 electricity damage. Furthermore, the target must succeed on a DC 18 Fortitude save or be staggered for 1 round by involuntary muscle spasms. The save DC is Constitution-based."
+          },
+          {
+            "name": "Crystalline Rend (Ex)",
+            "desc": "If the mantis hits a single target with both claws in the same round, its serrated quartz blades shear inward along mineral cleave lines, dealing an additional 1d8+9 slashing damage."
+          },
+          {
+            "name": "Sudden Strike (Ex)",
+            "desc": "During a surprise round, the mantis can take a full round's worth of actions. It strikes with blinding hydraulic speed from stillness, gaining a +2 bonus on attack rolls against flat-footed opponents."
+          },
+          {
+            "name": "Quartz Refraction (Su)",
+            "desc": "The translucent, multi-faceted quartz plates across its body bend incoming magical energy and light[cite: 7]. Ray attacks and ranged touch spells suffer a 20% miss chance against the mantis[cite: 7]."
+          },
+          {
+            "name": "Mineral Mimicry (Ex)",
+            "desc": "When remaining motionless among rocky walls or crystal clusters, the mantis can take 20 on Stealth checks to appear as an inanimate geode formation."
+          },
+          {
+            "name": "Brittle Resonance (Ex)",
+            "desc": "Due to its rigid crystalline composition, the mantis is vulnerable to sonic damage[cite: 7]. If it takes 15 or more sonic damage from a single attack, the harmonic vibration fractures its exoskeleton, reducing its natural armor bonus by 2 for 1d4 rounds."
+          }
+        ],
+        "magic_items": [],
+        "spells": []
+      },
+      "_global_index": 5597,
+      "id": "1e4491c1-8d23-4890-9560-7441243002e7",
+      "AuthorId": "erdem",
+      "AuthorName": "erdem"
+    },
+    "_m_name": "quartz mantis",
+    "_m_cr": "7",
+    "_m_type": "magical beast",
+    "_m_size": "large",
+    "_m_align": "n",
+    "_m_env": "deep quartz caverns, crystalline chasms, subterranean geode halls",
+    "_m_source": "custom",
+    "_m_search_text": "quartz mantis earth  custom",
+    "id": "1e4491c1-8d23-4890-9560-7441243002e7",
+    "_global_index": 5597
+  },
+  {
+    "Name": "Quartz Scorpion",
+    "CR": "6",
+    "XP": "2400",
+    "Alignment": "N",
+    "Size": "Large",
+    "Type": "Vermin",
+    "subtype1": "earth",
+    "subtype2": "",
+    "Init": "+0",
+    "Senses": "darkvision 60 ft., tremorsense 60 ft., Perception +5",
+    "Aura": "",
+    "AC": "18",
+    "AC_Touch": "9",
+    "AC_Flat-footed": "18",
+    "HP": "68",
+    "HD": "8d8",
+    "Fort": "+10",
+    "Ref": "+2",
+    "Will": "+3",
+    "Speed": "40 ft., burrow 20 ft.",
+    "Melee": "2 pincers +10 (1d6+5 plus grab), sting +10 (1d8+5 piercing plus calcifying venom)",
+    "Ranged": "",
+    "Space": "10 ft.",
+    "Reach": "10 ft.",
+    "SpecialAttacks": "calcifying venom (DC 18), constrict (1d6+5), grab (claws), vitrified impalement",
+    "DefensiveAbilities": "mindless, quartz refraction",
+    "Weaknesses": "brittle resonance, vulnerability to sonic",
+    "Organization": "solitary or brood (2-4)",
+    "Str": "21",
+    "Dex": "10",
+    "Con": "18",
+    "Int": "10",
+    "Wis": "12",
+    "Cha": "2",
+    "BaseAtk": "6",
+    "CMB": "+12",
+    "CMD": "22",
+    "Feats": "",
+    "Skills": "Climb +9, Perception +5, Stealth +0 (+8 in rocky or crystal caverns)",
+    "Languages": "",
+    "SQ": "mineral camouflage",
+    "DR": "5/bludgeoning",
+    "Immune": "bleed, mind-affecting effects, poison",
+    "Resist": "",
+    "SR": "",
+    "Environment": "subterranean crystal caverns, deep quartz veins, underground chasms",
+    "Treasure": "incidental (raw quartz crystals)",
+    "Gear": "",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "public",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": false,
+    "IsUserCustom": true,
+    "CharacterFlag": "1",
+    "SpellLikeAbilities": "(6)",
+    "SpellsPrepared": "{}",
+    "Special Abilities": "Calcifying Venom (Ex) Sting—injury; save Fort DC 18; frequency 1/round for 6 rounds; effect 1d3 Dexterity damage as silica deposits turn flesh and joints into brittle quartz; cure 2 consecutive saves. If a creature's Dexterity is reduced to 0 by this poison, it is permanently petrified into a statue of solid quartz (as flesh to stone). The save DC is Constitution-based[cite: 8].\nQuartz Refraction (Su) The translucent, multi-faceted quartz carapace bends and scatters magical energy and light rays. Ray attacks and ranged touch spells suffer a 20% miss chance against the scorpion.\nVitrified Impalement (Ex) Whenever the scorpion confirms a critical hit with its stinger or maintains a grapple against a pinned opponent, brittle quartz needle-shards snap off inside the victim's wounds[cite: 8]. The target takes 1d6 bleed damage and suffers a -2 penalty on attack rolls and skill checks until the mineral shards are removed with a DC 15 Heal check as a full-round action[cite: 8].\nBrittle Resonance (Ex) Due to the rigid crystalline structure of its carapace, the scorpion is vulnerable to sonic damage. If it takes 15 or more sonic damage from a single attack, harmonic fractures ripple through its shell, reducing its natural armor bonus by 2 for 1d4 rounds.",
+    "OriginalState": {
+      "basic": {
+        "in-name": "Quartz Scorpion",
+        "in-cr": "6",
+        "in-xp": "2400",
+        "in-visibility": "public",
+        "in-author": "erdem",
+        "in-alignment": "N",
+        "in-size": "Large",
+        "in-type": "Vermin",
+        "in-type-full": "Large vermin (earth)",
+        "in-init-extra": "0",
+        "in-aura": "",
+        "in-str": "21",
+        "in-dex": "10",
+        "in-con": "18",
+        "in-int": "",
+        "in-wis": "12",
+        "in-cha": "2",
+        "in-armor-name": "",
+        "in-ac-armor": "0",
+        "in-shield-name": "",
+        "in-ac-shield": "0",
+        "in-ac-natural": "9",
+        "in-ac-deflection": "0",
+        "in-ac-dodge": "0",
+        "in-hd-amount": "8",
+        "in-hd-size": "8",
+        "in-hp-extra": "0",
+        "in-fort": "+10",
+        "in-ref": "+2",
+        "in-will": "+3",
+        "in-def-abilities": "mindless, quartz refraction",
+        "in-dr": "5/bludgeoning",
+        "in-immune": "bleed, mind-affecting effects, poison",
+        "in-resist": "",
+        "in-weaknesses": "brittle resonance, vulnerability to sonic",
+        "in-sr": "",
+        "in-speed": "40 ft., burrow 20 ft.",
+        "in-space": "10 ft.",
+        "in-reach": "10 ft.",
+        "in-special-attacks": "calcifying venom (DC 18), constrict (1d6+5), grab (claws), vitrified impalement",
+        "in-sla-cl": "6",
+        "in-bab": "6",
+        "in-cmb": "+12",
+        "in-cmb-extra": "",
+        "in-cmd": "22",
+        "in-cmd-extra": "",
+        "in-feats": "",
+        "in-feat-search": "",
+        "in-skills": "Climb +9, Perception +5, Stealth +0 (+8 in rocky or crystal caverns)",
+        "in-languages": "",
+        "in-sq": "mineral camouflage",
+        "in-gear": "",
+        "in-spell-class": "",
+        "in-spell-cl": "1",
+        "in-spell-stat": "",
+        "in-spell-conc": "0",
+        "in-spells-data": "{}",
+        "in-spells": "{}",
+        "in-environment": "subterranean crystal caverns, deep quartz veins, underground chasms",
+        "in-organization": "solitary or brood (2-4)",
+        "in-treasure": "incidental (raw quartz crystals)",
+        "stat_type": "npc",
+        "in-hp": "68 (8d8+32)",
+        "in-init": "+0",
+        "in-ac": "18, touch 9, flat-footed 18 (-1 size, +9 natural)"
+      },
+      "html": {},
+      "dynamic": {
+        "subtypes": [
+          "earth"
+        ],
+        "senses": [
+          {
+            "name": "darkvision",
+            "dist": "60 ft."
+          },
+          {
+            "name": "tremorsense",
+            "dist": "60 ft."
+          },
+          {
+            "name": "Perception",
+            "dist": "+5"
+          }
+        ],
+        "skills": [],
+        "slas": [],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "2 pincers +10 (1d6+5 plus grab), sting +10 (1d8+5 piercing plus calcifying venom)"
+          }
+        ],
+        "ranged": [],
+        "abilities": [
+          {
+            "name": "Calcifying Venom (Ex)",
+            "desc": "Sting—injury; save Fort DC 18; frequency 1/round for 6 rounds; effect 1d3 Dexterity damage as silica deposits turn flesh and joints into brittle quartz; cure 2 consecutive saves. If a creature's Dexterity is reduced to 0 by this poison, it is permanently petrified into a statue of solid quartz (as flesh to stone). The save DC is Constitution-based[cite: 8]."
+          },
+          {
+            "name": "Quartz Refraction (Su)",
+            "desc": "The translucent, multi-faceted quartz carapace bends and scatters magical energy and light rays. Ray attacks and ranged touch spells suffer a 20% miss chance against the scorpion."
+          },
+          {
+            "name": "Vitrified Impalement (Ex)",
+            "desc": "Whenever the scorpion confirms a critical hit with its stinger or maintains a grapple against a pinned opponent, brittle quartz needle-shards snap off inside the victim's wounds[cite: 8]. The target takes 1d6 bleed damage and suffers a -2 penalty on attack rolls and skill checks until the mineral shards are removed with a DC 15 Heal check as a full-round action[cite: 8]."
+          },
+          {
+            "name": "Brittle Resonance (Ex)",
+            "desc": "Due to the rigid crystalline structure of its carapace, the scorpion is vulnerable to sonic damage. If it takes 15 or more sonic damage from a single attack, harmonic fractures ripple through its shell, reducing its natural armor bonus by 2 for 1d4 rounds."
+          }
+        ],
+        "special_abilities": [
+          {
+            "name": "Calcifying Venom (Ex)",
+            "desc": "Sting—injury; save Fort DC 18; frequency 1/round for 6 rounds; effect 1d3 Dexterity damage as silica deposits turn flesh and joints into brittle quartz; cure 2 consecutive saves. If a creature's Dexterity is reduced to 0 by this poison, it is permanently petrified into a statue of solid quartz (as flesh to stone). The save DC is Constitution-based[cite: 8]."
+          },
+          {
+            "name": "Quartz Refraction (Su)",
+            "desc": "The translucent, multi-faceted quartz carapace bends and scatters magical energy and light rays. Ray attacks and ranged touch spells suffer a 20% miss chance against the scorpion."
+          },
+          {
+            "name": "Vitrified Impalement (Ex)",
+            "desc": "Whenever the scorpion confirms a critical hit with its stinger or maintains a grapple against a pinned opponent, brittle quartz needle-shards snap off inside the victim's wounds[cite: 8]. The target takes 1d6 bleed damage and suffers a -2 penalty on attack rolls and skill checks until the mineral shards are removed with a DC 15 Heal check as a full-round action[cite: 8]."
+          },
+          {
+            "name": "Brittle Resonance (Ex)",
+            "desc": "Due to the rigid crystalline structure of its carapace, the scorpion is vulnerable to sonic damage. If it takes 15 or more sonic damage from a single attack, harmonic fractures ripple through its shell, reducing its natural armor bonus by 2 for 1d4 rounds."
+          }
+        ],
+        "magic_items": [],
+        "spells": []
+      },
+      "_global_index": 5598,
+      "id": "4d175237-a26e-4d8c-bd4f-0853d1f5082a",
+      "AuthorId": "erdem",
+      "AuthorName": "erdem"
+    },
+    "_m_name": "quartz scorpion",
+    "_m_cr": "6",
+    "_m_type": "vermin",
+    "_m_size": "large",
+    "_m_align": "n",
+    "_m_env": "subterranean crystal caverns, deep quartz veins, underground chasms",
+    "_m_source": "custom",
+    "_m_search_text": "quartz scorpion earth  custom",
+    "id": "4d175237-a26e-4d8c-bd4f-0853d1f5082a",
+    "_global_index": 5598
+  },
+  {
+    "Name": "Quartz Bat Swarm",
+    "CR": "4",
+    "XP": "1200",
+    "Alignment": "N",
+    "Size": "Diminutive",
+    "Type": "Magical Beast",
+    "subtype1": "earth",
+    "subtype2": "",
+    "Init": "+8",
+    "Senses": "blindsense (echolocation) 60 ft., darkvision 60 ft., low-light vision, Perception +14",
+    "Aura": "",
+    "AC": "21",
+    "AC_Touch": "18",
+    "AC_Flat-footed": "17",
+    "HP": "39",
+    "HD": "6d10",
+    "Fort": "+6",
+    "Ref": "+9",
+    "Will": "+4",
+    "Speed": "10 ft., fly 40 ft. (good)",
+    "Melee": "swarm (2d6 slashing and piercing plus distraction, shard lacerations)",
+    "Ranged": "",
+    "Space": "10 ft.",
+    "Reach": "0 ft.",
+    "SpecialAttacks": "distraction (DC 14), resonant screech (DC 14), shard lacerations (1d4 bleed), swarm (2d6 slashing/piercing)",
+    "DefensiveAbilities": "prismatic flutter, swarm traits",
+    "Weaknesses": "brittle resonance, swarm traits, vulnerability to sonic",
+    "Organization": "solitary, flight (2-4 swarms), or colony (5-10 swarms)",
+    "Str": "3",
+    "Dex": "19",
+    "Con": "13",
+    "Int": "2",
+    "Wis": "14",
+    "Cha": "4",
+    "BaseAtk": "6",
+    "CMB": "-",
+    "CMD": "-",
+    "Feats": "Flyby Attack, Lightning Reflexes, Skill Focus (Perception)",
+    "Skills": "Fly +18, Perception +14, Stealth +16 (+24 hanging motionless in crystal caverns)",
+    "Languages": "",
+    "SQ": "echolocation 60 ft., mineral mimicry",
+    "DR": "5/bludgeoning",
+    "Immune": "bleed, weapon damage",
+    "Resist": "",
+    "SR": "",
+    "Environment": "subterranean crystal caverns, deep quartz mine shafts, underground geodes",
+    "Treasure": "none (microscopic uncut quartz dust)",
+    "Gear": "",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "public",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": false,
+    "IsUserCustom": true,
+    "CharacterFlag": "1",
+    "SpellLikeAbilities": "(4)",
+    "SpellsPrepared": "{}",
+    "Special Abilities": "Shard Lacerations (Ex) The wings and talons of the thousands of tiny bats composing the swarm are formed from razor-sharp quartz flakes. Any creature that ends its turn in the swarm's space takes damage and begins taking 1d4 bleed damage as crystalline micro-shards lodge into exposed flesh and armor seams.\nResonant Screech (Su) Once every 1d4 rounds as a standard action, the swarm can synchronize its ultrasonic echolocation through its crystalline bodies, projecting a focused high-frequency burst. All creatures within the swarm's 10-foot space and adjacent squares within 5 feet take 2d6 sonic damage and are deafened for 1d4 rounds (DC 14 Fortitude save halves the damage and negates the deafness). The save DC is Constitution-based.\nPrismatic Flutter (Ex) The translucent, prismatic quartz wing membranes refract light chaotically as the bats flutter in mid-air. Targeted ray attacks and ranged touch spells suffer a 20% miss chance against the swarm.\nBrittle Resonance (Ex) Like all quartz-based organisms, the swarm is vulnerable to sonic damage, taking +50% additional damage from sonic effects. Furthermore, if the swarm takes 10 or more sonic damage from a single attack, the harmonic fracturing leaves it staggered for 1 round.",
+    "OriginalState": {
+      "basic": {
+        "in-name": "Quartz Bat Swarm",
+        "in-cr": "4",
+        "in-xp": "1200",
+        "in-visibility": "public",
+        "in-author": "erdem",
+        "in-alignment": "N",
+        "in-size": "Diminutive",
+        "in-type": "Magical Beast",
+        "in-type-full": "Diminutive magical beast (earth, swarm)",
+        "in-init-extra": "4",
+        "in-aura": "",
+        "in-str": "3",
+        "in-dex": "19",
+        "in-con": "13",
+        "in-int": "2",
+        "in-wis": "14",
+        "in-cha": "4",
+        "in-armor-name": "",
+        "in-ac-armor": "0",
+        "in-shield-name": "",
+        "in-ac-shield": "0",
+        "in-ac-natural": "3",
+        "in-ac-deflection": "0",
+        "in-ac-dodge": "0",
+        "in-hd-amount": "6",
+        "in-hd-size": "10",
+        "in-hp-extra": "0",
+        "in-fort": "+6",
+        "in-ref": "+9",
+        "in-will": "+4",
+        "in-def-abilities": "prismatic flutter, swarm traits",
+        "in-dr": "5/bludgeoning",
+        "in-immune": "bleed, weapon damage",
+        "in-resist": "",
+        "in-weaknesses": "brittle resonance, swarm traits, vulnerability to sonic",
+        "in-sr": "",
+        "in-speed": "10 ft., fly 40 ft. (good)",
+        "in-space": "10 ft.",
+        "in-reach": "0 ft.",
+        "in-special-attacks": "distraction (DC 14), resonant screech (DC 14), shard lacerations (1d4 bleed), swarm (2d6 slashing/piercing)",
+        "in-sla-cl": "4",
+        "in-bab": "6",
+        "in-cmb": "-",
+        "in-cmb-extra": "",
+        "in-cmd": "-",
+        "in-cmd-extra": "",
+        "in-feats": "Flyby Attack, Lightning Reflexes, Skill Focus (Perception)",
+        "in-feat-search": "",
+        "in-skills": "Fly +18, Perception +14, Stealth +16 (+24 hanging motionless in crystal caverns)",
+        "in-languages": "",
+        "in-sq": "echolocation 60 ft., mineral mimicry",
+        "in-gear": "",
+        "in-spell-class": "",
+        "in-spell-cl": "1",
+        "in-spell-stat": "wis",
+        "in-spell-conc": "0",
+        "in-spells-data": "{}",
+        "in-spells": "{}",
+        "in-environment": "subterranean crystal caverns, deep quartz mine shafts, underground geodes",
+        "in-organization": "solitary, flight (2-4 swarms), or colony (5-10 swarms)",
+        "in-treasure": "none (microscopic uncut quartz dust)",
+        "stat_type": "npc",
+        "in-hp": "39 (6d10+6)",
+        "in-init": "+8",
+        "in-ac": "21, touch 18, flat-footed 17 (+4 Dex, +4 size, +3 natural)"
+      },
+      "html": {},
+      "dynamic": {
+        "subtypes": [
+          "earth",
+          ""
+        ],
+        "senses": [
+          {
+            "name": "blindsense (echolocation)",
+            "dist": "60 ft."
+          },
+          {
+            "name": "darkvision",
+            "dist": "60 ft."
+          },
+          {
+            "name": "low-light vision",
+            "dist": ""
+          },
+          {
+            "name": "Perception",
+            "dist": "+14"
+          }
+        ],
+        "skills": [],
+        "slas": [],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "swarm (2d6 slashing and piercing plus distraction, shard lacerations)"
+          }
+        ],
+        "ranged": [],
+        "abilities": [
+          {
+            "name": "Shard Lacerations (Ex)",
+            "desc": "The wings and talons of the thousands of tiny bats composing the swarm are formed from razor-sharp quartz flakes. Any creature that ends its turn in the swarm's space takes damage and begins taking 1d4 bleed damage as crystalline micro-shards lodge into exposed flesh and armor seams."
+          },
+          {
+            "name": "Resonant Screech (Su)",
+            "desc": "Once every 1d4 rounds as a standard action, the swarm can synchronize its ultrasonic echolocation through its crystalline bodies, projecting a focused high-frequency burst. All creatures within the swarm's 10-foot space and adjacent squares within 5 feet take 2d6 sonic damage and are deafened for 1d4 rounds (DC 14 Fortitude save halves the damage and negates the deafness). The save DC is Constitution-based."
+          },
+          {
+            "name": "Prismatic Flutter (Ex)",
+            "desc": "The translucent, prismatic quartz wing membranes refract light chaotically as the bats flutter in mid-air. Targeted ray attacks and ranged touch spells suffer a 20% miss chance against the swarm."
+          },
+          {
+            "name": "Brittle Resonance (Ex)",
+            "desc": "Like all quartz-based organisms, the swarm is vulnerable to sonic damage, taking +50% additional damage from sonic effects. Furthermore, if the swarm takes 10 or more sonic damage from a single attack, the harmonic fracturing leaves it staggered for 1 round."
+          }
+        ],
+        "special_abilities": [
+          {
+            "name": "Shard Lacerations (Ex)",
+            "desc": "The wings and talons of the thousands of tiny bats composing the swarm are formed from razor-sharp quartz flakes. Any creature that ends its turn in the swarm's space takes damage and begins taking 1d4 bleed damage as crystalline micro-shards lodge into exposed flesh and armor seams."
+          },
+          {
+            "name": "Resonant Screech (Su)",
+            "desc": "Once every 1d4 rounds as a standard action, the swarm can synchronize its ultrasonic echolocation through its crystalline bodies, projecting a focused high-frequency burst. All creatures within the swarm's 10-foot space and adjacent squares within 5 feet take 2d6 sonic damage and are deafened for 1d4 rounds (DC 14 Fortitude save halves the damage and negates the deafness). The save DC is Constitution-based."
+          },
+          {
+            "name": "Prismatic Flutter (Ex)",
+            "desc": "The translucent, prismatic quartz wing membranes refract light chaotically as the bats flutter in mid-air. Targeted ray attacks and ranged touch spells suffer a 20% miss chance against the swarm."
+          },
+          {
+            "name": "Brittle Resonance (Ex)",
+            "desc": "Like all quartz-based organisms, the swarm is vulnerable to sonic damage, taking +50% additional damage from sonic effects. Furthermore, if the swarm takes 10 or more sonic damage from a single attack, the harmonic fracturing leaves it staggered for 1 round."
+          }
+        ],
+        "magic_items": [],
+        "spells": []
+      },
+      "_global_index": 5599,
+      "id": "57852f35-5bc4-408f-b40e-3fa99182b172",
+      "AuthorId": "erdem",
+      "AuthorName": "erdem"
+    },
+    "_m_name": "quartz bat swarm",
+    "_m_cr": "4",
+    "_m_type": "magical beast",
+    "_m_size": "diminutive",
+    "_m_align": "n",
+    "_m_env": "subterranean crystal caverns, deep quartz mine shafts, underground geodes",
+    "_m_source": "custom",
+    "_m_search_text": "quartz bat swarm earth  custom",
+    "id": "57852f35-5bc4-408f-b40e-3fa99182b172",
+    "_global_index": 5599
+  },
+  {
+    "Name": "Quartz Stalker",
+    "CR": "6",
+    "XP": "2400",
+    "Alignment": "NE",
+    "Size": "Medium",
+    "Type": "Monstrous Humanoid",
+    "subtype1": "earth",
+    "subtype2": "",
+    "Init": "+8",
+    "Senses": "darkvision 60 ft., tremorsense 30 ft., Perception +13",
+    "Aura": "",
+    "AC": "21",
+    "AC_Touch": "15",
+    "AC_Flat-footed": "16",
+    "HP": "68",
+    "HD": "8d10",
+    "Fort": "+5",
+    "Ref": "+10",
+    "Will": "+8",
+    "Speed": "30 ft., climb 30 ft.",
+    "Melee": "2 arm blades +12 (1d8+3/19-20 plus splintering)",
+    "Ranged": "",
+    "Space": "5 ft.",
+    "Reach": "5 ft.",
+    "SpecialAttacks": "pack ambush, resonance strike, sneak attack +2d6, splintering arm blades",
+    "DefensiveAbilities": "crystalline refraction, quartz camouflage",
+    "Weaknesses": "brittle resonance, vulnerability to sonic",
+    "Organization": "pair, ambush party (3-6), or brood nest (7-12)",
+    "Str": "16",
+    "Dex": "19",
+    "Con": "16",
+    "Int": "12",
+    "Wis": "14",
+    "Cha": "10",
+    "BaseAtk": "8",
+    "CMB": "+11",
+    "CMD": "26",
+    "Feats": "Combat Reflexes, Dodge, Stealthy, Weapon Finesse",
+    "Skills": "Acrobatics +15, Climb +17, Escape Artist +15, Perception +13, Stealth +17 (+25 in crystal/rock terrain)",
+    "Languages": "Terran, Undercommon",
+    "SQ": "mineral mimicry, silent scuttle, tremorsense",
+    "DR": "5/bludgeoning",
+    "Immune": "bleed, petrification",
+    "Resist": "",
+    "SR": "",
+    "Environment": "deep subterranean grottos, quartz crevices, abandoned mineral mines",
+    "Treasure": "standard (raw cut quartz blades, rough uncut crystals)",
+    "Gear": "",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "public",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": false,
+    "IsUserCustom": true,
+    "CharacterFlag": "1",
+    "SpellLikeAbilities": "(6)",
+    "SpellsPrepared": "{}",
+    "Special Abilities": "Pack Ambush (Ex) Quartz stalkers coordinate with surgical precision when swarming targets. A stalker gains an additional +1 bonus on melee attack rolls (up to a maximum of +4 instead of the standard +2) for each allied quartz stalker flanking the same target. Additionally, any opponent threatened by two or more quartz stalkers loses their Dexterity and dodge bonuses to AC against attacks of opportunity.\nSplintering Arm Blades (Ex) The jagged quartz blades extending from the stalker's forearms shed microscopic crystalline splinters upon impact. Whenever an arm blade scores a critical hit or applies sneak attack damage, the target takes 1d6 bleed damage and must succeed on a DC 17 Fortitude save or become sickened for 1 round as excruciating shards grind into its joints. The save DC is Constitution-based.\nResonance Strike (Su) Quartz stalkers attune their strikes to a shared geological harmonic frequency. If a target is struck by multiple different quartz stalkers within the same round, the second and each subsequent stalker's attack deals an additional 1d6 sonic damage.\nQuartz Camouflage (Ex) Translucent quartz facets across the stalker's body bend ambient light and fracture shadows. While remaining motionless against stone or crystalline surfaces, the stalker gains a +8 racial bonus on Stealth checks and can make Stealth checks while clinging to bare stone walls even without cover or concealment.\nCrystalline Refraction (Su) The creature's translucent quartz shell bends incoming magical beams. Directly targeted ray attacks and ranged touch spells suffer a 20% miss chance against the quartz stalker.\nBrittle Resonance (Ex) Like all quartz-based organisms, the stalker is vulnerable to sonic damage. If it takes 15 or more sonic damage from a single attack, the harmonic reverberation fractures its internal matrix, leaving it dazed for 1 round.",
+    "OriginalState": {
+      "basic": {
+        "in-name": "Quartz Stalker",
+        "in-cr": "6",
+        "in-xp": "2400",
+        "in-visibility": "public",
+        "in-author": "erdem",
+        "in-alignment": "NE",
+        "in-size": "Medium",
+        "in-type": "Monstrous Humanoid",
+        "in-type-full": "Medium monstrous humanoid (earth)",
+        "in-init-extra": "4",
+        "in-aura": "",
+        "in-str": "16",
+        "in-dex": "19",
+        "in-con": "16",
+        "in-int": "12",
+        "in-wis": "14",
+        "in-cha": "10",
+        "in-armor-name": "",
+        "in-ac-armor": "0",
+        "in-shield-name": "",
+        "in-ac-shield": "0",
+        "in-ac-natural": "6",
+        "in-ac-deflection": "0",
+        "in-ac-dodge": "1",
+        "in-hd-amount": "8",
+        "in-hd-size": "10",
+        "in-hp-extra": "0",
+        "in-fort": "+5",
+        "in-ref": "+10",
+        "in-will": "+8",
+        "in-def-abilities": "crystalline refraction, quartz camouflage",
+        "in-dr": "5/bludgeoning",
+        "in-immune": "bleed, petrification",
+        "in-resist": "",
+        "in-weaknesses": "brittle resonance, vulnerability to sonic",
+        "in-sr": "",
+        "in-speed": "30 ft., climb 30 ft.",
+        "in-space": "5 ft.",
+        "in-reach": "5 ft.",
+        "in-special-attacks": "pack ambush, resonance strike, sneak attack +2d6, splintering arm blades",
+        "in-sla-cl": "6",
+        "in-bab": "8",
+        "in-cmb": "+11",
+        "in-cmb-extra": "",
+        "in-cmd": "26",
+        "in-cmd-extra": "",
+        "in-feats": "Combat Reflexes, Dodge, Stealthy, Weapon Finesse",
+        "in-feat-search": "",
+        "in-skills": "Acrobatics +15, Climb +17, Escape Artist +15, Perception +13, Stealth +17 (+25 in crystal/rock terrain)",
+        "in-languages": "Terran, Undercommon",
+        "in-sq": "mineral mimicry, silent scuttle, tremorsense",
+        "in-gear": "",
+        "in-spell-class": "",
+        "in-spell-cl": "1",
+        "in-spell-stat": "",
+        "in-spell-conc": "0",
+        "in-spells-data": "{}",
+        "in-spells": "{}",
+        "in-environment": "deep subterranean grottos, quartz crevices, abandoned mineral mines",
+        "in-organization": "pair, ambush party (3-6), or brood nest (7-12)",
+        "in-treasure": "standard (raw cut quartz blades, rough uncut crystals)",
+        "stat_type": "npc",
+        "in-hp": "68 (8d10+24)",
+        "in-init": "+8",
+        "in-ac": "22, touch 16, flat-footed 16 (+4 Dex, +6 natural, +2 dodge)"
+      },
+      "html": {},
+      "dynamic": {
+        "subtypes": [
+          "earth"
+        ],
+        "senses": [
+          {
+            "name": "darkvision",
+            "dist": "60 ft."
+          },
+          {
+            "name": "tremorsense",
+            "dist": "30 ft."
+          },
+          {
+            "name": "Perception",
+            "dist": "+13"
+          }
+        ],
+        "skills": [],
+        "slas": [],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "2 arm blades +12 (1d8+3/19-20 plus splintering)"
+          }
+        ],
+        "ranged": [],
+        "abilities": [
+          {
+            "name": "Pack Ambush (Ex)",
+            "desc": "Quartz stalkers coordinate with surgical precision when swarming targets. A stalker gains an additional +1 bonus on melee attack rolls (up to a maximum of +4 instead of the standard +2) for each allied quartz stalker flanking the same target. Additionally, any opponent threatened by two or more quartz stalkers loses their Dexterity and dodge bonuses to AC against attacks of opportunity."
+          },
+          {
+            "name": "Splintering Arm Blades (Ex)",
+            "desc": "The jagged quartz blades extending from the stalker's forearms shed microscopic crystalline splinters upon impact. Whenever an arm blade scores a critical hit or applies sneak attack damage, the target takes 1d6 bleed damage and must succeed on a DC 17 Fortitude save or become sickened for 1 round as excruciating shards grind into its joints. The save DC is Constitution-based."
+          },
+          {
+            "name": "Resonance Strike (Su)",
+            "desc": "Quartz stalkers attune their strikes to a shared geological harmonic frequency. If a target is struck by multiple different quartz stalkers within the same round, the second and each subsequent stalker's attack deals an additional 1d6 sonic damage."
+          },
+          {
+            "name": "Quartz Camouflage (Ex)",
+            "desc": "Translucent quartz facets across the stalker's body bend ambient light and fracture shadows. While remaining motionless against stone or crystalline surfaces, the stalker gains a +8 racial bonus on Stealth checks and can make Stealth checks while clinging to bare stone walls even without cover or concealment."
+          },
+          {
+            "name": "Crystalline Refraction (Su)",
+            "desc": "The creature's translucent quartz shell bends incoming magical beams. Directly targeted ray attacks and ranged touch spells suffer a 20% miss chance against the quartz stalker."
+          },
+          {
+            "name": "Brittle Resonance (Ex)",
+            "desc": "Like all quartz-based organisms, the stalker is vulnerable to sonic damage. If it takes 15 or more sonic damage from a single attack, the harmonic reverberation fractures its internal matrix, leaving it dazed for 1 round."
+          }
+        ],
+        "special_abilities": [
+          {
+            "name": "Pack Ambush (Ex)",
+            "desc": "Quartz stalkers coordinate with surgical precision when swarming targets. A stalker gains an additional +1 bonus on melee attack rolls (up to a maximum of +4 instead of the standard +2) for each allied quartz stalker flanking the same target. Additionally, any opponent threatened by two or more quartz stalkers loses their Dexterity and dodge bonuses to AC against attacks of opportunity."
+          },
+          {
+            "name": "Splintering Arm Blades (Ex)",
+            "desc": "The jagged quartz blades extending from the stalker's forearms shed microscopic crystalline splinters upon impact. Whenever an arm blade scores a critical hit or applies sneak attack damage, the target takes 1d6 bleed damage and must succeed on a DC 17 Fortitude save or become sickened for 1 round as excruciating shards grind into its joints. The save DC is Constitution-based."
+          },
+          {
+            "name": "Resonance Strike (Su)",
+            "desc": "Quartz stalkers attune their strikes to a shared geological harmonic frequency. If a target is struck by multiple different quartz stalkers within the same round, the second and each subsequent stalker's attack deals an additional 1d6 sonic damage."
+          },
+          {
+            "name": "Quartz Camouflage (Ex)",
+            "desc": "Translucent quartz facets across the stalker's body bend ambient light and fracture shadows. While remaining motionless against stone or crystalline surfaces, the stalker gains a +8 racial bonus on Stealth checks and can make Stealth checks while clinging to bare stone walls even without cover or concealment."
+          },
+          {
+            "name": "Crystalline Refraction (Su)",
+            "desc": "The creature's translucent quartz shell bends incoming magical beams. Directly targeted ray attacks and ranged touch spells suffer a 20% miss chance against the quartz stalker."
+          },
+          {
+            "name": "Brittle Resonance (Ex)",
+            "desc": "Like all quartz-based organisms, the stalker is vulnerable to sonic damage. If it takes 15 or more sonic damage from a single attack, the harmonic reverberation fractures its internal matrix, leaving it dazed for 1 round."
+          }
+        ],
+        "magic_items": [],
+        "spells": []
+      },
+      "_global_index": 5600,
+      "id": "36e8c5d8-2180-49b9-9d48-05e1588a7719",
+      "AuthorId": "erdem",
+      "AuthorName": "erdem"
+    },
+    "_m_name": "quartz stalker",
+    "_m_cr": "6",
+    "_m_type": "monstrous humanoid",
+    "_m_size": "medium",
+    "_m_align": "ne",
+    "_m_env": "deep subterranean grottos, quartz crevices, abandoned mineral mines",
+    "_m_source": "custom",
+    "_m_search_text": "quartz stalker earth  custom",
+    "id": "36e8c5d8-2180-49b9-9d48-05e1588a7719",
+    "_global_index": 5600
+  },
+  {
+    "Name": "Quartz Rhinoceros",
+    "CR": "10",
+    "XP": "9600",
+    "Alignment": "N",
+    "Size": "Huge",
+    "Type": "Magical Beast",
+    "subtype1": "earth",
+    "subtype2": "",
+    "Init": "-2",
+    "Senses": "darkvision 60 ft., tremorsense 60 ft., low-light vision, scent, Perception +12",
+    "Aura": "",
+    "AC": "22",
+    "AC_Touch": "7",
+    "AC_Flat-footed": "22",
+    "HP": "150",
+    "HD": "12d10",
+    "Fort": "+15",
+    "Ref": "+7",
+    "Will": "+5",
+    "Speed": "40 ft.",
+    "Melee": "monolithic gore +20 (3d8+15/19-20/x3 plus awesome blow)",
+    "Ranged": "",
+    "Space": "15 ft.",
+    "Reach": "10 ft.",
+    "SpecialAttacks": "monolithic gore, shattering charge, siege engine, trample (2d8+15, DC 26)",
+    "DefensiveAbilities": "calcified monolithic plates, quartz refraction",
+    "Weaknesses": "brittle resonance, vulnerability to sonic",
+    "Organization": "solitary or herd (2-4)",
+    "Str": "30",
+    "Dex": "8",
+    "Con": "24",
+    "Int": "2",
+    "Wis": "13",
+    "Cha": "6",
+    "BaseAtk": "12",
+    "CMB": "+24",
+    "CMD": "33",
+    "Feats": "Awesome Blow, Greater Bull Rush, Greater Sunder, Improved Bull Rush, Improved Sunder, Power Attack",
+    "Skills": "Perception +12",
+    "Languages": "",
+    "SQ": "mineral scent, tremorsense",
+    "DR": "10/adamantine or bludgeoning",
+    "Immune": "bleed, petrification",
+    "Resist": "",
+    "SR": "",
+    "Environment": "subterranean crystal chasms, deep quartz quarries, rocky plateaus",
+    "Treasure": "incidental (massive raw quartz monolith horns)",
+    "Gear": "",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "public",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": false,
+    "IsUserCustom": true,
+    "CharacterFlag": "1",
+    "SpellLikeAbilities": "(10)",
+    "SpellsPrepared": "{}",
+    "Special Abilities": "Shattering Charge (Ex) When the rhinoceros charges, the massive quartz monolith on its snout strikes with catastrophic kinetic force. If its gore attack hits at the end of a charge, it deals 6d8+30 points of damage. The struck creature must succeed on a DC 26 Fortitude save or be knocked prone and dazed for 1 round. The terrain along the 10-foot-wide path of the charge shatters into jagged crystalline debris, turning into difficult terrain for 1 minute. The save DC is Strength-based.\nSiege Engine (Ex) The quartz rhinoceros's gore and trample attacks deal double damage against objects and structures, bypassing the first 10 points of the target's hardness.\nMonolithic Gore (Ex) The creature's horn is a dense, jagged pillar of uncut solid quartz. This attack has a x3 critical multiplier and threatens a critical hit on a roll of 19-20. Additionally, its gore attacks bypass DR/adamantine and DR/magic.\nQuartz Refraction (Su) The dense layers of prismatic quartz plates across its flank refract incoming magical energy and light. Directly targeted ray attacks and ranged touch spells suffer a 20% miss chance against the rhinoceros.\nBrittle Resonance (Ex) Like all quartz-based organisms, the rhinoceros is vulnerable to sonic damage. If it takes 20 or more sonic damage from a single attack, the harmonic reverberation fractures the internal crystalline matrix of its plates, reducing its natural armor bonus by 4 and preventing it from using the charge action for 1d4 rounds.",
+    "OriginalState": {
+      "basic": {
+        "in-name": "Quartz Rhinoceros",
+        "in-cr": "10",
+        "in-xp": "9600",
+        "in-visibility": "public",
+        "in-author": "erdem",
+        "in-alignment": "N",
+        "in-size": "Huge",
+        "in-type": "Magical Beast",
+        "in-type-full": "Huge magical beast (earth)",
+        "in-init-extra": "-1",
+        "in-aura": "",
+        "in-str": "30",
+        "in-dex": "8",
+        "in-con": "24",
+        "in-int": "2",
+        "in-wis": "13",
+        "in-cha": "6",
+        "in-armor-name": "",
+        "in-ac-armor": "0",
+        "in-shield-name": "",
+        "in-ac-shield": "0",
+        "in-ac-natural": "15",
+        "in-ac-deflection": "0",
+        "in-ac-dodge": "0",
+        "in-hd-amount": "12",
+        "in-hd-size": "10",
+        "in-hp-extra": "0",
+        "in-fort": "+15",
+        "in-ref": "+7",
+        "in-will": "+5",
+        "in-def-abilities": "calcified monolithic plates, quartz refraction",
+        "in-dr": "10/adamantine or bludgeoning",
+        "in-immune": "bleed, petrification",
+        "in-resist": "",
+        "in-weaknesses": "brittle resonance, vulnerability to sonic",
+        "in-sr": "",
+        "in-speed": "40 ft.",
+        "in-space": "15 ft.",
+        "in-reach": "10 ft.",
+        "in-special-attacks": "monolithic gore, shattering charge, siege engine, trample (2d8+15, DC 26)",
+        "in-sla-cl": "10",
+        "in-bab": "12",
+        "in-cmb": "+24",
+        "in-cmb-extra": "",
+        "in-cmd": "33",
+        "in-cmd-extra": "",
+        "in-feats": "Awesome Blow, Greater Bull Rush, Greater Sunder, Improved Bull Rush, Improved Sunder, Power Attack",
+        "in-feat-search": "",
+        "in-skills": "Perception +12",
+        "in-languages": "",
+        "in-sq": "mineral scent, tremorsense",
+        "in-gear": "",
+        "in-spell-class": "",
+        "in-spell-cl": "1",
+        "in-spell-stat": "",
+        "in-spell-conc": "0",
+        "in-spells-data": "{}",
+        "in-spells": "{}",
+        "in-environment": "subterranean crystal chasms, deep quartz quarries, rocky plateaus",
+        "in-organization": "solitary or herd (2-4)",
+        "in-treasure": "incidental (massive raw quartz monolith horns)",
+        "stat_type": "npc",
+        "in-hp": "150 (12d10+84)",
+        "in-init": "-2",
+        "in-ac": "22, touch 7, flat-footed 22 (-1 Dex, -2 size, +15 natural)"
+      },
+      "html": {},
+      "dynamic": {
+        "subtypes": [
+          "earth"
+        ],
+        "senses": [
+          {
+            "name": "darkvision",
+            "dist": "60 ft."
+          },
+          {
+            "name": "tremorsense",
+            "dist": "60 ft."
+          },
+          {
+            "name": "low-light vision",
+            "dist": ""
+          },
+          {
+            "name": "scent",
+            "dist": ""
+          },
+          {
+            "name": "Perception",
+            "dist": "+12"
+          }
+        ],
+        "skills": [],
+        "slas": [],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "monolithic gore +20 (3d8+15/19-20/x3 plus awesome blow)"
+          }
+        ],
+        "ranged": [],
+        "abilities": [
+          {
+            "name": "Shattering Charge (Ex)",
+            "desc": "When the rhinoceros charges, the massive quartz monolith on its snout strikes with catastrophic kinetic force. If its gore attack hits at the end of a charge, it deals 6d8+30 points of damage. The struck creature must succeed on a DC 26 Fortitude save or be knocked prone and dazed for 1 round. The terrain along the 10-foot-wide path of the charge shatters into jagged crystalline debris, turning into difficult terrain for 1 minute. The save DC is Strength-based."
+          },
+          {
+            "name": "Siege Engine (Ex)",
+            "desc": "The quartz rhinoceros's gore and trample attacks deal double damage against objects and structures, bypassing the first 10 points of the target's hardness."
+          },
+          {
+            "name": "Monolithic Gore (Ex)",
+            "desc": "The creature's horn is a dense, jagged pillar of uncut solid quartz. This attack has a x3 critical multiplier and threatens a critical hit on a roll of 19-20. Additionally, its gore attacks bypass DR/adamantine and DR/magic."
+          },
+          {
+            "name": "Quartz Refraction (Su)",
+            "desc": "The dense layers of prismatic quartz plates across its flank refract incoming magical energy and light. Directly targeted ray attacks and ranged touch spells suffer a 20% miss chance against the rhinoceros."
+          },
+          {
+            "name": "Brittle Resonance (Ex)",
+            "desc": "Like all quartz-based organisms, the rhinoceros is vulnerable to sonic damage. If it takes 20 or more sonic damage from a single attack, the harmonic reverberation fractures the internal crystalline matrix of its plates, reducing its natural armor bonus by 4 and preventing it from using the charge action for 1d4 rounds."
+          }
+        ],
+        "special_abilities": [
+          {
+            "name": "Shattering Charge (Ex)",
+            "desc": "When the rhinoceros charges, the massive quartz monolith on its snout strikes with catastrophic kinetic force. If its gore attack hits at the end of a charge, it deals 6d8+30 points of damage. The struck creature must succeed on a DC 26 Fortitude save or be knocked prone and dazed for 1 round. The terrain along the 10-foot-wide path of the charge shatters into jagged crystalline debris, turning into difficult terrain for 1 minute. The save DC is Strength-based."
+          },
+          {
+            "name": "Siege Engine (Ex)",
+            "desc": "The quartz rhinoceros's gore and trample attacks deal double damage against objects and structures, bypassing the first 10 points of the target's hardness."
+          },
+          {
+            "name": "Monolithic Gore (Ex)",
+            "desc": "The creature's horn is a dense, jagged pillar of uncut solid quartz. This attack has a x3 critical multiplier and threatens a critical hit on a roll of 19-20. Additionally, its gore attacks bypass DR/adamantine and DR/magic."
+          },
+          {
+            "name": "Quartz Refraction (Su)",
+            "desc": "The dense layers of prismatic quartz plates across its flank refract incoming magical energy and light. Directly targeted ray attacks and ranged touch spells suffer a 20% miss chance against the rhinoceros."
+          },
+          {
+            "name": "Brittle Resonance (Ex)",
+            "desc": "Like all quartz-based organisms, the rhinoceros is vulnerable to sonic damage. If it takes 20 or more sonic damage from a single attack, the harmonic reverberation fractures the internal crystalline matrix of its plates, reducing its natural armor bonus by 4 and preventing it from using the charge action for 1d4 rounds."
+          }
+        ],
+        "magic_items": [],
+        "spells": []
+      },
+      "_global_index": 5601,
+      "id": "d1f2295e-ead0-423c-9368-c4ad3c89cacf",
+      "AuthorId": "erdem",
+      "AuthorName": "erdem"
+    },
+    "_m_name": "quartz rhinoceros",
+    "_m_cr": "10",
+    "_m_type": "magical beast",
+    "_m_size": "huge",
+    "_m_align": "n",
+    "_m_env": "subterranean crystal chasms, deep quartz quarries, rocky plateaus",
+    "_m_source": "custom",
+    "_m_search_text": "quartz rhinoceros earth  custom",
+    "id": "d1f2295e-ead0-423c-9368-c4ad3c89cacf",
+    "_global_index": 5601
   }
 ]
