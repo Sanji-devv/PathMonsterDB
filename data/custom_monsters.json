@@ -1973,47 +1973,47 @@
   },
   {
     "Name": "Necrotic Wolf Spider",
-    "CR": "6",
-    "XP": "2400",
+    "CR": "7",
+    "XP": "3200",
     "Alignment": "NE",
     "Size": "Large",
     "Type": "Undead",
     "subtype1": "",
     "subtype2": "",
-    "Init": "+7",
-    "Senses": "Darkvision 60 ft., Tremorsense 60 ft., Perception +11",
+    "Init": "+10",
+    "Senses": "Darkvision 60 ft., Tremorsense 60 ft., Perception +12",
     "Aura": "",
-    "AC": "18",
-    "AC_Touch": "12",
-    "AC_Flat-footed": "15",
-    "HP": "59",
-    "HD": "7d8",
+    "AC": "20",
+    "AC_Touch": "13",
+    "AC_Flat-footed": "16",
+    "HP": "60",
+    "HD": "8d8",
     "Fort": "+5",
     "Ref": "+5",
-    "Will": "+6",
+    "Will": "+7",
     "Speed": "40 ft., climb 30 ft.",
-    "Melee": "bite +10 (1d8+7 plus 1d6 negative energy & void venom and grab)",
-    "Ranged": "necrotic web +7 ranged touch (entangle, DC 16, 7 hp)",
+    "Melee": "bite +12 (1d8+9 plus 1d6 negative energy, grab, and void venom)",
+    "Ranged": "necrotic web +8 ranged touch (entangle, DC 17, 9 hp, DR 5/slashing)",
     "Space": "10 ft.",
     "Reach": "10 ft.",
-    "SpecialAttacks": "negative energy bite, pounce, void venom, web (8/day, DC 16, hp 7)",
-    "DefensiveAbilities": "channel resistance +2, negative energy conduit",
+    "SpecialAttacks": "bite (1d8+9 plus 1d6 negative energy, grab, and void venom), necrotic web (DC 17, hp 9), shadow drag, trip",
+    "DefensiveAbilities": "channel resistance +2, negative energy conduit, shadow blend",
     "Weaknesses": "",
     "Organization": "solitary, pair, or nest (3-5)",
-    "Str": "20",
+    "Str": "22",
     "Dex": "17",
     "Con": "10",
     "Int": "6",
-    "Wis": "12",
+    "Wis": "13",
     "Cha": "16",
-    "BaseAtk": "5",
-    "CMB": "+11",
-    "CMD": "24",
-    "Feats": "Improved Initiative, Power Attack, Skill Focus (Stealth), Toughness, Furious Focus, Weapon Focus",
-    "Skills": "Acrobatics +9, Climb +17, Perception +11, Stealth +15",
+    "BaseAtk": "6",
+    "CMB": "+13",
+    "CMD": "27",
+    "Feats": "Combat Reflexes, Dodge, Improved Initiative, Power Attack",
+    "Skills": "Acrobatics +11, Climb +19, Perception +12, Stealth +15 (+23 in dim light/shadows)",
     "Languages": "Necril",
-    "SQ": "pounce, shadow blend",
-    "DR": "5/bludgeoning or magic",
+    "SQ": "shadow blend, tremorsense 60 ft.",
+    "DR": "5/bludgeoning or good",
     "Immune": "undead traits",
     "Resist": "cold 5, electricity 5",
     "SR": "",
@@ -2028,43 +2028,43 @@
     "IsFavorite": false,
     "IsUserCustom": true,
     "CharacterFlag": "1",
-    "SpellLikeAbilities": "",
+    "SpellLikeAbilities": "(7)",
     "SpellsPrepared": "{}",
-    "Special Abilities": "Negative Energy Conduit (Su) Fed by pervasive necrotic energies, the spider gains fast healing 2 while standing in areas of desecration or negative energy. Any negative energy damage that would heal it also grants it a +10 ft. bonus to base speed for 1 round.\nVoid Venom (Su) Bite—injury; save Fort DC 16; frequency 1/round for 4 rounds; effect 1d2 Con damage and 1 point of Str damage; cure 1 save. The save DC is Charisma-based.\nPounce (Ex) When the spider makes a charge attack, it can still make a full attack (including grab attempts).\nNecrotic Web (Su) 8 times per day, the spider can cast necrotic webbing up to 40 feet. Targets hit are entangled (Reflex DC 16, hp 7, DR 5/slashing). An entangled creature takes 1 point of negative energy damage at the start of its turn.",
+    "Special Abilities": "Void Venom (Su) Bite—injury; save Fort DC 17; frequency 1/round for 4 rounds; effect 1d3 Con damage and 1 point of Str damage; cure 1 save. The save DC is Charisma-based.\nShadow Drag (Ex) Whenever the spider successfully grapples or trips an opponent, it can move up to 15 feet as a swift action, dragging the victim along without provoking attacks of opportunity.\nNegative Energy Conduit (Su) Fed by pervasive necrotic energies, the spider gains fast healing 3 while standing in areas of desecration or negative energy. Any negative energy damage that targets the spider instead heals it and grants a +10 ft. bonus to base speed for 1 round[cite: 7].\nNecrotic Web (Su) 8 times per day, the spider can launch shadow-laced webbing up to 40 feet[cite: 7]. Targets hit are entangled (Reflex DC 17, hp 9, DR 5/slashing). An entangled creature takes 1d4 negative energy damage at the start of each turn it remains trapped. The save DC is Charisma-based.\nShadow Blend (Su) In any condition of illumination other than full daylight or a daylight spell, the spider gains concealment (20% miss chance).",
     "OriginalState": {
       "basic": {
         "in-name": "Necrotic Wolf Spider",
-        "in-cr": "6",
-        "in-xp": "2400",
+        "in-cr": "7",
+        "in-xp": "3200",
         "in-visibility": "private",
         "in-author": "erdem",
         "in-alignment": "NE",
         "in-size": "Large",
         "in-type": "Undead",
         "in-type-full": "Large undead",
-        "in-init-extra": "0",
+        "in-init-extra": "3",
         "in-aura": "",
-        "in-str": "20",
+        "in-str": "22",
         "in-dex": "17",
         "in-con": "",
         "in-int": "6",
-        "in-wis": "12",
+        "in-wis": "13",
         "in-cha": "16",
         "in-armor-name": "",
         "in-ac-armor": "0",
         "in-shield-name": "",
         "in-ac-shield": "0",
-        "in-ac-natural": "6",
+        "in-ac-natural": "7",
         "in-ac-deflection": "0",
-        "in-ac-dodge": "0",
-        "in-hd-amount": "7",
+        "in-ac-dodge": "1",
+        "in-hd-amount": "8",
         "in-hd-size": "8",
         "in-hp-extra": "0",
         "in-fort": "+5",
         "in-ref": "+5",
-        "in-will": "+6",
-        "in-def-abilities": "channel resistance +2, negative energy conduit",
-        "in-dr": "5/bludgeoning or magic",
+        "in-will": "+7",
+        "in-def-abilities": "channel resistance +2, negative energy conduit, shadow blend",
+        "in-dr": "5/bludgeoning or good",
         "in-immune": "undead traits",
         "in-resist": "cold 5, electricity 5",
         "in-weaknesses": "",
@@ -2072,18 +2072,18 @@
         "in-speed": "40 ft., climb 30 ft.",
         "in-space": "10 ft.",
         "in-reach": "10 ft.",
-        "in-special-attacks": "negative energy bite, pounce, void venom, web (8/day, DC 16, hp 7)",
-        "in-sla-cl": "",
-        "in-bab": "5",
-        "in-cmb": "+11",
+        "in-special-attacks": "bite (1d8+9 plus 1d6 negative energy, grab, and void venom), necrotic web (DC 17, hp 9), shadow drag, trip",
+        "in-sla-cl": "7",
+        "in-bab": "6",
+        "in-cmb": "+13",
         "in-cmb-extra": "",
-        "in-cmd": "24",
+        "in-cmd": "27",
         "in-cmd-extra": "",
-        "in-feats": "Improved Initiative, Power Attack, Skill Focus (Stealth), Toughness, Furious Focus, Weapon Focus",
+        "in-feats": "Combat Reflexes, Dodge, Improved Initiative, Power Attack",
         "in-feat-search": "",
-        "in-skills": "Acrobatics +9, Climb +17, Perception +11, Stealth +15",
+        "in-skills": "Acrobatics +11, Climb +19, Perception +12, Stealth +15 (+23 in dim light/shadows)",
         "in-languages": "Necril",
-        "in-sq": "pounce, shadow blend",
+        "in-sq": "shadow blend, tremorsense 60 ft.",
         "in-gear": "",
         "in-spell-class": "",
         "in-spell-cl": "1",
@@ -2095,9 +2095,9 @@
         "in-organization": "solitary, pair, or nest (3-5)",
         "in-treasure": "incidental",
         "stat_type": "npc",
-        "in-hp": "59 (7d8+28)",
-        "in-init": "+7",
-        "in-ac": "18, touch 12, flat-footed 15 (+3 Dex, -1 size, +6 natural)"
+        "in-hp": "60 (8d8+24)",
+        "in-init": "+10",
+        "in-ac": "21, touch 14, flat-footed 16 (+3 Dex, -1 size, +7 natural, +2 dodge)"
       },
       "html": {},
       "dynamic": {
@@ -2113,7 +2113,7 @@
           },
           {
             "name": "Perception",
-            "dist": "+11"
+            "dist": "+12"
           }
         ],
         "skills": [],
@@ -2121,49 +2121,57 @@
         "melee": [
           {
             "mode": "raw",
-            "rawText": "bite +10 (1d8+7 plus 1d6 negative energy & void venom and grab)"
+            "rawText": "bite +12 (1d8+9 plus 1d6 negative energy, grab, and void venom)"
           }
         ],
         "ranged": [
           {
             "mode": "raw",
-            "rawText": "necrotic web +7 ranged touch (entangle, DC 16, 7 hp)"
+            "rawText": "necrotic web +8 ranged touch (entangle, DC 17, 9 hp, DR 5/slashing)"
           }
         ],
         "abilities": [
           {
-            "name": "Negative Energy Conduit (Su)",
-            "desc": "Fed by pervasive necrotic energies, the spider gains fast healing 2 while standing in areas of desecration or negative energy. Any negative energy damage that would heal it also grants it a +10 ft. bonus to base speed for 1 round."
-          },
-          {
             "name": "Void Venom (Su)",
-            "desc": "Bite—injury; save Fort DC 16; frequency 1/round for 4 rounds; effect 1d2 Con damage and 1 point of Str damage; cure 1 save. The save DC is Charisma-based."
+            "desc": "Bite—injury; save Fort DC 17; frequency 1/round for 4 rounds; effect 1d3 Con damage and 1 point of Str damage; cure 1 save. The save DC is Charisma-based."
           },
           {
-            "name": "Pounce (Ex)",
-            "desc": "When the spider makes a charge attack, it can still make a full attack (including grab attempts)."
+            "name": "Shadow Drag (Ex)",
+            "desc": "Whenever the spider successfully grapples or trips an opponent, it can move up to 15 feet as a swift action, dragging the victim along without provoking attacks of opportunity."
+          },
+          {
+            "name": "Negative Energy Conduit (Su)",
+            "desc": "Fed by pervasive necrotic energies, the spider gains fast healing 3 while standing in areas of desecration or negative energy. Any negative energy damage that targets the spider instead heals it and grants a +10 ft. bonus to base speed for 1 round[cite: 7]."
           },
           {
             "name": "Necrotic Web (Su)",
-            "desc": "8 times per day, the spider can cast necrotic webbing up to 40 feet. Targets hit are entangled (Reflex DC 16, hp 7, DR 5/slashing). An entangled creature takes 1 point of negative energy damage at the start of its turn."
+            "desc": "8 times per day, the spider can launch shadow-laced webbing up to 40 feet[cite: 7]. Targets hit are entangled (Reflex DC 17, hp 9, DR 5/slashing). An entangled creature takes 1d4 negative energy damage at the start of each turn it remains trapped. The save DC is Charisma-based."
+          },
+          {
+            "name": "Shadow Blend (Su)",
+            "desc": "In any condition of illumination other than full daylight or a daylight spell, the spider gains concealment (20% miss chance)."
           }
         ],
         "special_abilities": [
           {
-            "name": "Negative Energy Conduit (Su)",
-            "desc": "Fed by pervasive necrotic energies, the spider gains fast healing 2 while standing in areas of desecration or negative energy. Any negative energy damage that would heal it also grants it a +10 ft. bonus to base speed for 1 round."
-          },
-          {
             "name": "Void Venom (Su)",
-            "desc": "Bite—injury; save Fort DC 16; frequency 1/round for 4 rounds; effect 1d2 Con damage and 1 point of Str damage; cure 1 save. The save DC is Charisma-based."
+            "desc": "Bite—injury; save Fort DC 17; frequency 1/round for 4 rounds; effect 1d3 Con damage and 1 point of Str damage; cure 1 save. The save DC is Charisma-based."
           },
           {
-            "name": "Pounce (Ex)",
-            "desc": "When the spider makes a charge attack, it can still make a full attack (including grab attempts)."
+            "name": "Shadow Drag (Ex)",
+            "desc": "Whenever the spider successfully grapples or trips an opponent, it can move up to 15 feet as a swift action, dragging the victim along without provoking attacks of opportunity."
+          },
+          {
+            "name": "Negative Energy Conduit (Su)",
+            "desc": "Fed by pervasive necrotic energies, the spider gains fast healing 3 while standing in areas of desecration or negative energy. Any negative energy damage that targets the spider instead heals it and grants a +10 ft. bonus to base speed for 1 round[cite: 7]."
           },
           {
             "name": "Necrotic Web (Su)",
-            "desc": "8 times per day, the spider can cast necrotic webbing up to 40 feet. Targets hit are entangled (Reflex DC 16, hp 7, DR 5/slashing). An entangled creature takes 1 point of negative energy damage at the start of its turn."
+            "desc": "8 times per day, the spider can launch shadow-laced webbing up to 40 feet[cite: 7]. Targets hit are entangled (Reflex DC 17, hp 9, DR 5/slashing). An entangled creature takes 1d4 negative energy damage at the start of each turn it remains trapped. The save DC is Charisma-based."
+          },
+          {
+            "name": "Shadow Blend (Su)",
+            "desc": "In any condition of illumination other than full daylight or a daylight spell, the spider gains concealment (20% miss chance)."
           }
         ],
         "magic_items": [],
@@ -2175,7 +2183,7 @@
       "AuthorName": "erdem"
     },
     "_m_name": "necrotic wolf spider",
-    "_m_cr": "6",
+    "_m_cr": "7",
     "_m_type": "undead",
     "_m_size": "large",
     "_m_align": "ne",
@@ -3764,244 +3772,6 @@
     "_global_index": 5559
   },
   {
-    "Name": "Emiliano Spadachiara(Possessed)",
-    "CR": "12",
-    "XP": "19200",
-    "Alignment": "CE",
-    "Size": "Medium",
-    "Type": "Magical Beast",
-    "subtype1": "evil",
-    "subtype2": "extraplanar",
-    "Init": "+7",
-    "Senses": "Darkvision 60 ft., Perception +16",
-    "Aura": "",
-    "AC": "22",
-    "AC_Touch": "17",
-    "AC_Flat-footed": "15",
-    "HP": "91",
-    "HD": "11d10",
-    "Fort": "+15",
-    "Ref": "+18",
-    "Will": "+15",
-    "Speed": "30 ft., fly 40 ft. (good, demon form only)",
-    "Melee": "+1 unholy rapier +17/+12 (1d6+16+2d6 vs good/18–20 x2), if crit(2d6+25+2d6 vs good), unarmed strike +15/+10 (1d6+6/20)",
-    "Ranged": "",
-    "Space": "5 ft.",
-    "Reach": "5 ft.",
-    "SpecialAttacks": "spell-like abilities, unarmed strike (1d6)",
-    "DefensiveAbilities": "evasion, nimble +2, crane wing, osyluth guile (+5 dodge vs 1 target), cut from the air, smash from the air",
-    "Weaknesses": "",
-    "Organization": "solitary",
-    "Str": "13",
-    "Dex": "20",
-    "Con": "14",
-    "Int": "17",
-    "Wis": "14",
-    "Cha": "20",
-    "BaseAtk": "10",
-    "CMB": "+11",
-    "CMD": "26",
-    "Feats": "Combat Reflexes, Crane Riposte, Crane Style, Crane Wing, Cut from the Air, Dodge, Fencing Grace, Improved Unarmed Strike, Osyluth Guile, Smash from the Air, Weapon Finesse, Weapon Focus (Rapier), Improved Critical",
-    "Skills": "Acrobatics +13, Bluff +16, Intimidate +8, Perception +16, Sense Motive +10",
-    "Languages": "Abyssal, Celestial, Common, Draconic, Ignan, telepathy 100 ft.",
-    "SQ": "false resurrection vessel, scaled fist charisma to AC, unarmored defense",
-    "DR": "DR 10/cold iron and good",
-    "Immune": "cold, electricity, poison",
-    "Resist": "acid 10, fire 10",
-    "SR": "SR 17",
-    "Environment": "urban or dungeon",
-    "Treasure": "NPC gear (+1 unholy rapier)",
-    "Gear": "+1 unholy rapier, Monk",
-    "Class1": "",
-    "Class1_Lvl": "",
-    "Visibility": "private",
-    "AuthorId": "erdem",
-    "AuthorName": "erdem",
-    "IsFavorite": false,
-    "IsUserCustom": true,
-    "CharacterFlag": "1",
-    "SpellLikeAbilities": "(10)\nAt will—deeper darkness, fear (DC 18), greater teleport (self only) telekinesis (DC 19)\n3/day—shadow conjuration (DC 18), shadow evocation (DC 19)\n1/day—magic jar (DC 19), summon (level 3, 1 shadow demon 50%)",
-    "SpellsPrepared": "{}",
-    "Special Abilities": "False Resurrection Vessel (Su): The creature's physical shell is Emiliano Spadachiara, but the soul and mind belong to an Advanced Shadow Demon summoned via False Resurrection. The demon retains the host's physical attributes.\nScaled Fist Draconic Mettle (Ex): When unarmored or wearing light armor, the host adds their Charisma modifier (+5) as a dodge/insight bonus to AC and CMD due to the Scaled Fist monk discipline embedded into the host's muscle memory.\nCrane Style & Osyluth Guile Defense (Ex): When fighting defensively, the creature takes only a -1 penalty on attack rolls and gains a +4 dodge bonus to AC (+8 total with Crane Wing against a single melee attack). Additionally, via Osyluth Guile, it adds its Charisma bonus (+5) as a dodge bonus to AC against melee attacks from a chosen opponent.\nCut / Smash from the Air (Ex): Whenever a ranged physical attack, ranged siege weapon, thrown boulder, ranged spell (such as scorching ray), or ranged spell-like ability would hit the creature or an adjacent ally, it can use an Attack of Opportunity with its rapier to deflect the attack by making a melee attack roll opposed to the ranged attack roll.\nDemon Resistances (Ex): While inhabiting the mortal frame, the entity retains its immunity to poison and resistance to cold 10, electricity 10, and fire 10.",
-    "OriginalState": {
-      "basic": {
-        "in-name": "Emiliano Spadachiara(Possessed)",
-        "in-cr": "12",
-        "in-xp": "19200",
-        "in-visibility": "private",
-        "in-author": "erdem",
-        "in-alignment": "CE",
-        "in-size": "Medium",
-        "in-type": "",
-        "in-type-full": "Human Swashbuckler (Inspired Blade) 5 / Paladin (Virtuous Bravo) 4 / Monk (Scaled Fist) 2",
-        "in-init-extra": "2",
-        "in-aura": "",
-        "in-str": "13",
-        "in-dex": "20",
-        "in-con": "14",
-        "in-int": "17",
-        "in-wis": "14",
-        "in-cha": "20",
-        "in-armor-name": "Monk",
-        "in-ac-armor": "5",
-        "in-shield-name": "",
-        "in-ac-shield": "0",
-        "in-ac-natural": "0",
-        "in-ac-deflection": "0",
-        "in-ac-dodge": "2",
-        "in-hd-amount": "11",
-        "in-hd-size": "10",
-        "in-hp-extra": "9",
-        "in-fort": "+15",
-        "in-ref": "+18",
-        "in-will": "+15",
-        "in-def-abilities": "evasion, nimble +2, crane wing, osyluth guile (+5 dodge vs 1 target), cut from the air, smash from the air",
-        "in-dr": "DR 10/cold iron and good",
-        "in-immune": "cold, electricity, poison",
-        "in-resist": "acid 10, fire 10",
-        "in-weaknesses": "",
-        "in-sr": "SR 17",
-        "in-speed": "30 ft., fly 40 ft. (good, demon form only)",
-        "in-space": "5 ft.",
-        "in-reach": "5 ft.",
-        "in-special-attacks": "spell-like abilities, unarmed strike (1d6)",
-        "in-sla-cl": "10",
-        "in-bab": "10",
-        "in-cmb": "+11",
-        "in-cmb-extra": "0",
-        "in-cmd": "26",
-        "in-cmd-extra": "-3",
-        "in-feats": "Combat Reflexes, Crane Riposte, Crane Style, Crane Wing, Cut from the Air, Dodge, Fencing Grace, Improved Unarmed Strike, Osyluth Guile, Smash from the Air, Weapon Finesse, Weapon Focus (Rapier), Improved Critical",
-        "in-feat-search": "",
-        "in-skills": "Acrobatics +13, Bluff +16, Intimidate +8, Perception +16, Sense Motive +10",
-        "in-languages": "Abyssal, Celestial, Common, Draconic, Ignan, telepathy 100 ft.",
-        "in-sq": "false resurrection vessel, scaled fist charisma to AC, unarmored defense",
-        "in-gear": "+1 unholy rapier",
-        "in-spell-class": "",
-        "in-spell-cl": "10",
-        "in-spell-stat": "cha",
-        "in-spell-conc": "+15",
-        "in-spells-data": "{}",
-        "in-spells": "{}",
-        "in-environment": "urban or dungeon",
-        "in-organization": "solitary",
-        "in-treasure": "NPC gear (+1 unholy rapier)",
-        "stat_type": "npc",
-        "in-hp": "91 (11d10+31)",
-        "in-init": "+7",
-        "in-ac": "23, touch 18, flat-footed 15 (+5 armor, +5 Dex, +3 dodge)"
-      },
-      "html": {},
-      "dynamic": {
-        "subtypes": [
-          "evil",
-          "extraplanar",
-          ""
-        ],
-        "senses": [
-          {
-            "name": "Darkvision",
-            "dist": "60 ft."
-          },
-          {
-            "name": "Perception",
-            "dist": "+16"
-          }
-        ],
-        "skills": [],
-        "slas": [
-          {
-            "freq": "At will",
-            "spells": "deeper darkness, fear (DC 18), greater teleport (self only) telekinesis (DC 19)"
-          },
-          {
-            "freq": "3/day",
-            "spells": "shadow conjuration (DC 18), shadow evocation (DC 19)"
-          },
-          {
-            "freq": "1/day",
-            "spells": "magic jar (DC 19), summon (level 3, 1 shadow demon 50%)"
-          }
-        ],
-        "melee": [
-          {
-            "mode": "raw",
-            "rawText": "+1 unholy rapier +17/+12 (1d6+16+2d6 vs good/18–20 x2)"
-          },
-          {
-            "mode": "raw",
-            "rawText": "if crit(2d6+25+2d6 vs good)"
-          },
-          {
-            "mode": "raw",
-            "rawText": "unarmed strike +15/+10 (1d6+6/20)"
-          }
-        ],
-        "ranged": [],
-        "abilities": [
-          {
-            "name": "False Resurrection Vessel (Su):",
-            "desc": "The creature's physical shell is Emiliano Spadachiara, but the soul and mind belong to an Advanced Shadow Demon summoned via <i>False Resurrection</i>. The demon retains the host's physical attributes."
-          },
-          {
-            "name": "Scaled Fist Draconic Mettle (Ex):",
-            "desc": "When unarmored or wearing light armor, the host adds their Charisma modifier (+5) as a dodge/insight bonus to AC and CMD due to the Scaled Fist monk discipline embedded into the host's muscle memory."
-          },
-          {
-            "name": "Crane Style & Osyluth Guile Defense (Ex):",
-            "desc": "When fighting defensively, the creature takes only a -1 penalty on attack rolls and gains a +4 dodge bonus to AC (+8 total with Crane Wing against a single melee attack). Additionally, via Osyluth Guile, it adds its Charisma bonus (+5) as a dodge bonus to AC against melee attacks from a chosen opponent."
-          },
-          {
-            "name": "Cut / Smash from the Air (Ex):",
-            "desc": "Whenever a ranged physical attack, ranged siege weapon, thrown boulder, ranged spell (such as <i>scorching ray</i>), or ranged spell-like ability would hit the creature or an adjacent ally, it can use an Attack of Opportunity with its rapier to deflect the attack by making a melee attack roll opposed to the ranged attack roll."
-          },
-          {
-            "name": "Demon Resistances (Ex):",
-            "desc": "While inhabiting the mortal frame, the entity retains its immunity to poison and resistance to cold 10, electricity 10, and fire 10."
-          }
-        ],
-        "special_abilities": [
-          {
-            "name": "False Resurrection Vessel (Su):",
-            "desc": "The creature's physical shell is Emiliano Spadachiara, but the soul and mind belong to an Advanced Shadow Demon summoned via <i>False Resurrection</i>. The demon retains the host's physical attributes."
-          },
-          {
-            "name": "Scaled Fist Draconic Mettle (Ex):",
-            "desc": "When unarmored or wearing light armor, the host adds their Charisma modifier (+5) as a dodge/insight bonus to AC and CMD due to the Scaled Fist monk discipline embedded into the host's muscle memory."
-          },
-          {
-            "name": "Crane Style & Osyluth Guile Defense (Ex):",
-            "desc": "When fighting defensively, the creature takes only a -1 penalty on attack rolls and gains a +4 dodge bonus to AC (+8 total with Crane Wing against a single melee attack). Additionally, via Osyluth Guile, it adds its Charisma bonus (+5) as a dodge bonus to AC against melee attacks from a chosen opponent."
-          },
-          {
-            "name": "Cut / Smash from the Air (Ex):",
-            "desc": "Whenever a ranged physical attack, ranged siege weapon, thrown boulder, ranged spell (such as <i>scorching ray</i>), or ranged spell-like ability would hit the creature or an adjacent ally, it can use an Attack of Opportunity with its rapier to deflect the attack by making a melee attack roll opposed to the ranged attack roll."
-          },
-          {
-            "name": "Demon Resistances (Ex):",
-            "desc": "While inhabiting the mortal frame, the entity retains its immunity to poison and resistance to cold 10, electricity 10, and fire 10."
-          }
-        ],
-        "magic_items": [],
-        "spells": []
-      },
-      "_global_index": 5560,
-      "id": "74cdd240-da1e-47ed-a1e7-cc44d1a22f1b",
-      "AuthorId": "erdem",
-      "AuthorName": "erdem"
-    },
-    "_m_name": "emiliano spadachiara(possessed)",
-    "_m_cr": "12",
-    "_m_type": "magical beast",
-    "_m_size": "medium",
-    "_m_align": "ce",
-    "_m_env": "urban or dungeon",
-    "_m_source": "custom",
-    "_m_search_text": "emiliano spadachiara(possessed)  evil extraplanar  custom",
-    "id": "74cdd240-da1e-47ed-a1e7-cc44d1a22f1b",
-    "_global_index": 5560
-  },
-  {
     "Name": "Dune-Ripper Scythe-Beetle",
     "CR": "6",
     "XP": "2400",
@@ -4170,7 +3940,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5561,
+      "_global_index": 5560,
       "id": "10394478-2b09-4749-b34c-8fe9d3da8656",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -4184,7 +3954,7 @@
     "_m_source": "custom",
     "_m_search_text": "dune-ripper scythe-beetle    custom",
     "id": "10394478-2b09-4749-b34c-8fe9d3da8656",
-    "_global_index": 5561
+    "_global_index": 5560
   },
   {
     "Name": "Glass-Scale Dune Serpent",
@@ -4363,7 +4133,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5562,
+      "_global_index": 5561,
       "id": "7ed413b3-8667-4d6c-a6ae-aed3f8aba8a0",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -4377,7 +4147,7 @@
     "_m_source": "custom",
     "_m_search_text": "glass-scale dune serpent    custom",
     "id": "7ed413b3-8667-4d6c-a6ae-aed3f8aba8a0",
-    "_global_index": 5562
+    "_global_index": 5561
   },
   {
     "Name": "Core Eater Mammoth",
@@ -4558,7 +4328,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5563,
+      "_global_index": 5562,
       "id": "7db305ad-f8d2-4ff1-9615-06a2bc60d51a",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -4572,7 +4342,7 @@
     "_m_source": "custom",
     "_m_search_text": "core eater mammoth  fire  custom",
     "id": "7db305ad-f8d2-4ff1-9615-06a2bc60d51a",
-    "_global_index": 5563
+    "_global_index": 5562
   },
   {
     "Name": "Tahm Kench(The River King)",
@@ -4797,7 +4567,7 @@
         ],
         "spells": []
       },
-      "_global_index": 5564,
+      "_global_index": 5563,
       "id": "ead7e373-f7df-45d2-99db-e9a682dc17e6",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -4811,7 +4581,7 @@
     "_m_source": "custom",
     "_m_search_text": "tahm kench(the river king)  aquatic evil  custom",
     "id": "ead7e373-f7df-45d2-99db-e9a682dc17e6",
-    "_global_index": 5564
+    "_global_index": 5563
   },
   {
     "Name": "Aatrox(The Darkin Blade)",
@@ -5027,7 +4797,7 @@
         ],
         "spells": []
       },
-      "_global_index": 5565,
+      "_global_index": 5564,
       "id": "11a90116-62d9-412b-ace3-3d8ef3beaaf6",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -5041,7 +4811,7 @@
     "_m_source": "custom",
     "_m_search_text": "aatrox(the darkin blade)  chaotic evil  custom",
     "id": "11a90116-62d9-412b-ace3-3d8ef3beaaf6",
-    "_global_index": 5565
+    "_global_index": 5564
   },
   {
     "Name": "Ore-Mite",
@@ -5221,7 +4991,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5566,
+      "_global_index": 5565,
       "id": "a5e9d412-2154-4661-849c-6033f3c27273",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -5235,7 +5005,7 @@
     "_m_source": "custom",
     "_m_search_text": "ore-mite    custom",
     "id": "a5e9d412-2154-4661-849c-6033f3c27273",
-    "_global_index": 5566
+    "_global_index": 5565
   },
   {
     "Name": "Maokai(The Twisted Treant)",
@@ -5427,7 +5197,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5567,
+      "_global_index": 5566,
       "id": "3ff94bda-17b6-46b3-a937-1087d38b0dd5",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -5441,7 +5211,7 @@
     "_m_source": "custom",
     "_m_search_text": "maokai(the twisted treant)    custom",
     "id": "3ff94bda-17b6-46b3-a937-1087d38b0dd5",
-    "_global_index": 5567
+    "_global_index": 5566
   },
   {
     "Name": "Renekton(The Butcher of the Sands)",
@@ -5638,7 +5408,7 @@
         ],
         "spells": []
       },
-      "_global_index": 5568,
+      "_global_index": 5567,
       "id": "bcb3f088-5a86-4c4f-8dc1-bba21fa1ed6f",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -5652,7 +5422,7 @@
     "_m_source": "custom",
     "_m_search_text": "renekton(the butcher of the sands)    custom",
     "id": "bcb3f088-5a86-4c4f-8dc1-bba21fa1ed6f",
-    "_global_index": 5568
+    "_global_index": 5567
   },
   {
     "Name": "Gnar(The Missing Link)",
@@ -5846,7 +5616,7 @@
         ],
         "spells": []
       },
-      "_global_index": 5569,
+      "_global_index": 5568,
       "id": "c39f982c-ae7f-4a11-b9f3-fefe740ae183",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -5860,7 +5630,7 @@
     "_m_source": "custom",
     "_m_search_text": "gnar(the missing link)  shapechanger  custom",
     "id": "c39f982c-ae7f-4a11-b9f3-fefe740ae183",
-    "_global_index": 5569
+    "_global_index": 5568
   },
   {
     "Name": "Mega Gnar(The Missing Link)",
@@ -6054,7 +5824,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5570,
+      "_global_index": 5569,
       "id": "cb0ac3df-c223-484a-9002-6e2ff13a01af",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -6068,7 +5838,7 @@
     "_m_source": "custom",
     "_m_search_text": "mega gnar(the missing link)  shapechanger  custom",
     "id": "cb0ac3df-c223-484a-9002-6e2ff13a01af",
-    "_global_index": 5570
+    "_global_index": 5569
   },
   {
     "Name": "Cho'Gath(The Terror of the Void)",
@@ -6267,7 +6037,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5571,
+      "_global_index": 5570,
       "id": "02c50882-5baa-4ac0-8dbf-59e68e6bd7b2",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -6281,7 +6051,7 @@
     "_m_source": "custom",
     "_m_search_text": "cho'gath(the terror of the void)  chaotic evil  custom",
     "id": "02c50882-5baa-4ac0-8dbf-59e68e6bd7b2",
-    "_global_index": 5571
+    "_global_index": 5570
   },
   {
     "Name": "Rek'Sai(The Void Burrower)",
@@ -6485,7 +6255,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5572,
+      "_global_index": 5571,
       "id": "21eab4a3-5176-47d4-9f1b-5e74042a0394",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -6499,7 +6269,7 @@
     "_m_source": "custom",
     "_m_search_text": "rek'sai(the void burrower)  chaotic evil  custom",
     "id": "21eab4a3-5176-47d4-9f1b-5e74042a0394",
-    "_global_index": 5572
+    "_global_index": 5571
   },
   {
     "Name": "Trundle(The Troll King)",
@@ -6693,7 +6463,7 @@
         ],
         "spells": []
       },
-      "_global_index": 5573,
+      "_global_index": 5572,
       "id": "451430f0-5510-4764-9f43-84850993d3d3",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -6707,7 +6477,7 @@
     "_m_source": "custom",
     "_m_search_text": "trundle(the troll king)  cold  custom",
     "id": "451430f0-5510-4764-9f43-84850993d3d3",
-    "_global_index": 5573
+    "_global_index": 5572
   },
   {
     "Name": "Dr. Mundo(The Mad Chemist)",
@@ -6902,7 +6672,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5574,
+      "_global_index": 5573,
       "id": "a8bf695b-bc28-45ca-a55a-5de8196529a8",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -6916,7 +6686,7 @@
     "_m_source": "custom",
     "_m_search_text": "dr. mundo(the mad chemist)    custom",
     "id": "a8bf695b-bc28-45ca-a55a-5de8196529a8",
-    "_global_index": 5574
+    "_global_index": 5573
   },
   {
     "Name": "Alistar(The Minotaur)",
@@ -7123,7 +6893,7 @@
         ],
         "spells": []
       },
-      "_global_index": 5575,
+      "_global_index": 5574,
       "id": "9c47b0b2-f69e-4c94-a5ff-e50d88aea480",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -7137,7 +6907,7 @@
     "_m_source": "custom",
     "_m_search_text": "alistar(the minotaur)    custom",
     "id": "9c47b0b2-f69e-4c94-a5ff-e50d88aea480",
-    "_global_index": 5575
+    "_global_index": 5574
   },
   {
     "Name": "Kancar",
@@ -7299,7 +7069,7 @@
       "AuthorId": "Mart",
       "AuthorName": "Mart",
       "id": "62f8d7e2-adab-4572-99aa-189a6d2f10ed",
-      "_global_index": 5576
+      "_global_index": 5575
     },
     "_m_name": "kancar",
     "_m_cr": "3",
@@ -7310,7 +7080,7 @@
     "_m_source": "custom",
     "_m_search_text": "kancar    custom",
     "id": "62f8d7e2-adab-4572-99aa-189a6d2f10ed",
-    "_global_index": 5576
+    "_global_index": 5575
   },
   {
     "Name": "M-Pickpocket",
@@ -7473,7 +7243,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5577,
+      "_global_index": 5576,
       "id": "46d50b74-ba8e-4b6a-a8f1-2995a7dabf16",
       "AuthorId": "Mart",
       "AuthorName": "Mart"
@@ -7487,7 +7257,7 @@
     "_m_source": "custom",
     "_m_search_text": "m-pickpocket  human  custom",
     "id": "46d50b74-ba8e-4b6a-a8f1-2995a7dabf16",
-    "_global_index": 5577
+    "_global_index": 5576
   },
   {
     "Name": "M-Human Alchemist",
@@ -7649,7 +7419,7 @@
       "AuthorId": "Mart",
       "AuthorName": "Mart",
       "id": "17af915b-2274-45f9-9f40-6455eae20cd8",
-      "_global_index": 5578
+      "_global_index": 5577
     },
     "_m_name": "m-human alchemist",
     "_m_cr": "2",
@@ -7660,253 +7430,7 @@
     "_m_source": "custom",
     "_m_search_text": "m-human alchemist    custom",
     "id": "17af915b-2274-45f9-9f40-6455eae20cd8",
-    "_global_index": 5578
-  },
-  {
-    "Name": "Emiliano Spadachiara(Possessed and Reborned)",
-    "CR": "12",
-    "XP": "19200",
-    "Alignment": "CE",
-    "Size": "Medium",
-    "Type": "Magical Beast",
-    "subtype1": "evil",
-    "subtype2": "extraplanar",
-    "Init": "+7",
-    "Senses": "Darkvision 60 ft., Perception +16",
-    "Aura": "",
-    "AC": "27",
-    "AC_Touch": "18",
-    "AC_Flat-footed": "19",
-    "HP": "124",
-    "HD": "11d10",
-    "Fort": "+17",
-    "Ref": "+20",
-    "Will": "+17",
-    "Speed": "30 ft., fly 40 ft. (good, demon form only)",
-    "Melee": "+1 unholy rapier +17/+12 (1d6+16+Sneak's Venom+2d6 vs good/18–20 x2), if crit(2d6+25+2d6 vs good), unarmed strike +15/+10 (1d6+6/20)",
-    "Ranged": "",
-    "Space": "5 ft.",
-    "Reach": "5 ft.",
-    "SpecialAttacks": "spell-like abilities, unarmed strike (1d6)",
-    "DefensiveAbilities": "concealment %20, evasion, nimble +2, crane wing, osyluth guile (+5 dodge vs 1 target), cut from the air, smash from the air",
-    "Weaknesses": "",
-    "Organization": "solitary",
-    "Str": "13",
-    "Dex": "20",
-    "Con": "20",
-    "Int": "17",
-    "Wis": "14",
-    "Cha": "20",
-    "BaseAtk": "10",
-    "CMB": "+11",
-    "CMD": "26",
-    "Feats": "Combat Reflexes, Crane Riposte, Crane Style, Crane Wing, Cut from the Air, Dodge, Fencing Grace, Improved Unarmed Strike, Osyluth Guile, Smash from the Air, Weapon Finesse, Weapon Focus (Rapier), Improved Critical",
-    "Skills": "Acrobatics +13, Bluff +16, Intimidate +8, Perception +16, Sense Motive +10",
-    "Languages": "Abyssal, Celestial, Common, Draconic, Ignan, telepathy 100 ft.",
-    "SQ": "false resurrection vessel, scaled fist charisma to AC, unarmored defense",
-    "DR": "DR 10/cold iron and good",
-    "Immune": "cold, electricity, poison",
-    "Resist": "acid 10, fire 10",
-    "SR": "SR 17",
-    "Environment": "urban or dungeon",
-    "Treasure": "NPC gear (+1 unholy rapier)",
-    "Gear": "+1 unholy rapier, Monk",
-    "Class1": "",
-    "Class1_Lvl": "",
-    "Visibility": "private",
-    "AuthorId": "erdem",
-    "AuthorName": "erdem",
-    "IsFavorite": false,
-    "IsUserCustom": true,
-    "CharacterFlag": "1",
-    "SpellLikeAbilities": "(10)\nAt will—deeper darkness, fear (DC 18), greater teleport (self only) telekinesis (DC 19)\n3/day—shadow conjuration (DC 18), shadow evocation (DC 19)\n1/day—magic jar (DC 19), summon (level 3, 1 shadow demon 50%)",
-    "SpellsPrepared": "{}",
-    "Special Abilities": "False Resurrection Vessel (Su): The creature's physical shell is Emiliano Spadachiara, but the soul and mind belong to an Advanced Shadow Demon summoned via False Resurrection. The demon retains the host's physical attributes.\nScaled Fist Draconic Mettle (Ex): When unarmored or wearing light armor, the host adds their Charisma modifier (+5) as a dodge/insight bonus to AC and CMD due to the Scaled Fist monk discipline embedded into the host's muscle memory.\nCrane Style & Osyluth Guile Defense (Ex): When fighting defensively, the creature takes only a -1 penalty on attack rolls and gains a +4 dodge bonus to AC (+8 total with Crane Wing against a single melee attack). Additionally, via Osyluth Guile, it adds its Charisma bonus (+5) as a dodge bonus to AC against melee attacks from a chosen opponent.\nCut / Smash from the Air (Ex): Whenever a ranged physical attack, ranged siege weapon, thrown boulder, ranged spell (such as scorching ray), or ranged spell-like ability would hit the creature or an adjacent ally, it can use an Attack of Opportunity with its rapier to deflect the attack by making a melee attack roll opposed to the ranged attack roll.\nDemon Resistances (Ex): While inhabiting the mortal frame, the entity retains its immunity to poison and resistance to cold 10, electricity 10, and fire 10.\nSneak's Venom Bite--injury; save Fort 17; frequency for 6 rounds; effect 1d2 Con; cure 1 save",
-    "OriginalState": {
-      "basic": {
-        "in-name": "Emiliano Spadachiara(Possessed and Reborned)",
-        "in-cr": "12",
-        "in-xp": "19200",
-        "in-visibility": "private",
-        "in-author": "erdem",
-        "in-alignment": "CE",
-        "in-size": "Medium",
-        "in-type": "",
-        "in-type-full": "Human Swashbuckler (Inspired Blade) 5 / Paladin (Virtuous Bravo) 4 / Monk (Scaled Fist) 2",
-        "in-init-extra": "2",
-        "in-aura": "",
-        "in-str": "13",
-        "in-dex": "20",
-        "in-con": "20",
-        "in-int": "17",
-        "in-wis": "14",
-        "in-cha": "20",
-        "in-armor-name": "Monk",
-        "in-ac-armor": "5",
-        "in-shield-name": "",
-        "in-ac-shield": "0",
-        "in-ac-natural": "4",
-        "in-ac-deflection": "0",
-        "in-ac-dodge": "3",
-        "in-hd-amount": "11",
-        "in-hd-size": "10",
-        "in-hp-extra": "9",
-        "in-fort": "+17",
-        "in-ref": "+20",
-        "in-will": "+17",
-        "in-def-abilities": "concealment %20, evasion, nimble +2, crane wing, osyluth guile (+5 dodge vs 1 target), cut from the air, smash from the air",
-        "in-dr": "DR 10/cold iron and good",
-        "in-immune": "cold, electricity, poison",
-        "in-resist": "acid 10, fire 10",
-        "in-weaknesses": "",
-        "in-sr": "SR 17",
-        "in-speed": "30 ft., fly 40 ft. (good, demon form only)",
-        "in-space": "5 ft.",
-        "in-reach": "5 ft.",
-        "in-special-attacks": "spell-like abilities, unarmed strike (1d6)",
-        "in-sla-cl": "10",
-        "in-bab": "10",
-        "in-cmb": "+11",
-        "in-cmb-extra": "0",
-        "in-cmd": "26",
-        "in-cmd-extra": "-3",
-        "in-feats": "Combat Reflexes, Crane Riposte, Crane Style, Crane Wing, Cut from the Air, Dodge, Fencing Grace, Improved Unarmed Strike, Osyluth Guile, Smash from the Air, Weapon Finesse, Weapon Focus (Rapier), Improved Critical",
-        "in-feat-search": "",
-        "in-skills": "Acrobatics +13, Bluff +16, Intimidate +8, Perception +16, Sense Motive +10",
-        "in-languages": "Abyssal, Celestial, Common, Draconic, Ignan, telepathy 100 ft.",
-        "in-sq": "false resurrection vessel, scaled fist charisma to AC, unarmored defense",
-        "in-gear": "+1 unholy rapier",
-        "in-spell-class": "",
-        "in-spell-cl": "10",
-        "in-spell-stat": "cha",
-        "in-spell-conc": "+15",
-        "in-spells-data": "{}",
-        "in-spells": "{}",
-        "in-environment": "urban or dungeon",
-        "in-organization": "solitary",
-        "in-treasure": "NPC gear (+1 unholy rapier)",
-        "stat_type": "npc",
-        "in-hp": "124 (11d10+64)",
-        "in-init": "+7",
-        "in-ac": "28, touch 19, flat-footed 19 (+5 armor, +5 Dex, +4 natural, +4 dodge)"
-      },
-      "html": {},
-      "dynamic": {
-        "subtypes": [
-          "evil",
-          "extraplanar",
-          ""
-        ],
-        "senses": [
-          {
-            "name": "Darkvision",
-            "dist": "60 ft."
-          },
-          {
-            "name": "Perception",
-            "dist": "+16"
-          }
-        ],
-        "skills": [],
-        "slas": [
-          {
-            "freq": "At will",
-            "spells": "deeper darkness, fear (DC 18), greater teleport (self only) telekinesis (DC 19)"
-          },
-          {
-            "freq": "3/day",
-            "spells": "shadow conjuration (DC 18), shadow evocation (DC 19)"
-          },
-          {
-            "freq": "1/day",
-            "spells": "magic jar (DC 19), summon (level 3, 1 shadow demon 50%)"
-          }
-        ],
-        "melee": [
-          {
-            "mode": "raw",
-            "rawText": "+1 unholy rapier +17/+12 (1d6+16+Sneak's Venom+2d6 vs good/18–20 x2)"
-          },
-          {
-            "mode": "raw",
-            "rawText": "if crit(2d6+25+2d6 vs good)"
-          },
-          {
-            "mode": "raw",
-            "rawText": "unarmed strike +15/+10 (1d6+6/20)"
-          }
-        ],
-        "ranged": [],
-        "abilities": [
-          {
-            "name": "False Resurrection Vessel (Su):",
-            "desc": "The creature's physical shell is Emiliano Spadachiara, but the soul and mind belong to an Advanced Shadow Demon summoned via <i>False Resurrection</i>. The demon retains the host's physical attributes."
-          },
-          {
-            "name": "Scaled Fist Draconic Mettle (Ex):",
-            "desc": "When unarmored or wearing light armor, the host adds their Charisma modifier (+5) as a dodge/insight bonus to AC and CMD due to the Scaled Fist monk discipline embedded into the host's muscle memory."
-          },
-          {
-            "name": "Crane Style & Osyluth Guile Defense (Ex):",
-            "desc": "When fighting defensively, the creature takes only a -1 penalty on attack rolls and gains a +4 dodge bonus to AC (+8 total with Crane Wing against a single melee attack). Additionally, via Osyluth Guile, it adds its Charisma bonus (+5) as a dodge bonus to AC against melee attacks from a chosen opponent."
-          },
-          {
-            "name": "Cut / Smash from the Air (Ex):",
-            "desc": "Whenever a ranged physical attack, ranged siege weapon, thrown boulder, ranged spell (such as <i>scorching ray</i>), or ranged spell-like ability would hit the creature or an adjacent ally, it can use an Attack of Opportunity with its rapier to deflect the attack by making a melee attack roll opposed to the ranged attack roll."
-          },
-          {
-            "name": "Demon Resistances (Ex):",
-            "desc": "While inhabiting the mortal frame, the entity retains its immunity to poison and resistance to cold 10, electricity 10, and fire 10."
-          },
-          {
-            "name": "Sneak's Venom",
-            "desc": "Bite--injury; save Fort 17; frequency for 6 rounds; effect 1d2 Con; cure 1 save"
-          }
-        ],
-        "special_abilities": [
-          {
-            "name": "False Resurrection Vessel (Su):",
-            "desc": "The creature's physical shell is Emiliano Spadachiara, but the soul and mind belong to an Advanced Shadow Demon summoned via <i>False Resurrection</i>. The demon retains the host's physical attributes."
-          },
-          {
-            "name": "Scaled Fist Draconic Mettle (Ex):",
-            "desc": "When unarmored or wearing light armor, the host adds their Charisma modifier (+5) as a dodge/insight bonus to AC and CMD due to the Scaled Fist monk discipline embedded into the host's muscle memory."
-          },
-          {
-            "name": "Crane Style & Osyluth Guile Defense (Ex):",
-            "desc": "When fighting defensively, the creature takes only a -1 penalty on attack rolls and gains a +4 dodge bonus to AC (+8 total with Crane Wing against a single melee attack). Additionally, via Osyluth Guile, it adds its Charisma bonus (+5) as a dodge bonus to AC against melee attacks from a chosen opponent."
-          },
-          {
-            "name": "Cut / Smash from the Air (Ex):",
-            "desc": "Whenever a ranged physical attack, ranged siege weapon, thrown boulder, ranged spell (such as <i>scorching ray</i>), or ranged spell-like ability would hit the creature or an adjacent ally, it can use an Attack of Opportunity with its rapier to deflect the attack by making a melee attack roll opposed to the ranged attack roll."
-          },
-          {
-            "name": "Demon Resistances (Ex):",
-            "desc": "While inhabiting the mortal frame, the entity retains its immunity to poison and resistance to cold 10, electricity 10, and fire 10."
-          },
-          {
-            "name": "Sneak's Venom",
-            "desc": "Bite--injury; save Fort 17; frequency for 6 rounds; effect 1d2 Con; cure 1 save"
-          }
-        ],
-        "magic_items": [],
-        "spells": []
-      },
-      "_global_index": 5579,
-      "id": "40de8ee0-d363-439d-bf3e-66d29da1fb37",
-      "AuthorId": "erdem",
-      "AuthorName": "erdem"
-    },
-    "_m_name": "emiliano spadachiara(possessed and reborned)",
-    "_m_cr": "12",
-    "_m_type": "magical beast",
-    "_m_size": "medium",
-    "_m_align": "ce",
-    "_m_env": "urban or dungeon",
-    "_m_source": "custom",
-    "_m_search_text": "emiliano spadachiara(possessed and reborned)  evil extraplanar  custom",
-    "id": "40de8ee0-d363-439d-bf3e-66d29da1fb37",
-    "_global_index": 5579
+    "_global_index": 5577
   },
   {
     "Name": "Noelle Spadachiara",
@@ -8090,7 +7614,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5580,
+      "_global_index": 5578,
       "id": "7bf3b846-11ff-496f-9a29-610ab490ecef",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -8104,7 +7628,7 @@
     "_m_source": "custom",
     "_m_search_text": "noelle spadachiara    custom",
     "id": "7bf3b846-11ff-496f-9a29-610ab490ecef",
-    "_global_index": 5580
+    "_global_index": 5578
   },
   {
     "Name": "Rovesta Guard",
@@ -8293,7 +7817,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5581,
+      "_global_index": 5579,
       "id": "06437bd3-56d5-4178-acc1-233a9c1819ce",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -8307,7 +7831,7 @@
     "_m_source": "custom",
     "_m_search_text": "rovesta guard    custom",
     "id": "06437bd3-56d5-4178-acc1-233a9c1819ce",
-    "_global_index": 5581
+    "_global_index": 5579
   },
   {
     "Name": "Slyvia Bevoir",
@@ -8510,7 +8034,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5582,
+      "_global_index": 5580,
       "id": "cb8b474a-633d-41ad-8e67-4d06bf65e0fd",
       "AuthorId": "Blazelaze",
       "AuthorName": "Blazelaze"
@@ -8524,7 +8048,7 @@
     "_m_source": "custom",
     "_m_search_text": "slyvia bevoir    custom",
     "id": "cb8b474a-633d-41ad-8e67-4d06bf65e0fd",
-    "_global_index": 5582
+    "_global_index": 5580
   },
   {
     "Name": "Garber Twain",
@@ -8689,7 +8213,7 @@
       "AuthorId": "Blazelaze",
       "AuthorName": "Blazelaze",
       "id": "82c3aa6b-88a7-4db9-9bfc-324427a74ac4",
-      "_global_index": 5583
+      "_global_index": 5581
     },
     "_m_name": "garber twain",
     "_m_cr": "5",
@@ -8700,7 +8224,7 @@
     "_m_source": "custom",
     "_m_search_text": "garber twain    custom",
     "id": "82c3aa6b-88a7-4db9-9bfc-324427a74ac4",
-    "_global_index": 5583
+    "_global_index": 5581
   },
   {
     "Name": "(Magnum Opus) Albedo",
@@ -8887,7 +8411,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5584,
+      "_global_index": 5582,
       "id": "17160659-0893-4a4b-bedb-99ee605dfb96",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -8901,7 +8425,7 @@
     "_m_source": "custom",
     "_m_search_text": "(magnum opus) albedo    custom",
     "id": "17160659-0893-4a4b-bedb-99ee605dfb96",
-    "_global_index": 5584
+    "_global_index": 5582
   },
   {
     "Name": "(Magnum Opus) Citrinitas",
@@ -9107,7 +8631,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5585,
+      "_global_index": 5583,
       "id": "c353dc75-122e-460e-8b22-1d6b03d00f0d",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -9121,7 +8645,7 @@
     "_m_source": "custom",
     "_m_search_text": "(magnum opus) citrinitas    custom",
     "id": "c353dc75-122e-460e-8b22-1d6b03d00f0d",
-    "_global_index": 5585
+    "_global_index": 5583
   },
   {
     "Name": "(Magnum Opus) Nigredo",
@@ -9305,7 +8829,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5586,
+      "_global_index": 5584,
       "id": "aeef16f2-a89f-4ad7-80ee-1b0f694e81f5",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -9319,7 +8843,7 @@
     "_m_source": "custom",
     "_m_search_text": "(magnum opus) nigredo    custom",
     "id": "aeef16f2-a89f-4ad7-80ee-1b0f694e81f5",
-    "_global_index": 5586
+    "_global_index": 5584
   },
   {
     "Name": "(Magnum Opus) Rubedo",
@@ -9519,7 +9043,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5587,
+      "_global_index": 5585,
       "id": "6aabbb14-d94e-4279-8fdc-0f4cabf1b3f2",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -9533,7 +9057,7 @@
     "_m_source": "custom",
     "_m_search_text": "(magnum opus) rubedo    custom",
     "id": "6aabbb14-d94e-4279-8fdc-0f4cabf1b3f2",
-    "_global_index": 5587
+    "_global_index": 5585
   },
   {
     "Name": "Demir Zirhli Egitim Otomati",
@@ -9720,7 +9244,7 @@
       "AuthorId": "Mart",
       "AuthorName": "Mart",
       "id": "642d0438-ff70-4429-801e-9c14dac6a5bc",
-      "_global_index": 5588
+      "_global_index": 5586
     },
     "_m_name": "demir zirhli egitim otomati",
     "_m_cr": "3",
@@ -9731,7 +9255,7 @@
     "_m_source": "custom",
     "_m_search_text": "demir zirhli egitim otomati    custom",
     "id": "642d0438-ff70-4429-801e-9c14dac6a5bc",
-    "_global_index": 5588
+    "_global_index": 5586
   },
   {
     "Name": "Knight of Rovesta",
@@ -9938,7 +9462,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5589,
+      "_global_index": 5587,
       "id": "130a4fc3-0d93-4a66-9716-529245d9d57d",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -9952,7 +9476,7 @@
     "_m_source": "custom",
     "_m_search_text": "knight of rovesta    custom",
     "id": "130a4fc3-0d93-4a66-9716-529245d9d57d",
-    "_global_index": 5589
+    "_global_index": 5587
   },
   {
     "Name": "Krag",
@@ -10111,7 +9635,7 @@
       "AuthorId": "Mart",
       "AuthorName": "Mart",
       "id": "11095ab8-fe13-4005-a60c-8f8b58acf282",
-      "_global_index": 5590
+      "_global_index": 5588
     },
     "_m_name": "krag",
     "_m_cr": "1",
@@ -10122,7 +9646,7 @@
     "_m_source": "custom",
     "_m_search_text": "krag  native  custom",
     "id": "11095ab8-fe13-4005-a60c-8f8b58acf282",
-    "_global_index": 5590
+    "_global_index": 5588
   },
   {
     "Name": "Andul Sakalsiz",
@@ -10293,7 +9817,7 @@
       "AuthorId": "Mart",
       "AuthorName": "Mart",
       "id": "29b7786a-49a3-4d08-9364-2a70e4a90842",
-      "_global_index": 5591
+      "_global_index": 5589
     },
     "_m_name": "andul sakalsiz",
     "_m_cr": "9",
@@ -10304,7 +9828,7 @@
     "_m_source": "custom",
     "_m_search_text": "andul sakalsiz  native  custom",
     "id": "29b7786a-49a3-4d08-9364-2a70e4a90842",
-    "_global_index": 5591
+    "_global_index": 5589
   },
   {
     "Name": "Dorn",
@@ -10467,7 +9991,7 @@
       "AuthorId": "Mart",
       "AuthorName": "Mart",
       "id": "61b8ce58-9fde-4fbc-9c23-3fa86d7d283e",
-      "_global_index": 5592
+      "_global_index": 5590
     },
     "_m_name": "dorn",
     "_m_cr": "1",
@@ -10478,7 +10002,7 @@
     "_m_source": "custom",
     "_m_search_text": "dorn  native  custom",
     "id": "61b8ce58-9fde-4fbc-9c23-3fa86d7d283e",
-    "_global_index": 5592
+    "_global_index": 5590
   },
   {
     "Name": "Bram",
@@ -10641,7 +10165,7 @@
       "AuthorId": "Mart",
       "AuthorName": "Mart",
       "id": "8af4c890-3dce-48dd-8fa1-657cb34e4b52",
-      "_global_index": 5593
+      "_global_index": 5591
     },
     "_m_name": "bram",
     "_m_cr": "1",
@@ -10652,7 +10176,7 @@
     "_m_source": "custom",
     "_m_search_text": "bram  native  custom",
     "id": "8af4c890-3dce-48dd-8fa1-657cb34e4b52",
-    "_global_index": 5593
+    "_global_index": 5591
   },
   {
     "Name": "Quartz Basilisk",
@@ -10857,7 +10381,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5594,
+      "_global_index": 5592,
       "id": "5318eb09-187c-446b-88d1-5c3769b16a26",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -10869,9 +10393,9 @@
     "_m_align": "n",
     "_m_env": "deep subterranean grottos, sapphire-veined caverns, frozen mine shafts",
     "_m_source": "custom",
-    "_m_search_text": "quartz basilisk earth  custom",
+    "_m_search_text": "quartz basilisk  earth  custom",
     "id": "5318eb09-187c-446b-88d1-5c3769b16a26",
-    "_global_index": 5594
+    "_global_index": 5592
   },
   {
     "Name": "Quartz Cave Bear",
@@ -11076,7 +10600,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5595,
+      "_global_index": 5593,
       "id": "f8473a05-05c8-48cf-9288-3249b291c11d",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -11088,9 +10612,9 @@
     "_m_align": "n",
     "_m_env": "subterranean crystal caverns, deep quartz veins, rocky mountain caves",
     "_m_source": "custom",
-    "_m_search_text": "quartz cave bear earth  custom",
+    "_m_search_text": "quartz cave bear  earth  custom",
     "id": "f8473a05-05c8-48cf-9288-3249b291c11d",
-    "_global_index": 5595
+    "_global_index": 5593
   },
   {
     "Name": "Quartz Dire Wolf",
@@ -11295,7 +10819,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5596,
+      "_global_index": 5594,
       "id": "ab4d5da6-a3a1-4926-b282-785dff47bcbc",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -11307,9 +10831,9 @@
     "_m_align": "n",
     "_m_env": "subterranean crystal grottos, quartz ravines, rocky chasms",
     "_m_source": "custom",
-    "_m_search_text": "quartz dire wolf earth  custom",
+    "_m_search_text": "quartz dire wolf  earth  custom",
     "id": "ab4d5da6-a3a1-4926-b282-785dff47bcbc",
-    "_global_index": 5596
+    "_global_index": 5594
   },
   {
     "Name": "Quartz Mantis",
@@ -11526,7 +11050,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5597,
+      "_global_index": 5595,
       "id": "1e4491c1-8d23-4890-9560-7441243002e7",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -11538,9 +11062,9 @@
     "_m_align": "n",
     "_m_env": "deep quartz caverns, crystalline chasms, subterranean geode halls",
     "_m_source": "custom",
-    "_m_search_text": "quartz mantis earth  custom",
+    "_m_search_text": "quartz mantis  earth  custom",
     "id": "1e4491c1-8d23-4890-9560-7441243002e7",
-    "_global_index": 5597
+    "_global_index": 5595
   },
   {
     "Name": "Quartz Scorpion",
@@ -11737,7 +11261,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5598,
+      "_global_index": 5596,
       "id": "4d175237-a26e-4d8c-bd4f-0853d1f5082a",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -11749,9 +11273,9 @@
     "_m_align": "n",
     "_m_env": "subterranean crystal caverns, deep quartz veins, underground chasms",
     "_m_source": "custom",
-    "_m_search_text": "quartz scorpion earth  custom",
+    "_m_search_text": "quartz scorpion  earth  custom",
     "id": "4d175237-a26e-4d8c-bd4f-0853d1f5082a",
-    "_global_index": 5598
+    "_global_index": 5596
   },
   {
     "Name": "Quartz Bat Swarm",
@@ -11953,7 +11477,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5599,
+      "_global_index": 5597,
       "id": "57852f35-5bc4-408f-b40e-3fa99182b172",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -11965,9 +11489,9 @@
     "_m_align": "n",
     "_m_env": "subterranean crystal caverns, deep quartz mine shafts, underground geodes",
     "_m_source": "custom",
-    "_m_search_text": "quartz bat swarm earth  custom",
+    "_m_search_text": "quartz bat swarm  earth  custom",
     "id": "57852f35-5bc4-408f-b40e-3fa99182b172",
-    "_global_index": 5599
+    "_global_index": 5597
   },
   {
     "Name": "Quartz Stalker",
@@ -12180,7 +11704,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5600,
+      "_global_index": 5598,
       "id": "36e8c5d8-2180-49b9-9d48-05e1588a7719",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -12192,9 +11716,9 @@
     "_m_align": "ne",
     "_m_env": "deep subterranean grottos, quartz crevices, abandoned mineral mines",
     "_m_source": "custom",
-    "_m_search_text": "quartz stalker earth  custom",
+    "_m_search_text": "quartz stalker  earth  custom",
     "id": "36e8c5d8-2180-49b9-9d48-05e1588a7719",
-    "_global_index": 5600
+    "_global_index": 5598
   },
   {
     "Name": "Quartz Rhinoceros",
@@ -12407,7 +11931,7 @@
         "magic_items": [],
         "spells": []
       },
-      "_global_index": 5601,
+      "_global_index": 5599,
       "id": "d1f2295e-ead0-423c-9368-c4ad3c89cacf",
       "AuthorId": "erdem",
       "AuthorName": "erdem"
@@ -12419,8 +11943,619 @@
     "_m_align": "n",
     "_m_env": "subterranean crystal chasms, deep quartz quarries, rocky plateaus",
     "_m_source": "custom",
-    "_m_search_text": "quartz rhinoceros earth  custom",
+    "_m_search_text": "quartz rhinoceros  earth  custom",
     "id": "d1f2295e-ead0-423c-9368-c4ad3c89cacf",
+    "_global_index": 5599
+  },
+  {
+    "Name": "Unnamed Monster",
+    "CR": "1",
+    "XP": "400",
+    "Alignment": "N",
+    "Size": "Medium",
+    "Type": "Humanoid",
+    "subtype1": "",
+    "subtype2": "",
+    "Init": "+0",
+    "Senses": "",
+    "Aura": "",
+    "AC": "10",
+    "AC_Touch": "10",
+    "AC_Flat-footed": "10",
+    "HP": "4",
+    "HD": "1d8",
+    "Fort": "+0",
+    "Ref": "+0",
+    "Will": "+0",
+    "Speed": "30 ft.",
+    "Melee": "",
+    "Ranged": "",
+    "Space": "5 ft.",
+    "Reach": "5 ft.",
+    "SpecialAttacks": "",
+    "DefensiveAbilities": "",
+    "Weaknesses": "",
+    "Organization": "",
+    "Str": "10",
+    "Dex": "10",
+    "Con": "10",
+    "Int": "10",
+    "Wis": "10",
+    "Cha": "10",
+    "BaseAtk": "1",
+    "CMB": "+1",
+    "CMD": "11",
+    "Feats": "",
+    "Skills": "",
+    "Languages": "",
+    "SQ": "",
+    "DR": "",
+    "Immune": "",
+    "Resist": "",
+    "SR": "",
+    "Environment": "",
+    "Treasure": "",
+    "Gear": "",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "public",
+    "AuthorId": "Blazelaze",
+    "AuthorName": "Blazelaze",
+    "IsFavorite": false,
+    "IsUserCustom": true,
+    "CharacterFlag": "0",
+    "SpellLikeAbilities": "",
+    "SpellsPrepared": "",
+    "Special Abilities": "",
+    "OriginalState": {
+      "basic": {
+        "in-name": "",
+        "in-cr": "1",
+        "in-xp": "400",
+        "in-visibility": "public",
+        "in-author": "Blazelaze",
+        "in-alignment": "N",
+        "in-size": "Medium",
+        "in-type": "Humanoid",
+        "in-type-full": "",
+        "in-init-extra": "0",
+        "in-aura": "",
+        "in-str": "10",
+        "in-dex": "10",
+        "in-con": "10",
+        "in-int": "10",
+        "in-wis": "10",
+        "in-cha": "10",
+        "in-armor-name": "",
+        "in-ac-armor": "0",
+        "in-shield-name": "",
+        "in-ac-shield": "0",
+        "in-ac-natural": "0",
+        "in-ac-deflection": "0",
+        "in-ac-dodge": "0",
+        "in-hd-amount": "1",
+        "in-hd-size": "8",
+        "in-hp-extra": "0",
+        "in-fort": "+0",
+        "in-ref": "+0",
+        "in-will": "+0",
+        "in-def-abilities": "",
+        "in-dr": "",
+        "in-immune": "",
+        "in-resist": "",
+        "in-weaknesses": "",
+        "in-sr": "",
+        "in-speed": "30 ft.",
+        "in-space": "5 ft.",
+        "in-reach": "5 ft.",
+        "in-special-attacks": "",
+        "in-sla-cl": "",
+        "in-bab": "1",
+        "in-cmb": "+1",
+        "in-cmb-extra": "0",
+        "in-cmd": "11",
+        "in-cmd-extra": "0",
+        "in-feats": "",
+        "in-feat-search": "",
+        "in-skills": "",
+        "in-languages": "",
+        "in-sq": "",
+        "in-gear": "",
+        "in-spell-class": "",
+        "in-spell-cl": "1",
+        "in-spell-stat": "int",
+        "in-spell-conc": "",
+        "in-spells-data": "",
+        "in-spells": "",
+        "in-environment": "",
+        "in-organization": "",
+        "in-treasure": "",
+        "stat_type": "monster",
+        "in-hp": "4 (1d8)",
+        "in-init": "+0",
+        "in-ac": "10, touch 10, flat-footed 10"
+      },
+      "html": {},
+      "dynamic": {
+        "subtypes": [],
+        "senses": [],
+        "skills": [],
+        "slas": [],
+        "melee": [],
+        "ranged": [],
+        "abilities": [],
+        "special_abilities": [],
+        "magic_items": [],
+        "spells": []
+      },
+      "AuthorId": "Blazelaze",
+      "AuthorName": "Blazelaze",
+      "id": "c36551a1-bf50-4a8c-88ad-d6f3eeb460b1",
+      "_global_index": 5600
+    },
+    "_m_name": "unnamed monster",
+    "_m_cr": "1",
+    "_m_type": "humanoid",
+    "_m_size": "medium",
+    "_m_align": "n",
+    "_m_env": "",
+    "_m_source": "custom",
+    "_m_search_text": "unnamed monster    custom",
+    "id": "c36551a1-bf50-4a8c-88ad-d6f3eeb460b1",
+    "_global_index": 5600
+  },
+  {
+    "Name": "Greater Shadow Demon",
+    "CR": "9",
+    "XP": "6400",
+    "Alignment": "CE",
+    "Size": "Medium",
+    "Type": "Outsider",
+    "subtype1": "chaotic",
+    "subtype2": "",
+    "Init": "+13",
+    "Senses": "darkvision 60 ft., Perception +23",
+    "Aura": "",
+    "AC": "20",
+    "AC_Touch": "20",
+    "AC_Flat-footed": "15",
+    "HP": "95",
+    "HD": "10d10",
+    "Fort": "+11",
+    "Ref": "+14",
+    "Will": "+9",
+    "Speed": "fly 40 ft. (perfect)",
+    "Melee": "2 claws +15 touch (1d6 plus 1d8 cold), bite +15 touch (1d8 plus 1d8 cold)",
+    "Ranged": "",
+    "Space": "5 ft.",
+    "Reach": "5 ft.",
+    "SpecialAttacks": "pounce, shadow blend, sneak attack +2d6",
+    "DefensiveAbilities": "incorporeal",
+    "Weaknesses": "sunlight powerlessness",
+    "Organization": "solitary, pair, or cabal (3-4)",
+    "Str": "10",
+    "Dex": "20",
+    "Con": "18",
+    "Int": "15",
+    "Wis": "14",
+    "Cha": "20",
+    "BaseAtk": "10",
+    "CMB": "+15",
+    "CMD": "30",
+    "Feats": "Blind-Fight, Combat Reflexes, Flyby Attack, Improved Initiative, Lightning Reflexes",
+    "Skills": "Acrobatics +18, Bluff +18, Fly +22, Knowledge (local) +12, Knowledge (planes) +15, Perception +23, Sense Motive +15, Stealth +18",
+    "Languages": "Abyssal, Common; telepathy 100 ft.",
+    "SQ": "sprint",
+    "DR": "10/cold iron or good",
+    "Immune": "cold, electricity, poison",
+    "Resist": "acid 10, fire 10",
+    "SR": "20",
+    "Environment": "any (Abyss)",
+    "Treasure": "standard",
+    "Gear": "",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "public",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": false,
+    "IsUserCustom": true,
+    "CharacterFlag": "1",
+    "SpellLikeAbilities": "(10)\ndeeper darkness, fear (DC 19), greater teleport (self only), telekinesis (DC 20), enervation, shadow conjuration (DC 19), shadow evocation (DC 19), magic jar (DC 20), summon (level 4, 1 shadow demon 40%)",
+    "SpellsPrepared": "{}",
+    "Special Abilities": "Sneak Attack (Ex) If a greater shadow demon can catch an opponent when the opponent is unable to defend itself effectively from its attack, it can strike a vital spot for an extra 2d6 points of damage.\nPounce (Ex) When a greater shadow demon makes a charge, it can make a full attack.\nShadow Blend (Su) During any conditions other than bright light, a greater shadow demon can disappear into the shadows as a move-equivalent action, effectively becoming invisible. Artificial illumination or light spells of 2nd level or lower do not negate this ability.\nSprint (Ex) Once per minute, a greater shadow demon can increase its fly speed to 240 feet for 1 round.\nSunlight Powerlessness (Ex) A greater shadow demon is utterly powerless in bright light or natural sunlight and flees from it. A greater shadow demon caught in such light cannot attack and can take only a single move or standard action. A greater shadow demon that is possessing a creature using magic jar is not harmed by sunlight, but if it is struck by a sunbeam or sunburst spell while possessing a creature, the demon is driven out of its host automatically.",
+    "OriginalState": {
+      "basic": {
+        "in-name": "Greater Shadow Demon",
+        "in-cr": "9",
+        "in-xp": "6400",
+        "in-visibility": "public",
+        "in-author": "erdem",
+        "in-alignment": "CE",
+        "in-size": "Medium",
+        "in-type": "Outsider",
+        "in-type-full": "Medium outsider (chaotic, demon, evil, extraplanar, incorporeal)",
+        "in-init-extra": "4",
+        "in-aura": "",
+        "in-str": "",
+        "in-dex": "20",
+        "in-con": "18",
+        "in-int": "15",
+        "in-wis": "14",
+        "in-cha": "20",
+        "in-armor-name": "",
+        "in-ac-armor": "0",
+        "in-shield-name": "",
+        "in-ac-shield": "0",
+        "in-ac-natural": "0",
+        "in-ac-deflection": "5",
+        "in-ac-dodge": "0",
+        "in-hd-amount": "10",
+        "in-hd-size": "10",
+        "in-hp-extra": "0",
+        "in-fort": "+11",
+        "in-ref": "+14",
+        "in-will": "+9",
+        "in-def-abilities": "incorporeal",
+        "in-dr": "10/cold iron or good",
+        "in-immune": "cold, electricity, poison",
+        "in-resist": "acid 10, fire 10",
+        "in-weaknesses": "sunlight powerlessness",
+        "in-sr": "20",
+        "in-speed": "fly 40 ft. (perfect)",
+        "in-space": "5 ft.",
+        "in-reach": "5 ft.",
+        "in-special-attacks": "pounce, shadow blend, sneak attack +2d6",
+        "in-sla-cl": "10",
+        "in-bab": "10",
+        "in-cmb": "+15",
+        "in-cmb-extra": "",
+        "in-cmd": "30",
+        "in-cmd-extra": "",
+        "in-feats": "Blind-Fight, Combat Reflexes, Flyby Attack, Improved Initiative, Lightning Reflexes",
+        "in-feat-search": "",
+        "in-skills": "Acrobatics +18, Bluff +18, Fly +22, Knowledge (local) +12, Knowledge (planes) +15, Perception +23, Sense Motive +15, Stealth +18",
+        "in-languages": "Abyssal, Common; telepathy 100 ft.",
+        "in-sq": "sprint",
+        "in-gear": "",
+        "in-spell-class": "",
+        "in-spell-cl": "10",
+        "in-spell-stat": "cha",
+        "in-spell-conc": "15",
+        "in-spells-data": "{}",
+        "in-spells": "{}",
+        "in-environment": "any (Abyss)",
+        "in-organization": "solitary, pair, or cabal (3-4)",
+        "in-treasure": "standard",
+        "stat_type": "npc",
+        "in-hp": "95 (10d10+40)",
+        "in-init": "+13",
+        "in-ac": "20, touch 20, flat-footed 15 (+5 Dex, +5 deflection)"
+      },
+      "html": {},
+      "dynamic": {
+        "subtypes": [
+          "chaotic",
+          "",
+          "evil",
+          "extraplanar",
+          "incorporeal"
+        ],
+        "senses": [
+          {
+            "name": "darkvision",
+            "dist": "60 ft."
+          },
+          {
+            "name": "Perception",
+            "dist": "+23"
+          }
+        ],
+        "skills": [],
+        "slas": [
+          {
+            "freq": "",
+            "spells": "deeper darkness, fear (DC 19), greater teleport (self only), telekinesis (DC 20), enervation, shadow conjuration (DC 19), shadow evocation (DC 19), magic jar (DC 20), summon (level 4, 1 shadow demon 40%)"
+          }
+        ],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "2 claws +15 touch (1d6 plus 1d8 cold), bite +15 touch (1d8 plus 1d8 cold)"
+          }
+        ],
+        "ranged": [],
+        "abilities": [
+          {
+            "name": "Sneak Attack (Ex)",
+            "desc": "If a greater shadow demon can catch an opponent when the opponent is unable to defend itself effectively from its attack, it can strike a vital spot for an extra 2d6 points of damage."
+          },
+          {
+            "name": "Pounce (Ex)",
+            "desc": "When a greater shadow demon makes a charge, it can make a full attack."
+          },
+          {
+            "name": "Shadow Blend (Su)",
+            "desc": "During any conditions other than bright light, a greater shadow demon can disappear into the shadows as a move-equivalent action, effectively becoming invisible. Artificial illumination or light spells of 2nd level or lower do not negate this ability."
+          },
+          {
+            "name": "Sprint (Ex)",
+            "desc": "Once per minute, a greater shadow demon can increase its fly speed to 240 feet for 1 round."
+          },
+          {
+            "name": "Sunlight Powerlessness (Ex)",
+            "desc": "A greater shadow demon is utterly powerless in bright light or natural sunlight and flees from it. A greater shadow demon caught in such light cannot attack and can take only a single move or standard action. A greater shadow demon that is possessing a creature using magic jar is not harmed by sunlight, but if it is struck by a sunbeam or sunburst spell while possessing a creature, the demon is driven out of its host automatically."
+          }
+        ],
+        "special_abilities": [
+          {
+            "name": "Sneak Attack (Ex)",
+            "desc": "If a greater shadow demon can catch an opponent when the opponent is unable to defend itself effectively from its attack, it can strike a vital spot for an extra 2d6 points of damage."
+          },
+          {
+            "name": "Pounce (Ex)",
+            "desc": "When a greater shadow demon makes a charge, it can make a full attack."
+          },
+          {
+            "name": "Shadow Blend (Su)",
+            "desc": "During any conditions other than bright light, a greater shadow demon can disappear into the shadows as a move-equivalent action, effectively becoming invisible. Artificial illumination or light spells of 2nd level or lower do not negate this ability."
+          },
+          {
+            "name": "Sprint (Ex)",
+            "desc": "Once per minute, a greater shadow demon can increase its fly speed to 240 feet for 1 round."
+          },
+          {
+            "name": "Sunlight Powerlessness (Ex)",
+            "desc": "A greater shadow demon is utterly powerless in bright light or natural sunlight and flees from it. A greater shadow demon caught in such light cannot attack and can take only a single move or standard action. A greater shadow demon that is possessing a creature using magic jar is not harmed by sunlight, but if it is struck by a sunbeam or sunburst spell while possessing a creature, the demon is driven out of its host automatically."
+          }
+        ],
+        "magic_items": [],
+        "spells": []
+      },
+      "_global_index": 5601,
+      "id": "ab9f5eb4-0433-4f2c-99f6-ef3d0d99092a",
+      "AuthorId": "erdem",
+      "AuthorName": "erdem"
+    },
+    "_m_name": "greater shadow demon",
+    "_m_cr": "9",
+    "_m_type": "outsider",
+    "_m_size": "medium",
+    "_m_align": "ce",
+    "_m_env": "any (abyss)",
+    "_m_source": "custom",
+    "_m_search_text": "greater shadow demon  chaotic  custom",
+    "id": "ab9f5eb4-0433-4f2c-99f6-ef3d0d99092a",
     "_global_index": 5601
+  },
+  {
+    "Name": "Utakhar",
+    "CR": "11",
+    "XP": "12800",
+    "Alignment": "CE",
+    "Size": "Medium",
+    "Type": "Outsider",
+    "subtype1": "chaotic",
+    "subtype2": "evil",
+    "Init": "+13",
+    "Senses": "See in Darkness continuous, Darkvision 60 ft., Perception +20",
+    "Aura": "Shadow Shroud (20 ft.)",
+    "AC": "26",
+    "AC_Touch": "21",
+    "AC_Flat-footed": "20",
+    "HP": "150",
+    "HD": "11d10",
+    "Fort": "+11",
+    "Ref": "+13",
+    "Will": "+9",
+    "Speed": "fly 40 ft. (good)",
+    "Melee": "+1 Flaming Estoc +20/+15/+10 (2d4+19 plus 1d6 fire/18–20 x2) (4d4+25 plus 1d6 fire)",
+    "Ranged": "",
+    "Space": "5 ft.",
+    "Reach": "5 ft.",
+    "SpecialAttacks": "sprint, shadow blend, tainted smite 1/day",
+    "DefensiveAbilities": "shadow blend",
+    "Weaknesses": "sunlight powerlessness",
+    "Organization": "solitary",
+    "Str": "26",
+    "Dex": "20",
+    "Con": "18",
+    "Int": "16",
+    "Wis": "14",
+    "Cha": "20",
+    "BaseAtk": "11",
+    "CMB": "+19",
+    "CMD": "44",
+    "Feats": "Improved Initiative, Weapon Focus, Greater Weapon Focus, Weapon Specialization, Combat Reflexes, Improved Critical, Quick Draw, Quicken Spell-Like Ability",
+    "Skills": "Acrobatics +20, Bluff +19, Fly +24, Intimidate +19, Knowledge (planes) +17, Perception +20, Sense Motive +16, Stealth +24",
+    "Languages": "Abyssal, Celestial, Common; telepathy 100 ft.",
+    "SQ": "",
+    "DR": "10/cold iron and good",
+    "Immune": "cold, electricity, poison",
+    "Resist": "acid 10, fire 10",
+    "SR": "22",
+    "Environment": "any (Abyss)",
+    "Treasure": "standard (+1 ghost touch unholy estoc)",
+    "Gear": "+1 Mithral Chain Shirt",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "private",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": false,
+    "IsUserCustom": true,
+    "CharacterFlag": "1",
+    "SpellLikeAbilities": "(11)\nAt will—deeper darkness, fear (DC 19), greater teleport (self only), telekinesis (DC 20)\n3/day—shadow conjuration (DC 19), shadow evocation (DC 19)\n1/day—haste, magic jar (DC 20), summon (level 4, 1 shadow demon 50%)",
+    "SpellsPrepared": "{}",
+    "Special Abilities": "Shadow Blend (Su): Utakhar vanishes into the gloom, gaining concealment (50% miss chance). A daylight spell suspends this ability for its duration.\nSprint (Ex): Once per hour, Utakhar can fly at a speed of 240 feet for 1 round.\nTainted Smite (Su): Once per day as a swift action, Utakhar targets one good creature. He adds +5 to attack rolls and deals +11 bonus damage against that target.\nSunlight Powerlessness (Ex): Utakhar is powerless in natural sunlight and flees from it.",
+    "OriginalState": {
+      "basic": {
+        "in-name": "Utakhar",
+        "in-cr": "11",
+        "in-xp": "12800",
+        "in-visibility": "private",
+        "in-author": "erdem",
+        "in-alignment": "CE",
+        "in-size": "Medium",
+        "in-type": "Outsider",
+        "in-type-full": "Medium outsider (chaotic, demon, evil, extraplanar)",
+        "in-init-extra": "4",
+        "in-aura": "Shadow Shroud (20 ft.)",
+        "in-str": "26",
+        "in-dex": "20",
+        "in-con": "18",
+        "in-int": "16",
+        "in-wis": "14",
+        "in-cha": "20",
+        "in-armor-name": "+1 Mithral Chain Shirt",
+        "in-ac-armor": "5",
+        "in-shield-name": "",
+        "in-ac-shield": "0",
+        "in-ac-natural": "0",
+        "in-ac-deflection": "5",
+        "in-ac-dodge": "1",
+        "in-hd-amount": "11",
+        "in-hd-size": "10",
+        "in-hp-extra": "46",
+        "in-fort": "+11",
+        "in-ref": "+13",
+        "in-will": "+9",
+        "in-def-abilities": "shadow blend",
+        "in-dr": "10/cold iron and good",
+        "in-immune": "cold, electricity, poison",
+        "in-resist": "acid 10, fire 10",
+        "in-weaknesses": "sunlight powerlessness",
+        "in-sr": "22",
+        "in-speed": "fly 40 ft. (good)",
+        "in-space": "5 ft.",
+        "in-reach": "5 ft.",
+        "in-special-attacks": "sprint, shadow blend, tainted smite 1/day",
+        "in-sla-cl": "11",
+        "in-bab": "11",
+        "in-cmb": "+19",
+        "in-cmb-extra": "0",
+        "in-cmd": "44",
+        "in-cmd-extra": "0",
+        "in-feats": "Improved Initiative, Weapon Focus, Greater Weapon Focus, Weapon Specialization, Combat Reflexes, Improved Critical, Quick Draw, Quicken Spell-Like Ability",
+        "in-feat-search": "",
+        "in-skills": "Acrobatics +20, Bluff +19, Fly +24, Intimidate +19, Knowledge (planes) +17, Perception +20, Sense Motive +16, Stealth +24",
+        "in-languages": "Abyssal, Celestial, Common; telepathy 100 ft.",
+        "in-sq": "",
+        "in-gear": "",
+        "in-spell-class": "",
+        "in-spell-cl": "11",
+        "in-spell-stat": "cha",
+        "in-spell-conc": "+16",
+        "in-spells-data": "{}",
+        "in-spells": "{}",
+        "in-environment": "any (Abyss)",
+        "in-organization": "solitary",
+        "in-treasure": "standard (+1 ghost touch unholy estoc)",
+        "stat_type": "npc",
+        "in-hp": "150 (11d10+90)",
+        "in-init": "+13",
+        "in-ac": "26, touch 21, flat-footed 20 (+5 armor, +5 Dex, +5 deflection, +1 dodge)"
+      },
+      "html": {},
+      "dynamic": {
+        "subtypes": [
+          "chaotic",
+          "evil",
+          "extraplanar"
+        ],
+        "senses": [
+          {
+            "name": "See in Darkness",
+            "dist": "continuous"
+          },
+          {
+            "name": "Darkvision",
+            "dist": "60 ft."
+          },
+          {
+            "name": "Perception",
+            "dist": "+20"
+          }
+        ],
+        "skills": [],
+        "slas": [
+          {
+            "freq": "At will",
+            "spells": "deeper darkness, fear (DC 19), greater teleport (self only), telekinesis (DC 20)"
+          },
+          {
+            "freq": "3/day",
+            "spells": "shadow conjuration (DC 19), shadow evocation (DC 19)"
+          },
+          {
+            "freq": "1/day",
+            "spells": "haste, magic jar (DC 20), summon (level 4, 1 shadow demon 50%)"
+          }
+        ],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "+1 Flaming Estoc +20/+15/+10 (2d4+19 plus 1d6 fire/18–20 x2) (4d4+25 plus 1d6 fire)"
+          },
+          {
+            "mode": "raw",
+            "rawText": ""
+          }
+        ],
+        "ranged": [],
+        "abilities": [
+          {
+            "name": "Shadow Blend (Su):",
+            "desc": "Utakhar vanishes into the gloom, gaining concealment (50% miss chance). A daylight spell suspends this ability for its duration."
+          },
+          {
+            "name": "Sprint (Ex):",
+            "desc": "Once per hour, Utakhar can fly at a speed of 240 feet for 1 round."
+          },
+          {
+            "name": "Tainted Smite (Su):",
+            "desc": "Once per day as a swift action, Utakhar targets one good creature. He adds +5 to attack rolls and deals +11 bonus damage against that target."
+          },
+          {
+            "name": "Sunlight Powerlessness (Ex):",
+            "desc": "Utakhar is powerless in natural sunlight and flees from it."
+          }
+        ],
+        "special_abilities": [
+          {
+            "name": "Shadow Blend (Su):",
+            "desc": "Utakhar vanishes into the gloom, gaining concealment (50% miss chance). A daylight spell suspends this ability for its duration."
+          },
+          {
+            "name": "Sprint (Ex):",
+            "desc": "Once per hour, Utakhar can fly at a speed of 240 feet for 1 round."
+          },
+          {
+            "name": "Tainted Smite (Su):",
+            "desc": "Once per day as a swift action, Utakhar targets one good creature. He adds +5 to attack rolls and deals +11 bonus damage against that target."
+          },
+          {
+            "name": "Sunlight Powerlessness (Ex):",
+            "desc": "Utakhar is powerless in natural sunlight and flees from it."
+          }
+        ],
+        "magic_items": [],
+        "spells": []
+      },
+      "_global_index": 5602,
+      "id": "bc6d1f84-4ddc-4270-a465-8bbf0c19b689",
+      "AuthorId": "erdem",
+      "AuthorName": "erdem"
+    },
+    "_m_name": "utakhar",
+    "_m_cr": "11",
+    "_m_type": "outsider",
+    "_m_size": "medium",
+    "_m_align": "ce",
+    "_m_env": "any (abyss)",
+    "_m_source": "custom",
+    "_m_search_text": "utakhar chaotic evil custom",
+    "id": "bc6d1f84-4ddc-4270-a465-8bbf0c19b689",
+    "_global_index": 5602
   }
 ]

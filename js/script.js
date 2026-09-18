@@ -365,12 +365,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const defAbsText = document.getElementById('in-def-abilities') ? document.getElementById('in-def-abilities').value.toLowerCase() : '';
-        const isIncorporeal = subtypes.map(s => s.toLowerCase()).includes('incorporeal') || defAbsText.includes('incorporeal');
+        const isIncorporeal = subtypes.map(s => s.toLowerCase()).includes('incorporeal') || /\bincorporeal\b/.test(defAbsText);
 
         if (isIncorporeal) {
-            acArmor = 0;
-            acShield = 0;
-            acNat = 0;
             const chaBonus = Math.max(1, mods['cha'] || 0);
             if (acDef < chaBonus) acDef = chaBonus;
         }
@@ -1714,10 +1711,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (!state) return;
 
-            // If raw monster format without state.basic, convert using buildEditorStateFromMonster
-            if (!state.basic && (state.Name || state.name || state.CR || state.cr || state.HP || state.hp || state.Str || state.str)) {
+            // If raw monster format or state.basic is not an editor form state, convert using buildEditorStateFromMonster
+            const isRealFormState = state.basic && typeof state.basic === 'object' && ('in-name' in state.basic || 'in-cr' in state.basic);
+            if (!isRealFormState && (state.Name || state.name || state.CR || state.cr || state.HP || state.hp || state.Str || state.str || (state.basic && (state.basic.Name || state.basic.name)))) {
                 if (typeof window.buildEditorStateFromMonster === 'function') {
-                    const converted = window.buildEditorStateFromMonster(state);
+                    const rawData = (!isRealFormState && state.basic && (state.basic.Name || state.basic.name)) ? state.basic : state;
+                    const converted = window.buildEditorStateFromMonster(rawData);
                     if (state._global_index !== undefined) converted._global_index = state._global_index;
                     if (state.id || state.Id) converted.id = state.id || state.Id;
                     state = converted;

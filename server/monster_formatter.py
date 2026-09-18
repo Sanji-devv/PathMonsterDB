@@ -45,7 +45,151 @@ def parse_cr(cr_str):
             pass
     return -1.0
 
+def build_editor_state_from_monster(m):
+    if not m or not isinstance(m, dict):
+        return {'basic': {}, 'dynamic': {}, 'html': {}}
+    
+    if 'basic' in m and isinstance(m['basic'], dict) and ('in-name' in m['basic'] or 'in-cr' in m['basic']):
+        return m
+    if 'OriginalState' in m and isinstance(m['OriginalState'], dict) and 'basic' in m['OriginalState']:
+        os_basic = m['OriginalState']['basic']
+        if isinstance(os_basic, dict) and ('in-name' in os_basic or 'in-cr' in os_basic):
+            return m['OriginalState']
+
+    basic = {
+        'in-name': str(m.get('Name') or m.get('name') or 'Unnamed Monster'),
+        'in-cr': str(m.get('CR') or m.get('cr') or '1'),
+        'in-xp': str(m.get('XP') or m.get('xp') or ''),
+        'in-alignment': str(m.get('Alignment') or m.get('alignment') or 'N'),
+        'in-size': str(m.get('Size') or m.get('size') or 'Medium'),
+        'in-type': str(m.get('Type') or m.get('type') or 'Humanoid'),
+        'in-aura': str(m.get('Aura') or m.get('aura') or ''),
+        'in-speed': str(m.get('Speed') or m.get('speed') or '30 ft.'),
+        'in-space': str(m.get('Space') or m.get('space') or '5 ft.'),
+        'in-reach': str(m.get('Reach') or m.get('reach') or '5 ft.'),
+        'in-str': str(m.get('Str') or m.get('str') or '10'),
+        'in-dex': str(m.get('Dex') or m.get('dex') or '10'),
+        'in-con': str(m.get('Con') or m.get('con') or '10'),
+        'in-int': str(m.get('Int') or m.get('int') or '10'),
+        'in-wis': str(m.get('Wis') or m.get('wis') or '10'),
+        'in-cha': str(m.get('Cha') or m.get('cha') or '10'),
+        'in-bab': str(m.get('BaseAtk') or m.get('base_atk') or '1'),
+        'in-cmb-extra': '0',
+        'in-cmd-extra': '0',
+        'in-init-extra': '0',
+        'in-fort': str(m.get('Fort') or m.get('fort') or '+0'),
+        'in-ref': str(m.get('Ref') or m.get('ref') or '+0'),
+        'in-will': str(m.get('Will') or m.get('will') or '+0'),
+        'in-ac-armor': '0',
+        'in-ac-shield': '0',
+        'in-ac-natural': '0',
+        'in-ac-deflection': '0',
+        'in-ac-dodge': '0',
+        'in-armor-name': '',
+        'in-shield-name': '',
+        'in-def-abilities': str(m.get('DefensiveAbilities') or m.get('def_abilities') or ''),
+        'in-dr': str(m.get('DR') or m.get('dr') or ''),
+        'in-immune': str(m.get('Immune') or m.get('immune') or ''),
+        'in-resist': str(m.get('Resist') or m.get('resist') or ''),
+        'in-weaknesses': str(m.get('Weaknesses') or m.get('weaknesses') or ''),
+        'in-sr': str(m.get('SR') or m.get('sr') or ''),
+        'in-special-attacks': str(m.get('SpecialAttacks') or m.get('special_attacks') or ''),
+        'in-feats': clean_tag_val(m.get('Feats') or m.get('feats') or ''),
+        'in-skills': str(m.get('Skills') or m.get('skills') or ''),
+        'in-languages': clean_tag_val(m.get('Languages') or m.get('languages') or ''),
+        'in-sq': str(m.get('SQ') or m.get('sq') or ''),
+        'in-gear': str(m.get('Gear') or m.get('gear') or ''),
+        'in-treasure': str(m.get('Treasure') or m.get('treasure') or ''),
+        'in-environment': str(m.get('Environment') or m.get('environment') or ''),
+        'in-organization': str(m.get('Organization') or m.get('organization') or ''),
+        'in-hp': str(m.get('HP') or m.get('hp') or ''),
+        'in-init': str(m.get('Init') or m.get('init') or '+0'),
+        'in-ac': str(m.get('AC') or m.get('ac') or ''),
+    }
+
+    hd_str = str(m.get('HD') or m.get('hd') or '')
+    hd_m = re.search(r'(\d+)d(\d+)', hd_str)
+    if hd_m:
+        basic['in-hd-amount'] = hd_m.group(1)
+        basic['in-hd-size'] = hd_m.group(2)
+    else:
+        basic['in-hd-amount'] = '1'
+        basic['in-hd-size'] = '8'
+
+    subtypes = []
+    for i in range(1, 7):
+        st = m.get(f'subtype{i}')
+        if st and str(st).strip():
+            subtypes.append(str(st).strip())
+    if not subtypes and 'subtypes' in m and isinstance(m['subtypes'], list):
+        subtypes = [str(s).strip() for s in m['subtypes'] if s]
+
+    ac_str = str(m.get('AC') or m.get('ac') or m.get('in-ac') or m.get('AC_Mods') or '')
+    arm_m = re.search(r'[+\-]?(\d+)\s+armor', ac_str, re.I)
+    sh_m = re.search(r'[+\-]?(\d+)\s+shield', ac_str, re.I)
+    nat_m = re.search(r'[+\-]?(\d+)\s+natural', ac_str, re.I)
+    def_m = re.search(r'[+\-]?(\d+)\s+deflection', ac_str, re.I)
+    dog_m = re.search(r'[+\-]?(\d+)\s+dodge', ac_str, re.I)
+
+    ac_armor_val = int(arm_m.group(1)) if arm_m else 0
+    ac_shield_val = int(sh_m.group(1)) if sh_m else 0
+    ac_def_val = int(def_m.group(1)) if def_m else 0
+    ac_dodge_val = int(dog_m.group(1)) if dog_m else 0
+
+    if arm_m:
+        basic['in-ac-armor'] = str(ac_armor_val)
+    if sh_m:
+        basic['in-ac-shield'] = str(ac_shield_val)
+    if def_m:
+        basic['in-ac-deflection'] = str(ac_def_val)
+    if dog_m:
+        basic['in-ac-dodge'] = str(ac_dodge_val)
+
+    size_ac_map = {
+        'Fine': 8, 'Diminutive': 4, 'Tiny': 2, 'Small': 1, 'Medium': 0,
+        'Large': -1, 'Huge': -2, 'Gargantuan': -4, 'Colossal': -8
+    }
+    size_val = basic['in-size'].capitalize()
+    size_mod = size_ac_map.get(size_val, 0)
+    dex_val = int(basic['in-dex']) if basic['in-dex'].isdigit() else 10
+    dex_mod = (dex_val - 10) // 2
+
+    def_abs_lower = basic['in-def-abilities'].lower()
+    type_lower = basic['in-type'].lower()
+    is_incorp = any('incorporeal' in s.lower() for s in subtypes) or bool(re.search(r'\bincorporeal\b', def_abs_lower)) or 'incorporeal' in type_lower
+
+    if nat_m:
+        basic['in-ac-natural'] = str(int(nat_m.group(1)))
+    elif is_incorp:
+        basic['in-ac-natural'] = '0'
+        if not def_m:
+            cha_val = int(basic['in-cha']) if basic['in-cha'].isdigit() else 10
+            cha_mod = (cha_val - 10) // 2
+            basic['in-ac-deflection'] = str(max(1, cha_mod))
+    else:
+        ac_num_m = re.search(r'^(\d+)', ac_str.strip())
+        ac_total = int(ac_num_m.group(1)) if ac_num_m else 10
+        rem_nat = max(0, ac_total - 10 - dex_mod - size_mod - ac_armor_val - ac_shield_val - ac_def_val - ac_dodge_val)
+        basic['in-ac-natural'] = str(rem_nat)
+
+    dynamic = {
+        'subtypes': subtypes,
+        'senses': [],
+        'skills': [],
+        'slas': [],
+        'abilities': [],
+        'special_abilities': [],
+        'melee': [{'mode': 'raw', 'rawText': str(m.get('Melee') or '')}] if m.get('Melee') else [],
+        'ranged': [{'mode': 'raw', 'rawText': str(m.get('Ranged') or '')}] if m.get('Ranged') else [],
+        'magic_items': [],
+        'spells': []
+    }
+    return {'basic': basic, 'dynamic': dynamic, 'html': {}}
+
 def format_monster_from_state(state):
+    if not isinstance(state, dict) or 'basic' not in state or not isinstance(state['basic'], dict) or ('in-name' not in state['basic'] and 'in-cr' not in state['basic']):
+        state = build_editor_state_from_monster(state.get('basic', state) if isinstance(state, dict) else state)
+
     basic = state.get('basic', {})
     dynamic = state.get('dynamic', {})
     
@@ -259,16 +403,18 @@ def format_monster_from_state(state):
     touch_ac = 10 + dex_mod + size_ac + ac_deflection + ac_dodge
     ff_ac = 10 + size_ac + ac_natural + ac_armor + ac_shield + ac_deflection + (dex_mod if dex_mod < 0 else 0)
 
-    # Fallback to existing AC values if not calculated
-    if total_ac == 10 and state.get('AC'):
+    # Fallback to existing AC values if not calculated or if raw AC was provided
+    if total_ac == 10 and (state.get('AC') or basic.get('AC') or basic.get('in-ac')):
         try:
-            ac_str = str(state.get('AC', '')).split(',')[0].strip()
-            if ac_str.isdigit():
-                total_ac = int(ac_str)
-            if state.get('AC_Touch'):
-                touch_ac = safe_int(state.get('AC_Touch'), touch_ac)
-            if state.get('AC_Flat-footed'):
-                ff_ac = safe_int(state.get('AC_Flat-footed'), ff_ac)
+            ac_raw_cand = state.get('AC') or basic.get('AC') or basic.get('in-ac')
+            ac_str = str(ac_raw_cand).split(',')[0].strip()
+            lead_num = re.search(r'^(\d+)', ac_str)
+            if lead_num:
+                total_ac = int(lead_num.group(1))
+            if state.get('AC_Touch') or basic.get('AC_Touch'):
+                touch_ac = safe_int(state.get('AC_Touch') or basic.get('AC_Touch'), touch_ac)
+            if state.get('AC_Flat-footed') or basic.get('AC_Flat-footed'):
+                ff_ac = safe_int(state.get('AC_Flat-footed') or basic.get('AC_Flat-footed'), ff_ac)
         except Exception:
             pass
 

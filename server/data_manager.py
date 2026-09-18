@@ -728,12 +728,13 @@ def save_monster_from_json(raw_json_str, user=None):
         raw_json_str = raw_json_str.decode('utf-8')
     data = json.loads(raw_json_str)
     
-    if 'basic' in data:
+    if 'basic' in data and isinstance(data['basic'], dict) and ('in-name' in data['basic'] or 'in-cr' in data['basic']):
         state = data
-    elif 'OriginalState' in data:
+    elif 'OriginalState' in data and isinstance(data['OriginalState'], dict) and 'basic' in data['OriginalState'] and ('in-name' in data['OriginalState']['basic'] or 'in-cr' in data['OriginalState']['basic']):
         state = data['OriginalState']
     else:
-        state = {'basic': data, 'dynamic': {}}
+        from server.monster_formatter import build_editor_state_from_monster
+        state = build_editor_state_from_monster(data)
 
     save_as_new = bool(data.get('save_as_new') or state.get('save_as_new'))
     target_id = None if save_as_new else (state.get('id') or data.get('id') or (data.get('OriginalState', {}).get('id') if isinstance(data.get('OriginalState'), dict) else None))
@@ -1076,12 +1077,13 @@ def import_monsters_from_json(raw_json_str, user=None):
             if not isinstance(raw_item, dict):
                 continue
 
-            if 'basic' in raw_item:
+            if 'basic' in raw_item and isinstance(raw_item['basic'], dict) and ('in-name' in raw_item['basic'] or 'in-cr' in raw_item['basic']):
                 state = raw_item
-            elif 'OriginalState' in raw_item and isinstance(raw_item['OriginalState'], dict):
+            elif 'OriginalState' in raw_item and isinstance(raw_item['OriginalState'], dict) and 'basic' in raw_item['OriginalState'] and ('in-name' in raw_item['OriginalState']['basic'] or 'in-cr' in raw_item['OriginalState']['basic']):
                 state = raw_item['OriginalState']
             else:
-                state = {'basic': raw_item, 'dynamic': {}}
+                from server.monster_formatter import build_editor_state_from_monster
+                state = build_editor_state_from_monster(raw_item)
 
             monster_rec = format_monster_from_state(state)
             monster_rec['IsUserCustom'] = True

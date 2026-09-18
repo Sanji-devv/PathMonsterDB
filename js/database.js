@@ -699,9 +699,37 @@ document.addEventListener('DOMContentLoaded', () => {
             state.basic['in-ac-shield'] = acShieldBonus.toString();
         }
 
-        // 8. AC & Natural Armor Back-Calculation
-        let acTotal = parseInt(m.AC) || 10;
-        let dexMod = Math.floor(((parseInt(m.Dex) || 10) - 10) / 2);
+        // 8. AC Breakdown & Natural Armor Back-Calculation
+        const acStr = String(m.AC || m.ac || m['in-ac'] || m.AC_Mods || '');
+        const armMatch = acStr.match(/[+\-]?(\d+)\s+armor/i);
+        const shMatch = acStr.match(/[+\-]?(\d+)\s+shield/i);
+        const natMatch = acStr.match(/[+\-]?(\d+)\s+natural/i);
+        const defMatch = acStr.match(/[+\-]?(\d+)\s+deflection/i);
+        const dogMatch = acStr.match(/[+\-]?(\d+)\s+dodge/i);
+
+        if (armMatch) {
+            acArmorBonus = parseInt(armMatch[1]) || 0;
+            state.basic['in-ac-armor'] = acArmorBonus.toString();
+        }
+        if (shMatch) {
+            acShieldBonus = parseInt(shMatch[1]) || 0;
+            state.basic['in-ac-shield'] = acShieldBonus.toString();
+        }
+
+        let acDefBonus = 0;
+        if (defMatch) {
+            acDefBonus = parseInt(defMatch[1]) || 0;
+            state.basic['in-ac-deflection'] = acDefBonus.toString();
+        }
+
+        let acDodgeBonus = 0;
+        if (dogMatch) {
+            acDodgeBonus = parseInt(dogMatch[1]) || 0;
+            state.basic['in-ac-dodge'] = acDodgeBonus.toString();
+        }
+
+        let acTotal = parseInt(m.AC || m.ac) || 10;
+        let dexMod = Math.floor(((parseInt(m.Dex || m.dex) || 10) - 10) / 2);
         let sizeMod = 0;
         let sz = state.basic['in-size'].toLowerCase();
         if (sz === 'small') sizeMod = 1;
@@ -713,8 +741,26 @@ document.addEventListener('DOMContentLoaded', () => {
         if (sz === 'gargantuan') sizeMod = -4;
         if (sz === 'colossal') sizeMod = -8;
 
-        let calculatedNatArmor = Math.max(0, acTotal - 10 - dexMod - sizeMod - acArmorBonus - acShieldBonus);
-        state.basic['in-ac-natural'] = calculatedNatArmor.toString();
+        const defAbsLower = String(m.DefensiveAbilities || m.def_abilities || state.basic['in-def-abilities'] || '').toLowerCase();
+        const typeLower = String(m.Type || m.type || state.basic['in-type'] || '').toLowerCase();
+        const isCreatureIncorporeal = state.dynamic.subtypes.map(s => String(s).toLowerCase()).includes('incorporeal') ||
+            /\bincorporeal\b/.test(defAbsLower) ||
+            typeLower.includes('incorporeal');
+
+        if (natMatch) {
+            state.basic['in-ac-natural'] = (parseInt(natMatch[1]) || 0).toString();
+        } else if (isCreatureIncorporeal) {
+            state.basic['in-ac-natural'] = '0';
+            if (!defMatch) {
+                const chaVal = parseInt(m.Cha || m.cha || state.basic['in-cha']) || 10;
+                const chaMod = Math.floor((chaVal - 10) / 2);
+                const incorpDef = Math.max(1, chaMod);
+                state.basic['in-ac-deflection'] = incorpDef.toString();
+            }
+        } else {
+            let calculatedNatArmor = Math.max(0, acTotal - 10 - dexMod - sizeMod - acArmorBonus - acShieldBonus - acDefBonus - acDodgeBonus);
+            state.basic['in-ac-natural'] = calculatedNatArmor.toString();
+        }
 
         // 9. HD & HP
         let hdAmount = 1;
