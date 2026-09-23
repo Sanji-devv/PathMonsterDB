@@ -287,7 +287,78 @@ def _get_user_folder_key(user):
     user_name = str(user.get('username', '')).lower()
     return user_id if user_id else (user_name if user_name else 'anon')
 
+def sync_and_clean_folders(user=None):
+    all_folders = _load_folders()
+    if not all_folders or not isinstance(all_folders, dict):
+        return
+    
+    check_and_reload_if_modified()
+    if not GLOBAL_MONSTERS:
+        load_monsters()
+    
+    custom_monsters_by_id = {}
+    for m in GLOBAL_MONSTERS:
+        if m.get('IsUserCustom', False):
+            m_id = str(m.get('id') or m.get('Id') or '').strip()
+            if m_id:
+                custom_monsters_by_id[m_id] = m
+                custom_monsters_by_id[f"custom:{m_id}"] = m
+
+    folders_changed = False
+    
+    for u_k, f_list in all_folders.items():
+        if not isinstance(f_list, list):
+            continue
+        for f in f_list:
+            if not isinstance(f, dict):
+                continue
+            raw_keys = f.get('monster_keys', [])
+            if not isinstance(raw_keys, list):
+                f['monster_keys'] = []
+                folders_changed = True
+                continue
+            
+            cleaned_keys = []
+            seen_monsters = set()
+            
+            for k in raw_keys:
+                if not isinstance(k, str) or not k.strip():
+                    continue
+                k_clean = k.strip()
+                
+                matched_monster = None
+                
+                # Check custom by ID
+                clean_uuid = k_clean.replace('custom:', '').strip()
+                if clean_uuid in custom_monsters_by_id:
+                    matched_monster = custom_monsters_by_id[clean_uuid]
+                
+                # Check using is_monster_in_folder_keys or key match
+                if not matched_monster:
+                    for m in GLOBAL_MONSTERS:
+                        if get_monster_key(m) == k_clean or is_monster_in_folder_keys(m, {k_clean}):
+                            matched_monster = m
+                            break
+                            
+                if matched_monster:
+                    m_unique_id = str(matched_monster.get('id') or get_monster_key(matched_monster))
+                    if m_unique_id not in seen_monsters:
+                        seen_monsters.add(m_unique_id)
+                        if matched_monster.get('IsUserCustom') and not k_clean.startswith('custom:'):
+                            cleaned_keys.append(f"custom:{k_clean}")
+                        else:
+                            cleaned_keys.append(k_clean)
+            
+            if cleaned_keys != raw_keys:
+                f['monster_keys'] = cleaned_keys
+                folders_changed = True
+                
+    if folders_changed:
+        _save_folders()
+        clear_cache()
+
 def get_user_folders(user=None):
+    sync_and_clean_folders(user)
     all_folders = _load_folders()
     user_key = _get_user_folder_key(user)
     return all_folders.get(user_key, [])
@@ -336,6 +407,7 @@ def create_or_update_folder(data, user=None):
 
     _save_folders()
     clear_cache()
+    sync_and_clean_folders(user)
     return target
 
 def delete_folder(folder_id, user=None):
@@ -351,30 +423,89 @@ def delete_folder(folder_id, user=None):
     return False
 
 def add_monster_to_folder(folder_id, monster_key, user=None):
+    sync_and_clean_folders(user)
     all_folders = _load_folders()
     user_key = _get_user_folder_key(user)
     if user_key in all_folders:
         for f in all_folders[user_key]:
             if f.get('id') == folder_id:
                 keys = f.setdefault('monster_keys', [])
-                if monster_key not in keys:
-                    keys.append(monster_key)
+                clean_key = str(monster_key).strip()
+                clean_uuid = clean_key.replace('custom:', '').strip()
+                target_mon = None
+                for m in GLOBAL_MONSTERS:
+                    m_id = str(m.get('id') or m.get('Id') or '').strip()
+                    if m_id and m_id == clean_uuid:
+                        target_mon = m
+                        break
+                    if get_monster_key(m) == clean_key:
+                        target_mon = m
+                        break
+                    if is_monster_in_folder_keys(m, {clean_key}):
+                        target_mon = m
+                        break
+                
+                already_in = False
+                if target_mon:
+                    already_in = is_monster_in_folder_keys(target_mon, set(keys))
+                else:
+                    already_in = (clean_key in keys or clean_uuid in keys)
+                if not already_in:
+                    keys.append(clean_key)
                     _save_folders()
                     clear_cache()
+                    sync_and_clean_folders(user)
                 return f
     return None
 
 def remove_monster_from_folder(folder_id, monster_key, user=None):
+    sync_and_clean_folders(user)
     all_folders = _load_folders()
     user_key = _get_user_folder_key(user)
     if user_key in all_folders:
         for f in all_folders[user_key]:
             if f.get('id') == folder_id:
                 keys = f.setdefault('monster_keys', [])
-                keys_to_remove = {monster_key}
-                f['monster_keys'] = [k for k in keys if k not in keys_to_remove]
+                target_mon = None
+                clean_key = str(monster_key).strip()
+                clean_uuid = clean_key.replace('custom:', '').strip()
+                
+                # Find matching monster in GLOBAL_MONSTERS
+                for m in GLOBAL_MONSTERS:
+                    m_id = str(m.get('id') or m.get('Id') or '').strip()
+                    if m_id and m_id == clean_uuid:
+                        target_mon = m
+                        break
+                    if get_monster_key(m) == clean_key:
+                        target_mon = m
+                        break
+                    if is_monster_in_folder_keys(m, {clean_key}):
+                        target_mon = m
+                        break
+                
+                keys_to_remove = {clean_key, clean_uuid, f"custom:{clean_uuid}"}
+                if target_mon:
+                    keys_to_remove.add(get_monster_key(target_mon))
+                    m_id = str(target_mon.get('id') or target_mon.get('Id') or '').strip()
+                    if m_id:
+                        keys_to_remove.add(m_id)
+                        keys_to_remove.add(f"custom:{m_id}")
+                    m_name = str(target_mon.get('_m_name') or target_mon.get('Name', '')).lower()
+                    if m_name:
+                        keys_to_remove.add(m_name)
+                        keys_to_remove.add(f"official:{m_name}")
+                        auth_id = str(target_mon.get('AuthorId', '')).lower()
+                        auth_name = str(target_mon.get('AuthorName', '')).lower()
+                        if auth_id: keys_to_remove.add(f"custom:{auth_id}:{m_name}")
+                        if auth_name: keys_to_remove.add(f"custom:{auth_name}:{m_name}")
+                
+                f['monster_keys'] = [
+                    k for k in keys 
+                    if k not in keys_to_remove and not (target_mon and is_monster_in_folder_keys(target_mon, {k}))
+                ]
                 _save_folders()
                 clear_cache()
+                sync_and_clean_folders(user)
                 return f
     return None
 
@@ -906,7 +1037,10 @@ def delete_monster(idx_or_id, user=None):
             for f in f_list:
                 if isinstance(f, dict) and 'monster_keys' in f:
                     old_len = len(f['monster_keys'])
-                    f['monster_keys'] = [k for k in f['monster_keys'] if k not in keys_to_clean]
+                    f['monster_keys'] = [
+                        k for k in f['monster_keys'] 
+                        if k not in keys_to_clean and not is_monster_in_folder_keys(target_mon, {k})
+                    ]
                     if len(f['monster_keys']) != old_len:
                         folders_changed = True
     if folders_changed:
@@ -926,6 +1060,7 @@ def delete_monster(idx_or_id, user=None):
 
     save_custom_monsters()
     clear_cache()
+    sync_and_clean_folders()
     return json.dumps({"status": "ok"}).encode('utf-8'), 200
 
 def toggle_favorite(idx, user=None):

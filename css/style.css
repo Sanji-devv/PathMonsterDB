@@ -4918,6 +4918,20 @@ body.ui-light .btn-ui-mode.active {
     box-shadow: 0 0 12px rgba(245, 158, 11, 0.35);
 }
 
+.card-rail-btn.remove-collection-card-btn {
+    border-color: rgba(239, 68, 68, 0.35);
+    color: #f87171;
+    background: rgba(239, 68, 68, 0.08);
+}
+
+.card-rail-btn.remove-collection-card-btn:hover {
+    background: rgba(239, 68, 68, 0.25);
+    border-color: rgba(239, 68, 68, 0.75);
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.35);
+    transform: translateY(-1px);
+}
+
 .card-folder-badge {
     position: absolute;
     top: -4px;

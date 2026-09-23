@@ -271,22 +271,28 @@ document.addEventListener('DOMContentLoaded', () => {
             const starSvg = `<svg class="action-icon-svg" viewBox="0 0 24 24" width="14" height="14" fill="${m.IsFavorite ? '#fbbf24' : 'none'}" stroke="${m.IsFavorite ? '#fbbf24' : 'currentColor'}" stroke-width="2.2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`;
             const starBtnHtml = `<button type="button" class="card-rail-btn star-btn ${m.IsFavorite ? 'active' : ''}" title="${m.IsFavorite ? 'Favorilerden Çıkar' : 'Favorilere Ekle'}">${starSvg}</button>`;
 
-            const mKey = m.monster_key || (m.IsUserCustom ? ('custom:' + (m.id || '')) : ('official:' + (m.Name || '').toLowerCase()));
+            const mKey = getMonsterKey(m);
             card.setAttribute('data-monster-key', mKey);
-            const inFolders = (window.allUserFolders || []).filter(f => {
-                const keys = f.monster_keys || [];
-                return keys.includes(mKey) || (m.id && (keys.includes(m.id) || keys.includes('custom:' + m.id)));
-            });
+            const inFolders = (window.allUserFolders || []).filter(f => isMonsterInFolder(f, m));
             const inAnyFolder = inFolders.length > 0;
             const folderTooltip = inAnyFolder ? `In folders: ${inFolders.map(f => f.name).join(', ')}` : 'Add to Folder';
             const folderSvg = `<svg class="action-icon-svg" viewBox="0 0 24 24" width="14" height="14" fill="${inAnyFolder ? '#fbbf24' : 'none'}" stroke="${inAnyFolder ? '#fbbf24' : 'currentColor'}" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>`;
             const folderCountBadge = inFolders.length > 0 ? `<span class="card-folder-badge">${inFolders.length}</span>` : '';
             const folderBtnHtml = `<button type="button" class="card-rail-btn folder-card-btn ${inAnyFolder ? 'in-folder' : ''}" title="${folderTooltip}">${folderSvg}${folderCountBadge}</button>`;
 
+            const activeFolder = activeFolderId ? (window.allUserFolders || []).find(f => f.id === activeFolderId) : null;
+            const isInCurrentActiveFolder = Boolean(activeFolder && isMonsterInFolder(activeFolder, m));
+            const removeFolderBtnHtml = isInCurrentActiveFolder ? `
+                <button type="button" class="card-rail-btn remove-collection-card-btn" title="${activeFolder.name} klasöründen çıkar">
+                    <svg class="action-icon-svg" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#ef4444" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            ` : '';
+
             const leftIconsHtml = `
                 <div class="card-action-rail">
                     ${starBtnHtml}
                     ${folderBtnHtml}
+                    ${removeFolderBtnHtml}
                 </div>
             `;
 
@@ -419,8 +425,10 @@ document.addEventListener('DOMContentLoaded', () => {
                                         if (auth && typeof auth.showToast === 'function') {
                                             auth.showToast(`🗑️ "${m.Name}" deleted successfully.`, 'info');
                                         }
-                                        loadData();
-                                        loadFolders();
+                                        loadFolders().then(() => {
+                                            updateActiveFolderUI();
+                                            loadData();
+                                        });
                                     } else {
                                         alert('Delete failed: ' + (res.error || res.message || 'Unknown error'));
                                     }
@@ -457,6 +465,49 @@ document.addEventListener('DOMContentLoaded', () => {
                 folderCardBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     openAssignFolderModal(m);
+                });
+            }
+
+            const removeCollBtn = card.querySelector('.remove-collection-card-btn');
+            if (removeCollBtn) {
+                removeCollBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (!activeFolderId) return;
+                    const curFolder = (window.allUserFolders || []).find(f => f.id === activeFolderId);
+                    const folderName = curFolder ? curFolder.name : 'klasör';
+                    if (confirm(`"${m.Name}" canavarını "${folderName}" klasöründen çıkarmak istiyor musunuz?`)) {
+                        const auth = window.PathMonsterDBAuth || window.PathGMAuth;
+                        const headers = (auth && typeof auth.getAuthHeaders === 'function') ? auth.getAuthHeaders() : {};
+                        headers['Content-Type'] = 'application/json';
+                        const monKey = getMonsterKey(m);
+                        fetch('/api/folders/remove', {
+                            method: 'POST',
+                            headers: headers,
+                            body: JSON.stringify({ folder_id: activeFolderId, monster_key: monKey })
+                        })
+                        .then(r => r.json())
+                        .then(res => {
+                            if (res.status === 'ok') {
+                                if (auth && typeof auth.showToast === 'function') {
+                                    auth.showToast(`➖ "${m.Name}" "${folderName}" klasöründen çıkarıldı.`, 'info');
+                                }
+                                if (res.folder) {
+                                    const targetFolder = (window.allUserFolders || []).find(f => f.id === res.folder.id);
+                                    if (targetFolder) {
+                                        targetFolder.monster_keys = res.folder.monster_keys || [];
+                                        targetFolder.name = res.folder.name;
+                                    }
+                                }
+                                renderFolderSelectOptions();
+                                renderFolderPills();
+                                updateActiveFolderUI();
+                                loadData();
+                            } else {
+                                alert('Çıkarma hatası: ' + (res.message || 'Bilinmeyen hata'));
+                            }
+                        })
+                        .catch(err => alert('Çıkarma hatası: ' + err.message));
+                    }
                 });
             }
 
@@ -1745,7 +1796,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!folder || !m) return false;
         const keys = folder.monster_keys || [];
         const mKey = getMonsterKey(m);
-        return keys.includes(mKey) || (m.id && (keys.includes(m.id) || keys.includes('custom:' + m.id)));
+        const mId = m.id ? String(m.id) : '';
+        const mName = (m.Name || '').toLowerCase();
+        return keys.some(k => {
+            if (!k) return false;
+            if (k === mKey) return true;
+            if (mId && (k === mId || k === `custom:${mId}`)) return true;
+            if (k === `official:${mName}` || k.startsWith(`official:${mName}:`)) return true;
+            if (m.AuthorId && k === `custom:${m.AuthorId}:${mName}`) return true;
+            if (m.AuthorName && k === `custom:${String(m.AuthorName).toLowerCase()}:${mName}`) return true;
+            return false;
+        });
     }
 
     function updateMainCardFolderStatus(monster) {
@@ -2043,7 +2104,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (nextState) {
             if (!folder.monster_keys.includes(mKey)) folder.monster_keys.push(mKey);
         } else {
-            folder.monster_keys = folder.monster_keys.filter(k => k !== mKey && k !== m.id && k !== ('custom:' + m.id));
+            const mId = m.id ? String(m.id) : '';
+            const mName = (m.Name || '').toLowerCase();
+            folder.monster_keys = folder.monster_keys.filter(k => {
+                if (k === mKey) return false;
+                if (mId && (k === mId || k === `custom:${mId}`)) return false;
+                if (k === `official:${mName}` || k.startsWith(`official:${mName}:`)) return false;
+                if (m.AuthorId && k === `custom:${m.AuthorId}:${mName}`) return false;
+                if (m.AuthorName && k === `custom:${String(m.AuthorName).toLowerCase()}:${mName}`) return false;
+                return true;
+            });
         }
 
         if (itemEl) {
@@ -2085,11 +2155,24 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (auth && typeof auth.showToast === 'function') {
                         auth.showToast(nextState ? `➕ "${m.Name}" "${folder.name}" klasörüne eklendi.` : `➖ "${m.Name}" "${folder.name}" klasöründen çıkarıldı.`, 'info');
                     }
-                    if (activeFolderId) {
-                        loadData();
+                    if (res.folder) {
+                        const targetFolder = (window.allUserFolders || []).find(f => f.id === res.folder.id);
+                        if (targetFolder) {
+                            targetFolder.monster_keys = res.folder.monster_keys || [];
+                            targetFolder.name = res.folder.name;
+                        }
                     }
                     renderFolderSelectOptions();
                     renderFolderPills();
+                    updateActiveFolderUI();
+                    updateMainCardFolderStatus(m);
+                    if (itemEl && res.folder) {
+                        const countSpan = itemEl.querySelector('.assign-folder-count');
+                        if (countSpan) countSpan.textContent = `${(res.folder.monster_keys || []).length} canavar`;
+                    }
+                    if (activeFolderId) {
+                        loadData();
+                    }
                 } else {
                     throw new Error(res.message || 'Klasör işlemi başarısız');
                 }
