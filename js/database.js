@@ -280,19 +280,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const folderCountBadge = inFolders.length > 0 ? `<span class="card-folder-badge">${inFolders.length}</span>` : '';
             const folderBtnHtml = `<button type="button" class="card-rail-btn folder-card-btn ${inAnyFolder ? 'in-folder' : ''}" title="${folderTooltip}">${folderSvg}${folderCountBadge}</button>`;
 
-            const activeFolder = activeFolderId ? (window.allUserFolders || []).find(f => f.id === activeFolderId) : null;
-            const isInCurrentActiveFolder = Boolean(activeFolder && isMonsterInFolder(activeFolder, m));
-            const removeFolderBtnHtml = isInCurrentActiveFolder ? `
-                <button type="button" class="card-rail-btn remove-collection-card-btn" title="${activeFolder.name} klasöründen çıkar">
-                    <svg class="action-icon-svg" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#ef4444" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                </button>
-            ` : '';
-
             const leftIconsHtml = `
                 <div class="card-action-rail">
                     ${starBtnHtml}
                     ${folderBtnHtml}
-                    ${removeFolderBtnHtml}
                 </div>
             `;
 
@@ -468,48 +459,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            const removeCollBtn = card.querySelector('.remove-collection-card-btn');
-            if (removeCollBtn) {
-                removeCollBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    if (!activeFolderId) return;
-                    const curFolder = (window.allUserFolders || []).find(f => f.id === activeFolderId);
-                    const folderName = curFolder ? curFolder.name : 'klasör';
-                    if (confirm(`"${m.Name}" canavarını "${folderName}" klasöründen çıkarmak istiyor musunuz?`)) {
-                        const auth = window.PathMonsterDBAuth || window.PathGMAuth;
-                        const headers = (auth && typeof auth.getAuthHeaders === 'function') ? auth.getAuthHeaders() : {};
-                        headers['Content-Type'] = 'application/json';
-                        const monKey = getMonsterKey(m);
-                        fetch('/api/folders/remove', {
-                            method: 'POST',
-                            headers: headers,
-                            body: JSON.stringify({ folder_id: activeFolderId, monster_key: monKey })
-                        })
-                        .then(r => r.json())
-                        .then(res => {
-                            if (res.status === 'ok') {
-                                if (auth && typeof auth.showToast === 'function') {
-                                    auth.showToast(`➖ "${m.Name}" "${folderName}" klasöründen çıkarıldı.`, 'info');
-                                }
-                                if (res.folder) {
-                                    const targetFolder = (window.allUserFolders || []).find(f => f.id === res.folder.id);
-                                    if (targetFolder) {
-                                        targetFolder.monster_keys = res.folder.monster_keys || [];
-                                        targetFolder.name = res.folder.name;
-                                    }
-                                }
-                                renderFolderSelectOptions();
-                                renderFolderPills();
-                                updateActiveFolderUI();
-                                loadData();
-                            } else {
-                                alert('Çıkarma hatası: ' + (res.message || 'Bilinmeyen hata'));
-                            }
-                        })
-                        .catch(err => alert('Çıkarma hatası: ' + err.message));
-                    }
-                });
-            }
+
 
             mainList.appendChild(card);
         });

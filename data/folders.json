@@ -18,16 +18,8 @@
       "created_at": 1788418533,
       "monster_keys": [
         "custom:06437bd3-56d5-4178-acc1-233a9c1819ce",
-        "custom:e95c9a51-30fc-44f1-b5ba-96612296c3e3",
-        "custom:cbf54ade-c067-4178-a491-287f0a96df3b",
         "custom:0ae78249-243e-4b79-a2f9-c94e4450670b",
         "custom:cdfad59f-ca10-4a9e-8c35-930dd61904f0",
-        "custom:4922bcf5-6619-42d8-9e28-02385f0910cb",
-        "custom:5922097b-f7d8-40c6-acb2-83a003fdb245",
-        "custom:6b4e3b52-286a-4cef-9b19-76c612c49ee4",
-        "custom:3d08b8e8-3223-405f-a050-13468cba91b5",
-        "custom:c98eec90-def4-4833-9e4f-88bb528af5d2",
-        "custom:50e15ffd-323a-407d-9225-8c3d339083f3",
         "custom:130a4fc3-0d93-4a66-9716-529245d9d57d"
       ]
     },
@@ -37,7 +29,6 @@
       "description": "",
       "created_at": 1788520835,
       "monster_keys": [
-        "custom:11a90116-62d9-412b-ace3-3d8ef3beaaf6",
         "custom:9c47b0b2-f69e-4c94-a5ff-e50d88aea480",
         "custom:02c50882-5baa-4ac0-8dbf-59e68e6bd7b2",
         "custom:a8bf695b-bc28-45ca-a55a-5de8196529a8",
@@ -47,7 +38,8 @@
         "custom:bcb3f088-5a86-4c4f-8dc1-bba21fa1ed6f",
         "custom:21eab4a3-5176-47d4-9f1b-5e74042a0394",
         "custom:ead7e373-f7df-45d2-99db-e9a682dc17e6",
-        "custom:451430f0-5510-4764-9f43-84850993d3d3"
+        "custom:451430f0-5510-4764-9f43-84850993d3d3",
+        "custom:11a90116-62d9-412b-ace3-3d8ef3beaaf6"
       ]
     },
     {
@@ -143,10 +135,6 @@
       "monster_keys": [
         "official:dire badger:section 15: copyright notice",
         "official:boar:paizo inc. - pathfinder rpg bestiary",
-        "custom:e8be49d9-058f-4365-9120-e2d19d8f1a90",
-        "custom:d0ba7f9d-bd78-4ef7-b1c8-9091674e0e3a",
-        "custom:532cc75c-185b-4502-b2d6-9be12b03e541",
-        "custom:aea981ee-6658-4c5d-8248-df2ef0407427",
         "custom:642d0438-ff70-4429-801e-9c14dac6a5bc",
         "custom:11095ab8-fe13-4005-a60c-8f8b58acf282",
         "custom:29b7786a-49a3-4d08-9364-2a70e4a90842",

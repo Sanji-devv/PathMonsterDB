@@ -824,7 +824,7 @@
     "_m_align": "ne",
     "_m_env": "any ruins, crypts, or ancient feline tombs",
     "_m_source": "custom",
-    "_m_search_text": "catromancer   custom",
+    "_m_search_text": "catromancer    custom",
     "id": "cdfad59f-ca10-4a9e-8c35-930dd61904f0",
     "_global_index": 5544
   },
@@ -1618,7 +1618,7 @@
     "_m_align": "ln",
     "_m_env": "warm mountains",
     "_m_source": "custom",
-    "_m_search_text": "kaelit, the red dragon fire  custom",
+    "_m_search_text": "kaelit, the red dragon  fire  custom",
     "id": "0ae78249-243e-4b79-a2f9-c94e4450670b",
     "_global_index": 5548
   },
@@ -2607,7 +2607,7 @@
     "_m_align": "ne",
     "_m_env": "alchemical laboratories, subterranean dungeons, vanguard formations",
     "_m_source": "custom",
-    "_m_search_text": "owlbear alchemic mutant, armored   custom",
+    "_m_search_text": "owlbear alchemic mutant, armored    custom",
     "id": "a11b2c33-40fa-44f1-b5ba-111122223333",
     "_global_index": 5553
   },
@@ -2799,7 +2799,7 @@
     "_m_align": "ne",
     "_m_env": "alchemical laboratories, subterranean dungeons, ruined fortresses",
     "_m_source": "custom",
-    "_m_search_text": "owlbear alchemic mutant   custom",
+    "_m_search_text": "owlbear alchemic mutant    custom",
     "id": "e08d27a1-9f35-46a5-909c-2cc41c275219",
     "_global_index": 5554
   },
@@ -7672,7 +7672,7 @@
     "_m_align": "cg",
     "_m_env": "warm forests",
     "_m_source": "custom",
-    "_m_search_text": "rovesta guard   custom",
+    "_m_search_text": "rovesta guard    custom",
     "id": "06437bd3-56d5-4178-acc1-233a9c1819ce",
     "_global_index": 5578
   },
@@ -8507,7 +8507,7 @@
     "_m_align": "ce",
     "_m_env": "any ruins, cursed battlefields, unholy shrines",
     "_m_source": "custom",
-    "_m_search_text": "knight of rovesta   custom",
+    "_m_search_text": "knight of rovesta    custom",
     "id": "130a4fc3-0d93-4a66-9716-529245d9d57d",
     "_global_index": 5582
   },
@@ -11599,7 +11599,7 @@
     "_m_align": "ce",
     "_m_env": "any (abyss)",
     "_m_source": "custom",
-    "_m_search_text": "utakhar chaotic evil custom",
+    "_m_search_text": "utakhar  chaotic evil  custom",
     "id": "bc6d1f84-4ddc-4270-a465-8bbf0c19b689",
     "_global_index": 5597
   },
@@ -11816,7 +11816,7 @@
     "_m_align": "ne",
     "_m_env": "ash wastes, scorched crucibles, alchemical dungeons",
     "_m_source": "custom",
-    "_m_search_text": "(magnum opus) cineris   custom",
+    "_m_search_text": "(magnum opus) cineris    custom",
     "id": "3c1c9518-48c8-4dc1-84ec-29bd9764adcb",
     "_global_index": 5598
   },
@@ -12009,7 +12009,7 @@
     "_m_align": "le",
     "_m_env": "any",
     "_m_source": "custom",
-    "_m_search_text": "(magnum opus) albedo   custom",
+    "_m_search_text": "(magnum opus) albedo    custom",
     "id": "10008cf0-702b-4d2d-b7e7-5d151279300a",
     "_global_index": 5599
   },
@@ -12229,7 +12229,7 @@
     "_m_align": "ne",
     "_m_env": "alchemical laboratories, urban courts, ancient academies",
     "_m_source": "custom",
-    "_m_search_text": "(magnum opus) citrinitas   custom",
+    "_m_search_text": "(magnum opus) citrinitas    custom",
     "id": "0f18ebf3-8a1d-480a-9b96-3c4b20504cd3",
     "_global_index": 5600
   },
@@ -12414,7 +12414,7 @@
     "_m_align": "ne",
     "_m_env": "haunted courts, ruined observatories, shadow temples",
     "_m_source": "custom",
-    "_m_search_text": "(magnum opus) iosis   custom",
+    "_m_search_text": "(magnum opus) iosis    custom",
     "id": "46a823ca-66c9-4309-89c1-a44b049a2e71",
     "_global_index": 5601
   },
@@ -12604,7 +12604,7 @@
     "_m_align": "ne",
     "_m_env": "any volcanic peaks, void temples, cataclysmic ruins, or scorched arcane laboratories",
     "_m_source": "custom",
-    "_m_search_text": "(magnum opus) nigredo   custom",
+    "_m_search_text": "(magnum opus) nigredo    custom",
     "id": "025d23f4-035c-4be5-bf49-29899d1ab60e",
     "_global_index": 5602
   },
@@ -12620,9 +12620,9 @@
     "Init": "+10",
     "Senses": "Perception +14",
     "Aura": "",
-    "AC": "21",
-    "AC_Touch": "17",
-    "AC_Flat-footed": "14",
+    "AC": "23",
+    "AC_Touch": "18",
+    "AC_Flat-footed": "16",
     "HP": "93",
     "HD": "11d10",
     "Fort": "+5",
@@ -12656,7 +12656,7 @@
     "SR": "",
     "Environment": "any urban courts, opulent salons, dueling grounds",
     "Treasure": "standard (chain shirt, +1 rapier)",
-    "Gear": "+1 rapier, Chain Shirt",
+    "Gear": "+1 rapier, Amulet of Nat(+1), Ring of Prot(+1), Chain Shirt",
     "Class1": "",
     "Class1_Lvl": "",
     "Visibility": "private",
@@ -12691,8 +12691,8 @@
         "in-ac-armor": "4",
         "in-shield-name": "",
         "in-ac-shield": "0",
-        "in-ac-natural": "0",
-        "in-ac-deflection": "0",
+        "in-ac-natural": "1",
+        "in-ac-deflection": "1",
         "in-ac-dodge": "3",
         "in-hd-amount": "11",
         "in-hd-size": "10",
@@ -12721,7 +12721,7 @@
         "in-skills": "Acrobatics +18, Bluff +18, Diplomacy +18, Escape Artist +18, Intimidate +18, Perception +14, Sense Motive +14",
         "in-languages": "Common, Elven",
         "in-sq": "swashbuckler finesse",
-        "in-gear": "+1 rapier",
+        "in-gear": "+1 rapier, Amulet of Nat(+1), Ring of Prot(+1)",
         "in-spell-class": "",
         "in-spell-cl": "1",
         "in-spell-stat": "cha",
@@ -12734,7 +12734,7 @@
         "stat_type": "npc",
         "in-hp": "93 (11d10+33)",
         "in-init": "+10",
-        "in-ac": "21, touch 17, flat-footed 14 (+4 armor, +4 Dex, +3 dodge)"
+        "in-ac": "23, touch 18, flat-footed 16 (+4 armor, +4 Dex, +1 natural, +1 deflection, +3 dodge)"
       },
       "html": {},
       "dynamic": {
@@ -12829,9 +12829,9 @@
     "Init": "+6",
     "Senses": "Perception +19",
     "Aura": "",
-    "AC": "18",
-    "AC_Touch": "12",
-    "AC_Flat-footed": "16",
+    "AC": "20",
+    "AC_Touch": "13",
+    "AC_Flat-footed": "18",
     "HP": "93",
     "HD": "11d8",
     "Fort": "+10",
@@ -12865,7 +12865,7 @@
     "SR": "",
     "Environment": "toxic groves, ancient corrupted blights, alchemical greenhouses",
     "Treasure": "standard (hide armor, heavy wooden shield, +1 scimitar)",
-    "Gear": "+1 scimitar, Hide Armor, Heavy Wooden Shield",
+    "Gear": "+1 scimitar, Amulet of Nat(+1), Ring of Prot(+1), Hide Armor, Heavy Wooden Shield",
     "Class1": "",
     "Class1_Lvl": "",
     "Visibility": "private",
@@ -12900,8 +12900,8 @@
         "in-ac-armor": "4",
         "in-shield-name": "Heavy Wooden Shield",
         "in-ac-shield": "2",
-        "in-ac-natural": "0",
-        "in-ac-deflection": "0",
+        "in-ac-natural": "1",
+        "in-ac-deflection": "1",
         "in-ac-dodge": "0",
         "in-hd-amount": "11",
         "in-hd-size": "8",
@@ -12930,7 +12930,7 @@
         "in-skills": "Handle Animal +14, Heal +18, Knowledge (geography) +13, Knowledge (nature) +17, Perception +19, Spellcraft +15, Survival +19",
         "in-languages": "Common, Druidic, Sylvan",
         "in-sq": "nature bond (Plant domain - Decay subdomain), nature sense, trackless step, wild shape 5/day, woodland stride",
-        "in-gear": "+1 scimitar",
+        "in-gear": "+1 scimitar, Amulet of Nat(+1), Ring of Prot(+1)",
         "in-spell-class": "Druid Spells Prepared",
         "in-spell-cl": "11",
         "in-spell-stat": "wis",
@@ -12943,7 +12943,7 @@
         "stat_type": "npc",
         "in-hp": "93 (11d8+44)",
         "in-init": "+6",
-        "in-ac": "18, touch 12, flat-footed 16 (+4 armor, +2 shield, +2 Dex)"
+        "in-ac": "20, touch 13, flat-footed 18 (+4 armor, +2 shield, +2 Dex, +1 natural, +1 deflection)"
       },
       "html": {},
       "dynamic": {
@@ -13215,7 +13215,7 @@
     "_m_align": "ne",
     "_m_env": "opulent concert halls, alchemical amphitheaters, spire courts",
     "_m_source": "custom",
-    "_m_search_text": "(magnum opus) caeruleum   custom",
+    "_m_search_text": "(magnum opus) caeruleum    custom",
     "id": "f35a75c0-bcd2-4d63-8865-087c78cc8b4d",
     "_global_index": 5605
   },
@@ -13439,7 +13439,7 @@
     "_m_align": "le",
     "_m_env": "alchemical laboratories, subterranean dungeons, nine hells",
     "_m_source": "custom",
-    "_m_search_text": "owlbear alchemic devil evil extraplanar custom",
+    "_m_search_text": "owlbear alchemic devil  evil extraplanar  custom",
     "id": "c44a409c-a7de-4ddb-852a-4e46a24eddab",
     "_global_index": 5606
   }
