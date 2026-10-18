@@ -119,6 +119,66 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // ----------------------------------------------------
+    // GENERIC FEAT DESCRIPTION RESOLVER
+    // Generic resolution for parameterized feats (Weapon Focus, etc.)
+    // ----------------------------------------------------
+    window.getFeatDescription = function(featName, explicitDesc) {
+        const rawName = (featName || '').trim();
+        if (!rawName) return explicitDesc || "Description not available.";
+
+        const cleanName = rawName.toLowerCase();
+
+        // Parameterized Weapon & Focus Feats:
+        // Weapon Focus grants a +1 attack bonus with the selected weapon, regardless of its type.
+        if (/^weapon\s+focus(\s*\(|\s*-|\s*$)/i.test(cleanName)) {
+            return "+1 attack roll to weapon. You gain a +1 bonus on all attack rolls you make using the selected weapon.";
+        }
+        if (/^greater\s+weapon\s+focus(\s*\(|\s*-|\s*$)/i.test(cleanName)) {
+            return "+1 attack roll to weapon (+2 total with Weapon Focus). You gain an additional +1 bonus on all attack rolls with the selected weapon.";
+        }
+        if (/^weapon\s+specialization(\s*\(|\s*-|\s*$)/i.test(cleanName)) {
+            return "+2 damage to weapon. You gain a +2 bonus on all damage rolls made with the selected weapon.";
+        }
+        if (/^greater\s+weapon\s+specialization(\s*\(|\s*-|\s*$)/i.test(cleanName)) {
+            return "+2 damage to weapon (+4 total with Weapon Specialization). You gain an additional +2 bonus on all damage rolls made with the selected weapon.";
+        }
+        if (/^improved\s+critical(\s*\(|\s*-|\s*$)/i.test(cleanName)) {
+            return "Doubles the threat range of the selected weapon.";
+        }
+        if (/^ability\s+focus(\s*\(|\s*-|\s*$)/i.test(cleanName)) {
+            return "+2 bonus to the DC for all saving throws against the special attack on which the creature focuses.";
+        }
+        if (/^skill\s+focus(\s*\(|\s*-|\s*$)/i.test(cleanName)) {
+            return "+3 bonus on checks with the selected skill (+6 with 10 or more ranks in that skill).";
+        }
+        if (/^spell\s+focus(\s*\(|\s*-|\s*$)/i.test(cleanName)) {
+            return "+1 bonus to the DC for all saving throws against spells from the selected school of magic.";
+        }
+        if (/^greater\s+spell\s+focus(\s*\(|\s*-|\s*$)/i.test(cleanName)) {
+            return "+1 bonus to the DC for all saving throws against spells from the selected school of magic (+2 total with Spell Focus).";
+        }
+
+        // If an explicit non-placeholder description was supplied, return it
+        if (explicitDesc && !explicitDesc.includes('Description not available') && !explicitDesc.includes('No description provided')) {
+            return explicitDesc;
+        }
+
+        // Search in Feats Database (exact match first)
+        const db = window.allFeatsDB || [];
+        let match = db.find(d => d && d.name && d.name.toLowerCase() === cleanName);
+        if (match && match.description) return match.description;
+
+        // Stripped parentheses fallback (e.g. "Dodge (Mythic)" -> "Dodge")
+        const baseName = cleanName.replace(/\s*\([^)]*\)\s*/g, '').replace(/\s*-[^-]*$/g, '').trim();
+        if (baseName && baseName !== cleanName) {
+            match = db.find(d => d && d.name && d.name.toLowerCase() === baseName);
+            if (match && match.description) return match.description;
+        }
+
+        return explicitDesc || "Description not available.";
+    };
+
     // -------------------------
     // 2. MAIN UPDATE FUNCTION
     // -------------------------
@@ -172,8 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (currentFeats.length > 0) {
                         output.innerHTML = currentFeats.map(f => {
                             const featName = (f.name || '').trim();
-                            const featObj = (window.allFeatsDB || []).find(dbF => (dbF && dbF.name && dbF.name.toLowerCase() === featName.toLowerCase()));
-                            const rawDesc = (f.description || (featObj && featObj.description) || "Description not available.");
+                            const rawDesc = window.getFeatDescription(featName, f.description);
                             const safeName = featName.replace(/'/g, "\\'").replace(/"/g, '&quot;');
                             const desc = rawDesc.replace(/'/g, "\\'").replace(/"/g, '&quot;');
                             return `<a href="#" onclick="if(window.showInfoModal) window.showInfoModal('${safeName}', '${desc}', 'Feat'); return false;" class="pf-feat" style="color: inherit; text-decoration: underline dotted;" title="${sanitizeText(featName)}">${sanitizeText(featName)}</a>`;
@@ -3024,13 +3083,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const span = tag.querySelector('.editable-tag-text');
                 span.addEventListener('click', function (e) {
                     if (e.target !== this) return;
-                    let desc = "Description not available. Please edit the JSON file to add a description.";
-                    if (item && typeof item === 'object' && item.description) {
-                        desc = item.description;
-                    } else {
-                        const found = db.find(d => (d && typeof d === 'object' ? d.name === itemName : d === itemName));
-                        if (found && typeof found === 'object' && found.description) desc = found.description;
-                    }
+                    const explicit = (item && typeof item === 'object' && item.description) ? item.description : null;
+                    const desc = window.getFeatDescription ? window.getFeatDescription(itemName, explicit) : (explicit || "Description not available.");
                     if (window.showInfoModal) window.showInfoModal(itemName, desc, 'Feat');
                 });
 
@@ -3124,12 +3178,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 const attacks = getActiveCreatureAttacks();
                 attacks.forEach((atk, aIdx) => {
                     let featPrefix = 'Weapon Focus';
-                    if (isCrit) featPrefix = 'Improved Critical';
-                    else if (isWeaponSpec) featPrefix = 'Weapon Specialization';
+                    let featDesc = `+1 attack roll to weapon (${atk}). You gain a +1 bonus on all attack rolls you make using the selected weapon.`;
+                    if (isCrit) {
+                        featPrefix = 'Improved Critical';
+                        featDesc = `Doubles the threat range of the selected weapon (${atk}).`;
+                    } else if (isWeaponSpec) {
+                        featPrefix = 'Weapon Specialization';
+                        featDesc = `+2 damage to weapon (${atk}). You gain a +2 bonus on all damage rolls made with the selected weapon.`;
+                    }
                     const customFocusName = `${featPrefix} (${atk.charAt(0).toUpperCase() + atk.slice(1)})`;
                     const customObj = {
                         name: customFocusName,
-                        description: `You gain a +1 bonus on all attack rolls you make using the selected weapon (${atk}).`
+                        description: featDesc
                     };
                     scored.push({ item: customObj, score: -100 + aIdx, name: customFocusName });
                     addedNames.add(customFocusName.toLowerCase());
@@ -3218,9 +3278,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (!exists) {
+                const explicit = (typeof itemObjOrName === 'object' && itemObjOrName !== null) ? itemObjOrName.description : null;
+                const desc = window.getFeatDescription ? window.getFeatDescription(matchName, explicit) : (explicit || "Custom feat.");
                 const fullItem = (typeof itemObjOrName === 'object' && itemObjOrName !== null)
-                    ? itemObjOrName
-                    : (db.find(d => (d && typeof d === 'object' ? d.name.toLowerCase() === matchName.toLowerCase() : String(d).toLowerCase() === matchName.toLowerCase())) || { name: matchName, description: "Custom feat. No description provided." });
+                    ? { ...itemObjOrName, description: desc }
+                    : { name: matchName, description: desc };
 
                 window[config.activeArray].push(fullItem);
                 sync();

@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let actionsHtml = '';
             const starSvg = `<svg class="action-icon-svg" viewBox="0 0 24 24" width="14" height="14" fill="${m.IsFavorite ? '#fbbf24' : 'none'}" stroke="${m.IsFavorite ? '#fbbf24' : 'currentColor'}" stroke-width="2.2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`;
-            const starBtnHtml = `<button type="button" class="card-rail-btn star-btn ${m.IsFavorite ? 'active' : ''}" title="${m.IsFavorite ? 'Favorilerden Çıkar' : 'Favorilere Ekle'}">${starSvg}</button>`;
+            const starBtnHtml = `<button type="button" class="card-rail-btn star-btn ${m.IsFavorite ? 'active' : ''}" title="${m.IsFavorite ? 'Remove from Favorites' : 'Add to Favorites'}">${starSvg}</button>`;
 
             const mKey = getMonsterKey(m);
             card.setAttribute('data-monster-key', mKey);
@@ -1666,12 +1666,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function openFolderEditor(folder = null) {
         if (!modalFolderEditor) return;
         if (folder) {
-            modalFolderTitle.textContent = '✏️ Rename Folder / Klasörü Düzenle';
+            modalFolderTitle.textContent = '✏️ Rename Folder';
             folderEditId.value = folder.id;
             folderNameInput.value = folder.name || '';
             folderDescInput.value = folder.description || '';
         } else {
-            modalFolderTitle.textContent = '📁 New Folder / Yeni Klasör';
+            modalFolderTitle.textContent = '📁 New Folder';
             folderEditId.value = '';
             folderNameInput.value = '';
             folderDescInput.value = '';
@@ -1812,7 +1812,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (monster.Type) metaTokens.push(monster.Type);
             assignMonsterTypeBadge.textContent = metaTokens.length > 0 
                 ? metaTokens.join(' ') 
-                : (monster.IsUserCustom ? 'Özel Canavar' : 'Pathfinder Canavar');
+                : (monster.IsUserCustom ? 'Custom Monster' : 'Pathfinder Monster');
         }
 
         renderAssignFolderList();
@@ -1883,11 +1883,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const itemEl = assignFoldersList.querySelector(`[data-folder-id="${existing.id}"]`);
                 if (itemEl) toggleFolderAssignment(existing, itemEl, true);
                 if (auth && typeof auth.showToast === 'function') {
-                    auth.showToast(`📁 "${existing.name}" klasörü zaten mevcut, "${m.Name}" eklendi!`, 'info');
+                    auth.showToast(`📁 The folder "${existing.name}" already exists; "${m.Name}" was added.`, 'info');
                 }
             } else {
                 if (auth && typeof auth.showToast === 'function') {
-                    auth.showToast(`ℹ️ "${m.Name}" zaten "${existing.name}" klasöründe yer alıyor.`, 'info');
+                    auth.showToast(`ℹ️ "${m.Name}" is already in "${existing.name}".`, 'info');
                 }
             }
             // Scroll to existing card & give it a subtle pulse
@@ -1902,7 +1902,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (btnAssignQuickAdd) {
             btnAssignQuickAdd.disabled = true;
-            btnAssignQuickAdd.innerHTML = '<span>⏳ Ekleniyor...</span>';
+            btnAssignQuickAdd.innerHTML = '<span>⏳ Adding...</span>';
         }
 
         fetch('/api/folders', {
@@ -1916,7 +1916,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     inputAssignNewFolder.value = '';
                     if (btnAssignQuickClear) btnAssignQuickClear.style.display = 'none';
                     if (auth && typeof auth.showToast === 'function') {
-                        auth.showToast(`📁 "${res.folder.name}" oluşturuldu ve "${m.Name}" eklendi!`, 'success');
+                        auth.showToast(`📁 Created "${res.folder.name}" and added "${m.Name}"!`, 'success');
                     }
                     return loadFolders().then(() => {
                         renderAssignFolderList();
@@ -1934,14 +1934,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     });
                 } else {
-                    alert('Klasör oluşturulamadı: ' + (res.message || 'Bilinmeyen hata'));
+                    alert('Could not create folder: ' + (res.message || 'Unknown error'));
                 }
             })
-            .catch(err => alert('Hata: ' + err.message))
+            .catch(err => alert('Error: ' + err.message))
             .finally(() => {
                 if (btnAssignQuickAdd) {
                     btnAssignQuickAdd.disabled = false;
-                    btnAssignQuickAdd.innerHTML = '<span>➕ Oluştur & Ata</span>';
+                    btnAssignQuickAdd.innerHTML = '<span>➕ Create &amp; Assign</span>';
                 }
             });
     }
@@ -2047,7 +2047,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const checkBadge = itemEl.querySelector('.assign-custom-check');
             if (checkBadge) checkBadge.textContent = nextState ? '✓' : '';
             const statusTag = itemEl.querySelector('.assign-folder-status');
-            if (statusTag) statusTag.textContent = nextState ? '✓ Eklendi' : '+ Dahil Et';
+            if (statusTag) statusTag.textContent = nextState ? '✓ Added' : '+ Add';
         }
 
         if (!Array.isArray(folder.monster_keys)) folder.monster_keys = [];
@@ -2068,7 +2068,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (itemEl) {
             const countSpan = itemEl.querySelector('.assign-folder-count');
-            if (countSpan) countSpan.textContent = `${folder.monster_keys.length} canavar`;
+            if (countSpan) countSpan.textContent = `${folder.monster_keys.length} monsters`;
         }
 
         // Update hero badge count & selection counter
@@ -2076,13 +2076,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const totalAssigned = folders.filter(f => isMonsterInFolder(f, m)).length;
         if (assignMonsterFoldersBadge) {
             assignMonsterFoldersBadge.textContent = totalAssigned === 0 
-                ? 'Henüz bir klasörde değil' 
-                : `${totalAssigned} Klasörde Ekli`;
+                ? 'Not in a folder yet' 
+                : `In ${totalAssigned} folders`;
             assignMonsterFoldersBadge.style.color = totalAssigned > 0 ? '#6ee7b7' : '#94a3b8';
             assignMonsterFoldersBadge.style.borderColor = totalAssigned > 0 ? 'rgba(16, 185, 129, 0.4)' : 'rgba(255, 255, 255, 0.1)';
         }
         if (assignSelectedCountBadge) {
-            assignSelectedCountBadge.textContent = `${totalAssigned} / ${folders.length} klasör seçili`;
+            assignSelectedCountBadge.textContent = `${totalAssigned} / ${folders.length} folders selected`;
         }
 
         // Live update on the main page card
@@ -2103,7 +2103,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(res => {
                 if (res.status === 'ok') {
                     if (auth && typeof auth.showToast === 'function') {
-                        auth.showToast(nextState ? `➕ "${m.Name}" "${folder.name}" klasörüne eklendi.` : `➖ "${m.Name}" "${folder.name}" klasöründen çıkarıldı.`, 'info');
+                        auth.showToast(nextState ? `➕ Added "${m.Name}" to "${folder.name}".` : `➖ Removed "${m.Name}" from "${folder.name}".`, 'info');
                     }
                     if (res.folder) {
                         const targetFolder = (window.allUserFolders || []).find(f => f.id === res.folder.id);
@@ -2118,19 +2118,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     updateMainCardFolderStatus(m);
                     if (itemEl && res.folder) {
                         const countSpan = itemEl.querySelector('.assign-folder-count');
-                        if (countSpan) countSpan.textContent = `${(res.folder.monster_keys || []).length} canavar`;
+                        if (countSpan) countSpan.textContent = `${(res.folder.monster_keys || []).length} monsters`;
                     }
                     if (activeFolderId) {
                         loadData();
                     }
                 } else {
-                    throw new Error(res.message || 'Klasör işlemi başarısız');
+                    throw new Error(res.message || 'Folder update failed');
                 }
             })
             .catch(err => {
                 console.error('Folder toggle error:', err);
                 if (auth && typeof auth.showToast === 'function') {
-                    auth.showToast('İşlem hatası: ' + err.message, 'error');
+                    auth.showToast('Operation failed: ' + err.message, 'error');
                 }
                 loadFolders().then(() => renderAssignFolderList());
             });
@@ -2148,15 +2148,15 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update Hero status pill
         if (assignMonsterFoldersBadge) {
             assignMonsterFoldersBadge.textContent = assignedCount === 0 
-                ? 'Henüz bir klasörde değil' 
-                : `${assignedCount} Klasörde Ekli`;
+                ? 'Not in a folder yet' 
+                : `In ${assignedCount} folders`;
             assignMonsterFoldersBadge.style.color = assignedCount > 0 ? '#6ee7b7' : '#94a3b8';
             assignMonsterFoldersBadge.style.borderColor = assignedCount > 0 ? 'rgba(16, 185, 129, 0.4)' : 'rgba(255, 255, 255, 0.1)';
         }
 
         // Update Selected count badge
         if (assignSelectedCountBadge) {
-            assignSelectedCountBadge.textContent = `${assignedCount} / ${folders.length} klasör seçili`;
+            assignSelectedCountBadge.textContent = `${assignedCount} / ${folders.length} folders selected`;
         }
 
         // Sort folders: folders containing the monster come first, then alphabetical
@@ -2178,8 +2178,8 @@ document.addEventListener('DOMContentLoaded', () => {
             assignFoldersList.innerHTML = `
                 <div class="assign-empty-state">
                     <div class="assign-empty-icon">📂</div>
-                    <div class="assign-empty-text">Henüz hiç klasör oluşturmadınız</div>
-                    <div class="assign-empty-subtext">Yukarıdaki kutucuğa bir isim yazıp <strong>Enter</strong>'a basarak hemen ilk klasörünüzü oluşturabilirsiniz!</div>
+                    <div class="assign-empty-text">You haven't created any folders yet</div>
+                    <div class="assign-empty-subtext">Enter a name above and press <strong>Enter</strong> to create your first folder.</div>
                 </div>
             `;
             return;
@@ -2190,8 +2190,8 @@ document.addEventListener('DOMContentLoaded', () => {
             assignFoldersList.innerHTML = `
                 <div class="assign-empty-state">
                     <div class="assign-empty-icon">🔍</div>
-                    <div class="assign-empty-text">"${assignFolderSearchQuery}" ile eşleşen klasör bulunamadı</div>
-                    <div class="assign-empty-subtext">Yukarıdaki kutudan bu isimle anında yeni bir klasör oluşturabilirsiniz.</div>
+                    <div class="assign-empty-text">No folders match "${assignFolderSearchQuery}"</div>
+                    <div class="assign-empty-subtext">Create a new folder with this name using the field above.</div>
                 </div>
             `;
             return;
@@ -2224,10 +2224,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="assign-folder-info">
                         <span class="assign-folder-icon">📁</span>
                         <span class="assign-folder-title" title="${folder.name}">${displayTitle}</span>
-                        <span class="assign-folder-count">${keys.length} canavar</span>
+                        <span class="assign-folder-count">${keys.length} monsters</span>
                     </div>
                 </div>
-                <div class="assign-folder-status">${isChecked ? '✓ Eklendi' : '+ Dahil Et'}</div>
+                <div class="assign-folder-status">${isChecked ? '✓ Added' : '+ Add'}</div>
             `;
 
             item.addEventListener('click', (e) => {
@@ -2274,7 +2274,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (err) {
             if (err.name === 'AbortError') {
                 const useDefault = confirm(
-                    `Klasör seçimi iptal edildi.\n\nDosyaların tarayıcınızın varsayılan İndirilenler klasörüne tek tek indirilmesini ister misiniz?\n(İptal seçeneği indirme işlemini tamamen durdurur)`
+                    `Folder selection was canceled.\n\nWould you like to download the files individually to your browser's default Downloads folder?\n(Cancel will stop the export.)`
                 );
                 return useDefault ? null : 'CANCELLED';
             }
@@ -2312,7 +2312,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const folderName = currentFolder ? currentFolder.name : 'All Custom Monsters';
 
             if (!isAll && currentFolder && (!currentFolder.monster_keys || currentFolder.monster_keys.length === 0)) {
-                alert(`"${folderName}" klasöründe henüz canavar bulunmuyor.`);
+                alert(`There are no monsters in "${folderName}" yet.`);
                 return;
             }
 
@@ -2343,9 +2343,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (monsters.length === 0) {
                 if (isAll) {
-                    alert('Henüz kayıtlı özel canavar (Custom Monster) bulunmuyor. Yeni bir canavar oluşturup kaydedebilirsiniz.');
+                    alert('There are no saved custom monsters yet. Create and save a monster to get started.');
                 } else {
-                    alert(`"${folderName}" klasöründe henüz canavar bulunmuyor.`);
+                    alert(`There are no monsters in "${folderName}" yet.`);
                 }
                 return;
             }
@@ -2355,7 +2355,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (modalTitle) modalTitle.innerHTML = '📥 Exporting Monster JSONs';
             if (pdfProgressFolderTitle) {
                 const destText = dirHandle ? ` ➔ 📂 ${dirHandle.name}` : '';
-                pdfProgressFolderTitle.textContent = `📁 ${folderName} (${monsters.length} Canavar)${destText}`;
+                pdfProgressFolderTitle.textContent = `📁 ${folderName} (${monsters.length} monsters)${destText}`;
             }
             if (pdfProgressDirBadge && pdfProgressDirName) {
                 if (dirHandle) {
@@ -2365,7 +2365,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     pdfProgressDirBadge.style.display = 'none';
                 }
             }
-            if (pdfProgressStatus) pdfProgressStatus.textContent = dirHandle ? `Seçilen "${dirHandle.name}" klasörüne kaydediliyor...` : 'JSON dosyaları hazırlanıyor...';
+            if (pdfProgressStatus) pdfProgressStatus.textContent = dirHandle ? `Saving to "${dirHandle.name}"...` : 'Preparing JSON files...';
             if (pdfProgressBar) pdfProgressBar.style.width = '0%';
             if (modalPdfProgress) modalPdfProgress.classList.add('active');
 
@@ -2384,8 +2384,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const pct = Math.round(((i + 1) / monsters.length) * 100);
                     if (pdfProgressStatus) pdfProgressStatus.textContent = dirHandle
-                        ? `[${dirHandle.name}] Kaydediliyor (${i + 1} / ${monsters.length}): ${filename}...`
-                        : `İndiriliyor (${i + 1} / ${monsters.length}): ${filename}...`;
+                        ? `[${dirHandle.name}] Saving (${i + 1} / ${monsters.length}): ${filename}...`
+                        : `Downloading (${i + 1} / ${monsters.length}): ${filename}...`;
                     if (pdfProgressBar) pdfProgressBar.style.width = pct + '%';
 
                     const prettyJson = JSON.stringify(m, null, 2);
@@ -2403,16 +2403,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (pdfProgressBar) pdfProgressBar.style.width = '100%';
                 if (pdfProgressStatus) pdfProgressStatus.textContent = dirHandle
-                    ? `Tüm JSON dosyaları "${dirHandle.name}" klasörüne başarıyla kaydedildi! (${monsters.length} dosya)`
-                    : `Tüm JSON dosyaları başarıyla indirildi! (${monsters.length} dosya)`;
+                    ? `All JSON files were saved to "${dirHandle.name}"! (${monsters.length} files)`
+                    : `All JSON files were downloaded! (${monsters.length} files)`;
                 if (auth && typeof auth.showToast === 'function') {
                     auth.showToast(dirHandle
-                        ? `📥 "${folderName}" (${monsters.length} canavar) "${dirHandle.name}" klasörüne kaydedildi!`
-                        : `📥 "${folderName}" (${monsters.length} canavar) ayrı ayrı JSON olarak indirildi.`, 'success');
+                        ? `📥 Saved ${monsters.length} monsters from "${folderName}" to "${dirHandle.name}"!`
+                        : `📥 Downloaded ${monsters.length} monsters from "${folderName}" as separate JSON files.`, 'success');
                 }
             } catch (err) {
                 console.error('JSON Export Error:', err);
-                alert('JSON indirme hatası: ' + (err.message || err));
+                alert('JSON export failed: ' + (err.message || err));
             } finally {
                 if (pdfProgressDirBadge) pdfProgressDirBadge.style.display = 'none';
                 setTimeout(() => {
@@ -2690,7 +2690,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const folderName = currentFolder ? currentFolder.name : 'All Custom Monsters';
 
         if (!isAll && currentFolder && (!currentFolder.monster_keys || currentFolder.monster_keys.length === 0)) {
-            alert(`"${folderName}" klasöründe henüz canavar bulunmuyor.`);
+            alert(`There are no monsters in "${folderName}" yet.`);
             return;
         }
 
@@ -2713,15 +2713,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await res.json();
             monsters = data.monsters || [];
         } catch (e) {
-            alert('Canavarlar alınamadı: ' + e.message);
+            alert('Could not load monsters: ' + e.message);
             return;
         }
 
         if (monsters.length === 0) {
             if (isAll) {
-                alert('Henüz kayıtlı özel canavar (Custom Monster) bulunmuyor. Yeni bir canavar oluşturup kaydedebilirsiniz.');
+                alert('There are no saved custom monsters yet. Create and save a monster to get started.');
             } else {
-                alert(`"${folderName}" klasöründe henüz canavar bulunmuyor. Lütfen önce canavar kartlarındaki 📁 butonuna basarak bu klasöre canavar ekleyiniz.`);
+                alert(`There are no monsters in "${folderName}" yet. Add monsters to this folder using the 📁 button on their cards.`);
             }
             return;
         }
@@ -2730,7 +2730,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const jsPdfConstructor = getJsPdfConstructor();
         const html2c = window.html2canvas || (typeof html2canvas === 'function' ? html2canvas : null);
         if (!jsPdfConstructor || !html2c) {
-            alert('PDF motoru kütüphaneleri (jsPDF / html2canvas) yüklenemedi. Lütfen sayfayı yenileyiniz.');
+            alert('PDF export libraries (jsPDF / html2canvas) could not be loaded. Please refresh the page.');
             return;
         }
 
@@ -2739,7 +2739,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (modalTitle) modalTitle.innerHTML = '📄 Exporting Monster PDFs';
         if (pdfProgressFolderTitle) {
             const destText = dirHandle ? ` ➔ 📂 ${dirHandle.name}` : '';
-            pdfProgressFolderTitle.textContent = `📁 ${folderName} (${monsters.length} Canavar)${destText}`;
+            pdfProgressFolderTitle.textContent = `📁 ${folderName} (${monsters.length} monsters)${destText}`;
         }
         if (pdfProgressDirBadge && pdfProgressDirName) {
             if (dirHandle) {
@@ -2749,7 +2749,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 pdfProgressDirBadge.style.display = 'none';
             }
         }
-        if (pdfProgressStatus) pdfProgressStatus.textContent = dirHandle ? `Seçilen "${dirHandle.name}" klasörüne PDF'ler hazırlanıyor...` : 'PDF motoru hazırlanıyor...';
+        if (pdfProgressStatus) pdfProgressStatus.textContent = dirHandle ? `Preparing PDFs in "${dirHandle.name}"...` : 'Preparing PDF export...';
         if (pdfProgressBar) pdfProgressBar.style.width = '0%';
         if (modalPdfProgress) modalPdfProgress.classList.add('active');
 
@@ -2772,8 +2772,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const pct = Math.round(((i + 1) / monsters.length) * 100);
                 if (pdfProgressStatus) pdfProgressStatus.textContent = dirHandle
-                    ? `[${dirHandle.name}] PDF oluşturuluyor (${i + 1} / ${monsters.length}): ${filename}...`
-                    : `PDF hazırlanıyor ve indiriliyor (${i + 1} / ${monsters.length}): ${filename}...`;
+                    ? `[${dirHandle.name}] Creating PDF (${i + 1} / ${monsters.length}): ${filename}...`
+                    : `Preparing and downloading PDF (${i + 1} / ${monsters.length}): ${filename}...`;
                 if (pdfProgressBar) pdfProgressBar.style.width = pct + '%';
 
                 if (folderPdfStage) {
@@ -2831,17 +2831,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (pdfProgressBar) pdfProgressBar.style.width = '100%';
             if (pdfProgressStatus) pdfProgressStatus.textContent = dirHandle
-                ? `Tüm PDF'ler "${dirHandle.name}" klasörüne başarıyla kaydedildi! (${monsters.length} dosya)`
-                : `Tüm PDF'ler başarıyla indirildi! (${monsters.length} dosya)`;
+                ? `All PDFs were saved to "${dirHandle.name}"! (${monsters.length} files)`
+                : `All PDFs were downloaded! (${monsters.length} files)`;
 
             if (auth && typeof auth.showToast === 'function') {
                 auth.showToast(dirHandle
-                    ? `🎉 "${folderName}" (${monsters.length} canavar) "${dirHandle.name}" klasörüne kaydedildi!`
-                    : `🎉 "${folderName}" (${monsters.length} canavar) ayrı ayrı PDF olarak indirildi!`, 'success');
+                    ? `🎉 Saved ${monsters.length} monsters from "${folderName}" to "${dirHandle.name}"!`
+                    : `🎉 Downloaded ${monsters.length} monsters from "${folderName}" as separate PDFs!`, 'success');
             }
         } catch (err) {
             console.error('PDF Export Error:', err);
-            alert('PDF oluşturma hatası: ' + (err.message || err));
+            alert('PDF export failed: ' + (err.message || err));
         } finally {
             if (folderPdfStage) folderPdfStage.innerHTML = '';
             if (pdfProgressDirBadge) pdfProgressDirBadge.style.display = 'none';
@@ -2857,7 +2857,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const folderName = currentFolder ? currentFolder.name : 'All Custom Monsters';
 
         if (!isAll && currentFolder && (!currentFolder.monster_keys || currentFolder.monster_keys.length === 0)) {
-            alert(`"${folderName}" klasöründe henüz canavar bulunmuyor.`);
+            alert(`There are no monsters in "${folderName}" yet.`);
             return;
         }
 
@@ -2880,15 +2880,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await res.json();
             monsters = data.monsters || [];
         } catch (e) {
-            alert('Canavarlar alınamadı: ' + e.message);
+            alert('Could not load monsters: ' + e.message);
             return;
         }
 
         if (monsters.length === 0) {
             if (isAll) {
-                alert('Henüz kayıtlı özel canavar (Custom Monster) bulunmuyor. Yeni bir canavar oluşturup kaydedebilirsiniz.');
+                alert('There are no saved custom monsters yet. Create and save a monster to get started.');
             } else {
-                alert(`"${folderName}" klasöründe henüz canavar bulunmuyor. Lütfen önce canavar kartlarındaki 📁 butonuna basarak bu klasöre canavar ekleyiniz.`);
+                alert(`There are no monsters in "${folderName}" yet. Add monsters to this folder using the 📁 button on their cards.`);
             }
             return;
         }
@@ -2896,7 +2896,7 @@ document.addEventListener('DOMContentLoaded', () => {
         await ensureLibrariesLoaded();
         const html2c = window.html2canvas || (typeof html2canvas === 'function' ? html2canvas : null);
         if (!html2c) {
-            alert('Görsel motoru (html2canvas) yüklenemedi. Lütfen sayfayı yenileyiniz.');
+            alert('Image export library (html2canvas) could not be loaded. Please refresh the page.');
             return;
         }
 
@@ -2905,7 +2905,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (modalTitle) modalTitle.innerHTML = '🖼️ Exporting Monster PNGs';
         if (pdfProgressFolderTitle) {
             const destText = dirHandle ? ` ➔ 📂 ${dirHandle.name}` : '';
-            pdfProgressFolderTitle.textContent = `📁 ${folderName} (${monsters.length} Canavar)${destText}`;
+            pdfProgressFolderTitle.textContent = `📁 ${folderName} (${monsters.length} monsters)${destText}`;
         }
         if (pdfProgressDirBadge && pdfProgressDirName) {
             if (dirHandle) {
@@ -2915,7 +2915,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 pdfProgressDirBadge.style.display = 'none';
             }
         }
-        if (pdfProgressStatus) pdfProgressStatus.textContent = dirHandle ? `Seçilen "${dirHandle.name}" klasörüne PNG'ler hazırlanıyor...` : 'Görsel motoru hazırlanıyor...';
+        if (pdfProgressStatus) pdfProgressStatus.textContent = dirHandle ? `Preparing PNGs in "${dirHandle.name}"...` : 'Preparing image export...';
         if (pdfProgressBar) pdfProgressBar.style.width = '0%';
         if (modalPdfProgress) modalPdfProgress.classList.add('active');
 
@@ -2936,8 +2936,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const pct = Math.round(((i + 1) / monsters.length) * 100);
                 if (pdfProgressStatus) pdfProgressStatus.textContent = dirHandle
-                    ? `[${dirHandle.name}] Görsel oluşturuluyor (${i + 1} / ${monsters.length}): ${filename}...`
-                    : `Görsel oluşturuluyor ve indiriliyor (${i + 1} / ${monsters.length}): ${filename}...`;
+                    ? `[${dirHandle.name}] Creating image (${i + 1} / ${monsters.length}): ${filename}...`
+                    : `Creating and downloading image (${i + 1} / ${monsters.length}): ${filename}...`;
                 if (pdfProgressBar) pdfProgressBar.style.width = pct + '%';
 
                 if (folderPdfStage) {
@@ -2982,17 +2982,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (pdfProgressBar) pdfProgressBar.style.width = '100%';
             if (pdfProgressStatus) pdfProgressStatus.textContent = dirHandle
-                ? `Tüm PNG görselleri "${dirHandle.name}" klasörüne başarıyla kaydedildi! (${monsters.length} dosya)`
-                : `Tüm PNG görselleri başarıyla indirildi! (${monsters.length} dosya)`;
+                ? `All PNG images were saved to "${dirHandle.name}"! (${monsters.length} files)`
+                : `All PNG images were downloaded! (${monsters.length} files)`;
 
             if (auth && typeof auth.showToast === 'function') {
                 auth.showToast(dirHandle
-                    ? `🖼️ "${folderName}" (${monsters.length} canavar) "${dirHandle.name}" klasörüne kaydedildi!`
-                    : `🖼️ "${folderName}" (${monsters.length} canavar) ayrı ayrı PNG olarak indirildi!`, 'success');
+                    ? `🖼️ Saved ${monsters.length} monsters from "${folderName}" to "${dirHandle.name}"!`
+                    : `🖼️ Downloaded ${monsters.length} monsters from "${folderName}" as separate PNG images!`, 'success');
             }
         } catch (err) {
             console.error('PNG Export Error:', err);
-            alert('PNG oluşturma hatası: ' + (err.message || err));
+            alert('PNG export failed: ' + (err.message || err));
         } finally {
             if (folderPdfStage) folderPdfStage.innerHTML = '';
             if (pdfProgressDirBadge) pdfProgressDirBadge.style.display = 'none';

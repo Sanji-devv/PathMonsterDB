@@ -2607,7 +2607,7 @@
     "_m_align": "ne",
     "_m_env": "alchemical laboratories, subterranean dungeons, vanguard formations",
     "_m_source": "custom",
-    "_m_search_text": "owlbear alchemic mutant, armored    custom",
+    "_m_search_text": "owlbear alchemic mutant, armored   custom",
     "id": "a11b2c33-40fa-44f1-b5ba-111122223333",
     "_global_index": 5553
   },
@@ -2799,7 +2799,7 @@
     "_m_align": "ne",
     "_m_env": "alchemical laboratories, subterranean dungeons, ruined fortresses",
     "_m_source": "custom",
-    "_m_search_text": "owlbear alchemic mutant    custom",
+    "_m_search_text": "owlbear alchemic mutant   custom",
     "id": "e08d27a1-9f35-46a5-909c-2cc41c275219",
     "_global_index": 5554
   },
@@ -10095,7 +10095,7 @@
     "_m_align": "n",
     "_m_env": "deep quartz caverns, crystalline chasms, subterranean geode halls",
     "_m_source": "custom",
-    "_m_search_text": "quartz mantis  earth  custom",
+    "_m_search_text": "quartz mantis earth  custom",
     "id": "1e4491c1-8d23-4890-9560-7441243002e7",
     "_global_index": 5590
   },
@@ -12813,7 +12813,7 @@
     "_m_align": "ce",
     "_m_env": "any urban courts, opulent salons, dueling grounds",
     "_m_source": "custom",
-    "_m_search_text": "(magnum opus) rubedo   custom",
+    "_m_search_text": "(magnum opus) rubedo    custom",
     "id": "077db108-6227-4ef6-a39c-9e1e5b700577",
     "_global_index": 5603
   },
@@ -13022,7 +13022,7 @@
     "_m_align": "ne",
     "_m_env": "toxic groves, ancient corrupted blights, alchemical greenhouses",
     "_m_source": "custom",
-    "_m_search_text": "(magnum opus) viriditas   custom",
+    "_m_search_text": "(magnum opus) viriditas    custom",
     "id": "fa4ce5b7-72ef-4dc6-bcbf-a2388834359e",
     "_global_index": 5604
   },
@@ -13442,5 +13442,1088 @@
     "_m_search_text": "owlbear alchemic devil  evil extraplanar  custom",
     "id": "c44a409c-a7de-4ddb-852a-4e46a24eddab",
     "_global_index": 5606
+  },
+  {
+    "Name": "DULLAHAN DREAD KNIGHT",
+    "CR": "11",
+    "XP": "12800",
+    "Alignment": "LE",
+    "Size": "Medium",
+    "Type": "Undead",
+    "subtype1": "",
+    "subtype2": "",
+    "Init": "+10",
+    "Senses": "blindsight 60 ft., Perception +20",
+    "Aura": "frightful presence (30 ft., DC 22)",
+    "AC": "25",
+    "AC_Touch": "13",
+    "AC_Flat-footed": "23",
+    "HP": "231",
+    "HD": "14d8",
+    "Fort": "+14",
+    "Ref": "+8",
+    "Will": "+15",
+    "Speed": "30 ft. (20 ft. in armor), mounted 50 ft.",
+    "Melee": "+2 longsword +20/+15/+10 (1d8+10/17–20 plus 1d6 cold), mounted charge with spirited charge +22 (2d8+20/17–20 plus 1d6 cold)",
+    "Ranged": "",
+    "Space": "5 ft.",
+    "Reach": "5 ft.",
+    "SpecialAttacks": "chilling blade, death's calling (2/day, DC 25), summon mount",
+    "DefensiveAbilities": "bravery +1, channel resistance +4, fast healing 5",
+    "Weaknesses": "",
+    "Organization": "solitary",
+    "Str": "22",
+    "Dex": "14",
+    "Con": "10",
+    "Int": "14",
+    "Wis": "16",
+    "Cha": "20",
+    "BaseAtk": "11",
+    "CMB": "+17",
+    "CMD": "30",
+    "Feats": "Improved Initiative, Iron Will, Mounted Combat, Power Attack, Ride-By Attack, Spirited Charge, Toughness, Trample, Weapon Focus (longsword), Weapon Specialization (longsword)",
+    "Skills": "Handle Animal +18, Intimidate +22, Perception +20, Ride +19, Spellcraft +16, Stealth +12",
+    "Languages": "Common, Infernal, Sylvan",
+    "SQ": "armor training 1",
+    "DR": "",
+    "Immune": "undead traits",
+    "Resist": "",
+    "SR": "22",
+    "Environment": "any cold or temperate land",
+    "Treasure": "NPC gear",
+    "Gear": "+2 longsword, belt of giant strength +2, headband of alluring charisma +2, cloak of resistance +2, ring of protection +1, amulet of natural armor +1, +2 Full Plate",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "public",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": false,
+    "IsUserCustom": true,
+    "CharacterFlag": "1",
+    "SpellLikeAbilities": "",
+    "SpellsPrepared": "{}",
+    "Special Abilities": "Chilling Blade (Su): A dullahan is proficient with all simple and martial slashing weapons. Any slashing weapon wielded by a dullahan automatically deals an extra 1d6 cold damage and gains the keen weapon special ability.\nDeath's Calling (Su): Twice per day as a standard action, a dullahan can target a creature within 60 feet with a death curse (DC 25 Fortitude negates). If the dullahan knows the target's true name and speaks it, the save DC is increased by +2 (or the target takes a -2 penalty). A creature that fails its save is staggered for 1d6 rounds. For the next 24 hours, all critical threats against the target are automatically confirmed, and whenever the target is reduced to negative hit points, it automatically fails all Constitution checks to stabilize. This is a mind-affecting curse effect. The save DC is Charisma-based.\nFrightful Presence (Ex): Whenever a dullahan attacks or charges, any enemy within 30 feet must succeed at a DC 22 Will save or become shaken for 5d6 rounds. This is a mind-affecting fear effect. The save DC is Charisma-based.\nSummon Mount (Su): As a standard action, a dullahan can summon an advanced fiendish heavy warhorse. This warhorse arrives immediately and serves faithfully until dismissed or slain.\nFast Healing 5 (Ex): A dullahan regains 5 hit points at the start of each of its turns as long as it has at least 1 hit point.\nArmor Training 1 (Ex): The dullahan reduces the armor check penalty of its armor by 1 and increases the maximum Dexterity bonus allowed by 1.\nBravery +1 (Ex): The dullahan gains a +1 bonus on Will saves against fear.",
+    "OriginalState": {
+      "basic": {
+        "in-name": "DULLAHAN DREAD KNIGHT",
+        "in-cr": "11",
+        "in-xp": "12800",
+        "in-visibility": "public",
+        "in-author": "erdem",
+        "in-alignment": "LE",
+        "in-size": "Medium",
+        "in-type": "Undead",
+        "in-type-full": "Undead (Fighter 4)",
+        "in-init-extra": "4",
+        "in-aura": "frightful presence (30 ft., DC 22)",
+        "in-str": "22",
+        "in-dex": "14",
+        "in-con": "",
+        "in-int": "14",
+        "in-wis": "16",
+        "in-cha": "20",
+        "in-armor-name": "+2 Full Plate",
+        "in-ac-armor": "11",
+        "in-shield-name": "",
+        "in-ac-shield": "0",
+        "in-ac-natural": "1",
+        "in-ac-deflection": "1",
+        "in-ac-dodge": "0",
+        "in-hd-amount": "14",
+        "in-hd-size": "8",
+        "in-hp-extra": "84",
+        "in-fort": "+14",
+        "in-ref": "+8",
+        "in-will": "+15",
+        "in-def-abilities": "bravery +1, channel resistance +4, fast healing 5",
+        "in-dr": "",
+        "in-immune": "undead traits",
+        "in-resist": "",
+        "in-weaknesses": "",
+        "in-sr": "22",
+        "in-speed": "30 ft. (20 ft. in armor), mounted 50 ft.",
+        "in-space": "5 ft.",
+        "in-reach": "5 ft.",
+        "in-special-attacks": "chilling blade, death's calling (2/day, DC 25), summon mount",
+        "in-sla-cl": "",
+        "in-bab": "11",
+        "in-cmb": "+17",
+        "in-cmb-extra": "0",
+        "in-cmd": "30",
+        "in-cmd-extra": "0",
+        "in-feats": "Improved Initiative, Iron Will, Mounted Combat, Power Attack, Ride-By Attack, Spirited Charge, Toughness, Trample, Weapon Focus (longsword), Weapon Specialization (longsword)",
+        "in-feat-search": "",
+        "in-skills": "Handle Animal +18, Intimidate +22, Perception +20, Ride +19, Spellcraft +16, Stealth +12",
+        "in-languages": "Common, Infernal, Sylvan",
+        "in-sq": "armor training 1",
+        "in-gear": "+2 longsword, belt of giant strength +2, headband of alluring charisma +2, cloak of resistance +2, ring of protection +1, amulet of natural armor +1",
+        "in-spell-class": "",
+        "in-spell-cl": "1",
+        "in-spell-stat": "int",
+        "in-spell-conc": "",
+        "in-spells-data": "{}",
+        "in-spells": "{}",
+        "in-environment": "any cold or temperate land",
+        "in-organization": "solitary",
+        "in-treasure": "NPC gear",
+        "stat_type": "npc",
+        "in-hp": "231 (14d8+168)",
+        "in-init": "+10",
+        "in-ac": "25, touch 13, flat-footed 23 (+11 armor, +2 Dex, +1 natural, +1 deflection)"
+      },
+      "html": {},
+      "dynamic": {
+        "subtypes": [
+          ""
+        ],
+        "senses": [
+          {
+            "name": "blindsight",
+            "dist": "60 ft."
+          },
+          {
+            "name": "Perception",
+            "dist": "+20"
+          }
+        ],
+        "skills": [],
+        "slas": [],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "+2 longsword +20/+15/+10 (1d8+10/17–20 plus 1d6 cold)"
+          },
+          {
+            "mode": "raw",
+            "rawText": "mounted charge with spirited charge +22 (2d8+20/17–20 plus 1d6 cold)"
+          }
+        ],
+        "ranged": [],
+        "abilities": [
+          {
+            "name": "Chilling Blade (Su):",
+            "desc": "A dullahan is proficient with all simple and martial slashing weapons. Any slashing weapon wielded by a dullahan automatically deals an extra 1d6 cold damage and gains the keen weapon special ability."
+          },
+          {
+            "name": "Death's Calling (Su):",
+            "desc": "Twice per day as a standard action, a dullahan can target a creature within 60 feet with a death curse (DC 25 Fortitude negates). If the dullahan knows the target's true name and speaks it, the save DC is increased by +2 (or the target takes a -2 penalty). A creature that fails its save is staggered for 1d6 rounds. For the next 24 hours, all critical threats against the target are automatically confirmed, and whenever the target is reduced to negative hit points, it automatically fails all Constitution checks to stabilize. This is a mind-affecting curse effect. The save DC is Charisma-based."
+          },
+          {
+            "name": "Frightful Presence (Ex):",
+            "desc": "Whenever a dullahan attacks or charges, any enemy within 30 feet must succeed at a DC 22 Will save or become shaken for 5d6 rounds. This is a mind-affecting fear effect. The save DC is Charisma-based."
+          },
+          {
+            "name": "Summon Mount (Su):",
+            "desc": "As a standard action, a dullahan can summon an advanced fiendish heavy warhorse. This warhorse arrives immediately and serves faithfully until dismissed or slain."
+          },
+          {
+            "name": "Fast Healing 5 (Ex):",
+            "desc": "A dullahan regains 5 hit points at the start of each of its turns as long as it has at least 1 hit point."
+          },
+          {
+            "name": "Armor Training 1 (Ex):",
+            "desc": "The dullahan reduces the armor check penalty of its armor by 1 and increases the maximum Dexterity bonus allowed by 1."
+          },
+          {
+            "name": "Bravery +1 (Ex):",
+            "desc": "The dullahan gains a +1 bonus on Will saves against fear."
+          }
+        ],
+        "special_abilities": [
+          {
+            "name": "Chilling Blade (Su):",
+            "desc": "A dullahan is proficient with all simple and martial slashing weapons. Any slashing weapon wielded by a dullahan automatically deals an extra 1d6 cold damage and gains the keen weapon special ability."
+          },
+          {
+            "name": "Death's Calling (Su):",
+            "desc": "Twice per day as a standard action, a dullahan can target a creature within 60 feet with a death curse (DC 25 Fortitude negates). If the dullahan knows the target's true name and speaks it, the save DC is increased by +2 (or the target takes a -2 penalty). A creature that fails its save is staggered for 1d6 rounds. For the next 24 hours, all critical threats against the target are automatically confirmed, and whenever the target is reduced to negative hit points, it automatically fails all Constitution checks to stabilize. This is a mind-affecting curse effect. The save DC is Charisma-based."
+          },
+          {
+            "name": "Frightful Presence (Ex):",
+            "desc": "Whenever a dullahan attacks or charges, any enemy within 30 feet must succeed at a DC 22 Will save or become shaken for 5d6 rounds. This is a mind-affecting fear effect. The save DC is Charisma-based."
+          },
+          {
+            "name": "Summon Mount (Su):",
+            "desc": "As a standard action, a dullahan can summon an advanced fiendish heavy warhorse. This warhorse arrives immediately and serves faithfully until dismissed or slain."
+          },
+          {
+            "name": "Fast Healing 5 (Ex):",
+            "desc": "A dullahan regains 5 hit points at the start of each of its turns as long as it has at least 1 hit point."
+          },
+          {
+            "name": "Armor Training 1 (Ex):",
+            "desc": "The dullahan reduces the armor check penalty of its armor by 1 and increases the maximum Dexterity bonus allowed by 1."
+          },
+          {
+            "name": "Bravery +1 (Ex):",
+            "desc": "The dullahan gains a +1 bonus on Will saves against fear."
+          }
+        ],
+        "magic_items": [],
+        "spells": []
+      },
+      "_global_index": 5607,
+      "id": "0b4f6cfe-1d1c-4bc0-9418-bd48184c9343",
+      "AuthorId": "erdem",
+      "AuthorName": "erdem"
+    },
+    "_m_name": "dullahan dread knight",
+    "_m_cr": "11",
+    "_m_type": "undead",
+    "_m_size": "medium",
+    "_m_align": "le",
+    "_m_env": "any cold or temperate land",
+    "_m_source": "custom",
+    "_m_search_text": "dullahan dread knight   custom",
+    "id": "0b4f6cfe-1d1c-4bc0-9418-bd48184c9343",
+    "_global_index": 5607
+  },
+  {
+    "Name": "Entropic Giant Flying Squirrel",
+    "CR": "9",
+    "XP": "6400",
+    "Alignment": "CN",
+    "Size": "Huge",
+    "Type": "Magical Beast",
+    "subtype1": "extraplanar",
+    "subtype2": "",
+    "Init": "+8",
+    "Senses": "darkvision 60 ft., low-light vision, Perception +15",
+    "Aura": "",
+    "AC": "23",
+    "AC_Touch": "12",
+    "AC_Flat-footed": "19",
+    "HP": "175",
+    "HD": "10d10",
+    "Fort": "+13",
+    "Ref": "+11",
+    "Will": "+6",
+    "Speed": "30 ft., fly 60 ft. (good)",
+    "Melee": "bite +16 (2d6+8 plus grab), 2 claws +16 (1d8+8)",
+    "Ranged": "",
+    "Space": "15 ft.",
+    "Reach": "10 ft.",
+    "SpecialAttacks": "smite law (1/day), chaotic steal, gliding pounce",
+    "DefensiveAbilities": "entropic form",
+    "Weaknesses": "",
+    "Organization": "solitary or pair",
+    "Str": "27",
+    "Dex": "19",
+    "Con": "22",
+    "Int": "3",
+    "Wis": "16",
+    "Cha": "10",
+    "BaseAtk": "10",
+    "CMB": "+20",
+    "CMD": "34",
+    "Feats": "Improved Initiative, Skill Focus (Perception), Stealthy, Flyby Attack, Greater Steal",
+    "Skills": "Fly +15, Perception +15, Stealth +9, Acrobatics +12",
+    "Languages": "erratic chittering (cannot speak)",
+    "SQ": "",
+    "DR": "5/lawful",
+    "Immune": "",
+    "Resist": "acid 10, cold 10",
+    "SR": "14",
+    "Environment": "chaotic-aligned planes, skies over trade routes, ancient magical forests",
+    "Treasure": "incidental (stolen shiny trinkets, glittering acorns, magical items)",
+    "Gear": "",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "public",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": false,
+    "IsUserCustom": true,
+    "CharacterFlag": "1",
+    "SpellLikeAbilities": "(0)",
+    "SpellsPrepared": "{}",
+    "Special Abilities": "Chaotic Steal (Ex) When the squirrel grapples a target or flies past it (Flyby Attack), it attempts a Steal combat maneuver as a free action. If successful, it snatches the target's glittering magical items, acorn-like objects, or potions and flees into the sky.\nGliding Pounce (Ex) When the squirrel charges by gliding from a height of at least 20 feet, it gains the pounce ability, allowing it to make a full attack (bite and 2 claws) at the end of the charge.\nEntropic Form (Su) Reality warps constantly around its body, emitting purple and pink sparks. All ranged attacks made against it suffer a 20% miss chance (concealment).",
+    "OriginalState": {
+      "basic": {
+        "in-name": "Entropic Giant Flying Squirrel",
+        "in-cr": "9",
+        "in-xp": "6400",
+        "in-visibility": "public",
+        "in-author": "erdem",
+        "in-alignment": "CN",
+        "in-size": "Huge",
+        "in-type": "Magical Beast",
+        "in-type-full": "Huge magical beast (extraplanar, entropic)",
+        "in-init-extra": "",
+        "in-aura": "",
+        "in-str": "27",
+        "in-dex": "19",
+        "in-con": "22",
+        "in-int": "3",
+        "in-wis": "16",
+        "in-cha": "10",
+        "in-armor-name": "",
+        "in-ac-armor": "0",
+        "in-shield-name": "",
+        "in-ac-shield": "0",
+        "in-ac-natural": "11",
+        "in-ac-deflection": "0",
+        "in-ac-dodge": "0",
+        "in-hd-amount": "10",
+        "in-hd-size": "10",
+        "in-hp-extra": "60",
+        "in-fort": "+13",
+        "in-ref": "+11",
+        "in-will": "+6",
+        "in-def-abilities": "entropic form",
+        "in-dr": "5/lawful",
+        "in-immune": "",
+        "in-resist": "acid 10, cold 10",
+        "in-weaknesses": "",
+        "in-sr": "14",
+        "in-speed": "30 ft., fly 60 ft. (good)",
+        "in-space": "15 ft.",
+        "in-reach": "10 ft.",
+        "in-special-attacks": "smite law (1/day), chaotic steal, gliding pounce",
+        "in-sla-cl": "0",
+        "in-bab": "10",
+        "in-cmb": "+20",
+        "in-cmb-extra": "",
+        "in-cmd": "34",
+        "in-cmd-extra": "",
+        "in-feats": "Improved Initiative, Skill Focus (Perception), Stealthy, Flyby Attack, Greater Steal",
+        "in-feat-search": "",
+        "in-skills": "Fly +15, Perception +15, Stealth +9, Acrobatics +12",
+        "in-languages": "erratic chittering (cannot speak)",
+        "in-sq": "",
+        "in-gear": "",
+        "in-spell-class": "",
+        "in-spell-cl": "1",
+        "in-spell-stat": "",
+        "in-spell-conc": "0",
+        "in-spells-data": "{}",
+        "in-spells": "{}",
+        "in-environment": "chaotic-aligned planes, skies over trade routes, ancient magical forests",
+        "in-organization": "solitary or pair",
+        "in-treasure": "incidental (stolen shiny trinkets, glittering acorns, magical items)",
+        "stat_type": "npc",
+        "in-hp": "175 (10d10+120)",
+        "in-init": "+8",
+        "in-ac": "23, touch 12, flat-footed 19 (+4 Dex, -2 size, +11 natural)"
+      },
+      "html": {},
+      "dynamic": {
+        "subtypes": [
+          "extraplanar",
+          ""
+        ],
+        "senses": [
+          {
+            "name": "darkvision",
+            "dist": "60 ft."
+          },
+          {
+            "name": "low-light vision",
+            "dist": ""
+          },
+          {
+            "name": "Perception",
+            "dist": "+15"
+          }
+        ],
+        "skills": [],
+        "slas": [],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "bite +16 (2d6+8 plus grab)"
+          },
+          {
+            "mode": "raw",
+            "rawText": "2 claws +16 (1d8+8)"
+          }
+        ],
+        "ranged": [],
+        "abilities": [
+          {
+            "name": "Chaotic Steal (Ex)",
+            "desc": "When the squirrel grapples a target or flies past it (Flyby Attack), it attempts a Steal combat maneuver as a free action. If successful, it snatches the target's glittering magical items, acorn-like objects, or potions and flees into the sky."
+          },
+          {
+            "name": "Gliding Pounce (Ex)",
+            "desc": "When the squirrel charges by gliding from a height of at least 20 feet, it gains the pounce ability, allowing it to make a full attack (bite and 2 claws) at the end of the charge."
+          },
+          {
+            "name": "Entropic Form (Su)",
+            "desc": "Reality warps constantly around its body, emitting purple and pink sparks. All ranged attacks made against it suffer a 20% miss chance (concealment)."
+          }
+        ],
+        "special_abilities": [
+          {
+            "name": "Chaotic Steal (Ex)",
+            "desc": "When the squirrel grapples a target or flies past it (Flyby Attack), it attempts a Steal combat maneuver as a free action. If successful, it snatches the target's glittering magical items, acorn-like objects, or potions and flees into the sky."
+          },
+          {
+            "name": "Gliding Pounce (Ex)",
+            "desc": "When the squirrel charges by gliding from a height of at least 20 feet, it gains the pounce ability, allowing it to make a full attack (bite and 2 claws) at the end of the charge."
+          },
+          {
+            "name": "Entropic Form (Su)",
+            "desc": "Reality warps constantly around its body, emitting purple and pink sparks. All ranged attacks made against it suffer a 20% miss chance (concealment)."
+          }
+        ],
+        "magic_items": [],
+        "spells": []
+      },
+      "_global_index": 5608,
+      "id": "96105482-c694-49f4-8a1f-631d094a8a07",
+      "AuthorId": "erdem",
+      "AuthorName": "erdem"
+    },
+    "_m_name": "entropic giant flying squirrel",
+    "_m_cr": "9",
+    "_m_type": "magical beast",
+    "_m_size": "huge",
+    "_m_align": "cn",
+    "_m_env": "chaotic-aligned planes, skies over trade routes, ancient magical forests",
+    "_m_source": "custom",
+    "_m_search_text": "entropic giant flying squirrel extraplanar  custom",
+    "id": "96105482-c694-49f4-8a1f-631d094a8a07",
+    "_global_index": 5608
+  },
+  {
+    "Name": "Maelstrom Chaos Squirrel",
+    "CR": "9",
+    "XP": "6400",
+    "Alignment": "CN",
+    "Size": "Huge",
+    "Type": "Magical Beast",
+    "subtype1": "extraplanar",
+    "subtype2": "chaotic",
+    "Init": "+8",
+    "Senses": "darkvision 60 ft., low-light vision, Perception +13",
+    "Aura": "",
+    "AC": "22",
+    "AC_Touch": "12",
+    "AC_Flat-footed": "18",
+    "HP": "155",
+    "HD": "10d10",
+    "Fort": "+12",
+    "Ref": "+11",
+    "Will": "+5",
+    "Speed": "30 ft., fly 50 ft. (good)",
+    "Melee": "bite +14 (2d6+6 plus grab), 2 claws +14 (1d8+6)",
+    "Ranged": "",
+    "Space": "15 ft.",
+    "Reach": "10 ft.",
+    "SpecialAttacks": "smite law (1/day), chaotic steal, gliding pounce",
+    "DefensiveAbilities": "maelstrom shift",
+    "Weaknesses": "",
+    "Organization": "solitary or flux-pack (2-4)",
+    "Str": "23",
+    "Dex": "18",
+    "Con": "20",
+    "Int": "3",
+    "Wis": "14",
+    "Cha": "12",
+    "BaseAtk": "10",
+    "CMB": "+18",
+    "CMD": "32",
+    "Feats": "Improved Initiative, Skill Focus (Perception), Flyby Attack, Greater Steal, Combat Reflexes",
+    "Skills": "Fly +13, Perception +13, Stealth +8, Acrobatics +10",
+    "Languages": "erratic chittering (cannot speak)",
+    "SQ": "mutable anatomy",
+    "DR": "5/lawful",
+    "Immune": "",
+    "Resist": "sonic 10",
+    "SR": "14",
+    "Environment": "The Maelstrom (Limbo), chaotic shifting borders",
+    "Treasure": "incidental (mutated glowing nuts, shifting trinkets, stolen magical items)",
+    "Gear": "",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "public",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": false,
+    "IsUserCustom": true,
+    "CharacterFlag": "1",
+    "SpellLikeAbilities": "(0)",
+    "SpellsPrepared": "{}",
+    "Special Abilities": "Chaotic Steal (Ex) When the squirrel successfully hits a target or maintains a grapple, it can attempt a Steal combat maneuver as a swift action. If successful, it plucks a glittering magical item or potion from the target and tries to dart away.\nGliding Pounce (Ex) When the squirrel charges by gliding from a height of at least 20 feet, it gains the pounce ability, allowing it to make a full attack (bite and 2 claws) at the end of the charge.\nMaelstrom Shift (Su) The squirrel's body is composed of unstable Limbo matter. As a swift action once every 1d4 rounds, it can briefly phase or shift its physical form, granting itself a 20% miss chance (concealment) against attacks for 1 round or allowing it to ignore difficult terrain caused by shifting ground.",
+    "OriginalState": {
+      "basic": {
+        "in-name": "Maelstrom Chaos Squirrel",
+        "in-cr": "9",
+        "in-xp": "6400",
+        "in-visibility": "public",
+        "in-author": "erdem",
+        "in-alignment": "CN",
+        "in-size": "Huge",
+        "in-type": "Magical Beast",
+        "in-type-full": "Huge magical beast (extraplanar, chaotic)",
+        "in-init-extra": "",
+        "in-aura": "",
+        "in-str": "23",
+        "in-dex": "18",
+        "in-con": "20",
+        "in-int": "3",
+        "in-wis": "14",
+        "in-cha": "12",
+        "in-armor-name": "",
+        "in-ac-armor": "0",
+        "in-shield-name": "",
+        "in-ac-shield": "0",
+        "in-ac-natural": "10",
+        "in-ac-deflection": "0",
+        "in-ac-dodge": "0",
+        "in-hd-amount": "10",
+        "in-hd-size": "10",
+        "in-hp-extra": "50",
+        "in-fort": "+12",
+        "in-ref": "+11",
+        "in-will": "+5",
+        "in-def-abilities": "maelstrom shift",
+        "in-dr": "5/lawful",
+        "in-immune": "",
+        "in-resist": "sonic 10",
+        "in-weaknesses": "",
+        "in-sr": "14",
+        "in-speed": "30 ft., fly 50 ft. (good)",
+        "in-space": "15 ft.",
+        "in-reach": "10 ft.",
+        "in-special-attacks": "smite law (1/day), chaotic steal, gliding pounce",
+        "in-sla-cl": "0",
+        "in-bab": "10",
+        "in-cmb": "+18",
+        "in-cmb-extra": "",
+        "in-cmd": "32",
+        "in-cmd-extra": "",
+        "in-feats": "Improved Initiative, Skill Focus (Perception), Flyby Attack, Greater Steal, Combat Reflexes",
+        "in-feat-search": "",
+        "in-skills": "Fly +13, Perception +13, Stealth +8, Acrobatics +10",
+        "in-languages": "erratic chittering (cannot speak)",
+        "in-sq": "mutable anatomy",
+        "in-gear": "",
+        "in-spell-class": "",
+        "in-spell-cl": "1",
+        "in-spell-stat": "",
+        "in-spell-conc": "0",
+        "in-spells-data": "{}",
+        "in-spells": "{}",
+        "in-environment": "The Maelstrom (Limbo), chaotic shifting borders",
+        "in-organization": "solitary or flux-pack (2-4)",
+        "in-treasure": "incidental (mutated glowing nuts, shifting trinkets, stolen magical items)",
+        "stat_type": "npc",
+        "in-hp": "155 (10d10+100)",
+        "in-init": "+8",
+        "in-ac": "22, touch 12, flat-footed 18 (+4 Dex, -2 size, +10 natural)"
+      },
+      "html": {},
+      "dynamic": {
+        "subtypes": [
+          "extraplanar",
+          "chaotic"
+        ],
+        "senses": [
+          {
+            "name": "darkvision",
+            "dist": "60 ft."
+          },
+          {
+            "name": "low-light vision",
+            "dist": ""
+          },
+          {
+            "name": "Perception",
+            "dist": "+13"
+          }
+        ],
+        "skills": [],
+        "slas": [],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "bite +14 (2d6+6 plus grab)"
+          },
+          {
+            "mode": "raw",
+            "rawText": "2 claws +14 (1d8+6)"
+          }
+        ],
+        "ranged": [],
+        "abilities": [
+          {
+            "name": "Chaotic Steal (Ex)",
+            "desc": "When the squirrel successfully hits a target or maintains a grapple, it can attempt a Steal combat maneuver as a swift action. If successful, it plucks a glittering magical item or potion from the target and tries to dart away."
+          },
+          {
+            "name": "Gliding Pounce (Ex)",
+            "desc": "When the squirrel charges by gliding from a height of at least 20 feet, it gains the pounce ability, allowing it to make a full attack (bite and 2 claws) at the end of the charge."
+          },
+          {
+            "name": "Maelstrom Shift (Su)",
+            "desc": "The squirrel's body is composed of unstable Limbo matter. As a swift action once every 1d4 rounds, it can briefly phase or shift its physical form, granting itself a 20% miss chance (concealment) against attacks for 1 round or allowing it to ignore difficult terrain caused by shifting ground."
+          }
+        ],
+        "special_abilities": [
+          {
+            "name": "Chaotic Steal (Ex)",
+            "desc": "When the squirrel successfully hits a target or maintains a grapple, it can attempt a Steal combat maneuver as a swift action. If successful, it plucks a glittering magical item or potion from the target and tries to dart away."
+          },
+          {
+            "name": "Gliding Pounce (Ex)",
+            "desc": "When the squirrel charges by gliding from a height of at least 20 feet, it gains the pounce ability, allowing it to make a full attack (bite and 2 claws) at the end of the charge."
+          },
+          {
+            "name": "Maelstrom Shift (Su)",
+            "desc": "The squirrel's body is composed of unstable Limbo matter. As a swift action once every 1d4 rounds, it can briefly phase or shift its physical form, granting itself a 20% miss chance (concealment) against attacks for 1 round or allowing it to ignore difficult terrain caused by shifting ground."
+          }
+        ],
+        "magic_items": [],
+        "spells": []
+      },
+      "_global_index": 5609,
+      "id": "70b71a93-b771-421a-8b92-7f90f1242b5a",
+      "AuthorId": "erdem",
+      "AuthorName": "erdem"
+    },
+    "_m_name": "maelstrom chaos squirrel",
+    "_m_cr": "9",
+    "_m_type": "magical beast",
+    "_m_size": "huge",
+    "_m_align": "cn",
+    "_m_env": "the maelstrom (limbo), chaotic shifting borders",
+    "_m_source": "custom",
+    "_m_search_text": "maelstrom chaos squirrel extraplanar chaotic custom",
+    "id": "70b71a93-b771-421a-8b92-7f90f1242b5a",
+    "_global_index": 5609
+  },
+  {
+    "Name": "Maelstrom Chaos Squirrel",
+    "CR": "9",
+    "XP": "6400",
+    "Alignment": "CN",
+    "Size": "Huge",
+    "Type": "Magical Beast",
+    "subtype1": "extraplanar",
+    "subtype2": "chaotic",
+    "Init": "+8",
+    "Senses": "darkvision 60 ft., low-light vision, Perception +14",
+    "Aura": "",
+    "AC": "23",
+    "AC_Touch": "12",
+    "AC_Flat-footed": "19",
+    "HP": "175",
+    "HD": "10d10",
+    "Fort": "+13",
+    "Ref": "+11",
+    "Will": "+6",
+    "Speed": "30 ft., fly 50 ft. (good)",
+    "Melee": "bite +19 (2d6+8 plus grab), 2 claws +19 (1d8+8)",
+    "Ranged": "",
+    "Space": "15 ft.",
+    "Reach": "10 ft.",
+    "SpecialAttacks": "smite law (1/day), chaotic steal, gliding pounce",
+    "DefensiveAbilities": "maelstrom shift",
+    "Weaknesses": "",
+    "Organization": "solitary or flux-pack (2-4)",
+    "Str": "27",
+    "Dex": "19",
+    "Con": "22",
+    "Int": "3",
+    "Wis": "14",
+    "Cha": "12",
+    "BaseAtk": "10",
+    "CMB": "+20",
+    "CMD": "33",
+    "Feats": "Improved Initiative, Skill Focus (Perception), Flyby Attack, Greater Steal, Weapon Focus (Bite), Weapon Focus (Claws)",
+    "Skills": "Fly +14, Perception +14, Stealth +9, Acrobatics +11",
+    "Languages": "erratic chittering (cannot speak)",
+    "SQ": "chaos-sharpened weapons",
+    "DR": "5/lawful",
+    "Immune": "",
+    "Resist": "sonic 10",
+    "SR": "14",
+    "Environment": "The Maelstrom (Limbo), chaotic shifting borders",
+    "Treasure": "incidental (mutated glowing nuts, shifting trinkets, stolen magical items)",
+    "Gear": "",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "private",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": false,
+    "IsUserCustom": true,
+    "CharacterFlag": "1",
+    "SpellLikeAbilities": "(0)",
+    "SpellsPrepared": "{}",
+    "Special Abilities": "Chaos-Sharpened Weapons (Su) The squirrel's natural weapons vibrate with raw Limbo energy, treating its bite and claws as having a +2 enhancement equivalent for the purpose of overcoming damage reduction and boosting its attack accuracy to +19.\nChaotic Steal (Ex) When the squirrel successfully hits a target or maintains a grapple, it can attempt a Steal combat maneuver as a swift action. If successful, it plucks a glittering magical item or potion from the target and tries to dart away.\nGliding Pounce (Ex) When the squirrel charges by gliding from a height of at least 20 feet, it gains the pounce ability, allowing it to make a full attack (bite and 2 claws) at the end of the charge.\nMaelstrom Shift (Su) The squirrel's body is composed of unstable Limbo matter. As a swift action once every 1d4 rounds, it can briefly phase or shift its physical form, granting itself a 20% miss chance (concealment) against attacks for 1 round or allowing it to ignore difficult terrain caused by shifting ground.",
+    "OriginalState": {
+      "basic": {
+        "in-name": "Maelstrom Chaos Squirrel",
+        "in-cr": "9",
+        "in-xp": "6400",
+        "in-visibility": "private",
+        "in-author": "erdem",
+        "in-alignment": "CN",
+        "in-size": "Huge",
+        "in-type": "Magical Beast",
+        "in-type-full": "Huge magical beast (extraplanar, chaotic)",
+        "in-init-extra": "",
+        "in-aura": "",
+        "in-str": "27",
+        "in-dex": "19",
+        "in-con": "22",
+        "in-int": "3",
+        "in-wis": "14",
+        "in-cha": "12",
+        "in-armor-name": "",
+        "in-ac-armor": "0",
+        "in-shield-name": "",
+        "in-ac-shield": "0",
+        "in-ac-natural": "11",
+        "in-ac-deflection": "0",
+        "in-ac-dodge": "0",
+        "in-hd-amount": "10",
+        "in-hd-size": "10",
+        "in-hp-extra": "60",
+        "in-fort": "+13",
+        "in-ref": "+11",
+        "in-will": "+6",
+        "in-def-abilities": "maelstrom shift",
+        "in-dr": "5/lawful",
+        "in-immune": "",
+        "in-resist": "sonic 10",
+        "in-weaknesses": "",
+        "in-sr": "14",
+        "in-speed": "30 ft., fly 50 ft. (good)",
+        "in-space": "15 ft.",
+        "in-reach": "10 ft.",
+        "in-special-attacks": "smite law (1/day), chaotic steal, gliding pounce",
+        "in-sla-cl": "0",
+        "in-bab": "10",
+        "in-cmb": "+20",
+        "in-cmb-extra": "",
+        "in-cmd": "33",
+        "in-cmd-extra": "",
+        "in-feats": "Improved Initiative, Skill Focus (Perception), Flyby Attack, Greater Steal, Weapon Focus (Bite), Weapon Focus (Claws)",
+        "in-feat-search": "",
+        "in-skills": "Fly +14, Perception +14, Stealth +9, Acrobatics +11",
+        "in-languages": "erratic chittering (cannot speak)",
+        "in-sq": "chaos-sharpened weapons",
+        "in-gear": "",
+        "in-spell-class": "",
+        "in-spell-cl": "1",
+        "in-spell-stat": "",
+        "in-spell-conc": "0",
+        "in-spells-data": "{}",
+        "in-spells": "{}",
+        "in-environment": "The Maelstrom (Limbo), chaotic shifting borders",
+        "in-organization": "solitary or flux-pack (2-4)",
+        "in-treasure": "incidental (mutated glowing nuts, shifting trinkets, stolen magical items)",
+        "stat_type": "npc",
+        "in-hp": "175 (10d10+120)",
+        "in-init": "+8",
+        "in-ac": "23, touch 12, flat-footed 19 (+4 Dex, -2 size, +11 natural)"
+      },
+      "html": {},
+      "dynamic": {
+        "subtypes": [
+          "extraplanar",
+          "chaotic"
+        ],
+        "senses": [
+          {
+            "name": "darkvision",
+            "dist": "60 ft."
+          },
+          {
+            "name": "low-light vision",
+            "dist": ""
+          },
+          {
+            "name": "Perception",
+            "dist": "+14"
+          }
+        ],
+        "skills": [],
+        "slas": [],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "bite +19 (2d6+8 plus grab)"
+          },
+          {
+            "mode": "raw",
+            "rawText": "2 claws +19 (1d8+8)"
+          }
+        ],
+        "ranged": [],
+        "abilities": [
+          {
+            "name": "Chaos-Sharpened Weapons (Su)",
+            "desc": "The squirrel's natural weapons vibrate with raw Limbo energy, treating its bite and claws as having a +2 enhancement equivalent for the purpose of overcoming damage reduction and boosting its attack accuracy to +19."
+          },
+          {
+            "name": "Chaotic Steal (Ex)",
+            "desc": "When the squirrel successfully hits a target or maintains a grapple, it can attempt a Steal combat maneuver as a swift action. If successful, it plucks a glittering magical item or potion from the target and tries to dart away."
+          },
+          {
+            "name": "Gliding Pounce (Ex)",
+            "desc": "When the squirrel charges by gliding from a height of at least 20 feet, it gains the pounce ability, allowing it to make a full attack (bite and 2 claws) at the end of the charge."
+          },
+          {
+            "name": "Maelstrom Shift (Su)",
+            "desc": "The squirrel's body is composed of unstable Limbo matter. As a swift action once every 1d4 rounds, it can briefly phase or shift its physical form, granting itself a 20% miss chance (concealment) against attacks for 1 round or allowing it to ignore difficult terrain caused by shifting ground."
+          }
+        ],
+        "special_abilities": [
+          {
+            "name": "Chaos-Sharpened Weapons (Su)",
+            "desc": "The squirrel's natural weapons vibrate with raw Limbo energy, treating its bite and claws as having a +2 enhancement equivalent for the purpose of overcoming damage reduction and boosting its attack accuracy to +19."
+          },
+          {
+            "name": "Chaotic Steal (Ex)",
+            "desc": "When the squirrel successfully hits a target or maintains a grapple, it can attempt a Steal combat maneuver as a swift action. If successful, it plucks a glittering magical item or potion from the target and tries to dart away."
+          },
+          {
+            "name": "Gliding Pounce (Ex)",
+            "desc": "When the squirrel charges by gliding from a height of at least 20 feet, it gains the pounce ability, allowing it to make a full attack (bite and 2 claws) at the end of the charge."
+          },
+          {
+            "name": "Maelstrom Shift (Su)",
+            "desc": "The squirrel's body is composed of unstable Limbo matter. As a swift action once every 1d4 rounds, it can briefly phase or shift its physical form, granting itself a 20% miss chance (concealment) against attacks for 1 round or allowing it to ignore difficult terrain caused by shifting ground."
+          }
+        ],
+        "magic_items": [],
+        "spells": []
+      },
+      "_global_index": 5610,
+      "id": "5c3225c5-6afd-4860-8b6c-124c764d7a13",
+      "AuthorId": "erdem",
+      "AuthorName": "erdem"
+    },
+    "_m_name": "maelstrom chaos squirrel",
+    "_m_cr": "9",
+    "_m_type": "magical beast",
+    "_m_size": "huge",
+    "_m_align": "cn",
+    "_m_env": "the maelstrom (limbo), chaotic shifting borders",
+    "_m_source": "custom",
+    "_m_search_text": "maelstrom chaos squirrel extraplanar chaotic custom",
+    "id": "5c3225c5-6afd-4860-8b6c-124c764d7a13",
+    "_global_index": 5610
+  },
+  {
+    "Name": "Maelstrom Chaos Squirrel",
+    "CR": "9",
+    "XP": "6400",
+    "Alignment": "CN",
+    "Size": "Huge",
+    "Type": "Magical Beast",
+    "subtype1": "extraplanar",
+    "subtype2": "chaotic",
+    "Init": "+8",
+    "Senses": "darkvision 60 ft., low-light vision, Perception +14",
+    "Aura": "",
+    "AC": "23",
+    "AC_Touch": "12",
+    "AC_Flat-footed": "19",
+    "HP": "175",
+    "HD": "10d10",
+    "Fort": "+13",
+    "Ref": "+11",
+    "Will": "+6",
+    "Speed": "30 ft., fly 50 ft. (good)",
+    "Melee": "bite +19 (2d6+8 plus grab), 2 claws +19 (1d8+8)",
+    "Ranged": "",
+    "Space": "15 ft.",
+    "Reach": "10 ft.",
+    "SpecialAttacks": "smite law (1/day), anarchic disjunction, maelstrom breach",
+    "DefensiveAbilities": "mutable phase",
+    "Weaknesses": "",
+    "Organization": "solitary or flux-pack (2-4)",
+    "Str": "27",
+    "Dex": "19",
+    "Con": "22",
+    "Int": "3",
+    "Wis": "14",
+    "Cha": "12",
+    "BaseAtk": "10",
+    "CMB": "+20",
+    "CMD": "33",
+    "Feats": "Improved Initiative, Skill Focus (Perception), Flyby Attack, Greater Steal, Weapon Focus (Bite), Weapon Focus (Claws)",
+    "Skills": "Fly +14, Perception +14, Stealth +9, Acrobatics +11",
+    "Languages": "erratic chittering (cannot speak)",
+    "SQ": "prismatic reality-rend",
+    "DR": "5/lawful",
+    "Immune": "",
+    "Resist": "sonic 10",
+    "SR": "14",
+    "Environment": "The Maelstrom (Limbo), chaotic shifting borders",
+    "Treasure": "incidental (mutated glowing nuts, shifting trinkets, phase-locked items)",
+    "Gear": "",
+    "Class1": "",
+    "Class1_Lvl": "",
+    "Visibility": "public",
+    "AuthorId": "erdem",
+    "AuthorName": "erdem",
+    "IsFavorite": false,
+    "IsUserCustom": true,
+    "CharacterFlag": "1",
+    "SpellLikeAbilities": "(0)",
+    "SpellsPrepared": "{}",
+    "Special Abilities": "Prismatic Reality-Rend (Su) The squirrel's natural weapons vibrate with raw Limbo static, shearing through the fabric of local reality. Its bite and claws deal an additional 1d6 chaotic energy damage and treat damage reduction as bypassed by chaotic alignment.\nAnarchic Disjunction (Su) When the squirrel successfully hits a target or maintains a grapple, it can trigger an entropic siphon as a swift action. The target must succeed on a DC 16 Will save or have a random active spell effect or magical item property temporarily suppressed for 1 round as it flickers into the Maelstrom.\nMaelstrom Breach (Su) The squirrel's charges, it folds space momentarily, vanishing in a burst of multicolored probability static and reappearing directly above the target. This grants it the pounce ability (full attack at the end of a charge) and leaves a volatile, 5-foot rift of shifting chaos in its wake.\nMutable Phase (Su) As an immediate action when targeted by an attack, spell, or energy effect, the squirrel can rapidly mutate its physical anatomy to match the threat. It gains immunity to one energy type of its choice (acid, cold, electricity, fire, or sonic) until the beginning of its next turn and gains a 30% miss chance against that specific attack.",
+    "OriginalState": {
+      "basic": {
+        "in-name": "Maelstrom Chaos Squirrel",
+        "in-cr": "9",
+        "in-xp": "6400",
+        "in-visibility": "public",
+        "in-author": "erdem",
+        "in-alignment": "CN",
+        "in-size": "Huge",
+        "in-type": "Magical Beast",
+        "in-type-full": "Huge magical beast (extraplanar, chaotic)",
+        "in-init-extra": "",
+        "in-aura": "",
+        "in-str": "27",
+        "in-dex": "19",
+        "in-con": "22",
+        "in-int": "3",
+        "in-wis": "14",
+        "in-cha": "12",
+        "in-armor-name": "",
+        "in-ac-armor": "0",
+        "in-shield-name": "",
+        "in-ac-shield": "0",
+        "in-ac-natural": "11",
+        "in-ac-deflection": "0",
+        "in-ac-dodge": "0",
+        "in-hd-amount": "10",
+        "in-hd-size": "10",
+        "in-hp-extra": "60",
+        "in-fort": "+13",
+        "in-ref": "+11",
+        "in-will": "+6",
+        "in-def-abilities": "mutable phase",
+        "in-dr": "5/lawful",
+        "in-immune": "",
+        "in-resist": "sonic 10",
+        "in-weaknesses": "",
+        "in-sr": "14",
+        "in-speed": "30 ft., fly 50 ft. (good)",
+        "in-space": "15 ft.",
+        "in-reach": "10 ft.",
+        "in-special-attacks": "smite law (1/day), anarchic disjunction, maelstrom breach",
+        "in-sla-cl": "0",
+        "in-bab": "10",
+        "in-cmb": "+20",
+        "in-cmb-extra": "",
+        "in-cmd": "33",
+        "in-cmd-extra": "",
+        "in-feats": "Improved Initiative, Skill Focus (Perception), Flyby Attack, Greater Steal, Weapon Focus (Bite), Weapon Focus (Claws)",
+        "in-feat-search": "",
+        "in-skills": "Fly +14, Perception +14, Stealth +9, Acrobatics +11",
+        "in-languages": "erratic chittering (cannot speak)",
+        "in-sq": "prismatic reality-rend",
+        "in-gear": "",
+        "in-spell-class": "",
+        "in-spell-cl": "1",
+        "in-spell-stat": "",
+        "in-spell-conc": "0",
+        "in-spells-data": "{}",
+        "in-spells": "{}",
+        "in-environment": "The Maelstrom (Limbo), chaotic shifting borders",
+        "in-organization": "solitary or flux-pack (2-4)",
+        "in-treasure": "incidental (mutated glowing nuts, shifting trinkets, phase-locked items)",
+        "stat_type": "npc",
+        "in-hp": "175 (10d10+120)",
+        "in-init": "+8",
+        "in-ac": "23, touch 12, flat-footed 19 (+4 Dex, -2 size, +11 natural)"
+      },
+      "html": {},
+      "dynamic": {
+        "subtypes": [
+          "extraplanar",
+          "chaotic"
+        ],
+        "senses": [
+          {
+            "name": "darkvision",
+            "dist": "60 ft."
+          },
+          {
+            "name": "low-light vision",
+            "dist": ""
+          },
+          {
+            "name": "Perception",
+            "dist": "+14"
+          }
+        ],
+        "skills": [],
+        "slas": [],
+        "melee": [
+          {
+            "mode": "raw",
+            "rawText": "bite +19 (2d6+8 plus grab)"
+          },
+          {
+            "mode": "raw",
+            "rawText": "2 claws +19 (1d8+8)"
+          }
+        ],
+        "ranged": [],
+        "abilities": [
+          {
+            "name": "Prismatic Reality-Rend (Su)",
+            "desc": "The squirrel's natural weapons vibrate with raw Limbo static, shearing through the fabric of local reality. Its bite and claws deal an additional 1d6 chaotic energy damage and treat damage reduction as bypassed by chaotic alignment."
+          },
+          {
+            "name": "Anarchic Disjunction (Su)",
+            "desc": "When the squirrel successfully hits a target or maintains a grapple, it can trigger an entropic siphon as a swift action. The target must succeed on a DC 16 Will save or have a random active spell effect or magical item property temporarily suppressed for 1 round as it flickers into the Maelstrom."
+          },
+          {
+            "name": "Maelstrom Breach (Su)",
+            "desc": "The squirrel's charges, it folds space momentarily, vanishing in a burst of multicolored probability static and reappearing directly above the target. This grants it the pounce ability (full attack at the end of a charge) and leaves a volatile, 5-foot rift of shifting chaos in its wake."
+          },
+          {
+            "name": "Mutable Phase (Su)",
+            "desc": "As an immediate action when targeted by an attack, spell, or energy effect, the squirrel can rapidly mutate its physical anatomy to match the threat. It gains immunity to one energy type of its choice (acid, cold, electricity, fire, or sonic) until the beginning of its next turn and gains a 30% miss chance against that specific attack."
+          }
+        ],
+        "special_abilities": [
+          {
+            "name": "Prismatic Reality-Rend (Su)",
+            "desc": "The squirrel's natural weapons vibrate with raw Limbo static, shearing through the fabric of local reality. Its bite and claws deal an additional 1d6 chaotic energy damage and treat damage reduction as bypassed by chaotic alignment."
+          },
+          {
+            "name": "Anarchic Disjunction (Su)",
+            "desc": "When the squirrel successfully hits a target or maintains a grapple, it can trigger an entropic siphon as a swift action. The target must succeed on a DC 16 Will save or have a random active spell effect or magical item property temporarily suppressed for 1 round as it flickers into the Maelstrom."
+          },
+          {
+            "name": "Maelstrom Breach (Su)",
+            "desc": "The squirrel's charges, it folds space momentarily, vanishing in a burst of multicolored probability static and reappearing directly above the target. This grants it the pounce ability (full attack at the end of a charge) and leaves a volatile, 5-foot rift of shifting chaos in its wake."
+          },
+          {
+            "name": "Mutable Phase (Su)",
+            "desc": "As an immediate action when targeted by an attack, spell, or energy effect, the squirrel can rapidly mutate its physical anatomy to match the threat. It gains immunity to one energy type of its choice (acid, cold, electricity, fire, or sonic) until the beginning of its next turn and gains a 30% miss chance against that specific attack."
+          }
+        ],
+        "magic_items": [],
+        "spells": []
+      },
+      "_global_index": 5611,
+      "id": "bb575c40-f155-42a3-876e-98c276abcb25",
+      "AuthorId": "erdem",
+      "AuthorName": "erdem"
+    },
+    "_m_name": "maelstrom chaos squirrel",
+    "_m_cr": "9",
+    "_m_type": "magical beast",
+    "_m_size": "huge",
+    "_m_align": "cn",
+    "_m_env": "the maelstrom (limbo), chaotic shifting borders",
+    "_m_source": "custom",
+    "_m_search_text": "maelstrom chaos squirrel extraplanar chaotic custom",
+    "id": "bb575c40-f155-42a3-876e-98c276abcb25",
+    "_global_index": 5611
   }
 ]

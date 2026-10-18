@@ -369,43 +369,93 @@ document.addEventListener('DOMContentLoaded', () => {
     window.showInfoModal = function(title, bodyHTML, itemType = '') {
         modalTitle.textContent = title + (itemType ? ` (${itemType})` : '');
         let resolvedHTML = bodyHTML;
-        if (!resolvedHTML || resolvedHTML.trim() === '') {
-            const cleanTitle = (title || '').toLowerCase().trim();
-            const findIn = (arr) => (arr || []).find(item => {
-                const itemName = (typeof item === 'object' && item !== null ? (item.name || item.spell || '') : item) || '';
-                const cleanItem = itemName.toLowerCase().trim();
-                return cleanItem === cleanTitle ||
-                       cleanTitle.includes(cleanItem) ||
-                       cleanItem.includes(cleanTitle);
-            });
-            const entry = findIn(window.allSpecialAbilitiesDB) ||
-                          findIn(window.allAurasDB) ||
-                          findIn(window.allImmunitiesDB) ||
-                          findIn(window.allResistancesDB) ||
-                          findIn(window.allWeaknessesDB) ||
-                          findIn(window.allFeatsDB) ||
-                          findIn(window.allSpellsDB) ||
-                          findIn(window.allMagicItemsDB) ||
-                          findIn(window.allArmorsDB) ||
-                          findIn(window.allWeaponsDB);
-            if (entry && typeof entry === 'object') {
-                if (entry.dmg_m || entry.crit) {
-                    resolvedHTML = `<strong>Category:</strong> ${entry.type || 'Weapon'}<br><strong>Damage (M):</strong> ${entry.dmg_m || '—'}<br><strong>Critical:</strong> ${entry.crit || '20/x2'}${entry.dmg_type ? `<br><strong>Type:</strong> ${entry.dmg_type}` : ''}`;
-                } else if (entry.ac_bonus !== undefined || entry.acp !== undefined) {
-                    resolvedHTML = `<strong>Type:</strong> ${entry.type || 'Armor'}<br><strong>AC Bonus:</strong> +${entry.ac_bonus || entry.bonus || 0}<br><strong>Max Dex:</strong> ${entry.max_dex !== undefined ? entry.max_dex : '—'}<br><strong>Armor Check Penalty:</strong> ${entry.acp || 0}`;
-                } else {
-                    const desc = entry.description || entry.short_description || entry.desc || '';
-                    if (desc) {
-                        resolvedHTML = desc.replace(/\n/g, '<br>');
-                        if (entry.slot) {
-                            resolvedHTML += `<br><br><strong>Slot:</strong> ${entry.slot}`;
-                        }
-                    } else {
-                        resolvedHTML = `<em>Pathfinder 1e reference for <strong>${title}</strong>.</em>`;
-                    }
-                }
+        const cleanTitle = (title || '').toLowerCase().trim();
+
+        // Check if description is missing or a placeholder
+        const isPlaceholder = !resolvedHTML || 
+                              resolvedHTML.trim() === '' || 
+                              resolvedHTML.includes('Description not available') || 
+                              resolvedHTML.includes('No description provided');
+
+        if (isPlaceholder) {
+            // Priority 1: Parameterized / Focus Feats Generic Resolution
+            // Weapon Focus grants a +1 attack bonus with the selected weapon, regardless of its type.
+            if (/^weapon\s+focus(\s*\(|\s*-|\s*$)/i.test(cleanTitle)) {
+                resolvedHTML = `<strong>Benefit:</strong> +1 attack roll to weapon.<br>You gain a +1 bonus on all attack rolls you make using the selected weapon.`;
+            } else if (/^greater\s+weapon\s+focus(\s*\(|\s*-|\s*$)/i.test(cleanTitle)) {
+                resolvedHTML = `<strong>Benefit:</strong> +1 attack roll to weapon (+2 total with Weapon Focus).<br>You gain an additional +1 bonus on all attack rolls made with the selected weapon.`;
+            } else if (/^weapon\s+specialization(\s*\(|\s*-|\s*$)/i.test(cleanTitle)) {
+                resolvedHTML = `<strong>Benefit:</strong> +2 damage to weapon.<br>You gain a +2 bonus on all damage rolls made with the selected weapon.`;
+            } else if (/^greater\s+weapon\s+specialization(\s*\(|\s*-|\s*$)/i.test(cleanTitle)) {
+                resolvedHTML = `<strong>Benefit:</strong> +2 damage to weapon (+4 total with Weapon Specialization).<br>You gain an additional +2 bonus on all damage rolls made with the selected weapon.`;
+            } else if (/^improved\s+critical(\s*\(|\s*-|\s*$)/i.test(cleanTitle)) {
+                resolvedHTML = `<strong>Benefit:</strong> Doubles the threat range of the selected weapon.`;
+            } else if (/^ability\s+focus(\s*\(|\s*-|\s*$)/i.test(cleanTitle)) {
+                resolvedHTML = `<strong>Benefit:</strong> Add +2 to the DC for all saving throws against the special attack on which the creature focuses.`;
+            } else if (/^skill\s+focus(\s*\(|\s*-|\s*$)/i.test(cleanTitle)) {
+                resolvedHTML = `<strong>Benefit:</strong> You get a +3 bonus on all skill checks involving the chosen skill (+6 with 10 or more ranks in that skill).`;
+            } else if (/^spell\s+focus(\s*\(|\s*-|\s*$)/i.test(cleanTitle)) {
+                resolvedHTML = `<strong>Benefit:</strong> Add +1 to the DC for all saving throws against spells from the school of magic you select.`;
+            } else if (/^greater\s+spell\s+focus(\s*\(|\s*-|\s*$)/i.test(cleanTitle)) {
+                resolvedHTML = `<strong>Benefit:</strong> Add +1 to the DC for all saving throws against spells from the school of magic you select (+2 total with Spell Focus).`;
             } else {
-                resolvedHTML = `<em>Pathfinder 1e reference for <strong>${title}</strong>.</em>`;
+                const strippedTitle = cleanTitle.replace(/\s*\([^)]*\)\s*/g, '').replace(/\s*-[^-]*$/g, '').trim();
+                const findIn = (arr) => {
+                    if (!arr || !arr.length) return null;
+                    // 1. Exact match
+                    let res = arr.find(item => {
+                        const itemName = (typeof item === 'object' && item !== null ? (item.name || item.spell || '') : item) || '';
+                        return itemName.toLowerCase().trim() === cleanTitle;
+                    });
+                    if (res) return res;
+
+                    // 2. Base title match without parentheses (e.g. "Dodge (Mythic)" -> "Dodge")
+                    if (strippedTitle && strippedTitle !== cleanTitle) {
+                        res = arr.find(item => {
+                            const itemName = (typeof item === 'object' && item !== null ? (item.name || item.spell || '') : item) || '';
+                            return itemName.toLowerCase().trim() === strippedTitle;
+                        });
+                        if (res) return res;
+                    }
+
+                    // 3. Substring match
+                    return arr.find(item => {
+                        const itemName = (typeof item === 'object' && item !== null ? (item.name || item.spell || '') : item) || '';
+                        const cleanItem = itemName.toLowerCase().trim();
+                        return cleanItem === cleanTitle || cleanTitle.includes(cleanItem) || cleanItem.includes(cleanTitle);
+                    });
+                };
+
+                const entry = findIn(window.allSpecialAbilitiesDB) ||
+                              findIn(window.allAurasDB) ||
+                              findIn(window.allImmunitiesDB) ||
+                              findIn(window.allResistancesDB) ||
+                              findIn(window.allWeaknessesDB) ||
+                              findIn(window.allFeatsDB) ||
+                              findIn(window.allSpellsDB) ||
+                              findIn(window.allMagicItemsDB) ||
+                              findIn(window.allArmorsDB) ||
+                              findIn(window.allWeaponsDB);
+
+                if (entry && typeof entry === 'object') {
+                    if (entry.dmg_m || entry.crit) {
+                        resolvedHTML = `<strong>Category:</strong> ${entry.type || 'Weapon'}<br><strong>Damage (M):</strong> ${entry.dmg_m || '—'}<br><strong>Critical:</strong> ${entry.crit || '20/x2'}${entry.dmg_type ? `<br><strong>Type:</strong> ${entry.dmg_type}` : ''}`;
+                    } else if (entry.ac_bonus !== undefined || entry.acp !== undefined) {
+                        resolvedHTML = `<strong>Type:</strong> ${entry.type || 'Armor'}<br><strong>AC Bonus:</strong> +${entry.ac_bonus || entry.bonus || 0}<br><strong>Max Dex:</strong> ${entry.max_dex !== undefined ? entry.max_dex : '—'}<br><strong>Armor Check Penalty:</strong> ${entry.acp || 0}`;
+                    } else {
+                        const desc = entry.description || entry.short_description || entry.desc || '';
+                        if (desc) {
+                            resolvedHTML = desc.replace(/\n/g, '<br>');
+                            if (entry.slot) {
+                                resolvedHTML += `<br><br><strong>Slot:</strong> ${entry.slot}`;
+                            }
+                        } else {
+                            resolvedHTML = `<em>Pathfinder 1e reference for <strong>${title}</strong>.</em>`;
+                        }
+                    }
+                } else {
+                    resolvedHTML = `<em>Pathfinder 1e reference for <strong>${title}</strong>.</em>`;
+                }
             }
         }
         modalBody.innerHTML = resolvedHTML;

@@ -11,8 +11,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=EB+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css?v=6">
-    <link rel="stylesheet" href="../css/themes.css?v=6">
+    <link rel="stylesheet" href="../css/style.css?v=8">
+    <link rel="stylesheet" href="../css/themes.css?v=8">
     <script src="../js/vendor/html2canvas.min.js"></script>
     <script src="../js/vendor/jspdf.umd.min.js"></script>
 
@@ -542,19 +542,19 @@
                         <div class="banner-action-group export-suite">
                             <span class="group-label">EXPORT:</span>
                             <button type="button" id="btn-folder-export-pdf" class="btn-banner-action btn-banner-pdf"
-                                title="Download each monster in this folder as a separate A4 PDF / Her canavarı ayrı bir PDF olarak indir">
+                                title="Download each monster in this folder as a separate A4 PDF">
                                 <span class="btn-action-icon">📄</span>
                                 <span class="btn-action-name">PDF</span>
                                 <span class="btn-action-tag">Separate</span>
                             </button>
                             <button type="button" id="btn-folder-export-png" class="btn-banner-action btn-banner-png"
-                                title="Download each monster in this folder as a separate PNG image / Her canavarı ayrı bir PNG olarak indir">
+                                title="Download each monster in this folder as a separate PNG image">
                                 <span class="btn-action-icon">🖼️</span>
                                 <span class="btn-action-name">PNG</span>
                                 <span class="btn-action-tag">Image</span>
                             </button>
                             <button type="button" id="btn-folder-export-json" class="btn-banner-action btn-banner-json"
-                                title="Download each monster in this folder as a separate JSON file / Her canavarı ayrı bir JSON olarak indir">
+                                title="Download each monster in this folder as a separate JSON file">
                                 <span class="btn-action-icon">📥</span>
                                 <span class="btn-action-name">JSON</span>
                                 <span class="btn-action-tag">Data</span>
@@ -883,13 +883,11 @@
             </div>
             <div class="info-modal-body" style="padding: 20px; color: #e2e8f0; font-size: 14px;">
                 <input type="hidden" id="folder-edit-id" value="">
-                <label style="font-weight: 700; color: #fcd34d; display: block; margin-bottom: 6px;">Folder Name /
-                    Klasör Adı:</label>
+                <label style="font-weight: 700; color: #fcd34d; display: block; margin-bottom: 6px;">Folder Name:</label>
                 <input type="text" id="folder-name-input"
                     placeholder="e.g. Goblin Lair, Ice Caverns, Campaign Bosses..."
                     style="width: 100%; padding: 10px 14px; background: rgba(10, 12, 18, 0.9); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: #fff; font-size: 14px; box-sizing: border-box; margin-bottom: 14px;">
-                <label style="font-weight: 700; color: #94a3b8; display: block; margin-bottom: 6px;">Description /
-                    Açıklama (Optional):</label>
+                <label style="font-weight: 700; color: #94a3b8; display: block; margin-bottom: 6px;">Description (Optional):</label>
                 <input type="text" id="folder-desc-input" placeholder="e.g. Encounters for Session 4..."
                     style="width: 100%; padding: 10px 14px; background: rgba(10, 12, 18, 0.9); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: #fff; font-size: 14px; box-sizing: border-box; margin-bottom: 18px;">
                 <div style="display: flex; justify-content: flex-end; gap: 10px;">
@@ -910,11 +908,11 @@
                 <div class="assign-header-title-box">
                     <span class="assign-header-icon">📁</span>
                     <div>
-                        <h3 class="assign-header-title">Klasör Yönetimi</h3>
+                        <h3 class="assign-header-title">Folder Management</h3>
                         <span class="assign-header-sub">Manage Folders for Monster</span>
                     </div>
                 </div>
-                <button type="button" id="btn-close-assign-modal" class="info-modal-close assign-modal-close" title="Kapat (Esc)">&times;</button>
+                <button type="button" id="btn-close-assign-modal" class="info-modal-close assign-modal-close" title="Close (Esc)">&times;</button>
             </div>
 
             <!-- Modal Body -->
@@ -927,23 +925,23 @@
                             <span id="assign-monster-cr-badge" class="assign-cr-pill">CR -</span>
                         </div>
                         <div class="assign-monster-submeta">
-                            <span id="assign-monster-type-badge" class="assign-type-pill">Canavar</span>
-                            <span id="assign-monster-folders-badge" class="assign-folders-pill">0 Klasörde Ekli</span>
+                            <span id="assign-monster-type-badge" class="assign-type-pill">Monster</span>
+                            <span id="assign-monster-folders-badge" class="assign-folders-pill">In 0 Folders</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Inline Quick Create Folder Bar (No Prompt!) -->
                 <div class="assign-quick-create-section">
-                    <label class="assign-section-label">⚡ Hızlı Yeni Klasör Oluştur & Ekle:</label>
+                    <label class="assign-section-label">⚡ Quickly Create and Assign a Folder:</label>
                     <form id="assign-quick-create-form" class="assign-quick-form" onsubmit="return false;">
                         <div class="assign-input-group">
                             <span class="assign-input-icon">📁</span>
                             <input type="text" id="input-assign-new-folder" class="assign-quick-input"
-                                placeholder="Yeni klasör adı yazın... (Örn: Boss Canavarlar)" maxlength="50" autocomplete="off">
-                            <button type="button" id="btn-assign-quick-clear" class="assign-clear-search-btn" title="Temizle" style="display: none; margin-right: 8px;">&times;</button>
-                            <button type="submit" id="btn-assign-quick-add" class="btn-assign-add" title="Enter tuşuna basarak da ekleyebilirsiniz">
-                                <span>➕ Oluştur & Ata</span>
+                                placeholder="Enter a new folder name... (e.g. Campaign Bosses)" maxlength="50" autocomplete="off">
+                            <button type="button" id="btn-assign-quick-clear" class="assign-clear-search-btn" title="Clear" style="display: none; margin-right: 8px;">&times;</button>
+                            <button type="submit" id="btn-assign-quick-add" class="btn-assign-add" title="You can also press Enter">
+                                <span>➕ Create &amp; Assign</span>
                             </button>
                         </div>
                     </form>
@@ -954,15 +952,15 @@
                     <div class="assign-search-box">
                         <span class="assign-search-icon">🔍</span>
                         <input type="text" id="assign-folder-search-input" class="assign-search-input"
-                            placeholder="Klasörlerde ara..." autocomplete="off">
-                        <button type="button" id="btn-assign-clear-search" class="assign-clear-search-btn" title="Aramayı temizle" style="display: none;">&times;</button>
+                            placeholder="Search folders..." autocomplete="off">
+                        <button type="button" id="btn-assign-clear-search" class="assign-clear-search-btn" title="Clear search" style="display: none;">&times;</button>
                     </div>
                     <div class="assign-batch-actions">
-                        <span id="assign-selected-count-badge" class="assign-count-text">0 klasör seçili</span>
+                        <span id="assign-selected-count-badge" class="assign-count-text">0 folders selected</span>
                         <div class="assign-action-links">
-                            <button type="button" id="btn-assign-select-all" class="btn-assign-link" title="Görüntülenen tüm klasörlere ekle">Tümünü Seç</button>
+                            <button type="button" id="btn-assign-select-all" class="btn-assign-link" title="Add to all visible folders">Select All</button>
                             <span class="assign-link-sep">•</span>
-                            <button type="button" id="btn-assign-clear-all" class="btn-assign-link" title="Görüntülenen tüm klasörlerden çıkar">Temizle</button>
+                            <button type="button" id="btn-assign-clear-all" class="btn-assign-link" title="Remove from all visible folders">Clear All</button>
                         </div>
                     </div>
                 </div>
@@ -977,7 +975,7 @@
                     <!-- Keep btn-assign-new-folder accessible for backwards compatibility -->
                     <button type="button" id="btn-assign-new-folder" class="btn-hdr btn-hdr-blue assign-legacy-btn" style="display: none;">➕ New Folder</button>
                     <button type="button" id="btn-assign-done" class="btn-hdr btn-hdr-emerald assign-done-btn">
-                        <span>✓ Tamamlandı</span>
+                        <span>✓ Completed</span>
                     </button>
                 </div>
             </div>
@@ -999,7 +997,7 @@
                 <h4 id="pdf-progress-folder-title"
                     style="margin: 0 0 8px 0; color: #38bdf8; font-size: 1.15rem; font-weight: 700;">Folder Name</h4>
                 <div id="pdf-progress-dir-badge" style="display: none; margin: 0 auto 12px auto; max-width: 90%; font-size: 12px; color: #6ee7b7; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.35); padding: 5px 12px; border-radius: 20px; font-weight: 600; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
-                    📂 Hedef Konum: <span id="pdf-progress-dir-name">-</span>
+                    📂 Destination: <span id="pdf-progress-dir-name">-</span>
                 </div>
                 <p id="pdf-progress-status" style="margin: 0 0 16px 0; color: #94a3b8; font-size: 13.5px;">Initializing
                     files...</p>
@@ -1024,10 +1022,10 @@
         style="position: fixed; left: 0; top: 0; width: 794px; min-height: 1123px; z-index: -99999; pointer-events: none; opacity: 0.01; visibility: visible; box-sizing: border-box; background: #fff;">
     </div>
 
-    <script src="../js/state.js?v=6"></script>
-    <script src="../js/auth.js?v=6"></script>
-    <script src="../js/ui.js?v=6"></script>
-    <script src="../js/database.js?v=6"></script>
+    <script src="../js/state.js?v=8"></script>
+    <script src="../js/auth.js?v=8"></script>
+    <script src="../js/ui.js?v=8"></script>
+    <script src="../js/database.js?v=8"></script>
 </body>
 
 </html>

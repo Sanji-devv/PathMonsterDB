@@ -5365,7 +5365,7 @@
   },
   {
     "name": "Greater Weapon Focus",
-    "description": "Prerequisites: Weapon Focus, Fighter level 8th. You gain an additional +1 bonus on all attack rolls with the selected weapon (+2 total)."
+    "description": "+1 attack roll to weapon (+2 total with Weapon Focus). Prerequisites: Weapon Focus, Fighter level 8th. You gain an additional +1 bonus on all attack rolls with the selected weapon."
   },
   {
     "name": "Greater Weapon Shift",
@@ -12437,7 +12437,7 @@
   },
   {
     "name": "Weapon Focus",
-    "description": "Prerequisites: Proficiency with selected weapon, BAB +1. You gain a +1 bonus on all attack rolls you make using the selected weapon."
+    "description": "+1 attack roll to weapon. Prerequisites: Proficiency with selected weapon, BAB +1. You gain a +1 bonus on all attack rolls you make using the selected weapon."
   },
   {
     "name": "Weapon Shift",
