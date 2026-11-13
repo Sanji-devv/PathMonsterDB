@@ -133,7 +133,7 @@
         }
 
         .filters {
-            display: flex;
+            display: none;
             gap: 14px;
             flex-wrap: wrap;
             margin-bottom: 26px;
@@ -382,6 +382,306 @@
             letter-spacing: 0.5px;
         }
     </style>
+    <style>
+        /* ── Filter Panel Modal ──────────────────────────────────── */
+        #filter-panel-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.55);
+            z-index: 10000;
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            animation: fpOverlayIn 0.2s ease;
+        }
+        #filter-panel-overlay.open { display: block; }
+        @keyframes fpOverlayIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        #filter-panel {
+            position: fixed;
+            top: 0;
+            right: -460px;
+            width: 420px;
+            max-width: 95vw;
+            height: 100vh;
+            background: rgba(13, 16, 26, 0.98);
+            border-left: 1px solid rgba(212,175,55,0.3);
+            box-shadow: -8px 0 40px rgba(0,0,0,0.7);
+            z-index: 10001;
+            display: flex;
+            flex-direction: column;
+            transition: right 0.3s cubic-bezier(0.16,1,0.3,1);
+            overflow: hidden;
+        }
+        #filter-panel.open { right: 0; }
+
+        .fp-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 22px 16px;
+            border-bottom: 1px solid rgba(212,175,55,0.2);
+            flex-shrink: 0;
+        }
+        .fp-header-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #d4af37;
+            letter-spacing: 0.5px;
+        }
+        .fp-header-title span { font-size: 1.3rem; }
+        .fp-active-count {
+            background: rgba(212,175,55,0.2);
+            border: 1px solid rgba(212,175,55,0.5);
+            color: #fcd34d;
+            border-radius: 20px;
+            padding: 2px 10px;
+            font-size: 12px;
+            font-weight: 700;
+            display: none;
+        }
+        .fp-active-count.has-filters { display: inline-block; }
+        .fp-close-btn {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #94a3b8;
+            border-radius: 8px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .fp-close-btn:hover { background: rgba(239,68,68,0.2); border-color: rgba(239,68,68,0.5); color: #f87171; }
+
+        .fp-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 18px 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .fp-body::-webkit-scrollbar { width: 5px; }
+        .fp-body::-webkit-scrollbar-track { background: transparent; }
+        .fp-body::-webkit-scrollbar-thumb { background: rgba(212,175,55,0.3); border-radius: 3px; }
+
+        .fp-section { display: flex; flex-direction: column; gap: 8px; }
+        .fp-section-label {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #64748b;
+            padding-bottom: 4px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        /* Chip-style checkboxes inside filter panel */
+        .fp-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+        .fp-chip {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            cursor: pointer;
+        }
+        .fp-chip input[type=checkbox] { display: none; }
+        .fp-chip-label {
+            padding: 6px 13px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: #94a3b8;
+            cursor: pointer;
+            transition: all 0.18s;
+            user-select: none;
+            white-space: nowrap;
+        }
+        .fp-chip input[type=checkbox]:checked + .fp-chip-label {
+            background: rgba(212,175,55,0.22);
+            border-color: #d4af37;
+            color: #fcd34d;
+        }
+        .fp-chip-label:hover {
+            background: rgba(212,175,55,0.12);
+            border-color: rgba(212,175,55,0.4);
+            color: #e2e8f0;
+        }
+
+        /* CR chips — smaller */
+        .fp-chips.cr-chips .fp-chip-label {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+
+        /* Sort select inside panel */
+        .fp-select {
+            width: 100%;
+            padding: 10px 14px;
+            background: rgba(10,12,18,0.85);
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            font-family: inherit;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .fp-select:focus { border-color: #d4af37; }
+
+        .fp-footer {
+            padding: 14px 22px 18px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        #fp-btn-apply {
+            flex: 1;
+            padding: 12px;
+            background: linear-gradient(135deg, #d4af37, #b8960c);
+            border: none;
+            border-radius: 8px;
+            color: #0a0b10;
+            font-size: 14.5px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.5px;
+        }
+        #fp-btn-apply:hover { background: linear-gradient(135deg, #f0c832, #d4af37); transform: translateY(-1px); }
+        #fp-btn-clear-all {
+            padding: 12px 18px;
+            background: rgba(239,68,68,0.12);
+            border: 1px solid rgba(239,68,68,0.3);
+            border-radius: 8px;
+            color: #f87171;
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        #fp-btn-clear-all:hover { background: rgba(239,68,68,0.22); border-color: rgba(239,68,68,0.6); }
+
+        /* Search + toggle button row */
+        .search-filter-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 4px;
+        }
+        .search-filter-row .search-input-wrap {
+            position: relative;
+            flex: 1;
+        }
+        .search-filter-row .search-input-wrap input {
+            width: 100%;
+            padding: 11px 18px 11px 42px;
+            background: rgba(10,11,16,0.85);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+            box-sizing: border-box;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+        .search-filter-row .search-input-wrap input:focus {
+            border-color: rgba(212,175,55,0.7);
+            box-shadow: 0 0 12px rgba(212,175,55,0.25);
+        }
+        .search-filter-row .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            font-size: 1.1rem;
+            pointer-events: none;
+        }
+        #btn-toggle-filters {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 10px 18px;
+            background: rgba(212,175,55,0.12);
+            border: 1px solid rgba(212,175,55,0.35);
+            border-radius: 8px;
+            color: #d4af37;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            letter-spacing: 0.3px;
+            position: relative;
+        }
+        #btn-toggle-filters:hover { background: rgba(212,175,55,0.22); border-color: rgba(212,175,55,0.65); }
+        #btn-toggle-filters.has-filters {
+            background: rgba(212,175,55,0.25);
+            border-color: #d4af37;
+            color: #fcd34d;
+        }
+        .filter-btn-badge {
+            background: #d4af37;
+            color: #0a0b10;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 900;
+            padding: 1px 6px;
+            display: none;
+        }
+        .filter-btn-badge.visible { display: inline-block; }
+
+        /* Active filter tags below search bar */
+        .active-filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 2px;
+        }
+        .aft {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(212,175,55,0.15);
+            border: 1px solid rgba(212,175,55,0.35);
+            border-radius: 20px;
+            padding: 3px 10px 3px 10px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #fcd34d;
+        }
+        .aft-remove {
+            cursor: pointer;
+            color: #94a3b8;
+            font-size: 14px;
+            line-height: 1;
+            padding-left: 2px;
+        }
+        .aft-remove:hover { color: #f87171; }
+
+        /* Hide old .filters panel */
+        .filters { display: none !important; }
+    </style>
 </head>
 
 <body style="padding: 0; background: var(--bg-workspace); overflow-y: auto;">
@@ -580,91 +880,31 @@
                 </div>
             </div>
 
-            <div class="filters">
-                <input type="text" id="filter-name" placeholder="Search by name...">
-                <select id="filter-cr">
-                    <option value="">Any CR</option>
-                    <!-- populated by js -->
-                </select>
-                <select id="filter-type">
-                    <option value="">Any Type</option>
-                    <option value="aberration">Aberration</option>
-                    <option value="animal">Animal</option>
-                    <option value="construct">Construct</option>
-                    <option value="dragon">Dragon</option>
-                    <option value="fey">Fey</option>
-                    <option value="humanoid">Humanoid</option>
-                    <option value="magical beast">Magical Beast</option>
-                    <option value="monstrous humanoid">Monstrous Humanoid</option>
-                    <option value="ooze">Ooze</option>
-                    <option value="outsider">Outsider</option>
-                    <option value="plant">Plant</option>
-                    <option value="undead">Undead</option>
-                    <option value="vermin">Vermin</option>
-                </select>
-                <select id="filter-size">
-                    <option value="">Any Size</option>
-                    <option value="fine">Fine</option>
-                    <option value="diminutive">Diminutive</option>
-                    <option value="tiny">Tiny</option>
-                    <option value="small">Small</option>
-                    <option value="medium">Medium</option>
-                    <option value="large">Large</option>
-                    <option value="huge">Huge</option>
-                    <option value="gargantuan">Gargantuan</option>
-                    <option value="colossal">Colossal</option>
-                </select>
-                <select id="filter-alignment">
-                    <option value="">Any Alignment</option>
-                    <option value="lg">LG (Lawful Good)</option>
-                    <option value="ng">NG (Neutral Good)</option>
-                    <option value="cg">CG (Chaotic Good)</option>
-                    <option value="ln">LN (Lawful Neutral)</option>
-                    <option value="n">N (True Neutral)</option>
-                    <option value="cn">CN (Chaotic Neutral)</option>
-                    <option value="le">LE (Lawful Evil)</option>
-                    <option value="ne">NE (Neutral Evil)</option>
-                    <option value="ce">CE (Chaotic Evil)</option>
-                </select>
-                <select id="filter-environment">
-                    <option value="">Any Environment</option>
-                    <option value="aquatic">Aquatic (Water / Oceans / Lakes)</option>
-                    <option value="desert">Desert / Wastes</option>
-                    <option value="forest">Forest / Jungle / Woods</option>
-                    <option value="hills">Hills</option>
-                    <option value="mountains">Mountains</option>
-                    <option value="plains">Plains / Grasslands</option>
-                    <option value="ruins">Ruins</option>
-                    <option value="swamp">Swamp / Marsh / Bogs</option>
-                    <option value="underground">Underground / Caverns</option>
-                    <option value="urban">Urban / Cities / Settlements</option>
-                    <option value="cold">Cold / Arctic / Tundra</option>
-                    <option value="planar">Planar / Extraplanar</option>
-                </select>
-                <select id="filter-category">
-                    <option value="">All Categories</option>
-                    <option value="favorites">⭐ Favorites</option>
-                    <option value="custom">All Custom Monsters</option>
-                    <option value="my_monsters">My Monsters (Created by Me)</option>
-                    <option value="my_private">My Private Monsters</option>
-                    <option value="public_custom">Public Custom Monsters</option>
-                    <option value="official_monster">Official Bestiary Monsters</option>
-                    <option value="official_npc">Official Bestiary NPCs</option>
-                    <option value="unique_monster">Unique Monsters</option>
-                    <option value="mythic_monster">Mythic Monsters / MR</option>
-                    <option value="3pp_monster">3rd Party Monsters</option>
-                </select>
-                <select id="filter-sort">
-                    <option value="default" selected>Alphabetical (A-Z)</option>
-                    <option value="newest">Newest First</option>
-                    <option value="cr_desc">CR (Highest to Lowest)</option>
-                    <option value="cr_asc">CR (Lowest to Highest)</option>
-                    <option value="name_desc">Alphabetical (Z-A)</option>
-                </select>
-                <button type="button" id="btn-reset-filters-bar" class="btn-hdr btn-hdr-subtle"
-                    style="display: flex; align-items: center; justify-content: center; gap: 6px; height: 40px; border-radius: 8px; font-size: 13.5px; font-weight: 600;"
-                    title="Reset all search filters">🔄 Reset Filters</button>
+            <!-- Search Bar + Filter Toggle -->
+            <div class="search-filter-row">
+                <div class="search-input-wrap">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="filter-name" placeholder="Search by name...">
+                </div>
+                <button type="button" id="btn-toggle-filters" title="Open Filters">
+                    ⚙ Filters
+                    <span class="filter-btn-badge" id="filter-btn-badge">0</span>
+                </button>
             </div>
+            <!-- Active filter tags row -->
+            <div class="active-filter-tags" id="active-filter-tags"></div>
+
+            <!-- Hidden sort (still used by JS) -->
+            <select id="filter-sort" style="display:none;">
+                <option value="default" selected>Alphabetical (A-Z)</option>
+                <option value="newest">Newest First</option>
+                <option value="cr_desc">CR (Highest to Lowest)</option>
+                <option value="cr_asc">CR (Lowest to Highest)</option>
+                <option value="name_desc">Alphabetical (Z-A)</option>
+            </select>
+
+            <!-- Legacy .filters div (hidden, chips live in panel) -->
+            <div class="filters" id="filters-panel" style="display:none!important;"></div>
 
             <div class="monster-list" id="main-list">
                 <div style="text-align: center; color: #aaa; padding: 20px;">Loading database...</div>
@@ -677,6 +917,141 @@
             </div>
         </div>
     </div>
+
+    <!-- ══════════════════════════════════════════════════════════════
+         FILTER PANEL MODAL (Slide-in from right)
+    ══════════════════════════════════════════════════════════════ -->
+    <div id="filter-panel-overlay"></div>
+    <div id="filter-panel" role="dialog" aria-modal="true" aria-label="Advanced Filters">
+
+        <!-- Header -->
+        <div class="fp-header">
+            <div class="fp-header-title">
+                Advanced Filters
+                <span class="fp-active-count" id="fp-active-count">0 active</span>
+            </div>
+            <button type="button" class="fp-close-btn" id="fp-close-btn" title="Close">✕</button>
+        </div>
+
+        <!-- Body -->
+        <div class="fp-body">
+
+            <!-- CR -->
+            <div class="fp-section">
+                <div class="fp-section-label">Challenge Rating (CR)</div>
+                <div class="fp-chips cr-chips" id="fp-chips-cr">
+                    <!-- populated by JS -->
+                </div>
+            </div>
+
+            <!-- Type -->
+            <div class="fp-section">
+                <div class="fp-section-label">Creature Type</div>
+                <div class="fp-chips" id="fp-chips-type">
+                    <label class="fp-chip"><input type="checkbox" value="aberration"><span class="fp-chip-label">Aberration</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="animal"><span class="fp-chip-label">Animal</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="construct"><span class="fp-chip-label">Construct</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="dragon"><span class="fp-chip-label">Dragon</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="fey"><span class="fp-chip-label">Fey</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="humanoid"><span class="fp-chip-label">Humanoid</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="magical beast"><span class="fp-chip-label">Magical Beast</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="monstrous humanoid"><span class="fp-chip-label">Monstrous Humanoid</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="ooze"><span class="fp-chip-label">Ooze</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="outsider"><span class="fp-chip-label">Outsider</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="plant"><span class="fp-chip-label">Plant</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="undead"><span class="fp-chip-label">Undead</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="vermin"><span class="fp-chip-label">Vermin</span></label>
+                </div>
+            </div>
+
+            <!-- Size -->
+            <div class="fp-section">
+                <div class="fp-section-label">Size</div>
+                <div class="fp-chips" id="fp-chips-size">
+                    <label class="fp-chip"><input type="checkbox" value="fine"><span class="fp-chip-label">Fine</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="diminutive"><span class="fp-chip-label">Diminutive</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="tiny"><span class="fp-chip-label">Tiny</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="small"><span class="fp-chip-label">Small</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="medium"><span class="fp-chip-label">Medium</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="large"><span class="fp-chip-label">Large</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="huge"><span class="fp-chip-label">Huge</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="gargantuan"><span class="fp-chip-label">Gargantuan</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="colossal"><span class="fp-chip-label">Colossal</span></label>
+                </div>
+            </div>
+
+            <!-- Alignment -->
+            <div class="fp-section">
+                <div class="fp-section-label">Alignment</div>
+                <div class="fp-chips" id="fp-chips-alignment">
+                    <label class="fp-chip"><input type="checkbox" value="lg"><span class="fp-chip-label">LG</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="ng"><span class="fp-chip-label">NG</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="cg"><span class="fp-chip-label">CG</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="ln"><span class="fp-chip-label">LN</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="n"><span class="fp-chip-label">N</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="cn"><span class="fp-chip-label">CN</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="le"><span class="fp-chip-label">LE</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="ne"><span class="fp-chip-label">NE</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="ce"><span class="fp-chip-label">CE</span></label>
+                </div>
+            </div>
+
+            <!-- Environment -->
+            <div class="fp-section">
+                <div class="fp-section-label">Environment</div>
+                <div class="fp-chips" id="fp-chips-environment">
+                    <label class="fp-chip"><input type="checkbox" value="aquatic"><span class="fp-chip-label">Aquatic</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="desert"><span class="fp-chip-label">Desert</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="forest"><span class="fp-chip-label">Forest</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="hills"><span class="fp-chip-label">Hills</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="mountains"><span class="fp-chip-label">Mountains</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="plains"><span class="fp-chip-label">Plains</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="ruins"><span class="fp-chip-label">Ruins</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="swamp"><span class="fp-chip-label">Swamp</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="underground"><span class="fp-chip-label">Underground</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="urban"><span class="fp-chip-label">Urban</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="cold"><span class="fp-chip-label">Cold</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="planar"><span class="fp-chip-label">Planar</span></label>
+                </div>
+            </div>
+
+            <!-- Category -->
+            <div class="fp-section">
+                <div class="fp-section-label">Category</div>
+                <div class="fp-chips" id="fp-chips-category">
+                    <label class="fp-chip"><input type="checkbox" value="favorites"><span class="fp-chip-label">Favorites</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="custom"><span class="fp-chip-label">Custom</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="my_monsters"><span class="fp-chip-label">My Monsters</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="my_private"><span class="fp-chip-label">My Private</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="public_custom"><span class="fp-chip-label">Public Custom</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="official_monster"><span class="fp-chip-label">Official</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="official_npc"><span class="fp-chip-label">NPCs</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="unique_monster"><span class="fp-chip-label">Unique</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="mythic_monster"><span class="fp-chip-label">Mythic</span></label>
+                    <label class="fp-chip"><input type="checkbox" value="3pp_monster"><span class="fp-chip-label">3rd Party</span></label>
+                </div>
+            </div>
+
+            <!-- Sort -->
+            <div class="fp-section">
+                <div class="fp-section-label">Sort Order</div>
+                <select id="fp-sort" class="fp-select">
+                    <option value="default">Alphabetical (A-Z)</option>
+                    <option value="newest">Newest First</option>
+                    <option value="cr_desc">CR (Highest to Lowest)</option>
+                    <option value="cr_asc">CR (Lowest to Highest)</option>
+                    <option value="name_desc">Alphabetical (Z-A)</option>
+                </select>
+            </div>
+
+        </div><!-- /.fp-body -->
+
+        <!-- Footer -->
+        <div class="fp-footer">
+            <button type="button" id="fp-btn-apply">Apply Filters</button>
+            <button type="button" id="fp-btn-clear-all">Clear All</button>
+        </div>
+    </div><!-- /#filter-panel -->
 
     <!-- Export Database Modal -->
     <div id="modal-export-database" class="info-modal-overlay" aria-hidden="true">

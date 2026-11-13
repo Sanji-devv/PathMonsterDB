@@ -650,13 +650,21 @@ def get_filtered_monsters(query_string, user=None):
     user_favs = get_user_favorites(user_fav_key)
 
     name = params.get('name', [''])[0].lower().strip()
-    cr = params.get('cr', [''])[0].lower().strip()
-    mtype = params.get('type', [''])[0].lower().strip()
-    size = params.get('size', [''])[0].lower().strip()
-    alignment = params.get('alignment', [''])[0].lower().strip()
-    environment = params.get('environment', [''])[0].lower().strip()
-    category = params.get('category', ['all'])[0].lower().strip()
+    cr_raw = params.get('cr', [''])[0].lower().strip()
+    mtype_raw = params.get('type', [''])[0].lower().strip()
+    size_raw = params.get('size', [''])[0].lower().strip()
+    alignment_raw = params.get('alignment', [''])[0].lower().strip()
+    environment_raw = params.get('environment', [''])[0].lower().strip()
+    category_raw = params.get('category', ['all'])[0].lower().strip()
     folder_id = params.get('folder', [''])[0].strip()
+
+    # Support comma-separated multi-values (OR logic per field)
+    cr_list         = [v.strip() for v in cr_raw.split(',') if v.strip() and v.strip() not in ('any', '')]
+    mtype_list      = [v.strip() for v in mtype_raw.split(',') if v.strip() and v.strip() not in ('any', '')]
+    size_list       = [v.strip() for v in size_raw.split(',') if v.strip() and v.strip() not in ('any', '')]
+    alignment_list  = [v.strip() for v in alignment_raw.split(',') if v.strip() and v.strip() not in ('any', '')]
+    environment_list= [v.strip() for v in environment_raw.split(',') if v.strip() and v.strip() not in ('any', '')]
+    category_list   = [v.strip() for v in category_raw.split(',') if v.strip() and v.strip() not in ('all', '', 'any')]
 
     folder_keys = set()
     if folder_id:
@@ -696,42 +704,34 @@ def get_filtered_monsters(query_string, user=None):
                     'rite publishing' in m_source or 'super genius' in m_source or 'rogue genius' in m_source or 
                     'dreamscarred' in m_source or 'open design' in m_source or '[3pp]' in m_name_raw or '(3pp)' in m_name_raw)
 
-        # Category filter
-        if category and category not in ('all', ''):
-            if category == 'favorites':
-                if not is_fav:
-                    continue
-            elif category == 'custom':
-                if not is_custom:
-                    continue
-            elif category == 'my_monsters':
-                if not (is_custom and is_own):
-                    continue
-            elif category == 'my_private':
-                if not (is_custom and is_own and m_vis == 'private'):
-                    continue
-            elif category == 'public_custom':
-                if not (is_custom and m_vis != 'private'):
-                    continue
-            elif category == 'official_monster':
-                if is_custom or is_npc or m_is_3pp:
-                    continue
-            elif category == 'official_npc':
-                if is_custom or not is_npc or m_is_3pp:
-                    continue
-            elif category == 'unique_monster':
-                is_unique = (str(m.get('UniqueMonster', '0')) in ('1', 'true', 'True') or m.get('UniqueMonster') is True)
-                if not is_unique:
-                    continue
-            elif category == 'mythic_monster':
-                mr_val = m.get('MR')
-                has_mr = mr_val not in (None, '', '0', 0, 'None')
-                is_mythic = (str(m.get('Mythic', '0')) in ('1', 'true', 'True') or has_mr or 'mythic' in m_name_raw)
-                if not is_mythic:
-                    continue
-            elif category == '3pp_monster':
-                if is_custom or not m_is_3pp:
-                    continue
+        # Category filter (multi OR)
+        if category_list:
+            def _cat_match(cat):
+                if cat == 'favorites':
+                    return is_fav
+                elif cat == 'custom':
+                    return is_custom
+                elif cat == 'my_monsters':
+                    return is_custom and is_own
+                elif cat == 'my_private':
+                    return is_custom and is_own and m_vis == 'private'
+                elif cat == 'public_custom':
+                    return is_custom and m_vis != 'private'
+                elif cat == 'official_monster':
+                    return not is_custom and not is_npc and not m_is_3pp
+                elif cat == 'official_npc':
+                    return not is_custom and is_npc and not m_is_3pp
+                elif cat == 'unique_monster':
+                    return str(m.get('UniqueMonster', '0')) in ('1', 'true', 'True') or m.get('UniqueMonster') is True
+                elif cat == 'mythic_monster':
+                    mr_val = m.get('MR')
+                    has_mr = mr_val not in (None, '', '0', 0, 'None')
+                    return str(m.get('Mythic', '0')) in ('1', 'true', 'True') or has_mr or 'mythic' in m_name_raw
+                elif cat == '3pp_monster':
+                    return not is_custom and m_is_3pp
+                return True
+            if not any(_cat_match(c) for c in category_list):
+                continue
 
         m_name = str(m.get('_m_name') or m.get('Name') or '').lower()
         m_cr = str(m.get('_m_cr') or m.get('CR') or '').lower()
@@ -747,46 +747,52 @@ def get_filtered_monsters(query_string, user=None):
             if not all(tok in search_text for tok in name_tokens):
                 continue
 
-        # CR filter
-        if cr and cr not in ('any', ''):
-            t_cr = parse_cr(cr)
-            m_cr_val = parse_cr(m_cr)
-            if t_cr >= 0 and m_cr_val >= 0:
-                if abs(t_cr - m_cr_val) > 0.02:
-                    continue
-            elif cr != m_cr and cr not in m_cr:
+        # CR filter (multi OR)
+        if cr_list:
+            def _cr_ok(cr_val_str):
+                t_cr = parse_cr(cr_val_str)
+                m_cr_val2 = parse_cr(m_cr)
+                if t_cr >= 0 and m_cr_val2 >= 0:
+                    return abs(t_cr - m_cr_val2) <= 0.02
+                return cr_val_str == m_cr or cr_val_str in m_cr
+            if not any(_cr_ok(c) for c in cr_list):
                 continue
 
-        # Creature Type filter (strictly isolate Humanoid vs Monstrous Humanoid)
-        if mtype and mtype not in ('any', ''):
+        # Creature Type filter – multi OR (strictly isolate Humanoid vs Monstrous Humanoid)
+        if mtype_list:
             main_type = m_type.split('(')[0].strip()
-            if mtype == 'humanoid':
-                if main_type != 'humanoid':
-                    continue
-            elif mtype == 'monstrous humanoid':
-                if main_type != 'monstrous humanoid':
-                    continue
-            else:
-                if main_type != mtype and mtype not in m_type:
-                    continue
-
-        # Size filter
-        if size and size not in ('any', ''):
-            if size != m_size and size not in m_size:
+            def _type_ok(mt):
+                if mt == 'humanoid':
+                    return main_type == 'humanoid'
+                elif mt == 'monstrous humanoid':
+                    return main_type == 'monstrous humanoid'
+                else:
+                    return main_type == mt or mt in m_type
+            if not any(_type_ok(mt) for mt in mtype_list):
                 continue
 
-        # Alignment filter
-        if alignment and alignment not in ('any', ''):
+        # Size filter (multi OR)
+        if size_list:
+            if not any(s == m_size or s in m_size for s in size_list):
+                continue
+
+        # Alignment filter (multi OR)
+        if alignment_list:
             align_clean = m_align.replace('/', ' ').replace('or', ' ')
             align_tokens = [a.strip() for a in align_clean.split() if a.strip()]
-            if alignment not in align_tokens and alignment != m_align and m_align != 'any alignment':
+            def _align_ok(al):
+                return al in align_tokens or al == m_align or m_align == 'any alignment'
+            if not any(_align_ok(al) for al in alignment_list):
                 continue
 
-        # Environment filter (smart synonym expansion)
-        if environment and environment not in ('any', ''):
-            env_keys = ENV_KEYWORDS.get(environment, [environment])
-            if not any(k in m_env for k in env_keys):
+        # Environment filter – multi OR (smart synonym expansion)
+        if environment_list:
+            def _env_ok(env):
+                env_keys = ENV_KEYWORDS.get(env, [env])
+                return any(k in m_env for k in env_keys)
+            if not any(_env_ok(env) for env in environment_list):
                 continue
+
 
         m_copy = dict(m)
         m_copy['IsFavorite'] = is_fav

@@ -24,12 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Elements
     const mainList = document.getElementById('main-list');
     const filterName = document.getElementById('filter-name');
-    const filterCr = document.getElementById('filter-cr');
-    const filterType = document.getElementById('filter-type');
-    const filterSize = document.getElementById('filter-size');
-    const filterAlignment = document.getElementById('filter-alignment');
-    const filterEnvironment = document.getElementById('filter-environment');
-    const filterCategory = document.getElementById('filter-category');
     const filterSort = document.getElementById('filter-sort');
     const btnPrev = document.getElementById('btn-prev');
     const btnNext = document.getElementById('btn-next');
@@ -89,24 +83,177 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentAssignMonster = null;
 
-    // Populate CR Filter Options
-    const crs = ["1/8", "1/6", "1/4", "1/3", "1/2", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "35", "37", "39"];
-    crs.forEach(cr => {
-        let opt = document.createElement('option');
-        opt.value = cr;
-        opt.textContent = `CR ${cr}`;
-        filterCr.appendChild(opt);
-    });
+    // ── Filter Panel State ─────────────────────────────────────────────────
+    const fpState = { cr: [], type: [], size: [], alignment: [], environment: [], category: [], sort: 'default' };
+
+    // Helper: get checked values from a fp-chips container
+    function fpGetChecked(containerId) {
+        const c = document.getElementById(containerId);
+        if (!c) return [];
+        return Array.from(c.querySelectorAll('input[type=checkbox]:checked')).map(cb => cb.value);
+    }
+
+    // Helper: set checked state in a fp-chips container
+    function fpSetChecked(containerId, values) {
+        const c = document.getElementById(containerId);
+        if (!c) return;
+        c.querySelectorAll('input[type=checkbox]').forEach(cb => { cb.checked = values.includes(cb.value); });
+    }
+
+    // Populate CR chips dynamically
+    const crs = ["1/8","1/6","1/4","1/3","1/2","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","35","37","39"];
+    const fpChipsCr = document.getElementById('fp-chips-cr');
+    if (fpChipsCr) {
+        crs.forEach(cr => {
+            const lbl = document.createElement('label');
+            lbl.className = 'fp-chip';
+            lbl.innerHTML = `<input type="checkbox" value="${cr}"><span class="fp-chip-label">CR ${cr}</span>`;
+            fpChipsCr.appendChild(lbl);
+        });
+    }
+
+    // Count total active filters (excludes sort=default)
+    function fpCountActive() {
+        return fpState.cr.length + fpState.type.length + fpState.size.length +
+               fpState.alignment.length + fpState.environment.length + fpState.category.length +
+               (fpState.sort && fpState.sort !== 'default' ? 1 : 0);
+    }
+
+    // Update the badge on the toggle button and fp-active-count
+    function fpUpdateBadge() {
+        const n = fpCountActive();
+        const badge = document.getElementById('filter-btn-badge');
+        const fpCount = document.getElementById('fp-active-count');
+        const toggleBtn = document.getElementById('btn-toggle-filters');
+        if (badge) { badge.textContent = n; badge.classList.toggle('visible', n > 0); }
+        if (fpCount) { fpCount.textContent = `${n} active`; fpCount.classList.toggle('has-filters', n > 0); }
+        if (toggleBtn) toggleBtn.classList.toggle('has-filters', n > 0);
+    }
+
+    // Render active filter tags below the search bar
+    function fpRenderTags() {
+        const container = document.getElementById('active-filter-tags');
+        if (!container) return;
+        container.innerHTML = '';
+        const addTag = (label, field, value) => {
+            const tag = document.createElement('div');
+            tag.className = 'aft';
+            tag.innerHTML = `${label} <span class="aft-remove" title="Remove" data-field="${field}" data-value="${value}">✕</span>`;
+            tag.querySelector('.aft-remove').addEventListener('click', () => {
+                fpState[field] = fpState[field].filter(v => v !== value);
+                fpSetChecked(`fp-chips-${field}`, fpState[field]);
+                fpUpdateBadge();
+                fpRenderTags();
+                applyFilters();
+            });
+            container.appendChild(tag);
+        };
+        fpState.cr.forEach(v => addTag(`CR ${v}`, 'cr', v));
+        fpState.type.forEach(v => addTag(v, 'type', v));
+        fpState.size.forEach(v => addTag(v, 'size', v));
+        fpState.alignment.forEach(v => addTag(v.toUpperCase(), 'alignment', v));
+        fpState.environment.forEach(v => addTag(v, 'environment', v));
+        fpState.category.forEach(v => addTag(v.replace(/_/g,' '), 'category', v));
+        if (fpState.sort && fpState.sort !== 'default') {
+            const sortLabels = { newest:'Newest First', cr_desc:'CR High→Low', cr_asc:'CR Low→High', name_desc:'Z-A' };
+            const tag = document.createElement('div');
+            tag.className = 'aft';
+            tag.innerHTML = `Sort: ${sortLabels[fpState.sort] || fpState.sort} <span class="aft-remove" data-field="sort">✕</span>`;
+            tag.querySelector('.aft-remove').addEventListener('click', () => {
+                fpState.sort = 'default';
+                const fpSort = document.getElementById('fp-sort');
+                if (fpSort) fpSort.value = 'default';
+                const fSort = document.getElementById('filter-sort');
+                if (fSort) fSort.value = 'default';
+                fpUpdateBadge();
+                fpRenderTags();
+                applyFilters();
+            });
+            container.appendChild(tag);
+        }
+    }
+
+    // Open / Close filter panel
+    const fpOverlay = document.getElementById('filter-panel-overlay');
+    const fpPanel   = document.getElementById('filter-panel');
+
+    function fpOpen() {
+        // Sync current state into checkboxes before opening
+        fpSetChecked('fp-chips-cr',          fpState.cr);
+        fpSetChecked('fp-chips-type',        fpState.type);
+        fpSetChecked('fp-chips-size',        fpState.size);
+        fpSetChecked('fp-chips-alignment',   fpState.alignment);
+        fpSetChecked('fp-chips-environment', fpState.environment);
+        fpSetChecked('fp-chips-category',    fpState.category);
+        const fpSort = document.getElementById('fp-sort');
+        if (fpSort) fpSort.value = fpState.sort || 'default';
+
+        if (fpOverlay) fpOverlay.classList.add('open');
+        if (fpPanel)   fpPanel.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function fpClose() {
+        if (fpOverlay) fpOverlay.classList.remove('open');
+        if (fpPanel)   fpPanel.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    // Toggle button
+    const btnToggleFilters = document.getElementById('btn-toggle-filters');
+    if (btnToggleFilters) btnToggleFilters.addEventListener('click', fpOpen);
+
+    // Close via overlay or X button
+    if (fpOverlay) fpOverlay.addEventListener('click', fpClose);
+    const fpCloseBtn = document.getElementById('fp-close-btn');
+    if (fpCloseBtn) fpCloseBtn.addEventListener('click', fpClose);
+
+    // ESC key
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') fpClose(); });
+
+    // Apply button — read chips, update state, close, apply
+    const fpBtnApply = document.getElementById('fp-btn-apply');
+    if (fpBtnApply) {
+        fpBtnApply.addEventListener('click', () => {
+            fpState.cr          = fpGetChecked('fp-chips-cr');
+            fpState.type        = fpGetChecked('fp-chips-type');
+            fpState.size        = fpGetChecked('fp-chips-size');
+            fpState.alignment   = fpGetChecked('fp-chips-alignment');
+            fpState.environment = fpGetChecked('fp-chips-environment');
+            fpState.category    = fpGetChecked('fp-chips-category');
+            const fpSort = document.getElementById('fp-sort');
+            fpState.sort = fpSort ? fpSort.value : 'default';
+            const fSort = document.getElementById('filter-sort');
+            if (fSort) fSort.value = fpState.sort;
+            fpUpdateBadge();
+            fpRenderTags();
+            fpClose();
+            applyFilters();
+        });
+    }
+
+    // Clear All button
+    const fpBtnClearAll = document.getElementById('fp-btn-clear-all');
+    if (fpBtnClearAll) {
+        fpBtnClearAll.addEventListener('click', () => {
+            ['fp-chips-cr','fp-chips-type','fp-chips-size','fp-chips-alignment','fp-chips-environment','fp-chips-category'].forEach(id => {
+                const c = document.getElementById(id);
+                if (c) c.querySelectorAll('input[type=checkbox]').forEach(cb => cb.checked = false);
+            });
+            const fpSort = document.getElementById('fp-sort');
+            if (fpSort) fpSort.value = 'default';
+        });
+    }
 
     function loadData() {
-        const nameVal = encodeURIComponent(filterName.value);
-        const crVal = encodeURIComponent(filterCr.value);
-        const typeVal = encodeURIComponent(filterType.value);
-        const sizeVal = filterSize ? encodeURIComponent(filterSize.value) : '';
-        const alignVal = encodeURIComponent(filterAlignment.value);
-        const envVal = encodeURIComponent(filterEnvironment.value);
-        const catVal = encodeURIComponent(filterCategory.value);
-        const sortVal = encodeURIComponent(filterSort.value);
+        const nameVal  = encodeURIComponent(filterName.value);
+        const crVal    = fpState.cr.map(v => encodeURIComponent(v)).join(',');
+        const typeVal  = fpState.type.map(v => encodeURIComponent(v)).join(',');
+        const sizeVal  = fpState.size.map(v => encodeURIComponent(v)).join(',');
+        const alignVal = fpState.alignment.map(v => encodeURIComponent(v)).join(',');
+        const envVal   = fpState.environment.map(v => encodeURIComponent(v)).join(',');
+        const catVal   = fpState.category.map(v => encodeURIComponent(v)).join(',');
+        const sortVal  = encodeURIComponent(fpState.sort || 'default');
         const folderVal = activeFolderId ? encodeURIComponent(activeFolderId) : '';
 
         mainList.innerHTML = `<div style="text-align: center; color: #aaa; padding: 20px;">Loading database...</div>`;
@@ -121,12 +268,8 @@ document.addEventListener('DOMContentLoaded', () => {
             cache: 'no-store'
         })
             .then(r => r.json())
-            .then(res => {
-                renderList(res.data, res.total_count, res.page, res.per_page);
-            })
-            .catch(err => {
-                mainList.innerHTML = `<div style="color: red; text-align: center;">Error loading database: ${err.message}</div>`;
-            });
+            .then(res => { renderList(res.data, res.total_count, res.page, res.per_page); })
+            .catch(err => { mainList.innerHTML = `<div style="color: red; text-align: center;">Error loading database: ${err.message}</div>`; });
     }
 
     // Filters
@@ -139,33 +282,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let searchTimeout;
     function applyFiltersDebounced() {
         clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => {
-            applyFilters();
-        }, 300);
+        searchTimeout = setTimeout(() => { applyFilters(); }, 300);
     }
 
     filterName.addEventListener('input', applyFiltersDebounced);
-    filterCr.addEventListener('change', applyFilters);
-    filterType.addEventListener('change', applyFilters);
-    if (filterSize) filterSize.addEventListener('change', applyFilters);
-    filterAlignment.addEventListener('change', applyFilters);
-    filterEnvironment.addEventListener('change', applyFilters);
-    filterCategory.addEventListener('change', applyFilters);
-    filterSort.addEventListener('change', applyFilters);
+    if (filterSort) filterSort.addEventListener('change', applyFilters);
 
     // Save & Restore Filters in LocalStorage
     function saveFiltersToStorage() {
-        const filters = {
-            name: filterName.value,
-            cr: filterCr.value,
-            type: filterType.value,
-            size: filterSize ? filterSize.value : '',
-            alignment: filterAlignment.value,
-            environment: filterEnvironment.value,
-            category: filterCategory.value,
-            sort: filterSort.value
-        };
-        localStorage.setItem('pf_db_filters', JSON.stringify(filters));
+        localStorage.setItem('pf_db_filters', JSON.stringify({ ...fpState, name: filterName.value }));
     }
 
     function restoreFiltersFromStorage() {
@@ -174,28 +299,34 @@ document.addEventListener('DOMContentLoaded', () => {
             if (saved) {
                 const f = JSON.parse(saved);
                 if (f.name !== undefined) filterName.value = f.name;
-                if (f.cr !== undefined) filterCr.value = f.cr;
-                if (f.type !== undefined) filterType.value = f.type;
-                if (f.size !== undefined && filterSize) filterSize.value = f.size;
-                if (f.alignment !== undefined) filterAlignment.value = f.alignment;
-                if (f.environment !== undefined) filterEnvironment.value = f.environment;
-                if (f.category !== undefined) filterCategory.value = f.category;
-                if (f.sort !== undefined) filterSort.value = f.sort;
+                fpState.cr          = Array.isArray(f.cr)          ? f.cr          : [];
+                fpState.type        = Array.isArray(f.type)        ? f.type        : [];
+                fpState.size        = Array.isArray(f.size)        ? f.size        : [];
+                fpState.alignment   = Array.isArray(f.alignment)   ? f.alignment   : [];
+                fpState.environment = Array.isArray(f.environment) ? f.environment : [];
+                fpState.category    = Array.isArray(f.category)    ? f.category    : [];
+                fpState.sort        = f.sort || 'default';
+                if (filterSort) filterSort.value = fpState.sort;
+                fpUpdateBadge();
+                fpRenderTags();
             }
-        } catch (e) {
-            console.error('Failed restoring filters from storage:', e);
-        }
+        } catch (e) { console.error('Failed restoring filters:', e); }
     }
 
     function resetAllFilters() {
         filterName.value = '';
-        filterCr.value = '';
-        filterType.value = '';
-        if (filterSize) filterSize.value = '';
-        filterAlignment.value = '';
-        filterEnvironment.value = '';
-        filterCategory.value = '';
-        filterSort.value = 'default';
+        fpState.cr = []; fpState.type = []; fpState.size = [];
+        fpState.alignment = []; fpState.environment = []; fpState.category = [];
+        fpState.sort = 'default';
+        if (filterSort) filterSort.value = 'default';
+        ['fp-chips-cr','fp-chips-type','fp-chips-size','fp-chips-alignment','fp-chips-environment','fp-chips-category'].forEach(id => {
+            const c = document.getElementById(id);
+            if (c) c.querySelectorAll('input[type=checkbox]').forEach(cb => cb.checked = false);
+        });
+        const fpSort = document.getElementById('fp-sort');
+        if (fpSort) fpSort.value = 'default';
+        fpUpdateBadge();
+        fpRenderTags();
         localStorage.removeItem('pf_db_filters');
         applyFilters();
     }
@@ -205,10 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('btn-reset-filters-bar'),
         document.getElementById('mob-btn-reset-filters')
     ].filter(Boolean);
-
-    resetButtons.forEach(btn => {
-        btn.addEventListener('click', resetAllFilters);
-    });
+    resetButtons.forEach(btn => btn.addEventListener('click', resetAllFilters));
 
 
     // Pagination
