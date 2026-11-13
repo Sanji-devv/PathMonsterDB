@@ -1,6 +1,47 @@
 import re
 import json
 
+CR_STEPS = ['1/8', '1/6', '1/4', '1/3', '1/2'] + [str(value) for value in range(1, 31)]
+CR_STEP_VALUES = {'1/8': 0.125, '1/6': 1 / 6, '1/4': 0.25, '1/3': 1 / 3, '1/2': 0.5}
+CR_XP = {
+    '1/8': '50', '1/6': '65', '1/4': '100', '1/3': '135', '1/2': '200',
+    '1': '400', '2': '600', '3': '800', '4': '1,200', '5': '1,600',
+    '6': '2,400', '7': '3,200', '8': '4,800', '9': '6,400', '10': '9,600',
+    '11': '12,800', '12': '19,200', '13': '25,600', '14': '38,400', '15': '51,200',
+    '16': '76,800', '17': '102,400', '18': '153,600', '19': '204,800', '20': '307,200',
+    '21': '409,600', '22': '614,400', '23': '819,200', '24': '1,228,800',
+    '25': '1,638,400', '26': '2,457,600', '27': '3,276,800', '28': '4,915,200',
+    '29': '6,553,600', '30': '9,830,400'
+}
+
+
+def parse_challenge_rating(value):
+    rating = str(value or '').strip()
+    if rating in CR_STEP_VALUES:
+        return CR_STEP_VALUES[rating]
+    try:
+        return float(rating)
+    except (TypeError, ValueError):
+        return None
+
+
+def shift_challenge_rating(value, steps):
+    rating = str(value or '').strip()
+    index = CR_STEPS.index(rating) if rating in CR_STEPS else -1
+    numeric_rating = parse_challenge_rating(rating)
+    if index < 0 and numeric_rating is not None:
+        index = next(
+            (i for i, step in enumerate(CR_STEPS)
+             if abs(parse_challenge_rating(step) - numeric_rating) < 0.005),
+            -1
+        )
+    if index >= 0:
+        return CR_STEPS[max(0, min(len(CR_STEPS) - 1, index + steps))]
+    if numeric_rating is None:
+        return rating
+    return str(max(0.125, numeric_rating + steps))
+
+
 def clean_tag_val(val):
     if not val:
         return ''
@@ -386,6 +427,68 @@ def format_monster_from_state(state):
         except Exception:
             return default
 
+    applied_template = basic.get('in-template-applied', '')
+    if applied_template in ('Celestial', 'Fiendish'):
+        template_hd = safe_int(hd_amount, 1)
+        if template_hd >= 5:
+            cr = shift_challenge_rating(cr, 1)
+            xp = CR_XP.get(str(cr), xp)
+        alignment_options = ('LG', 'NG', 'CG') if applied_template == 'Celestial' else ('LE', 'NE', 'CE')
+        alignment = str(alignment or '').upper()
+        if alignment not in alignment_options:
+            alignment = 'NG' if applied_template == 'Celestial' else 'NE'
+        mtype = 'Outsider'
+
+        if not re.search(r'\bdarkvision\b', str(senses_str), re.I):
+            senses_str = ', '.join(filter(None, [str(senses_str).strip(), 'darkvision 60 ft.']))
+
+        special_attacks = str(get_val('in-special-attacks', 'SpecialAttacks', '') or '').strip()
+        smite = 'Smite evil 1/day (+Cha to attacks and +HD damage against evil foes)' if applied_template == 'Celestial' else 'Smite good 1/day (+Cha to attacks and +HD damage against good foes)'
+        if not re.search(r'\bsmite\s+(evil|good)\b', special_attacks, re.I):
+            special_attacks = '; '.join(filter(None, [special_attacks, smite]))
+    else:
+        special_attacks = str(get_val('in-special-attacks', 'SpecialAttacks', '') or '').strip()
+
+    dr_value = str(get_val('in-dr', 'DR', '') or '').strip()
+    resist_value = str(get_val('in-resist', 'Resist', '') or '').strip()
+    sr_value = str(get_val('in-sr', 'SR', '') or '').strip()
+    if applied_template in ('Celestial', 'Fiendish'):
+        energy_resistance = 5 if template_hd <= 4 else (10 if template_hd <= 10 else 15)
+        energies = ('acid', 'cold', 'electricity') if applied_template == 'Celestial' else ('cold', 'fire')
+        resist_tokens = [value.strip() for value in resist_value.split(',') if value.strip()]
+        for energy in energies:
+            addition = f'{energy} {energy_resistance}'
+            existing_index = next(
+                (index for index, value in enumerate(resist_tokens)
+                 if re.match(rf'^{energy}\s+\d+$', value, re.I)),
+                -1
+            )
+            if existing_index < 0:
+                resist_tokens.append(addition)
+            else:
+                existing_amount = safe_int(re.search(r'\d+', resist_tokens[existing_index]).group(), 0)
+                if existing_amount < energy_resistance:
+                    resist_tokens[existing_index] = addition
+        resist_value = ', '.join(resist_tokens)
+
+        template_dr = ''
+        if template_hd >= 11:
+            template_dr = f"10/{'evil' if applied_template == 'Celestial' else 'good'}"
+        elif template_hd >= 5:
+            template_dr = f"5/{'evil' if applied_template == 'Celestial' else 'good'}"
+        if template_dr and template_dr.lower() not in [value.strip().lower() for value in dr_value.split(',')]:
+            dr_value = ', '.join(filter(None, [dr_value, template_dr]))
+
+        sr_match = re.fullmatch(r'\+?(\d+)', sr_value)
+        template_sr = int(parse_challenge_rating(cr) or 0) + 5
+        if not sr_match or int(sr_match.group(1)) < template_sr:
+            sr_value = str(template_sr)
+
+    if applied_template in ('Celestial', 'Fiendish'):
+        template_subtype = 'good' if applied_template == 'Celestial' else 'evil'
+    else:
+        template_subtype = ''
+
     ac_natural = safe_int(basic.get('in-ac-natural'))
     ac_armor = safe_int(basic.get('in-ac-armor'))
     ac_shield = safe_int(basic.get('in-ac-shield'))
@@ -434,6 +537,13 @@ def format_monster_from_state(state):
     else:
         st1 = ''
         st2 = ''
+    if template_subtype and template_subtype not in (str(st1).lower(), str(st2).lower()):
+        if not st1:
+            st1 = template_subtype
+        elif not st2:
+            st2 = template_subtype
+        else:
+            st2 = f'{st2}, {template_subtype}'
 
     gear_raw = get_val('in-gear', 'Gear', '')
     armor_val = get_val('in-armor-name', '', '')
@@ -481,7 +591,7 @@ def format_monster_from_state(state):
         "Ranged": ranged_str,
         "Space": get_val('in-space', 'Space', '5 ft.') or '5 ft.',
         "Reach": get_val('in-reach', 'Reach', '5 ft.') or '5 ft.',
-        "SpecialAttacks": clean_tag_val(get_val('in-special-attacks', 'SpecialAttacks', '')),
+        "SpecialAttacks": clean_tag_val(special_attacks),
         "DefensiveAbilities": clean_tag_val(get_val('in-def-abilities', 'DefensiveAbilities', '')),
         "Weaknesses": clean_tag_val(get_val('in-weaknesses', 'Weaknesses', '')),
         "Organization": get_val('in-organization', 'Organization', ''),
@@ -498,10 +608,10 @@ def format_monster_from_state(state):
         "Skills": skills_str,
         "Languages": clean_tag_val(get_val('in-languages', 'Languages', '')),
         "SQ": clean_tag_val(get_val('in-sq', 'SQ', '')),
-        "DR": get_val('in-dr', 'DR', ''),
+        "DR": dr_value,
         "Immune": clean_tag_val(get_val('in-immune', 'Immune', '')),
-        "Resist": clean_tag_val(get_val('in-resist', 'Resist', '')),
-        "SR": get_val('in-sr', 'SR', ''),
+        "Resist": clean_tag_val(resist_value),
+        "SR": sr_value,
         "Environment": get_val('in-environment', 'Environment', ''),
         "Treasure": get_val('in-treasure', 'Treasure', ''),
         "Gear": gear_final,

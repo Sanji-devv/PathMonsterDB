@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'Zombie': { str: 2, dex: -2, con: 0, int: 0, wis: 10, cha: 10, natAc: 2, cr: 0, size: 0 }
     };
     window.templatesData = templatesData;
+    const supportedTemplates = ['Celestial', 'Fiendish'];
 
     const crToXp = {
         "1/8": "50", "1/6": "65", "1/4": "100", "1/3": "135", "1/2": "200",
@@ -48,6 +49,35 @@ document.addEventListener('DOMContentLoaded', () => {
         "21": "409,600", "22": "614,400", "23": "819,200", "24": "1,228,800", "25": "1,638,400",
         "26": "2,457,600", "27": "3,276,800", "28": "4,915,200", "29": "6,553,600", "30": "9,830,400"
     };
+    const challengeRatingSteps = [
+        '1/8', '1/6', '1/4', '1/3', '1/2',
+        ...Array.from({ length: 30 }, (_, index) => String(index + 1))
+    ];
+
+    function parseChallengeRating(value) {
+        const rating = String(value || '').trim();
+        const fractionValues = { '1/8': 0.125, '1/6': 1 / 6, '1/4': 0.25, '1/3': 1 / 3, '1/2': 0.5 };
+        if (Object.prototype.hasOwnProperty.call(fractionValues, rating)) return fractionValues[rating];
+        const parsed = Number(rating);
+        return Number.isFinite(parsed) ? parsed : NaN;
+    }
+
+    function shiftChallengeRating(value, steps) {
+        const rating = String(value || '').trim();
+        let index = challengeRatingSteps.indexOf(rating);
+        if (index < 0) {
+            const numericRating = parseChallengeRating(rating);
+            index = challengeRatingSteps.findIndex(step => {
+                const stepValue = parseChallengeRating(step);
+                return Number.isFinite(numericRating) && Math.abs(stepValue - numericRating) < 0.005;
+            });
+        }
+        if (index >= 0) {
+            return challengeRatingSteps[Math.max(0, Math.min(challengeRatingSteps.length - 1, index + steps))];
+        }
+        const numericRating = parseChallengeRating(rating);
+        return Number.isFinite(numericRating) ? String(Math.max(0.125, numericRating + steps)) : rating;
+    }
 
     const sizeMods = {
         'Fine': { ac_atk: 8, cmb_cmd: -8 },
@@ -216,6 +246,29 @@ document.addEventListener('DOMContentLoaded', () => {
             return { name: String(f || ''), description: '' };
         }).filter(f => f.name);
         const featNames = currentFeats.map(f => f.name.toLowerCase());
+        const appliedTemplateInput = document.getElementById('in-template-applied');
+        const appliedTemplate = appliedTemplateInput && supportedTemplates.includes(appliedTemplateInput.value)
+            ? appliedTemplateInput.value
+            : '';
+        window.activeTemplates = appliedTemplate ? [appliedTemplate] : [];
+        const isFiendish = appliedTemplate === 'Fiendish';
+        const isCelestial = appliedTemplate === 'Celestial';
+        const templateHd = parseInt(document.getElementById('in-hd-amount')?.value, 10) || 1;
+
+        const templateSelect = document.getElementById('in-template-select');
+        const applyTemplateButton = document.getElementById('btn-apply-template');
+        const clearTemplateButton = document.getElementById('btn-clear-template');
+        const templateStatus = document.getElementById('template-quick-status');
+        if (templateSelect && applyTemplateButton) {
+            applyTemplateButton.disabled = !templateSelect.value || templateSelect.value === appliedTemplate;
+            applyTemplateButton.textContent = appliedTemplate ? 'Replace Template' : 'Apply Template';
+        }
+        if (clearTemplateButton) clearTemplateButton.disabled = !appliedTemplate;
+        if (templateStatus) {
+            templateStatus.textContent = appliedTemplate
+                ? `${appliedTemplate} Creature template applied. CR increases by +1 at 5 or more HD.`
+                : 'No template applied.';
+        }
 
         // Magic Items Modifiers (Pathfinder 1e Stacking Rules)
         const itemMods = (window.CharacterState && typeof window.CharacterState.getMagicItemModifiers === 'function')
@@ -246,7 +299,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 } else {
                     let text = sanitizeText(input.value);
-                    if (field === 'fort') {
+                    if (field === 'alignment' && (isCelestial || isFiendish)) {
+                        const alignment = text.trim().toUpperCase();
+                        const validAlignments = isCelestial ? ['LG', 'NG', 'CG'] : ['LE', 'NE', 'CE'];
+                        if (!validAlignments.includes(alignment)) {
+                            text = isCelestial ? 'NG' : 'NE';
+                        }
+                    } else if (field === 'fort') {
                         let baseVal = parseInt(text) || 0;
                         if (featNames.some(f => f.includes('great fortitude'))) baseVal += 2;
                         baseVal += (itemMods.saves_resistance || itemMods.fort_resistance || 0);
@@ -274,7 +333,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (td) {
                 tempMods.str += td.str || 0; tempMods.dex += td.dex || 0; tempMods.con += td.con || 0;
                 tempMods.int += td.int || 0; tempMods.wis += td.wis || 0; tempMods.cha += td.cha || 0;
-                tempMods.natAc += td.natAc || 0; tempMods.cr += td.cr || 0; tempMods.size += td.size || 0;
+                tempMods.natAc += td.natAc || 0;
+                tempMods.cr += (t === 'Celestial' || t === 'Fiendish') ? (templateHd >= 5 ? 1 : 0) : (td.cr || 0);
+                tempMods.size += td.size || 0;
             }
         });
 
@@ -284,27 +345,17 @@ document.addEventListener('DOMContentLoaded', () => {
         let finalCr = 1;
         if (crInput && outCr) {
             let baseCrStr = crInput.value.trim() || '1';
-            let crVal = parseFloat(baseCrStr);
-            if (baseCrStr === '1/2') crVal = 0.5;
-            if (baseCrStr === '1/3') crVal = 0.33;
-            if (baseCrStr === '1/4') crVal = 0.25;
-            if (baseCrStr === '1/6') crVal = 0.16;
-            if (baseCrStr === '1/8') crVal = 0.125;
-            if (!isNaN(crVal)) {
-                finalCr = Math.max(0.125, crVal + tempMods.cr);
-                if (finalCr < 1) {
-                    if (finalCr <= 0.125) outCr.textContent = '1/8';
-                    else if (finalCr <= 0.16) outCr.textContent = '1/6';
-                    else if (finalCr <= 0.25) outCr.textContent = '1/4';
-                    else if (finalCr <= 0.33) outCr.textContent = '1/3';
-                    else outCr.textContent = '1/2';
-                } else {
-                    outCr.textContent = Math.floor(finalCr);
-                }
+            const effectiveCr = tempMods.cr ? shiftChallengeRating(baseCrStr, tempMods.cr) : baseCrStr;
+            finalCr = parseChallengeRating(effectiveCr);
+            if (Number.isFinite(finalCr)) {
+                outCr.textContent = effectiveCr;
             } else {
                 outCr.textContent = baseCrStr;
             }
         }
+        const outXp = document.getElementById('out-xp');
+        const templateXp = outCr ? crToXp[outCr.textContent.trim()] : '';
+        if (appliedTemplate && outXp && templateXp) outXp.textContent = templateXp;
 
         // Stats & Modifiers
         let mods = {};
@@ -348,12 +399,18 @@ document.addEventListener('DOMContentLoaded', () => {
         subtypeSelects.forEach(s => {
             if (s.value && s.value !== '-') subtypes.push(s.value);
         });
+        const displayedSubtypes = [...subtypes];
+        const templateSubtype = isCelestial ? 'good' : (isFiendish ? 'evil' : '');
+        if (templateSubtype && !displayedSubtypes.some(subtype => subtype.toLowerCase() === templateSubtype)) {
+            displayedSubtypes.push(templateSubtype);
+        }
         const outType = document.getElementById('out-type');
         if (outType) {
-            if (subtypes.length > 0) {
-                outType.textContent = `${typeVal.toLowerCase()} (${subtypes.join(', ')})`;
+            const displayedType = templateSubtype ? 'outsider' : typeVal.toLowerCase();
+            if (displayedSubtypes.length > 0) {
+                outType.textContent = `${displayedType} (${displayedSubtypes.join(', ')})`;
             } else {
-                outType.textContent = typeVal.toLowerCase();
+                outType.textContent = displayedType;
             }
         }
 
@@ -378,11 +435,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 sensesArr.push(senseName + (senseDist ? ` ${senseDist}` : ''));
             }
         });
+        if ((isCelestial || isFiendish) && !sensesArr.some(sense => /\bdarkvision\b/i.test(sense))) {
+            sensesArr.push('darkvision 60 ft.');
+        }
         const outSenses = document.getElementById('out-senses');
         if (outSenses) outSenses.textContent = sensesArr.length > 0 ? sensesArr.join(', ') : '';
 
         // Hit Points (Auto Calc)
-        const hdAmt = parseInt(document.getElementById('in-hd-amount').value) || 1;
+        const hdAmt = templateHd;
         const hdSize = parseInt(document.getElementById('in-hd-size').value) || 8;
 
         const creatureType = document.getElementById('in-type') ? document.getElementById('in-type').value.toLowerCase() : '';
@@ -504,6 +564,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const outSA = document.getElementById('out-special-attacks');
         if (inSA && outSA) {
             outSA.innerHTML = sanitizeText(inSA.value.trim());
+            const smite = isCelestial
+                ? 'Smite evil 1/day (+Cha to attacks and +HD damage against evil foes)'
+                : (isFiendish ? 'Smite good 1/day (+Cha to attacks and +HD damage against good foes)' : '');
+            if (smite && !/\bsmite\s+(evil|good)\b/i.test(inSA.value)) {
+                outSA.innerHTML += `${outSA.innerHTML ? '; ' : ''}${smite}`;
+            }
         }
 
         // Skills
@@ -534,7 +600,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Combined Defensive Extras
         let defAbs = document.getElementById('in-def-abilities')?.value.trim() || '';
-        const dr = document.getElementById('in-dr')?.value.trim();
+        let dr = document.getElementById('in-dr')?.value.trim() || '';
         let immune = document.getElementById('in-immune')?.value.trim() || '';
         let resist = document.getElementById('in-resist')?.value.trim() || '';
         const weaknesses = document.getElementById('in-weaknesses')?.value.trim();
@@ -551,27 +617,46 @@ document.addEventListener('DOMContentLoaded', () => {
             immune += immunitiesToAdd.join(', ');
         }
 
-        let isFiendish = (window.activeTemplates || []).includes('Fiendish');
-        let isCelestial = (window.activeTemplates || []).includes('Celestial');
-
-        let templateResist = '';
+        const templateResistances = [];
         if (isFiendish || isCelestial) {
             let resVal = 5;
             if (hdAmt >= 5 && hdAmt <= 10) resVal = 10;
             if (hdAmt >= 11) resVal = 15;
 
-            if (isFiendish) templateResist = `cold ${resVal}, fire ${resVal}`;
-            if (isCelestial) templateResist = `acid ${resVal}, cold ${resVal}, electricity ${resVal}`;
+            if (isFiendish) templateResistances.push(`cold ${resVal}`, `fire ${resVal}`);
+            if (isCelestial) templateResistances.push(`acid ${resVal}`, `cold ${resVal}`, `electricity ${resVal}`);
         }
 
-        if (templateResist) {
-            if (resist && !resist.endsWith(',')) resist += ', ';
-            resist += templateResist;
+        if (templateResistances.length > 0) {
+            const resistances = resist ? resist.split(',').map(value => value.trim()).filter(Boolean) : [];
+            templateResistances.forEach(templateResistance => {
+                const match = templateResistance.match(/^(acid|cold|electricity|fire)\s+(\d+)$/i);
+                const existingIndex = resistances.findIndex(value => {
+                    const existing = value.match(/^(acid|cold|electricity|fire)\s+(\d+)$/i);
+                    return existing && match && existing[1].toLowerCase() === match[1].toLowerCase();
+                });
+                if (existingIndex < 0) {
+                    resistances.push(templateResistance);
+                } else {
+                    const existingValue = resistances[existingIndex].match(/^(acid|cold|electricity|fire)\s+(\d+)$/i);
+                    if (match && existingValue && parseInt(existingValue[2], 10) < parseInt(match[2], 10)) {
+                        resistances[existingIndex] = templateResistance;
+                    }
+                }
+            });
+            resist = resistances.join(', ');
         }
 
         if (isFiendish || isCelestial) {
             let srVal = Math.floor(finalCr) + 5;
-            if (srVal > 0) sr = (sr ? sr + ', ' : '') + srVal;
+            const existingSr = sr.match(/^\+?(\d+)$/);
+            if (srVal > 0 && (!existingSr || parseInt(existingSr[1], 10) < srVal)) sr = String(srVal);
+            const templateDr = hdAmt >= 11
+                ? `10/${isCelestial ? 'evil' : 'good'}`
+                : (hdAmt >= 5 ? `5/${isCelestial ? 'evil' : 'good'}` : '');
+            if (templateDr && !dr.split(',').some(value => value.trim().toLowerCase() === templateDr)) {
+                dr = [dr, templateDr].filter(Boolean).join(', ');
+            }
         }
 
         const isInc = subtypes.map(s => s.toLowerCase()).includes('incorporeal') || defAbs.toLowerCase().includes('incorporeal');
@@ -716,6 +801,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.updatePreview = updatePreview;
+
+    const templateSelect = document.getElementById('in-template-select');
+    const appliedTemplateInput = document.getElementById('in-template-applied');
+    const applyTemplateButton = document.getElementById('btn-apply-template');
+    const clearTemplateButton = document.getElementById('btn-clear-template');
+    if (applyTemplateButton && templateSelect && appliedTemplateInput) {
+        applyTemplateButton.addEventListener('click', () => {
+            if (!supportedTemplates.includes(templateSelect.value)) return;
+            appliedTemplateInput.value = templateSelect.value;
+            updatePreview();
+        });
+    }
+    if (clearTemplateButton && appliedTemplateInput) {
+        clearTemplateButton.addEventListener('click', () => {
+            appliedTemplateInput.value = '';
+            if (templateSelect) templateSelect.value = '';
+            updatePreview();
+        });
+    }
 
     // -------------------------
     // 3. EVENT LISTENERS
@@ -1531,7 +1635,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const outInitEl = document.getElementById('out-init');
         if (outInitEl) state.basic['in-init'] = outInitEl.textContent.trim();
         const outCrEl = document.getElementById('out-cr');
-        if (outCrEl && outCrEl.textContent.trim()) state.basic['in-cr'] = outCrEl.textContent.trim();
+        if (outCrEl && outCrEl.textContent.trim() && !document.getElementById('in-template-applied')?.value) {
+            state.basic['in-cr'] = outCrEl.textContent.trim();
+        }
         const outAcEl = document.getElementById('out-ac');
         if (outAcEl && outAcEl.textContent.trim()) state.basic['in-ac'] = outAcEl.textContent.trim();
         // Dynamic lists
@@ -2258,6 +2364,8 @@ document.addEventListener('DOMContentLoaded', () => {
             'in-name': '',
             'in-cr': '1',
             'in-xp': '400',
+            'in-template-select': '',
+            'in-template-applied': '',
             'in-visibility': 'public',
             'in-alignment': 'N',
             'in-size': 'Medium',

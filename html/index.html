@@ -326,6 +326,32 @@
                                         Subtype</button>
                                 </div>
                             </div>
+                            <section class="form-section" id="template-quick-apply">
+                                <h2>Quick Template</h2>
+                                <div class="form-group">
+                                    <label for="in-template-select">Pathfinder 1e Simple Template</label>
+                                    <select id="in-template-select">
+                                        <option value="">Choose a template...</option>
+                                        <option value="Celestial">Celestial Creature</option>
+                                        <option value="Fiendish">Fiendish Creature (infernal)</option>
+                                    </select>
+                                </div>
+                                <div class="form-row">
+                                    <button type="button" id="btn-apply-template" class="btn-dashed-add" disabled>
+                                        Apply Template
+                                    </button>
+                                    <button type="button" id="btn-clear-template" class="btn-dashed-add" disabled>
+                                        Remove Template
+                                    </button>
+                                </div>
+                                <small id="template-quick-status" aria-live="polite">No template applied.</small>
+                                <small>
+                                    Applies CR, outsider subtype, darkvision, DR, resistances, SR, and smite.
+                                    <a href="https://aonprd.com/MonsterTemplates.aspx?ItemName=Celestial"
+                                        target="_blank" rel="noopener noreferrer">PF1e rule reference</a>
+                                </small>
+                                <input type="hidden" id="in-template-applied" value="">
+                            </section>
                         </div>
 
                         <div id="npc-inputs" style="display: none;">

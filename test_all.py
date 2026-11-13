@@ -121,6 +121,34 @@ def run_tests():
     assert parse_cr("1/2") == 0.5, "parse_cr 1/2 failed"
     assert parse_cr("14") == 14.0, "parse_cr 14 failed"
     assert parse_cr("any") == -1.0, "parse_cr any failed"
+
+    def format_template(template, hd, cr, alignment='N'):
+        return format_monster_from_state({
+            "basic": {
+                "in-name": "Template Test Creature",
+                "in-cr": cr,
+                "in-xp": "200",
+                "in-alignment": alignment,
+                "in-type": "Humanoid",
+                "in-hd-amount": str(hd),
+                "in-template-applied": template
+            },
+            "dynamic": {"subtypes": [], "senses": []}
+        })
+
+    celestial_low = format_template("Celestial", 4, "1/2")
+    assert celestial_low["CR"] == "1/2" and celestial_low["DR"] == ""
+    assert celestial_low["Resist"] == "acid 5, cold 5, electricity 5"
+    assert celestial_low["SR"] == "5" and celestial_low["subtype1"] == "good"
+    celestial_high = format_template("Celestial", 5, "1/2")
+    assert celestial_high["CR"] == "1" and celestial_high["XP"] == "400"
+    assert celestial_high["DR"] == "5/evil" and celestial_high["Resist"] == "acid 10, cold 10, electricity 10"
+    fiendish = format_template("Fiendish", 11, "9", "NG")
+    assert fiendish["CR"] == "10" and fiendish["XP"] == "9,600"
+    assert fiendish["Alignment"] == "NE" and fiendish["DR"] == "10/good"
+    assert fiendish["Resist"] == "cold 15, fire 15" and fiendish["SR"] == "15"
+    assert "darkvision 60 ft." in fiendish["Senses"] and "Smite good" in fiendish["SpecialAttacks"]
+    print("  [OK] Celestial and Fiendish template rules verified.")
     
     test_state = {
         "basic": {
